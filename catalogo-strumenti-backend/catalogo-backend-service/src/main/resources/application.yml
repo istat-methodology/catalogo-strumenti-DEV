@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: catalogue-service
+  jpa:
+    show-sql: false
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/regedit?createDatabaseIfNotExist=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    platform: mysql
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 3
+server:
+  port: 8081
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8080/eureka
+    instance:
+      hostname: localhost
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, auditevents
+  metrics:
+    export:
+      atlas:
+        enabled: false
+api:
+  version: 1
+  
+security:
+  secret-key: is2-secretkey
+  
+app:
+  editing:
+    backup: true  
+
+

@@ -1,0 +1,7 @@
+
+-- 
+-- CLASSIFICATION TABLES
+-- 
+CREATE TABLE PD_RSA_SPER.WP1_jwttoken (
+    token VARCHAR2(200)
+);

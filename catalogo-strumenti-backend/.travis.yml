@@ -1,0 +1,12 @@
+language: java
+jdk: openjdk11
+install:
+ - travis_wait 30 mvn install -DskipTests=true  -B
+script:
+ - mvn clean package -DskipTests=true
+before_install:
+ - cd regedit-backend-service
+ - pwd
+ - chmod +x mvnw
+before_script:
+  - chmod +x mvnw
