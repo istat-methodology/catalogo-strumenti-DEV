@@ -40,7 +40,7 @@ const routes = [
         component: () => import("../views/catalogue/Catalogue"),
         meta: { authorize: [] }
       },
-      {
+      /* {
         path: "catalogue/dailyreport",
         name: "DailyReport",
         component: () => import("../views/catalogue/report/DailyReport"),
@@ -51,8 +51,8 @@ const routes = [
         name: "TotalReport",
         component: () => import("../views/catalogue/report/TotalReport"),
         meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
-      },
-      {
+      }, */
+      /* {
         path: "catalogue/address/view/:state",
         name: "AddressList",
         component: () => import("../views/catalogue/address/AddressList"),
@@ -69,8 +69,8 @@ const routes = [
         name: "AddressBlock",
         component: () => import("../views/catalogue/address/AddressBlock"),
         meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
-      },
-      {
+      }, */
+      /*  {
         path: "catalogue/dug",
         name: "DugList",
         component: () => import("../views/catalogue/dug/DugList"),
@@ -87,7 +87,7 @@ const routes = [
         name: "DugEdit",
         component: () => import("../views/catalogue/dug/DugEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
+      }, */
       {
         path: "settings/users",
         name: "UserList",
