@@ -1,11 +1,11 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=istat-methodology_regedit-frontend&metric=alert_status)](https://sonarcloud.io/dashboard?id=istat-methodology_regedit-frontend)
-[![Build Status](https://travis-ci.org/istat-methodology/regedit-frontend.svg?branch=main)](https://travis-ci.org/istat-methodology/regedit-frontend)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=istat-methodology_catalogo-strumenti-frontend&metric=alert_status)](https://sonarcloud.io/dashboard?id=istat-methodology_catalogo-strumenti-frontend)
+[![Build Status](https://travis-ci.org/istat-methodology/catalogo-strumenti-frontend.svg?branch=main)](https://travis-ci.org/istat-methodology/catalogo-strumenti-frontend)
 
-# regedit-frontend
-Frontend for editing statistical registers data. The application is implemented using Vue.
+# catalogo strumenti frontend
+Frontend for statistical catalogue tools . The application is implemented using Vue.
 
 ## Environment setup
-In order to start working on regedit frontend, you should install:
+In order to start working on catalogo-strumenti frontend, you should install:
 1. [Visual studio code](https://code.visualstudio.com/)
 2. [Node js](https://nodejs.org/en/download/)
 
@@ -25,7 +25,7 @@ Your development environment is ready, it is time to start coding. First of all 
 ```
 D:
 cd ./development
-git clone https://github.com/istat-methodology/regedit-frontend.git
+git clone https://github.com/istat-methodology/catalogo-strumenti-frontend.git
 ```
 Open the project in visual studio code. In order to install the application, open a terminal (Terminal -> New Terminal) and run:
 ```
