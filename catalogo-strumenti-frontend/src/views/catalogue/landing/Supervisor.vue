@@ -106,7 +106,7 @@ riferimenti	string */
     ...mapGetters("tools", ["toolscatalog"])
   },
   created() {
-    //this.$store.dispatch("progress/findByUser");
+    this.$store.dispatch("progress/findByUser");
     this.$store.dispatch("toolsService/findAll");
   }
 };

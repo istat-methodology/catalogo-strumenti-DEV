@@ -29,7 +29,7 @@
         <CDropdownHeader tag="div" class="text-center" color="light">
           <strong>Gestione</strong>
         </CDropdownHeader>
-        <CDropdownItem>
+        <!-- <CDropdownItem>
           <router-link
             :to="{
               name: 'DugList'
@@ -43,7 +43,7 @@
               >
             </a>
           </router-link>
-        </CDropdownItem>
+        </CDropdownItem> -->
         <CDropdownItem>
           <router-link
             :to="{
