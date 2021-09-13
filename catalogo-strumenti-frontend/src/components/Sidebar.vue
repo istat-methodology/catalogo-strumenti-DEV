@@ -27,7 +27,7 @@
           </a>
         </router-link>
       </li>
-      <template v-if="isSupervisor">
+      <!-- <template v-if="isSupervisor">
         <li class="c-sidebar-nav-title">
           Report
         </li>
@@ -146,8 +146,8 @@
               >
             </a>
           </router-link>
-        </li>
-        <!--li class="c-sidebar-nav-title">
+        </li> -->
+      <!--li class="c-sidebar-nav-title">
           Revisioni in blocco <small class="pl-1">{{ assignedName }}</small>
         </li>
         <li class="c-sidebar-nav-item">
@@ -166,7 +166,7 @@
             </a>
           </router-link>
         </li-->
-      </template>
+      <!-- </template> -->
     </ul>
   </CSidebar>
 </template>
@@ -179,23 +179,23 @@ export default {
   mixins: [progressMixin],
   computed: {
     ...mapGetters("auth", ["isReviewer", "isSupervisor"]),
-    ...mapGetters("address", ["assignedId", "assignedName"]),
+    /* ...mapGetters("address", ["assignedId", "assignedName"]), */
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",
-      isHome: "isHome",
-      isDailyReport: "isDailyReport",
+      isHome: "isHome"
+      /* isDailyReport: "isDailyReport",
       isTotalReport: "isTotalReport",
       isAddressToRevise: "isAddressToRevise",
       isAddressRevised: "isAddressRevised",
       isAddressSkip: "isAddressSkip",
       isBlock: "isBlock",
-      isBlockSuspended: "isBlockSuspended"
-    }),
-    ...mapGetters("progress", ["reports"]),
+      isBlockSuspended: "isBlockSuspended" */
+    })
+    /* ...mapGetters("progress", ["reports"]),
     ...mapGetters("progress", ["selezionati"]),
-    ...mapGetters("progress", ["selezionatiSospesi"]),
-    total() {
+    ...mapGetters("progress", ["selezionatiSospesi"]), */
+    /*  total() {
       return this.getTotal(this.reports);
     },
     daLavorare() {
@@ -212,7 +212,7 @@ export default {
     },
     _selezionatiSospesi() {
       return this.getSelezionati(this.selezionatiSospesi);
-    }
+    } */
   }
 };
 </script>

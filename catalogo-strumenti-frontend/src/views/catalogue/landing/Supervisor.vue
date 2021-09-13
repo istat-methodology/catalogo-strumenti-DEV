@@ -4,10 +4,10 @@
       <tile></tile>
     </div>
     <div class="col-12" v-else>
-      <div class="card fade-in">
+      <div class="card fade-in" v-if="toolscatalog">
         <CCardBody>
           <CDataTable
-            :items="usersReport"
+            :items="toolscatalog"
             :fields="fields"
             column-filter
             :items-per-page="10"
@@ -15,7 +15,7 @@
             hover
             pagination
           >
-            <template #assign="{item}">
+            <!-- <template #assign="{item}">
               <td class="py-2">
                 <CButton
                   :color="getColor(item)"
@@ -27,7 +27,7 @@
                   {{ Boolean(item.assigned) ? "Selezionato" : "Seleziona" }}
                 </CButton>
               </td>
-            </template>
+            </template> -->
           </CDataTable>
         </CCardBody>
       </div>
@@ -40,7 +40,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Supervisor",
- /*  id	integer($int32)
+  /*  id	integer($int32)
 descrizione	string
 data	string
 autore	string
@@ -83,7 +83,7 @@ riferimenti	string */
         },
         {
           key: "metodoStatistico",
-          label: "MetodoStatistico",
+          label: "Metodo Statistico",
           _style: "width:10%;"
         },
         {
@@ -103,56 +103,11 @@ riferimenti	string */
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("pivot", ["reports"]),
-    /* ...mapGetters("address", ["assignedId"]), */
-    usersReport() {
-      return this.reports
-        ? this.reports.map((userReport, index) => {
-            return {
-              ...userReport,
-              index,
-              assigned: this.isAssigned(userReport)
-            };
-          })
-        : [];
-    }
-  },
-  methods: {
-    isAssigned(userReport) {
-      return this.assignedId > 0
-        ? userReport.userId === parseInt(this.assignedId)
-        : false;
-    },
-    clearAssigned() {
-      this.usersReport.map(user => {
-        return {
-          ...user,
-          assigned: false
-        };
-      });
-    },
-    assign(userReport) {
-      this.clearAssigned();
-      this.usersReport.splice(userReport.index, 1, {
-        ...userReport,
-        assigned: true
-      });
-      this.$store
-        .dispatch("address/setAssigned", {
-          id: userReport.userId,
-          name: userReport.userEmail
-        })
-        .then(() => {
-          this.$store.dispatch("progress/findByUser");
-        });
-    },
-    getColor(user) {
-      return user.assigned ? "success" : "primary";
-    }
+    ...mapGetters("tools", ["toolscatalog"])
   },
   created() {
-    this.$store.dispatch("progress/findByUser");
-    this.$store.dispatch("pivot/findAll");
+    //this.$store.dispatch("progress/findByUser");
+    this.$store.dispatch("toolsService/findAll");
   }
 };
 </script>

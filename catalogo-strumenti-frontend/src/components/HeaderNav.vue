@@ -2,9 +2,9 @@
   <div class="c-subheader-nav mfe-2">
     <template v-if="isSupervisor">
       <span class="revisore">Revisore:</span>
-      <span class="revisore-name pl-1 pr-2">
+      <!-- <span class="revisore-name pl-1 pr-2">
         {{ assignedName | dashEmpty }}</span
-      >
+      > -->
     </template>
     <template v-else>
       <a href=" https://www.google.it/maps" target="_blank" class="pr-3"
@@ -27,8 +27,8 @@ export default {
   name: "HeaderNav",
   computed: {
     ...mapGetters("coreui", ["isHome"]),
-    ...mapGetters("auth", ["isSupervisor", "isReviewer"]),
-    ...mapGetters("address", ["assignedId", "assignedName"])
+    ...mapGetters("auth", ["isSupervisor", "isReviewer"])
+    /*  ...mapGetters("address", ["assignedId", "assignedName"]) */
   }
 };
 </script>

@@ -9,6 +9,8 @@ import { message } from "./modules/message";
 import { dug } from "./modules/address/dug"; */
 import { user } from "./modules/user/user";
 import { role } from "./modules/user/role";
+import { tools } from "./modules/tools/toolscatalog";
+import { version } from "./modules/versioning/appversion";
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
@@ -24,6 +26,8 @@ export default new Vuex.Store({
     error,
     coreui,
     message,
+    tools,
+    version,
     /*  address,
     dug, */
     user,

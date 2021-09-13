@@ -1,7 +1,7 @@
-import { pivotReportService } from "@/services";
+import { toolsService } from "@/services";
 
 const state = {
-  toolscatalog: null
+  toolscatalog: []
 };
 
 const mutations = {
@@ -12,7 +12,7 @@ const mutations = {
 
 const actions = {
   findAll({ commit }) {
-    return pivotReportService
+    return toolsService
       .findAll()
       .then(data => {
         commit("SET_TOOLSCATALOG", data);
