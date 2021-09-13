@@ -40,42 +40,55 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Supervisor",
+ /*  id	integer($int32)
+descrizione	string
+data	string
+autore	string
+documentazione	string
+metodoStatistico	string
+nome	string
+noteDiCompilazione	string
+standard	string
+tags	string
+versione	string
+tipologia	string
+riferimenti	string */
   data() {
     return {
       fields: [
         {
-          key: "userEmail",
+          key: "id",
           label: "Identificativo",
           _style: "width:10%;"
         },
         {
-          key: "userName",
+          key: "descrizione",
+          label: "Desrizione",
+          _style: "width:10%;"
+        },
+        {
+          key: "data",
+          label: "Data",
+          _style: "width:10%;"
+        },
+        {
+          key: "autore",
+          label: "Autore",
+          _style: "width:10%;"
+        },
+        {
+          key: "documentazione",
+          label: "Documentazione",
+          _style: "width:10%;"
+        },
+        {
+          key: "metodoStatistico",
+          label: "MetodoStatistico",
+          _style: "width:10%;"
+        },
+        {
+          key: "nome",
           label: "Nome",
-          _style: "width:10%;"
-        },
-        {
-          key: "userSurname",
-          label: "Cognome",
-          _style: "width:10%;"
-        },
-        {
-          key: "dalavorare",
-          label: "Da lavorare",
-          _style: "width:10%;"
-        },
-        {
-          key: "validati",
-          label: "Validati",
-          _style: "width:10%;"
-        },
-        {
-          key: "revisionati",
-          label: "Revisionati",
-          _style: "width:10%;"
-        },
-        {
-          key: "sospesi",
-          label: "Sospesi",
           _style: "width:10%;"
         },
         {
@@ -91,7 +104,7 @@ export default {
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("pivot", ["reports"]),
-    ...mapGetters("address", ["assignedId"]),
+    /* ...mapGetters("address", ["assignedId"]), */
     usersReport() {
       return this.reports
         ? this.reports.map((userReport, index) => {
