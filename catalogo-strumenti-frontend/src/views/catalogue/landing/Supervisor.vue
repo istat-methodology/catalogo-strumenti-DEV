@@ -104,6 +104,9 @@ riferimenti	string */
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("tools", ["toolscatalog"])
+    /*  toolsCatalog() {
+      return this.toolscatalog;
+    } */
   },
   created() {
     this.$store.dispatch("tools/findAll");

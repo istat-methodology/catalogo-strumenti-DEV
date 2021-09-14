@@ -24,7 +24,7 @@ const actions = {
 };
 
 const getters = {
-  reports: state => {
+  toolscatalog: state => {
     return state.toolscatalog;
   }
 };
