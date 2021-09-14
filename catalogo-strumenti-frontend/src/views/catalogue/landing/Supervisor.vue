@@ -15,19 +15,13 @@
             hover
             pagination
           >
-            <!-- <template #assign="{item}">
+            <template>
               <td class="py-2">
-                <CButton
-                  :color="getColor(item)"
-                  variant="outline"
-                  square
-                  size="sm"
-                  @click="assign(item)"
+                <CButton name variant="outline" square size="sm"
+                  >Seleziona</CButton
                 >
-                  {{ Boolean(item.assigned) ? "Selezionato" : "Seleziona" }}
-                </CButton>
               </td>
-            </template> -->
+            </template>
           </CDataTable>
         </CCardBody>
       </div>
@@ -62,18 +56,23 @@ riferimenti	string */
           _style: "width:10%;"
         },
         {
-          key: "descrizione",
-          label: "Desrizione",
+          key: "nome",
+          label: "Nome",
           _style: "width:10%;"
         },
         {
-          key: "data",
-          label: "Data",
+          key: "descrizione",
+          label: "Descrizione",
           _style: "width:10%;"
         },
         {
           key: "autore",
           label: "Autore",
+          _style: "width:10%;"
+        },
+        {
+          key: "data",
+          label: "Data",
           _style: "width:10%;"
         },
         {
@@ -87,13 +86,8 @@ riferimenti	string */
           _style: "width:10%;"
         },
         {
-          key: "nome",
-          label: "Nome",
-          _style: "width:10%;"
-        },
-        {
           key: "assign",
-          label: "Seleziona",
+          label: "...",
           _style: "width:5%;",
           sorter: false,
           filter: false
@@ -104,9 +98,6 @@ riferimenti	string */
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("tools", ["toolscatalog"])
-    /*  toolsCatalog() {
-      return this.toolscatalog;
-    } */
   },
   created() {
     this.$store.dispatch("tools/findAll");
