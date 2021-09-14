@@ -9,7 +9,7 @@
   >
     <CSidebarBrand class="d-md-down-none" to="/">
       <CIcon name="cil-terminal" size="lg"></CIcon>
-      <span class="brand">RegEdit</span>
+      <span class="brand">Tools-Catalog</span>
     </CSidebarBrand>
 
     <ul class="c-sidebar-nav h-100 ps" style="position: relative;">

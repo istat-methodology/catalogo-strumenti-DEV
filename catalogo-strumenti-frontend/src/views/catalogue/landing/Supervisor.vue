@@ -5,6 +5,14 @@
     </div>
     <div class="col-12" v-else>
       <div class="card fade-in">
+        <header class="card-header">
+          Tools List
+          <div class="card-header-actions">
+            <router-link tag="a" :to="{ name: 'DugAdd' }">
+              <add-icon />
+            </router-link>
+          </div>
+        </header>
         <CCardBody>
           <CDataTable
             :items="toolscatalog"
@@ -14,14 +22,30 @@
             sorter
             hover
             pagination
-          >
-            <template>
+            ><template #show_update="{item}">
+              <td>
+                <router-link
+                  tag="a"
+                  :to="{ name: 'DugEdit', params: { id: item.id } }"
+                >
+                  <edit-icon />
+                </router-link>
+              </td>
+            </template>
+            <template #show_delete="{item}">
+              <td>
+                <span class="icon-link" @click="modalOpen(item)"
+                  ><delete-icon
+                /></span>
+              </td>
+            </template>
+            <!-- <template>
               <td class="py-2">
                 <CButton name variant="outline" square size="sm"
                   >Seleziona</CButton
                 >
               </td>
-            </template>
+            </template> -->
           </CDataTable>
         </CCardBody>
       </div>
@@ -86,9 +110,16 @@ riferimenti	string */
           _style: "width:10%;"
         },
         {
-          key: "assign",
-          label: "...",
-          _style: "width:5%;",
+          key: "show_update",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false
+        },
+        {
+          key: "show_delete",
+          label: "",
+          _style: "width:1%",
           sorter: false,
           filter: false
         }
