@@ -22,11 +22,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
+    tools,
     auth,
     error,
     coreui,
     message,
-    tools,
     version,
     /*  address,
     dug, */

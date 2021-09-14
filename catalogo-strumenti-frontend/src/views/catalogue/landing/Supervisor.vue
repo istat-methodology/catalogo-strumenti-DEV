@@ -4,7 +4,7 @@
       <tile></tile>
     </div>
     <div class="col-12" v-else>
-      <div class="card fade-in" v-if="toolscatalog">
+      <div class="card fade-in">
         <CCardBody>
           <CDataTable
             :items="toolscatalog"
@@ -106,7 +106,7 @@ riferimenti	string */
     ...mapGetters("tools", ["toolscatalog"])
   },
   created() {
-    this.$store.dispatch("toolsService/findAll");
+    this.$store.dispatch("tools/findAll");
   }
 };
 </script>
