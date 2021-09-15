@@ -1,7 +1,7 @@
 version: '3'
 services:
   regedit-api-gateway:
-    image: mecdcme/regedit-api-gateway:latest
+    image: mecdcme/gatalogue-api-gateway:latest
     deploy:
       resources:
         limits:
@@ -10,19 +10,19 @@ services:
     ports:
       - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/regedit_gateway?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/is2?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_DATASOURCE_DRIVERCLASSNAME=com.mysql.cj.jdbc.Driver
       - SPRING_DATASOURCE_PLATFORM=mysql
       - SPRING_DATASOURCE_HIKARI_MINIMUM-IDLE=1
       - SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE=3
-      - ZUUL_ROUTES_SERVICE_REGEDIT_URL=http://regedit-service:8081/regedit
+      - ZUUL_ROUTES_SERVICE_CATALOGUE_URL=http://regedit-service:8081/catalogue
     depends_on:
       - db
     restart: always
   regedit-service:
-    image: mecdcme/regedit-service:latest
+    image: mecdcme/catalogue-service:latest
     deploy:
       resources:
         limits:
@@ -31,7 +31,7 @@ services:
     ports:
       - 8081:8081
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/regedit?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/is2?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_DATASOURCE_DRIVERCLASSNAME=com.mysql.cj.jdbc.Driver
