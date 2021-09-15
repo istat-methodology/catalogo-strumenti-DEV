@@ -16,7 +16,7 @@ spring:
           lob:
             non_contextual_creation: true
   datasource:
-    url: jdbc:mysql://localhost:3306/regedit?createDatabaseIfNotExist=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/is2?createDatabaseIfNotExist=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -36,9 +36,9 @@ zuul:
       path: /api/catalogue/**
       url: http://localhost:8081/catalogue
       
-    service_users:
-      path: /api/users/**
-      url: http://localhost:8082/users
+#    service_users:
+#      path: /api/users/**
+#      url: http://localhost:8082/users
  
 eureka:
   instance:
