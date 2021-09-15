@@ -36,14 +36,14 @@ As a first step, configure the database connection in the 'application.yml' file
 
 Postgres connection
 ```
-spring.datasource.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=catalogue_gateway&charset=UTF-8
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=is2&charset=UTF-8
 spring.datasource.username=db_username
 spring.datasource.password=db_password
 spring.datasource.driverClassName=org.postgresql.Driver
 ```
 MySQL connection
 ```
-spring.datasource.url=jdbc:mysql://localhost:3306/catalogue_gateway?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+spring.datasource.url=jdbc:mysql://localhost:3306/is2?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 spring.datasource.username=db_username
 spring.datasource.password=db_password
 spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver

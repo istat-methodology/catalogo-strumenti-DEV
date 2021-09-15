@@ -1,4 +1,4 @@
-docker build -t mecdcme/regedit-service  .
+docker build -t mecdcme/catalogue-service  .
 
-docker push mecdcme/regedit-service
+docker push mecdcme/catalogue-service
 

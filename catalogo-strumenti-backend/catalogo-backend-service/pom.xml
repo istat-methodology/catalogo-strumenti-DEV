@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>catalogo</name>
 	<packaging>${packaging.type}</packaging>
-	<description>Service rest API for register editing</description>
+	<description>Service rest API for catalogue service</description>
 
 	<properties>
 		<java.version>1.8</java.version>

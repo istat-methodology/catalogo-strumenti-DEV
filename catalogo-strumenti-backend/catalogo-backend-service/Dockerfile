@@ -7,7 +7,7 @@ RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests=true
 
 FROM openjdk:11.0.9.1-jre-slim
 
-COPY --from=build /usr/src/app/target/regedit.jar /usr/app/regedit.jar
+COPY --from=build /usr/src/app/target/catalogue.jar /usr/app/catalogue.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/app/regedit.jar"]
+ENTRYPOINT ["java","-jar","/usr/app/catalogue.jar"]
