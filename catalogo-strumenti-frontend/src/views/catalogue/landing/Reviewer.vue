@@ -27,13 +27,6 @@
                 </router-link>
               </td>
             </template>
-            <!-- <template>
-              <td class="py-2">
-                <CButton name variant="outline" square size="sm"
-                  >Seleziona</CButton
-                >
-              </td>
-            </template> -->
           </CDataTable>
         </CCardBody>
       </div>
@@ -46,19 +39,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Supervisor",
-  /*  id	integer($int32)
-descrizione	string
-data	string
-autore	string
-documentazione	string
-metodoStatistico	string
-nome	string
-noteDiCompilazione	string
-standard	string
-tags	string
-versione	string
-tipologia	string
-riferimenti	string */
   data() {
     return {
       fields: [
