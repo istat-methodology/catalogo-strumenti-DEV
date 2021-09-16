@@ -1,70 +1,41 @@
 <template>
   <div class="row">
-    <div class="col-4">
-      <div class="card">
-        <header class="card-header">
-          <span>Indirizzi da lavorare</span>
-          <span class="badge float-right badge-primary"
-            >{{ daLavorare }} / {{ total }}</span
-          >
-        </header>
-        <div class="card-body">
-          In questa sezione puoi trovare la lista degli indirizzi da lavorare.
-          <p class="section-link">
-            <router-link
-              tag="a"
-              :to="{ name: 'AddressList', params: { state: 1 } }"
-              ><span>Vai alla lista <chevron-right-icon /></span>
-            </router-link>
-          </p>
-          <!-- <p class="section-link" v-if="daLavorare > 0">
-            <router-link
-              tag="a"
-              :to="{ name: 'AddressEdit', params: { state: 1 } }"
-              ><span>Inizia subito a lavorare <chevron-right-icon /></span>
-            </router-link>
-          </p> -->
-        </div>
-      </div>
+    <div class="col-12" v-if="isLoading">
+      <tile></tile>
     </div>
-    <div class="col-4">
-      <div class="card">
+    <div class="col-12" v-else>
+      <div class="card fade-in">
         <header class="card-header">
-          <span>Indirizzi lavorati</span>
-          <span class="badge float-right badge-success"
-            >{{ lavorati }} / {{ total }}</span
-          >
+          Tools List
         </header>
-        <div class="card-body">
-          In questa sezione puoi trovare la lista degli indirizzi lavorati.
-          <p class="section-link">
-            <router-link
-              tag="a"
-              :to="{ name: 'AddressList', params: { state: 2 } }"
-              ><span>Vai alla lista <chevron-right-icon /></span>
-            </router-link>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <header class="card-header">
-          <span>Indirizzi sospesi</span>
-          <span class="badge float-right badge-warning"
-            >{{ sospesi }} / {{ total }}</span
-          >
-        </header>
-        <div class="card-body">
-          In questa sezione puoi trovare la lista degli indirizzi sospesi.
-          <p class="section-link">
-            <router-link
-              tag="a"
-              :to="{ name: 'AddressList', params: { state: 3 } }"
-              ><span>Vai alla lista <chevron-right-icon /></span>
-            </router-link>
-          </p>
-        </div>
+        <CCardBody>
+          <CDataTable
+            :items="toolscatalog"
+            :fields="fields"
+            column-filter
+            :items-per-page="10"
+            sorter
+            hover
+            pagination
+            ><template #show_details="{item}">
+              <td>
+                <router-link
+                  tag="a"
+                  :to="{ name: 'ToolShow', params: { id: item.id } }"
+                >
+                  <view-icon />
+                </router-link>
+              </td>
+            </template>
+            <!-- <template>
+              <td class="py-2">
+                <CButton name variant="outline" square size="sm"
+                  >Seleziona</CButton
+                >
+              </td>
+            </template> -->
+          </CDataTable>
+        </CCardBody>
       </div>
     </div>
   </div>
@@ -72,36 +43,76 @@
 
 <script>
 import { mapGetters } from "vuex";
-import progressMixin from "@/components/mixins/progress.mixin";
 
 export default {
-  name: "Catalogue",
-  mixins: [progressMixin],
+  name: "Supervisor",
+  /*  id	integer($int32)
+descrizione	string
+data	string
+autore	string
+documentazione	string
+metodoStatistico	string
+nome	string
+noteDiCompilazione	string
+standard	string
+tags	string
+versione	string
+tipologia	string
+riferimenti	string */
+  data() {
+    return {
+      fields: [
+        {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "nome",
+          label: "Nome",
+          _style: "width:10%;"
+        },
+        {
+          key: "descrizione",
+          label: "Descrizione",
+          _style: "width:10%;"
+        },
+        {
+          key: "autore",
+          label: "Autore",
+          _style: "width:10%;"
+        },
+        {
+          key: "data",
+          label: "Data",
+          _style: "width:10%;"
+        },
+        {
+          key: "documentazione",
+          label: "Documentazione",
+          _style: "width:10%;"
+        },
+        {
+          key: "metodoStatistico",
+          label: "Metodo Statistico",
+          _style: "width:10%;"
+        },
+        {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false
+        }
+      ]
+    };
+  },
   computed: {
-    ...mapGetters("progress", ["reports"]),
-    total() {
-      return this.getTotal(this.reports);
-    },
-    daLavorare() {
-      return this.getDaLavorare(this.reports);
-    },
-    lavorati() {
-      return this.getValidati(this.reports) + this.getRevisionati(this.reports);
-    },
-    sospesi() {
-      return this.getSospesi(this.reports);
-    }
+    ...mapGetters("coreui", ["isLoading"]),
+    ...mapGetters("tools", ["toolscatalog"])
   },
   created() {
-    this.$store.dispatch("progress/findByUser");
-    //clear cache
-    /* this.$store.dispatch("address/clear"); */
+    this.$store.dispatch("tools/findAll");
   }
 };
 </script>
-
-<style scoped>
-.material-design-icon > .material-design-icon__svg {
-  bottom: -0.17rem;
-}
-</style>
