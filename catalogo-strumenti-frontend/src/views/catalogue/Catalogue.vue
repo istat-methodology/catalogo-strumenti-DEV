@@ -9,30 +9,32 @@
     <div class="col-4">
       <div class="card">
         <header class="card-header">
-          <span>Indirizzi da lavorare</span>
+          <span>Pre elaborazione</span>
         </header>
         <div class="card-body">
-          In questa sezione puoi trovare la lista degli indirizzi da lavorare.
+          In questa sezione puoi trovare la lista degli strumnti per la preelaborazione dei dati.
         </div>
       </div>
     </div>
     <div class="col-4">
       <div class="card">
         <header class="card-header">
-          <span>Indirizzi lavorati</span>
+          <span>Controllo e correzione</span>
         </header>
         <div class="card-body">
-          In questa sezione puoi trovare la lista degli indirizzi lavorati.
+          In questa sezione puoi trovare la lista degli strumenti per controllo
+          e correzione.
         </div>
       </div>
     </div>
     <div class="col-4">
       <div class="card">
         <header class="card-header">
-          <span>Indirizzi sospesi</span>
+          <span>Clustering</span>
         </header>
         <div class="card-body">
-          In questa sezione puoi trovare la lista degli indirizzi sospesi.
+          In questa sezione puoi trovare la lista degli srumenti per il
+          clustering.
         </div>
       </div>
     </div>
