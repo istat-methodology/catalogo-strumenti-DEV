@@ -81,13 +81,13 @@ const routes = [
         name: "DugAdd",
         component: () => import("../views/catalogue/dug/DugAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
+      },*/
       {
         path: "catalogue/dug/edit/:id",
-        name: "DugEdit",
-        component: () => import("../views/catalogue/dug/DugEdit"),
+        name: "ToolEdit",
+        component: () => import("../views/catalogue/tools/ToolEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
-      }, */
+      },
       {
         path: "settings/users",
         name: "UserList",

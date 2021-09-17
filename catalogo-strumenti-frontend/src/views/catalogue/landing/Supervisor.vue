@@ -26,7 +26,7 @@
               <td>
                 <router-link
                   tag="a"
-                  :to="{ name: 'DugEdit', params: { id: item.id } }"
+                  :to="{ name: 'ToolEdit', params: { id: item.id } }"
                 >
                   <edit-icon />
                 </router-link>

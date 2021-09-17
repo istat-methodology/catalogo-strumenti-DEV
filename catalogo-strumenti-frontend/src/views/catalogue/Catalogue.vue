@@ -12,7 +12,8 @@
           <span>Pre elaborazione</span>
         </header>
         <div class="card-body">
-          In questa sezione puoi trovare la lista degli strumnti per la preelaborazione dei dati.
+          In questa sezione puoi trovare la lista degli strumnti per la
+          preelaborazione dei dati.
         </div>
       </div>
     </div>
