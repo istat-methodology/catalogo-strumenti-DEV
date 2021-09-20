@@ -5,10 +5,23 @@
       <CCard>
         <CCardHeader>Tool</CCardHeader>
         <CCardBody>
-          <CInput label="Name" placeholder="Name" />
+          <CInput label="Nome" placeholder="Nome" />
           <!--  <div class="help-block" :class="{ show: $v.dug.name.$error }">
             This field is required
           </div> -->
+          <CInput label="Descrizione" placeholder="Descrizione" />
+          <CInput label="Autore" placeholder="Autore" />
+          <CInput label="Documentazione" placeholder="Documentazione" />
+          <CInput label="Metodo Statistico" placeholder="Metoo Statistico" />
+          <CInput
+            label="Note di Compilazione"
+            placeholder="Note di Compilazione"
+          />
+          <CInput label="Standard" placeholder="Standard" />
+          <CInput label="Tags" placeholder="Tags" />
+          <CInput label="Versione" placeholder="Versione" />
+          <CInput label="Tipologia" placeholder="Tipologia" />
+          <CInput label="Riferimenti" placeholder="Riferimenti" />
         </CCardBody>
         <CCardFooter>
           <CButton
