@@ -3,13 +3,13 @@
 -- 
 DROP SCHEMA IF EXISTS `catalogue`;
 CREATE SCHEMA `catalogue` DEFAULT CHARACTER SET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-USE `catalogue`;
+use catalogue;
 
 -- metodo_statistico deve diventare un auto-join sullo strumento metodo statistico, ma ora non ce ne sono ancora
 CREATE TABLE CSM_Methodological_Tool	(
 	`ID` 	 	INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `Data` varchar(100),
-	`Descrizione` varchar(100),
+	`Descrizione` varchar(1000),
 	`homepasge` varchar(100),
     `download` varchar(100),
 	`Metodo_Statistico` varchar(100),
@@ -17,14 +17,14 @@ CREATE TABLE CSM_Methodological_Tool	(
 	`Nome` varchar(100),
 	`Note` varchar(100),
 	`Standard` varchar(100),
-	`Tags` varchar(100),
+	`Tags` varchar(500),
 	`Versione` varchar(100),
 	`Tipologia` varchar(100),
 	`Riferimenti` varchar(100),
     `License` varchar(45)
  );
- 
- 	CREATE TABLE `business_process` (
+  -- Tabellina di appoggio. Il db dobrebbe collegarsi a quella di IS2.
+ CREATE TABLE `business_process` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `DESCR` text COLLATE utf8mb4_unicode_ci,
@@ -32,7 +32,6 @@ CREATE TABLE CSM_Methodological_Tool	(
   `ORDER_CODE` int(11) DEFAULT NULL,  
   PRIMARY KEY (`ID`)
 );
-
  -- Link verso il process design esistente
 CREATE TABLE CSM_link_Methodological_tool_Business_Process (
 	`bproc` 	INT,
@@ -47,8 +46,6 @@ CREATE TABLE CSM_link_Methodological_tool_Business_Process (
     ON DELETE NO ACTION ON UPDATE NO ACTION
     
 	);
-	
-
 
 -- Specializzazioni del software 
 CREATE TABLE CSM_Software_Procedure (
@@ -149,4 +146,4 @@ CREATE TABLE CSM_link_Documentation_tool (
     ON DELETE NO ACTION ON UPDATE NO ACTION
     
 	);
-
+	
