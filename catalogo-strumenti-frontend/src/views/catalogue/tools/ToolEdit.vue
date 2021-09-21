@@ -45,14 +45,14 @@
   </div>
 </template>
 <script>
-/* import { mapGetters } from "vuex";
-import { required } from "vuelidate/lib/validators"; */
+import { mapGetters } from "vuex";
+/* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
-  /*  computed: {
-    ...mapGetters("dug", ["dug"])
+  computed: {
+    ...mapGetters("tools", ["tool"])
   },
-  validations: {
+  /* validations: {
     dug: {
       name: {
         required
@@ -63,17 +63,17 @@ export default {
     handleSubmit() {
       this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) {
-        this.$store.dispatch("tool/update", this.dug).then(() => {
+        this.$store.dispatch("tools/update", this.dug).then(() => {
           this.backToList();
         });
       }
     },
     backToList() {
-      //this.$router.push("/catalogue/tools");
+      this.$router.push("/catalogue/tools");
     }
   },
   created() {
-    //this.$store.dispatch("tool/findById", this.$route.params.id);
+    this.$store.dispatch("tools/findById", this.$route.params.id);
   }
 };
 </script>

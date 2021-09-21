@@ -950,3 +950,4 @@ Caused by: java.lang.NoClassDefFoundError: it/istat/mec/catalogue/CatalogApplica
 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
 	... 26 more
+ERROR   2021-09-21 15:36:36,407 [http-nio-8081-exec-9] org.hibernate.engine.jdbc.spi.SqlExceptionHelper [] [] - Table 'catalog.csm_methodological_tool' doesn't exist
