@@ -13,18 +13,19 @@ public class ToolDto implements Serializable {
  
 	private static final long serialVersionUID = -6905546979001300372L;
 	private Integer id;
-	private String descrizione;
 	private String data;
-	private String autore;
-	private String documentazione;
+	private String descrizione;	
+	private String homepage;
+	private String download;
 	private String metodoStatistico;
 	private String nome;
-	private String noteDiCompilazione;
+	private String note;
 	private String standard;
 	private String tags;
 	private String versione;
 	private String tipologia;
 	private String riferimenti;
+	private String license;
 	 
 	
 }

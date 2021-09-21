@@ -23,7 +23,7 @@
  */
 package it.istat.mec.catalogue.constants;
 
-public interface CatalogueConst {
+public interface CatalogConst {
 
    
 

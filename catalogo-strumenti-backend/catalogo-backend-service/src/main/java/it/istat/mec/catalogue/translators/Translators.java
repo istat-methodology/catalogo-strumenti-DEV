@@ -6,20 +6,20 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import it.istat.mec.catalogue.domain.Tool;
+import it.istat.mec.catalogue.domain.CatalogTool;
 import it.istat.mec.catalogue.dto.ToolDto;
 
 
 @Component
 public class Translators {
-	public static ToolDto translate(Tool x) {
+	public static ToolDto translate(CatalogTool x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final ToolDto dTO = modelMapper.map(x, ToolDto.class);
 		return dTO;
 	}
 
-	public static List<ToolDto> translate(List<Tool> list) {
+	public static List<ToolDto> translate(List<CatalogTool> list) {
 		return mapList(list, ToolDto.class);
 	}
 	

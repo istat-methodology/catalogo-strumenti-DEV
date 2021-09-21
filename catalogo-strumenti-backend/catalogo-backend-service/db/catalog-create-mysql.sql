@@ -1,9 +1,9 @@
 -- 
 -- Schema catalogue
 -- 
-DROP SCHEMA IF EXISTS `catalogue`;
-CREATE SCHEMA `catalogue` DEFAULT CHARACTER SET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-use catalogue;
+DROP SCHEMA IF EXISTS `catalog`;
+CREATE SCHEMA `catalog` DEFAULT CHARACTER SET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+use catalog;
 
 -- metodo_statistico deve diventare un auto-join sullo strumento metodo statistico, ma ora non ce ne sono ancora
 CREATE TABLE CSM_Methodological_Tool	(

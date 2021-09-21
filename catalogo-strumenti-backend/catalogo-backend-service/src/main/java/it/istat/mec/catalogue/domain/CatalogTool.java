@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CSM_METHODOLOGICAL_TOOL")
-public class Tool implements Serializable  {
+public class CatalogTool implements Serializable  {
 	
 	
 	private static final long serialVersionUID = -470124614809408504L;

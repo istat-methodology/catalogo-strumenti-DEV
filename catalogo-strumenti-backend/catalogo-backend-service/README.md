@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/istat-methodology/catalogue-backend.svg?branch=main)](https://travis-ci.org/istat-methodology/catalogue-backend) 
 [![Docker hub](https://img.shields.io/docker/cloud/automated/mecdcme/catalogue.svg?label=catalogue%20docker)](https://hub.docker.com/r/mecdcme/catalogue)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=istat-methodology_catalogue-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=istat-methodology_catalogue-backend)
-# Catalogue Service
+# Catalog Service
 
-A JAVA REST API service to catalogue statistical services.
+A JAVA REST API service to catalog statistical services.
 
 
 
@@ -17,16 +17,16 @@ In order to build the application, your environment should fulfill the following
 
 
 ## How to build
-Download and unzip the source code in your developing folder `Catalogue_PATH`.
+Download and unzip the source code in your developing folder `Catalog_PATH`.
 
-Before building the application you must create and popolulate the Catalogue database.
+Before building the application you must create and popolulate the Catalog database.
 
-You can create a MySQL database using the script `catalogue-create-mysql.sql` stored in the [Catalogue_PATH/db](db/regedit-create-mysql.sql) folder.
-Also you can create a PostgreSQL database using the script `catalogue-create-postgres.sql` stored in the [Catalogue_PATH/db](db/catalogue-create-postgres.sql) folder.
+You can create a MySQL database using the script `catalog-create-mysql.sql` stored in the [Catalog_PATH/db](db/catalog-create-mysql.sql) folder.
+Also you can create a PostgreSQL database using the script `catalog-create-postgres.sql` stored in the [Catalog_PATH/db](db/catalog-create-postgres.sql) folder.
 
-Then yo can load the metadata and the test data, using the script `catalogue-data.sql` stored in the [Catalogue_PATH/db](db/catalogue-data.sql) folder.
+Then yo can load the metadata and the test data, using the script `catalog-data.sql` stored in the [Catalogue_PATH/db](db/catalog-data.sql) folder.
 
-As a first step, configure the database connection in the 'application.yml' file, located in the path `[Catalogue_PATH]/src/main/resources`:
+As a first step, configure the database connection in the 'application.yml' file, located in the path `[Catalog_PATH]/src/main/resources`:
 
 Postgres connection
 ```
@@ -45,23 +45,23 @@ spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
 
 Now you can perform your first build of the application using Maven comand:
 ```
-[Catalogue_PATH]> mvn package
+[Catalog_PATH]> mvn package
 ```
 If the build process ends successfully, you are ready to run the application:
 The application is built using the open source framework Spring Boot, which generates an 
 executable jar (that can be run from the command line). Spring Boot creates a stand-alone Spring 
 based Applications, with an embedded Tomcat, that you can "just run".
 ```
-[Catalogue_PATH]> java –jar target/catalogue.jar
+[Catalog_PATH]> java –jar target/catalog.jar
 ```
 or using Maven comand:
 ```
-[Catalogue_PATH]> mvn spring-boot:run 
+[Catalog_PATH]> mvn spring-boot:run 
 ```
 ## Docker compose
 You can run the RegEdit Service as Docker containers using docker compose: 
 ```
-[Catalogue_PATH]> docker-compose up
+[Catalog_PATH]> docker-compose up
 ```
 
 ## Test the application 
@@ -71,5 +71,5 @@ You can test the application and explore the available services, linking to API 
 
 
 ## License
-RegEdit Service is EUPL-licensed
+Catalog Service is EUPL-licensed
 

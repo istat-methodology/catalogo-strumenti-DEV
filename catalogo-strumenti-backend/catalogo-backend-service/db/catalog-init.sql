@@ -1,4 +1,4 @@
-use catalogue;
+use catalog;
 
 INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`homepage`,`download`,`Metodo_Statistico`,`Nome`,`Note`,	`Standard`,	`Tags`,	`Versione`,	`Tipologia`,`Riferimenti`,`License` )
 values (100, 'Today','Detection of outliers and influential errors using a latent variable model',

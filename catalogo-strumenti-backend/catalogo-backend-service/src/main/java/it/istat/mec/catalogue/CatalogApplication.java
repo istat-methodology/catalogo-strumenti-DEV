@@ -11,15 +11,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 //@EnableEurekaClient
 
-public class CatalogueApplication extends SpringBootServletInitializer {
+public class CatalogApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CatalogueApplication.class, args);
+		SpringApplication.run(CatalogApplication.class, args);
 	}
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(CatalogueApplication.class);
+		return builder.sources(CatalogApplication.class);
 	}
 
 	@Bean

@@ -10,11 +10,11 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.istat.mec</groupId>
-	<artifactId>catalogo-service</artifactId>
+	<artifactId>catalog-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>catalogo</name>
 	<packaging>${packaging.type}</packaging>
-	<description>Service rest API for catalogue service</description>
+	<description>Service rest API for catalog service</description>
 
 	<properties>
 		<java.version>1.8</java.version>

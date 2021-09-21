@@ -6,18 +6,18 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import it.istat.mec.catalogue.domain.Tool;
+import it.istat.mec.catalogue.domain.CatalogTool;
 
 @Repository
-public interface ToolDao extends JpaRepository<Tool, Long> {
+public interface ToolDao extends JpaRepository<CatalogTool, Long> {
 	
 	@Override
-	List<Tool> findAll();
+	List<CatalogTool> findAll();
 	
 	@Override
-	Optional<Tool> findById(Long id);
+	Optional<CatalogTool> findById(Long id);
 
-	public void save(Optional<Tool> tools);
+	public void save(Optional<CatalogTool> tools);
 
-	public void delete(Tool tools);
+	public void delete(CatalogTool tools);
 }
