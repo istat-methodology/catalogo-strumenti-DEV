@@ -1,8 +1,8 @@
 use catalogue;
 
-INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`homepasge`,`download`,`Metodo_Statistico`,`Name`,`Nome`,`Note`,	`Standard`,	`Tags`,	`Versione`,	`Tipologia`,`Riferimenti`,`License` )
+INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`homepage`,`download`,`Metodo_Statistico`,`Nome`,`Note`,	`Standard`,	`Tags`,	`Versione`,	`Tipologia`,`Riferimenti`,`License` )
 values (100, 'Today','Detection of outliers and influential errors using a latent variable model',
-'https://rdrr.io/cran/SeleMix/','https://cran.r-project.org/package=SeleMix','Selective Editing via Mixture Models','Selemix','Selemix','Note',	'ISTAT',
+'https://rdrr.io/cran/SeleMix/','https://cran.r-project.org/package=SeleMix','Selective Editing via Mixture Models','Selemix','Note',	'ISTAT',
 'mixture, selective editing, outliers',	'1.0.2','package','https://rdrr.io/cran/SeleMix/', 'EUPL' );
 
 -- Dati di test
@@ -12,9 +12,9 @@ INSERT INTO business_process (ID, NAME, DESCR, LABEL, ORDER_CODE)
 		(110,'Design',NULL,NULL,2),
 		(130,'Build',NULL,NULL,3);
 		
-INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`homepasge`,`download`,`Metodo_Statistico`,`Name`,`Nome`,`Note`,	`Standard`,	`Tags`,	`Versione`,	`Tipologia`,`Riferimenti`,`License` )
+INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`homepage`,`download`,`Metodo_Statistico`,`Nome`,`Note`,	`Standard`,	`Tags`,	`Versione`,	`Tipologia`,`Riferimenti`,`License` )
 values (200, 'Tomorrow','RELAIS (REcord Linkage At IStat) is a toolkit providing a set of techniques for dealing with record linkage projects.',
-'https://www.istat.it/en/methods-and-tools/methods-and-it-tools/process/processing-tools/relais',NULL,'Record Linkage','Relais','Relais','Note',	'ISTAT',
+'https://www.istat.it/en/methods-and-tools/methods-and-it-tools/process/processing-tools/relais',NULL,'Record Linkage','Relais','Note',	'ISTAT',
 'data integration, probabilistic record linkage, string comparators, blocking/sorting/indexing, deduplication, open source software',	'3.1','desktop application','Available on registration', 'EUPL-1.1' );
 
 
