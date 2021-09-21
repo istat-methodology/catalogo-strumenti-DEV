@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 ISTAT
+ * Copyright 2021 ISTAT
  *
  * Licensed under the EUPL, Version 1.1 or – as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
@@ -16,15 +16,35 @@
  *
  * @author Francesco Amato <framato @ istat.it>
  * @author Mauro Bruno <mbruno @ istat.it>
- * @author Paolo Francescangeli  <pafrance @ istat.it>
  * @author Renzo Iannacone <iannacone @ istat.it>
  * @author Stefano Macone <macone @ istat.it>
  * @version 1.0
  */
-package it.istat.mec.catalogue.constants;
+package it.istat.mec.catalog.controller;
 
-public interface CatalogConst {
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-   
+import it.istat.mec.catalog.dto.ToolDto;
+import it.istat.mec.catalog.service.ToolService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@RestController
+@RequestMapping("/catalogue")
+public class ToolController {
+	
+	@Autowired
+	private ToolService toolService;
+	
+	@GetMapping("/tools")
+	public List<ToolDto> getAllTools() {
+
+		return toolService.findAllTools();
+
+	}
+ 
 }

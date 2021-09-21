@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.domain;
+package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
 

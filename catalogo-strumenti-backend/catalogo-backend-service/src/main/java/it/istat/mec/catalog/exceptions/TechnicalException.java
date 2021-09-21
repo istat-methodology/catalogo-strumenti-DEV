@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.exceptions;
+package it.istat.mec.catalog.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

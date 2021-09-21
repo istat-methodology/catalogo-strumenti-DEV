@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.dto;
+package it.istat.mec.catalog.dto;
 
 
 import java.io.Serializable;

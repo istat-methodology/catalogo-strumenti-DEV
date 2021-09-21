@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.security;
+package it.istat.mec.catalog.security;
 
 import java.util.Base64;
 

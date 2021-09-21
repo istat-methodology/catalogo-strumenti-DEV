@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.translators;
+package it.istat.mec.catalog.translators;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import it.istat.mec.catalogue.domain.CatalogTool;
-import it.istat.mec.catalogue.dto.ToolDto;
+import it.istat.mec.catalog.domain.CatalogTool;
+import it.istat.mec.catalog.dto.ToolDto;
 
 
 @Component

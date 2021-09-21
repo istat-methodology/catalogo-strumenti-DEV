@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.bean;
+package it.istat.mec.catalog.bean;
 
 import java.util.Date;
 

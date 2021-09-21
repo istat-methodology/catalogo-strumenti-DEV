@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.dao;
+package it.istat.mec.catalog.dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import it.istat.mec.catalogue.domain.CatalogTool;
+import it.istat.mec.catalog.domain.CatalogTool;
 
 @Repository
 public interface ToolDao extends JpaRepository<CatalogTool, Long> {

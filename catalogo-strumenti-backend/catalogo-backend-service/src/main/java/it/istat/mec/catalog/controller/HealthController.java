@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.controller;
+package it.istat.mec.catalog.controller;
 
 
 import org.springframework.http.ResponseEntity;

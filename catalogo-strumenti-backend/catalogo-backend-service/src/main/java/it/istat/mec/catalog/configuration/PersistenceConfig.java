@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue.configuration;
+package it.istat.mec.catalog.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
