@@ -24,11 +24,17 @@ package it.istat.mec.catalog.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import it.istat.mec.catalog.dto.ToolDto;
+import it.istat.mec.catalog.request.CreateToolRequest;
+import it.istat.mec.catalog.request.UpdateToolRequest;
 import it.istat.mec.catalog.service.ToolService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +50,25 @@ public class ToolController {
 	public List<ToolDto> getAllTools() {
 
 		return toolService.findAllTools();
+	}
+	
+	@PostMapping("/tools")
+	public ToolDto create(@RequestBody CreateToolRequest request) {
 
+		return toolService.newTool(request);
+	}
+	
+	@PutMapping(value = "/tools/{id}")
+	public ToolDto updateAddress(@RequestBody UpdateToolRequest request) {
+
+		//return addressService.updateAddress(request, JwtTokenProvider.getUserId(jwt));
+		return toolService.updateTool(request);
+	}
+	
+	@DeleteMapping(value = "/tools/{id}")
+	public ToolDto deleteAddress(@PathVariable("id") Long id) {
+
+		return toolService.deleteTool(id);
 	}
  
 }

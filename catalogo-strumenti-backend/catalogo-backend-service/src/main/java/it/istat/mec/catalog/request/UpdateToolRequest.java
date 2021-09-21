@@ -1,17 +1,15 @@
-package it.istat.mec.catalog.dto;
-
+package it.istat.mec.catalog.request;
 
 import java.io.Serializable;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Data
 @NoArgsConstructor
-public class ToolDto implements Serializable {
+public class UpdateToolRequest implements Serializable {	
 
- 
-	private static final long serialVersionUID = -6905546979001300372L;
+	
+	private static final long serialVersionUID = -8492573172388881146L;
 	private Long id;
 	private String data;
 	private String descrizione;	
@@ -26,6 +24,5 @@ public class ToolDto implements Serializable {
 	private String tipologia;
 	private String riferimenti;
 	private String license;
-	 
-	
+
 }
