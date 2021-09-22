@@ -8,7 +8,7 @@
         <header class="card-header">
           Tools List
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'DugAdd' }">
+            <router-link tag="a" :to="{ name: 'ToolAdd' }">
               <add-icon />
             </router-link>
           </div>
@@ -69,7 +69,7 @@ export default {
     return {
       warningModal: false,
       selectedTool: {},
-      fields: [
+      tool: [
         {
           key: "id",
           label: "Identificativo",
