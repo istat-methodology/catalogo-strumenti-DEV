@@ -5,23 +5,52 @@
       <CCard>
         <CCardHeader>Tool</CCardHeader>
         <CCardBody>
-          <CInput label="Nome" placeholder="Nome" />
+          <CInput label="Nome" placeholder="Nome" v-model="tool.nome"/>
           <!--  <div class="help-block" :class="{ show: $v.dug.name.$error }">
             This field is required
           </div> -->
-          <CInput label="Descrizione" placeholder="Descrizione" />
-          <CInput label="Autore" placeholder="Autore" />
-          <CInput label="Documentazione" placeholder="Documentazione" />
-          <CInput label="Metodo Statistico" placeholder="Metoo Statistico" />
+          <CInput
+            label="Descrizione"
+            placeholder="Descrizione"
+            v-model="tool.descrizione"
+          />
+          <CInput label="Autore" placeholder="Autore" v-model="tool.autore"/>
+          <CInput
+            label="Documentazione"
+            placeholder="Documentazione"
+            v-model="tool.documentazione"
+          />
+          <CInput
+            label="Metodo Statistico"
+            placeholder="Metoo Statistico"
+            v-model="tool.metodoStatistico"
+          />
           <CInput
             label="Note di Compilazione"
             placeholder="Note di Compilazione"
+            v-model="tool.note"
           />
-          <CInput label="Standard" placeholder="Standard" />
-          <CInput label="Tags" placeholder="Tags" />
-          <CInput label="Versione" placeholder="Versione" />
-          <CInput label="Tipologia" placeholder="Tipologia" />
-          <CInput label="Riferimenti" placeholder="Riferimenti" />
+          <CInput
+            label="Standard"
+            placeholder="Standard"
+            v-model="tool.standard"
+          />
+          <CInput label="Tags" placeholder="Tags" v-model="tool.tags"/>
+          <CInput
+            label="Versione"
+            placeholder="Versione"
+            v-model="tool.versione"
+          />
+          <CInput
+            label="Tipologia"
+            placeholder="Tipologia"
+            v-model="tool.tipologia"
+          />
+          <CInput
+            label="Riferimenti"
+            placeholder="Riferimenti"
+            v-model="tool.riferimenti"
+          />
         </CCardBody>
         <CCardFooter>
           <CButton
@@ -63,7 +92,7 @@ export default {
     handleSubmit() {
       this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) {
-        this.$store.dispatch("tools/update", this.dug).then(() => {
+        this.$store.dispatch("tools/update", this.tool).then(() => {
           this.backToList();
         });
       }

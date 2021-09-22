@@ -69,6 +69,11 @@
                     placeholder="Riferimenti"
                     v-model="tool.riferimenti"
                   />
+                  <CInput
+                    label="License"
+                    placeholder="License"
+                    v-model="tool.license"
+                  />
                 </CCardBody>
                 <CCardFooter>
                   <CButton
@@ -102,7 +107,7 @@ export default {
   data() {
     return {
       tool: {
-        id: null,
+        id: "",
         data: "",
         descrizione: "",
         homepage: "",
