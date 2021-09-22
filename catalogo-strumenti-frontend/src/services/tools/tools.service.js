@@ -1,4 +1,4 @@
-import { axiosRegedit } from "@/http";
+/* import { axiosRegedit } from "@/http"; */
 import AbstractService from "@/services/abstract.service";
 
 class ToolsService extends AbstractService {
@@ -6,7 +6,7 @@ class ToolsService extends AbstractService {
     super(endpoint);
   }
 
-  findAll() {
+  /* findAll() {
     return axiosRegedit
       .get(this.endpoint)
       .then(res => {
@@ -17,6 +17,6 @@ class ToolsService extends AbstractService {
       .catch(err => {
         throw err;
       });
-  }
+  } */
 }
 export const toolsService = new ToolsService("/catalogue/tools");

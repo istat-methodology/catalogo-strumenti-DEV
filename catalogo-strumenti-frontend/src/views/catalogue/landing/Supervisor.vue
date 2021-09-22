@@ -8,7 +8,7 @@
         <header class="card-header">
           Tools List
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'DugAdd' }">
+            <router-link tag="a" :to="{ name: 'ToolAdd' }">
               <add-icon />
             </router-link>
           </div>
@@ -26,7 +26,10 @@
               <td>
                 <router-link
                   tag="a"
-                  :to="{ name: 'ToolEdit', params: { id: item.id } }"
+                  :to="{
+                    name: 'ToolEdit',
+                    params: { id: item.id }
+                  }"
                 >
                   <edit-icon />
                 </router-link>
@@ -43,6 +46,17 @@
         </CCardBody>
       </div>
     </div>
+    <CModal title="Warning!" :show.sync="warningModal">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton shape="square" size="sm" color="primary" @click="deleteTool">
+          Delete
+        </CButton>
+      </template>
+      Delete Dug '{{ selectedTool.nome }}'?
+    </CModal>
   </div>
 </template>
 
@@ -53,7 +67,9 @@ export default {
   name: "Supervisor",
   data() {
     return {
-      fields: [
+      warningModal: false,
+      selectedTool: {},
+      tool: [
         {
           key: "id",
           label: "Identificativo",
@@ -109,6 +125,19 @@ export default {
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("tools", ["toolscatalog"])
+  },
+  methods: {
+    deleteTool() {
+      this.$store.dispatch("tools/delete", this.selectedDug.id);
+      this.warningModal = false;
+    },
+    modalOpen(tool) {
+      this.selectedTool = tool;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
+    }
   },
   created() {
     this.$store.dispatch("tools/findAll");
