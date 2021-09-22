@@ -46,6 +46,17 @@
         </CCardBody>
       </div>
     </div>
+    <CModal title="Warning!" :show.sync="warningModal">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton shape="square" size="sm" color="primary" @click="deleteTool">
+          Delete
+        </CButton>
+      </template>
+      Delete Dug '{{ selectedTool.nome }}'?
+    </CModal>
   </div>
 </template>
 
@@ -56,6 +67,7 @@ export default {
   name: "Supervisor",
   data() {
     return {
+      warningModal: false,
       selectedTool: {},
       fields: [
         {
