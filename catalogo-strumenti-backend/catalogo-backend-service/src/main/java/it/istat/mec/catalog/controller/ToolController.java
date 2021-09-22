@@ -52,6 +52,13 @@ public class ToolController {
 		return toolService.findAllTools();
 	}
 	
+	@GetMapping(value = "/tools/{id}")
+	public ToolDto getTool(@PathVariable("id") Long id) {
+
+		return toolService.findToolById(id);
+
+	}
+	
 	@PostMapping("/tools")
 	public ToolDto create(@RequestBody CreateToolRequest request) {
 
