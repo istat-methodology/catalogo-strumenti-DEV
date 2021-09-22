@@ -69,7 +69,7 @@ export default {
     return {
       warningModal: false,
       selectedTool: {},
-      tool: [
+      fields: [
         {
           key: "id",
           label: "Identificativo",
