@@ -5,7 +5,7 @@
       <CCard>
         <CCardHeader>Tool</CCardHeader>
         <CCardBody>
-          <CInput label="Nome" placeholder="Nome" v-model="tool.nome"/>
+          <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
           <!--  <div class="help-block" :class="{ show: $v.dug.name.$error }">
             This field is required
           </div> -->
@@ -14,7 +14,7 @@
             placeholder="Descrizione"
             v-model="tool.descrizione"
           />
-          <CInput label="Autore" placeholder="Autore" v-model="tool.autore"/>
+          <CInput label="Autore" placeholder="Autore" v-model="tool.autore" />
           <CInput
             label="Documentazione"
             placeholder="Documentazione"
@@ -35,7 +35,7 @@
             placeholder="Standard"
             v-model="tool.standard"
           />
-          <CInput label="Tags" placeholder="Tags" v-model="tool.tags"/>
+          <CInput label="Tags" placeholder="Tags" v-model="tool.tags" />
           <CInput
             label="Versione"
             placeholder="Versione"
