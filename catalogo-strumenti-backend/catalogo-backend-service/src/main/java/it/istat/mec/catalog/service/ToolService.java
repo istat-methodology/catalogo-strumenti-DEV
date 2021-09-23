@@ -10,7 +10,6 @@ import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.request.UpdateToolRequest;
 import it.istat.mec.catalog.translators.Translators;
-
 @Service
 public class ToolService {
 	
@@ -50,8 +49,11 @@ public class ToolService {
 		
 		return Translators.translate(tool);
 	}
-	public ToolDto deleteTool(Long id) {
-		ToolDto toolDto = findToolById(id);
-		return toolDto;
+	public ToolDto deleteTool(Long id) {		
+		if (!toolDao.findById(id).isPresent())
+			throw new NoDataException("Tool not present");
+			CatalogTool tool = toolDao.findById(id).get();
+			toolDao.delete(tool);
+			return Translators.translate(tool);		
 	}
 }
