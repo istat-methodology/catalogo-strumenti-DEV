@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/catalogue")
+@RequestMapping("/catalog")
 public class ToolController {
 	
 	@Autowired
