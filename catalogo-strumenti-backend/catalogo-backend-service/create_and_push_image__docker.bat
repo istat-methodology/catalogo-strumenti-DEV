@@ -1,4 +1,4 @@
-docker build -t mecdcme/catalogue-service  .
+docker build -t mecdcme/catalog-service  .
 
-docker push mecdcme/catalogue-service
+docker push mecdcme/catalog-service
 
