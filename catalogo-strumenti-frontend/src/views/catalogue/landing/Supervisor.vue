@@ -128,7 +128,7 @@ export default {
   },
   methods: {
     deleteTool() {
-      this.$store.dispatch("tools/delete", this.selectedDug.id);
+      this.$store.dispatch("tools/delete", this.selectedTool.id);
       this.warningModal = false;
     },
     modalOpen(tool) {
