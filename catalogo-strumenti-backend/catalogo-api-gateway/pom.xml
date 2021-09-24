@@ -12,7 +12,7 @@
     <artifactId>catalogo-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>api-gateway</name>
-    <description>API gateway service rest API for catalogue service</description>
+    <description>API gateway service rest API for catalog service</description>
 
     <properties>
         <java.version>11</java.version>

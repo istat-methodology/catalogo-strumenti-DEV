@@ -1,4 +1,4 @@
-docker build -t mecdcme/catalogue-api-gateway  .
+docker build -t mecdcme/catalog-api-gateway  .
 
-docker push mecdcme/catalogue-api-gateway
+docker push mecdcme/catalog-api-gateway
 
