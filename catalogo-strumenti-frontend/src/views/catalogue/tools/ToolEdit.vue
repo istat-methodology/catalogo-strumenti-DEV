@@ -59,7 +59,7 @@
             color="primary"
             class="mr-2"
             @click.prevent="handleSubmit"
-            >Next</CButton
+            >Update</CButton
           >
           <CButton
             shape="square"
@@ -90,12 +90,12 @@ export default {
   }, */
   methods: {
     handleSubmit() {
-      this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) {
-        this.$store.dispatch("tools/update", this.tool).then(() => {
-          this.backToList();
-        });
-      }
+      /*  this.$v.$touch(); //validate form data
+      if (!this.$v.dug.$invalid) { */
+      this.$store.dispatch("tools/update", this.tool).then(() => {
+        this.backToList();
+      });
+      /*   } */
     },
     backToList() {
       this.$router.push("/catalogue/tools");
