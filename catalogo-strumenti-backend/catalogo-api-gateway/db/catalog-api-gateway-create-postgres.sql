@@ -1,6 +1,6 @@
 -- 
 -- CLASSIFICATION TABLES
 -- 
-CREATE TABLE regedit.is2_jwttoken (
+CREATE TABLE catalog_gateway_jwttoken (
     token character varying(200)
 );

@@ -1,11 +1,11 @@
 version: '3'
 services:
   app:
-    image: mecdcme/catalog-api-gateway:latest
+    image: mecdcme/users_service:latest
     ports:
       - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/catalog_gateway?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/regedit_users?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_DATASOURCE_DRIVERCLASSNAME=com.mysql.cj.jdbc.Driver
@@ -17,8 +17,8 @@ services:
    image: mysql:latest
    command: ["--innodb_use_native_aio=0","--default-authentication-plugin=mysql_native_password","--lower_case_table_names=1"]
    volumes:
-    - ./db/catalogue-api-gateway-create-mysql.sql:/docker-entrypoint-initdb.d/create-db.sql
-    - ./db/catalogue-api-gateway-init.sql:/docker-entrypoint-initdb.d/init-db.sql
+    - ./db/regedit-create-mysql.sql:/docker-entrypoint-initdb.d/create-db.sql
+    - ./db/regedit-data.sql:/docker-entrypoint-initdb.d/init-db.sql
    restart: always
    environment:
     MYSQL_ROOT_PASSWORD: root

@@ -7,7 +7,7 @@ RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests=true
 
 FROM openjdk:11.0.9.1-jre-slim
 
-COPY --from=build /usr/src/app/target/catalog-api-gateway.jar /usr/app/catalog-api-gateway.jar
+COPY --from=build /usr/src/app/target/users_service.jar /usr/app/users_service.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/app/catalog-api-gateway.jar"]
+ENTRYPOINT ["java","-jar","/usr/app/users_service.jar"]

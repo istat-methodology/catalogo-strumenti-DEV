@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: users-service
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        default_schema: PD_RSA_SPER
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    url: jdbc:oracle:thin:/@EXAPES_AP_RSA_SPER
+    name: jdbc/confluence
+    auth: Container
+    driverClassName: oracle.jdbc.OracleDriver
+    platform: oracle
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 3
+server:
+  port: 8081
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8080/eureka
+    instance:
+      hostname: localhost
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, auditevents
+  metrics:
+    export:
+      atlas:
+        enabled: false
+api:
+  version: 1
+
+
