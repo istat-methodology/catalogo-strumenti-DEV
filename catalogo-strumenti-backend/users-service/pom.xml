@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.istat.mec</groupId>
-	<artifactId>users-service</artifactId>
+	<artifactId>users-service1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Users</name>
 	<packaging>${packaging.type}</packaging>
