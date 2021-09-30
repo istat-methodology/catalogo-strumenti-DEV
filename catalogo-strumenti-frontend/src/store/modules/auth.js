@@ -87,12 +87,12 @@ const actions = {
       root: true
     });
     //Clear address store
-    dispatch("address/clearAssigned", null, {
+    /*  dispatch("address/clearAssigned", null, {
       root: true
     });
     dispatch("address/clear", null, {
       root: true
-    });
+    }); */
   }
 };
 const getters = {
