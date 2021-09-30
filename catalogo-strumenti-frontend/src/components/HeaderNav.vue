@@ -1,12 +1,20 @@
 <template>
   <div class="c-subheader-nav mfe-2">
     <template v-if="isSupervisor">
-      <span class="revisore">Revisore:</span>
+      <span class="revisore">( Amministratore )</span>
+
       <!-- <span class="revisore-name pl-1 pr-2">
         {{ assignedName | dashEmpty }}</span
       > -->
     </template>
     <template v-else>
+      <span class="revisore">( Utente )</span>
+
+      <!-- <span class="revisore-name pl-1 pr-2">
+        {{ assignedName | dashEmpty }}</span
+      > -->
+    </template>
+    <!--  <template v-else>
       <a href=" https://www.google.it/maps" target="_blank" class="pr-3"
         >Google maps</a
       >
@@ -16,7 +24,7 @@
         class="pr-2"
         >Egon</a
       >
-    </template>
+    </template> -->
   </div>
 </template>
 
