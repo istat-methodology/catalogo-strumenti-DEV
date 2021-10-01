@@ -12,9 +12,7 @@ public class UpdateToolRequest implements Serializable {
 	private static final long serialVersionUID = -8492573172388881146L;
 	private Long id;
 	private String data;
-	private String descrizione;	
-	private String homepage;
-	private String download;
+	private String descrizione;		
 	private String metodoStatistico;
 	private String nome;
 	private String note;
@@ -23,6 +21,5 @@ public class UpdateToolRequest implements Serializable {
 	private String versione;
 	private String tipologia;
 	private String riferimenti;
-	private String license;
-
+	
 }

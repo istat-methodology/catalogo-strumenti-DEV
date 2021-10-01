@@ -12,8 +12,6 @@ public class CreateToolRequest implements Serializable {
 	private Integer id;
 	private String data;
 	private String descrizione;	
-	private String homepage;
-	private String download;
 	private String metodoStatistico;
 	private String nome;
 	private String note;
@@ -21,7 +19,6 @@ public class CreateToolRequest implements Serializable {
 	private String tags;
 	private String versione;
 	private String tipologia;
-	private String riferimenti;
-	private String license;
+	private String riferimenti;	
 
 }

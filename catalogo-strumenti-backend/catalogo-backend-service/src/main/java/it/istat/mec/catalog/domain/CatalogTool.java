@@ -26,13 +26,7 @@ public class CatalogTool implements Serializable  {
 	private String data;
 	
 	@Column(name = "DESCRIZIONE")
-	private String descrizione;
-
-	@Column(name = "HOMEPAGE")
-	private String homepage;
-
-	@Column(name = "DOWNLOAD")
-	private String download;
+	private String descrizione;	
 
 	@Column(name = "METODO_STATISTICO")
 	private String metodoStatistico;
@@ -40,7 +34,7 @@ public class CatalogTool implements Serializable  {
 	@Column(name = "NOME")
 	private String nome;
 
-	@Column(name = "NOTE")
+	@Column(name = "NOTE_DI_COMPILAZIONE")
 	private String note;
 
 	@Column(name = "STANDARD")
@@ -56,9 +50,6 @@ public class CatalogTool implements Serializable  {
 	private String tipologia;
 
 	@Column(name = "RIFERIMENTI")
-	private String riferimenti;
-
-	@Column(name = "LICENSE")
-	private String license;
+	private String riferimenti;	
 	
 }

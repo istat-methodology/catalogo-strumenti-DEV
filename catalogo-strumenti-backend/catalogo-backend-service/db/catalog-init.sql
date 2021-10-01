@@ -1,28 +1,28 @@
 use catalog;
 
-INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`homepage`,`download`,`Metodo_Statistico`,`Nome`,`Note`,	`Standard`,	`Tags`,	`Versione`,	`Tipologia`,`Riferimenti`,`License` )
+INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`Metodo_Statistico`,`Nome`,`Note_di_compilazione`, `Standard`, `Tags`, `Versione`, `Tipologia`, `Riferimenti`)
 values (100, 'Today','Detection of outliers and influential errors using a latent variable model',
-'https://rdrr.io/cran/SeleMix/','https://cran.r-project.org/package=SeleMix','Selective Editing via Mixture Models','Selemix','Note',	'ISTAT',
-'mixture, selective editing, outliers',	'1.0.2','package','https://rdrr.io/cran/SeleMix/', 'EUPL' );
+'Selective Editing via Mixture Models','Selemix','Note',	'ISTAT',
+'mixture, selective editing, outliers',	'1.0.2','package','https://rdrr.io/cran/SeleMix/');
 
 -- Dati di test
-INSERT INTO business_process (ID, NAME, DESCR, LABEL, ORDER_CODE) 
+INSERT INTO business_function (ID, NAME, DESCR, LABEL, ACTIVE, GSBPM) 
 	VALUES 
-		(80,'Specify needs',NULL,NULL,1),
-		(110,'Design',NULL,NULL,2),
-		(130,'Build',NULL,NULL,3);
+		(80,'Specify needs',NULL,NULL,1,NULL),
+		(110,'Design',NULL,NULL,2,NULL),
+		(130,'Build',NULL,NULL,3,NULL);
 		
-INSERT INTO CSM_Methodological_Tool	(`ID`,`Data`,`Descrizione`,`homepage`,`download`,`Metodo_Statistico`,`Nome`,`Note`,	`Standard`,	`Tags`,	`Versione`,	`Tipologia`,`Riferimenti`,`License` )
+INSERT INTO CSM_Methodological_Tool	(`ID`, `Data`, `Descrizione`, `Metodo_Statistico`, `Nome`, `Note_di_compilazione`, `Standard`, `Tags`, `Versione`, `Tipologia`, `Riferimenti`)
 values (200, 'Tomorrow','RELAIS (REcord Linkage At IStat) is a toolkit providing a set of techniques for dealing with record linkage projects.',
-'https://www.istat.it/en/methods-and-tools/methods-and-it-tools/process/processing-tools/relais',NULL,'Record Linkage','Relais','Note',	'ISTAT',
-'data integration, probabilistic record linkage, string comparators, blocking/sorting/indexing, deduplication, open source software',	'3.1','desktop application','Available on registration', 'EUPL-1.1' );
+'Record Linkage','Relais','Note','ISTAT','data integration, probabilistic record linkage, string comparators, blocking/sorting/indexing, 
+deduplication, open source software',	'3.1','desktop application','Available on registration');
 
 
 
  -- Link verso il process design esistente 
-INSERT INTO CSM_link_Methodological_tool_Business_Process (`bproc`,`tool`) VALUES (80  , 100 );
-INSERT INTO CSM_link_Methodological_tool_Business_Process (`bproc`,`tool`) VALUES (110  , 100 );
-INSERT INTO CSM_link_Methodological_tool_Business_Process (`bproc`,`tool`) VALUES (130  , 100 );
+INSERT INTO CSM_Methodological_Tool_has_is2_business_function (`CSM_Methodological_Tool_ID`,`is2_business_function_ID`) VALUES (100, 80);
+INSERT INTO CSM_Methodological_Tool_has_is2_business_function (`CSM_Methodological_Tool_ID`,`is2_business_function_ID`) VALUES (100, 110);
+INSERT INTO CSM_Methodological_Tool_has_is2_business_function (`CSM_Methodological_Tool_ID`,`is2_business_function_ID`) VALUES (100, 130);
 
 -- Specializzazioni del software
 INSERT INTO CSM_Software_Procedure (`Codice`,`Sintassi`,`Dipendenze`,`Linguaggio`, `tool` ) VALUES ('', '', 'mvtnorm, graphics', 'R',  100);
@@ -42,10 +42,7 @@ INSERT INTO CSM_link_Agent_tool (`agent`,`tool`,`Ruolo`,`Note`,`Date_riferimento
 
     
 -- Sezione documentale esterna, link alle risorse di documentazione
-INSERT INTO CSM_Documentation (`ID`,`Nome`,`EDITORE`,`Type`,`Note`,`Resource`) VALUES (10,'Selemix','Istat','user guide','Note','https://cran.r-project.org/package=SeleMix');
-INSERT INTO CSM_link_Documentation_tool (`doc`,`tool`) VALUES (10,100);
-
-INSERT INTO CSM_Documentation (`ID`,`Nome`,`EDITORE`,`Type`,`Note`,`Resource`) VALUES (20,'Relais','Istat','user manual','Note','https://www.istat.it/it/files/2014/03/Relais3.1UserGuide.pdf');
-INSERT INTO CSM_link_Documentation_tool (`doc`,`tool`) VALUES (20,200);
+INSERT INTO CSM_Documentation (`ID`,`Nome`,`Organizzazione`,`CSM_Methodological_Tool_ID`) VALUES (10,'Selemix','Istat',100);
+INSERT INTO CSM_Documentation (`ID`,`Nome`,`Organizzazione`,`CSM_Methodological_Tool_ID`) VALUES (20,'Relais','Istat',200);
 
 	
