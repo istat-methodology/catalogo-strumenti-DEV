@@ -6,7 +6,7 @@ CREATE SCHEMA `catalog` DEFAULT CHARACTER SET=utf8mb4 COLLATE=utf8mb4_unicode_ci
 use catalog;
 
  
--- Tabellina di appoggio. Il db dovrà collegarsi a quella di IS2.
+-- Tabellina di appoggio. Il db dovrï¿½ collegarsi a quella di IS2.
  CREATE TABLE IF NOT EXISTS `catalog`.`business_function` (
   `ID` INT(11) NOT NULL AUTO_INCREMENT,
   `NAME` VARCHAR(100) NULL DEFAULT NULL,
@@ -65,10 +65,10 @@ CREATE TABLE IF NOT EXISTS `catalog`.`CSM_Statistical_Method` (
   `Autore` VARCHAR(100) NULL DEFAULT NULL,
   `Obiettivo` VARCHAR(100) NULL DEFAULT NULL,
   `Descrizione` VARCHAR(100) NULL DEFAULT NULL,
-  `Generalità` VARCHAR(100) NULL DEFAULT NULL,
+  `Generalita` VARCHAR(100) NULL DEFAULT NULL,
   `Ipotesi` VARCHAR(100) NULL DEFAULT NULL,
   `Limiti` VARCHAR(100) NULL DEFAULT NULL,
-  `Indicatori_qualità` VARCHAR(100) NULL DEFAULT NULL,
+  `Indicatori_qualita` VARCHAR(100) NULL DEFAULT NULL,
   `tool` INT NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
   INDEX `fk_Statistical_Method_is2_Methodological_Tool` (`tool` ASC) VISIBLE,
