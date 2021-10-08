@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "BUSINESS_PROCESS")
+@Table(name = "BUSINESS_FUNCTION")
 public class BusinessFunction implements Serializable  {
 
 	private static final long serialVersionUID = 267803872317420154L;
