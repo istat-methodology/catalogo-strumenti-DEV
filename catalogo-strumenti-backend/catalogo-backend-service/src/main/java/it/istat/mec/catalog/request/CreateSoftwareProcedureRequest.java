@@ -5,8 +5,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CreateSoftwareProcedureRequest {
+	
 	private Long id;	
-	private String nome;	
-	private String organizzazione;	
+	private String codice;	
+	private String sintassi;	
+	private String dipendenze;		
+	private String linguaggio;	
 	private String toolId;	
 }

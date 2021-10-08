@@ -21,12 +21,18 @@ public class SoftwareProcedure implements Serializable  {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NOME")
-	private String nome;
+	@Column(name = "CODICE")
+	private String codice;
 	
-	@Column(name = "ORGANIZZAZIONE")
-	private String organizzazione;
+	@Column(name = "SINTASSI")
+	private String sintassi;
 	
-	@Column(name = "CSM_METHODOLOGICAL_TOOL_ID")
+	@Column(name = "DIPENDENZE")
+	private String dipendenze;	
+	
+	@Column(name = "LINGUAGGIO")
+	private String linguaggio;	
+	
+	@Column(name = "TOOL")
 	private String toolId;	
 }
