@@ -1,12 +1,13 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -34,5 +35,7 @@ public class BusinessFunction implements Serializable  {
 
 	@Column(name = "GSBPM")
 	private String gsbpm;
-
+	
+	@ManyToMany(mappedBy = "businessFunctions")
+    private List<CatalogTool> catalogTools;
 }

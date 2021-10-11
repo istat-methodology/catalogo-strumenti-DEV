@@ -5,8 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,5 +31,9 @@ public class Documentation implements Serializable  {
 	
 	@Column(name = "CSM_METHODOLOGICAL_TOOL_ID")
 	private String toolId;	
+	
+	@ManyToOne
+    @JoinColumn(name = "CSM_METHODOLOGICAL_TOOL_ID", insertable = false, updatable = false)
+    private CatalogTool catalogTool;
 	
 }

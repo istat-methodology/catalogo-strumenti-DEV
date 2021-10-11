@@ -1,10 +1,12 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -26,5 +28,8 @@ public class Agent implements Serializable  {
 	
 	@Column(name = "ORGANIZZAZIONE")
 	private String organizzazione;	
+	
+	@ManyToMany(mappedBy = "agents")
+    private List<CatalogTool> catalogTools;
 
 }

@@ -45,4 +45,8 @@ INSERT INTO CSM_link_Agent_tool (`agent`,`tool`,`Ruolo`,`Note`,`Date_riferimento
 INSERT INTO CSM_Documentation (`ID`,`Nome`,`Organizzazione`,`CSM_Methodological_Tool_ID`) VALUES (10,'Selemix','Istat',100);
 INSERT INTO CSM_Documentation (`ID`,`Nome`,`Organizzazione`,`CSM_Methodological_Tool_ID`) VALUES (20,'Relais','Istat',200);
 
+INSERT INTO `catalog`.`csm_statistical_method` (`ID`, `Nome`, `Autore`, `Obiettivo`, `Descrizione`, `Generalita`, `Ipotesi`, `Limiti`, `Indicatori_qualita`, `tool`) VALUES ('1', 'Metodo di test', 'Antonio Bianchi', 'Test', 'Effettua una test', 'Prova', 'Ciao', 'Alcuni', 'Vari', '100');
+INSERT INTO `catalog`.`csm_statistical_method` (`ID`, `Nome`, `Autore`, `Obiettivo`, `Descrizione`, `Generalita`, `Ipotesi`, `Limiti`, `Indicatori_qualita`, `tool`) VALUES ('2', 'Metodo di test n2', 'Franco Rossi', 'Test2', 'Fa una prova', 'Prova2', 'CiaoCiao', 'Alcuni', 'Vari', '200');
 	
+INSERT INTO `catalog`.`csm_statistical_service` (`ID`, `Metodi_esposti`, `Dipendenze`, `Protocollo`, `tool`) VALUES ('1', 'Vari', 'Nessuna', 'Http', '100');
+INSERT INTO `catalog`.`csm_statistical_service` (`ID`, `Metodi_esposti`, `Dipendenze`, `Protocollo`, `tool`) VALUES ('2', 'Alcuni', 'Varie', 'Ftp', '200');

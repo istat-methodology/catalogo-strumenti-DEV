@@ -1,12 +1,18 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -52,4 +58,20 @@ public class CatalogTool implements Serializable  {
 	@Column(name = "RIFERIMENTI")
 	private String riferimenti;	
 	
+	@JsonBackReference
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "csm_methodological_tool_has_is2_business_function", joinColumns = {
+            @JoinColumn(name = "CSM_METHODOLOGICAL_TOLL_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "IS2_BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false)})
+    private List<BusinessFunction> businessFunctions;
+	
+	@JsonBackReference
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "csm_link_agent_tool", joinColumns = {
+            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "AGENT", referencedColumnName = "ID", nullable = false)})
+    private List<Agent> agents;
+	
+	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+    private List<Documentation> documentations;
 }
