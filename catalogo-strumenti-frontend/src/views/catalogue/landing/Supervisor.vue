@@ -22,7 +22,20 @@
             sorter
             hover
             pagination
-            ><template #show_update="{item}">
+            ><template #show_doc="{item}">
+              <td>
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'ToolDoc',
+                    params: { id: item.id }
+                  }"
+                >
+                  <text-icon />
+                </router-link>
+              </td>
+            </template>
+            <template #show_update="{item}">
               <td>
                 <router-link
                   tag="a"
@@ -104,6 +117,13 @@ export default {
           key: "metodoStatistico",
           label: "Metodo Statistico",
           _style: "width:10%;"
+        },
+        {
+          key: "show_doc",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false
         },
         {
           key: "show_update",
