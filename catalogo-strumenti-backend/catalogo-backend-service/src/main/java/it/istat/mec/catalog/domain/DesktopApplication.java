@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -42,5 +44,9 @@ public class DesktopApplication implements Serializable  {
 
 	@Column(name = "TOOL")
 	private String tool;
+	
+	@ManyToOne
+    @JoinColumn(name = "TOOL", insertable = false, updatable = false)
+    private CatalogTool catalogTool;
 
 }

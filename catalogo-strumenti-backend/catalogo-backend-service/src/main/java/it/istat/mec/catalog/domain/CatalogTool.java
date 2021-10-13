@@ -74,4 +74,16 @@ public class CatalogTool implements Serializable  {
 	
 	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
     private List<Documentation> documentations;
+	
+	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+    private List<StatisticalService> statisticalServices;
+	
+	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+    private List<DesktopApplication> desktopApplications;
+	
+	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+    private List<SoftwareProcedure> softwareProcedures;
+	
+	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+    private List<StatisticalMethod> statisticalMethods;
 }
