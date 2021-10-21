@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.StatisticalServiceDao;
+import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.StatisticalService;
 import it.istat.mec.catalog.dto.StatisticalServiceDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -18,6 +19,12 @@ public class StatisticalServiceService {
 	public List<StatisticalServiceDto> findAllStatisticalServices() {
 		
 		return Translators.translateSS(statisticalServiceDao.findAll());
+
+	}
+	
+	public List<StatisticalServiceDto> findByCataloTool(Long id) {
+		
+		return Translators.translateSS(statisticalServiceDao.findByCatalogTool(new CatalogTool(id)));
 
 	}
 	

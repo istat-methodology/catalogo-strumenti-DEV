@@ -32,8 +32,6 @@ public class StatisticalService implements Serializable  {
 	@Column(name = "PROTOCOLLO")
 	private String protocollo;	
 	
-	@Column(name = "TOOL")
-	private String toolId;
 	
 	@ManyToOne
     @JoinColumn(name = "TOOL", insertable = false, updatable = false)

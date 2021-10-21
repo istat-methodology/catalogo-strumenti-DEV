@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -22,9 +24,11 @@ import lombok.Setter;
 public class CatalogTool implements Serializable  {
 	
 	
+	
+
 	private static final long serialVersionUID = -470124614809408504L;
 	
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Long id;
 
@@ -86,4 +90,13 @@ public class CatalogTool implements Serializable  {
 	
 	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
     private List<StatisticalMethod> statisticalMethods;
+
+	public CatalogTool() {
+		super();
+		
+	}
+	public CatalogTool(Long id) {
+		super();
+		this.id = id;
+	}
 }

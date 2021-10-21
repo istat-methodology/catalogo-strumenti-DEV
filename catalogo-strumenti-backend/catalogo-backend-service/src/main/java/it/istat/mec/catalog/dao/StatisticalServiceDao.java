@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.StatisticalService;
 
 @Repository
@@ -10,6 +12,8 @@ public interface StatisticalServiceDao extends JpaRepository<StatisticalService,
 
 	@Override
 	List<StatisticalService> findAll();
+	
+	List<StatisticalService> findByCatalogTool(CatalogTool tool);
 	
 	@Override
 	Optional<StatisticalService> findById(Long id);

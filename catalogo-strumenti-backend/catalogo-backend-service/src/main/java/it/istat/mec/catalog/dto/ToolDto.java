@@ -2,6 +2,7 @@ package it.istat.mec.catalog.dto;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,7 @@ public class ToolDto implements Serializable {
 	private String versione;
 	private String tipologia;
 	private String riferimenti;	 
+	
+	private List <StatisticalServiceDto> statisticalServices;
 	
 }
