@@ -28,7 +28,14 @@ import {
   CTextarea,
   CButton,
   CAlert,
-  CDataTable
+  CDataTable,
+  CTab,
+  CTabs
+  /*  CNav,
+  CNavItem,
+  CNavLink,
+  CTabPane,
+  CTabContent */
 } from "@coreui/vue";
 
 Vue.component("CBadge", CBadge);
@@ -59,3 +66,10 @@ Vue.component("CTextarea", CTextarea);
 Vue.component("CButton", CButton);
 Vue.component("CAlert", CAlert);
 Vue.component("CDataTable", CDataTable);
+Vue.component("CTab", CTab);
+Vue.component("CTabs", CTabs);
+/* Vue.component("CNav", CNav);
+Vue.component("CNavItem", CNavItem);
+Vue.component("CNavLink", CNavLink);
+Vue.component("CTabPane", CTabPane);
+Vue.component("CTabContent", CTabContent); */

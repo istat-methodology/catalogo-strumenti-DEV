@@ -9,15 +9,14 @@
                 <div class="mt-2">
                   <h2>RegEdit</h2>
                   <p style="margin-bottom:5rem">
-                    Benvenuti nell'applicazione RegEdit. <br />
-                    L'applicazione permette di modificare gli indirizzi presenti
-                    nel registro dei luogi.
+                    Benvenuti nell'applicazione Tools-Catalog. <br />
+                    Un catalogo di strumenti per la produzione Statistica.
                   </p>
                   <p class="mb-0">
                     Il progetto è open-source, il codice sorgente è disponibile
                     <a
                       style="color:white"
-                      href="https://github.com/istat-methodology/regedit-frontend"
+                      href="https://github.com/istat-methodology/Tools-Catalog-frontend"
                       target="_blank"
                       >@github</a
                     >
@@ -27,7 +26,7 @@
             </div>
             <CCard class="mb-0">
               <CCardHeader align="center">
-                <h3 class="mt-3">Accedi a RegEdit</h3>
+                <h3 class="mt-3">Accedi a Tools-Catalog</h3>
               </CCardHeader>
               <CCardBody class="mb-0 mt-3">
                 <CAlert color="danger" v-if="errorMsg" class="text-center">

@@ -1,6 +1,6 @@
 var path = require("path");
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/regedit/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/Tools-Catalog/" : "/",
   devServer: {
     host: "localhost",
     port: 8070

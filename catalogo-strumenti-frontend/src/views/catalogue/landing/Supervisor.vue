@@ -22,12 +22,12 @@
             sorter
             hover
             pagination
-            ><template #show_doc="{item}">
+            ><template #show_details="{item}">
               <td>
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'ToolDoc',
+                    name: 'ToolDetails',
                     params: { id: item.id }
                   }"
                 >
@@ -119,7 +119,7 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "show_doc",
+          key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
