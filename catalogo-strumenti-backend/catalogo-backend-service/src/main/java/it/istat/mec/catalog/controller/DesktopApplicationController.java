@@ -36,9 +36,9 @@ public class DesktopApplicationController {
 	}
 	
 	@GetMapping(value = "/desktopapplications/tools/{id}")
-	public DesktopApplicationDto getDesktopApplicationByCataloTool(@PathVariable("id") Long id) {
+	public List<DesktopApplicationDto> getDesktopApplicationByCataloTool(@PathVariable("id") Long id) {
 
-		return (DesktopApplicationDto) desktopApplicationService.findByCataloTool(id);
+		return desktopApplicationService.findByCataloTool(id);
 
 	}
 	

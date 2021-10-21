@@ -29,7 +29,7 @@ public class ToolDto implements Serializable {
 	
 	private List <StatisticalServiceDto> statisticalServices;	
 	private List <DesktopApplicationDto> desktopApplications;
-	private List<SoftwareProcedure> softwareProcedures;
-	private List<StatisticalMethod> statisticalMethods;
+	private List<SoftwareProcedureDto> softwareProcedures;
+	private List<StatisticalMethodDto> statisticalMethods;
 	
 }

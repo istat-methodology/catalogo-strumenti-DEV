@@ -10,5 +10,5 @@ public class DocumentationDto implements Serializable {
 	private Long id;	
 	private String nome;	
 	private String organizzazione;	
-	private String toolId;
+	private String tool;
 }

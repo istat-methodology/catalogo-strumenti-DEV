@@ -40,10 +40,8 @@ public class DesktopApplication implements Serializable  {
 	private String pacchetto; 
 	
 	@Column(name = "SISTEMA_OPERATIVO")
-	private String sistemaOperativo; 
-
-	@Column(name = "TOOL")
-	private String tool;
+	private String sistemaOperativo;
+	
 	
 	@ManyToOne
     @JoinColumn(name = "TOOL", insertable = false, updatable = false)
