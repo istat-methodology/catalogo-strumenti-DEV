@@ -47,8 +47,7 @@ public class StatisticalMethod implements Serializable  {
 	@Column(name = "INDICATORI_QUALITA")
 	private String indicatoriQualita;
 	
-	@Column(name = "TOOL")
-	private String toolId;	
+	
 	
 	@ManyToOne
     @JoinColumn(name = "TOOL", insertable = false, updatable = false)

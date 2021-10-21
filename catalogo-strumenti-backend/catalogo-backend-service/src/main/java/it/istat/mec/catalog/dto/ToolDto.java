@@ -4,6 +4,8 @@ package it.istat.mec.catalog.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import it.istat.mec.catalog.domain.SoftwareProcedure;
+import it.istat.mec.catalog.domain.StatisticalMethod;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +27,9 @@ public class ToolDto implements Serializable {
 	private String tipologia;
 	private String riferimenti;	 
 	
-	private List <StatisticalServiceDto> statisticalServices;
+	private List <StatisticalServiceDto> statisticalServices;	
+	private List <DesktopApplicationDto> desktopApplications;
+	private List<SoftwareProcedureDto> softwareProcedures;
+	private List<StatisticalMethodDto> statisticalMethods;
 	
 }

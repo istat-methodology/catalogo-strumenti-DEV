@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.DesktopApplicationDao;
+import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -18,6 +19,12 @@ public class DesktopApplicationService {
 	public List<DesktopApplicationDto> findAllDesktopApplications() {
 		
 		return Translators.translateDA(desktopApplicationDao.findAll());
+
+	}
+	
+	public List<DesktopApplicationDto> findByCataloTool(Long id) {
+		
+		return Translators.translateDA(desktopApplicationDao.findByCatalogTool(new CatalogTool(id)));
 
 	}
 	

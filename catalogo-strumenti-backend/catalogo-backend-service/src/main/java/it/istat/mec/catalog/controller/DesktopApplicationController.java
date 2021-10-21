@@ -26,12 +26,19 @@ public class DesktopApplicationController {
 	public List<DesktopApplicationDto> getAllAgents() {
 
 		return desktopApplicationService.findAllDesktopApplications();
-	}
+	}	
 	
 	@GetMapping(value = "/desktopapplications/{id}")
 	public DesktopApplicationDto getDesktopApplication(@PathVariable("id") Long id) {
 
 		return desktopApplicationService.findDesktopApplicationById(id);
+
+	}
+	
+	@GetMapping(value = "/desktopapplications/tools/{id}")
+	public List<DesktopApplicationDto> getDesktopApplicationByCataloTool(@PathVariable("id") Long id) {
+
+		return desktopApplicationService.findByCataloTool(id);
 
 	}
 	

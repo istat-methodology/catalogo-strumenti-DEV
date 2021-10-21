@@ -35,8 +35,6 @@ public class SoftwareProcedure implements Serializable  {
 	@Column(name = "LINGUAGGIO")
 	private String linguaggio;	
 	
-	@Column(name = "TOOL")
-	private String toolId;	
 	
 	@ManyToOne
     @JoinColumn(name = "TOOL", insertable = false, updatable = false)

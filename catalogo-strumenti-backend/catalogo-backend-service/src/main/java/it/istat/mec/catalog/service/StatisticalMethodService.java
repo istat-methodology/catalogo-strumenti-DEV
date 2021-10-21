@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.StatisticalMethodDao;
+import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -20,6 +21,13 @@ public class StatisticalMethodService {
 		return Translators.translateSM(statisticalMethodDao.findAll());
 
 	}
+	
+	public List<StatisticalMethodDto> findByCataloTool(Long id) {
+		
+		return Translators.translateSM(statisticalMethodDao.findByCatalogTool(new CatalogTool(id)));
+
+	}
+	
 	
 	public StatisticalMethodDto newStatisticalMethod(CreateStatisticalMethodRequest request) {
 		StatisticalMethod sm = new StatisticalMethod();
