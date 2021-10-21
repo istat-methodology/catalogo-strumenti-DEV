@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.SoftwareProcedureDao;
+import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -17,7 +18,13 @@ public class SoftwareProcedureService {
 
 	public List<SoftwareProcedureDto> findAllSoftwareProcedures() {
 		
-		return Translators.translateSP(softwareProcedureDao.findAll());
+		return Translators.translateSP(softwareProcedureDao.findAll());		
+
+	}
+	
+	public List<SoftwareProcedureDto> findByCataloTool(Long id) {
+		
+		return Translators.translateSP(softwareProcedureDao.findByCatalogTool(new CatalogTool(id)));
 
 	}
 	

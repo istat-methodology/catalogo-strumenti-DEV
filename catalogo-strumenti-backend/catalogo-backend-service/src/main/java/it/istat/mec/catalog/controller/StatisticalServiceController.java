@@ -26,19 +26,19 @@ public class StatisticalServiceController {
 	public List<StatisticalServiceDto> getAllStatisticalServices() {
 
 		return statisticalServiceService.findAllStatisticalServices();
-	}
-	
-	@GetMapping("/statisticalservices/tools/{id}")
-	public List<StatisticalServiceDto> getByCatalogTool(@PathVariable("id") Long id) {
-
-		return statisticalServiceService.findByCataloTool(id);
-	}
+	}	
 	
 	@GetMapping(value = "/statisticalservices/{id}")
 	public StatisticalServiceDto getStatisticalService(@PathVariable("id") Long id) {
 
 		return statisticalServiceService.findStatisticalServiceById(id);
 
+	}
+	
+	@GetMapping("/statisticalservices/tools/{id}")
+	public List<StatisticalServiceDto> getByCatalogTool(@PathVariable("id") Long id) {
+
+		return statisticalServiceService.findByCataloTool(id);
 	}
 	
 	@PostMapping("/statisticalservices")

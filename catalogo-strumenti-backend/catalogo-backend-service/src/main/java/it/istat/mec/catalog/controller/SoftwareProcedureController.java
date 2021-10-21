@@ -35,6 +35,12 @@ public class SoftwareProcedureController {
 
 	}
 	
+	@GetMapping("/softwareprocedures/tools/{id}")
+	public List<SoftwareProcedureDto> getByCatalogTool(@PathVariable("id") Long id) {
+
+		return softwareProcedureService.findByCataloTool(id);
+	}
+	
 	@PostMapping("/softwareprocedures")
 	public SoftwareProcedureDto create(@RequestBody CreateSoftwareProcedureRequest request) {
 
