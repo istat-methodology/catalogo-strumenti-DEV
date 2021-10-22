@@ -65,7 +65,7 @@
             <CTab title="Software Procedures">
               <CDataTable
                 :items="applications"
-                :fields="fieldsApps"
+                :fields="fieldsProcs"
                 column-filter
                 :items-per-page="10"
                 sorter
@@ -77,7 +77,7 @@
             <CTab title="Statistical Services">
               <CDataTable
                 :items="applications"
-                :fields="fieldsApps"
+                :fields="fieldsServs"
                 column-filter
                 :items-per-page="10"
                 sorter
@@ -162,6 +162,65 @@ export default {
         {
           key: "sistemaOperativo",
           label: "Sistema Operativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "tool",
+          label: "Tool",
+          _style: "width:10%;"
+        }
+      ],
+      fieldsProcs: [
+        {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "codice",
+          label: "Codice",
+          _style: "width:10%;"
+        },
+        {
+          key: "sintassi",
+          label: "Sintassi",
+          _style: "width:10%;"
+        },
+        {
+          key: "dipendenze",
+          label: "Dipendenze",
+          _style: "width:10%;"
+        },
+        {
+          key: "linguaggio",
+          label: "Linguaggio",
+          _style: "width:10%;"
+        },
+        {
+          key: "tool",
+          label: "Tool",
+          _style: "width:10%;"
+        }
+      ],
+      fieldsServs: [
+        {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "metodiEsposti",
+          label: "Metodi Esposti",
+          _style: "width:10%;"
+        },
+        {
+          key: "dipendenze",
+          label: "Dipendenze",
+          _style: "width:10%;"
+        },
+        {
+          key: "protoollo",
+          label: "Protoollo",
           _style: "width:10%;"
         },
         {
