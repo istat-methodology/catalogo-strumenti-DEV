@@ -6,47 +6,97 @@
         <CCardHeader>Tool Details</CCardHeader>
         <CCardBody>
           <CTabs variant="pills" :active-tab="0">
-            <CTab title="Desktop Applications">
-              1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <CTab title="Desktop Applications" v-if="applications">
+              <CDataTable
+                :items="applications"
+                :fields="fields"
+                column-filter
+                :items-per-page="10"
+                sorter
+                hover
+                pagination
+                ><!-- <template #show_details="{item}">
+                  <td>
+                    <router-link
+                      tag="a"
+                      :to="{
+                        name: 'ToolDetails',
+                        params: { id: item.id }
+                      }"
+                    >
+                      <text-icon />
+                    </router-link>
+                  </td>
+                </template>
+                <template #show_update="{item}">
+                  <td>
+                    <router-link
+                      tag="a"
+                      :to="{
+                        name: 'ToolEdit',
+                        params: { id: item.id }
+                      }"
+                    >
+                      <edit-icon />
+                    </router-link>
+                  </td>
+                </template>
+                <template #show_delete="{item}">
+                  <td>
+                    <span class="icon-link" @click="modalOpen(item)"
+                      ><delete-icon
+                    /></span>
+                  </td>
+                </template> -->
+              </CDataTable>
             </CTab>
             <CTab title="Software Procedures">
-              2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <CDataTable
+                :items="applications"
+                :fields="fields"
+                column-filter
+                :items-per-page="10"
+                sorter
+                hover
+                pagination
+              >
+              </CDataTable>
             </CTab>
             <CTab title="Statistical Services">
-              Text will not be shown.
+              <CDataTable
+                :items="applications"
+                :fields="fields"
+                column-filter
+                :items-per-page="10"
+                sorter
+                hover
+                pagination
+              >
+              </CDataTable>
             </CTab>
             <CTab title="Statistical Methods">
-              2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-              do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <CDataTable
+                :items="applications"
+                :fields="fields"
+                column-filter
+                :items-per-page="10"
+                sorter
+                hover
+                pagination
+              >
+              </CDataTable>
             </CTab>
           </CTabs>
         </CCardBody>
         <CCardFooter>
-          <CButton
+          <!-- <CButton
             shape="square"
             size="sm"
             color="primary"
             class="mr-2"
             @click.prevent="handleSubmit"
             >Update</CButton
-          >
+          > -->
           <CButton
             shape="square"
             size="sm"
@@ -61,30 +111,73 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
+import { mapGetters } from "vuex";
 export default {
   name: "ToolDetails",
   data() {
     return {
-      page: {
-        activeKey: "1"
-      }
+      fields: [
+        {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "dipendenze",
+          label: "Dipendenze",
+          _style: "width:10%;"
+        },
+        {
+          key: "download",
+          label: "Download",
+          _style: "width:10%;"
+        },
+        {
+          key: "licenza",
+          label: "Licenza",
+          _style: "width:10%;"
+        },
+        {
+          key: "linguaggio",
+          label: "Linguaggio",
+          _style: "width:10%;"
+        },
+        {
+          key: "pacchetto",
+          label: "Pacchetto",
+          _style: "width:10%;"
+        },
+        {
+          key: "sistemaOperativo",
+          label: "Sistema Operativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "tool",
+          label: "Tool",
+          _style: "width:10%;"
+        }
+      ]
     };
   },
+  computed: {
+    ...mapGetters("applications", ["applications"])
+  },
   methods: {
-    handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
+    /* handleSubmit() {
       this.$store.dispatch("tools/update", this.tool).then(() => {
         this.backToList();
       });
-      /*   } */
-    },
+    }, */
     backToList() {
       this.$router.push("/catalogue/tools");
     }
   },
   created() {
-    //this.$store.dispatch("tools/findById", this.$route.params.id);
+    this.$store.dispatch(
+      "applications/findApplications",
+      this.$route.params.id
+    );
   }
 };
 </script>

@@ -11,6 +11,7 @@ import { user } from "./modules/user/user";
 import { role } from "./modules/user/role";
 import { tools } from "./modules/tools/toolscatalog";
 import { version } from "./modules/versioning/appversion";
+import { applications } from "./modules/applications/applications";
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
@@ -23,6 +24,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     tools,
+    applications,
     auth,
     error,
     coreui,
