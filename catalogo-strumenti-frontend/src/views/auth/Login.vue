@@ -7,7 +7,7 @@
             <div class="card text-white bg-gradient-primary d-md-down-none">
               <div class="card-body text-center">
                 <div class="mt-2">
-                  <h2>RegEdit</h2>
+                  <h2>Tools-Catalog</h2>
                   <p style="margin-bottom:5rem">
                     Benvenuti nell'applicazione Tools-Catalog. <br />
                     Un catalogo di strumenti per la produzione Statistica.
