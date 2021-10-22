@@ -5,6 +5,7 @@ export * from "./user/user.service";
 export * from "./user/role.service";
 export * from "./tools/tools.service";
 export * from "./applications/applications.service";
+export * from "./methods/methods.service";
 /* export * from "./report/daily.service";
 export * from "./report/pivot.service";
 export * from "./report/progress.service";

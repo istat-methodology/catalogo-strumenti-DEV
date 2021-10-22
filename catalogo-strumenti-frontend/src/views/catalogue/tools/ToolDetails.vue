@@ -6,10 +6,10 @@
         <CCardHeader>Tool Details</CCardHeader>
         <CCardBody>
           <CTabs variant="pills" :active-tab="0">
-            <CTab title="Desktop Applications" v-if="applications">
+            <CTab title="Desktop Applications">
               <CDataTable
                 :items="applications"
-                :fields="fields"
+                :fields="fieldsApps"
                 column-filter
                 :items-per-page="10"
                 sorter
@@ -53,7 +53,7 @@
             <CTab title="Software Procedures">
               <CDataTable
                 :items="applications"
-                :fields="fields"
+                :fields="fieldsApps"
                 column-filter
                 :items-per-page="10"
                 sorter
@@ -65,7 +65,7 @@
             <CTab title="Statistical Services">
               <CDataTable
                 :items="applications"
-                :fields="fields"
+                :fields="fieldsApps"
                 column-filter
                 :items-per-page="10"
                 sorter
@@ -76,8 +76,8 @@
             </CTab>
             <CTab title="Statistical Methods">
               <CDataTable
-                :items="applications"
-                :fields="fields"
+                :items="methods"
+                :fields="fieldsMethods"
                 column-filter
                 :items-per-page="10"
                 sorter
@@ -116,7 +116,7 @@ export default {
   name: "ToolDetails",
   data() {
     return {
-      fields: [
+      fieldsApps: [
         {
           key: "id",
           label: "Identificativo",
@@ -157,11 +157,59 @@ export default {
           label: "Tool",
           _style: "width:10%;"
         }
+      ],
+      fieldsMethods: [
+        {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "nome",
+          label: "Nome",
+          _style: "width:10%;"
+        },
+        {
+          key: "autore",
+          label: "Autore",
+          _style: "width:10%;"
+        },
+        {
+          key: "obietivo",
+          label: "Obiettivo",
+          _style: "width:10%;"
+        },
+        {
+          key: "descrizione",
+          label: "Descrizione",
+          _style: "width:10%;"
+        },
+        {
+          key: "generalita",
+          label: "Generalità",
+          _style: "width:10%;"
+        },
+        {
+          key: "ipotesi",
+          label: "Ipotesi",
+          _style: "width:10%;"
+        },
+        {
+          key: "limiti",
+          label: "Limiti",
+          _style: "width:10%;"
+        },
+        {
+          key: "indicatoriQualita",
+          label: "Inicatori Qualità",
+          _style: "width:10%;"
+        }
       ]
     };
   },
   computed: {
-    ...mapGetters("applications", ["applications"])
+    ...mapGetters("applications", ["applications"]),
+    ...mapGetters("methods", ["methods"])
   },
   methods: {
     /* handleSubmit() {
@@ -178,6 +226,7 @@ export default {
       "applications/findApplications",
       this.$route.params.id
     );
+    this.$store.dispatch("methods/findMethods", this.$route.params.id);
   }
 };
 </script>

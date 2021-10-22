@@ -12,6 +12,8 @@ import { role } from "./modules/user/role";
 import { tools } from "./modules/tools/toolscatalog";
 import { version } from "./modules/versioning/appversion";
 import { applications } from "./modules/applications/applications";
+import { methods } from "./modules/methods/methods";
+
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
@@ -25,6 +27,7 @@ export default new Vuex.Store({
   modules: {
     tools,
     applications,
+    methods,
     auth,
     error,
     coreui,
