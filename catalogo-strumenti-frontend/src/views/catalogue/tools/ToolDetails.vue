@@ -3,6 +3,18 @@
   <div class="row">
     <div class="col-12">
       <CCard>
+        <CCardHeader>Tool</CCardHeader>
+        <CCardBody>
+          <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
+
+          <CInput
+            label="Descrizione"
+            placeholder="Descrizione"
+            v-model="tool.descrizione"
+          />
+        </CCardBody>
+      </CCard>
+      <CCard>
         <CCardHeader>Tool Details</CCardHeader>
         <CCardBody>
           <CTabs variant="pills" :active-tab="0">
@@ -209,7 +221,8 @@ export default {
   },
   computed: {
     ...mapGetters("applications", ["applications"]),
-    ...mapGetters("methods", ["methods"])
+    ...mapGetters("methods", ["methods"]),
+    ...mapGetters("tools", ["tool"])
   },
   methods: {
     /* handleSubmit() {
@@ -227,6 +240,7 @@ export default {
       this.$route.params.id
     );
     this.$store.dispatch("methods/findMethods", this.$route.params.id);
+    this.$store.dispatch("tools/findById", this.$route.params.id);
   }
 };
 </script>
