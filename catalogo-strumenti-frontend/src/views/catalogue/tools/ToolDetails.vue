@@ -63,7 +63,7 @@
             </CTab>
             <CTab title="Software Procedures">
               <CDataTable
-                :items="applications"
+                :items="procedures"
                 :fields="fieldsProcs"
                 :items-per-page="10"
                 sorter
@@ -74,7 +74,7 @@
             </CTab>
             <CTab title="Statistical Services">
               <CDataTable
-                :items="applications"
+                :items="services"
                 :fields="fieldsServs"
                 :items-per-page="10"
                 sorter
@@ -277,7 +277,9 @@ export default {
   computed: {
     ...mapGetters("applications", ["applications"]),
     ...mapGetters("methods", ["methods"]),
-    ...mapGetters("tools", ["tool"])
+    ...mapGetters("tools", ["tool"]),
+    ...mapGetters("procedures", ["procedures"]),
+    ...mapGetters("services", ["services"])
   },
   methods: {
     /* handleSubmit() {
@@ -295,7 +297,9 @@ export default {
       this.$route.params.id
     );
     this.$store.dispatch("methods/findMethods", this.$route.params.id);
+    this.$store.dispatch("procedures/findProcedures", this.$route.params.id);
     this.$store.dispatch("tools/findById", this.$route.params.id);
+    this.$store.dispatch("services/findServices", this.$route.params.id);
   }
 };
 </script>

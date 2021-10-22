@@ -13,6 +13,8 @@ import { tools } from "./modules/tools/toolscatalog";
 import { version } from "./modules/versioning/appversion";
 import { applications } from "./modules/applications/applications";
 import { methods } from "./modules/methods/methods";
+import { procedures } from "./modules/procedures/procedures";
+import { services } from "./modules/services/services";
 
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
@@ -28,6 +30,8 @@ export default new Vuex.Store({
     tools,
     applications,
     methods,
+    procedures,
+    services,
     auth,
     error,
     coreui,
