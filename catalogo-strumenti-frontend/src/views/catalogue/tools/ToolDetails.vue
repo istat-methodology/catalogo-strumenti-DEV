@@ -22,7 +22,6 @@
               <CDataTable
                 :items="applications"
                 :fields="fieldsApps"
-                column-filter
                 :items-per-page="10"
                 sorter
                 hover
@@ -66,7 +65,6 @@
               <CDataTable
                 :items="applications"
                 :fields="fieldsProcs"
-                column-filter
                 :items-per-page="10"
                 sorter
                 hover
@@ -78,7 +76,6 @@
               <CDataTable
                 :items="applications"
                 :fields="fieldsServs"
-                column-filter
                 :items-per-page="10"
                 sorter
                 hover
@@ -90,7 +87,6 @@
               <CDataTable
                 :items="methods"
                 :fields="fieldsMethods"
-                column-filter
                 :items-per-page="10"
                 sorter
                 hover
