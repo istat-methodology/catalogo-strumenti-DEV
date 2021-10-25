@@ -18,7 +18,7 @@
         <CCardHeader>Tool Details</CCardHeader>
         <CCardBody>
           <CTabs variant="pills" :active-tab="0">
-            <CTab title="Desktop Applications">
+            <CTab title="Applicazioni Desktop">
               <CDataTable
                 :items="applications"
                 :fields="fieldsApps"
@@ -61,7 +61,7 @@
                 </template> -->
               </CDataTable>
             </CTab>
-            <CTab title="Software Procedures">
+            <CTab title="Procedure Software">
               <CDataTable
                 :items="procedures"
                 :fields="fieldsProcs"
@@ -72,7 +72,7 @@
               >
               </CDataTable>
             </CTab>
-            <CTab title="Statistical Services">
+            <CTab title="Servizi Statistici">
               <CDataTable
                 :items="services"
                 :fields="fieldsServs"
@@ -83,7 +83,7 @@
               >
               </CDataTable>
             </CTab>
-            <CTab title="Statistical Methods">
+            <CTab title="Metodi Statistici">
               <CDataTable
                 :items="methods"
                 :fields="fieldsMethods"
@@ -215,8 +215,8 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "protoollo",
-          label: "Protoollo",
+          key: "protocollo",
+          label: "Protocollo",
           _style: "width:10%;"
         },
         {
@@ -242,7 +242,7 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "obietivo",
+          key: "obiettivo",
           label: "Obiettivo",
           _style: "width:10%;"
         },
