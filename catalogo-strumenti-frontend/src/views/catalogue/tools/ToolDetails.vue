@@ -339,7 +339,6 @@ export default {
   font-weight: 600;
 }
 label {
-  color: #b4886b;
   font-weight: bold;
   display: inline;
   padding: 15px;
