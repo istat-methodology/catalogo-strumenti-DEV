@@ -42,11 +42,11 @@ export default {
   data() {
     return {
       fields: [
-        {
+        /*  {
           key: "id",
           label: "Identificativo",
           _style: "width:10%;"
-        },
+        }, */
         {
           key: "nome",
           label: "Nome",
@@ -58,18 +58,13 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "autore",
-          label: "Autore",
-          _style: "width:10%;"
-        },
-        {
           key: "data",
           label: "Data",
           _style: "width:10%;"
         },
         {
-          key: "documentazione",
-          label: "Documentazione",
+          key: "note",
+          label: "Note",
           _style: "width:10%;"
         },
         {

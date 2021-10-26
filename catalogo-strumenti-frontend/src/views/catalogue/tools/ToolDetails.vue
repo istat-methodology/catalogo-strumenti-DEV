@@ -4,14 +4,45 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>Tool</CCardHeader>
-        <CCardBody>
-          <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
+        <CCardBody v-if="tool">
+          <!-- <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
 
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
-            v-model="tool.descrizione"
-          />
+            v-model="tool.descrizione" -->
+          <div>
+            <label>Nome:</label>
+            <span>{{ tool.nome | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Descrizione:</label>
+            <span>{{ tool.descrizione | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Documentazione:</label
+            ><span>{{ tool.documentazione | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Metodo Statistico:</label>
+            <span>{{ tool.metodoStatistico | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Note di Compilazione:</label>
+            <span>{{ tool.note | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Standard:</label>
+            <span>{{ tool.standard | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Tipologia:</label>
+            <span>{{ tool.tipologia | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Riferimenti:</label>
+            <span>{{ tool.riferimenti | dashEmpty }}</span>
+          </div>
         </CCardBody>
       </CCard>
       <CCard>
@@ -303,3 +334,18 @@ export default {
   }
 };
 </script>
+<style scoped>
+.card-header {
+  font-weight: 600;
+}
+label {
+  color: #b4886b;
+  font-weight: bold;
+  display: inline;
+  padding: 15px;
+}
+
+/* label-after {
+  content: ": ";
+} */
+</style>
