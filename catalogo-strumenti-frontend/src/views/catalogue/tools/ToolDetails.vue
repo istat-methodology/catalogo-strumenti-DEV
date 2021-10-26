@@ -156,11 +156,11 @@ export default {
   data() {
     return {
       fieldsApps: [
-        {
+        /*  {
           key: "id",
           label: "Identificativo",
           _style: "width:10%;"
-        },
+        }, */
         {
           key: "dipendenze",
           label: "Dipendenze",
@@ -198,11 +198,11 @@ export default {
         }
       ],
       fieldsProcs: [
-        {
+        /*  {
           key: "id",
           label: "Identificativo",
           _style: "width:10%;"
-        },
+        }, */
         {
           key: "codice",
           label: "Codice",
@@ -230,11 +230,11 @@ export default {
         }
       ],
       fieldsServs: [
-        {
+        /* {
           key: "id",
           label: "Identificativo",
           _style: "width:10%;"
-        },
+        }, */
         {
           key: "metodiEsposti",
           label: "Metodi Esposti",
@@ -257,11 +257,11 @@ export default {
         }
       ],
       fieldsMethods: [
-        {
+        /*  {
           key: "id",
           label: "Identificativo",
           _style: "width:10%;"
-        },
+        }, */
         {
           key: "nome",
           label: "Nome",
