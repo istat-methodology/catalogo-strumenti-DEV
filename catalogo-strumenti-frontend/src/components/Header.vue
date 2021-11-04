@@ -59,6 +59,69 @@
             </a>
           </router-link>
         </CDropdownItem>
+        <CDropdownHeader tag="div" class="text-center" color="light">
+          <strong>Classificazioni</strong>
+        </CDropdownHeader>
+        <CDropdownItem>
+          <router-link
+            :to="{
+              name: 'SoftwareAppList'
+            }"
+            custom
+            v-slot="{ href, navigate }"
+          >
+            <a :href="href" @click="navigate">
+              <span class="pl-1"
+                ><arrow-right-icon class="pr-3" />Applicazioni Desktop</span
+              >
+            </a>
+          </router-link>
+        </CDropdownItem>
+        <CDropdownItem>
+          <router-link
+            :to="{
+              name: 'UserList'
+            }"
+            custom
+            v-slot="{ href, navigate }"
+          >
+            <a :href="href" @click="navigate">
+              <span class="pl-1"
+                ><arrow-right-icon class="pr-3" />Procedure Software</span
+              >
+            </a>
+          </router-link>
+        </CDropdownItem>
+        <CDropdownItem>
+          <router-link
+            :to="{
+              name: 'UserList'
+            }"
+            custom
+            v-slot="{ href, navigate }"
+          >
+            <a :href="href" @click="navigate">
+              <span class="pl-1"
+                ><arrow-right-icon class="pr-3" />Servizi Statistici</span
+              >
+            </a>
+          </router-link>
+        </CDropdownItem>
+        <CDropdownItem>
+          <router-link
+            :to="{
+              name: 'UserList'
+            }"
+            custom
+            v-slot="{ href, navigate }"
+          >
+            <a :href="href" @click="navigate">
+              <span class="pl-1"
+                ><arrow-right-icon class="pr-3" />Metodi Statistici</span
+              >
+            </a>
+          </router-link>
+        </CDropdownItem>
       </CDropdown>
       <CDropdown
         inNav

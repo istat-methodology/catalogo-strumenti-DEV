@@ -83,10 +83,11 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },*/
       {
-        path: "catalogue/tools/show/:id",
-        name: "ToolShow",
-        component: () => import("../views/catalogue/tools/ToolShow"),
-        meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
+        path: "catalogue/softwareapp/SoftwareAppList",
+        name: "SoftwareAppList",
+        component: () =>
+          import("../views/catalogue/softwareapp/SoftwareAppList"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
         path: "catalogue/tools/add",
