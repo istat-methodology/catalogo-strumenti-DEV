@@ -83,7 +83,7 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },*/
       {
-        path: "catalogue/softwareapp/SoftwareAppList",
+        path: "catalogue/SoftwareAppList",
         name: "SoftwareAppList",
         component: () =>
           import("../views/catalogue/softwareapp/SoftwareAppList"),

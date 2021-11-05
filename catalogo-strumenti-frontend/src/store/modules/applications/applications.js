@@ -20,7 +20,17 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
-  }
+  },
+  findAll({ commit }) {
+    applicationsService.findAll().then(
+      data => {
+        commit("SET_APPLICATIONS", data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  },
   /*  save({ commit, dispatch }, formData) {
     return toolsService
       .save(formData)

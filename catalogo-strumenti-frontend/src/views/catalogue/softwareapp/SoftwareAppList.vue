@@ -6,7 +6,7 @@
     <div class="col-12" v-else>
       <div class="card fade-in">
         <header class="card-header">
-          Tools List
+          Software Application List
           <div class="card-header-actions">
             <router-link tag="a" :to="{ name: 'ToolAdd' }">
               <add-icon />
@@ -15,9 +15,8 @@
         </header>
         <CCardBody>
           <CDataTable
-            :items="toolscatalog"
+            :items="applications"
             :fields="fields"
-            column-filter
             :items-per-page="10"
             sorter
             hover
@@ -89,28 +88,38 @@ export default {
           _style: "width:10%;"
         }, */
         {
-          key: "nome",
-          label: "Nome",
+          key: "dipendenze",
+          label: "Dipendenze",
           _style: "width:10%;"
         },
         {
-          key: "descrizione",
-          label: "Descrizione",
+          key: "download",
+          label: "Download",
           _style: "width:10%;"
         },
         {
-          key: "data",
-          label: "Data",
+          key: "licenza",
+          label: "Licenza",
           _style: "width:10%;"
         },
         {
-          key: "note",
-          label: "Note",
+          key: "linguaggio",
+          label: "Linguaggio",
           _style: "width:10%;"
         },
         {
-          key: "metodoStatistico",
-          label: "Metodo Statistico",
+          key: "pacchetto",
+          label: "Pacchetto",
+          _style: "width:10%;"
+        },
+        {
+          key: "sistemaOperativo",
+          label: "Sistema Operativo",
+          _style: "width:10%;"
+        },
+        {
+          key: "tool",
+          label: "Tool",
           _style: "width:10%;"
         },
         {
@@ -139,7 +148,7 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("tools", ["toolscatalog"])
+    ...mapGetters("applications", ["applications"])
   },
   methods: {
     deleteTool() {
@@ -155,7 +164,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("applications/findAll");
   }
 };
 </script>
