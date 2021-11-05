@@ -90,6 +90,13 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
+        path: "catalogue/SoftwareAppEdit/:id",
+        name: "SoftwareAppEdit",
+        component: () =>
+          import("../views/catalogue/softwareapp/SoftwareAppEdit"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
         path: "catalogue/tools/add",
         name: "ToolAdd",
         component: () => import("../views/catalogue/tools/ToolAdd"),
@@ -105,6 +112,13 @@ const routes = [
         path: "catalogue/tools/details/:id",
         name: "ToolDetails",
         component: () => import("../views/catalogue/tools/ToolDetails"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
+        path: "catalogue/appliations/edit/:id",
+        name: "ApplicationEdit",
+        component: () =>
+          import("../views/catalogue/softwareapp/SoftwareAppEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {

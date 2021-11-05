@@ -39,7 +39,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'ToolEdit',
+                    name: 'SoftwareAppEdit',
                     params: { id: item.id }
                   }"
                 >

@@ -3,54 +3,39 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader>Tool</CCardHeader>
+        <CCardHeader v-if="application">Desktop Application</CCardHeader>
         <CCardBody>
-          <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
-          <!--  <div class="help-block" :class="{ show: $v.dug.name.$error }">
-            This field is required
-          </div> -->
           <CInput
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="tool.descrizione"
-          />
-          <CInput label="Autore" placeholder="Autore" v-model="tool.autore" />
-          <CInput
-            label="Documentazione"
-            placeholder="Documentazione"
-            v-model="tool.documentazione"
+            label="Dipendenze"
+            placeholder="Dipendenze"
+            v-model="application.dipendenze"
           />
           <CInput
-            label="Metodo Statistico"
-            placeholder="Metoo Statistico"
-            v-model="tool.metodoStatistico"
+            label="Download"
+            placeholder="Download"
+            v-model="application.download"
           />
           <CInput
-            label="Note di Compilazione"
-            placeholder="Note di Compilazione"
-            v-model="tool.note"
+            label="Licenza"
+            placeholder="Liceenza"
+            v-model="application.licenza"
           />
           <CInput
-            label="Standard"
-            placeholder="Standard"
-            v-model="tool.standard"
-          />
-          <CInput label="Tags" placeholder="Tags" v-model="tool.tags" />
-          <CInput
-            label="Versione"
-            placeholder="Versione"
-            v-model="tool.versione"
+            label="Linguaggio"
+            placeholder="Linguaggio"
+            v-model="application.Linguaggio"
           />
           <CInput
-            label="Tipologia"
-            placeholder="Tipologia"
-            v-model="tool.tipologia"
+            label="Pacchetto"
+            placeholder="Pacchetto"
+            v-model="application.Pacchetto"
           />
           <CInput
-            label="Riferimenti"
-            placeholder="Riferimenti"
-            v-model="tool.riferimenti"
+            label="Sistema Operativo"
+            placeholder="Sistema Operativo"
+            v-model="application.sistemaOperativo"
           />
+          <CInput label="Tool" placeholder="Tool" v-model="application.tool" />
         </CCardBody>
         <CCardFooter>
           <CButton
@@ -77,9 +62,9 @@
 import { mapGetters } from "vuex";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "ToolEdit",
+  name: "SoftwareAppEdit",
   computed: {
-    ...mapGetters("tools", ["tool"])
+    ...mapGetters("applications", ["application"])
   },
   /* validations: {
     dug: {
@@ -92,7 +77,7 @@ export default {
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
-      this.$store.dispatch("tools/update", this.tool).then(() => {
+      this.$store.dispatch("applications/update", this.application).then(() => {
         this.backToList();
       });
       /*   } */
@@ -102,7 +87,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id);
+    this.$store.dispatch("applications/findById", this.$route.params.id);
   }
 };
 </script>
