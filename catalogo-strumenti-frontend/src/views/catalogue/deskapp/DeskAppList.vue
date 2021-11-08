@@ -6,7 +6,7 @@
     <div class="col-12" v-else>
       <div class="card fade-in">
         <header class="card-header">
-          Software Application List
+          Desktop Application List
           <div class="card-header-actions">
             <router-link tag="a" :to="{ name: 'ToolAdd' }">
               <add-icon />
@@ -39,7 +39,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'SoftwareAppEdit',
+                    name: 'DeskAppEdit',
                     params: { id: item.id }
                   }"
                 >

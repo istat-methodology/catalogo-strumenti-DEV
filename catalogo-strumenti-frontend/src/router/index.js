@@ -83,17 +83,15 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },*/
       {
-        path: "catalogue/SoftwareAppList",
-        name: "SoftwareAppList",
-        component: () =>
-          import("../views/catalogue/softwareapp/SoftwareAppList"),
+        path: "catalogue/DeskAppList",
+        name: "DeskAppList",
+        component: () => import("../views/catalogue/deskapp/DeskAppList"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/SoftwareAppEdit/:id",
-        name: "SoftwareAppEdit",
-        component: () =>
-          import("../views/catalogue/softwareapp/SoftwareAppEdit"),
+        path: "catalogue/DeskAppList/DeskAppEdit/:id",
+        name: "DeskAppEdit",
+        component: () => import("../views/catalogue/deskapp/DeskAppEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
@@ -112,13 +110,6 @@ const routes = [
         path: "catalogue/tools/details/:id",
         name: "ToolDetails",
         component: () => import("../views/catalogue/tools/ToolDetails"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/appliations/edit/:id",
-        name: "ApplicationEdit",
-        component: () =>
-          import("../views/catalogue/softwareapp/SoftwareAppEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {

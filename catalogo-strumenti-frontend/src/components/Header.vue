@@ -65,7 +65,7 @@
         <CDropdownItem>
           <router-link
             :to="{
-              name: 'SoftwareAppList'
+              name: 'DeskAppList'
             }"
             custom
             v-slot="{ href, navigate }"
