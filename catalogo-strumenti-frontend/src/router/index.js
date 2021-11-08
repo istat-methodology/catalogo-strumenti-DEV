@@ -95,6 +95,12 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
+        path: "catalogue/deskapplist/deskappadd/:id",
+        name: "DeskAppAdd",
+        component: () => import("../views/catalogue/deskapp/DeskAppAdd"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
         path: "catalogue/tools/add",
         name: "ToolAdd",
         component: () => import("../views/catalogue/tools/ToolAdd"),

@@ -68,7 +68,7 @@
           Delete
         </CButton>
       </template>
-      Delete Dug '{{ selectedTool.nome }}'?
+      Delete Tool '{{ selectedTool.nome }}'?
     </CModal>
   </div>
 </template>
@@ -143,7 +143,7 @@ export default {
   },
   methods: {
     deleteTool() {
-      this.$store.dispatch("tools/delete", this.selectedTool.id);
+      this.$store.dispatch("tools/delete", this.selectedTool);
       this.warningModal = false;
     },
     modalOpen(tool) {

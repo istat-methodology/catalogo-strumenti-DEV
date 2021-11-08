@@ -3,76 +3,47 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Tool
+          New Desktop Application
         </CCardHeader>
         <CCardBody>
           <div class="row">
             <div class="col-6">
               <CCard class="card-no-border">
                 <CCardBody>
-                  <!-- <CInput
-                    label="Dug"
-                    placeholder="Dug"
-                    :class="{ 'is-invalid': $v.dug.name.$error }"
-                    v-model="dug.name"
-                  />
-                  <div class="help-block" :class="{ show: $v.dug.name.$error }">
-                    This field is required
-                  </div> -->
-                  <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
-                  <!--  <div class="help-block" :class="{ show: $v.dug.name.$error }">
-            This field is required
-          </div> -->
                   <CInput
-                    label="Descrizione"
-                    placeholder="Descrizione"
-                    v-model="tool.descrizione"
+                    label="Dipendenze"
+                    placeholder="Dipendenze"
+                    v-model="deskapp.dipendenze"
                   />
                   <CInput
-                    label="Autore"
-                    placeholder="Autore"
-                    v-model="tool.autore"
+                    label="Download"
+                    placeholder="Download"
+                    v-model="deskapp.download"
                   />
                   <CInput
-                    label="Documentazione"
-                    placeholder="Documentazione"
-                    v-model="tool.documentazione"
+                    label="Licenza"
+                    placeholder="Liceenza"
+                    v-model="deskapp.licenza"
                   />
                   <CInput
-                    label="Metodo Statistico"
-                    placeholder="Metodo Statistico"
-                    v-model="tool.metodoStatistico"
+                    label="Linguaggio"
+                    placeholder="Linguaggio"
+                    v-model="deskapp.linguaggio"
                   />
                   <CInput
-                    label="Note di Compilazione"
-                    placeholder="Note di Compilazione"
-                    v-model="tool.note"
+                    label="Pacchetto"
+                    placeholder="Pacchetto"
+                    v-model="deskapp.pacchetto"
                   />
                   <CInput
-                    label="Standard"
-                    placeholder="Standard"
-                    v-model="tool.standard"
-                  />
-                  <CInput label="Tags" placeholder="Tags" v-model="tool.tags" />
-                  <CInput
-                    label="Versione"
-                    placeholder="Versione"
-                    v-model="tool.versione"
+                    label="Sistema Operativo"
+                    placeholder="Sistema Operativo"
+                    v-model="deskapp.sistemaOperativo"
                   />
                   <CInput
-                    label="Tipologia"
-                    placeholder="Tipologia"
-                    v-model="tool.tipologia"
-                  />
-                  <CInput
-                    label="Riferimenti"
-                    placeholder="Riferimenti"
-                    v-model="tool.riferimenti"
-                  />
-                  <CInput
-                    label="License"
-                    placeholder="License"
-                    v-model="tool.license"
+                    label="Tool"
+                    placeholder="Tool"
+                    v-model="deskapp.tool"
                   />
                 </CCardBody>
                 <CCardFooter>
@@ -103,24 +74,18 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "ToolAdd",
+  name: "DeskAppAdd",
   data() {
     return {
-      tool: {
+      deskapp: {
         id: "",
-        data: "",
-        descrizione: "",
-        homepage: "",
+        dipendenze: "",
         download: "",
-        metodoStatistico: "",
-        nome: "",
-        note: "",
-        standard: "",
-        tags: "",
-        versione: "",
-        tipologia: "",
-        riferimenti: "",
-        license: ""
+        licenza: "",
+        linguaggio: "",
+        pacchetto: "",
+        sistemaOperativo: "",
+        tool: ""
       }
     };
   },
@@ -136,12 +101,12 @@ export default {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.tool.$invalid) {*/
       this.$store
-        .dispatch("tools/save", this.tool)
-        .then(this.$router.push("/catalogue/tools"));
+        .dispatch("applications/save", this.deskapp)
+        .then(this.$router.push("/catalogue/deskapplist"));
       /*   } */
     },
     goBack() {
-      this.$router.push("/catalogue/tools");
+      this.$router.push("/catalogue/deskapplist");
     }
   }
 };
