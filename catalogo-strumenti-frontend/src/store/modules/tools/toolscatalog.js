@@ -55,7 +55,7 @@ const actions = {
       .update(formData)
       .then(data => {
         commit("SET_TOOL", data);
-        dispatch("message/success", "Tool saved!", {
+        dispatch("message/success", "Tool upated!", {
           root: true
         });
       })

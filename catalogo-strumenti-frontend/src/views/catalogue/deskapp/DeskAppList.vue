@@ -8,7 +8,7 @@
         <header class="card-header">
           Desktop Application List
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'ToolAdd' }">
+            <router-link tag="a" :to="{ name: 'DeskAppAdd' }">
               <add-icon />
             </router-link>
           </div>
@@ -21,19 +21,7 @@
             sorter
             hover
             pagination
-            ><template #show_details="{item}">
-              <td>
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'ToolDetails',
-                    params: { id: item.id }
-                  }"
-                >
-                  <text-icon />
-                </router-link>
-              </td>
-            </template>
+          >
             <template #show_update="{item}">
               <td>
                 <router-link
@@ -63,11 +51,16 @@
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Close
         </CButton>
-        <CButton shape="square" size="sm" color="primary" @click="deleteTool">
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          @click="deleteDeskApp"
+        >
           Delete
         </CButton>
       </template>
-      Delete Dug '{{ selectedTool.nome }}'?
+      Delete Desktop Application '{{ selectedDeskApp.dipendenze }}'?
     </CModal>
   </div>
 </template>
@@ -76,11 +69,11 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "SoftwareAppList",
+  name: "DeskAppList",
   data() {
     return {
       warningModal: false,
-      selectedTool: {},
+      selectedDeskApp: {},
       fields: [
         /*  {
           key: "id",
@@ -123,13 +116,6 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "show_details",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false
-        },
-        {
           key: "show_update",
           label: "",
           _style: "width:1%",
@@ -151,12 +137,12 @@ export default {
     ...mapGetters("applications", ["applications"])
   },
   methods: {
-    deleteTool() {
-      this.$store.dispatch("tools/delete", this.selectedTool.id);
+    deleteDeskApp() {
+      this.$store.dispatch("applications/delete", this.selectedDeskApp);
       this.warningModal = false;
     },
-    modalOpen(tool) {
-      this.selectedTool = tool;
+    modalOpen(app) {
+      this.selectedDeskApp = app;
       this.warningModal = true;
     },
     modalClose() {

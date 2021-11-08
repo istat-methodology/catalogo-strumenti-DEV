@@ -23,12 +23,12 @@
           <CInput
             label="Linguaggio"
             placeholder="Linguaggio"
-            v-model="application.Linguaggio"
+            v-model="application.linguaggio"
           />
           <CInput
             label="Pacchetto"
             placeholder="Pacchetto"
-            v-model="application.Pacchetto"
+            v-model="application.pacchetto"
           />
           <CInput
             label="Sistema Operativo"
@@ -83,7 +83,7 @@ export default {
       /*   } */
     },
     backToList() {
-      this.$router.push("/catalogue/tools");
+      this.$router.push("/catalogue/deskapplist");
     }
   },
   created() {

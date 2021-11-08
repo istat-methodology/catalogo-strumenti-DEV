@@ -83,13 +83,13 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },*/
       {
-        path: "catalogue/DeskAppList",
+        path: "catalogue/deskapplist",
         name: "DeskAppList",
         component: () => import("../views/catalogue/deskapp/DeskAppList"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/DeskAppList/DeskAppEdit/:id",
+        path: "catalogue/deskapplist/deskappedit/:id",
         name: "DeskAppEdit",
         component: () => import("../views/catalogue/deskapp/DeskAppEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }

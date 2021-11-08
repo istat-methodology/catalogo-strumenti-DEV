@@ -40,8 +40,8 @@ const actions = {
       .save(formData)
       .then(data => {
         //console.log(data);
-        commit("SET_APPLICATIONS", data);
-        dispatch("message/success", "Tool saved!", {
+        commit("SET_APPLICATION", data);
+        dispatch("message/success", "Desktop Application saved!", {
           root: true
         });
       })
@@ -65,7 +65,7 @@ const actions = {
       .update(formData)
       .then(data => {
         commit("SET_APPLICATIONS", data);
-        dispatch("message/success", "Tool saved!", {
+        dispatch("message/success", "Desktop Application updated!", {
           root: true
         });
       })
@@ -78,7 +78,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Tool deleted!", {
+        dispatch("message/success", "Desktop Application deleted!", {
           root: true
         });
       })
