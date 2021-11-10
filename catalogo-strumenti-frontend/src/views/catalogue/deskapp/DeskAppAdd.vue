@@ -40,11 +40,29 @@
                     placeholder="Sistema Operativo"
                     v-model="deskapp.sistemaOperativo"
                   />
-                  <CInput
+                  <label>Tool</label>
+                  <v-select
+                    label="nome"
+                    :options="toolscatalog"
+                    v-model="deskapp.tool"
+                    :reduce="option => option.id"
+                    placeholder="Tool"
+                  ></v-select>
+
+                  <!-- <v-select
+                    v-model="selected"
+                    :reduce="option => option.id"
+                    :options="[
+                      { label: 'One', id: 1 },
+                      { label: 'Two', id: 2 }
+                    ]"
+                  /> -->
+
+                  <!-- <CInput
                     label="Tool"
                     placeholder="Tool"
                     v-model="deskapp.tool"
-                  />
+                  /> -->
                 </CCardBody>
                 <CCardFooter>
                   <CButton
@@ -73,8 +91,12 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
+import { mapGetters } from "vuex";
 export default {
   name: "DeskAppAdd",
+  computed: {
+    ...mapGetters("tools", ["toolscatalog"])
+  },
   data() {
     return {
       deskapp: {
