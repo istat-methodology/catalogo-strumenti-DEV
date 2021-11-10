@@ -44,9 +44,12 @@
                   <v-select
                     label="nome"
                     :options="toolscatalog"
-                    v-model="deskapp.tool"
+                    v-model="localIdTool"
                     :reduce="option => option.id"
                     placeholder="Tool"
+                    :class="{
+                      'is-invalid': $v.localIdTool.$error
+                    }"
                   ></v-select>
 
                   <!-- <v-select
@@ -92,6 +95,7 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
+import { required } from "vuelidate/lib/validators";
 export default {
   name: "DeskAppAdd",
   computed: {
@@ -99,6 +103,7 @@ export default {
   },
   data() {
     return {
+      localIdTool: "",
       deskapp: {
         id: "",
         dipendenze: "",
@@ -111,21 +116,18 @@ export default {
       }
     };
   },
-  /* validations: {
-    tool: {
-      name: {
-        required
-      }
+  validations: {
+    localIdTool: {
+      required
     }
-  }, */
+  },
   methods: {
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.tool.$invalid) {*/
-      this.$store
-        .dispatch("applications/save", this.deskapp)
-        .then(this.$router.push("/catalogue/deskapplist"));
-      /*   } */
+      if (!this.$v.localIdTool.$invalid) {
+        this.$store
+          .dispatch("applications/save", this.deskapp)
+          .then(this.$router.push("/catalogue/deskapplist"));
+      }
     },
     goBack() {
       this.$router.push("/catalogue/deskapplist");
