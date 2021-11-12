@@ -14,5 +14,5 @@ public class DesktopApplicationDto implements Serializable {
 	private String linguaggio;	
 	private String pacchetto; 		
 	private String sistemaOperativo; 	
-	private String tool;
+	private ToolMiniDto tool;
 }

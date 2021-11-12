@@ -12,5 +12,5 @@ public class SoftwareProcedureDto implements Serializable {
 	private String sintassi;	
 	private String dipendenze;		
 	private String linguaggio;	
-	private String tool;
+	private ToolMiniDto tool;
 }

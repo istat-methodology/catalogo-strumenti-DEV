@@ -11,6 +11,6 @@ public class StatisticalServiceDto implements Serializable {
 	private String metodiEsposti;
 	private String dipendenze;	
 	private String protocollo;		
-	private String tool;
+	private ToolMiniDto tool;
 
 }
