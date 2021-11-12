@@ -3,39 +3,49 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="application">Desktop Application</CCardHeader>
+        <CCardHeader v-if="deskapp">Desktop Application</CCardHeader>
         <CCardBody>
           <CInput
             label="Dipendenze"
             placeholder="Dipendenze"
-            v-model="application.dipendenze"
+            v-model="deskapp.dipendenze"
           />
           <CInput
             label="Download"
             placeholder="Download"
-            v-model="application.download"
+            v-model="deskapp.download"
           />
           <CInput
             label="Licenza"
             placeholder="Liceenza"
-            v-model="application.licenza"
+            v-model="deskapp.licenza"
           />
           <CInput
             label="Linguaggio"
             placeholder="Linguaggio"
-            v-model="application.linguaggio"
+            v-model="deskapp.linguaggio"
           />
           <CInput
             label="Pacchetto"
             placeholder="Pacchetto"
-            v-model="application.pacchetto"
+            v-model="deskapp.pacchetto"
           />
           <CInput
             label="Sistema Operativo"
             placeholder="Sistema Operativo"
-            v-model="application.sistemaOperativo"
+            v-model="deskapp.sistemaOperativo"
           />
-          <CInput label="Tool" placeholder="Tool" v-model="application.tool" />
+          <label>Tool</label>
+          <v-select
+            label="nome"
+            :options="toolscatalog"
+            v-model="deskapp.tool"
+            :reduce="option => option.id"
+            placeholder="Tool"
+            :class="{
+              'is-invalid': $v.deskapp.tool.$error
+            }"
+          ></v-select>
         </CCardBody>
         <CCardFooter>
           <CButton
@@ -60,34 +70,65 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { required } from "vuelidate/lib/validators";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "SoftwareAppEdit",
+  name: "DeskAppEdit",
   computed: {
+    ...mapGetters("tools", ["toolscatalog"]),
     ...mapGetters("applications", ["application"])
   },
-  /* validations: {
-    dug: {
-      name: {
+  data() {
+    return {
+      deskapp: {
+        id: "",
+        dipendenze: "",
+        download: "",
+        licenza: "",
+        linguaggio: "",
+        pacchetto: "",
+        sistemaOperativo: "",
+        tool: ""
+      }
+    };
+  },
+  validations: {
+    deskapp: {
+      tool: {
         required
       }
     }
-  }, */
+  },
   methods: {
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
-      this.$store.dispatch("applications/update", this.application).then(() => {
+      this.$store.dispatch("applications/update", this.deskapp).then(() => {
         this.backToList();
       });
       /*   } */
     },
+    setOldValues() {
+      this.deskapp.id = this.application.id;
+      this.deskapp.dipendenze = this.application.dipendenze;
+      this.deskapp.download = this.application.download;
+      this.deskapp.licenza = this.application.licenza;
+      this.deskapp.linguaggio = this.application.linguaggio;
+      this.deskapp.pacchetto = this.application.pacchetto;
+      this.deskapp.sistemaOpeativo = this.application.sistemaOperativo;
+      this.deskapp.tool = this.application.tool.id;
+    },
+
     backToList() {
       this.$router.push("/catalogue/deskapplist");
     }
   },
   created() {
-    this.$store.dispatch("applications/findById", this.$route.params.id);
+    this.$store
+      .dispatch("applications/findById", this.$route.params.id)
+      .then(() => {
+        this.setOldValues();
+      });
   }
 };
 </script>

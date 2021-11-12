@@ -44,11 +44,11 @@
                   <v-select
                     label="nome"
                     :options="toolscatalog"
-                    v-model="localIdTool"
+                    v-model="deskapp.tool"
                     :reduce="option => option.id"
                     placeholder="Tool"
                     :class="{
-                      'is-invalid': $v.localIdTool.$error
+                      'is-invalid': $v.deskapp.tool.$error
                     }"
                   ></v-select>
 
@@ -103,7 +103,6 @@ export default {
   },
   data() {
     return {
-      localIdTool: "",
       deskapp: {
         id: "",
         dipendenze: "",
@@ -117,13 +116,15 @@ export default {
     };
   },
   validations: {
-    localIdTool: {
-      required
+    deskapp: {
+      tool: {
+        required
+      }
     }
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.localIdTool.$invalid) {
+      if (!this.$v.deskapp.tool.$invalid) {
         this.$store
           .dispatch("applications/save", this.deskapp)
           .then(this.$router.push("/catalogue/deskapplist"));

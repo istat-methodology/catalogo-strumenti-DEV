@@ -134,7 +134,14 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("applications", ["applications"])
+    ...mapGetters("applications", ["applications"]),
+    nomeTool() {
+      return this.applications.map(
+        ...item => {
+          item, { unit: item.tool.nome };
+        }
+      );
+    }
   },
   methods: {
     deleteDeskApp() {
