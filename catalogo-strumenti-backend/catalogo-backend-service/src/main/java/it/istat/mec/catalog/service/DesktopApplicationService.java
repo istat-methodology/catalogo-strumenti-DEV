@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.DesktopApplicationDao;
+import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
@@ -15,6 +16,8 @@ public class DesktopApplicationService {
 
 	@Autowired
 	DesktopApplicationDao desktopApplicationDao;
+	@Autowired
+	ToolDao toolDao;
 
 	public List<DesktopApplicationDto> findAllDesktopApplications() {
 		
@@ -30,7 +33,9 @@ public class DesktopApplicationService {
 	
 	public DesktopApplicationDto newDesktopApplication(CreateDesktopApplicationRequest request) {
 		DesktopApplication da = new DesktopApplication();
-		da = Translators.translate(request);		
+		da = Translators.translate(request);
+		CatalogTool tool = toolDao.getOne(request.getTool());
+		da.setCatalogTool(tool);
 		desktopApplicationDao.save(da);
 		return Translators.translate(da);
 	}

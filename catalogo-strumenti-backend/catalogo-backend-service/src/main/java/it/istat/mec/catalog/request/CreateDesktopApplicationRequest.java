@@ -12,5 +12,5 @@ public class CreateDesktopApplicationRequest {
 	private String linguaggio;	
 	private String pacchetto; 		
 	private String sistemaOperativo; 	
-	private String tool;
+	private Long tool;
 }
