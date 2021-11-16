@@ -1,5 +1,7 @@
 package it.istat.mec.catalog.service;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.DesktopApplicationDao;
@@ -53,9 +55,21 @@ public class DesktopApplicationService {
 			throw new NoDataException("DesktopApplication not present");
 		
 		DesktopApplication da = desktopApplicationDao.findById(request.getId()).get();	
-		
+		CatalogTool newCatalog;
+		newCatalog = toolDao.findById(request.getTool()).get();
 		da = Translators.translateUpdate(request, da);
+		if(!da.getCatalogTool().getId().equals( request.getTool())){	
+			da.setCatalogTool(newCatalog);
+		}
 		
+
+
+		
+
+
+		
+
+
 		desktopApplicationDao.save(da);		
 		
 		return Translators.translate(da);
