@@ -34,7 +34,7 @@ class ToolsService extends AbstractService {
         throw err;
       });
   }
-  upeate(payload) {
+  update(payload) {
     //console.log(config);
     console.log(payload);
     return axiosRegedit
