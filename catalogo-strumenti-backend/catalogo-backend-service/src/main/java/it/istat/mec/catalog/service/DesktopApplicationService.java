@@ -55,11 +55,11 @@ public class DesktopApplicationService {
 			throw new NoDataException("DesktopApplication not present");
 		
 		DesktopApplication da = desktopApplicationDao.findById(request.getId()).get();	
-		CatalogTool newCatalog;
 		da = Translators.translateUpdate(request, da);
-		if(!da.getCatalogTool().getId().equals( request.getTool())){	
-			newCatalog = toolDao.findById(request.getTool()).get();
-			da.setCatalogTool(newCatalog);
+		if(!da.getCatalogTool().getId().equals( request.getTool())){
+			if (!toolDao.findById(request.getTool()).isPresent())
+				throw new NoDataException("Statistical Tool not present");
+			da.setCatalogTool(toolDao.findById(request.getTool()).get());
 		}
 		
 		desktopApplicationDao.save(da);		
