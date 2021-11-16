@@ -56,9 +56,9 @@ public class DesktopApplicationService {
 		
 		DesktopApplication da = desktopApplicationDao.findById(request.getId()).get();	
 		CatalogTool newCatalog;
-		newCatalog = toolDao.findById(request.getTool()).get();
 		da = Translators.translateUpdate(request, da);
 		if(!da.getCatalogTool().getId().equals( request.getTool())){	
+			newCatalog = toolDao.findById(request.getTool()).get();
 			da.setCatalogTool(newCatalog);
 		}
 		
