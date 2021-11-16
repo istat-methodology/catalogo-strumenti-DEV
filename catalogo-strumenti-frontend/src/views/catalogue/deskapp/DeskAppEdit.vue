@@ -115,7 +115,7 @@ export default {
       this.deskapp.licenza = this.application.licenza;
       this.deskapp.linguaggio = this.application.linguaggio;
       this.deskapp.pacchetto = this.application.pacchetto;
-      this.deskapp.sistemaOpeativo = this.application.sistemaOperativo;
+      this.deskapp.sistemaOperativo = this.application.sistemaOperativo;
       this.deskapp.tool = this.application.tool.id;
     },
 
@@ -124,6 +124,7 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch("tools/findAll");
     this.$store
       .dispatch("applications/findById", this.$route.params.id)
       .then(() => {
