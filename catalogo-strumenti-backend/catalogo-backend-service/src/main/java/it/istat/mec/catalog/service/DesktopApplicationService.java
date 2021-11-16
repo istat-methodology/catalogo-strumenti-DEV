@@ -62,14 +62,6 @@ public class DesktopApplicationService {
 			da.setCatalogTool(newCatalog);
 		}
 		
-
-
-		
-
-
-		
-
-
 		desktopApplicationDao.save(da);		
 		
 		return Translators.translate(da);
