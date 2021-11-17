@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     deleteDeskApp() {
-      this.$store.dispatch("applications/delete", this.selectedDeskApp);
+      this.$store.dispatch("applications/delete", this.selectedDeskApp.id);
       this.warningModal = false;
     },
     modalOpen(app) {
