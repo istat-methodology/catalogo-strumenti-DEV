@@ -39,8 +39,8 @@
           <v-select
             label="nome"
             :options="toolscatalog"
-            v-model="deskapp.tool"
             :reduce="option => option.id"
+            v-model="deskapp.tool"
             placeholder="Tool"
             :class="{
               'is-invalid': $v.deskapp.tool.$error
@@ -101,12 +101,11 @@ export default {
   },
   methods: {
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
-      this.$store.dispatch("applications/update", this.deskapp).then(() => {
-        this.backToList();
-      });
-      /*   } */
+      if (!this.$v.deskapp.tool.$invalid) {
+        this.$store.dispatch("applications/update", this.deskapp).then(() => {
+          this.backToList();
+        });
+      }
     },
     setOldValues() {
       this.deskapp.id = this.application.id;
