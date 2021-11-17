@@ -35,9 +35,9 @@ const actions = {
       }
     );
   },
-  save({ commit, dispatch }, formData) {
+  save({ commit, dispatch }, payload) {
     return applicationsService
-      .save(formData)
+      .save(payload)
       .then(data => {
         //console.log(data);
         commit("SET_APPLICATION", data);
@@ -60,9 +60,9 @@ const actions = {
         console.log(err);
       });
   },
-  update({ commit, dispatch }, formData) {
+  update({ commit, dispatch }, payload) {
     return applicationsService
-      .update(formData)
+      .update(payload)
       .then(data => {
         commit("SET_APPLICATIONS", data);
         dispatch("message/success", "Desktop Application updated!", {
