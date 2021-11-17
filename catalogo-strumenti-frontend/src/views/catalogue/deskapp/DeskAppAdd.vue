@@ -104,7 +104,7 @@ export default {
   data() {
     return {
       deskapp: {
-        id: "",
+        id: 0,
         dipendenze: "",
         download: "",
         licenza: "",
