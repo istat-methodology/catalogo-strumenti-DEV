@@ -1,7 +1,7 @@
 import { proceduresService } from "@/services";
 
 const state = {
-  proceures: [],
+  procedures: [],
   procedure: null
 };
 
@@ -10,7 +10,7 @@ const mutations = {
     state.procedures = procedures;
   },
   SET_PROCEDURE(state, procedure) {
-    state.pocedure = procedure;
+    state.procedure = procedure;
   }
 };
 
@@ -93,7 +93,7 @@ const getters = {
     return state.procedures;
   },
   procedure: state => {
-    return state.pocedure;
+    return state.procedure;
   }
 };
 

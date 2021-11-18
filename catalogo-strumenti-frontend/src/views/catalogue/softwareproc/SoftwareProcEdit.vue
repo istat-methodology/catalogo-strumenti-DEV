@@ -3,47 +3,37 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="deskapp">Desktop Application</CCardHeader>
+        <CCardHeader v-if="softproc">Desktop Application</CCardHeader>
         <CCardBody>
+          <CInput
+            label="Codice"
+            placeholder="Codice"
+            v-model="softproc.codice"
+          />
+          <CInput
+            label="Sintassi"
+            placeholder="Sintassi"
+            v-model="softproc.sintassi"
+          />
           <CInput
             label="Dipendenze"
             placeholder="Dipendenze"
-            v-model="deskapp.dipendenze"
-          />
-          <CInput
-            label="Download"
-            placeholder="Download"
-            v-model="deskapp.download"
-          />
-          <CInput
-            label="Licenza"
-            placeholder="Liceenza"
-            v-model="deskapp.licenza"
+            v-model="softproc.dipendenze"
           />
           <CInput
             label="Linguaggio"
             placeholder="Linguaggio"
-            v-model="deskapp.linguaggio"
-          />
-          <CInput
-            label="Pacchetto"
-            placeholder="Pacchetto"
-            v-model="deskapp.pacchetto"
-          />
-          <CInput
-            label="Sistema Operativo"
-            placeholder="Sistema Operativo"
-            v-model="deskapp.sistemaOperativo"
+            v-model="softproc.linguaggio"
           />
           <label>Tool</label>
           <v-select
             label="nome"
             :options="toolscatalog"
             :reduce="option => option.id"
-            v-model="deskapp.tool"
+            v-model="softproc.tool"
             placeholder="Tool"
             :class="{
-              'is-invalid': $v.deskapp.tool.$error
+              'is-invalid': $v.softproc.tool.$error
             }"
           ></v-select>
         </CCardBody>
@@ -73,27 +63,25 @@ import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "DeskAppEdit",
+  name: "SoftProcEdit",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("applications", ["application"])
+    ...mapGetters("procedures", ["procedure"])
   },
   data() {
     return {
-      deskapp: {
+      softproc: {
         id: "",
+        codice: "",
+        sintassi: "",
         dipendenze: "",
-        download: "",
-        licenza: "",
         linguaggio: "",
-        pacchetto: "",
-        sistemaOperativo: "",
         tool: ""
       }
     };
   },
   validations: {
-    deskapp: {
+    softproc: {
       tool: {
         required
       }
@@ -101,31 +89,29 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.deskapp.tool.$invalid) {
-        this.$store.dispatch("applications/update", this.deskapp).then(() => {
+      if (!this.$v.softproc.tool.$invalid) {
+        this.$store.dispatch("procedures/update", this.softproc).then(() => {
           this.backToList();
         });
       }
     },
     setOldValues() {
-      this.deskapp.id = this.application.id;
-      this.deskapp.dipendenze = this.application.dipendenze;
-      this.deskapp.download = this.application.download;
-      this.deskapp.licenza = this.application.licenza;
-      this.deskapp.linguaggio = this.application.linguaggio;
-      this.deskapp.pacchetto = this.application.pacchetto;
-      this.deskapp.sistemaOperativo = this.application.sistemaOperativo;
-      this.deskapp.tool = this.application.tool.id;
+      this.softproc.id = this.procedure.id;
+      this.softproc.codice = this.procedure.codice;
+      this.softproc.sintassi = this.procedure.sintassi;
+      this.softproc.dipendenze = this.procedure.dipendenze;
+      this.softproc.linguaggio = this.procedure.linguaggio;
+      this.softproc.tool = this.procedure.tool.id;
     },
 
     backToList() {
-      this.$router.push("/catalogue/deskapplist");
+      this.$router.push("/catalogue/softwareproclist");
     }
   },
   created() {
     this.$store.dispatch("tools/findAll");
     this.$store
-      .dispatch("applications/findById", this.$route.params.id)
+      .dispatch("procedures/findById", this.$route.params.id)
       .then(() => {
         this.setOldValues();
       });

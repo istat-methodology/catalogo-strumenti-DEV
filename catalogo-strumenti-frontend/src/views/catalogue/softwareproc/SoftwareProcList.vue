@@ -27,7 +27,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'DeskAppEdit',
+                    name: 'SoftProcEdit',
                     params: { id: item.id }
                   }"
                 >
@@ -119,14 +119,7 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("procedures", ["procedures"]),
-    nomeTool() {
-      return this.applications.map(
-        ...item => {
-          item, { unit: item.tool.nome };
-        }
-      );
-    }
+    ...mapGetters("procedures", ["procedures"])
   },
   methods: {
     deleteSoftProc() {
