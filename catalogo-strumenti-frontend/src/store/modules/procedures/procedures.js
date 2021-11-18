@@ -78,7 +78,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Softwre Procedure deleted!", {
+        dispatch("message/success", "Software Procedure deleted!", {
           root: true
         });
       })
