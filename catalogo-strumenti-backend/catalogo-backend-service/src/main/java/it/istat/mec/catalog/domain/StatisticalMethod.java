@@ -50,6 +50,6 @@ public class StatisticalMethod implements Serializable  {
 	
 	
 	@ManyToOne
-    @JoinColumn(name = "TOOL", insertable = false, updatable = false)
+    @JoinColumn(name = "TOOL", insertable = true, updatable = true)
     private CatalogTool catalogTool;
 }

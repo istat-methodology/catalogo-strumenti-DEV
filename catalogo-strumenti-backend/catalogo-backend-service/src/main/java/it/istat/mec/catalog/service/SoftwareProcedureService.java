@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.SoftwareProcedureDao;
+import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
@@ -15,6 +16,8 @@ public class SoftwareProcedureService {
 
 	@Autowired
 	SoftwareProcedureDao softwareProcedureDao;
+	@Autowired
+	ToolDao toolDao;
 
 	public List<SoftwareProcedureDto> findAllSoftwareProcedures() {
 		
@@ -30,7 +33,9 @@ public class SoftwareProcedureService {
 	
 	public SoftwareProcedureDto newSoftwareProcedure(CreateSoftwareProcedureRequest request) {
 		SoftwareProcedure sp = new SoftwareProcedure();
-		sp = Translators.translate(request);		
+		sp = Translators.translate(request);	
+		CatalogTool tool = toolDao.getOne(request.getToolId());
+		sp.setCatalogTool(tool);
 		softwareProcedureDao.save(sp);
 		return Translators.translate(sp);
 	}
@@ -48,8 +53,12 @@ public class SoftwareProcedureService {
 			throw new NoDataException("SoftwareProcedure not present");
 		
 		SoftwareProcedure sp = softwareProcedureDao.findById(request.getId()).get();	
-		
 		sp = Translators.translateUpdate(request, sp);
+		if(!sp.getCatalogTool().getId().equals( request.getToolId())){
+			if (!softwareProcedureDao.findById(request.getToolId()).isPresent())
+				throw new NoDataException("Statistical Tool not present");
+			sp.setCatalogTool(toolDao.findById(request.getToolId()).get());
+		}		
 		
 		softwareProcedureDao.save(sp);		
 		

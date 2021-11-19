@@ -11,5 +11,5 @@ public class CreateSoftwareProcedureRequest {
 	private String sintassi;	
 	private String dipendenze;		
 	private String linguaggio;	
-	private String toolId;	
+	private Long toolId;	
 }

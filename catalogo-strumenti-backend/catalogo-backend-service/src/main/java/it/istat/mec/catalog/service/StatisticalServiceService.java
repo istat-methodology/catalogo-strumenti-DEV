@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.StatisticalServiceDao;
+import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.StatisticalService;
 import it.istat.mec.catalog.dto.StatisticalServiceDto;
@@ -15,6 +16,8 @@ public class StatisticalServiceService {
 
 	@Autowired
 	StatisticalServiceDao statisticalServiceDao;
+	@Autowired
+	ToolDao toolDao;
 
 	public List<StatisticalServiceDto> findAllStatisticalServices() {
 		
@@ -30,7 +33,9 @@ public class StatisticalServiceService {
 	
 	public StatisticalServiceDto newStatisticalService(CreateStatisticalServiceRequest request) {
 		StatisticalService ss = new StatisticalService();
-		ss = Translators.translate(request);		
+		ss = Translators.translate(request);
+		CatalogTool tool = toolDao.getOne(request.getToolId());
+		ss.setCatalogTool(tool);
 		statisticalServiceDao.save(ss);
 		return Translators.translate(ss);
 	}
@@ -50,6 +55,11 @@ public class StatisticalServiceService {
 		StatisticalService ss = statisticalServiceDao.findById(request.getId()).get();	
 		
 		ss = Translators.translateUpdate(request, ss);
+		if(!ss.getCatalogTool().getId().equals( request.getToolId())){
+			if (!toolDao.findById(request.getToolId()).isPresent())
+				throw new NoDataException("Statistical Tool not present");
+			ss.setCatalogTool(toolDao.findById(request.getToolId()).get());
+		}
 		
 		statisticalServiceDao.save(ss);		
 		

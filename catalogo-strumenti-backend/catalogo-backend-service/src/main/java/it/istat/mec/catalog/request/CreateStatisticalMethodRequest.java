@@ -14,5 +14,5 @@ public class CreateStatisticalMethodRequest {
 	private String ipotesi;		
 	private String limiti;	
 	private String indicatoriQualita;	
-	private String toolId;	
+	private Long toolId;	
 }

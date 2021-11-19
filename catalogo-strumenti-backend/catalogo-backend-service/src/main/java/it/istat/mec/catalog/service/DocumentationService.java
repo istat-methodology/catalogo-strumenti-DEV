@@ -3,6 +3,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.DocumentationDao;
+import it.istat.mec.catalog.dao.ToolDao;
+import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -14,6 +16,8 @@ public class DocumentationService {
 
 	@Autowired
 	DocumentationDao documentationDao;
+	@Autowired
+	ToolDao toolDao;
 
 	public List<DocumentationDto> findAllDocumentations() {
 		
@@ -23,7 +27,9 @@ public class DocumentationService {
 	
 	public DocumentationDto newDocumentation(CreateDocumentationRequest request) {
 		Documentation doc = new Documentation();
-		doc = Translators.translate(request);		
+		doc = Translators.translate(request);	
+		CatalogTool tool = toolDao.getOne(request.getToolId());
+		doc.setCatalogTool(tool);
 		documentationDao.save(doc);
 		return Translators.translate(doc);
 	}
@@ -43,6 +49,11 @@ public class DocumentationService {
 		Documentation doc = documentationDao.findById(request.getId()).get();	
 		
 		doc = Translators.translateUpdate(request, doc);
+		if(!doc.getCatalogTool().getId().equals( request.getToolId())){
+			if (!toolDao.findById(request.getToolId()).isPresent())
+				throw new NoDataException("Statistical Tool not present");
+			doc.setCatalogTool(toolDao.findById(request.getToolId()).get());
+		}
 		
 		documentationDao.save(doc);		
 		

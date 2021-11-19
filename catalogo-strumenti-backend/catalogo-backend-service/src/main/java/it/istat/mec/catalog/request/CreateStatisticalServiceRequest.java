@@ -9,5 +9,5 @@ public class CreateStatisticalServiceRequest {
 	private String metodiEsposti;
 	private String dipendenze;	
 	private String protocollo;		
-	private String toolId;
+	private Long toolId;
 }

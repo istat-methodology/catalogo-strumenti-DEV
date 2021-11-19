@@ -8,5 +8,5 @@ public class CreateDocumentationRequest {
 	private Long id;	
 	private String nome;	
 	private String organizzazione;	
-	private String toolId;
+	private Long toolId;
 }
