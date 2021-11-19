@@ -80,7 +80,7 @@
         <CDropdownItem>
           <router-link
             :to="{
-              name: 'UserList'
+              name: 'SoftProcList'
             }"
             custom
             v-slot="{ href, navigate }"

@@ -95,9 +95,23 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/deskapplist/deskappadd/:id",
+        path: "catalogue/deskapplist/deskappadd",
         name: "DeskAppAdd",
         component: () => import("../views/catalogue/deskapp/DeskAppAdd"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
+        path: "catalogue/softwareproclist",
+        name: "SoftProcList",
+        component: () =>
+          import("../views/catalogue/softwareproc/SoftwareProcList"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
+        path: "catalogue/softwareproclist/softprocedit/:id",
+        name: "SoftProcEdit",
+        component: () =>
+          import("../views/catalogue/softwareproc/SoftwareProcEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {

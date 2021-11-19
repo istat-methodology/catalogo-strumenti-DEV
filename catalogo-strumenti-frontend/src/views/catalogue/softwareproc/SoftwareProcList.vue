@@ -6,7 +6,7 @@
     <div class="col-12" v-else>
       <div class="card fade-in">
         <header class="card-header">
-          Desktop Application List
+          Software Procedure List
           <div class="card-header-actions">
             <router-link tag="a" :to="{ name: 'DeskAppAdd' }">
               <add-icon />
@@ -15,7 +15,7 @@
         </header>
         <CCardBody>
           <CDataTable
-            :items="applications"
+            :items="procedures"
             :fields="fields"
             :items-per-page="10"
             sorter
@@ -27,7 +27,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'DeskAppEdit',
+                    name: 'SoftProcEdit',
                     params: { id: item.id }
                   }"
                 >
@@ -55,12 +55,12 @@
           shape="square"
           size="sm"
           color="primary"
-          @click="deleteDeskApp"
+          @click="deleteSoftProc"
         >
           Delete
         </CButton>
       </template>
-      Delete Desktop Application '{{ selectedDeskApp.dipendenze }}'?
+      Delete Desktop Application '{{ selectedSoftProc.dipendenze }}'?
     </CModal>
   </div>
 </template>
@@ -69,45 +69,30 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "DeskAppList",
+  name: "SoftProcList",
   data() {
     return {
       warningModal: false,
-      selectedDeskApp: {},
+      selectedSoftProc: {},
       fields: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
+        {
+          key: "codice",
+          label: "Codice",
           _style: "width:10%;"
-        }, */
+        },
+        {
+          key: "sintassi",
+          label: "Sintassi",
+          _style: "width:10%;"
+        },
         {
           key: "dipendenze",
           label: "Dipendenze",
           _style: "width:10%;"
         },
         {
-          key: "download",
-          label: "Download",
-          _style: "width:10%;"
-        },
-        {
-          key: "licenza",
-          label: "Licenza",
-          _style: "width:10%;"
-        },
-        {
           key: "linguaggio",
           label: "Linguaggio",
-          _style: "width:10%;"
-        },
-        {
-          key: "pacchetto",
-          label: "Pacchetto",
-          _style: "width:10%;"
-        },
-        {
-          key: "sistemaOperativo",
-          label: "Sistema Operativo",
           _style: "width:10%;"
         },
         {
@@ -134,22 +119,15 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("applications", ["applications"]),
-    nomeTool() {
-      return this.applications.map(
-        ...item => {
-          item, { unit: item.tool.nome };
-        }
-      );
-    }
+    ...mapGetters("procedures", ["procedures"])
   },
   methods: {
-    deleteDeskApp() {
-      this.$store.dispatch("applications/delete", this.selectedDeskApp.id);
+    deleteSoftProc() {
+      this.$store.dispatch("procedures/delete", this.selectedSoftProc.id);
       this.warningModal = false;
     },
-    modalOpen(app) {
-      this.selectedDeskApp = app;
+    modalOpen(softproc) {
+      this.selectedSoftProc = softproc;
       this.warningModal = true;
     },
     modalClose() {
@@ -157,7 +135,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("applications/findAll");
+    this.$store.dispatch("procedures/findAll");
   }
 };
 </script>

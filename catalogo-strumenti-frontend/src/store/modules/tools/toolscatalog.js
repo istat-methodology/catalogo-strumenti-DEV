@@ -25,9 +25,9 @@ const actions = {
         console.log(err);
       });
   },
-  save({ commit, dispatch }, formData) {
+  save({ commit, dispatch }, payload) {
     return toolsService
-      .save(formData)
+      .save(payload)
       .then(data => {
         //console.log(data);
         commit("SET_TOOL", data);
@@ -50,12 +50,12 @@ const actions = {
         console.log(err);
       });
   },
-  update({ commit, dispatch }, formData) {
+  update({ commit, dispatch }, payload) {
     return toolsService
-      .update(formData)
+      .update(payload)
       .then(data => {
         commit("SET_TOOL", data);
-        dispatch("message/success", "Tool upated!", {
+        dispatch("message/success", "Tool updated!", {
           root: true
         });
       })

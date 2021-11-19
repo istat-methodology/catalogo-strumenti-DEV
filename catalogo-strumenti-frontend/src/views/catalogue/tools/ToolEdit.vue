@@ -14,12 +14,6 @@
             placeholder="Descrizione"
             v-model="toolLocal.descrizione"
           />
-          <CInput label="Autore" placeholder="Autore" v-model="tool.autore" />
-          <CInput
-            label="Documentazione"
-            placeholder="Documentazione"
-            v-model="toolLocal.documentazione"
-          />
           <CInput
             label="Metodo Statistico"
             placeholder="Metoo Statistico"
@@ -35,7 +29,7 @@
             placeholder="Standard"
             v-model="toolLocal.standard"
           />
-          <CInput label="Tags" placeholder="Tags" v-model="tool.tags" />
+          <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
           <CInput
             label="Versione"
             placeholder="Versione"
