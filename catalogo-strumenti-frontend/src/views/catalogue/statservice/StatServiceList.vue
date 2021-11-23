@@ -8,14 +8,14 @@
         <header class="card-header">
           Software Procedure List
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'SoftProcAdd' }">
+            <router-link tag="a" :to="{ name: 'StatServiceAdd' }">
               <add-icon />
             </router-link>
           </div>
         </header>
         <CCardBody>
           <CDataTable
-            :items="procedures"
+            :items="services"
             :fields="fields"
             :items-per-page="10"
             sorter
@@ -27,7 +27,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'SoftProcEdit',
+                    name: 'StatServiceEdit',
                     params: { id: item.id }
                   }"
                 >
@@ -60,7 +60,7 @@
           Delete
         </CButton>
       </template>
-      Delete Desktop Application '{{ selectedSoftProc.dipendenze }}'?
+      Delete Desktop Application '{{ selectedStatService.dipendenze }}'?
     </CModal>
   </div>
 </template>
@@ -73,16 +73,11 @@ export default {
   data() {
     return {
       warningModal: false,
-      selectedSoftProc: {},
+      selectedStatService: {},
       fields: [
         {
-          key: "codice",
-          label: "Codice",
-          _style: "width:10%;"
-        },
-        {
-          key: "sintassi",
-          label: "Sintassi",
+          key: "metodiEsposti",
+          label: "Metodi Esposti",
           _style: "width:10%;"
         },
         {
@@ -91,8 +86,8 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "linguaggio",
-          label: "Linguaggio",
+          key: "protocollo",
+          label: "Protocollo",
           _style: "width:10%;"
         },
         {
@@ -119,15 +114,15 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("procedures", ["procedures"])
+    ...mapGetters("services", ["services"])
   },
   methods: {
     deleteSoftProc() {
-      this.$store.dispatch("procedures/delete", this.selectedSoftProc.id);
+      this.$store.dispatch("services/delete", this.selectedStatService.id);
       this.warningModal = false;
     },
-    modalOpen(softproc) {
-      this.selectedSoftProc = softproc;
+    modalOpen(statservice) {
+      this.selectedStatService = statservice;
       this.warningModal = true;
     },
     modalClose() {
@@ -135,7 +130,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("procedures/findAll");
+    this.$store.dispatch("services/findAll");
   }
 };
 </script>

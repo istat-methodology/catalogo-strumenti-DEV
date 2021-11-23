@@ -122,6 +122,27 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
+        path: "catalogue/statservicelist",
+        name: "StatServiceList",
+        component: () =>
+          import("../views/catalogue/statservice/StatServiceList"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
+        path: "catalogue/statservicelist/statserviceedit/:id",
+        name: "StatServiceEdit",
+        component: () =>
+          import("../views/catalogue/statservice/StatServiceEdit"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
+        path: "catalogue/statservicelist/statserviceadd",
+        name: "StatServiceAdd",
+        component: () =>
+          import("../views/catalogue/statservice/StatServiceAdd"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
         path: "catalogue/tools/add",
         name: "ToolAdd",
         component: () => import("../views/catalogue/tools/ToolAdd"),
