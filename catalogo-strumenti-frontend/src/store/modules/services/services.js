@@ -1,12 +1,16 @@
 import { servicesService } from "@/services";
 
 const state = {
-  services: []
+  services: [],
+  service: null
 };
 
 const mutations = {
   SET_SERVICES(state, services) {
     state.services = services;
+  },
+  SET_SERVICE(state, service) {
+    state.service = service;
   }
 };
 
@@ -20,14 +24,24 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
-  }
-  /*  save({ commit, dispatch }, formData) {
-    return toolsService
-      .save(formData)
+  },
+  findAll({ commit }) {
+    servicesService.findAll().then(
+      data => {
+        commit("SET_SERVICES", data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  },
+  save({ commit, dispatch }, payload) {
+    return servicesService
+      .save(payload)
       .then(data => {
         //console.log(data);
-        commit("SET_TOOL", data);
-        dispatch("message/success", "Tool saved!", {
+        commit("SET_SERVICE", data);
+        dispatch("message/success", "Statistical Service saved!", {
           root: true
         });
       })
@@ -36,22 +50,22 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return toolsService
+    return servicesService
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_TOOL", data);
+        commit("SET_SERVICE", data);
       })
       .catch(err => {
         console.log(err);
       });
   },
-  update({ commit, dispatch }, formData) {
-    return toolsService
-      .update(formData)
+  update({ commit, dispatch }, payload) {
+    return servicesService
+      .update(payload)
       .then(data => {
-        commit("SET_TOOL", data);
-        dispatch("message/success", "Tool saved!", {
+        commit("SET_SERVICE", data);
+        dispatch("message/success", "Statistical Service updated!", {
           root: true
         });
       })
@@ -60,23 +74,26 @@ const actions = {
       });
   },
   delete({ dispatch }, id) {
-    return toolsService
+    return servicesService
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Tool deleted!", {
+        dispatch("message/success", "Statistical Service deleted!", {
           root: true
         });
       })
       .catch(err => {
         console.log(err);
       });
-  } */
+  }
 };
 
 const getters = {
   services: state => {
     return state.services;
+  },
+  service: state => {
+    return state.service;
   }
 };
 
