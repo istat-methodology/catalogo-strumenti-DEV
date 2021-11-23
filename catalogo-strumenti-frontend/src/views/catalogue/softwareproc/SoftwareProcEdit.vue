@@ -30,10 +30,10 @@
             label="nome"
             :options="toolscatalog"
             :reduce="option => option.id"
-            v-model="softproc.tool"
+            v-model="softproc.toolId"
             placeholder="Tool"
             :class="{
-              'is-invalid': $v.softproc.tool.$error
+              'is-invalid': $v.softproc.toolId.$error
             }"
           ></v-select>
         </CCardBody>
@@ -76,20 +76,20 @@ export default {
         sintassi: "",
         dipendenze: "",
         linguaggio: "",
-        tool: ""
+        toolId: ""
       }
     };
   },
   validations: {
     softproc: {
-      tool: {
+      toolId: {
         required
       }
     }
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.softproc.tool.$invalid) {
+      if (!this.$v.softproc.toolId.$invalid) {
         this.$store.dispatch("procedures/update", this.softproc).then(() => {
           this.backToList();
         });
@@ -101,7 +101,7 @@ export default {
       this.softproc.sintassi = this.procedure.sintassi;
       this.softproc.dipendenze = this.procedure.dipendenze;
       this.softproc.linguaggio = this.procedure.linguaggio;
-      this.softproc.tool = this.procedure.tool.id;
+      this.softproc.toolId = this.procedure.tool.id;
     },
 
     backToList() {
