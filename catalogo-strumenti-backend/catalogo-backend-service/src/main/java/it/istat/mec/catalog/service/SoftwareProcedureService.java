@@ -55,7 +55,7 @@ public class SoftwareProcedureService {
 		SoftwareProcedure sp = softwareProcedureDao.findById(request.getId()).get();	
 		sp = Translators.translateUpdate(request, sp);
 		if(!sp.getCatalogTool().getId().equals( request.getToolId())){
-			if (!softwareProcedureDao.findById(request.getToolId()).isPresent())
+			if (!toolDao.findById(request.getToolId()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
 			sp.setCatalogTool(toolDao.findById(request.getToolId()).get());
 		}		
