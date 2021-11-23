@@ -8,7 +8,7 @@
         <header class="card-header">
           Software Procedure List
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'DeskAppAdd' }">
+            <router-link tag="a" :to="{ name: 'SoftProcAdd' }">
               <add-icon />
             </router-link>
           </div>

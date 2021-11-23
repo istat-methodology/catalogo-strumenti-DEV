@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Desktop Application
+          New Software Procedure
         </CCardHeader>
         <CCardBody>
           <div class="row">
@@ -11,44 +11,34 @@
               <CCard class="card-no-border">
                 <CCardBody>
                   <CInput
+                    label="Codice"
+                    placeholder="Codice"
+                    v-model="softproc.codice"
+                  />
+                  <CInput
+                    label="Sintassi"
+                    placeholder="Sintassi"
+                    v-model="softproc.sintassi"
+                  />
+                  <CInput
                     label="Dipendenze"
                     placeholder="Dipendenze"
-                    v-model="deskapp.dipendenze"
-                  />
-                  <CInput
-                    label="Download"
-                    placeholder="Download"
-                    v-model="deskapp.download"
-                  />
-                  <CInput
-                    label="Licenza"
-                    placeholder="Liceenza"
-                    v-model="deskapp.licenza"
+                    v-model="softproc.dipendenze"
                   />
                   <CInput
                     label="Linguaggio"
                     placeholder="Linguaggio"
-                    v-model="deskapp.linguaggio"
-                  />
-                  <CInput
-                    label="Pacchetto"
-                    placeholder="Pacchetto"
-                    v-model="deskapp.pacchetto"
-                  />
-                  <CInput
-                    label="Sistema Operativo"
-                    placeholder="Sistema Operativo"
-                    v-model="deskapp.sistemaOperativo"
+                    v-model="softproc.linguaggio"
                   />
                   <label>Tool</label>
                   <v-select
                     label="nome"
                     :options="toolscatalog"
-                    v-model="deskapp.tool"
                     :reduce="option => option.id"
+                    v-model="softproc.toolId"
                     placeholder="Tool"
                     :class="{
-                      'is-invalid': $v.deskapp.tool.$error
+                      'is-invalid': $v.softproc.toolId.$error
                     }"
                   ></v-select>
 
@@ -99,40 +89,42 @@ import { required } from "vuelidate/lib/validators";
 export default {
   name: "DeskAppAdd",
   computed: {
-    ...mapGetters("tools", ["toolscatalog"])
+    ...mapGetters("tools", ["toolscatalog"]),
+    ...mapGetters("procedures", ["procedure"])
   },
   data() {
     return {
-      deskapp: {
+      softproc: {
         id: 0,
+        codice: "",
+        sintassi: "",
         dipendenze: "",
-        download: "",
-        licenza: "",
         linguaggio: "",
-        pacchetto: "",
-        sistemaOperativo: "",
-        tool: ""
+        toolId: ""
       }
     };
   },
   validations: {
-    deskapp: {
-      tool: {
+    softproc: {
+      toolId: {
         required
       }
     }
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.deskapp.tool.$invalid) {
+      if (!this.$v.softproc.toolId.$invalid) {
         this.$store
-          .dispatch("applications/save", this.deskapp)
-          .then(this.$router.push("/catalogue/deskapplist"));
+          .dispatch("procedures/save", this.softproc)
+          .then(this.$router.push("/catalogue/softwareproclist"));
       }
     },
     goBack() {
-      this.$router.push("/catalogue/deskapplist");
+      this.$router.push("/catalogue/softpoclist");
     }
+  },
+  created() {
+    this.$store.dispatch("tools/findAll");
   }
 };
 </script>

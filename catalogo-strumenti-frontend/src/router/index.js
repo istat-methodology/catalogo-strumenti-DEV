@@ -115,6 +115,13 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
+        path: "catalogue/softwareproclist/softprocadd",
+        name: "SoftProcAdd",
+        component: () =>
+          import("../views/catalogue/softwareproc/SoftwareProcAdd"),
+        meta: { authorize: [Role.Admin, Role.Supervisor] }
+      },
+      {
         path: "catalogue/tools/add",
         name: "ToolAdd",
         component: () => import("../views/catalogue/tools/ToolAdd"),
