@@ -116,11 +116,11 @@ export default {
       if (!this.$v.softproc.toolId.$invalid) {
         this.$store
           .dispatch("procedures/save", this.softproc)
-          .then(this.$router.push("/catalogue/softwareproclist"));
+          .then(this.$router.push("/catalogue/softproclist"));
       }
     },
     goBack() {
-      this.$router.push("/catalogue/softpoclist");
+      this.$router.push("/catalogue/softproclist");
     }
   },
   created() {

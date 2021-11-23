@@ -6,7 +6,7 @@
     <div class="col-12" v-else>
       <div class="card fade-in">
         <header class="card-header">
-          Software Procedure List
+          Statistical Service List
           <div class="card-header-actions">
             <router-link tag="a" :to="{ name: 'StatServiceAdd' }">
               <add-icon />

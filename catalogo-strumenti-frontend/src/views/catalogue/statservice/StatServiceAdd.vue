@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Software Procedure
+          New Statistical Service
         </CCardHeader>
         <CCardBody>
           <div class="row">
@@ -11,51 +11,31 @@
               <CCard class="card-no-border">
                 <CCardBody>
                   <CInput
-                    label="Codice"
-                    placeholder="Codice"
-                    v-model="softproc.codice"
-                  />
-                  <CInput
-                    label="Sintassi"
-                    placeholder="Sintassi"
-                    v-model="softproc.sintassi"
+                    label="Metodi Esposti"
+                    placeholder="metodiEposti"
+                    v-model="statservice.metodiEsposti"
                   />
                   <CInput
                     label="Dipendenze"
                     placeholder="Dipendenze"
-                    v-model="softproc.dipendenze"
+                    v-model="statservice.dipendenze"
                   />
                   <CInput
-                    label="Linguaggio"
-                    placeholder="Linguaggio"
-                    v-model="softproc.linguaggio"
+                    label="Potocollo"
+                    placeholder="Protocollo"
+                    v-model="statservice.protocollo"
                   />
                   <label>Tool</label>
                   <v-select
                     label="nome"
                     :options="toolscatalog"
                     :reduce="option => option.id"
-                    v-model="softproc.toolId"
+                    v-model="statservice.toolId"
                     placeholder="Tool"
                     :class="{
-                      'is-invalid': $v.softproc.toolId.$error
+                      'is-invalid': $v.statservice.toolId.$error
                     }"
                   ></v-select>
-
-                  <!-- <v-select
-                    v-model="selected"
-                    :reduce="option => option.id"
-                    :options="[
-                      { label: 'One', id: 1 },
-                      { label: 'Two', id: 2 }
-                    ]"
-                  /> -->
-
-                  <!-- <CInput
-                    label="Tool"
-                    placeholder="Tool"
-                    v-model="deskapp.tool"
-                  /> -->
                 </CCardBody>
                 <CCardFooter>
                   <CButton
@@ -87,25 +67,24 @@
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
 export default {
-  name: "DeskAppAdd",
+  name: "StatServiceAdd",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("procedures", ["procedure"])
+    ...mapGetters("services", ["services"])
   },
   data() {
     return {
-      softproc: {
+      statservice: {
         id: 0,
-        codice: "",
-        sintassi: "",
+        metodiEsposti: "",
         dipendenze: "",
-        linguaggio: "",
+        protocollo: "",
         toolId: ""
       }
     };
   },
   validations: {
-    softproc: {
+    statservice: {
       toolId: {
         required
       }
@@ -113,14 +92,14 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.softproc.toolId.$invalid) {
+      if (!this.$v.statservice.toolId.$invalid) {
         this.$store
-          .dispatch("procedures/save", this.softproc)
-          .then(this.$router.push("/catalogue/softwareproclist"));
+          .dispatch("services/save", this.statservice)
+          .then(this.$router.push("/catalogue/statservicelist"));
       }
     },
     goBack() {
-      this.$router.push("/catalogue/softpoclist");
+      this.$router.push("/catalogue/statservicelist");
     }
   },
   created() {
