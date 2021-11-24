@@ -60,7 +60,7 @@
           Delete
         </CButton>
       </template>
-      Delete Desktop Application '{{ selectedStatService.dipendenze }}'?
+      Delete Statistical Method '{{ selectedStatService.dipendenze }}'?
     </CModal>
   </div>
 </template>
