@@ -69,7 +69,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "SoftProcList",
+  name: "StatServiceList",
   data() {
     return {
       warningModal: false,

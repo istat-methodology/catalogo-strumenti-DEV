@@ -58,7 +58,7 @@ import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "SoftProcEdit",
+  name: "StatServiceEdit",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
     ...mapGetters("services", ["service"])

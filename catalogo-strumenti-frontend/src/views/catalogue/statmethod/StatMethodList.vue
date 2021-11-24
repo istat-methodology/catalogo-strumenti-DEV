@@ -6,7 +6,7 @@
     <div class="col-12" v-else>
       <div class="card fade-in">
         <header class="card-header">
-          Statistical Service List
+          Statistical Method List
           <div class="card-header-actions">
             <router-link tag="a" :to="{ name: 'StatServiceAdd' }">
               <add-icon />
@@ -15,7 +15,7 @@
         </header>
         <CCardBody>
           <CDataTable
-            :items="services"
+            :items="methods"
             :fields="fields"
             :items-per-page="10"
             sorter

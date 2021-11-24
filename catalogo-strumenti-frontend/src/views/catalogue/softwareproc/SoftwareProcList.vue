@@ -60,7 +60,7 @@
           Delete
         </CButton>
       </template>
-      Delete Desktop Application '{{ selectedSoftProc.dipendenze }}'?
+      Delete Software Procedure '{{ selectedSoftProc.dipendenze }}'?
     </CModal>
   </div>
 </template>
