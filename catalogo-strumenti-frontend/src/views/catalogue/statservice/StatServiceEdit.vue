@@ -3,37 +3,32 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="softproc">Desktop Application</CCardHeader>
+        <CCardHeader v-if="statservice">Statistical Service</CCardHeader>
         <CCardBody>
           <CInput
-            label="Codice"
-            placeholder="Codice"
-            v-model="softproc.codice"
-          />
-          <CInput
-            label="Sintassi"
-            placeholder="Sintassi"
-            v-model="softproc.sintassi"
+            label="Metodi Esposti"
+            placeholder="metodiEposti"
+            v-model="statservice.metodiEsposti"
           />
           <CInput
             label="Dipendenze"
             placeholder="Dipendenze"
-            v-model="softproc.dipendenze"
+            v-model="statservice.dipendenze"
           />
           <CInput
-            label="Linguaggio"
-            placeholder="Linguaggio"
-            v-model="softproc.linguaggio"
+            label="Potocollo"
+            placeholder="Protocollo"
+            v-model="statservice.protocollo"
           />
           <label>Tool</label>
           <v-select
             label="nome"
             :options="toolscatalog"
             :reduce="option => option.id"
-            v-model="softproc.toolId"
+            v-model="statservice.toolId"
             placeholder="Tool"
             :class="{
-              'is-invalid': $v.softproc.toolId.$error
+              'is-invalid': $v.statservice.toolId.$error
             }"
           ></v-select>
         </CCardBody>
@@ -66,22 +61,21 @@ export default {
   name: "SoftProcEdit",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("procedures", ["procedure"])
+    ...mapGetters("services", ["service"])
   },
   data() {
     return {
-      softproc: {
-        id: "",
-        codice: "",
-        sintassi: "",
+      statservice: {
+        id: 0,
+        metodiEsposti: "",
         dipendenze: "",
-        linguaggio: "",
+        protocollo: "",
         toolId: ""
       }
     };
   },
   validations: {
-    softproc: {
+    statservice: {
       toolId: {
         required
       }
@@ -89,29 +83,28 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.softproc.toolId.$invalid) {
-        this.$store.dispatch("procedures/update", this.softproc).then(() => {
+      if (!this.$v.statservice.toolId.$invalid) {
+        this.$store.dispatch("services/update", this.statservice).then(() => {
           this.backToList();
         });
       }
     },
     setOldValues() {
-      this.softproc.id = this.procedure.id;
-      this.softproc.codice = this.procedure.codice;
-      this.softproc.sintassi = this.procedure.sintassi;
-      this.softproc.dipendenze = this.procedure.dipendenze;
-      this.softproc.linguaggio = this.procedure.linguaggio;
-      this.softproc.toolId = this.procedure.tool.id;
+      this.statservice.id = this.service.id;
+      this.statservice.metodiEsposti = this.service.metodiEsposti;
+      this.statservice.dipendenze = this.service.dipendenze;
+      this.statservice.protocollo = this.service.protocollo;
+      this.statservice.toolId = this.service.tool.id;
     },
 
     backToList() {
-      this.$router.push("/catalogue/softwareproclist");
+      this.$router.push("/catalogue/statservicelist");
     }
   },
   created() {
     this.$store.dispatch("tools/findAll");
     this.$store
-      .dispatch("procedures/findById", this.$route.params.id)
+      .dispatch("services/findById", this.$route.params.id)
       .then(() => {
         this.setOldValues();
       });
