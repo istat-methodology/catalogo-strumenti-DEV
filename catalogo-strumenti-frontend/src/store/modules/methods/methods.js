@@ -7,6 +7,9 @@ const state = {
 const mutations = {
   SET_METHODS(state, methods) {
     state.methods = methods;
+  },
+  SET_METHOD(state, method) {
+    state.method = method;
   }
 };
 
@@ -20,14 +23,24 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
-  }
-  /*  save({ commit, dispatch }, formData) {
-    return toolsService
-      .save(formData)
+  },
+  findAll({ commit }) {
+    methodsService.findAll().then(
+      data => {
+        commit("SET_METHODS", data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  },
+  save({ commit, dispatch }, payload) {
+    return methodsService
+      .save(payload)
       .then(data => {
         //console.log(data);
-        commit("SET_TOOL", data);
-        dispatch("message/success", "Tool saved!", {
+        commit("SET_METHODS", data);
+        dispatch("message/success", "Statistical Method saved!", {
           root: true
         });
       })
@@ -36,22 +49,22 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return toolsService
+    return methodsService
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_TOOL", data);
+        commit("SET_METHOD", data);
       })
       .catch(err => {
         console.log(err);
       });
   },
-  update({ commit, dispatch }, formData) {
-    return toolsService
-      .update(formData)
+  update({ commit, dispatch }, payload) {
+    return methodsService
+      .update(payload)
       .then(data => {
-        commit("SET_TOOL", data);
-        dispatch("message/success", "Tool saved!", {
+        commit("SET_METHOD", data);
+        dispatch("message/success", "Statistical Method updated!", {
           root: true
         });
       })
@@ -60,23 +73,26 @@ const actions = {
       });
   },
   delete({ dispatch }, id) {
-    return toolsService
+    return methodsService
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Tool deleted!", {
+        dispatch("message/success", "Statistical Method deleted!", {
           root: true
         });
       })
       .catch(err => {
         console.log(err);
       });
-  } */
+  }
 };
 
 const getters = {
   methods: state => {
     return state.methods;
+  },
+  method: state => {
+    return state.method;
   }
 };
 

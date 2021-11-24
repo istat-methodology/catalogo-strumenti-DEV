@@ -67,7 +67,7 @@
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
 export default {
-  name: "StatServiceAdd",
+  name: "StatMethodAdd",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
     ...mapGetters("services", ["services"])

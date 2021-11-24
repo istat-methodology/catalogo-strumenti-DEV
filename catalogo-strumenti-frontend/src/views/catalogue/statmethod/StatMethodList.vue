@@ -27,7 +27,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'StatServiceEdit',
+                    name: 'StatMethodList',
                     params: { id: item.id }
                   }"
                 >
@@ -55,12 +55,12 @@
           shape="square"
           size="sm"
           color="primary"
-          @click="deleteSoftProc"
+          @click="deleteStatMethod"
         >
           Delete
         </CButton>
       </template>
-      Delete Statistical Method '{{ selectedStatService.dipendenze }}'?
+      Delete Statistical Method '{{ selectedStatMethod.nome }}'?
     </CModal>
   </div>
 </template>
@@ -73,21 +73,46 @@ export default {
   data() {
     return {
       warningModal: false,
-      selectedStatService: {},
+      selectedStatMethod: {},
       fields: [
         {
-          key: "metodiEsposti",
-          label: "Metodi Esposti",
+          key: "nome",
+          label: "Nome",
           _style: "width:10%;"
         },
         {
-          key: "dipendenze",
-          label: "Dipendenze",
+          key: "autore",
+          label: "Autore",
           _style: "width:10%;"
         },
         {
-          key: "protocollo",
-          label: "Protocollo",
+          key: "obiettivo",
+          label: "Obiettivo",
+          _style: "width:10%;"
+        },
+        {
+          key: "descrizione",
+          label: "Descrizione",
+          _style: "width:10%;"
+        },
+        {
+          key: "generalita",
+          label: "Generalita",
+          _style: "width:10%;"
+        },
+        {
+          key: "ipotesi",
+          label: "Ipotesi",
+          _style: "width:10%;"
+        },
+        {
+          key: "limiti",
+          label: "Limiti",
+          _style: "width:10%;"
+        },
+        {
+          key: "indicatoriQualita",
+          label: "Indicatori di Qualita",
           _style: "width:10%;"
         },
         {
@@ -114,15 +139,15 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("services", ["services"])
+    ...mapGetters("methods", ["methods"])
   },
   methods: {
-    deleteSoftProc() {
-      this.$store.dispatch("services/delete", this.selectedStatService.id);
+    deleteStatMethod() {
+      this.$store.dispatch("methods/delete", this.selectedStatMethod.id);
       this.warningModal = false;
     },
-    modalOpen(statservice) {
-      this.selectedStatService = statservice;
+    modalOpen(statmethod) {
+      this.selectedStatMethod = statmethod;
       this.warningModal = true;
     },
     modalClose() {
@@ -130,7 +155,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("services/findAll");
+    this.$store.dispatch("methods/findAll");
   }
 };
 </script>

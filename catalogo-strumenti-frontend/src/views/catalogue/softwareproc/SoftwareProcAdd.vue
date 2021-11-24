@@ -87,7 +87,7 @@
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
 export default {
-  name: "DeskAppAdd",
+  name: "SoftProcAdd",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
     ...mapGetters("procedures", ["procedure"])

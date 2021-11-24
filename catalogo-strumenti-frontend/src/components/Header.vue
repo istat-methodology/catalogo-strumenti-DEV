@@ -110,7 +110,7 @@
         <CDropdownItem>
           <router-link
             :to="{
-              name: 'UserList'
+              name: 'StatMethodList'
             }"
             custom
             v-slot="{ href, navigate }"
