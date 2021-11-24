@@ -55,7 +55,7 @@
           shape="square"
           size="sm"
           color="primary"
-          @click="deleteSoftProc"
+          @click="deleteStatService"
         >
           Delete
         </CButton>
@@ -117,7 +117,7 @@ export default {
     ...mapGetters("services", ["services"])
   },
   methods: {
-    deleteSoftProc() {
+    deleteStatService() {
       this.$store.dispatch("services/delete", this.selectedStatService.id);
       this.warningModal = false;
     },
