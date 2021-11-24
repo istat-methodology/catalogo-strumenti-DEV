@@ -8,7 +8,7 @@
         <header class="card-header">
           Statistical Method List
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'StatServiceAdd' }">
+            <router-link tag="a" :to="{ name: 'StatMethodAdd' }">
               <add-icon />
             </router-link>
           </div>
