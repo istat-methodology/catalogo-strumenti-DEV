@@ -27,38 +27,68 @@
           </a>
         </router-link>
       </li>
-      <!-- <template v-if="isSupervisor">
+      <template v-if="isSupervisor">
         <li class="c-sidebar-nav-title">
-          Report
+          Tipologia degli strumenti:
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'TotalReport' }"
+            :to="{ name: 'DeskAppList' }"
             class="c-sidebar-nav-link"
-            :class="{ 'c-active': isTotalReport }"
+            :class="{ 'c-active': isDeskAppList }"
             custom
             v-slot="{ href, navigate }"
           >
             <a :href="href" @click="navigate">
-              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Totali
+              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Applicazioni
+              Desktop
             </a>
           </router-link>
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'DailyReport' }"
+            :to="{ name: 'SoftProcList' }"
             class="c-sidebar-nav-link"
-            :class="{ 'c-active': isDailyReport }"
+            :class="{ 'c-active': isSoftProcList }"
             custom
             v-slot="{ href, navigate }"
           >
             <a :href="href" @click="navigate">
-              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Giornaliero
+              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Procedure
+              Software
+            </a>
+          </router-link>
+        </li>
+        <li class="c-sidebar-nav-item">
+          <router-link
+            :to="{ name: 'StatServiceList' }"
+            class="c-sidebar-nav-link"
+            :class="{ 'c-active': isStatServiceList }"
+            custom
+            v-slot="{ href, navigate }"
+          >
+            <a :href="href" @click="navigate">
+              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Servizi
+              Statistici
+            </a>
+          </router-link>
+        </li>
+        <li class="c-sidebar-nav-item">
+          <router-link
+            :to="{ name: 'StatMethodList' }"
+            class="c-sidebar-nav-link"
+            :class="{ 'c-active': isStatMethodList }"
+            custom
+            v-slot="{ href, navigate }"
+          >
+            <a :href="href" @click="navigate">
+              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Metodi
+              Statistici
             </a>
           </router-link>
         </li>
       </template>
-      <template v-if="isReviewer || assignedId > 0">
+      <!-- <template v-if="isReviewer || assignedId > 0">
         <li class="c-sidebar-nav-title">
           Indirizzi <small class="pl-1">{{ assignedName }}</small>
         </li>
@@ -146,9 +176,10 @@
               >
             </a>
           </router-link>
-        </li> -->
-      <!--li class="c-sidebar-nav-title">
-          Revisioni in blocco <small class="pl-1">{{ assignedName }}</small>
+        </li>
+        <li>
+          li class="c-sidebar-nav-title"> Revisioni in blocco
+          <small class="pl-1">{{ assignedName }}</small>
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
@@ -165,8 +196,8 @@
               >
             </a>
           </router-link>
-        </li-->
-      <!-- </template> -->
+        </li>
+      </template> -->
     </ul>
   </CSidebar>
 </template>
