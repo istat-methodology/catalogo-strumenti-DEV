@@ -1,7 +1,8 @@
 import { methodsService } from "@/services";
 
 const state = {
-  methods: []
+  methods: [],
+  method: null
 };
 
 const mutations = {

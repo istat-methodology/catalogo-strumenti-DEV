@@ -27,7 +27,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'StatMethodList',
+                    name: 'StatMethodEdit',
                     params: { id: item.id }
                   }"
                 >

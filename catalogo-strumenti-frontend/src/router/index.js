@@ -161,19 +161,19 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/tools/add",
+        path: "catalogue/tooladd",
         name: "ToolAdd",
         component: () => import("../views/catalogue/tools/ToolAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/tools/edit/:id",
+        path: "catalogue/tooledit/:id",
         name: "ToolEdit",
         component: () => import("../views/catalogue/tools/ToolEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/tools/details/:id",
+        path: "catalogue/tooldetails/:id",
         name: "ToolDetails",
         component: () => import("../views/catalogue/tools/ToolDetails"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }

@@ -3,32 +3,53 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="statservice">Statistical Service</CCardHeader>
+        <CCardHeader v-if="statmethod">Statistical Method</CCardHeader>
         <CCardBody>
+          <CInput label="Nome" placeholder="nome" v-model="statmethod.nome" />
           <CInput
-            label="Metodi Esposti"
-            placeholder="metodiEposti"
-            v-model="statservice.metodiEsposti"
+            label="Autore"
+            placeholder="autore"
+            v-model="statmethod.autore"
           />
           <CInput
-            label="Dipendenze"
-            placeholder="Dipendenze"
-            v-model="statservice.dipendenze"
+            label="Obiettivo"
+            placeholder="obiettivo"
+            v-model="statmethod.obiettivo"
           />
           <CInput
-            label="Potocollo"
-            placeholder="Protocollo"
-            v-model="statservice.protocollo"
+            label="Desrizione"
+            placeholder="descrizione"
+            v-model="statmethod.descrizione"
+          />
+          <CInput
+            label="Genealita"
+            placeholder="generalita"
+            v-model="statmethod.generalita"
+          />
+          <CInput
+            label="Ipotesi"
+            placeholder="ipotesi"
+            v-model="statmethod.ipotesi"
+          />
+          <CInput
+            label="Limiti"
+            placeholder="limiti"
+            v-model="statmethod.limiti"
+          />
+          <CInput
+            label="IndicatoriQualita"
+            placeholder="Indicatori di Qualita"
+            v-model="statmethod.indicatoriQualita"
           />
           <label>Tool</label>
           <v-select
             label="nome"
             :options="toolscatalog"
             :reduce="option => option.id"
-            v-model="statservice.toolId"
+            v-model="statmethod.toolId"
             placeholder="Tool"
             :class="{
-              'is-invalid': $v.statservice.toolId.$error
+              'is-invalid': $v.statmethod.toolId.$error
             }"
           ></v-select>
         </CCardBody>
@@ -61,21 +82,26 @@ export default {
   name: "StatMethodEdit",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("services", ["service"])
+    ...mapGetters("methods", ["method"])
   },
   data() {
     return {
-      statservice: {
+      statmethod: {
         id: 0,
-        metodiEsposti: "",
-        dipendenze: "",
-        protocollo: "",
+        nome: "",
+        autore: "",
+        obiettivo: "",
+        descrizione: "",
+        generalita: "",
+        ipotesi: "",
+        limiti: "",
+        indicatoriQualita: "",
         toolId: ""
       }
     };
   },
   validations: {
-    statservice: {
+    statmethod: {
       toolId: {
         required
       }
@@ -83,31 +109,34 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.statservice.toolId.$invalid) {
-        this.$store.dispatch("services/update", this.statservice).then(() => {
+      if (!this.$v.statmethod.toolId.$invalid) {
+        this.$store.dispatch("methods/update", this.statmethod).then(() => {
           this.backToList();
         });
       }
     },
     setOldValues() {
-      this.statservice.id = this.service.id;
-      this.statservice.metodiEsposti = this.service.metodiEsposti;
-      this.statservice.dipendenze = this.service.dipendenze;
-      this.statservice.protocollo = this.service.protocollo;
-      this.statservice.toolId = this.service.tool.id;
+      this.statmethod.id = this.method.id;
+      this.statmethod.nome = this.method.nome;
+      this.statmethod.autore = this.method.autore;
+      this.statmethod.obiettivo = this.method.obiettivo;
+      this.statmethod.descrizione = this.method.descrizione;
+      this.statmethod.generalita = this.method.generalita;
+      this.statmethod.ipotesi = this.method.ipotesi;
+      this.statmethod.limiti = this.method.limiti;
+      this.statmethod.indicatoriQualita = this.indicatoriQualita;
+      this.statmethod.toolId = this.method.toolId.id;
     },
 
     backToList() {
-      this.$router.push("/catalogue/statservicelist");
+      this.$router.push("/catalogue/statmethodlist");
     }
   },
   created() {
     this.$store.dispatch("tools/findAll");
-    this.$store
-      .dispatch("services/findById", this.$route.params.id)
-      .then(() => {
-        this.setOldValues();
-      });
+    this.$store.dispatch("methods/findById", this.$route.params.id).then(() => {
+      this.setOldValues();
+    });
   }
 };
 </script>

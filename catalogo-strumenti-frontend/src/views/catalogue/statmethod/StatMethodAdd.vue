@@ -95,7 +95,7 @@ export default {
   name: "StatMethodAdd",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("methods", ["methods"])
+    ...mapGetters("methods", ["method"])
   },
 
   data() {
@@ -105,8 +105,8 @@ export default {
         nome: "",
         autore: "",
         obiettivo: "",
-        desizione: "",
-        genealita: "",
+        descrizione: "",
+        generalita: "",
         ipotesi: "",
         limiti: "",
         indicatoriQualita: "",
