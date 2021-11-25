@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Statistical Service
+          New Statistical Method
         </CCardHeader>
         <CCardBody>
           <div class="row">
@@ -11,29 +11,54 @@
               <CCard class="card-no-border">
                 <CCardBody>
                   <CInput
-                    label="Metodi Esposti"
-                    placeholder="metodiEposti"
-                    v-model="statservice.metodiEsposti"
+                    label="Nome"
+                    placeholder="nome"
+                    v-model="statmethod.nome"
                   />
                   <CInput
-                    label="Dipendenze"
-                    placeholder="Dipendenze"
-                    v-model="statservice.dipendenze"
+                    label="Autore"
+                    placeholder="autore"
+                    v-model="statmethod.autore"
                   />
                   <CInput
-                    label="Potocollo"
-                    placeholder="Protocollo"
-                    v-model="statservice.protocollo"
+                    label="Obiettivo"
+                    placeholder="obiettivo"
+                    v-model="statmethod.obiettivo"
+                  />
+                  <CInput
+                    label="Desrizione"
+                    placeholder="descrizione"
+                    v-model="statmethod.descrizione"
+                  />
+                  <CInput
+                    label="Genealita"
+                    placeholder="generalita"
+                    v-model="statmethod.generalita"
+                  />
+                  <CInput
+                    label="Ipotesi"
+                    placeholder="ipotesi"
+                    v-model="statmethod.ipotesi"
+                  />
+                  <CInput
+                    label="Limiti"
+                    placeholder="limiti"
+                    v-model="statmethod.limiti"
+                  />
+                  <CInput
+                    label="IndicatoriQualita"
+                    placeholder="Indicatori di Qualita"
+                    v-model="statmethod.indicatoriQualita"
                   />
                   <label>Tool</label>
                   <v-select
                     label="nome"
                     :options="toolscatalog"
                     :reduce="option => option.id"
-                    v-model="statservice.toolId"
+                    v-model="statmethod.toolId"
                     placeholder="Tool"
                     :class="{
-                      'is-invalid': $v.statservice.toolId.$error
+                      'is-invalid': $v.statmethod.toolId.$error
                     }"
                   ></v-select>
                 </CCardBody>
@@ -70,21 +95,27 @@ export default {
   name: "StatMethodAdd",
   computed: {
     ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("services", ["services"])
+    ...mapGetters("methods", ["methods"])
   },
+
   data() {
     return {
-      statservice: {
+      statmethod: {
         id: 0,
-        metodiEsposti: "",
-        dipendenze: "",
-        protocollo: "",
+        nome: "",
+        autore: "",
+        obiettivo: "",
+        desizione: "",
+        genealita: "",
+        ipotesi: "",
+        limiti: "",
+        indicatoriQualita: "",
         toolId: ""
       }
     };
   },
   validations: {
-    statservice: {
+    statmethod: {
       toolId: {
         required
       }
@@ -92,14 +123,14 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (!this.$v.statservice.toolId.$invalid) {
+      if (!this.$v.statmethod.toolId.$invalid) {
         this.$store
-          .dispatch("services/save", this.statservice)
-          .then(this.$router.push("/catalogue/statservicelist"));
+          .dispatch("methods/save", this.statmethod)
+          .then(this.$router.push("/catalogue/statmethodlist"));
       }
     },
     goBack() {
-      this.$router.push("/catalogue/statservicelist");
+      this.$router.push("/catalogue/statmethodlist");
     }
   },
   created() {
