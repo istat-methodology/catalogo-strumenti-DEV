@@ -15,7 +15,7 @@
         </header>
         <CCardBody>
           <CDataTable
-            :items="methods"
+            :items="computedItems"
             :fields="fields"
             :items-per-page="10"
             sorter
@@ -117,7 +117,7 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "tool",
+          key: "nomeTool",
           label: "Tool",
           _style: "width:10%;"
         },
@@ -140,7 +140,15 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("methods", ["methods"])
+    ...mapGetters("methods", ["methods"]),
+    computedItems() {
+      return this.methods.map(item => {
+        return {
+          ...item,
+          nomeTool: item.toolId.nome
+        };
+      });
+    }
   },
   methods: {
     deleteStatMethod() {

@@ -15,7 +15,7 @@
         </header>
         <CCardBody>
           <CDataTable
-            :items="applications"
+            :items="computedItems"
             :fields="fields"
             :items-per-page="10"
             sorter
@@ -134,15 +134,15 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("applications", ["applications"])
-    /* computedItems(items) {
-      return items.map(item => {
+    ...mapGetters("applications", ["applications"]),
+    computedItems() {
+      return this.applications.map(item => {
         return {
           ...item,
           nomeTool: item.tool.nome
         };
       });
-    } */
+    }
   },
   methods: {
     deleteDeskApp() {
