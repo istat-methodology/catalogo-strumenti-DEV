@@ -111,7 +111,7 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "tool",
+          key: "nomeTool",
           label: "Tool",
           _style: "width:10%;"
         },

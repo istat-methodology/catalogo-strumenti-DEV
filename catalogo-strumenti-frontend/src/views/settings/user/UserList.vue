@@ -64,6 +64,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { Context } from "@/common";
 export default {
   name: "UserList",
   data() {
@@ -134,6 +135,7 @@ export default {
   created() {
     this.$store.dispatch("user/findAll");
     this.$store.dispatch("role/findAll");
+    this.$store.dispatch("coreui/setContext", Context.Home);
   }
 };
 </script>
