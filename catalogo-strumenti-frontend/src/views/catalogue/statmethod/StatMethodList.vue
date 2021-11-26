@@ -67,6 +67,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { Context } from "@/common";
 
 export default {
   name: "SoftProcList",
@@ -156,6 +157,7 @@ export default {
   },
   created() {
     this.$store.dispatch("methods/findAll");
+    this.$store.dispatch("coreui/setContext", Context.StatMethodList);
   }
 };
 </script>

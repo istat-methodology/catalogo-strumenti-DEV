@@ -67,7 +67,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import { Context } from "@/common";
 export default {
   name: "StatServiceList",
   data() {
@@ -131,6 +131,7 @@ export default {
   },
   created() {
     this.$store.dispatch("services/findAll");
+    this.$store.dispatch("coreui/setContext", Context.StatServiceList);
   }
 };
 </script>

@@ -67,7 +67,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import { Context } from "@/common";
 export default {
   name: "DeskAppList",
   data() {
@@ -159,6 +159,7 @@ export default {
   },
   created() {
     this.$store.dispatch("applications/findAll");
+    this.$store.dispatch("coreui/setContext", Context.DeskAppList);
   }
 };
 </script>

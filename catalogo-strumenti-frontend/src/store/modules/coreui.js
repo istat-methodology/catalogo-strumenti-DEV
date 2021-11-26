@@ -6,13 +6,10 @@ const state = {
   context: "",
   isLoading: false,
   isHome: false,
-  isAddressToRevise: false,
-  isAddressRevised: false,
-  isAddressSkip: false,
-  isDailyReport: false,
-  isTotalReport: false,
-  isBlock: false,
-  isBlockSuspended: false
+  isDeskAppList: false,
+  isSoftProcList: false,
+  isStatServiceList: false,
+  isStatMethodList: false
 };
 
 const mutations = {
@@ -33,26 +30,17 @@ const mutations = {
       case Context.Home:
         state.isHome = true;
         break;
-      case Context.AddressToRevise:
-        state.isAddressToRevise = true;
+      case Context.DeskAppList:
+        state.isDeskAppList = true;
         break;
-      case Context.AddressRevised:
-        state.isAddressRevised = true;
+      case Context.SoftProcList:
+        state.isSoftProcList = true;
         break;
-      case Context.AddressSkip:
-        state.isAddressSkip = true;
+      case Context.StatServiceList:
+        state.isStatServiceList = true;
         break;
-      case Context.DailyReport:
-        state.isDailyReport = true;
-        break;
-      case Context.TotalReport:
-        state.isTotalReport = true;
-        break;
-      case Context.Block:
-        state.isBlock = true;
-        break;
-      case Context.BlockSuspended:
-        state.isBlockSuspended = true;
+      case Context.StatMethodList:
+        state.isStatMethodList = true;
         break;
       default:
         break;
@@ -61,13 +49,10 @@ const mutations = {
   CLEAR_CONTEXT(state) {
     state.context = "";
     state.isHome = false;
-    state.isAddressToRevise = false;
-    state.isAddressRevised = false;
-    state.isAddressSkip = false;
-    state.isDailyReport = false;
-    state.isTotalReport = false;
-    state.isBlock = false;
-    state.isBlockSuspended = false;
+    state.isDeskAppList = false;
+    state.isSoftProcList = false;
+    state.isStatServiceList = false;
+    state.isStatMethodList = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -109,26 +94,17 @@ const getters = {
   isHome: state => {
     return state.isHome;
   },
-  isAddressToRevise: state => {
-    return state.isAddressToRevise;
+  isDeskAppList: state => {
+    return state.isDeskAppList;
   },
-  isAddressRevised: state => {
-    return state.isAddressRevised;
+  isSoftProcList: state => {
+    return state.isSoftProcList;
   },
-  isAddressSkip: state => {
-    return state.isAddressSkip;
+  isStatServiceList: state => {
+    return state.isStatServiceList;
   },
-  isDailyReport: state => {
-    return state.isDailyReport;
-  },
-  isTotalReport: state => {
-    return state.isTotalReport;
-  },
-  isBlock: state => {
-    return state.isBlock;
-  },
-  isBlockSuspended: state => {
-    return state.isBlockSuspended;
+  isStatMethodList: state => {
+    return state.isStatMethodList;
   }
 };
 

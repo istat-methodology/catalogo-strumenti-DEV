@@ -33,35 +33,37 @@
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'DeskAppList' }"
+            :to="{ name: 'DeskAppList', params: { state: 1 } }"
             class="c-sidebar-nav-link"
             :class="{ 'c-active': isDeskAppList }"
             custom
             v-slot="{ href, navigate }"
           >
             <a :href="href" @click="navigate">
-              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Applicazioni
-              Desktop
+              <CIcon
+                name="cil-terminal"
+                class="c-sidebar-nav-icon"
+              />Applicazioni Desktop
             </a>
           </router-link>
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'SoftProcList' }"
+            :to="{ name: 'SoftProcList', params: { state: 2 } }"
             class="c-sidebar-nav-link"
             :class="{ 'c-active': isSoftProcList }"
             custom
             v-slot="{ href, navigate }"
           >
             <a :href="href" @click="navigate">
-              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Procedure
+              <CIcon name="cil-layers" class="c-sidebar-nav-icon" />Procedure
               Software
             </a>
           </router-link>
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'StatServiceList' }"
+            :to="{ name: 'StatServiceList', params: { state: 3 } }"
             class="c-sidebar-nav-link"
             :class="{ 'c-active': isStatServiceList }"
             custom
@@ -77,7 +79,7 @@
           <router-link
             :to="{ name: 'StatMethodList' }"
             class="c-sidebar-nav-link"
-            :class="{ 'c-active': isStatMethodList }"
+            :class="{ 'c-active': isStatMethodList, params: { state: 4 } }"
             custom
             v-slot="{ href, navigate }"
           >
@@ -203,25 +205,22 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import progressMixin from "@/components/mixins/progress.mixin";
+//import progressMixin from "@/components/mixins/progress.mixin";
 
 export default {
   name: "Sidebar",
-  mixins: [progressMixin],
+  // mixins: [progressMixin],
   computed: {
     ...mapGetters("auth", ["isReviewer", "isSupervisor"]),
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",
-      isHome: "isHome"
-      /* isDailyReport: "isDailyReport",
-      isTotalReport: "isTotalReport",
-      isAddressToRevise: "isAddressToRevise",
-      isAddressRevised: "isAddressRevised",
-      isAddressSkip: "isAddressSkip",
-      isBlock: "isBlock",
-      isBlockSuspended: "isBlockSuspended" */
+      isHome: "isHome",
+      isDeskAppList: "isDeskAppList",
+      isSoftProcList: "isSoftProcList",
+      isStatServiceList: "isStatServiceList",
+      isStatMethodList: "isStatMethodList"
     })
     /* ...mapGetters("progress", ["reports"]),
     ...mapGetters("progress", ["selezionati"]),
