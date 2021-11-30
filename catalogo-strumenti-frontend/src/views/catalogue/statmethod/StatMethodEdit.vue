@@ -125,7 +125,7 @@ export default {
       this.statmethod.ipotesi = this.method.ipotesi;
       this.statmethod.limiti = this.method.limiti;
       this.statmethod.indicatoriQualita = this.indicatoriQualita;
-      this.statmethod.toolId = this.method.toolId.id;
+      this.statmethod.toolId = this.method.tool.id;
     },
 
     backToList() {

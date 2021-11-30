@@ -145,7 +145,7 @@ export default {
       return this.methods.map(item => {
         return {
           ...item,
-          nomeTool: item.toolId.nome
+          nomeTool: item.tool.nome
         };
       });
     }
