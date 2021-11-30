@@ -139,7 +139,7 @@ export default {
       return this.applications.map(item => {
         return {
           ...item,
-          nomeTool: item.toolId.nome
+          nomeTool: item.tool.nome
         };
       });
     }
