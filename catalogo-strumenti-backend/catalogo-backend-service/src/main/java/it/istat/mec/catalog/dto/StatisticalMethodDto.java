@@ -16,5 +16,5 @@ public class StatisticalMethodDto implements Serializable {
 	private String ipotesi;		
 	private String limiti;	
 	private String indicatoriQualita;	
-	private ToolMiniDto toolId;	
+	private ToolMiniDto tool;	
 }
