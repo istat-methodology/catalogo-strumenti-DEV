@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader>Tool</CCardHeader>
+        <CCardHeader>Strumento Metodologico</CCardHeader>
         <CCardBody v-if="tool">
           <!-- <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
 
@@ -46,7 +46,7 @@
         </CCardBody>
       </CCard>
       <CCard>
-        <CCardHeader>Tool Details</CCardHeader>
+        <CCardHeader>Implementazioni Strumento Metodologico</CCardHeader>
         <CCardBody>
           <CTabs variant="pills" :active-tab="0">
             <CTab title="Applicazioni Desktop">
@@ -191,12 +191,12 @@ export default {
           key: "sistemaOperativo",
           label: "Sistema Operativo",
           _style: "width:10%;"
-        },
-        {
+        }
+        /*  {
           key: "tool",
           label: "Tool",
           _style: "width:10%;"
-        }
+        } */
       ],
       fieldsProcs: [
         /*  {
@@ -223,12 +223,12 @@ export default {
           key: "linguaggio",
           label: "Linguaggio",
           _style: "width:10%;"
-        },
-        {
+        }
+        /*  {
           key: "tool",
           label: "Tool",
           _style: "width:10%;"
-        }
+        } */
       ],
       fieldsServs: [
         /* {
@@ -250,12 +250,12 @@ export default {
           key: "protocollo",
           label: "Protocollo",
           _style: "width:10%;"
-        },
-        {
+        }
+        /*   {
           key: "tool",
           label: "Tool",
           _style: "width:10%;"
-        }
+        } */
       ],
       fieldsMethods: [
         /*  {

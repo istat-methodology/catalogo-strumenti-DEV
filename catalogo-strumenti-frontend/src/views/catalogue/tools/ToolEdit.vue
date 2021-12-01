@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader>Tool</CCardHeader>
+        <CCardHeader>Modifica Strumento Metodologico</CCardHeader>
         <CCardBody>
           <CInput label="Nome" placeholder="Nome" v-model="toolLocal.nome" />
           <!--  <div class="help-block" :class="{ show: $v.dug.name.$error }">

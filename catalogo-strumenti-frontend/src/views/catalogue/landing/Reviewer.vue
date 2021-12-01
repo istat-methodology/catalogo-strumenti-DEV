@@ -6,7 +6,7 @@
     <div class="col-12" v-else>
       <div class="card fade-in">
         <header class="card-header">
-          Tools List
+          Elenco Strumenti
         </header>
         <CCardBody>
           <CDataTable

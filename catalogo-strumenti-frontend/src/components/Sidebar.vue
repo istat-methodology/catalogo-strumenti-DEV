@@ -8,7 +8,7 @@
     "
   >
     <CSidebarBrand class="d-md-down-none" to="/">
-      <CIcon name="cil-terminal" size="lg"></CIcon>
+      <CIcon name="cil-at" size="lg"></CIcon>
       <span class="brand">Catalogo-Strumenti Metodologici</span>
     </CSidebarBrand>
 
@@ -22,8 +22,8 @@
           v-slot="{ href, navigate }"
         >
           <a :href="href" @click="navigate">
-            <CIcon name="cil-home" class="c-sidebar-nav-icon" />Home
-            <span class="badge badge-primary">Alpha</span>
+            <CIcon name="cil-home" class="c-sidebar-nav-icon" />Strumenti
+            <span class="badge badge-primary">Beta</span>
           </a>
         </router-link>
       </li>

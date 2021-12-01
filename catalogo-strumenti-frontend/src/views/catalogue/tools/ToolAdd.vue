@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Tool
+          Nuovo Strumento Metodologico
         </CCardHeader>
         <CCardBody>
           <div class="row">
