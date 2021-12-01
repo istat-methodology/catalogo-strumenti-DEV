@@ -33,7 +33,7 @@
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'DeskAppList', params: { state: 1 } }"
+            :to="{ name: 'DeskAppList' }"
             class="c-sidebar-nav-link"
             :class="{ 'c-active': isDeskAppList }"
             custom
@@ -49,7 +49,7 @@
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'SoftProcList', params: { state: 2 } }"
+            :to="{ name: 'SoftProcList' }"
             class="c-sidebar-nav-link"
             :class="{ 'c-active': isSoftProcList }"
             custom
@@ -63,7 +63,7 @@
         </li>
         <li class="c-sidebar-nav-item">
           <router-link
-            :to="{ name: 'StatServiceList', params: { state: 3 } }"
+            :to="{ name: 'StatServiceList' }"
             class="c-sidebar-nav-link"
             :class="{ 'c-active': isStatServiceList }"
             custom
