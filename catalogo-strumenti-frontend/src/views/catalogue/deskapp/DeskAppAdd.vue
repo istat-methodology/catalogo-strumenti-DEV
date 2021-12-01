@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Desktop Application
+          Nuova Applicazione Desktop
         </CCardHeader>
         <CCardBody>
           <div class="row">

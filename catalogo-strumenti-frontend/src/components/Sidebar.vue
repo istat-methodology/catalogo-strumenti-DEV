@@ -9,7 +9,7 @@
   >
     <CSidebarBrand class="d-md-down-none" to="/">
       <CIcon name="cil-terminal" size="lg"></CIcon>
-      <span class="brand">Tools-Catalog</span>
+      <span class="brand">Catalogo-Strumenti Metodologici</span>
     </CSidebarBrand>
 
     <ul class="c-sidebar-nav h-100 ps" style="position: relative;">

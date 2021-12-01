@@ -54,6 +54,7 @@
                 :items="applications"
                 :fields="fieldsApps"
                 :items-per-page="10"
+                :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
                 sorter
                 hover
                 pagination

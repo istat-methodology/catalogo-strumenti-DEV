@@ -83,97 +83,97 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },*/
       {
-        path: "catalogue/deskapplist",
+        path: "catalogue/applicazioni",
         name: "DeskAppList",
         component: () => import("../views/catalogue/deskapp/DeskAppList"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/deskapplist/deskappedit/:id",
+        path: "catalogue/applicazioni/modifica/:id",
         name: "DeskAppEdit",
         component: () => import("../views/catalogue/deskapp/DeskAppEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/deskapplist/deskappadd",
+        path: "catalogue/applicazioni/aggiungi",
         name: "DeskAppAdd",
         component: () => import("../views/catalogue/deskapp/DeskAppAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/softwareproclist",
+        path: "catalogue/procedure",
         name: "SoftProcList",
         component: () =>
           import("../views/catalogue/softwareproc/SoftwareProcList"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/softwareproclist/softprocedit/:id",
+        path: "catalogue/procedure/modifica/:id",
         name: "SoftProcEdit",
         component: () =>
           import("../views/catalogue/softwareproc/SoftwareProcEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/softwareproclist/softprocadd",
+        path: "catalogue/procedure/aggiungi",
         name: "SoftProcAdd",
         component: () =>
           import("../views/catalogue/softwareproc/SoftwareProcAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/statservicelist",
+        path: "catalogue/servizi",
         name: "StatServiceList",
         component: () =>
           import("../views/catalogue/statservice/StatServiceList"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/statservicelist/statserviceedit/:id",
+        path: "catalogue/servizi/modifica/:id",
         name: "StatServiceEdit",
         component: () =>
           import("../views/catalogue/statservice/StatServiceEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/statservicelist/statserviceadd",
+        path: "catalogue/servizi/aggiungi",
         name: "StatServiceAdd",
         component: () =>
           import("../views/catalogue/statservice/StatServiceAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/statmethodlist",
+        path: "catalogue/metodi",
         name: "StatMethodList",
         component: () => import("../views/catalogue/statmethod/StatMethodList"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/statmethodlist/statmethodedit/:id",
+        path: "catalogue/metodi/modifica/:id",
         name: "StatMethodEdit",
         component: () => import("../views/catalogue/statmethod/StatMethodEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/statmethodlist/statmethodadd",
+        path: "catalogue/metodi/aggiungi",
         name: "StatMethodAdd",
         component: () => import("../views/catalogue/statmethod/StatMethodAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/tooladd",
+        path: "catalogue/aggiungi",
         name: "ToolAdd",
         component: () => import("../views/catalogue/tools/ToolAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/tooledit/:id",
+        path: "catalogue/modifica/:id",
         name: "ToolEdit",
         component: () => import("../views/catalogue/tools/ToolEdit"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/tooldetails/:id",
+        path: "catalogue/dettaglio/:id",
         name: "ToolDetails",
         component: () => import("../views/catalogue/tools/ToolDetails"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }

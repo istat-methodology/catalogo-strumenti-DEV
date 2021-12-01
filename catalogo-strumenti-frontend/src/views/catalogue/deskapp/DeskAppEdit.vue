@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="deskapp">Desktop Application</CCardHeader>
+        <CCardHeader v-if="deskapp">Modifica Applicazione Desktop</CCardHeader>
         <CCardBody>
           <CInput
             label="Dipendenze"
