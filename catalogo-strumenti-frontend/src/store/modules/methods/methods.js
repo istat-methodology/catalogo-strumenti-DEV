@@ -41,7 +41,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_METHODS", data);
-        dispatch("message/success", "Statistical Method saved!", {
+        dispatch("message/success", "Metodo Statistico salvato!", {
           root: true
         });
       })
@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_METHOD", data);
-        dispatch("message/success", "Statistical Method updated!", {
+        dispatch("message/success", "Metodo Statistico modificato!", {
           root: true
         });
       })
@@ -78,7 +78,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Statistical Method deleted!", {
+        dispatch("message/success", "Metodo Statistico eliminato!", {
           root: true
         });
       })

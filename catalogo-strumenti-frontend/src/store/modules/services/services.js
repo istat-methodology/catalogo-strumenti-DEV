@@ -41,7 +41,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_SERVICE", data);
-        dispatch("message/success", "Statistical Service saved!", {
+        dispatch("message/success", "Servizio Statistico salvato!", {
           root: true
         });
       })
@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_SERVICE", data);
-        dispatch("message/success", "Statistical Service updated!", {
+        dispatch("message/success", "Servizio Statistico modificato!", {
           root: true
         });
       })
@@ -78,7 +78,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Statistical Service deleted!", {
+        dispatch("message/success", "Servizio Statistico eliminato!", {
           root: true
         });
       })

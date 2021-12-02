@@ -41,7 +41,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_PROCEDURE", data);
-        dispatch("message/success", "Software Procedure saved!", {
+        dispatch("message/success", "Procedura Software salvata!", {
           root: true
         });
       })
@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_PROCEDURE", data);
-        dispatch("message/success", "Software Procedure updated!", {
+        dispatch("message/success", "Procedura Software modificata!", {
           root: true
         });
       })
@@ -78,7 +78,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Software Procedure deleted!", {
+        dispatch("message/success", "Procedura Software eliminata!", {
           root: true
         });
       })

@@ -41,7 +41,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_APPLICATION", data);
-        dispatch("message/success", "Desktop Application saved!", {
+        dispatch("message/success", "Applicazione Desktop salvata!", {
           root: true
         });
       })
@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_APPLICATIONS", data);
-        dispatch("message/success", "Desktop Application updated!", {
+        dispatch("message/success", "Applicazione Desktop modificata!", {
           root: true
         });
       })
@@ -78,7 +78,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Desktop Application deleted!", {
+        dispatch("message/success", "Applicazione Desktop eliminata!", {
           root: true
         });
       })
