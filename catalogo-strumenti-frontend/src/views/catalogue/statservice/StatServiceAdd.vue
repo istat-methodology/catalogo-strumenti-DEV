@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Statistical Service
+          Nuovo Servizio Statistico
         </CCardHeader>
         <CCardBody>
           <div class="row">

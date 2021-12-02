@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="statmethod">Statistical Method</CCardHeader>
+        <CCardHeader v-if="statmethod">Modifica Metodo Statistico</CCardHeader>
         <CCardBody>
           <CInput label="Nome" placeholder="nome" v-model="statmethod.nome" />
           <CInput

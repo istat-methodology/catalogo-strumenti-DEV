@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="softproc">Desktop Application</CCardHeader>
+        <CCardHeader v-if="softproc">Modifica Applicazione Desktop</CCardHeader>
         <CCardBody>
           <CInput
             label="Codice"

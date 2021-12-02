@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Statistical Method
+          Nuovo Metodo Statistico
         </CCardHeader>
         <CCardBody>
           <div class="row">

@@ -6,7 +6,7 @@
     <div class="col-12" v-else>
       <div class="card fade-in">
         <header class="card-header">
-          Statistical Method List
+          Elenco Metodi Statistici
           <div class="card-header-actions">
             <router-link tag="a" :to="{ name: 'StatMethodAdd' }">
               <add-icon />

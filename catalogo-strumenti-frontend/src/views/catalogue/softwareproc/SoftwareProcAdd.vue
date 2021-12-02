@@ -3,7 +3,7 @@
     <div class="col-12">
       <CCard>
         <CCardHeader>
-          New Software Procedure
+          Nuova Procedura Software
         </CCardHeader>
         <CCardBody>
           <div class="row">

@@ -3,7 +3,9 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader v-if="statservice">Statistical Service</CCardHeader>
+        <CCardHeader v-if="statservice"
+          >Modifica Servizio Statistico</CCardHeader
+        >
         <CCardBody>
           <CInput
             label="Metodi Esposti"
