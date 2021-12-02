@@ -22,7 +22,7 @@
             placeholder="Protocollo"
             v-model="statservice.protocollo"
           />
-          <label>Tool</label>
+          <label>Strumento Metodologico</label>
           <v-select
             label="nome"
             :options="toolscatalog"

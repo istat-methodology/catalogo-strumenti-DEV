@@ -41,7 +41,7 @@
             placeholder="Indicatori di Qualita"
             v-model="statmethod.indicatoriQualita"
           />
-          <label>Tool</label>
+          <label>Strumento Metodologico</label>
           <v-select
             label="nome"
             :options="toolscatalog"

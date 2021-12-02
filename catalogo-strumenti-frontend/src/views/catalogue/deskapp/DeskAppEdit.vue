@@ -35,7 +35,7 @@
             placeholder="Sistema Operativo"
             v-model="deskapp.sistemaOperativo"
           />
-          <label>Tool</label>
+          <label>Strumento Metodologico</label>
           <v-select
             label="nome"
             :options="toolscatalog"

@@ -25,7 +25,7 @@
             placeholder="Linguaggio"
             v-model="softproc.linguaggio"
           />
-          <label>Tool</label>
+          <label>Strumento Metodologico</label>
           <v-select
             label="nome"
             :options="toolscatalog"
