@@ -68,7 +68,7 @@
           Delete
         </CButton>
       </template>
-      Delete Tool '{{ selectedTool.nome }}'?
+      Elimina Strumento Metodologico '{{ selectedTool.nome }}'?
     </CModal>
   </div>
 </template>

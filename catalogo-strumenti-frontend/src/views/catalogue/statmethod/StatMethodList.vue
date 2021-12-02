@@ -60,7 +60,7 @@
           Delete
         </CButton>
       </template>
-      Delete Statistical Method '{{ selectedStatMethod.nome }}'?
+      Elimina Metodo Statistico '{{ selectedStatMethod.nome }}'?
     </CModal>
   </div>
 </template>

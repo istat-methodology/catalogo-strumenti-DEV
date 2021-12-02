@@ -60,7 +60,7 @@
           Delete
         </CButton>
       </template>
-      Delete Statistical Service '{{ selectedStatService.dipendenze }}'?
+      Elimina Servizio Statistico '{{ selectedStatService.dipendenze }}'?
     </CModal>
   </div>
 </template>

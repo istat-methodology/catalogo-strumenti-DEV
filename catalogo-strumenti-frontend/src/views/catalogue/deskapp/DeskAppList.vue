@@ -60,7 +60,7 @@
           Delete
         </CButton>
       </template>
-      Delete Desktop Application '{{ selectedDeskApp.dipendenze }}'?
+      Elimina Applicazione Desktop '{{ selectedDeskApp.dipendenze }}'?
     </CModal>
   </div>
 </template>
