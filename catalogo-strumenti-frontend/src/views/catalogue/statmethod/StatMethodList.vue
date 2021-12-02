@@ -118,7 +118,7 @@ export default {
         },
         {
           key: "nomeTool",
-          label: "Tool",
+          label: "Strumento Metodologico",
           _style: "width:10%;"
         },
         {
