@@ -129,7 +129,7 @@ export default {
     },
 
     backToList() {
-      this.$router.push("/catalogue/statmethodlist");
+      this.$router.push("/catalogue/metodi");
     }
   },
   created() {

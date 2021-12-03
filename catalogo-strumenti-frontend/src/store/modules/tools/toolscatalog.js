@@ -31,7 +31,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_TOOL", data);
-        dispatch("message/success", "Tool saved!", {
+        dispatch("message/success", "Strumento Metodologico salvato!", {
           root: true
         });
       })
@@ -55,7 +55,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_TOOL", data);
-        dispatch("message/success", "Tool updated!", {
+        dispatch("message/success", "Strumento Metodologico aggiornato!", {
           root: true
         });
       })
@@ -68,7 +68,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Tool deleted!", {
+        dispatch("message/success", "Strumento Metodologico eliminato!", {
           root: true
         });
       })

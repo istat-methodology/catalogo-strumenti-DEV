@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_SERVICE", data);
-        dispatch("message/success", "Servizio Statistico modificato!", {
+        dispatch("message/success", "Servizio Statistico aggiornato!", {
           root: true
         });
       })

@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_METHOD", data);
-        dispatch("message/success", "Metodo Statistico modificato!", {
+        dispatch("message/success", "Metodo Statistico aggiornato!", {
           root: true
         });
       })

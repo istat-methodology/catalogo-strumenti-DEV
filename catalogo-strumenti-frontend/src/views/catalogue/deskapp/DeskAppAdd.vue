@@ -127,11 +127,11 @@ export default {
       if (!this.$v.deskapp.tool.$invalid) {
         this.$store
           .dispatch("applications/save", this.deskapp)
-          .then(this.$router.push("/catalogue/deskapplist"));
+          .then(this.$router.push("/catalogue/applicazioni"));
       }
     },
     goBack() {
-      this.$router.push("/catalogue/deskapplist");
+      this.$router.push("/catalogue/applicazioni");
     }
   }
 };

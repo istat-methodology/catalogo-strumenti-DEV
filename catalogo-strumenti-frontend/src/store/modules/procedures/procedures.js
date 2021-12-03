@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_PROCEDURE", data);
-        dispatch("message/success", "Procedura Software modificata!", {
+        dispatch("message/success", "Procedura Software aggiornato!", {
           root: true
         });
       })

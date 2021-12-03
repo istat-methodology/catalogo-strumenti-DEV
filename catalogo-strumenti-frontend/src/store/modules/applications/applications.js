@@ -65,7 +65,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_APPLICATIONS", data);
-        dispatch("message/success", "Applicazione Desktop modificata!", {
+        dispatch("message/success", "Applicazione Desktop aggiornata!", {
           root: true
         });
       })

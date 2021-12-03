@@ -126,11 +126,11 @@ export default {
       if (!this.$v.statmethod.toolId.$invalid) {
         this.$store
           .dispatch("methods/save", this.statmethod)
-          .then(this.$router.push("/catalogue/statmethodlist"));
+          .then(this.$router.push("/catalogue/metodi"));
       }
     },
     goBack() {
-      this.$router.push("/catalogue/statmethodlist");
+      this.$router.push("/catalogue/metodi");
     }
   },
   created() {

@@ -119,7 +119,7 @@ export default {
     },
 
     backToList() {
-      this.$router.push("/catalogue/deskapplist");
+      this.$router.push("/catalogue/applicazioni");
     }
   },
   created() {

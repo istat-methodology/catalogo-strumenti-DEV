@@ -95,11 +95,11 @@ export default {
       if (!this.$v.statservice.toolId.$invalid) {
         this.$store
           .dispatch("services/save", this.statservice)
-          .then(this.$router.push("/catalogue/statservicelist"));
+          .then(this.$router.push("/catalogue/servizi"));
       }
     },
     goBack() {
-      this.$router.push("/catalogue/statservicelist");
+      this.$router.push("/catalogue/servizi");
     }
   },
   created() {

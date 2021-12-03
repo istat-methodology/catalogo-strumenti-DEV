@@ -105,7 +105,7 @@ export default {
     },
 
     backToList() {
-      this.$router.push("/catalogue/softwareproclist");
+      this.$router.push("/catalogue/procedure");
     }
   },
   created() {

@@ -100,7 +100,7 @@ export default {
     },
 
     backToList() {
-      this.$router.push("/catalogue/statservicelist");
+      this.$router.push("/catalogue/servizi");
     }
   },
   created() {
