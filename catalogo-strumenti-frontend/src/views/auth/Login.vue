@@ -26,7 +26,7 @@
             </div>
             <CCard class="mb-0">
               <CCardHeader align="center">
-                <h3 class="mt-3">Accedi a Tools-Catalog</h3>
+                <h3 class="mt-3">Accedi a Catalogo-Strumenti Metodologici</h3>
               </CCardHeader>
               <CCardBody class="mb-0 mt-3">
                 <CAlert color="danger" v-if="errorMsg" class="text-center">

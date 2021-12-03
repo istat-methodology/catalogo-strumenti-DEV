@@ -9,36 +9,43 @@
     <div class="col-4">
       <div class="card">
         <header class="card-header">
-          <span>Pre elaborazione</span>
+          <span>Strumenti Metodologici</span>
         </header>
         <div class="card-body">
-          In questa sezione puoi trovare la lista degli strumnti per la
-          preelaborazione dei dati.
+          In questa sezione puoi trovare la lista degli Strumenti Metodologici.
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-4">
+      <div class="card">
+        <header class="card-header">
+          <span>Procedure Software</span>
+        </header>
+        <div class="card-body">
+          In questa sezione puoi trovare la lista delle Procedue Software.
         </div>
       </div>
     </div>
     <div class="col-4">
       <div class="card">
         <header class="card-header">
-          <span>Controllo e correzione</span>
+          <span>Servizi Statistici</span>
         </header>
         <div class="card-body">
-          In questa sezione puoi trovare la lista degli strumenti per controllo
-          e correzione.
+          In questa sezione puoi trovare la lista dei Servizi Statistici.
         </div>
       </div>
     </div>
     <div class="col-4">
       <div class="card">
         <header class="card-header">
-          <span>Clustering</span>
+          <span>Metodi Statitici</span>
         </header>
         <div class="card-body">
-          In questa sezione puoi trovare la lista degli srumenti per il
-          clustering.
+          In questa sezione puoi trovare la lista dei Metodi Statistici.
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
