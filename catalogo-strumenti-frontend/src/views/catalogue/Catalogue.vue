@@ -13,6 +13,11 @@
         </header>
         <div class="card-body">
           In questa sezione puoi trovare la lista degli Strumenti Metodologici.
+          <p class="section-link">
+            <router-link tag="a" :to="{ name: 'AddressList' }"
+              ><span>Vai alla lista <chevron-right-icon /></span>
+            </router-link>
+          </p>
         </div>
       </div>
     </div>
