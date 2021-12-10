@@ -5,10 +5,10 @@
   <div v-else-if="isReviewer">
     <app-landing-reviewer />
   </div>
-  <div v-else-if="!isReviewer && !isSupervisor">
+  <!-- <div v-else-if="!isReviewer && !isSupervisor">
     <app-landing-everyone />
-  </div>
-  <!-- <div class="row" v-else>
+  </div> -->
+  <div class="row" v-else>
     <div class="col-4">
       <div class="card">
         <header class="card-header">
@@ -17,13 +17,14 @@
         <div class="card-body">
           In questa sezione puoi trovare la lista degli Strumenti Metodologici.
           <p class="section-link">
-            <router-link tag="a" :to="{ name: 'AddressList' }"
+            <router-link tag="a" :to="{ name: 'ToolList' }"
               ><span>Vai alla lista <chevron-right-icon /></span>
             </router-link>
           </p>
         </div>
       </div>
-    </div> -->
+    </div>
+  </div>
   <!-- <div class="col-4">
       <div class="card">
         <header class="card-header">
@@ -61,14 +62,14 @@ import { Context } from "@/common";
 import { mapGetters } from "vuex";
 import Reviewer from "./landing/Reviewer";
 import Supervisor from "./landing/Supervisor";
-import Everyone from "./landing/Everyone.vue";
+//import Everyone from "./landing/Everyone.vue";
 
 export default {
   name: "Catalogue",
   components: {
     "app-landing-reviewer": Reviewer,
-    "app-landing-supervisor": Supervisor,
-    "app-landing-everyone": Everyone
+    "app-landing-supervisor": Supervisor
+    // "app-landing-everyone": Everyone
   },
   computed: {
     ...mapGetters("auth", ["isReviewer", "isSupervisor"])
