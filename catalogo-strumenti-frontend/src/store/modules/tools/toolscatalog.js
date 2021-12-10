@@ -1,4 +1,5 @@
-import { toolsService } from "@/services";
+//import { toolsService } from "@/services";
+import { toolsOpenService } from "@/services";
 
 const state = {
   toolscatalog: [],
@@ -16,7 +17,7 @@ const mutations = {
 
 const actions = {
   findAll({ commit }) {
-    return toolsService
+    return toolsOpenService
       .findAll()
       .then(data => {
         commit("SET_TOOLSCATALOG", data);
@@ -26,7 +27,7 @@ const actions = {
       });
   },
   save({ commit, dispatch }, payload) {
-    return toolsService
+    return toolsOpenService
       .save(payload)
       .then(data => {
         //console.log(data);
@@ -40,7 +41,7 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return toolsService
+    return toolsOpenService
       .findById(id)
       .then(data => {
         //console.log(data);
@@ -51,7 +52,7 @@ const actions = {
       });
   },
   update({ commit, dispatch }, payload) {
-    return toolsService
+    return toolsOpenService
       .update(payload)
       .then(data => {
         commit("SET_TOOL", data);
@@ -64,7 +65,7 @@ const actions = {
       });
   },
   delete({ dispatch }, id) {
-    return toolsService
+    return toolsOpenService
       .delete(id)
       .then(() => {
         dispatch("findAll");
