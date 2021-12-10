@@ -46,13 +46,13 @@ public class ToolController {
 	@Autowired
 	private ToolService toolService;
 	
-	@GetMapping("/tools")
+	@GetMapping("/open/tools")
 	public List<ToolDto> getAllTools() {
 
 		return toolService.findAllTools();
 	}
 	
-	@GetMapping(value = "/tools/{id}")
+	@GetMapping(value = "/open/tools/{id}")
 	public ToolDto getTool(@PathVariable("id") Long id) {
 
 		return toolService.findToolById(id);
