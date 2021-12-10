@@ -30,7 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/**/login/**").permitAll()
-                .antMatchers("/**/public/**").permitAll() 
+                .antMatchers("/**/public/**").permitAll()
+		.antMatchers("/**/open/**").permitAll() 
 				.antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
 				
                 // Disallow everything else..
