@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "is2_jwttoken", schema = "is2")
+@Table(name = "catalog_gateway_jwttoken", schema = "catalog")
 public class JwttokenEntity {
     private String token;
 
