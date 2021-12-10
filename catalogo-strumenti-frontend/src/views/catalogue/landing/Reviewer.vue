@@ -21,7 +21,7 @@
               <td>
                 <router-link
                   tag="a"
-                  :to="{ name: 'ToolShow', params: { id: item.id } }"
+                  :to="{ name: 'ToolDetails', params: { id: item.id } }"
                 >
                   <view-icon />
                 </router-link>

@@ -5,12 +5,6 @@
       <CCard>
         <CCardHeader>Strumento Metodologico</CCardHeader>
         <CCardBody v-if="tool">
-          <!-- <CInput label="Nome" placeholder="Nome" v-model="tool.nome" />
-
-          <CInput
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="tool.descrizione" -->
           <div>
             <label>Nome:</label>
             <span>{{ tool.nome | dashEmpty }}</span>
