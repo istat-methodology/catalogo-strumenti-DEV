@@ -1,6 +1,5 @@
 import { toolsService } from "@/services";
 
-
 const state = {
   toolscatalog: [],
   tool: null
