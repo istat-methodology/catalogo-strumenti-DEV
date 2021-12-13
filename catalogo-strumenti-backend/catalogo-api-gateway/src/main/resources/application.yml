@@ -33,11 +33,11 @@ zuul:
     connect-timeout-millis: 60000 #important
   routes:
     service_catalogue:
-      path: /api/catalog/**
+      path: /api/**/catalog/**
       url: http://localhost:8081/catalog
       
     service_users:
-      path: /api/users/**
+      path: /api/**/users/**
       url: http://localhost:8082/users
  
 eureka:
