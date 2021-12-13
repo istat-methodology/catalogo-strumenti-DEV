@@ -40,39 +40,38 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/catalog")
 public class ToolController {
 	
 	@Autowired
 	private ToolService toolService;
 	
-	@GetMapping("/open/tools")
+	@GetMapping("/open/catalog/tools")
 	public List<ToolDto> getAllTools() {
 
 		return toolService.findAllTools();
 	}
 	
-	@GetMapping(value = "/open/tools/{id}")
+	@GetMapping(value = "/open/catalog/tools/{id}")
 	public ToolDto getTool(@PathVariable("id") Long id) {
 
 		return toolService.findToolById(id);
 
 	}
 	
-	@PostMapping("/tools")
+	@PostMapping("/catalog/tools")
 	public ToolDto create(@RequestBody CreateToolRequest request) {
 
 		return toolService.newTool(request);
 	}
 	
-	@PutMapping(value = "/tools/{id}")
+	@PutMapping(value = "/catalog/tools/{id}")
 	public ToolDto updateAddress(@RequestBody UpdateToolRequest request) {
 
 		//return addressService.updateAddress(request, JwtTokenProvider.getUserId(jwt));
 		return toolService.updateTool(request);
 	}
 	
-	@DeleteMapping(value = "/tools/{id}")
+	@DeleteMapping(value = "/catalog/tools/{id}")
 	public ToolDto deleteAddress(@PathVariable("id") Long id) {
 
 		return toolService.deleteTool(id);
