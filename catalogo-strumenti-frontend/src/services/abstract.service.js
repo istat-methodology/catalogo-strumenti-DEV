@@ -8,7 +8,7 @@ export default class AbstractService {
 
   findAll() {
     return axiosRegedit
-      .get("/open/+"this.endpoint + "/")
+      .get("/open/" + this.endpoint + "/")
       .then(res => {
         var data = res.data ? res.data : [];
         //console.log(data);
@@ -21,7 +21,7 @@ export default class AbstractService {
 
   findById(id) {
     return axiosRegedit
-      .get("/open/+"this.endpoint + "/" + id)
+      .get("/open/" + this.endpoint + "/" + id)
       .then(res => {
         var data = res.data ? res.data : {};
         //console.log(data);
