@@ -20,5 +20,5 @@ class ToolsService extends AbstractService {
       });
   }
 }
-export const toolsOpenService = new ToolsService("/catalog/open/tools");
-export const toolsCloseService = new ToolsService("/catalog/tools");
+
+export const toolsService = new ToolsService("/catalog/tools");
