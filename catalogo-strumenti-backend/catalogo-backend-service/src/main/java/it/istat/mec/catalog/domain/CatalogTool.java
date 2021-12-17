@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -19,13 +20,10 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-@Entity
+@MappedSuperclass
 @Table(name = "CSM_METHODOLOGICAL_TOOL")
 public class CatalogTool implements Serializable  {
 	
-	
-	
-
 	private static final long serialVersionUID = -470124614809408504L;
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
@@ -79,18 +77,6 @@ public class CatalogTool implements Serializable  {
 	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
     private List<Documentation> documentations;
 	
-	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
-    private List<StatisticalService> statisticalServices;
-	
-	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
-    private List<DesktopApplication> desktopApplications;
-	
-	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
-    private List<SoftwareProcedure> softwareProcedures;
-	
-	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
-    private List<StatisticalMethod> statisticalMethods;
-
 	public CatalogTool() {
 		super();
 		

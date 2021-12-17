@@ -15,14 +15,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CSM_SOFTWARE_PROCEDURE")
-public class SoftwareProcedure implements Serializable  {
+public class SoftwareProcedure  extends CatalogTool implements Serializable  {
 
 	private static final long serialVersionUID = -8978924619296902306L;
 
-	@Id
-	@Column(name = "ID")
-	private Long id;
-
+ 
 	@Column(name = "CODICE")
 	private String codice;
 	
@@ -35,8 +32,5 @@ public class SoftwareProcedure implements Serializable  {
 	@Column(name = "LINGUAGGIO")
 	private String linguaggio;	
 	
-	
-	@ManyToOne
-    @JoinColumn(name = "TOOL", insertable = true, updatable = true)
-    private CatalogTool catalogTool;
+
 }

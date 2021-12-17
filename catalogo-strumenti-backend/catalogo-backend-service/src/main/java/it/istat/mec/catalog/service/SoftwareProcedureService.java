@@ -34,8 +34,8 @@ public class SoftwareProcedureService {
 	public SoftwareProcedureDto newSoftwareProcedure(CreateSoftwareProcedureRequest request) {
 		SoftwareProcedure sp = new SoftwareProcedure();
 		sp = Translators.translate(request);	
-		CatalogTool tool = toolDao.getOne(request.getToolId());
-		sp.setCatalogTool(tool);
+//		CatalogTool tool = toolDao.getOne(request.getToolId());
+//		sp.setCatalogTool(tool);
 		softwareProcedureDao.save(sp);
 		return Translators.translate(sp);
 	}
@@ -54,12 +54,12 @@ public class SoftwareProcedureService {
 		
 		SoftwareProcedure sp = softwareProcedureDao.findById(request.getId()).get();	
 		sp = Translators.translateUpdate(request, sp);
-		if(!sp.getCatalogTool().getId().equals( request.getToolId())){
+	/*	if(!sp.getCatalogTool().getId().equals( request.getToolId())){
 			if (!toolDao.findById(request.getToolId()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
 			sp.setCatalogTool(toolDao.findById(request.getToolId()).get());
 		}		
-		
+		*/
 		softwareProcedureDao.save(sp);		
 		
 		return Translators.translate(sp);

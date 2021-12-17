@@ -34,8 +34,8 @@ public class StatisticalServiceService {
 	public StatisticalServiceDto newStatisticalService(CreateStatisticalServiceRequest request) {
 		StatisticalService ss = new StatisticalService();
 		ss = Translators.translate(request);
-		CatalogTool tool = toolDao.getOne(request.getToolId());
-		ss.setCatalogTool(tool);
+	//	CatalogTool tool = toolDao.getOne(request.getToolId());
+	//	ss.setCatalogTool(tool);
 		statisticalServiceDao.save(ss);
 		return Translators.translate(ss);
 	}
@@ -55,12 +55,12 @@ public class StatisticalServiceService {
 		StatisticalService ss = statisticalServiceDao.findById(request.getId()).get();	
 		
 		ss = Translators.translateUpdate(request, ss);
-		if(!ss.getCatalogTool().getId().equals( request.getToolId())){
+/*		if(!ss.getCatalogTool().getId().equals( request.getToolId())){
 			if (!toolDao.findById(request.getToolId()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
 			ss.setCatalogTool(toolDao.findById(request.getToolId()).get());
 		}
-		
+	*/	
 		statisticalServiceDao.save(ss);		
 		
 		return Translators.translate(ss);

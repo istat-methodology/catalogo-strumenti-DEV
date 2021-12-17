@@ -34,8 +34,8 @@ public class DesktopApplicationService {
 	public DesktopApplicationDto newDesktopApplication(CreateDesktopApplicationRequest request) {
 		DesktopApplication da = new DesktopApplication();
 		da = Translators.translate(request);
-		CatalogTool tool = toolDao.getOne(request.getTool());
-		da.setCatalogTool(tool);
+	//	CatalogTool tool = toolDao.getOne(request.getTool());
+	//	da.setCatalogTool(tool);
 		desktopApplicationDao.save(da);
 		return Translators.translate(da);
 	}
@@ -54,12 +54,12 @@ public class DesktopApplicationService {
 		
 		DesktopApplication da = desktopApplicationDao.findById(request.getId()).get();	
 		da = Translators.translateUpdate(request, da);
-		if(!da.getCatalogTool().getId().equals( request.getTool())){
+	/*	if(!da.getCatalogTool().getId().equals( request.getTool())){
 			if (!toolDao.findById(request.getTool()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
 			da.setCatalogTool(toolDao.findById(request.getTool()).get());
 		}
-		
+		*/
 		desktopApplicationDao.save(da);		
 		
 		return Translators.translate(da);

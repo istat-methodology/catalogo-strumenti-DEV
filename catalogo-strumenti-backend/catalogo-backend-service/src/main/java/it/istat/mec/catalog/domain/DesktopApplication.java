@@ -14,15 +14,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CSM_DESKTOP_APPLICATION")
-public class DesktopApplication implements Serializable  {
+public class DesktopApplication extends CatalogTool implements Serializable  {
 
 	
 	private static final long serialVersionUID = -755222506187438035L;
-	
-	@Id
-	@Column(name = "ID")
-	private Long id;
-
+		
 	@Column(name = "DIPENDENZE")
 	private String dipendenze;
 	
@@ -40,10 +36,6 @@ public class DesktopApplication implements Serializable  {
 	
 	@Column(name = "SISTEMA_OPERATIVO")
 	private String sistemaOperativo;
-	
-	
-	@ManyToOne
-    @JoinColumn(name = "TOOL", insertable = true, updatable = true)
-    private CatalogTool catalogTool;
+
 
 }

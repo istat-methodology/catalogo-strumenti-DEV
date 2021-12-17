@@ -15,14 +15,10 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CSM_STATISTICAL_METHOD")
-public class StatisticalMethod implements Serializable  {
+public class StatisticalMethod   extends CatalogTool  implements Serializable  {
 
 	private static final long serialVersionUID = 4339427012531827317L;
-	
-	@Id
-	@Column(name = "ID")
-	private Long id;
-
+	 
 	@Column(name = "NOME")
 	private String nome;
 	
