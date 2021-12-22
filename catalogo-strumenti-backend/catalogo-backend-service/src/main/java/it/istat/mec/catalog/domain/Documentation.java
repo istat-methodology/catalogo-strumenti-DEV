@@ -23,14 +23,23 @@ public class Documentation implements Serializable  {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NOME")
-	private String nome;
+	@Column(name = "NAME")
+	private String name;
 	
-	@Column(name = "ORGANIZZAZIONE")
-	private String organizzazione;
+	@Column(name = "PUBLISHER")
+	private String publisher;
 	
-	@Column(name = "CSM_METHODOLOGICAL_TOOL_ID")
-	private String toolId;	
+	@Column(name = "DOCUMENT_TYPE")
+	private String documentType;
+	
+	@Column(name = "NOTES")
+	private String notes;
+	
+	@Column(name = "RESOURCE")
+	private String resource;
+	
+	@Column(name = "TOOL")
+	private String tool;
 	
 	@ManyToOne
     @JoinColumn(name = "CSM_METHODOLOGICAL_TOOL_ID", insertable = false, updatable = false)

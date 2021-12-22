@@ -23,11 +23,17 @@ public class Agent implements Serializable  {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NOME")
-	private String nome;
+	@Column(name = "NAME")
+	private String name;
 	
-	@Column(name = "ORGANIZZAZIONE")
-	private String organizzazione;	
+	@Column(name = "ORGANIZATION")
+	private String organization;
+	
+	@Column(name = "CONTACT")
+	private String contact;
+	
+	@Column(name = "NOTES")
+	private String notes;
 	
 	@ManyToMany(mappedBy = "agents")
     private List<CatalogTool> catalogTools;

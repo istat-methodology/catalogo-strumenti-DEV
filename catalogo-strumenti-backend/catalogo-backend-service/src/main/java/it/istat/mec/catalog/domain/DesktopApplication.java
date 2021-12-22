@@ -3,9 +3,6 @@ package it.istat.mec.catalog.domain;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -17,25 +14,28 @@ import lombok.Setter;
 public class DesktopApplication extends CatalogTool implements Serializable  {
 
 	
-	private static final long serialVersionUID = -755222506187438035L;
-		
-	@Column(name = "DIPENDENZE")
-	private String dipendenze;
+	private static final long serialVersionUID = -755222506187438035L;	
 	
 	@Column(name = "DOWNLOAD")
 	private String download;	
 
-	@Column(name = "LICENZA")
-	private String licenza;
+	@Column(name = "LICENCE")
+	private String licence;
 
-	@Column(name = "LINGUAGGIO")
-	private String linguaggio;
+	@Column(name = "LANGUAGE")
+	private String language;
 
 	@Column(name = "PACKAGE")
 	private String pacchetto; 
 	
-	@Column(name = "SISTEMA_OPERATIVO")
-	private String sistemaOperativo;
+	@Column(name = "OPERATIVE_SYSTEM")
+	private String operativeSystem;
+	
+	@Column(name = "VERSION")
+	private String version;
+	
+	@Column(name = "TECHNICAL_REQUIREMENTS")
+	private String technicalRequirements;
 
 
 }

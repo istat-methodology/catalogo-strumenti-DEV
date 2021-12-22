@@ -7,8 +7,12 @@ import lombok.NoArgsConstructor;
 public class DocumentationDto implements Serializable {
 	
 	private static final long serialVersionUID = 6651381114832440178L;
+	
 	private Long id;	
-	private String nome;	
-	private String organizzazione;	
+	private String name;	
+	private String publisher;	
+	private String documentType;	
+	private String notes;	
+	private String resource;	
 	private String tool;
 }

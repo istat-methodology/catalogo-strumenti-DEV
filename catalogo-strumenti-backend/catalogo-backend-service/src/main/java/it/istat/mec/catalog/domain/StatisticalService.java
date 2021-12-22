@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -20,13 +17,28 @@ public class StatisticalService  extends CatalogTool  implements Serializable  {
 	private static final long serialVersionUID = 8909524485339722213L;
 
  
-	@Column(name = "METODI_ESPOSTI")
-	private String metodiEsposti;
+	@Column(name = "PROTOCOL")
+	private String protocol;
 	
-	@Column(name = "DIPENDENZE")
-	private String dipendenze;
+	@Column(name = "URL")
+	private String url;
 	
-	@Column(name = "PROTOCOLLO")
-	private String protocollo;	
+	@Column(name = "OUTCOMES")
+	private String outcomes;	
+	
+	@Column(name = "SERVICES_DEPENDENCIES")
+	private String serviceDependencies;	
+	
+	@Column(name = "RESTRICTIONS")
+	private String restrictions;	
+	
+	@Column(name = "GSBPM")
+	private String gsbpm;	
+	
+	@Column(name = "BUSINESS_FUNCTION")
+	private String businessFunction;
+	
+	@Column(name = "PROCESS_DESIGN")
+	private String processDesign;
  
 }

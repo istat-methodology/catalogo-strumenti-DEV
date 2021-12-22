@@ -1,5 +1,6 @@
 package it.istat.mec.catalog.dto;
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
@@ -7,10 +8,11 @@ import lombok.NoArgsConstructor;
 public class SoftwareProcedureDto implements Serializable {
 	
 	private static final long serialVersionUID = -3306626906230930771L;
-	private Long id;	
-	private String codice;	
-	private String sintassi;	
-	private String dipendenze;		
-	private String linguaggio;	
-	private ToolMiniDto tool;
+	
+	private String code;
+	private String language;
+	private String dependencies;	
+	private String technicalRequirements;
+	private String workflow;
+	private String download;
 }

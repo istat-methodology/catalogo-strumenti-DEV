@@ -4,13 +4,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class StatisticalServiceDto implements Serializable {
+public class StatisticalServiceDto extends ToolDto implements Serializable {
 
 	private static final long serialVersionUID = -5755522890190560245L;
-	private Long id;	
-	private String metodiEsposti;
-	private String dipendenze;	
-	private String protocollo;		
-	private ToolMiniDto tool;
-
+	
+	private String protocol;	
+	private String url;	
+	private String outcomes;	
+	private String serviceDependencies;		
+	private String restrictions;
+	private String gsbpm;		
+	private String businessFunction;	
+	private String processDesign;
 }

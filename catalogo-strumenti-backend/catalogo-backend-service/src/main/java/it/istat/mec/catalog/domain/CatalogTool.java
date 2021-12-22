@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,35 +29,35 @@ public class CatalogTool implements Serializable  {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "DATA")
-	private String data;
+	@Column(name = "RELEASE_DATE")
+	private String releaseDate;
 	
-	@Column(name = "DESCRIZIONE")
-	private String descrizione;	
-
-	@Column(name = "METODO_STATISTICO")
-	private String metodoStatistico;
-
-	@Column(name = "NOME")
-	private String nome;
-
-	@Column(name = "NOTE_DI_COMPILAZIONE")
-	private String note;
-
-	@Column(name = "STANDARD")
-	private String standard;
+	@Column(name = "DESCRIPTION")
+	private String description;	
+	
+	@Column(name = "NAME")
+	private String name;
+	
+	@Column(name = "STANDARD_ISTAT")
+	private String standardIstat;	
 
 	@Column(name = "TAGS")
 	private String tags;
 
-	@Column(name = "VERSIONE")
-	private String versione;
+	@Column(name = "VERSION")
+	private String version;
 
-	@Column(name = "TIPOLOGIA")
-	private String tipologia;
+	@Column(name = "TOOL_TYPE")
+	private String toolType;
+	
+	@Column(name = "SERVICE")
+	private String service;
 
-	@Column(name = "RIFERIMENTI")
-	private String riferimenti;	
+	@Column(name = "LAST_UPDATE")
+	private String lastUpdate;
+	
+	@Column(name = "REQUIREMENTS")
+	private String requirements;	
 	
 	@JsonBackReference
     @ManyToMany(cascade = {CascadeType.ALL})

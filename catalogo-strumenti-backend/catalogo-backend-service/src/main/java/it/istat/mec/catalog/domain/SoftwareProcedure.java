@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -20,17 +17,23 @@ public class SoftwareProcedure  extends CatalogTool implements Serializable  {
 	private static final long serialVersionUID = -8978924619296902306L;
 
  
-	@Column(name = "CODICE")
-	private String codice;
+	@Column(name = "CODE")
+	private String code;
 	
-	@Column(name = "SINTASSI")
-	private String sintassi;
+	@Column(name = "LANGUAGE")
+	private String language;
 	
-	@Column(name = "DIPENDENZE")
-	private String dipendenze;	
+	@Column(name = "DEPENDENCIES")
+	private String dependencies;	
 	
-	@Column(name = "LINGUAGGIO")
-	private String linguaggio;	
+	@Column(name = "TECHNICAL_REQUIREMENTS")
+	private String technicalRequirements;	
+	
+	@Column(name = "WORKFLOW")
+	private String workflow;
+	
+	@Column(name = "DOWNLOAD")
+	private String download;
 	
 
 }

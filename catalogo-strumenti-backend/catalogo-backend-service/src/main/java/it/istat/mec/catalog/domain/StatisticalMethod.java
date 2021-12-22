@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,32 +17,18 @@ import lombok.Setter;
 public class StatisticalMethod   extends CatalogTool  implements Serializable  {
 
 	private static final long serialVersionUID = 4339427012531827317L;
-	 
-	@Column(name = "NOME")
-	private String nome;
 	
-	@Column(name = "AUTORE")
-	private String autore;
+	@Column(name = "REQUIREMENTS")
+	private String requirements;
 	
-	@Column(name = "OBIETTIVO")
-	private String obiettivo;	
+	@Column(name = "ASSUMPTIONS")
+	private String assumptions;		
 	
-	@Column(name = "DESCRIZIONE")
-	private String descrizione;
+	@Column(name = "CONSTRAINTS")
+	private String constraints;
 	
-	@Column(name = "GENERALITA")
-	private String generalita;
-	
-	@Column(name = "IPOTESI")
-	private String ipotesi;	
-	
-	@Column(name = "LIMITI")
-	private String limiti;
-	
-	@Column(name = "INDICATORI_QUALITA")
-	private String indicatoriQualita;
-	
-	
+	@Column(name = "NOTES")
+	private String notes;		
 	
 	@ManyToOne
     @JoinColumn(name = "TOOL", insertable = true, updatable = true)
