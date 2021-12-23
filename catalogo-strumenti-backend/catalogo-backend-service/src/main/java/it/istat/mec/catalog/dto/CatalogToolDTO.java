@@ -21,7 +21,7 @@ public class CatalogToolDTO implements Serializable {
 	private String standardIstat;	
 	private String tags;	
 	private String version;
-	private String toolType;	
+	private ToolTypeDto toolType;	
 	private String service;	
 	private String lastUpdate;	
 	private String requirements;	

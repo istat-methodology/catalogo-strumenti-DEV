@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,11 +17,14 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import it.istat.mec.catalog.dao.ClsToolTypeDao;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -58,8 +62,9 @@ public class CatalogTool implements Serializable  {
 	@Column(name = "VERSION")
 	private String version;
 
-	@Column(name = "TOOL_TYPE")
-	private Integer toolType;
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "TOOL_TYPE", nullable = true)
+ 	private ToolType toolType;
 	
 	@Column(name = "SERVICE")
 	private String service;
