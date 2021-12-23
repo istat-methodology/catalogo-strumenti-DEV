@@ -29,7 +29,7 @@ public class DocumentationService {
 		Documentation doc = new Documentation();
 		doc = Translators.translate(request);	
 		CatalogTool tool = toolDao.getOne(request.getToolId());
-		doc.setCatalogTool(tool);
+	//	doc.setCatalogTool(tool);
 		documentationDao.save(doc);
 		return Translators.translate(doc);
 	}
@@ -49,12 +49,12 @@ public class DocumentationService {
 		Documentation doc = documentationDao.findById(request.getId()).get();	
 		
 		doc = Translators.translateUpdate(request, doc);
-		if(!doc.getCatalogTool().getId().equals( request.getToolId())){
+	/*	if(!doc.getCatalogTool().getId().equals( request.getToolId())){
 			if (!toolDao.findById(request.getToolId()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
 			doc.setCatalogTool(toolDao.findById(request.getToolId()).get());
 		}
-		
+		*/
 		documentationDao.save(doc);		
 		
 		return Translators.translate(doc);

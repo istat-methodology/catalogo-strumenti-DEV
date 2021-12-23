@@ -2,7 +2,7 @@ spring:
   application:
     name: catalog-service
   jpa:
-    show-sql: false
+    show-sql: true
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl

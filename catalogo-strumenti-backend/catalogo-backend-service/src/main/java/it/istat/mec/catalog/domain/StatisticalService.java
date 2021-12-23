@@ -3,6 +3,7 @@ package it.istat.mec.catalog.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@DiscriminatorValue("1")
 @Table(name = "CSM_STATISTICAL_SERVICE")
 public class StatisticalService  extends CatalogTool  implements Serializable  {
 
@@ -26,7 +28,7 @@ public class StatisticalService  extends CatalogTool  implements Serializable  {
 	@Column(name = "OUTCOMES")
 	private String outcomes;	
 	
-	@Column(name = "SERVICES_DEPENDENCIES")
+	@Column(name = "SERVICE_DEPENDENCIES")
 	private String serviceDependencies;	
 	
 	@Column(name = "RESTRICTIONS")

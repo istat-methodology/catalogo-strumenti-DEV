@@ -13,8 +13,6 @@ public interface SoftwareProcedureDao extends JpaRepository<SoftwareProcedure, L
 	@Override
 	List<SoftwareProcedure> findAll();
 	
-	List<SoftwareProcedure> findByCatalogTool(CatalogTool tool);
-	
 	@Override
 	Optional<SoftwareProcedure> findById(Long id);
 

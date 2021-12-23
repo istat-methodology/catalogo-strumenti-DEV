@@ -37,39 +37,41 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "IS2_GSBPM_PROCESS")
+@Table(name = "CSM_GSBPM_PROCESS")
 public class GsbpmProcess  implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    protected Long id;
+    private Integer id;
+    @Column(name = "CODE")
+    private String code;
     @Column(name = "NAME")
-    protected String name;
-    @Column(name = "DESCR")
-    protected String descr;
+    private String name;
+    @Column(name = "PHASE")
+    private Integer phase;
 
+    @Column(name = "SUBPROCESS")
+    private Short subProcess;
     @Column(name = "ACTIVE")
     private Boolean active;
-    @Column(name = "ORDER_CODE")
-    private Short orderCode;
-
+    
     @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "PARENT")
+    @JoinColumn(name = "PHASE",referencedColumnName = "id", insertable=false, updatable=false,nullable = true)
     private GsbpmProcess gsbpmProcessParent;
 
-    @OneToMany(mappedBy = "gsbpmProcessParent")
+    @OneToMany(mappedBy = "gsbpmProcessParent",fetch = FetchType.LAZY)
     private List<GsbpmProcess> gsbpmSubProcesses = new ArrayList<>();
 
    
     public GsbpmProcess() {
     }
 
-    public GsbpmProcess(Long idFunction) {
+    public GsbpmProcess(Integer id) {
         super();
-        this.id = idFunction;
+        this.id = id;
     }
 
 }

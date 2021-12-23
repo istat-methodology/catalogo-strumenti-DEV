@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class StatisticalMethodDto extends ToolDto implements Serializable {
+public class StatisticalMethodDto  implements Serializable {
 	
 	private static final long serialVersionUID = -6819215887293605229L;
 	
+	private String id;
 	private String requirements;	
 	private String assumptions;			
 	private String constraints;	

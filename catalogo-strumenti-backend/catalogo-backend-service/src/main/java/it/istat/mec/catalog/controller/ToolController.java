@@ -31,8 +31,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import it.istat.mec.catalog.dto.ToolDto;
+import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.request.UpdateToolRequest;
 import it.istat.mec.catalog.service.ToolService;
@@ -46,33 +47,36 @@ public class ToolController {
 	private ToolService toolService;
 	
 	@GetMapping("/open/catalog/tools")
-	public List<ToolDto> getAllTools() {
+	public List<CatalogToolDTO> getAllTools(@RequestParam(value = "type", required = false) Integer[] type,
+			@RequestParam(value = "gsbpmIds", required = false) Integer[] gsbpmIds,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "id,name") String[] orderBy,
+			@RequestParam(value = "sort", required = false, defaultValue = "ASC,ASC") String[] sort) {
 
-		return toolService.findAllTools();
+		return toolService.findAllTools(type,gsbpmIds,orderBy,sort);
 	}
 	
 	@GetMapping(value = "/open/catalog/tools/{id}")
-	public ToolDto getTool(@PathVariable("id") Long id) {
+	public CatalogToolDTO getTool(@PathVariable("id") Long id) {
 
 		return toolService.findToolById(id);
 
 	}
 	
 	@PostMapping("/catalog/tools")
-	public ToolDto create(@RequestBody CreateToolRequest request) {
+	public CatalogToolDTO create(@RequestBody CreateToolRequest request) {
 
 		return toolService.newTool(request);
 	}
 	
 	@PutMapping(value = "/catalog/tools/{id}")
-	public ToolDto updateAddress(@RequestBody UpdateToolRequest request) {
+	public CatalogToolDTO updateAddress(@RequestBody UpdateToolRequest request) {
 
 		//return addressService.updateAddress(request, JwtTokenProvider.getUserId(jwt));
 		return toolService.updateTool(request);
 	}
 	
 	@DeleteMapping(value = "/catalog/tools/{id}")
-	public ToolDto deleteAddress(@PathVariable("id") Long id) {
+	public CatalogToolDTO deleteAddress(@PathVariable("id") Long id) {
 
 		return toolService.deleteTool(id);
 	}

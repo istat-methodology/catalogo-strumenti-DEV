@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class SoftwareProcedureDto implements Serializable {
+public class SoftwareProcedureDto extends CatalogToolDTO implements Serializable {
 	
 	private static final long serialVersionUID = -3306626906230930771L;
 	

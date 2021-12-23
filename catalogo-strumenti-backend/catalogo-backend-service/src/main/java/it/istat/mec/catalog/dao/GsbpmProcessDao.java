@@ -35,18 +35,22 @@ import it.istat.mec.catalog.domain.GsbpmProcess;
 
 
 @Repository
-public interface GsbpmProcessDao extends JpaRepository<GsbpmProcess, Long> {
+public interface GsbpmProcessDao extends JpaRepository<GsbpmProcess, Integer> {
+	
+	@Override
+	@Query("SELECT gp FROM GsbpmProcess gp WHERE gp.phase IS NULL and gp.active = 1 ORDER BY gp.subProcess ASC ")
+	List<GsbpmProcess> findAll();
 
-    @Query("SELECT gp FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent IS NULL and gp.active = 1 ORDER BY gp.orderCode ASC ")
+    @Query("SELECT gp FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent IS NULL and gp.active = 1 ORDER BY gp.subProcess ASC ")
     List<GsbpmProcess> findAllProcesses();
 
-    @Query("SELECT gp FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent IS NOT NULL and gp.active = 1 ORDER BY gp.gsbpmProcessParent, gp.orderCode ASC")
+    @Query("SELECT gp FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent IS NOT NULL and gp.active = 1 ORDER BY gp.gsbpmProcessParent, gp.subProcess ASC")
     List<GsbpmProcess> findAllSubProcesses();
 
-    @Query("SELECT gp FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent.id=:gsbpmProcess and gp.active = 1 ORDER BY gp.gsbpmProcessParent, gp.orderCode ASC")
+    @Query("SELECT gp FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent.id=:gsbpmProcess and gp.active = 1 ORDER BY gp.gsbpmProcessParent, gp.subProcess ASC")
     List<GsbpmProcess> findSubProcessesByGsbpmParentProcess(@Param("gsbpmProcess") Long gsbpmProcess);
 
-    @Query("SELECT max(gp.orderCode) FROM GsbpmProcess gp")
+    @Query("SELECT max(gp.subProcess) FROM GsbpmProcess gp")
     Integer getGsbpmRows();
 
     @Query("SELECT count(*) FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent IS NULL and gp.active = 1")

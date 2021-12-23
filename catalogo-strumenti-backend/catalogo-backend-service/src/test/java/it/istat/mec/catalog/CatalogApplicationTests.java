@@ -1,4 +1,4 @@
-package it.istat.mec.catalogue;
+package it.istat.mec.catalog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

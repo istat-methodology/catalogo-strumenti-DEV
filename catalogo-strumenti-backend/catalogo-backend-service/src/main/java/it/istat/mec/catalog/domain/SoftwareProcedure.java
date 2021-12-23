@@ -3,6 +3,7 @@ package it.istat.mec.catalog.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@DiscriminatorValue("3")
 @Table(name = "CSM_SOFTWARE_PROCEDURE")
 public class SoftwareProcedure  extends CatalogTool implements Serializable  {
 

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ToolDto implements Serializable {
+public class CatalogToolDTO implements Serializable {
 
  
 	private static final long serialVersionUID = -6905546979001300372L;
@@ -25,10 +25,7 @@ public class ToolDto implements Serializable {
 	private String service;	
 	private String lastUpdate;	
 	private String requirements;	
+	private List<GSBPMProcessDto> gsbpmProcesses;
 	
-	private List <StatisticalServiceDto> statisticalServices;	
-	private List <DesktopApplicationDto> desktopApplications;
-	private List<SoftwareProcedureDto> softwareProcedures;
-	private List<StatisticalMethodDto> statisticalMethods;
 	
 }

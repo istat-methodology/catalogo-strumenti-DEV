@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class StatisticalServiceDto extends ToolDto implements Serializable {
+public class StatisticalServiceDto extends CatalogToolDTO implements Serializable {
 
 	private static final long serialVersionUID = -5755522890190560245L;
 	

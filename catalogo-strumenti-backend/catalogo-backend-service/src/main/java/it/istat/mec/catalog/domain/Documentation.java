@@ -37,12 +37,9 @@ public class Documentation implements Serializable  {
 	
 	@Column(name = "RESOURCE")
 	private String resource;
-	
-	@Column(name = "TOOL")
-	private String tool;
-	
+	 
 	@ManyToOne
-    @JoinColumn(name = "CSM_METHODOLOGICAL_TOOL_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "TOOL")
     private CatalogTool catalogTool;
-	
+	 
 }

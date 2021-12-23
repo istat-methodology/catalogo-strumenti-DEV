@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 import it.istat.mec.catalog.domain.Agent;
@@ -15,15 +16,17 @@ import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.domain.StatisticalService;
+import it.istat.mec.catalog.domain.ToolType;
 import it.istat.mec.catalog.dto.AgentDto;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
+import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.dto.StatisticalServiceDto;
-import it.istat.mec.catalog.dto.ToolDto;
+import it.istat.mec.catalog.dto.ToolTypeDto;
 import it.istat.mec.catalog.request.CreateAgentRequest;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
 import it.istat.mec.catalog.request.CreateDesktopApplicationRequest;
@@ -33,7 +36,6 @@ import it.istat.mec.catalog.request.CreateStatisticalMethodRequest;
 import it.istat.mec.catalog.request.CreateStatisticalServiceRequest;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.request.UpdateToolRequest;
-
 
 
 @Component
@@ -48,10 +50,16 @@ public class Translators {
 		return dTO;
 	}
 
-	public static ToolDto translate(CatalogTool x) {
-
+	public static CatalogToolDTO translate(CatalogTool x) {
+		
 		final ModelMapper modelMapper = new ModelMapper();
-		final ToolDto dTO = modelMapper.map(x, ToolDto.class);
+		TypeMap<CatalogTool, CatalogToolDTO> typeMap = modelMapper.createTypeMap(CatalogTool.class, CatalogToolDTO.class);
+
+	    typeMap
+	     .include(DesktopApplication .class, DesktopApplicationDto.class)
+	    .include(StatisticalService.class, StatisticalServiceDto.class)
+	    .include(SoftwareProcedure.class, SoftwareProcedureDto.class);
+		final CatalogToolDTO dTO = modelMapper.map(x,CatalogToolDTO.class);
 		return dTO;
 	}
 
@@ -69,7 +77,7 @@ public class Translators {
 		return bsDto;
 	}
 
-	public static DesktopApplicationDto translate(DesktopApplication x) {
+	/*public static DesktopApplicationDto translate(DesktopApplication x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final DesktopApplicationDto dsDto = modelMapper.map(x, DesktopApplicationDto.class);
@@ -82,7 +90,7 @@ public class Translators {
 		final SoftwareProcedureDto sp = modelMapper.map(x, SoftwareProcedureDto.class);
 		return sp;
 	}
-
+/*/
 	public static DocumentationDto translate(Documentation x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
@@ -97,18 +105,27 @@ public class Translators {
 		return sm;
 	}
 
-	public static StatisticalServiceDto translate(StatisticalService x) {
+	/*public static StatisticalServiceDto translate(StatisticalService x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final StatisticalServiceDto ss = modelMapper.map(x, StatisticalServiceDto.class);
 		return ss;
 	}
+*/
+	public static List<CatalogToolDTO> translate(List<CatalogTool> list) {
+		final ModelMapper modelMapper = new ModelMapper();
+		TypeMap<CatalogTool, CatalogToolDTO> typeMap = modelMapper.createTypeMap(CatalogTool.class, CatalogToolDTO.class);
 
-	public static List<ToolDto> translate(List<CatalogTool> list) {
-		return mapList(list, ToolDto.class);
+	    typeMap
+	     .include(DesktopApplication .class, DesktopApplicationDto.class)
+	    .include(StatisticalService.class, StatisticalServiceDto.class)
+	    .include(SoftwareProcedure.class, SoftwareProcedureDto.class);
+		return mapList(list, CatalogToolDTO.class,modelMapper);
 	}
 	
 	public static List<GSBPMProcessDto> translateGsbpmProcess(List<GsbpmProcess> list) {
+		//final ModelMapper modelMapper = new ModelMapper();
+	//	TypeMap<GsbpmProcess, GSBPMProcessDto> typeMap = modelMapper.createTypeMap(GsbpmProcess.class, GSBPMProcessDto.class).addMapping(mapper -> mapper.when(getGsbpmProcessParent == null).map(GsbpmProcess::getGsbpmSubProcesses, GSBPMProcessDto::setGsbpmSubProcesses));
 		return mapList(list, GSBPMProcessDto.class);
 	}
 
@@ -144,6 +161,10 @@ public class Translators {
 	public static <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
 		final ModelMapper modelMapper = new ModelMapper();
 		return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+	}
+	
+	public static <S, T> List<T> mapList(List<S> source, Class<T> targetClass,final ModelMapper modelMapper) {
+	  return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
 	}
 
 	public static Agent translate(CreateAgentRequest x) {
@@ -247,15 +268,18 @@ public class Translators {
 	public static StatisticalMethod translateUpdate(CreateStatisticalMethodRequest x, StatisticalMethod sm) {
 		final ModelMapper modelMapper = new ModelMapper();
 		modelMapper.map(x, sm);
-
 		return sm;
 	}
 
 	public static StatisticalService translateUpdate(CreateStatisticalServiceRequest x, StatisticalService ss) {
 		final ModelMapper modelMapper = new ModelMapper();
 		modelMapper.map(x, ss);
-
 		return ss;
+	}
+
+	public static List<ToolTypeDto> translateToolTypeList(List<ToolType> list) {
+		
+		return mapList(list, ToolTypeDto.class);
 	}
 
 }

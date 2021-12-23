@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -16,12 +19,16 @@ public class LinkAgentTool implements Serializable  {
 	
 
 	private static final long serialVersionUID = -6213687145415319796L;
-
-	@Column(name = "AGENT")
-	private Long agent;
-
-	@Column(name = "TOOL")
-	private String tool;
+ 
+	@Id
+	@ManyToOne
+    @JoinColumn(name = "AGENT")
+	private Agent agent;
+	
+	@Id
+ 	@ManyToOne
+    @JoinColumn(name = "TOOL")
+	private CatalogTool tool;
 	
 	@Column(name = "ROLE")
 	private String role;

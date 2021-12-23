@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,9 +17,13 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CSM_STATISTICAL_METHOD")
-public class StatisticalMethod   extends CatalogTool  implements Serializable  {
+public class StatisticalMethod  implements Serializable  {
 
 	private static final long serialVersionUID = 4339427012531827317L;
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
+	@Column(name = "ID")
+	private Long id;
 	
 	@Column(name = "REQUIREMENTS")
 	private String requirements;

@@ -5,21 +5,32 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.Setter;
+
+
 @Getter
 @Setter
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="TOOL_TYPE", 
+discriminatorType = DiscriminatorType.INTEGER)
+@Entity
 @Table(name = "CSM_METHODOLOGICAL_TOOL")
 public class CatalogTool implements Serializable  {
 	
@@ -48,7 +59,7 @@ public class CatalogTool implements Serializable  {
 	private String version;
 
 	@Column(name = "TOOL_TYPE")
-	private String toolType;
+	private Integer toolType;
 	
 	@Column(name = "SERVICE")
 	private String service;
@@ -67,14 +78,21 @@ public class CatalogTool implements Serializable  {
     private List<BusinessFunction> businessFunctions;
 	
 	@JsonBackReference
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "csm_link_agent_tool", joinColumns = {
-            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "AGENT", referencedColumnName = "ID", nullable = false)})
-    private List<Agent> agents;
+	@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)  
+    private List<LinkAgentTool> agentTools;
 	
 	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
     private List<Documentation> documentations;
+	
+	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+    private List<StatisticalMethod> statisticalMethos;
+	
+	
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "csm_tool_gsbpm", joinColumns = {
+            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "GSBPM", referencedColumnName = "ID", nullable = false)})
+    private List<GsbpmProcess> gsbpmProcesses;
 	
 	public CatalogTool() {
 		super();

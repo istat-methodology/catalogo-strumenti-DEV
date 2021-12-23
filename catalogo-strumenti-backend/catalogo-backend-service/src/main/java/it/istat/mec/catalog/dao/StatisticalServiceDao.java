@@ -13,8 +13,6 @@ public interface StatisticalServiceDao extends JpaRepository<StatisticalService,
 	@Override
 	List<StatisticalService> findAll();
 	
-	List<StatisticalService> findByCatalogTool(CatalogTool tool);
-	
 	@Override
 	Optional<StatisticalService> findById(Long id);
 

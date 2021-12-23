@@ -13,7 +13,6 @@ public interface DesktopApplicationDao extends JpaRepository<DesktopApplication,
 	@Override
 	List<DesktopApplication> findAll();
 	
-	List<DesktopApplication> findByCatalogTool(CatalogTool tool);
 	
 	@Override
 	Optional<DesktopApplication> findById(Long id);

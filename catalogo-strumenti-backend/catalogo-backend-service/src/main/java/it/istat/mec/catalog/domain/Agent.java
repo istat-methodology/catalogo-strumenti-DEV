@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class Agent implements Serializable  {
 	@Column(name = "NOTES")
 	private String notes;
 	
-	@ManyToMany(mappedBy = "agents")
-    private List<CatalogTool> catalogTools;
+	@OneToMany(mappedBy = "agent")
+    private List<LinkAgentTool> linkAgentTools;
 
 }

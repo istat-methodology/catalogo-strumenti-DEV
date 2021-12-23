@@ -41,7 +41,7 @@ public class GsbpmProcessService {
 	@Autowired
 	GsbpmProcessDao gsbpmProcessDao;
 
-	public GSBPMProcessDto findById(Long id) {
+	public GSBPMProcessDto findById(Integer id) {
 
 		return Translators.translate(gsbpmProcessDao.findById(id).orElse(null));
 	}

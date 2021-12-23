@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class DesktopApplicationDto extends ToolDto implements Serializable {
+public class DesktopApplicationDto extends CatalogToolDTO implements Serializable {
 
 	private static final long serialVersionUID = 4289022473858721833L;
 	

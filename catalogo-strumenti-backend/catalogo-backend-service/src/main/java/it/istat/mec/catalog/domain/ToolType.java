@@ -15,12 +15,11 @@ import lombok.Setter;
 @Table(name = "CLS_TOOL_TYPE")
 public class ToolType implements Serializable  {
 
-	
-	private static final long serialVersionUID = 4259680797821721431L;
+	private static final long serialVersionUID = 259680797821721431L;
 
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "NAME")
 	private String name;
