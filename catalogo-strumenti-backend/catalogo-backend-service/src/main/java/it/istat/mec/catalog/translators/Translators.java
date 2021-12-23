@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.Provider;
+import org.modelmapper.Provider.ProvisionRequest;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
@@ -56,9 +58,26 @@ public class Translators {
 		TypeMap<CatalogTool, CatalogToolDTO> typeMap = modelMapper.createTypeMap(CatalogTool.class, CatalogToolDTO.class);
 
 	    typeMap
-	     .include(DesktopApplication .class, DesktopApplicationDto.class)
-	    .include(StatisticalService.class, StatisticalServiceDto.class)
-	    .include(SoftwareProcedure.class, SoftwareProcedureDto.class);
+	     .include(DesktopApplication .class, CatalogToolDTO.class)
+	    .include(StatisticalService.class, CatalogToolDTO.class)
+	    .include(SoftwareProcedure.class, CatalogToolDTO.class);
+	    
+	    modelMapper.typeMap(DesktopApplication.class, CatalogToolDTO.class).setProvider(new Provider<CatalogToolDTO>() {
+            public CatalogToolDTO get(ProvisionRequest<CatalogToolDTO> request) {
+                return new DesktopApplicationDto();
+            }
+        });
+        modelMapper.typeMap(StatisticalService.class, CatalogToolDTO.class).setProvider(new Provider<CatalogToolDTO>() {
+            public CatalogToolDTO get(ProvisionRequest<CatalogToolDTO> request) {
+                return new StatisticalServiceDto();
+            }
+        });
+        
+        modelMapper.typeMap(SoftwareProcedure.class, CatalogToolDTO.class).setProvider(new Provider<CatalogToolDTO>() {
+            public CatalogToolDTO get(ProvisionRequest<CatalogToolDTO> request) {
+                return new SoftwareProcedureDto();
+            }
+        });
 		final CatalogToolDTO dTO = modelMapper.map(x,CatalogToolDTO.class);
 		return dTO;
 	}
@@ -120,6 +139,28 @@ public class Translators {
 	     .include(DesktopApplication .class, DesktopApplicationDto.class)
 	    .include(StatisticalService.class, StatisticalServiceDto.class)
 	    .include(SoftwareProcedure.class, SoftwareProcedureDto.class);
+	    typeMap
+	     .include(DesktopApplication .class, CatalogToolDTO.class)
+	    .include(StatisticalService.class, CatalogToolDTO.class)
+	    .include(SoftwareProcedure.class, CatalogToolDTO.class);
+	    
+	    modelMapper.typeMap(DesktopApplication.class, CatalogToolDTO.class).setProvider(new Provider<CatalogToolDTO>() {
+           public CatalogToolDTO get(ProvisionRequest<CatalogToolDTO> request) {
+               return new DesktopApplicationDto();
+           }
+       });
+       modelMapper.typeMap(StatisticalService.class, CatalogToolDTO.class).setProvider(new Provider<CatalogToolDTO>() {
+           public CatalogToolDTO get(ProvisionRequest<CatalogToolDTO> request) {
+               return new StatisticalServiceDto();
+           }
+       });
+       
+       modelMapper.typeMap(SoftwareProcedure.class, CatalogToolDTO.class).setProvider(new Provider<CatalogToolDTO>() {
+           public CatalogToolDTO get(ProvisionRequest<CatalogToolDTO> request) {
+               return new SoftwareProcedureDto();
+           }
+       });
+
 		return mapList(list, CatalogToolDTO.class,modelMapper);
 	}
 	

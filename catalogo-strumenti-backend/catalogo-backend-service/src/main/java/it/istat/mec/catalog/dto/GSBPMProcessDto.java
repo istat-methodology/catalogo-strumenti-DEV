@@ -23,7 +23,7 @@ public class GSBPMProcessDto implements Serializable {
     private Boolean active;    
     private Short subProcess;
 
-  
+    @JsonIgnoreProperties("gsbpmSubProcesses")
 	private GSBPMProcessDto gsbpmProcessParent;
 
     @JsonIgnoreProperties("gsbpmProcessParent")
