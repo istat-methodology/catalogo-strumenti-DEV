@@ -11,8 +11,42 @@
       <CIcon name="cil-at" size="lg"></CIcon>
       <span class="brand">Catalogo-Strumenti Metodologici</span>
     </CSidebarBrand>
+    <div class="row">
+      <div class="col-12">
+        <CCard>
+          <CCardHeader>
+            Classificazione GSBPM
+          </CCardHeader>
+          <CCardBody>
+            <div id="app-inputs" class="demo-tree">
+              <tree
+                id="customtree-gray"
+                :initial-model="model"
+                :model-defaults="modelDefaults"
+                ref="treeInputs"
+                v-on:treeViewNodeCheckboxChange="refreshCheckedList"
+              ></tree>
+              <section id="checked-stuff-inputs">
+                <button
+                  type="button"
+                  class="tree-processor-trigger"
+                  v-on:click="refreshCheckedList"
+                >
+                  What's been checked?
+                </button>
+                <ul id="checked-list-inputs">
+                  <li v-for="checkedNode in checkedNodes" :key="checkedNode.id">
+                    {{ checkedNode.label }}
+                  </li>
+                </ul>
+              </section>
+            </div>
+          </CCardBody>
+        </CCard>
+      </div>
+    </div>
 
-    <ul class="c-sidebar-nav h-100 ps" style="position: relative;">
+    <!-- <ul class="c-sidebar-nav h-100 ps" style="position: relative;">
       <li class="c-sidebar-nav-item">
         <router-link
           :to="{ name: 'Home' }"
@@ -90,126 +124,109 @@
           </router-link>
         </li>
       </template>
-      <!-- <template v-if="isReviewer || assignedId > 0">
-        <li class="c-sidebar-nav-title">
-          Indirizzi <small class="pl-1">{{ assignedName }}</small>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'AddressList', params: { state: 1 } }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active c-active-primary': isAddressToRevise }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-layers" class="c-sidebar-nav-icon" /> Da lavorare
-              <span class="badge badge-primary"
-                >{{ daLavorare }} / {{ total }}</span
-              >
-            </a>
-          </router-link>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'AddressList', params: { state: 2 } }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active c-active-success': isAddressRevised }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-layers" class="c-sidebar-nav-icon" /> Lavorati
-              <span class="badge badge-success"
-                >{{ lavorati }} / {{ total }}</span
-              >
-            </a>
-          </router-link>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'AddressList', params: { state: 3 } }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active c-active-warning': isAddressSkip }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-layers" class="c-sidebar-nav-icon" /> Sospesi
-              <span class="badge badge-warning"
-                >{{ sospesi }} / {{ total }}</span
-              >
-            </a>
-          </router-link>
-        </li>
-        <li class="c-sidebar-nav-title">
-          Modifiche in blocco
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'AddressBlock', params: { state: 1 } }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active c-active-primary': isBlock }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-layers" class="c-sidebar-nav-icon" /> Indirizzi
-              da Lavorare
-              <span class="badge badge-primary"
-                >{{ _selezionati }} / {{ daLavorare }}</span
-              >
-            </a>
-          </router-link>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'AddressBlock', params: { state: 3 } }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active c-active-warning': isBlockSuspended }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-layers" class="c-sidebar-nav-icon" /> Indirizzi
-              Sospesi
-              <span class="badge badge-warning"
-                >{{ _selezionatiSospesi }} / {{ sospesi }}</span
-              >
-            </a>
-          </router-link>
-        </li>
-        <li>
-          li class="c-sidebar-nav-title"> Revisioni in blocco
-          <small class="pl-1">{{ assignedName }}</small>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'AddressBlock', params: { state: 1 } }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active c-active-primary': isBlock }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-layers" class="c-sidebar-nav-icon" /> Da lavorare
-              <span class="badge badge-primary"
-                >{{ daLavorare }} / {{ total }}</span
-              >
-            </a>
-          </router-link>
-        </li>
-      </template> -->
-    </ul>
+    </ul> -->
   </CSidebar>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import TreeView from "@grapoza/vue-tree";
 //import progressMixin from "@/components/mixins/progress.mixin";
 
 export default {
   name: "Sidebar",
   // mixins: [progressMixin],
+  components: {
+    tree: TreeView
+  },
+  data() {
+    return {
+      model: [
+        {
+          id: "inputs-checkbox-1",
+          label: "My First Node",
+          treeNodeSpec: {
+            input: {
+              type: "checkbox",
+              name: "radio1",
+              value: "aValueToSubmit",
+              isInitialRadioGroupValue: true
+            }
+          }
+        },
+        {
+          id: "inputs-radio-2",
+          label: "My Second Node",
+          children: [
+            {
+              id: "inputs-radio-2-sub-1",
+              label: "This is a subnode",
+              treeNodeSpec: {
+                input: {
+                  type: "checkbox",
+                  name: "radio2"
+                }
+              }
+            },
+            {
+              id: "inputs-radio-2-sub-2",
+              label: "This is another subnode",
+              treeNodeSpec: {
+                input: {
+                  type: "checkbox",
+                  name: "radio2"
+                }
+              }
+            }
+          ],
+          treeNodeSpec: {
+            input: {
+              type: "checkbox",
+              name: "radio1"
+            },
+            state: {
+              expanded: true
+            }
+          }
+        },
+        {
+          id: "inputs-checkbox-2",
+          label: "My third Node",
+          treeNodeSpec: {
+            input: {
+              type: "checkbox"
+            },
+            state: {
+              input: {
+                value: true
+              }
+            }
+          }
+        }
+      ],
+      modelDefaults: {
+        /* addChildTitle: "Add a new child node",
+        deleteTitle: "Delete this node", */
+        expanderTitle: "Expand this node",
+        customizations: {
+          classes: {
+            treeViewNodeSelfExpander: "action-button",
+            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right"
+            //treeViewNodeSelfAction: "action-button"
+            /* treeViewNodeSelfAddChildIcon: "fas fa-plus-circle",
+            treeViewNodeSelfDeleteIcon: "fas fa-minus-circle" */
+          }
+        }
+      },
+      checkedNodes: []
+    };
+  },
+  methods: {
+    refreshCheckedList() {
+      let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
+      let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
+      this.checkedNodes = [...rbNodes, ...cbNodes];
+    }
+  },
   computed: {
     ...mapGetters("auth", ["isReviewer", "isSupervisor"]),
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
@@ -222,31 +239,20 @@ export default {
       isStatServiceList: "isStatServiceList",
       isStatMethodList: "isStatMethodList"
     })
-    /* ...mapGetters("progress", ["reports"]),
-    ...mapGetters("progress", ["selezionati"]),
-    ...mapGetters("progress", ["selezionatiSospesi"]), */
-    /*  total() {
-      return this.getTotal(this.reports);
-    },
-    daLavorare() {
-      return this.getDaLavorare(this.reports);
-    },
-    lavorati() {
-      return this.getValidati(this.reports) + this.getRevisionati(this.reports);
-    },
-    sospesi() {
-      return this.getSospesi(this.reports);
-    },
-    _selezionati() {
-      return this.getSelezionati(this.selezionati);
-    },
-    _selezionatiSospesi() {
-      return this.getSelezionati(this.selezionatiSospesi);
-    } */
   }
 };
 </script>
+
 <style scoped>
+.card-header {
+  background-color: #3c4b64;
+}
+div.card-body {
+  background-color: #3c4b64;
+}
+.grtvn-self-expander {
+  color: #ffffff;
+}
 .brand {
   font-size: 1.2em;
   padding-left: 1rem;

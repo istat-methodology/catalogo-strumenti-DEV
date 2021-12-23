@@ -1,4 +1,5 @@
 import { toolsService } from "@/services";
+import { toolsOpenService } from "@/services";
 
 const state = {
   toolscatalog: [],
@@ -16,7 +17,7 @@ const mutations = {
 
 const actions = {
   findAll({ commit }) {
-    return toolsService
+    return toolsOpenService
       .findAll()
       .then(data => {
         commit("SET_TOOLSCATALOG", data);
@@ -40,7 +41,7 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return toolsService
+    return toolsOpenService
       .findById(id)
       .then(data => {
         //console.log(data);

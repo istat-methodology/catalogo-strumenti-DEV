@@ -22,3 +22,4 @@ class ToolsService extends AbstractService {
 }
 
 export const toolsService = new ToolsService("/catalog/tools");
+export const toolsOpenService = new ToolsService("/catalog/open/tools");
