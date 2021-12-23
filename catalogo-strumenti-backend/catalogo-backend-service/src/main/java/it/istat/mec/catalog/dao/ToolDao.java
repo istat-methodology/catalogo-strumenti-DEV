@@ -24,10 +24,10 @@ public interface ToolDao extends JpaRepository<CatalogTool, Long> {
 
 	public void save(Optional<CatalogTool> tools);
 
-	public void delete(CatalogTool tools);
+	public void delete(CatalogTool tools);  
 
-	@Query("SELECT c FROM CatalogTool c "
-		+ " where 1=1 AND ((:types is NULL) OR (c.toolType in (:types))) "
-			+ " AND ((:gsbpmIds is NULL) ) ")	
-	public List<CatalogTool>  findAllWithFilter(@Param("types") List<Integer> types, @Param("gsbpmIds") List<GsbpmProcess> gsbpmIds);
+
+	@Query("SELECT c FROM CatalogTool c INNER JOIN c.gsbpmProcesses p WHERE 1=1 AND ((:sizeTypes = 0) OR (c.toolType.id IN (:types)))  AND ((:sizeGsbpmIds = 0)  OR (p IN (:gsbpmIds)) )")	
+	public List<CatalogTool>  findAllWithFilter(@Param("types") List<Integer> types,@Param("sizeTypes") Integer sizeTypes, @Param("gsbpmIds") List<GsbpmProcess> gsbpmIds, @Param("sizeGsbpmIds") Integer sizeGsbpmIds, Sort sort );
+
 }
