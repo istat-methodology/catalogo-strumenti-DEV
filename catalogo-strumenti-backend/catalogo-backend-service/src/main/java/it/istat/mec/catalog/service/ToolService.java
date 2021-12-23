@@ -29,7 +29,6 @@ public class ToolService {
 			orders.add(order);
 
 		}
-
 		Sort sortQuery = Sort.by(orders);
 		
 		List<GsbpmProcess> gsbpmProcesses=new ArrayList<GsbpmProcess>();
