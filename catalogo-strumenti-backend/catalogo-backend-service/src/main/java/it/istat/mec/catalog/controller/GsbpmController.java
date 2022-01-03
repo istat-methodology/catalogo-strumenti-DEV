@@ -14,13 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/catalog")
 public class GsbpmController {
 
 	@Autowired
 	private GsbpmProcessService  service;
 	
-	@GetMapping("/gsbpm-processes")
+	@GetMapping("/open/catalog/gsbpm-processes")
 	public List<GSBPMProcessDto> getAll() {
 
 		return service.findAllProcesses();

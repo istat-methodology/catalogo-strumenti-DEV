@@ -12,13 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/catalog")
 public class ClsCatalogToolTypeController {
 
 	@Autowired
 	private ClsToolTypeService service;
 	
-	@GetMapping("/tool-types")
+	@GetMapping("/open/catalog/tool-types")
 	public List<ToolTypeDto> getAll() {
 
 		return service.findAll();
