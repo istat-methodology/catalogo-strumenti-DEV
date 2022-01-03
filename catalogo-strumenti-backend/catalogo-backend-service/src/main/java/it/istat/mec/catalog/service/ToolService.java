@@ -29,25 +29,22 @@ public class ToolService {
 			orders.add(order);
 
 		}
-
 		Sort sortQuery = Sort.by(orders);
 		
-		List<GsbpmProcess> gsbpmProcesses=null;
-		if(gsbpmIds!=null) {gsbpmProcesses=new ArrayList<GsbpmProcess>();
+		List<GsbpmProcess> gsbpmProcesses=new ArrayList<GsbpmProcess>();
+		if(gsbpmIds!=null)  
 		for (int i = 0; i < gsbpmIds.length; i++) {
 			gsbpmProcesses.add(new GsbpmProcess(gsbpmIds[i]));
 		}
-		}
-		List<Integer> types=null;
-		if(type!=null) { types=new ArrayList<Integer>();
+	 
+		List<Integer> types=new ArrayList<Integer>();
+		if(type!=null) 
 		for (int i = 0; i < type.length; i++) {
-			types.add(i);
+			types.add(Integer.valueOf(type[i]));
 		}
-		}
-		return Translators.translate(toolDao.findAllWithFilter(types,gsbpmProcesses));
-		//return Translators.translate(toolDao.findAll());
-
-	}
+	 
+	 return Translators.translate(toolDao.findAllWithFilter(types,types.size(), gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
+  	}
 	
 	public CatalogToolDTO newTool(CreateToolRequest request) {
 		CatalogTool tool = new CatalogTool();
