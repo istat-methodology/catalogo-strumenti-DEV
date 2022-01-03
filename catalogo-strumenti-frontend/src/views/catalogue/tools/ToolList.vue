@@ -48,23 +48,28 @@ export default {
           _style: "width:10%;"
         }, */
         {
-          key: "nome",
-          label: "Nome",
+          key: "name",
+          label: "Name",
           _style: "width:10%;"
         },
         {
-          key: "descrizione",
-          label: "Descrizione",
+          key: "description",
+          label: "Description",
           _style: "width:10%;"
         },
         {
-          key: "data",
-          label: "Data",
+          key: "standardIstat",
+          label: "Standad Istat",
           _style: "width:10%;"
         },
         {
-          key: "note",
-          label: "Note",
+          key: "tags",
+          label: "Tags",
+          _style: "width:10%;"
+        },
+        {
+          key: "releaseDate",
+          label: "Release Date",
           _style: "width:10%;"
         },
         {
