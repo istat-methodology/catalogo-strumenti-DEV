@@ -20,7 +20,7 @@ public class GsbpmController {
 	@Autowired
 	private GsbpmProcessService  service;
 	
-	@GetMapping("/gsbpm-processes")
+	@GetMapping("/open/gsbpm-processes")
 	public List<GSBPMProcessDto> getAll() {
 
 		return service.findAllProcesses();
