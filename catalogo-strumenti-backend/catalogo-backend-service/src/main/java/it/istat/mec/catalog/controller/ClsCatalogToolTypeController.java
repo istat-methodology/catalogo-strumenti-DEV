@@ -21,7 +21,7 @@ public class ClsCatalogToolTypeController {
 	@GetMapping("/open/tool-types")
 	public List<ToolTypeDto> getAll() {
 
-		return service.findAll();
+		 return service.findAll();
 	}
 	 
 }
