@@ -41,12 +41,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
+@RequestMapping("/catalog")
 public class ToolController {
 	
 	@Autowired
 	private ToolService toolService;
 	
-	@GetMapping("/open/catalog/tools")
+	@GetMapping("/open/tools")
 	public List<CatalogToolDTO> getAllTools(@RequestParam(value = "type", required = false) Integer[] type,
 			@RequestParam(value = "gsbpmIds", required = false) Integer[] gsbpmIds,
 			@RequestParam(value = "orderBy", required = false, defaultValue = "id,name") String[] orderBy,
@@ -55,27 +56,27 @@ public class ToolController {
 		return toolService.findAllTools(type,gsbpmIds,orderBy,sort);
 	}
 	
-	@GetMapping(value = "/open/catalog/tools/{id}")
+	@GetMapping(value = "/open/tools/{id}")
 	public CatalogToolDTO getTool(@PathVariable("id") Long id) {
 
 		return toolService.findToolById(id);
 
 	}
 	
-	@PostMapping("/catalog/tools")
+	@PostMapping("/tools")
 	public CatalogToolDTO create(@RequestBody CreateToolRequest request) {
 
 		return toolService.newTool(request);
 	}
 	
-	@PutMapping(value = "/catalog/tools/{id}")
+	@PutMapping(value = "/tools/{id}")
 	public CatalogToolDTO updateAddress(@RequestBody UpdateToolRequest request) {
 
 		//return addressService.updateAddress(request, JwtTokenProvider.getUserId(jwt));
 		return toolService.updateTool(request);
 	}
 	
-	@DeleteMapping(value = "/catalog/tools/{id}")
+	@DeleteMapping(value = "/tools/{id}")
 	public CatalogToolDTO deleteAddress(@PathVariable("id") Long id) {
 
 		return toolService.deleteTool(id);
