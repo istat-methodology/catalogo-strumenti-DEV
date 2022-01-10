@@ -116,12 +116,6 @@ const getters = {
   },
   isAdmin: state => {
     return state.role == Role.Admin;
-  },
-  isSupervisor: state => {
-    return state.role == Role.Supervisor;
-  },
-  isReviewer: state => {
-    return state.role == Role.Reviewer;
   }
 };
 

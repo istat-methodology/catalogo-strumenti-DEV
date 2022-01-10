@@ -18,7 +18,7 @@
             Classificazione GSBPM
           </CCardHeader>
           <CCardBody>
-            <div id="app-inputs" class="demo-tree">
+            <div id="app-inputs" class="demo-tree" v-if="!isHome">
               <tree
                 id="customtree-gray"
                 :initial-model="model"

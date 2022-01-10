@@ -1,14 +1,5 @@
 <template>
-  <div v-if="isSupervisor">
-    <app-landing-supervisor />
-  </div>
-  <div v-else-if="isReviewer">
-    <app-landing-reviewer />
-  </div>
-  <!-- <div v-else-if="!isReviewer && !isSupervisor">
-    <app-landing-everyone />
-  </div> -->
-  <div class="row" v-else>
+  <div class="row">
     <div class="col-4">
       <div class="card">
         <header class="card-header">
@@ -59,21 +50,8 @@
 
 <script>
 import { Context } from "@/common";
-import { mapGetters } from "vuex";
-import Reviewer from "./landing/Reviewer";
-import Supervisor from "./landing/Supervisor";
-//import Everyone from "./landing/Everyone.vue";
-
 export default {
   name: "Catalogue",
-  components: {
-    "app-landing-reviewer": Reviewer,
-    "app-landing-supervisor": Supervisor
-    // "app-landing-everyone": Everyone
-  },
-  computed: {
-    ...mapGetters("auth", ["isReviewer", "isSupervisor"])
-  },
   created() {
     this.$store.dispatch("coreui/setContext", Context.Home);
   }

@@ -36,7 +36,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import { Context } from "@/common";
 export default {
   name: "Supervisor",
   data() {
@@ -92,6 +92,7 @@ export default {
     ...mapGetters("tools", ["toolscatalog"])
   },
   created() {
+    this.$store.dispatch("coreui/setContext", Context.ToolList);
     this.$store.dispatch("tools/findAll");
   }
 };
