@@ -20,6 +20,7 @@
           <CCardBody>
             <div id="app-inputs" class="demo-tree" v-if="!isHome">
               <tree
+                v-if="gsbpmList"
                 id="customtree-gray"
                 :initial-model="getGsbpmList"
                 :model-defaults="modelDefaults"
