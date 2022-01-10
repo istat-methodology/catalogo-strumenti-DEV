@@ -21,7 +21,7 @@
             <div id="app-inputs" class="demo-tree" v-if="!isHome">
               <tree
                 id="customtree-gray"
-                :initial-model="gsbpmList"
+                :initial-model="getGsbpmList"
                 :model-defaults="modelDefaults"
                 ref="treeInputs"
                 v-on:treeViewNodeCheckboxChange="refreshCheckedList"
@@ -137,7 +137,8 @@ export default {
           }
         }
       },
-      checkedNodes: []
+      checkedNodes: [],
+      prova: []
     };
   },
   methods: {
@@ -146,6 +147,11 @@ export default {
       let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
       this.checkedNodes = [...rbNodes, ...cbNodes];
     }
+    /* getGsbpmList() {
+      let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
+      let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
+      this.checkedNodes = [...rbNodes, ...cbNodes];
+    } */
   },
   computed: {
     /* ...mapGetters("auth", ["isReviewer", "isSupervisor"]), */
@@ -160,7 +166,36 @@ export default {
       isSoftProcList: "isSoftProcList",
       isStatServiceList: "isStatServiceList",
       isStatMethodList: "isStatMethodList" */
-    })
+    }),
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
+        return {
+          // ...gsbpm,
+          id: gsbpm.id,
+          label: gsbpm.name,
+          children: function() {
+            return gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+              return {
+                id: gsbpmSubProcess.id,
+                label: gsbpmSubProcess.name,
+                treeNodeSpec: {
+                  input: {
+                    type: "checkbox"
+                  }
+                }
+              };
+            });
+          },
+
+          treeNodeSpec: {
+            input: {
+              type: "checkbox"
+            }
+            //value: "aValueToSubmit",
+          }
+        };
+      });
+    }
   }
 };
 </script>
