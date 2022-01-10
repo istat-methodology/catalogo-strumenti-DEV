@@ -1,10 +1,10 @@
-package it.istat.mec.regedit;
+package it.istat.mec.users;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RegEditApplicationTests { 
+class UsersApplicationTests { 
 
     @Test
     void contextLoads() {

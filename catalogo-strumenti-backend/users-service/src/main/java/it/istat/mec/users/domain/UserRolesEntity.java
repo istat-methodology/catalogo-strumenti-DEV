@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
-@Table(name = "wp1_user_roles", schema = "regedit_users", catalog = "")
+@Table(name = "csm_user_roles")
 public class UserRolesEntity implements Serializable{
    
 	private static final long serialVersionUID = 1L;

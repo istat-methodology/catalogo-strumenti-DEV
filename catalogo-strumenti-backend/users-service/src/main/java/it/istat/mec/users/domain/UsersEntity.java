@@ -10,7 +10,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
-@Table(name = "wp1_users", schema = "regedit_users")
+@Table(name = "csm_users")
 public class UsersEntity implements Serializable{
 	/**
 	 * 
