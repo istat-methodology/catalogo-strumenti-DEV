@@ -94,6 +94,7 @@ export default {
   created() {
     this.$store.dispatch("coreui/setContext", Context.ToolList);
     this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("gsbpm/findAll");
   }
 };
 </script>

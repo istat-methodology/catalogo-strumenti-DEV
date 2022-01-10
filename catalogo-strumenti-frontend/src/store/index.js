@@ -15,7 +15,7 @@ import { applications } from "./modules/applications/applications";
 import { methods } from "./modules/methods/methods";
 import { procedures } from "./modules/procedures/procedures";
 import { services } from "./modules/services/services";
-
+import { gsbpm } from "./modules/gsbpm/gsbpm";
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
@@ -34,6 +34,7 @@ export default new Vuex.Store({
     services,
     auth,
     error,
+    gsbpm,
     coreui,
     message,
     version,

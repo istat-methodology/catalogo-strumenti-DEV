@@ -21,7 +21,7 @@
             <div id="app-inputs" class="demo-tree" v-if="!isHome">
               <tree
                 id="customtree-gray"
-                :initial-model="model"
+                :initial-model="gsbpmList"
                 :model-defaults="modelDefaults"
                 ref="treeInputs"
                 v-on:treeViewNodeCheckboxChange="refreshCheckedList"
@@ -45,86 +45,6 @@
         </CCard>
       </div>
     </div>
-
-    <!-- <ul class="c-sidebar-nav h-100 ps" style="position: relative;">
-      <li class="c-sidebar-nav-item">
-        <router-link
-          :to="{ name: 'Home' }"
-          class="c-sidebar-nav-link"
-          :class="{ 'c-active': isHome }"
-          custom
-          v-slot="{ href, navigate }"
-        >
-          <a :href="href" @click="navigate">
-            <CIcon name="cil-home" class="c-sidebar-nav-icon" />Strumenti
-            <span class="badge badge-primary">Beta</span>
-          </a>
-        </router-link>
-      </li>
-      <template v-if="isSupervisor">
-        <li class="c-sidebar-nav-title">
-          Tipologia degli strumenti:
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'DeskAppList' }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active': isDeskAppList }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon
-                name="cil-terminal"
-                class="c-sidebar-nav-icon"
-              />Applicazioni Desktop
-            </a>
-          </router-link>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'SoftProcList' }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active': isSoftProcList }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-layers" class="c-sidebar-nav-icon" />Procedure
-              Software
-            </a>
-          </router-link>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'StatServiceList' }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active': isStatServiceList }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Servizi
-              Statistici
-            </a>
-          </router-link>
-        </li>
-        <li class="c-sidebar-nav-item">
-          <router-link
-            :to="{ name: 'StatMethodList' }"
-            class="c-sidebar-nav-link"
-            :class="{ 'c-active': isStatMethodList, params: { state: 4 } }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Metodi
-              Statistici
-            </a>
-          </router-link>
-        </li>
-      </template>
-    </ul> -->
   </CSidebar>
 </template>
 <script>
@@ -228,16 +148,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("auth", ["isReviewer", "isSupervisor"]),
+    /* ...mapGetters("auth", ["isReviewer", "isSupervisor"]), */
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
+
+    ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",
-      isHome: "isHome",
-      isDeskAppList: "isDeskAppList",
+      isHome: "isHome"
+      /* isDeskAppList: "isDeskAppList",
       isSoftProcList: "isSoftProcList",
       isStatServiceList: "isStatServiceList",
-      isStatMethodList: "isStatMethodList"
+      isStatMethodList: "isStatMethodList" */
     })
   }
 };
