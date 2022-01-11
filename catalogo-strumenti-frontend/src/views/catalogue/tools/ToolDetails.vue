@@ -21,22 +21,93 @@
             <label>Tags:</label>
             <span>{{ tool.tags | dashEmpty }}</span>
           </div>
-          <!-- <div>
-            <label>Note di Compilazione:</label>
-            <span>{{ tool.note | dashEmpty }}</span>
+          <div>
+            <label>Servizio:</label>
+            <span>{{ tool.service | dashEmpty }}</span>
           </div>
           <div>
-            <label>Standard:</label>
-            <span>{{ tool.standard | dashEmpty }}</span>
+            <label>Ultima Modifica:</label>
+            <span>{{ tool.lastUpdate | dashEmpty }}</span>
           </div>
           <div>
-            <label>Tipologia:</label>
-            <span>{{ tool.tipologia | dashEmpty }}</span>
+            <label>Requisiti:</label>
+            <span>{{ tool.requirements | dashEmpty }}</span>
+          </div>
+        </CCardBody>
+      </CCard>
+      <CCard v-if="tool.toolType.id == 1">
+        <CCardHeader>Altri dettagli</CCardHeader>
+        <CCardBody>
+          <div>
+            <label>Download:</label>
+            <span>{{ tool.download | dashEmpty }}</span>
           </div>
           <div>
-            <label>Riferimenti:</label>
-            <span>{{ tool.riferimenti | dashEmpty }}</span>
-          </div> -->
+            <label>licenza:</label>
+            <span>{{ tool.licence | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Linguaggio:</label>
+            ><span>{{ tool.language | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Pacchetto:</label>
+            <span>{{ tool.pacchetto | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Sistema Operativo:</label>
+            <span>{{ tool.operativeSystem | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Prerequisiti:</label>
+            <span>{{ tool.technicalRequirements | dashEmpty }}</span>
+          </div>
+        </CCardBody>
+        <CCardFooter>
+          <CButton
+            shape="square"
+            size="sm"
+            color="light"
+            @click.prevent="backToList"
+            >Back</CButton
+          >
+        </CCardFooter>
+      </CCard>
+      <CCard v-if="tool.toolType.id == 2">
+        <CCardHeader>Altri dettagli</CCardHeader>
+        <CCardBody>
+          <div>
+            <label>Download:</label>
+            <span>{{ tool.protocol | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Url:</label>
+            <span>{{ tool.url | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Contributi:</label>
+            ><span>{{ tool.outcomes | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Dipendenze:</label>
+            <span>{{ tool.serviceDependencies | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Restrizioni:</label>
+            <span>{{ tool.restrictions | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Classificazione Gsbpm:</label>
+            <span>{{ tool.gsbpm | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Funzione operativa:</label>
+            <span>{{ tool.businessFunction | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Design di processo:</label>
+            <span>{{ tool.processDesign | dashEmpty }}</span>
+          </div>
         </CCardBody>
         <CCardFooter>
           <CButton
