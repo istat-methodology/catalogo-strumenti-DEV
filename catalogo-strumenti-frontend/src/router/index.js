@@ -161,7 +161,7 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue",
+        path: "catalogue/tools",
         name: "ToolList",
         component: () => import("../views/catalogue/tools/ToolList"),
         meta: { authorize: [] }
@@ -179,7 +179,7 @@ const routes = [
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },
       {
-        path: "catalogue/dettaglio/:id",
+        path: "catalogue/tools/dettaglio/:id",
         name: "ToolDetails",
         component: () => import("../views/catalogue/tools/ToolDetails"),
         meta: { authorize: [] }
