@@ -27,7 +27,7 @@
                 ref="treeInputs"
                 v-on:treeViewNodeCheckboxChange="refreshCheckedList"
               ></tree>
-              <section id="checked-stuff-inputs">
+              <!-- <section id="checked-stuff-inputs">
                 <button
                   type="button"
                   class="tree-processor-trigger"
@@ -40,7 +40,7 @@
                     {{ checkedNode.label }}
                   </li>
                 </ul>
-              </section>
+              </section> -->
             </div>
           </CCardBody>
         </CCard>
@@ -168,12 +168,11 @@ export default {
       isStatServiceList: "isStatServiceList",
       isStatMethodList: "isStatMethodList" */
     }),
-
     getGsbpmList: function() {
       return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
-          id: gsbpm.id,
+          id: "id-" + gsbpm.id,
           label: gsbpm.name,
           children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
@@ -195,7 +194,7 @@ export default {
             },
 
             state: {
-              expanded: true
+              expanded: false
             }
 
             //value: "aValueToSubmit",
@@ -203,6 +202,9 @@ export default {
         };
       });
     }
+  },
+  created() {
+    this.$store.dispatch("gsbpm/findAll");
   }
 };
 </script>
