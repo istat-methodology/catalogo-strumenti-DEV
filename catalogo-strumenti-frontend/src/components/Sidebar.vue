@@ -13,16 +13,47 @@
     </CSidebarBrand>
     <div class="row">
       <div class="col-12">
-        <CCard>
+        <CCard v-if="isToolList">
           <CCardHeader>
             Classificazione GSBPM
           </CCardHeader>
           <CCardBody>
-            <div id="app-inputs" class="demo-tree" v-if="!isHome">
+            <div id="app-inputs" class="demo-tree">
               <tree
                 v-if="gsbpmList"
                 id="customtree-gray"
                 :initial-model="getGsbpmList"
+                :model-defaults="modelDefaults"
+                ref="treeInputs"
+                v-on:treeViewNodeCheckboxChange="refreshCheckedList"
+              ></tree>
+              <!-- <section id="checked-stuff-inputs">
+                <button
+                  type="button"
+                  class="tree-processor-trigger"
+                  v-on:click="refreshCheckedList"
+                >
+                  What's been checked?
+                </button>
+                <ul id="checked-list-inputs">
+                  <li v-for="checkedNode in checkedNodes" :key="checkedNode.id">
+                    {{ checkedNode.label }}
+                  </li>
+                </ul>
+              </section> -->
+            </div>
+          </CCardBody>
+        </CCard>
+        <CCard v-if="isToolList">
+          <CCardHeader>
+            Tipo Strumento
+          </CCardHeader>
+          <CCardBody>
+            <div id="app-tree" class="demo-tree">
+              <tree
+                v-if="model"
+                id="customtree-gray"
+                :initial-model="model"
                 :model-defaults="modelDefaults"
                 ref="treeInputs"
                 v-on:treeViewNodeCheckboxChange="refreshCheckedList"
@@ -64,7 +95,7 @@ export default {
       model: [
         {
           id: "inputs-checkbox-1",
-          label: "My First Node",
+          label: "Statistical Service",
           treeNodeSpec: {
             input: {
               type: "checkbox",
@@ -76,29 +107,7 @@ export default {
         },
         {
           id: "inputs-radio-2",
-          label: "My Second Node",
-          children: [
-            {
-              id: "inputs-radio-2-sub-1",
-              label: "This is a subnode",
-              treeNodeSpec: {
-                input: {
-                  type: "checkbox",
-                  name: "radio2"
-                }
-              }
-            },
-            {
-              id: "inputs-radio-2-sub-2",
-              label: "This is another subnode",
-              treeNodeSpec: {
-                input: {
-                  type: "checkbox",
-                  name: "radio2"
-                }
-              }
-            }
-          ],
+          label: "Desktop Application",
           treeNodeSpec: {
             input: {
               type: "checkbox",
@@ -111,7 +120,7 @@ export default {
         },
         {
           id: "inputs-checkbox-2",
-          label: "My third Node",
+          label: "Procedure",
           treeNodeSpec: {
             input: {
               type: "checkbox"
@@ -159,6 +168,7 @@ export default {
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
 
     ...mapGetters("gsbpm", ["gsbpmList"]),
+    ...mapGetters("coreui", ["isToolList"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",

@@ -10,7 +10,7 @@
         </header>
         <CCardBody>
           <CDataTable
-            :items="toolscatalog"
+            :items="computedItems"
             :fields="fields"
             column-filter
             :items-per-page="10"
@@ -49,33 +49,23 @@ export default {
         }, */
         {
           key: "name",
-          label: "Name",
-          _style: "width:10%;"
+          label: "Nome",
+          _style: "width:30%;"
         },
         {
           key: "description",
-          label: "Description",
-          _style: "width:10%;"
-        },
-        {
-          key: "standardIstat",
-          label: "Standad Istat",
-          _style: "width:10%;"
-        },
-        {
-          key: "tags",
-          label: "Tags",
+          label: "Descrizione",
           _style: "width:10%;"
         },
         {
           key: "releaseDate",
-          label: "Release Date",
+          label: "Data Rilascio",
           _style: "width:10%;"
         },
         {
-          key: "metodoStatistico",
-          label: "Metodo Statistico",
-          _style: "width:10%;"
+          key: "tooltype",
+          label: "Tipologia",
+          _style: "width:30%;"
         },
         {
           key: "show_details",
@@ -89,12 +79,19 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("tools", ["toolscatalog"])
+    ...mapGetters("tools", ["toolscatalog"]),
+    computedItems() {
+      return this.toolscatalog.map(item => {
+        return Object.assign({}, item, {
+          tooltype: item.toolType.name
+        });
+      });
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.ToolList);
     this.$store.dispatch("tools/findAll");
-    this.$store.dispatch("gsbpm/findAll");
+    //this.$store.dispatch("gsbpm/findAll");
   }
 };
 </script>

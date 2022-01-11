@@ -6,10 +6,7 @@ const state = {
   context: "",
   isLoading: false,
   isHome: false,
-  isDeskAppList: false,
-  isSoftProcList: false,
-  isStatServiceList: false,
-  isStatMethodList: false
+  isToolList: false
 };
 
 const mutations = {
@@ -29,18 +26,11 @@ const mutations = {
     switch (parseInt(context)) {
       case Context.Home:
         state.isHome = true;
+        state.isToolList = false;
         break;
-      case Context.DeskAppList:
-        state.isDeskAppList = true;
-        break;
-      case Context.SoftProcList:
-        state.isSoftProcList = true;
-        break;
-      case Context.StatServiceList:
-        state.isStatServiceList = true;
-        break;
-      case Context.StatMethodList:
-        state.isStatMethodList = true;
+      case Context.ToolList:
+        state.isToolList = true;
+        state.isHome = false;
         break;
       default:
         break;
@@ -49,10 +39,6 @@ const mutations = {
   CLEAR_CONTEXT(state) {
     state.context = "";
     state.isHome = false;
-    state.isDeskAppList = false;
-    state.isSoftProcList = false;
-    state.isStatServiceList = false;
-    state.isStatMethodList = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -94,17 +80,8 @@ const getters = {
   isHome: state => {
     return state.isHome;
   },
-  isDeskAppList: state => {
-    return state.isDeskAppList;
-  },
-  isSoftProcList: state => {
-    return state.isSoftProcList;
-  },
-  isStatServiceList: state => {
-    return state.isStatServiceList;
-  },
-  isStatMethodList: state => {
-    return state.isStatMethodList;
+  isToolList: state => {
+    return state.isToolList;
   }
 };
 
