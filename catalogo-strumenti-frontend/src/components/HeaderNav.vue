@@ -1,6 +1,6 @@
 <template>
   <div class="c-subheader-nav mfe-2">
-    <template v-if="isSupervisor">
+    <template v-if="isAdmin">
       <span class="revisore">( Amministratore )</span>
 
       <!-- <span class="revisore-name pl-1 pr-2">
@@ -35,7 +35,7 @@ export default {
   name: "HeaderNav",
   computed: {
     ...mapGetters("coreui", ["isHome"]),
-    ...mapGetters("auth", ["isSupervisor", "isReviewer"])
+    ...mapGetters("auth", ["isAdmin"])
     /*  ...mapGetters("address", ["assignedId", "assignedName"]) */
   }
 };

@@ -168,6 +168,7 @@ export default {
       isStatServiceList: "isStatServiceList",
       isStatMethodList: "isStatMethodList" */
     }),
+
     getGsbpmList: function() {
       return this.gsbpmList.map(gsbpm => {
         return {
@@ -177,12 +178,18 @@ export default {
           children: function() {
             return gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
               return {
-                id: gsbpmSubProcess.id,
+                id: "id-" + gsbpmSubProcess.id,
                 label: gsbpmSubProcess.name,
                 treeNodeSpec: {
                   input: {
                     type: "checkbox"
+                  },
+
+                  state: {
+                    expanded: true
                   }
+
+                  //value: "aValueToSubmit",
                 }
               };
             });
@@ -191,7 +198,12 @@ export default {
           treeNodeSpec: {
             input: {
               type: "checkbox"
+            },
+
+            state: {
+              expanded: true
             }
+
             //value: "aValueToSubmit",
           }
         };
