@@ -175,25 +175,19 @@ export default {
           // ...gsbpm,
           id: gsbpm.id,
           label: gsbpm.name,
-          children: function() {
-            return gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
-              return {
-                id: "id-" + gsbpmSubProcess.id,
-                label: gsbpmSubProcess.name,
-                treeNodeSpec: {
-                  input: {
-                    type: "checkbox"
-                  },
-
-                  state: {
-                    expanded: true
-                  }
-
-                  //value: "aValueToSubmit",
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            return {
+              id: "id-" + gsbpmSubProcess.id,
+              label: gsbpmSubProcess.name,
+              treeNodeSpec: {
+                input: {
+                  type: "checkbox"
                 }
-              };
-            });
-          },
+
+                //value: "aValueToSubmit",
+              }
+            };
+          }),
 
           treeNodeSpec: {
             input: {
