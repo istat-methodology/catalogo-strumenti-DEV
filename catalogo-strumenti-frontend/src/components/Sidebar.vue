@@ -127,7 +127,7 @@ export default {
             },
             state: {
               input: {
-                value: true
+                value: false
               }
             }
           }

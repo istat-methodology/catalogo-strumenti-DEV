@@ -50,12 +50,12 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;"
+          _style: "width:20%;"
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:10%;"
+          _style: "width:30%;"
         },
         {
           key: "releaseDate",
