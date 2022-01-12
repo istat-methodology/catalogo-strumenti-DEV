@@ -26,6 +26,7 @@ public class CatalogToolDTO implements Serializable {
 	private String lastUpdate;	
 	private String requirements;	
 	private List<GSBPMProcessDto> gsbpmProcesses;
+	private List<StatisticalMethodDto> statisticalMethods;
 	
 	
 }
