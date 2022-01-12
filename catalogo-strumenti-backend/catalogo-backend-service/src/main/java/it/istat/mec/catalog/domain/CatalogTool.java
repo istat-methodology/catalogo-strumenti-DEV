@@ -89,9 +89,13 @@ public class CatalogTool implements Serializable  {
 	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
     private List<Documentation> documentations;
 	
-	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
-    private List<StatisticalMethod> statisticalMethos;
-	
+//	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+//    private List<StatisticalMethod> statisticalMethos;
+	@ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "csm_link_method_tool", joinColumns = {
+            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "METHOD", referencedColumnName = "ID", nullable = false)})
+	private List<StatisticalMethod> statisticalMethods;
 	
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_tool_gsbpm", joinColumns = {

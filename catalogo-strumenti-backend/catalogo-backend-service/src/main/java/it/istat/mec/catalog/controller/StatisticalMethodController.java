@@ -35,10 +35,10 @@ public class StatisticalMethodController {
 
 	}
 	
-	@GetMapping("/statisticalmethods/tools/{id}")
+	@GetMapping("/open/statisticalmethods/tools/{id}")
 	public List<StatisticalMethodDto> getByCatalogTool(@PathVariable("id") Long id) {
 
-		return statisticalMethodService.findByCataloTool(id);
+		return statisticalMethodService.findByCataloTools(id);
 	}
 	
 	@PostMapping("/statisticalmethods")

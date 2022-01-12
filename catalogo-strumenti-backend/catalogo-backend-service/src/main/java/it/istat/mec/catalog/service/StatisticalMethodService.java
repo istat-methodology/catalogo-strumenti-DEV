@@ -1,4 +1,5 @@
 package it.istat.mec.catalog.service;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,11 @@ public class StatisticalMethodService {
 
 	}
 	
-	public List<StatisticalMethodDto> findByCataloTool(Long id) {
-		
-		return Translators.translateSM(statisticalMethodDao.findByCatalogTool(new CatalogTool(id)));
-
+	public List<StatisticalMethodDto> findByCataloTools(Long id) {
+		List<CatalogTool>catalogTools = new ArrayList();
+		catalogTools.add(new CatalogTool(id));
+		//return Translators.translateSM(statisticalMethodDao.findByCatalogTools(catalogTools));
+		return null;
 	}
 	
 	
@@ -37,7 +39,7 @@ public class StatisticalMethodService {
 		StatisticalMethod sm = new StatisticalMethod();
 		sm = Translators.translate(request);	
 		CatalogTool tool = toolDao.getOne(request.getToolId());
-		sm.setCatalogTool(tool);
+//		sm.setCatalogTool(tool);
 		statisticalMethodDao.save(sm);
 		return Translators.translate(sm);
 	}
@@ -57,11 +59,11 @@ public class StatisticalMethodService {
 		StatisticalMethod sm = statisticalMethodDao.findById(request.getId()).get();	
 		
 		sm = Translators.translateUpdate(request, sm);
-		if(!sm.getCatalogTool().getId().equals( request.getToolId())){
-			if (!toolDao.findById(request.getToolId()).isPresent())
-				throw new NoDataException("Statistical Tool not present");
-			sm.setCatalogTool(toolDao.findById(request.getToolId()).get());
-		}
+//		if(!sm.getCatalogTool().getId().equals( request.getToolId())){
+//			if (!toolDao.findById(request.getToolId()).isPresent())
+//				throw new NoDataException("Statistical Tool not present");
+//			sm.setCatalogTool(toolDao.findById(request.getToolId()).get());
+//		}
 		
 		statisticalMethodDao.save(sm);		
 		

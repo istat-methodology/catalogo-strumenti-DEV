@@ -12,7 +12,7 @@ public interface StatisticalMethodDao extends JpaRepository<StatisticalMethod, L
 	@Override
 	List<StatisticalMethod> findAll();
 	
-	List<StatisticalMethod> findByCatalogTool(CatalogTool tool);
+	//List<StatisticalMethod> findByCatalogTools(List<CatalogTool> tools);
 	
 	@Override
 	Optional<StatisticalMethod> findById(Long id);
