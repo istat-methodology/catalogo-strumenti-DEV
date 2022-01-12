@@ -15,7 +15,7 @@
           </div>
           <div>
             <label>Versione:</label>
-            ><span>{{ tool.version | dashEmpty }}</span>
+            <span>{{ tool.version | dashEmpty }}</span>
           </div>
           <div>
             <label>Tags:</label>
