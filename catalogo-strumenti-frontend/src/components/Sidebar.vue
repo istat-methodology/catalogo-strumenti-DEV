@@ -131,6 +131,20 @@ export default {
               }
             }
           }
+        },
+        {
+          id: "inputs-checkbox-3",
+          label: "Metodi Statistici",
+          treeNodeSpec: {
+            input: {
+              type: "checkbox"
+            },
+            state: {
+              input: {
+                value: false
+              }
+            }
+          }
         }
       ],
       modelDefaults: {

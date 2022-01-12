@@ -2,13 +2,9 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard>
-        <CCardHeader>Strumento Metodologico</CCardHeader>
-        <CCardBody v-if="tool">
-          <div>
-            <label>Nome:</label>
-            <span>{{ tool.name | dashEmpty }}</span>
-          </div>
+      <CCard v-if="tool">
+        <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
+        <CCardBody>
           <div>
             <label>Descrizione:</label>
             <span>{{ tool.description | dashEmpty }}</span>
@@ -33,14 +29,10 @@
             <label>Requisiti:</label>
             <span>{{ tool.requirements | dashEmpty }}</span>
           </div>
-          <div>
-            <label>Tipo:</label>
-            <span>{{ tool.toolType.name | dashEmpty }}</span>
-          </div>
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 3">
-        <CCardHeader>Altri dettagli</CCardHeader>
+        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Codice:</label>
@@ -67,18 +59,9 @@
             <span>{{ tool.technicalRequirements | dashEmpty }}</span>
           </div>
         </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Back</CButton
-          >
-        </CCardFooter>
       </CCard>
       <CCard v-if="tool.toolType.id == 2">
-        <CCardHeader>Altri dettagli</CCardHeader>
+        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Download:</label>
@@ -109,18 +92,9 @@
             <span>{{ tool.technicalRequirements | dashEmpty }}</span>
           </div>
         </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Back</CButton
-          >
-        </CCardFooter>
       </CCard>
       <CCard v-if="tool.toolType.id == 1">
-        <CCardHeader>Altri dettagli</CCardHeader>
+        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Protocollo:</label>
@@ -155,6 +129,17 @@
             <span>{{ tool.processDesign | dashEmpty }}</span>
           </div>
         </CCardBody>
+      </CCard>
+      <CCard v-if="tool.statisticalMethods">
+        <CCardHeader>Metodi Statistici</CCardHeader>
+        <CCardBody>
+          <CDataTable
+            :items="tool.statisticalMethods"
+            :fields="fields"
+            :items-per-page="10"
+          >
+          </CDataTable>
+        </CCardBody>
         <CCardFooter>
           <CButton
             shape="square"
@@ -174,7 +159,30 @@ import { mapGetters } from "vuex";
 export default {
   name: "ToolDetails",
   data() {
-    return { count: 0 };
+    return {
+      fields: [
+        /*  {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        }, */
+        {
+          key: "name",
+          label: "Nome",
+          _style: "width:20%;"
+        },
+        {
+          key: "description",
+          label: "Descrizione",
+          _style: "width:20%;"
+        },
+        {
+          key: "notes",
+          label: "Note",
+          _style: "width:60%;"
+        }
+      ]
+    };
   },
   computed: {
     ...mapGetters("tools", ["tool"])

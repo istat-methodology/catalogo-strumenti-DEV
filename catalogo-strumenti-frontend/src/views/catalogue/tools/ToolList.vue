@@ -70,12 +70,12 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;"
+          _style: "width:20%;"
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:30%;"
+          _style: "width:20%;"
         },
         {
           key: "releaseDate",
@@ -85,6 +85,11 @@ export default {
         {
           key: "tooltype",
           label: "Tipologia",
+          _style: "width:20%;"
+        },
+        {
+          key: "gsbpm",
+          label: "Gsbpm",
           _style: "width:30%;"
         },
         {
@@ -104,7 +109,12 @@ export default {
     computedItems() {
       return this.toolscatalog.map(item => {
         return Object.assign({}, item, {
-          tooltype: item.toolType.name
+          tooltype: item.toolType.name,
+          gsbpm: item.gsbpmProcesses
+            .map(gsbpmProcess => {
+              return gsbpmProcess.name;
+            })
+            .join(", ")
         });
       });
     }
