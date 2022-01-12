@@ -10,6 +10,14 @@
             <span>{{ tool.description | dashEmpty }}</span>
           </div>
           <div>
+            <label>Fasi GSBPM:</label>
+            <span>{{ tool.gsbpmProcesses
+            .map(gsbpmProcess => {
+              return gsbpmProcess.name;
+            })
+            .join(", "), | dashEmpty }}</span>
+          </div>
+          <div>
             <label>Versione:</label>
             <span>{{ tool.version | dashEmpty }}</span>
           </div>
@@ -17,10 +25,10 @@
             <label>Tags:</label>
             <span>{{ tool.tags | dashEmpty }}</span>
           </div>
-          <div>
+          <!--div>
             <label>Servizio:</label>
             <span>{{ tool.service | dashEmpty }}</span>
-          </div>
+          </div-->
           <div>
             <label>Ultima Modifica:</label>
             <span>{{ tool.lastUpdate | dashEmpty }}</span>
@@ -77,7 +85,7 @@
           </div>
           <div>
             <label>Pacchetto:</label>
-            <span>{{ tool.pacchetto | dashEmpty }}</span>
+            <span>{{ tool.packageApplication | dashEmpty }}</span>
           </div>
           <div>
             <label>Sistema Operativo:</label>
@@ -117,18 +125,10 @@
             <span>{{ tool.restrictions | dashEmpty }}</span>
           </div>
           <div>
-            <label>Classificazione Gsbpm:</label>
-            <span>{{ tool.gsbpm | dashEmpty }}</span>
-          </div>
-          <div>
             <label>Funzione operativa:</label>
             <span>{{ tool.businessFunction | dashEmpty }}</span>
           </div>
-          <div>
-            <label>Design di processo:</label>
-            <span>{{ tool.processDesign | dashEmpty }}</span>
-          </div>
-        </CCardBody>
+     </CCardBody>
       </CCard>
       <CCard v-if="tool.statisticalMethods">
         <CCardHeader>Metodi Statistici</CCardHeader>

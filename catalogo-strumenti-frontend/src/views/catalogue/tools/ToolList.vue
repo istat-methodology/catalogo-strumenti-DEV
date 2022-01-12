@@ -73,8 +73,8 @@ export default {
           _style: "width:20%;"
         },
         {
-          key: "description",
-          label: "Descrizione",
+          key: "tooltype",
+          label: "Tipologia",
           _style: "width:20%;"
         },
         {
@@ -83,13 +83,13 @@ export default {
           _style: "width:10%;"
         },
         {
-          key: "tooltype",
-          label: "Tipologia",
-          _style: "width:20%;"
-        },
-        {
           key: "gsbpm",
           label: "Gsbpm",
+          _style: "width:30%;"
+        },
+        {
+          key: "methods",
+          label: "Metodi",
           _style: "width:30%;"
         },
         {
@@ -113,6 +113,11 @@ export default {
           gsbpm: item.gsbpmProcesses
             .map(gsbpmProcess => {
               return gsbpmProcess.name;
+            })
+            .join(", "),
+          methods: item.statisticalMethods
+            .map(method => {
+              return method.name;
             })
             .join(", ")
         });
