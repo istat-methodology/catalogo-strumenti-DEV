@@ -39,6 +39,44 @@
           </div>
         </CCardBody>
       </CCard>
+      <CCard v-if="tool.toolType.id == 3">
+        <CCardHeader>Altri dettagli</CCardHeader>
+        <CCardBody>
+          <div>
+            <label>Codice:</label>
+            <span>{{ tool.code | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Download:</label>
+            <span>{{ tool.download | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Flusso di lavoro:</label>
+            <span>{{ tool.workflow | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Linguaggio:</label>
+            <span>{{ tool.language | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Dipendenze:</label>
+            <span>{{ tool.ependencies | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Prerequisiti:</label>
+            <span>{{ tool.technicalRequirements | dashEmpty }}</span>
+          </div>
+        </CCardBody>
+        <CCardFooter>
+          <CButton
+            shape="square"
+            size="sm"
+            color="light"
+            @click.prevent="backToList"
+            >Back</CButton
+          >
+        </CCardFooter>
+      </CCard>
       <CCard v-if="tool.toolType.id == 2">
         <CCardHeader>Altri dettagli</CCardHeader>
         <CCardBody>
