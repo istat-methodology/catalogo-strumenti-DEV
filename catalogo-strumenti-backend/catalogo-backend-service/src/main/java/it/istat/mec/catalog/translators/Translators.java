@@ -212,15 +212,15 @@ public class Translators {
 	}
 	
 	public static <S, T> List<T> mapList(List<S> source, Class<T> targetClass,final ModelMapper modelMapper) {
-	  return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+	  return (List<T>) source.stream().map(element -> modelMapper.map(element,getExtendedClassType(element.getClass(), targetClass))).collect(Collectors.toList());
 	}
 
-	private static Class checkClassType(CatalogTool element, Class targetClass) {
+	public static Class getExtendedClassType(Class elementClass, Class targetClass) {
 		// TODO Auto-generated method stub
-		   Class dtoClass=CatalogToolDTO.class;
-	        if(element instanceof  StatisticalService) dtoClass=  StatisticalServiceDto.class;  
-	        if(element instanceof  DesktopApplication) dtoClass = DesktopApplicationDto.class;   
-	        if(element instanceof  SoftwareProcedure)  dtoClass=  SoftwareProcedureDto.class; 
+		   Class dtoClass=targetClass;
+	        if(elementClass ==  StatisticalService.class) dtoClass=  StatisticalServiceDto.class;  
+	        if(elementClass ==  DesktopApplication.class) dtoClass = DesktopApplicationDto.class;   
+	        if(elementClass ==  SoftwareProcedure.class)  dtoClass=  SoftwareProcedureDto.class; 
 		return dtoClass;
 	}
 

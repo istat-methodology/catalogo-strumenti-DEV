@@ -27,7 +27,7 @@ public interface ToolDao extends JpaRepository<CatalogTool, Long> {
 	public void delete(CatalogTool tools);  
 
 
-	@Query("SELECT c FROM CatalogTool c INNER JOIN c.gsbpmProcesses p WHERE 1=1 AND ((:sizeTypes = 0) OR (c.toolType.id IN (:types)))  AND ((:sizeGsbpmIds = 0)  OR (p IN (:gsbpmIds)) )")	
+	@Query("SELECT DISTINCT c FROM CatalogTool c  left outer JOIN c.gsbpmProcesses p WHERE 1=1 AND ((:sizeTypes = 0) OR (c.toolType.id IN (:types)))  AND ((:sizeGsbpmIds = 0)  OR (p IN (:gsbpmIds)) )")	
 	public List<CatalogTool>  findAllWithFilter(@Param("types") List<Integer> types,@Param("sizeTypes") Integer sizeTypes, @Param("gsbpmIds") List<GsbpmProcess> gsbpmIds, @Param("sizeGsbpmIds") Integer sizeGsbpmIds, Sort sort );
 
 }

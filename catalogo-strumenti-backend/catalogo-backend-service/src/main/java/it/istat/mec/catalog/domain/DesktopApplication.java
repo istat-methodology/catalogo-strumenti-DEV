@@ -28,7 +28,7 @@ public class DesktopApplication extends CatalogTool implements Serializable  {
 	private String language;
 
 	@Column(name = "PACKAGE")
-	private String pacchetto; 
+	private String packageApplication; 
 	
 	@Column(name = "OPERATIVE_SYSTEM")
 	private String operativeSystem;

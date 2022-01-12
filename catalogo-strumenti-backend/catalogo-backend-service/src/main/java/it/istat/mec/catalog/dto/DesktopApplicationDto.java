@@ -11,7 +11,7 @@ public class DesktopApplicationDto extends CatalogToolDTO implements Serializabl
 	private String download;	
 	private String licence;	
 	private String language;	
-	private String pacchetto; 	
+	private String packageApplication; 	
 	private String operativeSystem;	
 	private String version;	
 	private String technicalRequirements;
