@@ -10,6 +10,8 @@ public class StatisticalMethodDto  implements Serializable {
 	private static final long serialVersionUID = -6819215887293605229L;
 	
 	private String id;
+	private String name;
+	private String description;
 	private String requirements;	
 	private String assumptions;			
 	private String constraints;	
