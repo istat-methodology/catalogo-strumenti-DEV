@@ -52,7 +52,7 @@
           </div>
           <div>
             <label>Linguaggio:</label>
-            ><span>{{ tool.language | dashEmpty }}</span>
+            <span>{{ tool.language | dashEmpty }}</span>
           </div>
           <div>
             <label>Pacchetto:</label>
