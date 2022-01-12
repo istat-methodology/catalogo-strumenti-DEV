@@ -8,6 +8,9 @@
         <header class="card-header">
           Elenco Strumenti
         </header>
+        <!--  <CCard>
+          <CCardHeader>Elenco Strumenti</CCardHeader>
+ -->
         <CCardBody>
           <CDataTable
             :items="computedItems"
@@ -26,9 +29,26 @@
                   <view-icon />
                 </router-link>
               </td>
+              <td v-if="isAuthenticated">
+                <router-link
+                  tag="a"
+                  :to="{ name: 'ToolDetails', params: { id: item.id } }"
+                >
+                  <edit-icon />
+                </router-link>
+              </td>
+              <td v-if="isAuthenticated">
+                <router-link
+                  tag="a"
+                  :to="{ name: 'ToolDetails', params: { id: item.id } }"
+                >
+                  <delete-icon />
+                </router-link>
+              </td>
             </template>
           </CDataTable>
         </CCardBody>
+        <!--   </CCard> -->
       </div>
     </div>
   </div>
@@ -50,7 +70,7 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:30%;"
         },
         {
           key: "description",
@@ -80,6 +100,7 @@ export default {
   computed: {
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("tools", ["toolscatalog"]),
+    ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       return this.toolscatalog.map(item => {
         return Object.assign({}, item, {

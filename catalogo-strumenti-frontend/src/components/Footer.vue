@@ -3,7 +3,7 @@
     <div>
       <span class="mr-1">Open source project</span>
       <a
-        href="https://github.com/istat-methodology/Tools-Catalog-frontend"
+        href="https://github.com/istat-methodology/catalogo-strumenti"
         target="_blank"
         >@github</a
       >

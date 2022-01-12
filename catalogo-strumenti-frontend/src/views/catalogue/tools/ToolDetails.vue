@@ -33,9 +33,13 @@
             <label>Requisiti:</label>
             <span>{{ tool.requirements | dashEmpty }}</span>
           </div>
+          <div>
+            <label>Tipo:</label>
+            <span>{{ tool.toolType.name | dashEmpty }}</span>
+          </div>
         </CCardBody>
       </CCard>
-      <CCard v-if="tool.toolType.id == 1">
+      <CCard v-if="tool.toolType.id == 2">
         <CCardHeader>Altri dettagli</CCardHeader>
         <CCardBody>
           <div>
@@ -73,7 +77,7 @@
           >
         </CCardFooter>
       </CCard>
-      <CCard v-if="tool.toolType.id == 2">
+      <CCard v-if="tool.toolType.id == 1">
         <CCardHeader>Altri dettagli</CCardHeader>
         <CCardBody>
           <div>
@@ -86,7 +90,7 @@
           </div>
           <div>
             <label>Contributi:</label>
-            ><span>{{ tool.outcomes | dashEmpty }}</span>
+            <span>{{ tool.outcomes | dashEmpty }}</span>
           </div>
           <div>
             <label>Dipendenze:</label>
