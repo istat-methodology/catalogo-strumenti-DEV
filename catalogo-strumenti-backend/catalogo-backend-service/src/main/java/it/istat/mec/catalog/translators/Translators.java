@@ -78,7 +78,14 @@ public class Translators {
                 return new SoftwareProcedureDto();
             }
         });
-		final CatalogToolDTO dTO = modelMapper.map(x,CatalogToolDTO.class);
+        
+        
+        CatalogToolDTO dTO=null; 
+        if(x instanceof  StatisticalService) dTO =modelMapper.map(x,StatisticalServiceDto.class);  
+        if(x instanceof  DesktopApplication) dTO =modelMapper.map(x,DesktopApplicationDto.class);   
+        if(x instanceof  SoftwareProcedure)  dTO =modelMapper.map(x,SoftwareProcedureDto.class);  
+	//	final CatalogToolDTO dTO = modelMapper.map(x,CatalogToolDTO.class);
+   
 		return dTO;
 	}
 
@@ -206,6 +213,15 @@ public class Translators {
 	
 	public static <S, T> List<T> mapList(List<S> source, Class<T> targetClass,final ModelMapper modelMapper) {
 	  return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+	}
+
+	private static Class checkClassType(CatalogTool element, Class targetClass) {
+		// TODO Auto-generated method stub
+		   Class dtoClass=CatalogToolDTO.class;
+	        if(element instanceof  StatisticalService) dtoClass=  StatisticalServiceDto.class;  
+	        if(element instanceof  DesktopApplication) dtoClass = DesktopApplicationDto.class;   
+	        if(element instanceof  SoftwareProcedure)  dtoClass=  SoftwareProcedureDto.class; 
+		return dtoClass;
 	}
 
 	public static Agent translate(CreateAgentRequest x) {

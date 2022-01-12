@@ -1,8 +1,11 @@
 package it.istat.mec.catalog.dto;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-@Data
+import lombok.Setter;
+@Getter
+@Setter
 @NoArgsConstructor
 public class StatisticalServiceDto extends CatalogToolDTO implements Serializable {
 
