@@ -101,6 +101,10 @@
             <span>{{ tool.operativeSystem | dashEmpty }}</span>
           </div>
           <div>
+            <label>Versione:</label>
+            <span>{{ tool.version | dashEmpty }}</span>
+          </div>
+          <div>
             <label>Prerequisiti:</label>
             <span>{{ tool.technicalRequirements | dashEmpty }}</span>
           </div>
@@ -119,7 +123,7 @@
         <CCardHeader>Altri dettagli</CCardHeader>
         <CCardBody>
           <div>
-            <label>Download:</label>
+            <label>Protocollo:</label>
             <span>{{ tool.protocol | dashEmpty }}</span>
           </div>
           <div>
