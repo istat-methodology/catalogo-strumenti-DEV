@@ -7,7 +7,7 @@ const state = {
   isLoading: false,
   isHome: false,
   isToolList: false,
-  isToolDetail: false
+  isToolEdit: false
 };
 
 const mutations = {
@@ -27,18 +27,15 @@ const mutations = {
     switch (parseInt(context)) {
       case Context.Home:
         state.isHome = true;
-        state.isToolList = false;
-        state.isToolDetail = false;
         break;
       case Context.ToolList:
         state.isToolList = true;
-        state.isHome = false;
-        state.isToolDetail = false;
         break;
       case Context.ToolDetail:
-        state.isToolList = false;
-        state.isHome = false;
         state.isToolDetail = true;
+        break;
+      case Context.ToolEdit:
+        state.isToolEdit = true;
         break;
       default:
         break;
@@ -47,6 +44,9 @@ const mutations = {
   CLEAR_CONTEXT(state) {
     state.context = "";
     state.isHome = false;
+    state.isToolList = false;
+    state.isToolDetail = false;
+    state.isToolEdit = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -93,6 +93,9 @@ const getters = {
   },
   isToolDetail: state => {
     return state.isToolDetail;
+  },
+  isToolEdit: state => {
+    return state.isToolEdit;
   }
 };
 

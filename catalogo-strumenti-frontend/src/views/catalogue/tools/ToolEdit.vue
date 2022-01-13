@@ -162,6 +162,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { Context } from "@/common";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
@@ -260,6 +261,7 @@ export default {
   },
   created() {
     //this.$store.dispatch("tools/findById", this.$route.params.id);
+    this.$store.dispatch("coreui/setContext", Context.ToolEdit);
     this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
       this.setOldValues();
     });
