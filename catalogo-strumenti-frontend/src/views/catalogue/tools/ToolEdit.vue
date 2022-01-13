@@ -20,11 +20,6 @@
             placeholder="Versione"
             v-model="toolLocal.versione"
           />
-          <CInput
-            label="Versione"
-            placeholder="Versione"
-            v-model="toolLocal.versione"
-          />
           <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
           <CInput
             label="Ultima Modifica"
@@ -174,16 +169,36 @@ export default {
     return {
       toolLocal: {
         id: "",
-        data: "",
-        descrizione: "",
-        metodoStatistico: "",
-        nome: "",
-        note: "",
-        standard: "",
+        releaseDate: "",
+        description: "",
+        name: "",
+        standardIstat: "",
         tags: "",
-        versione: "",
-        tipologia: "",
-        riferimenti: ""
+        version: "",
+        toolType: "",
+        service: "",
+        lastUpdate: "",
+        requirements: "",
+        download: "",
+        licence: "",
+        language: "",
+        packageApplication: "",
+        operativeSystem: "",
+        technicalRequirements: "",
+        code: "",
+        dependencies: "",
+        workflow: "",
+        assumptions: "",
+        constraints: "",
+        notes: "",
+        protocol: "",
+        url: "",
+        outcomes: "",
+        serviceDependencies: "",
+        restrictions: "",
+        gsbpm: "",
+        businessFunction: "",
+        processDesign: ""
       }
     };
   },
