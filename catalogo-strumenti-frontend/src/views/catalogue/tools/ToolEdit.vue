@@ -223,16 +223,36 @@ export default {
     },
     setOldValues() {
       this.toolLocal.id = this.tool.id;
-      this.toolLocal.data = this.tool.data;
-      this.toolLocal.descrizione = this.tool.descrizione;
-      this.toolLocal.metodoStatistico = this.tool.metodoStatistico;
-      this.toolLocal.nome = this.tool.nome;
-      this.toolLocal.note = this.tool.note;
-      this.toolLocal.standard = this.tool.standard;
+      this.toolLocal.releaseDate = this.tool.releaseDate;
+      this.toolLocal.description = this.tool.description;
+      this.toolLocal.name = this.tool.name;
+      this.toolLocal.standardIstat = this.tool.standardIstat;
       this.toolLocal.tags = this.tool.tags;
-      this.toolLocal.versione = this.tool.versione;
-      this.toolLocal.tipologia = this.tool.tipologia;
-      this.toolLocal.riferimenti = this.tool.riferimenti;
+      this.toolLocal.version = this.tool.version;
+      this.toolLocal.toolType = this.tool.toolType;
+      this.toolLocal.service = this.tool.service;
+      this.toolLocal.lastUpdate = this.tool.lastUpate;
+      this.toolLocal.requirements = this.tool.requirements;
+      this.toolLocal.download = this.tool.download;
+      this.toolLocal.licence = this.tool.licence;
+      this.toolLocal.language = this.tool.language;
+      this.toolLocal.packageApplication = this.tool.packageApplication;
+      this.toolLocal.operativeSystem = this.tool.operativeSystem;
+      this.toolLocal.technicalRequirements = this.tool.technicalRequirements;
+      this.toolLocal.code = this.tool.code;
+      this.toolLocal.dependencies = this.tool.dependencies;
+      this.toolLocal.workflow = this.tool.workFlow;
+      this.toolLocal.assumptions = this.tool.assumption;
+      this.toolLocal.constraints = this.tool.constraints;
+      this.toolLocal.notes = this.tool.notes;
+      this.toolLocal.protocol = this.tool.protocol;
+      this.toolLocal.url = this.tool.url;
+      this.toolLocal.outcomes = this.tool.outcomes;
+      this.toolLocal.serviceDependencies = this.tool.serviceDepenencies;
+      this.toolLocal.restrictions = this.tool.restrictions;
+      this.toolLocal.gsbpm = this.tool.gsbpm;
+      this.toolLocal.businessFunction = this.tool.buinessFunction;
+      this.toolLocal.processDesign = this.tool.processDesign;
     },
     backToList() {
       this.$router.push("/catalogue/tools");
