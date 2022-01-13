@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,4 +47,8 @@ public class StatisticalService  extends CatalogTool  implements Serializable  {
 	@Column(name = "PROCESS_DESIGN")
 	private String processDesign;
  
+	@ManyToOne
+    @JoinColumn(name = "quale chiave?")
+    @JsonManagedReference
+    private CatalogTool catalogTool;
 }
