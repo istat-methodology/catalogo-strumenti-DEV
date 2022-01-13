@@ -47,8 +47,4 @@ public class StatisticalService  extends CatalogTool  implements Serializable  {
 	@Column(name = "PROCESS_DESIGN")
 	private String processDesign;
  
-	@ManyToOne
-    @JoinColumn(name = "quale chiave?")
-    @JsonManagedReference
-    private CatalogTool catalogTool;
 }

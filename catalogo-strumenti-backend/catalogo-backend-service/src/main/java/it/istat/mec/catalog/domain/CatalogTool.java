@@ -89,8 +89,6 @@ public class CatalogTool implements Serializable  {
 	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
     private List<Documentation> documentations;
 	
-//	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
-//    private List<StatisticalMethod> statisticalMethos;
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_link_method_tool", joinColumns = {
             @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
@@ -102,9 +100,6 @@ public class CatalogTool implements Serializable  {
             @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "GSBPM", referencedColumnName = "ID", nullable = false)})
     private List<GsbpmProcess> gsbpmProcesses;
-    
-	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
-	private List<StatisticalService> statisticalServices;
     
 	
 	public CatalogTool() {
