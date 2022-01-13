@@ -128,7 +128,7 @@
             <label>Funzione operativa:</label>
             <span>{{ tool.businessFunction | dashEmpty }}</span>
           </div>
-     </CCardBody>
+        </CCardBody>
       </CCard>
       <CCard v-if="tool.statisticalMethods">
         <CCardHeader>Metodi Statistici</CCardHeader>
