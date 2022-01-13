@@ -32,7 +32,7 @@
               <td v-if="isAuthenticated">
                 <router-link
                   tag="a"
-                  :to="{ name: 'ToolDetails', params: { id: item.id } }"
+                  :to="{ name: 'ToolEdit', params: { id: item.id } }"
                 >
                   <edit-icon />
                 </router-link>

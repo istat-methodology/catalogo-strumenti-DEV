@@ -2,68 +2,166 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard>
-        <CCardHeader>Modifica Strumento Metodologico</CCardHeader>
+      <CCard v-if="tool">
+        <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
         <CCardBody>
-          <CInput label="Nome" placeholder="Nome" v-model="toolLocal.nome" />
-          <!--  <div class="help-block" :class="{ show: $v.dug.name.$error }">
-            This field is required
-          </div> -->
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
-            v-model="toolLocal.descrizione"
+            v-model="toolLocal.description"
           />
           <CInput
-            label="Metodo Statistico"
-            placeholder="Metoo Statistico"
-            v-model="toolLocal.metodoStatistico"
+            label="Fasi GSBPM"
+            placeholder="Fasi GSBPM"
+            v-model="toolLocal.gsbpmProcesses"
           />
-          <CInput
-            label="Note di Compilazione"
-            placeholder="Note di Compilazione"
-            v-model="toolLocal.note"
-          />
-          <CInput
-            label="Standard"
-            placeholder="Standard"
-            v-model="toolLocal.standard"
-          />
-          <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
           <CInput
             label="Versione"
             placeholder="Versione"
             v-model="toolLocal.versione"
           />
           <CInput
-            label="Tipologia"
-            placeholder="Tipologia"
-            v-model="toolLocal.tipologia"
+            label="Versione"
+            placeholder="Versione"
+            v-model="toolLocal.versione"
+          />
+          <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
+          <CInput
+            label="Ultima Modifica"
+            placeholder="Ultima Modifica"
+            v-model="toolLocal.lastUpdate"
           />
           <CInput
-            label="Riferimenti"
-            placeholder="Riferimenti"
-            v-model="toolLocal.riferimenti"
+            label="Requisiti"
+            placeholder="Requisiti"
+            v-model="toolLocal.requirements"
           />
         </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="primary"
-            class="mr-2"
-            @click.prevent="handleSubmit"
-            >Update</CButton
-          >
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Back</CButton
-          >
-        </CCardFooter>
       </CCard>
+      <CCard v-if="tool.toolType.id == 3">
+        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardBody>
+          <CInput
+            label="Codice"
+            placeholder="Codice"
+            v-model="toolLocal.code"
+          />
+          <CInput
+            label="Download"
+            placeholder="Download"
+            v-model="toolLocal.download"
+          />
+          <CInput
+            label="Flusso di lavoro"
+            placeholder="Flusso di lavoro"
+            v-model="toolLocal.workflow"
+          />
+          <CInput
+            label="Linguaggio"
+            placeholder="Linguaggio"
+            v-model="toolLocal.language"
+          />
+          <CInput
+            label="Dipendenze"
+            placeholder="Dipendenze"
+            v-model="toolLocal.depenencies"
+          />
+          <CInput
+            label="Requisiti Tecnici"
+            placeholder="Requisiti Tecnici"
+            v-model="toolLocal.technicalRequirements"
+          />
+        </CCardBody>
+      </CCard>
+      <CCard v-if="tool.toolType.id == 2">
+        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardBody>
+          <CInput
+            label="Download"
+            placeholder="Download"
+            v-model="toolLocal.download"
+          />
+          <CInput
+            label="Licenza"
+            placeholder="Licenza"
+            v-model="toolLocal.licence"
+          />
+          <CInput
+            label="Linguaggio"
+            placeholder="Linguaggio"
+            v-model="toolLocal.language"
+          />
+          <CInput
+            label="Pacchetto"
+            placeholder="Pacchetto"
+            v-model="toolLocal.packageApplication"
+          />
+          <CInput
+            label="Sistema Operativo"
+            placeholder="Sistema Operativo"
+            v-model="toolLocal.operativeSystem"
+          />
+          <CInput
+            label="Verione"
+            placeholder="Versione"
+            v-model="toolLocal.version"
+          />
+          <CInput
+            label="Requisiti Tecnici"
+            placeholder="Requisiti Tecnici"
+            v-model="toolLocal.technicalRequirements"
+          />
+        </CCardBody>
+      </CCard>
+      <CCard v-if="tool.toolType.id == 1">
+        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardBody>
+          <CInput
+            label="Potocollo"
+            placeholder="Protocollo"
+            v-model="toolLocal.protocol"
+          />
+          <CInput label="Url" placeholder="Url" v-model="toolLocal.url" />
+          <CInput
+            label="Contributi"
+            placeholder="Contributi"
+            v-model="toolLocal.outcomes"
+          />
+          <CInput
+            label="Dipendenze"
+            placeholder="Dipendenze"
+            v-model="toolLocal.serviceDependencies"
+          />
+          <CInput
+            label="Restrizioni"
+            placeholder="Retrizioni"
+            v-model="toolLocal.restrictions"
+          />
+          <CInput
+            label="Funzione"
+            placeholder="Funzione"
+            v-model="toolLocal.businessFunction"
+          />
+        </CCardBody>
+      </CCard>
+
+      <CCardFooter>
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          class="mr-2"
+          @click.prevent="handleSubmit"
+          >Update</CButton
+        >
+        <CButton
+          shape="square"
+          size="sm"
+          color="light"
+          @click.prevent="backToList"
+          >Back</CButton
+        >
+      </CCardFooter>
     </div>
   </div>
 </template>
@@ -126,7 +224,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id);
+    //this.$store.dispatch("tools/findById", this.$route.params.id);
     this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
       this.setOldValues();
     });
