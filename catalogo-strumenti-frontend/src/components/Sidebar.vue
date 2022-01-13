@@ -4,30 +4,39 @@
     :minimize="minimize"
     :show="show"
     @update:show="
-      value => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
+      (value) => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
     "
   >
     <CSidebarBrand class="d-md-down-none" to="/">
       <CIcon name="cil-at" size="lg"></CIcon>
-      <span class="brand">Catalogo-Strumenti Metodologici</span>
+      <span class="brand">Catalogo Strumenti Metodologici</span>
     </CSidebarBrand>
-    <div class="row">
-      <div class="col-12">
-        <CCard v-if="isToolList">
-          <CCardHeader>
-            Classificazione GSBPM
-          </CCardHeader>
-          <CCardBody>
-            <div id="app-inputs" class="demo-tree">
-              <tree
-                v-if="gsbpmList"
-                id="customtree-gray"
-                :initial-model="getGsbpmList"
-                :model-defaults="modelDefaults"
-                ref="treeInputs"
-                v-on:treeViewNodeCheckboxChange="refreshCheckedList"
-              ></tree>
-              <!-- <section id="checked-stuff-inputs">
+    <ul class="c-sidebar-nav h-100 ps" style="position: relative">
+      <li class="c-sidebar-nav-item">
+        <router-link
+          tag="a"
+          :to="{ name: 'Home' }"
+          class="c-sidebar-nav-link"
+          :class="{ 'c-active': isHome }"
+        >
+          <CIcon name="cil-home" class="c-sidebar-nav-icon" />Home
+          <span class="badge badge-primary">Alpha</span>
+        </router-link>
+      </li>
+      <li class="c-sidebar-nav-title" v-if="isToolList">
+        Classificazione GSBPM
+      </li>
+      <li class="c-sidebar-nav-item" v-if="isToolList">
+        <div id="app-inputs" class="demo-tree">
+          <tree
+            v-if="gsbpmList"
+            id="customtree-gray"
+            :initial-model="getGsbpmList"
+            :model-defaults="modelDefaults"
+            ref="treeInputs"
+            v-on:treeViewNodeCheckboxChange="refreshCheckedList"
+          ></tree>
+          <!-- <section id="checked-stuff-inputs">
                 <button
                   type="button"
                   class="tree-processor-trigger"
@@ -41,24 +50,20 @@
                   </li>
                 </ul>
               </section> -->
-            </div>
-          </CCardBody>
-        </CCard>
-        <CCard v-if="isToolList">
-          <CCardHeader>
-            Tipo Strumento
-          </CCardHeader>
-          <CCardBody>
-            <div id="app-tree" class="demo-tree">
-              <tree
-                v-if="model"
-                id="customtree-gray"
-                :initial-model="model"
-                :model-defaults="modelDefaults"
-                ref="treeInputs"
-                v-on:treeViewNodeCheckboxChange="refreshCheckedList"
-              ></tree>
-              <!-- <section id="checked-stuff-inputs">
+        </div>
+      </li>
+      <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
+      <li class="c-sidebar-nav-item" v-if="isToolList">
+        <div id="app-tree" class="demo-tree">
+          <tree
+            v-if="model"
+            id="customtree-gray"
+            :initial-model="model"
+            :model-defaults="modelDefaults"
+            ref="treeInputs"
+            v-on:treeViewNodeCheckboxChange="refreshCheckedList"
+          ></tree>
+          <!-- <section id="checked-stuff-inputs">
                 <button
                   type="button"
                   class="tree-processor-trigger"
@@ -72,11 +77,9 @@
                   </li>
                 </ul>
               </section> -->
-            </div>
-          </CCardBody>
-        </CCard>
-      </div>
-    </div>
+        </div>
+      </li>
+    </ul>
   </CSidebar>
 </template>
 <script>
@@ -88,7 +91,7 @@ export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    tree: TreeView
+    tree: TreeView,
   },
   data() {
     return {
@@ -101,9 +104,9 @@ export default {
               type: "checkbox",
               name: "radio1",
               value: "aValueToSubmit",
-              isInitialRadioGroupValue: true
-            }
-          }
+              isInitialRadioGroupValue: true,
+            },
+          },
         },
         {
           id: "inputs-radio-2",
@@ -111,41 +114,41 @@ export default {
           treeNodeSpec: {
             input: {
               type: "checkbox",
-              name: "radio1"
+              name: "radio1",
             },
             state: {
-              expanded: true
-            }
-          }
+              expanded: true,
+            },
+          },
         },
         {
           id: "inputs-checkbox-2",
           label: "Procedure",
           treeNodeSpec: {
             input: {
-              type: "checkbox"
+              type: "checkbox",
             },
             state: {
               input: {
-                value: false
-              }
-            }
-          }
+                value: false,
+              },
+            },
+          },
         },
         {
           id: "inputs-checkbox-3",
           label: "Metodi Statistici",
           treeNodeSpec: {
             input: {
-              type: "checkbox"
+              type: "checkbox",
             },
             state: {
               input: {
-                value: false
-              }
-            }
-          }
-        }
+                value: false,
+              },
+            },
+          },
+        },
       ],
       modelDefaults: {
         /* addChildTitle: "Add a new child node",
@@ -154,15 +157,15 @@ export default {
         customizations: {
           classes: {
             treeViewNodeSelfExpander: "action-button",
-            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right"
+            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right",
             //treeViewNodeSelfAction: "action-button"
             /* treeViewNodeSelfAddChildIcon: "fas fa-plus-circle",
             treeViewNodeSelfDeleteIcon: "fas fa-minus-circle" */
-          }
-        }
+          },
+        },
       },
       checkedNodes: [],
-      prova: []
+      prova: [],
     };
   },
   methods: {
@@ -170,7 +173,7 @@ export default {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
       let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
       this.checkedNodes = [...rbNodes, ...cbNodes];
-    }
+    },
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
       let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
@@ -186,50 +189,50 @@ export default {
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",
-      isHome: "isHome"
+      isHome: "isHome",
       /* isDeskAppList: "isDeskAppList",
       isSoftProcList: "isSoftProcList",
       isStatServiceList: "isStatServiceList",
       isStatMethodList: "isStatMethodList" */
     }),
-    getGsbpmList: function() {
-      return this.gsbpmList.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: "id-" + gsbpmSubProcess.id,
               label: gsbpmSubProcess.name,
               treeNodeSpec: {
                 input: {
-                  type: "checkbox"
-                }
+                  type: "checkbox",
+                },
 
                 //value: "aValueToSubmit",
-              }
+              },
             };
           }),
 
           treeNodeSpec: {
             input: {
-              type: "checkbox"
+              type: "checkbox",
             },
 
             state: {
-              expanded: false
-            }
+              expanded: false,
+            },
 
             //value: "aValueToSubmit",
-          }
+          },
         };
       });
-    }
+    },
   },
   created() {
     this.$store.dispatch("gsbpm/findAll");
-  }
+  },
 };
 </script>
 
