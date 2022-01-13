@@ -6,7 +6,8 @@ const state = {
   context: "",
   isLoading: false,
   isHome: false,
-  isToolList: false
+  isToolList: false,
+  isToolDetail: false
 };
 
 const mutations = {
@@ -27,10 +28,17 @@ const mutations = {
       case Context.Home:
         state.isHome = true;
         state.isToolList = false;
+        state.isToolDetail = false;
         break;
       case Context.ToolList:
         state.isToolList = true;
         state.isHome = false;
+        state.isToolDetail = false;
+        break;
+      case Context.ToolDetail:
+        state.isToolList = false;
+        state.isHome = false;
+        state.isToolDetail = true;
         break;
       default:
         break;
@@ -82,6 +90,9 @@ const getters = {
   },
   isToolList: state => {
     return state.isToolList;
+  },
+  isToolDetail: state => {
+    return state.isToolDetail;
   }
 };
 

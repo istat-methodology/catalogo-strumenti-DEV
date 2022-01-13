@@ -4,7 +4,7 @@
     :minimize="minimize"
     :show="show"
     @update:show="
-      (value) => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
+      value => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
     "
   >
     <CSidebarBrand class="d-md-down-none" to="/">
@@ -91,7 +91,7 @@ export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    tree: TreeView,
+    tree: TreeView
   },
   data() {
     return {
@@ -104,9 +104,9 @@ export default {
               type: "checkbox",
               name: "radio1",
               value: "aValueToSubmit",
-              isInitialRadioGroupValue: true,
-            },
-          },
+              isInitialRadioGroupValue: true
+            }
+          }
         },
         {
           id: "inputs-radio-2",
@@ -114,41 +114,41 @@ export default {
           treeNodeSpec: {
             input: {
               type: "checkbox",
-              name: "radio1",
+              name: "radio1"
             },
             state: {
-              expanded: true,
-            },
-          },
+              expanded: true
+            }
+          }
         },
         {
           id: "inputs-checkbox-2",
           label: "Procedure",
           treeNodeSpec: {
             input: {
-              type: "checkbox",
+              type: "checkbox"
             },
             state: {
               input: {
-                value: false,
-              },
-            },
-          },
+                value: false
+              }
+            }
+          }
         },
         {
           id: "inputs-checkbox-3",
           label: "Metodi Statistici",
           treeNodeSpec: {
             input: {
-              type: "checkbox",
+              type: "checkbox"
             },
             state: {
               input: {
-                value: false,
-              },
-            },
-          },
-        },
+                value: false
+              }
+            }
+          }
+        }
       ],
       modelDefaults: {
         /* addChildTitle: "Add a new child node",
@@ -157,15 +157,15 @@ export default {
         customizations: {
           classes: {
             treeViewNodeSelfExpander: "action-button",
-            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right",
+            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right"
             //treeViewNodeSelfAction: "action-button"
             /* treeViewNodeSelfAddChildIcon: "fas fa-plus-circle",
             treeViewNodeSelfDeleteIcon: "fas fa-minus-circle" */
-          },
-        },
+          }
+        }
       },
       checkedNodes: [],
-      prova: [],
+      prova: []
     };
   },
   methods: {
@@ -173,7 +173,7 @@ export default {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
       let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
       this.checkedNodes = [...rbNodes, ...cbNodes];
-    },
+    }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
       let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
@@ -189,50 +189,50 @@ export default {
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",
-      isHome: "isHome",
+      isHome: "isHome"
       /* isDeskAppList: "isDeskAppList",
       isSoftProcList: "isSoftProcList",
       isStatServiceList: "isStatServiceList",
       isStatMethodList: "isStatMethodList" */
     }),
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: "id-" + gsbpmSubProcess.id,
               label: gsbpmSubProcess.name,
               treeNodeSpec: {
                 input: {
-                  type: "checkbox",
-                },
+                  type: "checkbox"
+                }
 
                 //value: "aValueToSubmit",
-              },
+              }
             };
           }),
 
           treeNodeSpec: {
             input: {
-              type: "checkbox",
+              type: "checkbox"
             },
 
             state: {
-              expanded: false,
-            },
+              expanded: false
+            }
 
             //value: "aValueToSubmit",
-          },
+          }
         };
       });
-    },
+    }
   },
   created() {
     this.$store.dispatch("gsbpm/findAll");
-  },
+  }
 };
 </script>
 
