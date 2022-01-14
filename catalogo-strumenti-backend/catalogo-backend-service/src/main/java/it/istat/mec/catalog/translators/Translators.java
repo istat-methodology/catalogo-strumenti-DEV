@@ -9,6 +9,7 @@ import org.modelmapper.Provider.ProvisionRequest;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
+import it.istat.mec.catalog.constants.CatalogConst;
 import it.istat.mec.catalog.domain.Agent;
 import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.CatalogTool;
@@ -239,9 +240,13 @@ public class Translators {
 	}
 
 	public static CatalogTool translate(CreateToolRequest x) {
-
+		Class targetClass = null;
+		if(Integer.parseInt(x.getToolType())==CatalogConst.CATALOG_TYPE_STATISTICAL_SERVICE) {
+			targetClass = StatisticalService.class;
+		}
 		final ModelMapper modelMapper = new ModelMapper();
-		final CatalogTool tool = modelMapper.map(x, CatalogTool.class);
+		final CatalogTool tool = (CatalogTool) modelMapper.map(x, targetClass);
+		tool.setToolType(new ToolType(Integer.parseInt(x.getToolType())));
 		return tool;
 	}
 

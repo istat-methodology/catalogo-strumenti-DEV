@@ -38,8 +38,6 @@ public class StatisticalMethodService {
 	public StatisticalMethodDto newStatisticalMethod(CreateStatisticalMethodRequest request) {
 		StatisticalMethod sm = new StatisticalMethod();
 		sm = Translators.translate(request);	
-		CatalogTool tool = toolDao.getOne(request.getToolId());
-//		sm.setCatalogTool(tool);
 		statisticalMethodDao.save(sm);
 		return Translators.translate(sm);
 	}

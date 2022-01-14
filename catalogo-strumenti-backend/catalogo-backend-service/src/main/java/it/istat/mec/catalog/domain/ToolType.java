@@ -27,4 +27,8 @@ public class ToolType implements Serializable  {
 	
 	@Column(name = "DESCR")
 	private String descr;
+	
+	public ToolType(Integer id) {
+		this.id=id;
+	}
 }
