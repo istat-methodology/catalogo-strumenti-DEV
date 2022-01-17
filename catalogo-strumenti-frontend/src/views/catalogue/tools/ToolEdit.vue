@@ -33,6 +33,18 @@
           />
         </CCardBody>
       </CCard>
+      <CCard v-if="computedItems.gsbpm">
+        <CCardHeader>Fasi GSBPM</CCardHeader>
+        <CCardBody>
+          <CListGroup>
+            <CListGroupItem
+              v-for="process in computedItems.gsbpm"
+              :key="process.id"
+              ><CFormCheck label="process.name" />
+            </CListGroupItem>
+          </CListGroup>
+        </CCardBody>
+      </CCard>
       <CCard v-if="tool.toolType.id == 3">
         <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
@@ -204,7 +216,26 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("tools", ["tool"])
+    ...mapGetters("tools", ["tool"]),
+    computedItems() {
+      return this.tool.gsbpmProcesses.map(item => {
+        return Object.assign({}, item, {
+          tooltype: item.toolType.name,
+          gsbpm: [
+            item.gsbpmProcesses.map(gsbpmProcess => {
+              return gsbpmProcess.name;
+            })
+          ],
+          /* .join(", "), */
+          methods: [
+            item.statisticalMethods.map(method => {
+              return method.name;
+            })
+          ]
+          /*  .join(", ") */
+        });
+      });
+    }
   },
   /* validations: {
     dug: {

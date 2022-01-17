@@ -30,7 +30,8 @@ import {
   CAlert,
   CDataTable,
   CTab,
-  CTabs
+  CTabs,
+  CListGroupItem
   /*  CNav,
   CNavItem,
   CNavLink,
@@ -68,8 +69,9 @@ Vue.component("CAlert", CAlert);
 Vue.component("CDataTable", CDataTable);
 Vue.component("CTab", CTab);
 Vue.component("CTabs", CTabs);
-/* Vue.component("CNav", CNav);
-Vue.component("CNavItem", CNavItem);
+Vue.component("CListGroupItem", CListGroupItem);
+/* Vue.component("CNavItem", CNavItem);
 Vue.component("CNavLink", CNavLink);
 Vue.component("CTabPane", CTabPane);
-Vue.component("CTabContent", CTabContent); */
+Vue.component("CTabContent", CTabContent);
+ */
