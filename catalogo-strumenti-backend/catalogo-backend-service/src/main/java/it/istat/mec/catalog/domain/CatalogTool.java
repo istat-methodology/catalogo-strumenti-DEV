@@ -58,7 +58,7 @@ public class CatalogTool implements Serializable  {
 	private String version;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "TOOL_TYPE", nullable = true)
+    @JoinColumn(name = "TOOL_TYPE", nullable = false, insertable = false)
  	private ToolType toolType;
 	
 	@Column(name = "SERVICE")
