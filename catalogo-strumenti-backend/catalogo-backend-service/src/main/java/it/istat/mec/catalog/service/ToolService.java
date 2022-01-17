@@ -1,19 +1,15 @@
 package it.istat.mec.catalog.service;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateToolRequest;
-import it.istat.mec.catalog.request.UpdateToolRequest;
 import it.istat.mec.catalog.translators.Translators;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -65,15 +61,17 @@ public class ToolService {
 		return Translators.translate(toolDao.findById(id).get());
 	}
 	
-	public CatalogToolDTO updateTool(UpdateToolRequest request) {		
+	public CatalogToolDTO updateTool(CreateToolRequest request) {		
 		
 		if (!toolDao.findById(request.getId()).isPresent())
 			throw new NoDataException("Tool not present");
 		
 		CatalogTool tool = toolDao.findById(request.getId()).get();	
 		
-		tool = Translators.translateUpdate(request, tool);
+		tool = Translators.translate(request);
+		Date date = new Date(System.currentTimeMillis());	
 		
+		tool.setLastUpdate(date);
 		toolDao.save(tool);		
 		
 		return Translators.translate(tool);

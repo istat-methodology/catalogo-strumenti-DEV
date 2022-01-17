@@ -71,12 +71,7 @@ public class CatalogTool implements Serializable  {
 	@Column(name = "REQUIREMENTS")
 	private String requirements;	
 	
-	@JsonBackReference
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "csm_methodological_tool_has_is2_business_function", joinColumns = {
-            @JoinColumn(name = "CSM_METHODOLOGICAL_TOOL_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "IS2_BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false)})
-    private List<BusinessFunction> businessFunctions;
+	
 	
 	@JsonBackReference
 	@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)  

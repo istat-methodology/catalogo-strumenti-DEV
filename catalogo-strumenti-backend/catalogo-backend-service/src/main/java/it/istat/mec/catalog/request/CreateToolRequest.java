@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CreateToolRequest implements Serializable {	
 
 	private static final long serialVersionUID = 260178678713176491L;
-	
+	private Long id;
 	private Date releaseDate;
 	private String description;	
 	private String name;
@@ -18,8 +18,7 @@ public class CreateToolRequest implements Serializable {
 	private String tags;
 	private String version;
 	private int toolType;
-	private int service;
-	//private String lastUpdate;
+	private int service;	
 	private String requirements;	
 	private String download;	
 	private String licence;	
