@@ -40,7 +40,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 3">
-        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Codice:</label>
@@ -69,7 +69,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 2">
-        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Download:</label>
@@ -102,7 +102,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 1">
-        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Protocollo:</label>
