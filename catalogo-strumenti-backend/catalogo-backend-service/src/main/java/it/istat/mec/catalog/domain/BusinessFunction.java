@@ -36,6 +36,4 @@ public class BusinessFunction implements Serializable  {
 	@Column(name = "GSBPM")
 	private String gsbpm;
 	
-	@ManyToMany(mappedBy = "businessFunctions")
-    private List<CatalogTool> catalogTools;
 }

@@ -241,12 +241,19 @@ public class Translators {
 
 	public static CatalogTool translate(CreateToolRequest x) {
 		Class targetClass = null;
-		if(Integer.parseInt(x.getToolType())==CatalogConst.CATALOG_TYPE_STATISTICAL_SERVICE) {
+		if(x.getToolType()==CatalogConst.CATALOG_TYPE_STATISTICAL_SERVICE) {
 			targetClass = StatisticalService.class;
 		}
+		if(x.getToolType()==CatalogConst.CATALOG_TYPE_DESKTOP_APPLICATION) {
+			targetClass = DesktopApplication.class;
+		}
+		if(x.getToolType()==CatalogConst.CATALOG_TYPE_SOFTWARE_PROCEDURE) {
+			targetClass = SoftwareProcedure.class;
+		}
+		
 		final ModelMapper modelMapper = new ModelMapper();
 		final CatalogTool tool = (CatalogTool) modelMapper.map(x, targetClass);
-		tool.setToolType(new ToolType(Integer.parseInt(x.getToolType())));
+		tool.setToolType(new ToolType(x.getToolType()));
 		return tool;
 	}
 

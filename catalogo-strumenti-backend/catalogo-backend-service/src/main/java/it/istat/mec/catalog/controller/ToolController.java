@@ -70,7 +70,7 @@ public class ToolController {
 	}
 	
 	@PutMapping(value = "/tools/{id}")
-	public CatalogToolDTO updateAddress(@RequestBody UpdateToolRequest request) {
+	public CatalogToolDTO updateAddress(@RequestBody CreateToolRequest request) {
 
 		//return addressService.updateAddress(request, JwtTokenProvider.getUserId(jwt));
 		return toolService.updateTool(request);
