@@ -2,7 +2,6 @@ package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -19,12 +18,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import it.istat.mec.catalog.dao.ClsToolTypeDao;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -63,7 +58,7 @@ public class CatalogTool implements Serializable  {
 	private String version;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "TOOL_TYPE", nullable = true)
+    @JoinColumn(name = "TOOL_TYPE", nullable = false, insertable = false)
  	private ToolType toolType;
 	
 	@Column(name = "SERVICE")

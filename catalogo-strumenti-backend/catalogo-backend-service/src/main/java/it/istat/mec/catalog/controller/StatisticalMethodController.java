@@ -22,13 +22,13 @@ public class StatisticalMethodController {
 	@Autowired
 	private StatisticalMethodService statisticalMethodService;
 	
-	@GetMapping("/statisticalmethods")
+	@GetMapping("/open/statisticalmethods")
 	public List<StatisticalMethodDto> getAllStatisticalMethods() {
 
 		return statisticalMethodService.findAllStatisticalMethods();
 	}
 	
-	@GetMapping(value = "/statisticalmethods/{id}")
+	@GetMapping(value = "/open/statisticalmethods/{id}")
 	public StatisticalMethodDto getStatisticalMethod(@PathVariable("id") Long id) {
 
 		return statisticalMethodService.findStatisticalMethodById(id);

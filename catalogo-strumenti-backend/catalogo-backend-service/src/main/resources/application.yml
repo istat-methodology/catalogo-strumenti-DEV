@@ -50,5 +50,11 @@ security:
 app:
   editing:
     backup: true  
+    
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
 
 
