@@ -34,7 +34,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 3">
-        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <CInput
             label="Codice"
@@ -69,7 +69,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 2">
-        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <CInput
             label="Download"
@@ -109,7 +109,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 1">
-        <CCardHeader>Dettagli {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+        <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <CInput
             label="Potocollo"
