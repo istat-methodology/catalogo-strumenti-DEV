@@ -1,6 +1,8 @@
 package it.istat.mec.catalog.service;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +50,10 @@ public class ToolService {
 	
 	public CatalogToolDTO newTool(CreateToolRequest request) {
 		CatalogTool tool = new CatalogTool();
-		tool = Translators.translate(request);		
+		tool = Translators.translate(request);			
+		Date date = new Date(System.currentTimeMillis());	
+		
+		tool.setLastUpdate(date);
 		toolDao.save(tool);
 		return Translators.translate(tool);
 	}

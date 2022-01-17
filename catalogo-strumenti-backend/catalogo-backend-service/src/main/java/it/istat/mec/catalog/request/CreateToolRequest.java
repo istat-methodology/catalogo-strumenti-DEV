@@ -1,6 +1,7 @@
 package it.istat.mec.catalog.request;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,15 +11,15 @@ public class CreateToolRequest implements Serializable {
 
 	private static final long serialVersionUID = 260178678713176491L;
 	
-	private String releaseDate;
+	private Date releaseDate;
 	private String description;	
 	private String name;
-	private String standardIstat;	
+	private int standardIstat;	
 	private String tags;
 	private String version;
-	private String toolType;
-	private String service;
-	private String lastUpdate;
+	private int toolType;
+	private int service;
+	//private String lastUpdate;
 	private String requirements;	
 	private String download;	
 	private String licence;	
@@ -34,7 +35,7 @@ public class CreateToolRequest implements Serializable {
 	private String outcomes;	
 	private String serviceDependencies;		
 	private String restrictions;
-	private String gsbpm;		
+	private int gsbpm;		
 	private String businessFunction;	
 	private String processDesign;
 	

@@ -1,6 +1,7 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,7 +41,7 @@ public class CatalogTool implements Serializable  {
 	private Long id;
 
 	@Column(name = "RELEASE_DATE")
-	private String releaseDate;
+	private Date releaseDate;
 	
 	@Column(name = "DESCRIPTION")
 	private String description;	
@@ -49,7 +50,7 @@ public class CatalogTool implements Serializable  {
 	private String name;
 	
 	@Column(name = "STANDARD_ISTAT")
-	private String standardIstat;	
+	private int standardIstat;	
 
 	@Column(name = "TAGS")
 	private String tags;
@@ -62,10 +63,10 @@ public class CatalogTool implements Serializable  {
  	private ToolType toolType;
 	
 	@Column(name = "SERVICE")
-	private String service;
+	private int service;
 
 	@Column(name = "LAST_UPDATE")
-	private String lastUpdate;
+	private Date lastUpdate;
 	
 	@Column(name = "REQUIREMENTS")
 	private String requirements;	
