@@ -9,6 +9,7 @@ export * from "./methods/methods.service";
 export * from "./procedures/procedures.service";
 export * from "./services/services.service";
 export * from "./gsbpm/gsbpm.service";
+export * from "./tooltype/tooltype.service";
 
 /* export * from "./report/daily.service";
 export * from "./report/pivot.service";

@@ -16,6 +16,7 @@ import { methods } from "./modules/methods/methods";
 import { procedures } from "./modules/procedures/procedures";
 import { services } from "./modules/services/services";
 import { gsbpm } from "./modules/gsbpm/gsbpm";
+import { tooltype } from "./modules/tooltype/tooltype";
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
@@ -38,6 +39,7 @@ export default new Vuex.Store({
     coreui,
     message,
     version,
+    tooltype,
     /*  address,
     dug, */
     user,

@@ -56,9 +56,9 @@
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
           <tree
-            v-if="model"
+            v-if="tooltypeList"
             id="customtree-gray"
-            :initial-model="model"
+            :initial-model="getTooltypeList"
             :model-defaults="modelDefaults"
             ref="treeInputs"
             v-on:treeViewNodeCheckboxChange="refreshCheckedList"
@@ -185,6 +185,7 @@ export default {
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
 
     ...mapGetters("gsbpm", ["gsbpmList"]),
+    ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("coreui", ["isToolList"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",
@@ -223,6 +224,40 @@ export default {
             state: {
               expanded: false
             }
+
+            //value: "aValueToSubmit",
+          }
+        };
+      });
+    },
+    getTooltypeList: function() {
+      return this.tooltypeList.map(tool => {
+        return {
+          // ...gsbpm,
+          id: tool.id,
+          label: tool.name,
+          /* children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            return {
+              id: "id-" + gsbpmSubProcess.id,
+              label: gsbpmSubProcess.name,
+              treeNodeSpec: {
+                input: {
+                  type: "checkbox"
+                }
+
+                //value: "aValueToSubmit",
+              }
+            };
+          }),
+ */
+          treeNodeSpec: {
+            input: {
+              type: "checkbox"
+            }
+
+            /* state: {
+              expanded: false
+            } */
 
             //value: "aValueToSubmit",
           }
