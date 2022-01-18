@@ -267,6 +267,7 @@ export default {
   },
   created() {
     this.$store.dispatch("gsbpm/findAll");
+    this.$store.dispatch("tooltype/findAll");
   }
 };
 </script>
