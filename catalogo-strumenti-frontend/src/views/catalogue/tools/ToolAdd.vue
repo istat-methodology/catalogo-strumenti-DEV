@@ -214,7 +214,8 @@ export default {
         businessFunction: "",
         processDesign: ""
       },
-      tipologia: 0
+      tipologia: 0,
+      value: 0
     };
   },
   /* validations: {
