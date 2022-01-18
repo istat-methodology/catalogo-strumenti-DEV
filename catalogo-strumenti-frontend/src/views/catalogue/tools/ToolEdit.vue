@@ -11,11 +11,6 @@
             v-model="toolLocal.description"
           />
           <CInput
-            label="Fasi GSBPM"
-            placeholder="Fasi GSBPM"
-            v-model="toolLocal.gsbpmProcesses"
-          />
-          <CInput
             label="Versione"
             placeholder="Versione"
             v-model="toolLocal.versione"
@@ -33,14 +28,16 @@
           />
         </CCardBody>
       </CCard>
-      <CCard v-if="computedItems.gsbpm">
+      <CCard v-if="tool.gsbpmProcesses">
         <CCardHeader>Fasi GSBPM</CCardHeader>
         <CCardBody>
           <CListGroup>
             <CListGroupItem
-              v-for="process in computedItems.gsbpm"
+              v-for="process in tool.gsbpmProcesses"
               :key="process.id"
-              ><CFormCheck label="process.name" />
+              ><CFormCheck label="process.name"
+                >{{ process.name | dashEmpty }}
+              </CFormCheck>
             </CListGroupItem>
           </CListGroup>
         </CCardBody>
@@ -212,30 +209,12 @@ export default {
         gsbpm: "",
         businessFunction: "",
         processDesign: ""
-      }
+      },
+      elenco: []
     };
   },
   computed: {
-    ...mapGetters("tools", ["tool"]),
-    computedItems() {
-      return this.tool.gsbpmProcesses.map(item => {
-        return Object.assign({}, item, {
-          tooltype: item.toolType.name,
-          gsbpm: [
-            item.gsbpmProcesses.map(gsbpmProcess => {
-              return gsbpmProcess.name;
-            })
-          ],
-          /* .join(", "), */
-          methods: [
-            item.statisticalMethods.map(method => {
-              return method.name;
-            })
-          ]
-          /*  .join(", ") */
-        });
-      });
-    }
+    ...mapGetters("tools", ["tool"])
   },
   /* validations: {
     dug: {

@@ -38,10 +38,7 @@
                 </router-link>
               </td>
               <td v-if="isAuthenticated">
-                <router-link
-                  tag="a"
-                  :to="{ name: 'ToolDetails', params: { id: item.id } }"
-                >
+                <router-link tag="a" :to="{ name: 'ToolAdd' }">
                   <delete-icon />
                 </router-link>
               </td>
