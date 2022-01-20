@@ -208,30 +208,10 @@ export default {
           // ...gsbpm,
           id: tool.id,
           label: tool.name,
-          /* children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
-            return {
-              id: "id-" + gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name,
-              treeNodeSpec: {
-                input: {
-                  type: "checkbox"
-                }
-
-                //value: "aValueToSubmit",
-              }
-            };
-          }),
- */
           treeNodeSpec: {
             input: {
               type: "checkbox"
             }
-
-            /* state: {
-              expanded: false
-            } */
-
-            //value: "aValueToSubmit",
           }
         };
       });
