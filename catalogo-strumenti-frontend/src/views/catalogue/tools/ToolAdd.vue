@@ -35,8 +35,17 @@
       </CCard>
       <CCard>
         <CCardHeader>Tipologia</CCardHeader>
-        <CCardBody>
-          <select
+        <CCardBody v-if="tooltypeList">
+          <select @change="onChange($event)">
+            <option
+              v-for="option in tooltypeList"
+              v-bind:value="option.id"
+              :key="option.id"
+            >
+              {{ option.name }}
+            </option>
+          </select>
+          <!-- <select
             class="form-select"
             @change="onChange($event)"
             aria-label="Default select example"
@@ -45,8 +54,8 @@
             <option value="1">Servizio Statistico</option>
             <option value="2">Applicazione Desktop</option>
             <option value="3">Procedura Software</option>
-          </select></CCardBody
-        >
+          </select></CCardBody -->
+        </CCardBody>
       </CCard>
       <CCard v-if="this.tipologia == '3'">
         <CCardHeader> Procedura Software</CCardHeader>
@@ -177,6 +186,7 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
+import { mapGetters } from "vuex";
 export default {
   name: "ToolAdd",
   data() {
@@ -214,9 +224,15 @@ export default {
         businessFunction: "",
         processDesign: ""
       },
-      tipologia: 0,
+      tipologia: 1,
       value: 0
     };
+  },
+  computed: {
+    /* ...mapGetters("auth", ["isReviewer", "isSupervisor"]), */
+    /* ...mapGetters("address", ["assignedId", "assignedName"]), */
+
+    ...mapGetters("tooltype", ["tooltypeList"])
   },
   /* validations: {
     tool: {
@@ -240,6 +256,9 @@ export default {
     onChange(event) {
       this.tipologia = event.target.value;
     }
+  },
+  created() {
+    this.$store.dispatch("tooltype/findAll");
   }
 };
 </script>
