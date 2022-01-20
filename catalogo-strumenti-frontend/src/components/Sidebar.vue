@@ -33,23 +33,9 @@
             id="customtree-gray"
             :initial-model="getGsbpmList"
             :model-defaults="modelDefaults"
-            ref="treeInputs"
+            ref="treeGsbpm"
             v-on:treeViewNodeCheckboxChange="refreshCheckedList"
           ></tree>
-          <!-- <section id="checked-stuff-inputs">
-                <button
-                  type="button"
-                  class="tree-processor-trigger"
-                  v-on:click="refreshCheckedList"
-                >
-                  What's been checked?
-                </button>
-                <ul id="checked-list-inputs">
-                  <li v-for="checkedNode in checkedNodes" :key="checkedNode.id">
-                    {{ checkedNode.label }}
-                  </li>
-                </ul>
-              </section> -->
         </div>
       </li>
       <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
@@ -60,23 +46,9 @@
             id="customtree-gray"
             :initial-model="getTooltypeList"
             :model-defaults="modelDefaults"
-            ref="treeInputs"
+            ref="treeType"
             v-on:treeViewNodeCheckboxChange="refreshCheckedList"
           ></tree>
-          <!-- <section id="checked-stuff-inputs">
-                <button
-                  type="button"
-                  class="tree-processor-trigger"
-                  v-on:click="refreshCheckedList"
-                >
-                  What's been checked?
-                </button>
-                <ul id="checked-list-inputs">
-                  <li v-for="checkedNode in checkedNodes" :key="checkedNode.id">
-                    {{ checkedNode.label }}
-                  </li>
-                </ul>
-              </section> -->
         </div>
       </li>
     </ul>
@@ -170,9 +142,9 @@ export default {
   },
   methods: {
     refreshCheckedList() {
-      let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
-      let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
-      this.checkedNodes = [...rbNodes, ...cbNodes];
+      let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes();
+      let typeNodes = this.$refs.treeType.getCheckedCheckboxes();
+      this.checkedNodes = [...gsbpmNodes, ...typeNodes];
     }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
@@ -204,7 +176,7 @@ export default {
           label: gsbpm.name,
           children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
-              id: "id-" + gsbpmSubProcess.id,
+              id: gsbpmSubProcess.id,
               label: gsbpmSubProcess.name,
               treeNodeSpec: {
                 input: {
