@@ -289,7 +289,7 @@ export default {
               text: gsbpmSubProcess.name,
               state: {
                 selected: false,
-                selectable: true,
+                selectable: false,
                 checked: false,
                 expanded: false,
                 disabled: false,
@@ -306,7 +306,7 @@ export default {
 
           state: {
             selected: false,
-            selectable: true,
+            selectable: false,
             checked: false,
             expanded: false,
             disabled: false,
@@ -343,7 +343,7 @@ export default {
           text: tool.name,
           state: {
             selected: false,
-            selectable: true,
+            selectable: false,
             checked: false,
             expanded: false,
             disabled: false,
