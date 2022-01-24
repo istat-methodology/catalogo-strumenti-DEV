@@ -47,8 +47,8 @@
             :data="getGsbpmList"
             :options="treeOptions"
             @node:selected="onNodeSelected"
-            @node:checked="onNodeChecked"
-            @node:unchecked="onNodeUnchecked"
+            @node:checked="onNodeCheckedGsbpm"
+            @node:unchecked="onNodeUncheckedGsbpm"
             class="tree--small"
           ></tree>
         </div>
@@ -68,8 +68,8 @@
             :data="getTooltypeList"
             :options="treeOptions"
             @node:selected="onNodeSelected"
-            @node:checked="onNodeChecked"
-            @node:unchecked="onNodeUnchecked"
+            @node:checked="onNodeCheckedType"
+            @node:unchecked="onNodeUncheckedType"
             class="tree--small"
           ></tree>
         </div>
@@ -196,7 +196,8 @@ export default {
           }
         }
       },
-      checkedNodes: [],
+      checkedNodesGsbpm: [],
+      checkedNodesType: [],
       prova: []
     };
   },
@@ -216,10 +217,22 @@ export default {
     onNodeSelected(node) {
       console.log(node.text);
     },
-    onNodeChecked(node) {
+    onNodeCheckedGsbpm(node) {
+      if (node.children.length == 0) {
+        this.checkedNodesGsbpm.push(node.id);
+        console.log(node.text);
+      }
+    },
+    onNodeCheckedType(node) {
+      this.checkedNodesType.push(node.id);
       console.log(node.text);
     },
-    onNodeUnchecked(node) {
+    onNodeUncheckedGsbpm(node) {
+      this.checkedNodesGsbpm.splice(this.checkedNodesGsbpm.indexOf(node.id), 1);
+      console.log(node.text + "- unchecked");
+    },
+    onNodeUncheckedType(node) {
+      this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
       console.log(node.text + "- unchecked");
     }
     /* getGsbpmList() {
@@ -287,6 +300,7 @@ export default {
             return {
               id: gsbpmSubProcess.id,
               text: gsbpmSubProcess.name,
+              children: [],
               state: {
                 selected: false,
                 selectable: false,
