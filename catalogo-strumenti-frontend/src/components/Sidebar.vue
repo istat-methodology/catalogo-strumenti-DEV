@@ -46,7 +46,6 @@
           <tree
             :data="getGsbpmList"
             :options="treeOptions"
-            @node:selected="onNodeSelected"
             @node:checked="onNodeCheckedGsbpm"
             @node:unchecked="onNodeUncheckedGsbpm"
             class="tree--small"
@@ -67,7 +66,6 @@
           <tree
             :data="getTooltypeList"
             :options="treeOptions"
-            @node:selected="onNodeSelected"
             @node:checked="onNodeCheckedType"
             @node:unchecked="onNodeUncheckedType"
             class="tree--small"
@@ -214,9 +212,9 @@ export default {
       let pippo = event;
       console.log(pippo);
     },
-    onNodeSelected(node) {
+    /*  onNodeSelected(node) {
       console.log(node.text);
-    },
+    }, */
     onNodeCheckedGsbpm(node) {
       if (node.children.length == 0) {
         this.checkedNodesGsbpm.push(node.id);
