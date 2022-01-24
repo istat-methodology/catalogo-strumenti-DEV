@@ -23,7 +23,7 @@
           <span class="badge badge-primary">Alpha</span>
         </router-link>
       </li>
-      <li class="c-sidebar-nav-title" v-if="isToolList">
+      <!--  <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
       </li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
@@ -33,21 +33,44 @@
             id="customtree-gray"
             :initial-model="getGsbpmList"
             :model-defaults="modelDefaults"
+            v-on:treeViewNodeCheckboxChange="checkboxChange($event)"
             ref="treeGsbpm"
-            v-on:treeViewNodeCheckboxChange="refreshCheckedList"
+          ></tree>
+        </div>
+      </li> -->
+      <li class="c-sidebar-nav-title" v-if="isToolList">
+        Classificazione GSBPM
+      </li>
+      <li class="c-sidebar-nav-item" v-if="isToolList">
+        <div id="app-inputs" class="demo-tree">
+          <tree
+            :data="getGsbpmList"
+            :options="treeOptions"
+            @node:selected="onNodeSelected"
+            @node:checked="onNodeChecked"
+            @node:unchecked="onNodeUnchecked"
+            class="tree--small"
           ></tree>
         </div>
       </li>
       <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
-          <tree
+          <!-- <tree
             v-if="tooltypeList"
             id="customtree-gray"
             :initial-model="getTooltypeList"
             :model-defaults="modelDefaults"
             ref="treeType"
             v-on:treeViewNodeCheckboxChange="refreshCheckedList"
+          ></tree> -->
+          <tree
+            :data="getTooltypeList"
+            :options="treeOptions"
+            @node:selected="onNodeSelected"
+            @node:checked="onNodeChecked"
+            @node:unchecked="onNodeUnchecked"
+            class="tree--small"
           ></tree>
         </div>
       </li>
@@ -56,72 +79,109 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import TreeView from "@grapoza/vue-tree";
+//import TreeView from "@grapoza/vue-tree";
+import LiquorTree from "liquor-tree";
 //import progressMixin from "@/components/mixins/progress.mixin";
 
 export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    tree: TreeView
+    tree: LiquorTree
   },
   data() {
     return {
       model: [
         {
           id: "inputs-checkbox-1",
-          label: "Statistical Service",
-          treeNodeSpec: {
-            input: {
-              type: "checkbox",
-              name: "radio1",
-              value: "aValueToSubmit",
-              isInitialRadioGroupValue: true
+          text: "Statistical Service",
+          children: [
+            { text: "Selecting DOM Elements" },
+            {
+              text: "Using jQuery to Work with the DOM Tree",
+              children: [
+                { text: "Loading jQuery on Your HTML Page" },
+                { text: "Replacing the Heading Text Using jQuery" }
+              ]
             }
+          ],
+          state: {
+            selected: false,
+            selectable: true,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
           }
         },
         {
           id: "inputs-radio-2",
-          label: "Desktop Application",
-          treeNodeSpec: {
-            input: {
-              type: "checkbox",
-              name: "radio1"
-            },
-            state: {
-              expanded: true
-            }
+          text: "Desktop Application",
+          state: {
+            selected: false,
+            selectable: true,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
           }
         },
         {
           id: "inputs-checkbox-2",
-          label: "Procedure",
-          treeNodeSpec: {
-            input: {
-              type: "checkbox"
-            },
-            state: {
-              input: {
-                value: false
-              }
-            }
+          text: "Procedure",
+          state: {
+            selected: false,
+            selectable: true,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
           }
         },
         {
           id: "inputs-checkbox-3",
-          label: "Metodi Statistici",
-          treeNodeSpec: {
-            input: {
-              type: "checkbox"
-            },
-            state: {
-              input: {
-                value: false
-              }
-            }
+          text: "Metodi Statistici",
+          state: {
+            selected: false,
+            selectable: true,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
           }
         }
       ],
+      treeOptions: {
+        checkbox: true,
+        propertyNames: {
+          text: "text",
+          children: "children"
+        }
+      },
       modelDefaults: {
         /* addChildTitle: "Add a new child node",
         deleteTitle: "Delete this node", */
@@ -145,6 +205,22 @@ export default {
       let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes();
       let typeNodes = this.$refs.treeType.getCheckedCheckboxes();
       this.checkedNodes = [...gsbpmNodes, ...typeNodes];
+    },
+    checkboxChange(event) {
+      let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes();
+      let typeNodes = this.$refs.treeType.getCheckedCheckboxes();
+      this.checkedNodes = [...gsbpmNodes, ...typeNodes];
+      let pippo = event;
+      console.log(pippo);
+    },
+    onNodeSelected(node) {
+      console.log(node.text);
+    },
+    onNodeChecked(node) {
+      console.log(node.text);
+    },
+    onNodeUnchecked(node) {
+      console.log(node.text + "- unchecked");
     }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
@@ -168,7 +244,7 @@ export default {
       isStatServiceList: "isStatServiceList",
       isStatMethodList: "isStatMethodList" */
     }),
-    getGsbpmList: function() {
+    /* getGsbpmList: function() {
       return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
@@ -200,9 +276,52 @@ export default {
             //value: "aValueToSubmit",
           }
         };
+      }); */
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
+        return {
+          // ...gsbpm,
+          id: "id-" + gsbpm.id,
+          text: gsbpm.name,
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            return {
+              id: gsbpmSubProcess.id,
+              text: gsbpmSubProcess.name,
+              state: {
+                selected: false,
+                selectable: true,
+                checked: false,
+                expanded: false,
+                disabled: false,
+                visible: true,
+                indeterminate: false,
+                matched: false,
+                editable: true,
+                dragging: false,
+                draggable: true,
+                dropable: true
+              }
+            };
+          }),
+
+          state: {
+            selected: false,
+            selectable: true,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
+          }
+        };
       });
     },
-    getTooltypeList: function() {
+    /* getTooltypeList: function() {
       return this.tooltypeList.map(tool => {
         return {
           // ...gsbpm,
@@ -212,6 +331,29 @@ export default {
             input: {
               type: "checkbox"
             }
+          }
+        };
+      });
+    } */
+    getTooltypeList: function() {
+      return this.tooltypeList.map(tool => {
+        return {
+          // ...gsbpm,
+          id: tool.id,
+          text: tool.name,
+          state: {
+            selected: false,
+            selectable: true,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
           }
         };
       });
@@ -231,7 +373,12 @@ export default {
 div.card-body {
   background-color: #3c4b64;
 }
-.grtvn-self-expander {
+
+.app-tree.div.ul.li.tree-node.has-child.selected.draggable.indeterminate.div.span.span {
+  color: #edeef1;
+}
+
+/* .grtvn-self-expander {
   color: #ffffff;
 }
 .brand {
@@ -246,5 +393,5 @@ div.card-body {
 }
 .c-active-warning {
   border-left: 3px solid#f9b115;
-}
+} */
 </style>
