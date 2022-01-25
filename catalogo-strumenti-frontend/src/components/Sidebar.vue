@@ -226,12 +226,19 @@ export default {
       console.log(node.text);
     },
     onNodeUncheckedGsbpm(node) {
-      this.checkedNodesGsbpm.splice(this.checkedNodesGsbpm.indexOf(node.id), 1);
-      console.log(node.text + "- unchecked");
+      if (this.checkedNodesGsbpm.indexOf(node.id) > 0) {
+        this.checkedNodesGsbpm.splice(
+          this.checkedNodesGsbpm.indexOf(node.id),
+          1
+        );
+        console.log(node.text + "- unchecked");
+      }
     },
     onNodeUncheckedType(node) {
-      this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
-      console.log(node.text + "- unchecked");
+      if (this.checkedNodesType.indexOf(node.id) > 0) {
+        this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
+        console.log(node.text + "- unchecked");
+      }
     }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
