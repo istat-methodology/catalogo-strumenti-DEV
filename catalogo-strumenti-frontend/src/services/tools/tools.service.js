@@ -21,15 +21,20 @@ class ToolsService extends AbstractService {
   }
   filter(payload) {
     console.log(payload);
+    //var gsbpmParam = new URLSearchParams();
+    //var typeParam = new URLSearchParams();
+    var params = new URLSearchParams();
+    payload.gsbpm.map(value => {
+      params.append("gsbpmIds", value);
+    });
+    payload.type.map(value => {
+      params.append("type", value);
+    });
+    var request = {
+      params: params
+    };
     axiosRegedit
-      .get(this.endpoint, {
-        params: {
-          gsbpmIds: [21, 22], //JSON.stringify(payload.gsbpm ? payload.gsbpm : {}),
-          type: 1 //JSON.stringify(payload.type ? payload.type : {})
-        },
-        paramsSerializer: params =>
-          JSON.stringify(params, { arrayFormat: "repeat" })
-      })
+      .get(this.endpoint, request)
       .then(res => {
         var data = res.data ? res.data : {};
         console.log(data);
