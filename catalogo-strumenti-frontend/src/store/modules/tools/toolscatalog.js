@@ -26,6 +26,16 @@ const actions = {
         console.log(err);
       });
   },
+  filter({ commit }, payload) {
+    return toolsOpenService
+      .filter(payload)
+      .then(data => {
+        commit("SET_TOOLSCATALOG", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   save({ commit, dispatch }, payload) {
     return toolsService
       .save(payload)

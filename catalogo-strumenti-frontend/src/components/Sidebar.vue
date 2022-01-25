@@ -196,7 +196,13 @@ export default {
       },
       checkedNodesGsbpm: [],
       checkedNodesType: [],
-      prova: []
+      prova: [],
+      payload: [
+        {
+          gsbpm: null,
+          type: null
+        }
+      ]
     };
   },
   methods: {
@@ -205,13 +211,13 @@ export default {
       let typeNodes = this.$refs.treeType.getCheckedCheckboxes();
       this.checkedNodes = [...gsbpmNodes, ...typeNodes];
     },
-    checkboxChange(event) {
-      let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes();
-      let typeNodes = this.$refs.treeType.getCheckedCheckboxes();
-      this.checkedNodes = [...gsbpmNodes, ...typeNodes];
-      let pippo = event;
-      console.log(pippo);
-    },
+    // checkboxChange(event) {
+    //   let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes();
+    //   let typeNodes = this.$refs.treeType.getCheckedCheckboxes();
+    //   this.checkedNodes = [...gsbpmNodes, ...typeNodes];
+    //   let pippo = event;
+    //   console.log(pippo);
+    // },
     /*  onNodeSelected(node) {
       console.log(node.text);
     }, */
@@ -219,11 +225,13 @@ export default {
       if (node.children.length == 0) {
         this.checkedNodesGsbpm.push(node.id);
         console.log(node.text);
+        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
       }
     },
     onNodeCheckedType(node) {
       this.checkedNodesType.push(node.id);
       console.log(node.text);
+      this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
     },
     onNodeUncheckedGsbpm(node) {
       if (this.checkedNodesGsbpm.indexOf(node.id) > 0) {
@@ -232,13 +240,20 @@ export default {
           1
         );
         console.log(node.text + "- unchecked");
+        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
       }
     },
     onNodeUncheckedType(node) {
       if (this.checkedNodesType.indexOf(node.id) > 0) {
         this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
         console.log(node.text + "- unchecked");
+        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
       }
+    },
+    filter(gsbpm, type) {
+      this.payload.gsbpm = gsbpm;
+      this.payload.type = type;
+      this.$store.dispatch("tools/filter", this.payload);
     }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
