@@ -61,7 +61,7 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 export default {
-  name: "Supervisor",
+  name: "ToolList",
   data() {
     return {
       fields: [
@@ -111,21 +111,25 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
     computedItems() {
-      return this.toolscatalog.map(item => {
-        return Object.assign({}, item, {
-          tooltype: item.toolType.name,
-          gsbpm: item.gsbpmProcesses
-            .map(gsbpmProcess => {
-              return gsbpmProcess.name;
-            })
-            .join(", "),
-          methods: item.statisticalMethods
-            .map(method => {
-              return method.name;
-            })
-            .join(", ")
+      if (this.toolscatalog) {
+        return this.toolscatalog.map(item => {
+          return Object.assign({}, item, {
+            tooltype: item.toolType.name,
+            gsbpm: item.gsbpmProcesses
+              .map(gsbpmProcess => {
+                return gsbpmProcess.name;
+              })
+              .join(", "),
+            methods: item.statisticalMethods
+              .map(method => {
+                return method.name;
+              })
+              .join(", ")
+          });
         });
-      });
+      } else {
+        return [];
+      }
     }
   },
   created() {
