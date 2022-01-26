@@ -240,7 +240,7 @@ export default {
         .then(this.$store.dispatch("tools/filter", this.params));
     },
     onNodeUncheckedGsbpm(node) {
-      if (this.checkedNodesGsbpm.indexOf(node.id) > 0) {
+      if (this.checkedNodesGsbpm.indexOf(node.id) >= 0) {
         this.checkedNodesGsbpm.splice(
           this.checkedNodesGsbpm.indexOf(node.id),
           1
@@ -253,7 +253,7 @@ export default {
       }
     },
     onNodeUncheckedType(node) {
-      if (this.checkedNodesType.indexOf(node.id) > 0) {
+      if (this.checkedNodesType.indexOf(node.id) >= 0) {
         this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
         console.log(node.text + "- unchecked");
         this.filter(this.checkedNodesGsbpm, this.checkedNodesType);

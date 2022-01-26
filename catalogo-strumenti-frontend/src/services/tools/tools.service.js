@@ -37,7 +37,7 @@ class ToolsService extends AbstractService {
     var request = {
       params: params
     };
-    axiosCatalog
+    return axiosCatalog
       .get(this.endpoint, request)
       .then(res => {
         var data = res.data ? res.data : {};
