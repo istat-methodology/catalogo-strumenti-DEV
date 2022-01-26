@@ -29,7 +29,7 @@ class ToolsService extends AbstractService {
         params.append("gsbpmIds", value);
       });
     }
-    if (payload.gsbpm) {
+    if (payload.type) {
       payload.type.map(value => {
         params.append("type", value);
       });
@@ -41,7 +41,6 @@ class ToolsService extends AbstractService {
       .get(this.endpoint, request)
       .then(res => {
         var data = res.data ? res.data : {};
-        console.log(data);
         return data;
       })
       .catch(function(error) {
