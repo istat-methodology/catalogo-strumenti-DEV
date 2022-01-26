@@ -1,4 +1,4 @@
-import { axiosRegedit } from "@/http";
+import { axiosCatalog } from "@/http";
 import AbstractService from "@/services/abstract.service";
 
 class ToolsService extends AbstractService {
@@ -8,7 +8,7 @@ class ToolsService extends AbstractService {
   save(payload) {
     //console.log(config);
     console.log(payload);
-    return axiosRegedit
+    return axiosCatalog
       .post(this.endpoint, payload)
       .then(res => {
         var data = res.data ? res.data : {};
@@ -37,7 +37,7 @@ class ToolsService extends AbstractService {
     var request = {
       params: params
     };
-    axiosRegedit
+    axiosCatalog
       .get(this.endpoint, request)
       .then(res => {
         var data = res.data ? res.data : {};

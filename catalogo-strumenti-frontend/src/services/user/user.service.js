@@ -1,4 +1,4 @@
-import { axiosRegedit } from "@/http";
+import { axiosCatalog } from "@/http";
 import AbstractService from "@/services/abstract.service";
 
 class UserService extends AbstractService {
@@ -7,7 +7,7 @@ class UserService extends AbstractService {
   }
 
   findByRole(role) {
-    return axiosRegedit
+    return axiosCatalog
       .get(this.endpoint, {
         params: {
           role: role
@@ -23,7 +23,7 @@ class UserService extends AbstractService {
       });
   }
   findAllUsers() {
-    return axiosRegedit
+    return axiosCatalog
       .get(this.endpoint, {
         params: {
           role: null
@@ -39,7 +39,7 @@ class UserService extends AbstractService {
       });
   }
   changePass(data) {
-    return axiosRegedit
+    return axiosCatalog
       .put(this.endpoint + "/password-id/" + data.id, data)
       .then(res => {
         var data = res.data ? res.data : [];
@@ -51,7 +51,7 @@ class UserService extends AbstractService {
       });
   }
   resetPass(data) {
-    return axiosRegedit
+    return axiosCatalog
       .put(this.endpoint + "/password-reset/" + data.id, data)
       .then(res => {
         var data = res.data ? res.data : [];

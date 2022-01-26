@@ -1,4 +1,4 @@
-import { axiosRegedit } from "@/http";
+import { axiosCatalog } from "@/http";
 import { config } from "@/common";
 
 export default class AbstractService {
@@ -7,7 +7,7 @@ export default class AbstractService {
   }
 
   findAll() {
-    return axiosRegedit
+    return axiosCatalog
       .get(this.endpoint + "/")
       .then(res => {
         var data = res.data ? res.data : [];
@@ -20,7 +20,7 @@ export default class AbstractService {
   }
 
   findById(id) {
-    return axiosRegedit
+    return axiosCatalog
       .get(this.endpoint + "/" + id)
       .then(res => {
         var data = res.data ? res.data : {};
@@ -33,7 +33,7 @@ export default class AbstractService {
   }
 
   save(formData) {
-    return axiosRegedit
+    return axiosCatalog
       .post(this.endpoint, formData, config)
       .then(res => {
         var data = res.data ? res.data : {};
@@ -46,7 +46,7 @@ export default class AbstractService {
   }
 
   update(formData) {
-    return axiosRegedit
+    return axiosCatalog
       .put(this.endpoint + "/" + formData.id, formData, config)
       .then(res => {
         var data = res.data ? res.data : {};
@@ -59,7 +59,7 @@ export default class AbstractService {
   }
 
   delete(id) {
-    return axiosRegedit
+    return axiosCatalog
       .delete(this.endpoint + "/" + id)
       .then(res => {
         //console.log(res.data);

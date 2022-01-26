@@ -6,7 +6,7 @@ const axiosAuth = axios.create({
   baseURL: process.env.VUE_APP_DEV_SERVER
 });
 
-const axiosRegedit = axios.create({
+const axiosCatalog = axios.create({
   baseURL: process.env.VUE_APP_DEV_SERVER
 });
 
@@ -34,7 +34,7 @@ axiosAuth.interceptors.response.use(
 );
 
 //regedit request interceptor
-axiosRegedit.interceptors.request.use(
+axiosCatalog.interceptors.request.use(
   config => {
     store.dispatch("coreui/loading", true);
     const token = store.getters["auth/token"];
@@ -49,7 +49,7 @@ axiosRegedit.interceptors.request.use(
 );
 
 //regedit response interceptor
-axiosRegedit.interceptors.response.use(
+axiosCatalog.interceptors.response.use(
   response => {
     store.dispatch("coreui/loading", false);
     return response;
@@ -94,4 +94,4 @@ axiosRegedit.interceptors.response.use(
   }
 );
 
-export { axiosAuth, axiosRegedit };
+export { axiosAuth, axiosCatalog };

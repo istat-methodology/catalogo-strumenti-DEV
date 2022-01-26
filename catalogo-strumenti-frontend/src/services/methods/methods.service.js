@@ -1,4 +1,4 @@
-import { axiosRegedit } from "@/http";
+import { axiosCatalog } from "@/http";
 import AbstractService from "@/services/abstract.service";
 
 class MethodsService extends AbstractService {
@@ -6,7 +6,7 @@ class MethodsService extends AbstractService {
     super(endpoint);
   }
   findMethods(payload) {
-    return axiosRegedit
+    return axiosCatalog
       .get(this.endpoint + "/tools/" + payload)
       .then(res => {
         var data = res.data ? res.data : [];

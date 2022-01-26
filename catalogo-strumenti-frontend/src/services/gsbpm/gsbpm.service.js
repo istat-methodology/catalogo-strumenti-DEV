@@ -1,4 +1,4 @@
-import { axiosRegedit } from "@/http";
+import { axiosCatalog } from "@/http";
 import AbstractService from "@/services/abstract.service";
 
 class GsbpmService extends AbstractService {
@@ -8,7 +8,7 @@ class GsbpmService extends AbstractService {
   save(payload) {
     //console.log(config);
     console.log(payload);
-    return axiosRegedit
+    return axiosCatalog
       .post(this.endpoint, payload)
       .then(res => {
         var data = res.data ? res.data : {};
