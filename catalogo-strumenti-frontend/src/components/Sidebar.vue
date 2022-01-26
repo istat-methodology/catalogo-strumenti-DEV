@@ -226,12 +226,18 @@ export default {
         this.checkedNodesGsbpm.push(node.id);
         console.log(node.text);
         this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+        this.$store
+          .dispatch("filter/setParams", this.payload)
+          .then(this.$store.dispatch("tools/filter", this.params));
       }
     },
     onNodeCheckedType(node) {
       this.checkedNodesType.push(node.id);
       console.log(node.text);
       this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+      this.$store
+        .dispatch("filter/setParams", this.payload)
+        .then(this.$store.dispatch("tools/filter", this.params));
     },
     onNodeUncheckedGsbpm(node) {
       if (this.checkedNodesGsbpm.indexOf(node.id) > 0) {
@@ -241,6 +247,9 @@ export default {
         );
         console.log(node.text + "- unchecked");
         this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+        this.$store
+          .dispatch("filter/setParams", this.payload)
+          .then(this.$store.dispatch("tools/filter", this.params));
       }
     },
     onNodeUncheckedType(node) {
@@ -248,12 +257,15 @@ export default {
         this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
         console.log(node.text + "- unchecked");
         this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+        this.$store
+          .dispatch("filter/setParams", this.payload)
+          .then(this.$store.dispatch("tools/filter", this.params));
       }
     },
     filter(gsbpm, type) {
       this.payload.gsbpm = gsbpm;
       this.payload.type = type;
-      this.$store.dispatch("tools/filter", this.payload);
+      //this.$store.dispatch("tools/filter", this.payload);
     }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
@@ -267,6 +279,7 @@ export default {
 
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("tooltype", ["tooltypeList"]),
+    ...mapGetters("filter", ["params"]),
     ...mapGetters("coreui", ["isToolList"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",

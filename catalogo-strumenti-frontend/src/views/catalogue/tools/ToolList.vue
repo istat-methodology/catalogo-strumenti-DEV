@@ -18,6 +18,7 @@
  -->
         <CCardBody>
           <CDataTable
+            v-if="toolscatalog"
             :items="computedItems"
             :fields="fields"
             column-filter
@@ -108,6 +109,7 @@ export default {
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("tools", ["toolscatalog"]),
     ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("filter", ["params"]),
     computedItems() {
       return this.toolscatalog.map(item => {
         return Object.assign({}, item, {
@@ -128,8 +130,10 @@ export default {
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.ToolList);
-    this.$store.dispatch("tools/findAll");
-    //this.$store.dispatch("gsbpm/findAll");
+    // if (this.params) {
+    this.$store.dispatch("tools/filter", this.params);
+    //this.$store.dispatch("tools/findAll");
+    // }
   }
 };
 </script>

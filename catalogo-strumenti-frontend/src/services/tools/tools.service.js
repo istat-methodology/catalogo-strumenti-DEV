@@ -24,12 +24,16 @@ class ToolsService extends AbstractService {
     //var gsbpmParam = new URLSearchParams();
     //var typeParam = new URLSearchParams();
     var params = new URLSearchParams();
-    payload.gsbpm.map(value => {
-      params.append("gsbpmIds", value);
-    });
-    payload.type.map(value => {
-      params.append("type", value);
-    });
+    if (payload.gsbpm) {
+      payload.gsbpm.map(value => {
+        params.append("gsbpmIds", value);
+      });
+    }
+    if (payload.gsbpm) {
+      payload.type.map(value => {
+        params.append("type", value);
+      });
+    }
     var request = {
       params: params
     };

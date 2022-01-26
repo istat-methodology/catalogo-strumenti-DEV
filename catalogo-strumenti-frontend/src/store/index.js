@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import { auth } from "./modules/auth";
 import { error } from "./modules/error";
 import { coreui } from "./modules/coreui";
+import { filter } from "./modules/filters";
 import { message } from "./modules/message";
 /* import { address } from "./modules/address/address";
 import { dug } from "./modules/address/dug"; */
@@ -43,6 +44,7 @@ export default new Vuex.Store({
     /*  address,
     dug, */
     user,
+    filter,
     /*  progress,
     daily,
     pivot,
