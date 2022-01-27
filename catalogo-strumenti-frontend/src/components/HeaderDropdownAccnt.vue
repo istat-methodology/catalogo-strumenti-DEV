@@ -47,7 +47,7 @@ export default {
   name: "HeaderDropdownAccount",
   data() {
     return {
-      params: [
+      filtri: [
         {
           gsbpm: [],
           type: []
@@ -69,7 +69,7 @@ export default {
         }
         this.$store
           .dispatch("filter/resetFilters")
-          .then(this.$store.dispatch("tools/filter", this.params));
+          .then(this.$store.dispatch("tools/filter", this.filtri));
       });
     }
   }

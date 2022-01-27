@@ -102,7 +102,7 @@ export default {
     return {
       username: "",
       password: "",
-      payload: [
+      filtri: [
         {
           gsbpm: [],
           type: []
@@ -124,7 +124,7 @@ export default {
         if (res.status === AuthStatus.Logged) this.$router.push("/");
         this.$store
           .dispatch("filter/resetFilters")
-          .then(this.$store.dispatch("tools/filter", this.payload));
+          .then(this.$store.dispatch("tools/filter", this.filtri));
       });
     }
   },
