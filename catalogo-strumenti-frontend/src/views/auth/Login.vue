@@ -101,7 +101,13 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      payload: [
+        {
+          gsbpm: [],
+          type: []
+        }
+      ]
     };
   },
   computed: {
@@ -115,7 +121,10 @@ export default {
         password: this.password
       };
       this.$store.dispatch("auth/login", formData).then(res => {
-        if (res.status === AuthStatus.Logged) this.$router.push("/"); //Go to main page
+        if (res.status === AuthStatus.Logged) this.$router.push("/");
+        this.$store
+          .dispatch("filter/resetFilters")
+          .then(this.$store.dispatch("tools/filter", this.payload));
       });
     }
   },

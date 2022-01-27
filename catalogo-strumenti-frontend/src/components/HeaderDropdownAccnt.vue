@@ -45,6 +45,16 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "HeaderDropdownAccount",
+  data() {
+    return {
+      params: [
+        {
+          gsbpm: [],
+          type: []
+        }
+      ]
+    };
+  },
   components: {
     CDropdownDivider
   },
@@ -57,6 +67,9 @@ export default {
         if (this.$router.currentRoute.path != "/catalogue") {
           this.$router.push("/");
         }
+        this.$store
+          .dispatch("filter/resetFilters")
+          .then(this.$store.dispatch("tools/filter", this.params));
       });
     }
   }
