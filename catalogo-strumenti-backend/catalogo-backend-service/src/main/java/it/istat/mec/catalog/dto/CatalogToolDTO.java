@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+
+import it.istat.mec.catalog.domain.Documentation;
+import it.istat.mec.catalog.domain.LinkAgentTool;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +33,6 @@ public class CatalogToolDTO implements Serializable {
 	private String requirements;	
 	private List<GSBPMProcessDto> gsbpmProcesses;
 	private List<StatisticalMethodDto> statisticalMethods;
-	
-	
+	private List<LinkAgentToolDto> agentTools;
+	private List<DocumentationDto> documentations;
 }
