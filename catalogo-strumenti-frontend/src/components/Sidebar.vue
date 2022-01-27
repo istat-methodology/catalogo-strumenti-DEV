@@ -250,6 +250,8 @@ export default {
         this.$store
           .dispatch("filter/setParams", this.payload)
           .then(this.$store.dispatch("tools/filter", this.params));
+      } else {
+        this.$store.dispatch("tools/filter", this.params);
       }
     },
     onNodeUncheckedType(node) {
@@ -260,6 +262,8 @@ export default {
         this.$store
           .dispatch("filter/setParams", this.payload)
           .then(this.$store.dispatch("tools/filter", this.params));
+      } else {
+        this.$store.dispatch("tools/filter", this.params);
       }
     },
     filter(gsbpm, type) {
