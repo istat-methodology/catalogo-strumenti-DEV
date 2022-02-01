@@ -5,8 +5,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CreateDocumentationRequest {
+	
 	private Long id;	
-	private String nome;	
-	private String organizzazione;	
-	private Long toolId;
+	private String name;	
+	private String publisher;
+	private String documentType;
+	private String notes;	
+	private String resource;
+    private Long tool;
 }

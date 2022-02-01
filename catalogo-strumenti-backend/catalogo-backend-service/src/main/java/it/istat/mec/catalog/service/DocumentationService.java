@@ -28,8 +28,8 @@ public class DocumentationService {
 	public DocumentationDto newDocumentation(CreateDocumentationRequest request) {
 		Documentation doc = new Documentation();
 		doc = Translators.translate(request);	
-		CatalogTool tool = toolDao.getOne(request.getToolId());
-	//	doc.setCatalogTool(tool);
+		CatalogTool tool = toolDao.getOne(request.getId());
+		doc.setCatalogTool(tool);
 		documentationDao.save(doc);
 		return Translators.translate(doc);
 	}
