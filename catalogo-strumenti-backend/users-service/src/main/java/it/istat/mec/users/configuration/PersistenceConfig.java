@@ -21,6 +21,6 @@ class AuditorAwareImpl implements AuditorAware<String>
 {
     @Override
     public Optional<String> getCurrentAuditor() {
-        return Optional.of("regedit");
+        return Optional.of("catalog");
     }
 }

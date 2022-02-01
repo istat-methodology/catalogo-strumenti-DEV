@@ -1,10 +1,10 @@
 
-CREATE TABLE regedit.wp1_user_roles (
+CREATE TABLE catalog.wp1_user_roles (
     id integer NOT NULL,
     role character varying(50) DEFAULT NULL::character varying
 );
 
-CREATE TABLE regedit.wp1_users (
+CREATE TABLE catalog.wp1_users (
     id integer NOT NULL,
     email character varying(255),
     name character varying(100),

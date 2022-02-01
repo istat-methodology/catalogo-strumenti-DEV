@@ -13,7 +13,7 @@ spring:
           lob:
             non_contextual_creation: true
   datasource:
-    url: jdbc:mysql://localhost:3306/regedit_users?createDatabaseIfNotExist=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/catalog?createDatabaseIfNotExist=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: bealu20092296
     driverClassName: com.mysql.cj.jdbc.Driver

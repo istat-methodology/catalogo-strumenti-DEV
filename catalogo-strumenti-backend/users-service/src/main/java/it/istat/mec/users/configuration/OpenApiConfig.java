@@ -12,7 +12,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .components(new Components())
-                .info(new Info().title("RegEdit Service").description(
-                        "Service Register Editing"));
+                .info(new Info().title("Service Catalog").description(
+                        "Service Catalog"));
     }
 }
