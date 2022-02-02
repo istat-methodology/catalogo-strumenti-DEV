@@ -1,7 +1,10 @@
+CREATE SCHEMA IF NOT EXISTS `catalog` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
+USE `catalog` ;
+
 -- 
 -- USER ROLE
 -- 
-CREATE TABLE `catalog`.`wp1_user_roles` (
+CREATE TABLE `catalog`.`csm_user_roles` (
   `ID` 	 	INT NOT NULL AUTO_INCREMENT,
   `ROLE` 	VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`ID`)
@@ -10,7 +13,7 @@ CREATE TABLE `catalog`.`wp1_user_roles` (
 -- 
 -- USER
 -- 
-CREATE TABLE `catalog`.`wp1_users` (
+CREATE TABLE `catalog`.`csm_users` (
   `ID` 			INT NOT NULL AUTO_INCREMENT,
   `EMAIL` 		VARCHAR(255) NULL,
   `NAME` 		VARCHAR(100) NULL,
@@ -19,6 +22,6 @@ CREATE TABLE `catalog`.`wp1_users` (
   `ROLE_ID` 	INT NOT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_users_catalog_roles` FOREIGN KEY (`ROLE_ID`)
-        REFERENCES `wp1_user_roles` (`ID`)
+        REFERENCES `csm_user_roles` (`ID`)
         ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARACTER SET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -1,6 +1,6 @@
 version: '3'
 services:
-  regedit-api-gateway:
+  catalogo-api-gateway:
     image: mecdcme/catalog-api-gateway:latest
     deploy:
       resources:
@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     restart: always
-  regedit-service:
+  catalogo-service:
     image: mecdcme/catalog-service:latest
     deploy:
       resources:
@@ -47,10 +47,10 @@ services:
    image: mysql:latest
    command: ["--innodb_use_native_aio=0","--default-authentication-plugin=mysql_native_password","--lower_case_table_names=1"]
    volumes:
-    - ./catalog-api-gateway/db/catalog-api-gateway-create-mysql.sql:/docker-entrypoint-initdb.d/create-db-1.sql
-    - ./catalog-api-gateway/db/catalog-api-gateway-init.sql:/docker-entrypoint-initdb.d/init-db-1.sql
-    - ./catalog-backend-service/db/catalog-create-mysql.sql:/docker-entrypoint-initdb.d/create-db-2.sql
-    - ./catalog-backend-service/db/catalog-data.sql:/docker-entrypoint-initdb.d/init-db-2.sql
+      - ./catalogo-backend-service/db/catalogo-create-mysql.sql:/docker-entrypoint-initdb.d/create-db-1.sql
+      - ./catalogo-backend-service/db/catalogo-init.sql:/docker-entrypoint-initdb.d/init-db-1.sql
+      - ./catalogo-backend-service/db/catalogo-data.sql:/docker-entrypoint-initdb.d/init-db-2.sql
+      - ./catalogo-api-gateway/db/catalogo-api-gateway-create-mysql.sql:/docker-entrypoint-initdb.d/create-db-2.sql
    restart: always
    environment:
     MYSQL_ROOT_PASSWORD: root
@@ -61,5 +61,6 @@ services:
     restart: always
     ports:
       - 8083:8080
- 
+volumes:
+  db-data: 
 
