@@ -6,7 +6,6 @@ services:
       resources:
         limits:
           memory: 512M
-    mem_limit: 512m
     ports:
       - 8080:8080
     environment:
@@ -27,7 +26,6 @@ services:
       resources:
         limits:
           memory: 512M
-    mem_limit: 512m
     ports:
       - 8081:8081
     environment:
@@ -51,6 +49,7 @@ services:
       - ./catalogo-backend-service/db/catalogo-init.sql:/docker-entrypoint-initdb.d/init-db-1.sql
       - ./catalogo-backend-service/db/catalogo-data.sql:/docker-entrypoint-initdb.d/init-db-2.sql
       - ./catalogo-api-gateway/db/catalogo-api-gateway-create-mysql.sql:/docker-entrypoint-initdb.d/create-db-2.sql
+      - db-data:/var/lib/mysql
    restart: always
    environment:
     MYSQL_ROOT_PASSWORD: root
