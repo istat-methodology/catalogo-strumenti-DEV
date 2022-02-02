@@ -28,7 +28,7 @@ public class DocumentationService {
 	public DocumentationDto newDocumentation(CreateDocumentationRequest request) {
 		Documentation doc = new Documentation();
 		doc = Translators.translate(request);	
-		CatalogTool tool = toolDao.getOne(request.getId());
+		CatalogTool tool = toolDao.getOne(request.getTool());
 		doc.setCatalogTool(tool);
 		documentationDao.save(doc);
 		return Translators.translate(doc);
@@ -49,12 +49,12 @@ public class DocumentationService {
 		Documentation doc = documentationDao.findById(request.getId()).get();	
 		
 		doc = Translators.translateUpdate(request, doc);
-	/*	if(!doc.getCatalogTool().getId().equals( request.getToolId())){
-			if (!toolDao.findById(request.getToolId()).isPresent())
+		if(!doc.getCatalogTool().getId().equals( request.getTool())){
+			if (!toolDao.findById(request.getTool()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
-			doc.setCatalogTool(toolDao.findById(request.getToolId()).get());
+			doc.setCatalogTool(toolDao.findById(request.getTool()).get());
 		}
-		*/
+		
 		documentationDao.save(doc);		
 		
 		return Translators.translate(doc);

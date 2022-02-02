@@ -22,13 +22,13 @@ public class DocumentationController {
 	@Autowired
 	private DocumentationService documentationService;
 	
-	@GetMapping("/documentations")
+	@GetMapping("/open/documentations")
 	public List<DocumentationDto> getAllDocumentations() {
 
 		return documentationService.findAllDocumentations();
 	}
 	
-	@GetMapping(value = "/documentations/{id}")
+	@GetMapping(value = "/open/documentations/{id}")
 	public DocumentationDto getAgent(@PathVariable("id") Long id) {
 
 		return documentationService.findDocumentationById(id);

@@ -22,13 +22,13 @@ public class AgentController {
 	@Autowired
 	private AgentService agentService;
 	
-	@GetMapping("/agents")
+	@GetMapping("/open/agents")
 	public List<AgentDto> getAllAgents() {
 
 		return agentService.findAllAgents();
 	}
 	
-	@GetMapping(value = "/agents/{id}")
+	@GetMapping(value = "/open/agents/{id}")
 	public AgentDto getAgent(@PathVariable("id") Long id) {
 
 		return agentService.findAgentById(id);

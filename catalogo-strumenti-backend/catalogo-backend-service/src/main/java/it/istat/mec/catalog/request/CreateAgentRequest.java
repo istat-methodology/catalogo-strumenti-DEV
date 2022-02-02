@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 public class CreateAgentRequest {
 	
 	private Long id;	
-	private String nome;	
-	private String organizzazione;	
+	private String name;	
+	private String organization;	
+	private String contact;	
+	private String notes;	
 }
