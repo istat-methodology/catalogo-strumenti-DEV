@@ -3,7 +3,7 @@ module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "/Tools-Catalog/" : "/",
   devServer: {
     host: "localhost",
-    port: 8070
+    port: 8071
   },
   configureWebpack: {
     resolve: {
