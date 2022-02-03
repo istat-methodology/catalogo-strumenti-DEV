@@ -28,7 +28,7 @@ public class StatisticalMethodService {
 	}
 	
 	public List<StatisticalMethodDto> findByCataloTools(Long id) {
-		List<CatalogTool>catalogTools = new ArrayList();
+		List<CatalogTool>catalogTools = new ArrayList<CatalogTool>();
 		catalogTools.add(new CatalogTool(id));
 		//return Translators.translateSM(statisticalMethodDao.findByCatalogTools(catalogTools));
 		return null;
