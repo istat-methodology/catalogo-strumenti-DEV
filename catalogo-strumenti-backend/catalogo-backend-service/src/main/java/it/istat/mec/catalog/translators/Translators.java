@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
-import org.modelmapper.Provider.ProvisionRequest;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
@@ -132,13 +131,13 @@ public class Translators {
 		return sm;
 	}
 
-	/*public static StatisticalServiceDto translate(StatisticalService x) {
+	public static StatisticalServiceDto translate(StatisticalService x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final StatisticalServiceDto ss = modelMapper.map(x, StatisticalServiceDto.class);
 		return ss;
 	}
-*/
+
 	public static List<CatalogToolDTO> translate(List<CatalogTool> list) {
 		final ModelMapper modelMapper = new ModelMapper();
 		TypeMap<CatalogTool, CatalogToolDTO> typeMap = modelMapper.createTypeMap(CatalogTool.class, CatalogToolDTO.class);
