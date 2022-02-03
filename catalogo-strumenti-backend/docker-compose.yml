@@ -59,7 +59,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8083:8080
+      - 9083:8080
 volumes:
   db-data: 
 
