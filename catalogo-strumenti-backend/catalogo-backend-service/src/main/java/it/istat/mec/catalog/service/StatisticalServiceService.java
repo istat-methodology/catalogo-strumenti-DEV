@@ -35,7 +35,7 @@ public class StatisticalServiceService {
 	}
 	
 	
-	public StatisticalServiceDto newStatisticalMethod(CreateStatisticalServiceRequest request) {
+	public StatisticalServiceDto newStatisticalService(CreateStatisticalServiceRequest request) {
 		StatisticalService ss = new StatisticalService();
 		ss = Translators.translate(request);	
 		statisticalServiceDao.save(ss);

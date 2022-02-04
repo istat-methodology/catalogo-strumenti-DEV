@@ -45,23 +45,18 @@ public class StatisticalMethodService {
 	public StatisticalMethodDto findStatisticalMethodById(Long id) {
 
 		if (!statisticalMethodDao.findById(id).isPresent())
-			throw new NoDataException("StatisticalMethod not present");
+			throw new NoDataException("Statistical Method not present");
 		return Translators.translate(statisticalMethodDao.findById(id).get());
 	}
 	
 	public StatisticalMethodDto updateStatisticalMethod(CreateStatisticalMethodRequest request) {		
 		
 		if (!statisticalMethodDao.findById(request.getId()).isPresent())
-			throw new NoDataException("StatisticalMethod not present");
+			throw new NoDataException("Statistical Method not present");
 		
 		StatisticalMethod sm = statisticalMethodDao.findById(request.getId()).get();	
 		
 		sm = Translators.translateUpdate(request, sm);
-//		if(!sm.getCatalogTool().getId().equals( request.getToolId())){
-//			if (!toolDao.findById(request.getToolId()).isPresent())
-//				throw new NoDataException("Statistical Tool not present");
-//			sm.setCatalogTool(toolDao.findById(request.getToolId()).get());
-//		}
 		
 		statisticalMethodDao.save(sm);		
 		
@@ -69,7 +64,7 @@ public class StatisticalMethodService {
 	}
 	public StatisticalMethodDto deleteStatisticalMethod(Long id) {		
 		if (!statisticalMethodDao.findById(id).isPresent())
-			throw new NoDataException("StatisticalMethod not present");
+			throw new NoDataException("Statistical Method not present");
 			StatisticalMethod sm = statisticalMethodDao.findById(id).get();
 			statisticalMethodDao.delete(sm);
 			return Translators.translate(sm);		

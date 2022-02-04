@@ -15,6 +15,5 @@ public class StatisticalMethodDto  implements Serializable {
 	private String requirements;	
 	private String assumptions;			
 	private String constraints;	
-	private String notes;		
-	private ToolMiniDto tool;	
+	private String notes;				
 }
