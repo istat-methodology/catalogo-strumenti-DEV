@@ -70,14 +70,14 @@ public class ToolController {
 	}
 	
 	@PutMapping(value = "/tools/{id}")
-	public CatalogToolDTO updateAddress(@RequestBody CreateToolRequest request) {
+	public CatalogToolDTO updateTool(@RequestBody CreateToolRequest request) {
 
 		//return addressService.updateAddress(request, JwtTokenProvider.getUserId(jwt));
 		return toolService.updateTool(request);
 	}
 	
 	@DeleteMapping(value = "/tools/{id}")
-	public CatalogToolDTO deleteAddress(@PathVariable("id") Long id) {
+	public CatalogToolDTO deleteTool(@PathVariable("id") Long id) {
 
 		return toolService.deleteTool(id);
 	}
