@@ -7,7 +7,7 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/is2?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_PASSWORD=root-mec
       - SPRING_DATASOURCE_DRIVERCLASSNAME=com.mysql.cj.jdbc.Driver
       - SPRING_DATASOURCE_PLATFORM=mysql
     depends_on:
@@ -21,7 +21,7 @@ services:
     - ./db/catalogue-data.sql:/docker-entrypoint-initdb.d/init-db.sql
    restart: always
    environment:
-    MYSQL_ROOT_PASSWORD: root
+    MYSQL_ROOT_PASSWORD: root-mec
    ports:
     - 3306:3306
   adminer:
