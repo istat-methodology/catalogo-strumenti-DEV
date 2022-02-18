@@ -12,10 +12,10 @@ import { user } from "./modules/user/user";
 import { role } from "./modules/user/role";
 import { tools } from "./modules/tools/toolscatalog";
 import { version } from "./modules/versioning/appversion";
-import { applications } from "./modules/applications/applications";
+/* import { applications } from "./modules/applications/applications";
 import { methods } from "./modules/methods/methods";
 import { procedures } from "./modules/procedures/procedures";
-import { services } from "./modules/services/services";
+import { services } from "./modules/services/services"; */
 import { gsbpm } from "./modules/gsbpm/gsbpm";
 import { tooltype } from "./modules/tooltype/tooltype";
 /* import { progress } from "./modules/report/progress";
@@ -30,10 +30,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     tools,
-    applications,
+    /* applications,
     methods,
     procedures,
-    services,
+    services, */
     auth,
     error,
     gsbpm,

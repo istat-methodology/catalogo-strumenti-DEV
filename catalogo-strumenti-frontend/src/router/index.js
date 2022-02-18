@@ -82,7 +82,7 @@ const routes = [
         component: () => import("../views/catalogue/dug/DugAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
       },*/
-      {
+      /*  {
         path: "catalogue/applicazioni",
         name: "DeskAppList",
         component: () => import("../views/catalogue/deskapp/DeskAppList"),
@@ -141,8 +141,8 @@ const routes = [
         component: () =>
           import("../views/catalogue/statservice/StatServiceAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
+      }, */
+      /* {
         path: "catalogue/metodi",
         name: "StatMethodList",
         component: () => import("../views/catalogue/statmethod/StatMethodList"),
@@ -159,7 +159,7 @@ const routes = [
         name: "StatMethodAdd",
         component: () => import("../views/catalogue/statmethod/StatMethodAdd"),
         meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
+      }, */
       {
         path: "catalogue/tools",
         name: "ToolList",
