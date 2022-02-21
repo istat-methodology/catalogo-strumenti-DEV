@@ -59,7 +59,7 @@
             </a>
           </router-link>
         </CDropdownItem>
-        <CDropdownHeader tag="div" class="text-center" color="light">
+<!--         <CDropdownHeader tag="div" class="text-center" color="light">
           <strong>Classificazioni</strong>
         </CDropdownHeader>
         <CDropdownItem>
@@ -148,7 +148,7 @@
               >
             </a>
           </router-link>
-        </CDropdownItem>
+        </CDropdownItem> -->
       </CDropdown>
     </CHeaderNav>
     <CHeaderNav class="mr-4">
