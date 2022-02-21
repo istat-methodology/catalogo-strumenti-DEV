@@ -379,7 +379,7 @@ export default {
       this.setOldValues();
       this.setCheckedNodes();
     });
-    this.$store.dispatch("gsbpm/findAll");x
+    this.$store.dispatch("gsbpm/findAll");
     this.$store.dispatch("tooltype/findAll");
   }
 };
