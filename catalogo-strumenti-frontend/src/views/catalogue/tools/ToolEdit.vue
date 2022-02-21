@@ -225,9 +225,9 @@ export default {
         businessFunction: "",
         processDesign: ""
       },
-      value: null,
+      value: [],
       checkedNodesGsbpm: [],
-      checkedNodesType: [],
+      //toolNodes: [],
       elenco: []
     };
   },
@@ -245,6 +245,11 @@ export default {
             return {
               id: gsbpmSubProcess.id,
               label: gsbpmSubProcess.name
+              /* state: {
+                selected: this.toolNodes.includes(gsbpmSubProcess.id)
+                  ? true
+                  : false
+              } */
             };
           }),
 
@@ -266,7 +271,6 @@ export default {
       });
     }
   },
-
   /* validations: {
     dug: {
       name: {
@@ -282,6 +286,11 @@ export default {
       this.$store
         .dispatch("filter/setParams", this.payload)
         .then(this.$store.dispatch("tools/filter", this.params));
+    },
+    setCheckedNodes() {
+      this.tool.gsbpmProcesses.map(gsbpmProc => {
+        this.value.push(gsbpmProc.id);
+      });
     },
     /* onNodeCheckedType(node) {
       this.checkedNodesType.push(node.id);
@@ -368,8 +377,9 @@ export default {
     this.$store.dispatch("coreui/setContext", Context.ToolEdit);
     this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
       this.setOldValues();
+      this.setCheckedNodes();
     });
-    this.$store.dispatch("gsbpm/findAll");
+    this.$store.dispatch("gsbpm/findAll");x
     this.$store.dispatch("tooltype/findAll");
   }
 };
