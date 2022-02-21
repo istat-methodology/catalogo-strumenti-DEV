@@ -28,10 +28,21 @@
           />
         </CCardBody>
       </CCard>
-      <CCard v-if="tool.gsbpmProcesses">
+      <CCard v-if="this.gsbpmList">
         <CCardHeader>Fasi GSBPM</CCardHeader>
         <CCardBody>
-          <CListGroup>
+          <div id="app-tree" class="demo-tree">
+            <treeselect
+              v-model="value"
+              :multiple="true"
+              :options="getGsbpmList"
+              :disable-branch-nodes="true"
+              :show-count="true"
+              @select="onNodeCheckedGsbpm"
+              @deselect="onNodeUncheckedGsbpm"
+            />
+          </div>
+          <!-- <CListGroup>
             <CListGroupItem
               v-for="process in tool.gsbpmProcesses"
               :key="process.id"
@@ -39,7 +50,7 @@
                 >{{ process.name | dashEmpty }}
               </CFormCheck>
             </CListGroupItem>
-          </CListGroup>
+          </CListGroup> -->
         </CCardBody>
       </CCard>
       <CCard v-if="tool.toolType.id == 3">
@@ -172,9 +183,13 @@
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import Treeselect from "@riophae/vue-treeselect";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
+  components: {
+    Treeselect
+  },
   data() {
     return {
       toolLocal: {
@@ -210,12 +225,48 @@ export default {
         businessFunction: "",
         processDesign: ""
       },
+      value: null,
+      checkedNodesGsbpm: [],
+      checkedNodesType: [],
       elenco: []
     };
   },
   computed: {
-    ...mapGetters("tools", ["tool"])
+    ...mapGetters("tools", ["tool"]),
+    ...mapGetters("gsbpm", ["gsbpmList"]),
+    ...mapGetters("tooltype", ["tooltypeList"]),
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
+        return {
+          // ...gsbpm,
+          id: "id-" + gsbpm.id,
+          label: gsbpm.name,
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            return {
+              id: gsbpmSubProcess.id,
+              label: gsbpmSubProcess.name
+            };
+          }),
+
+          state: {
+            selected: false,
+            selectable: false,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
+          }
+        };
+      });
+    }
   },
+
   /* validations: {
     dug: {
       name: {
@@ -224,6 +275,49 @@ export default {
     }
   }, */
   methods: {
+    onNodeCheckedGsbpm(node) {
+      this.checkedNodesGsbpm.push(node.id);
+      console.log(node.text);
+      this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+      this.$store
+        .dispatch("filter/setParams", this.payload)
+        .then(this.$store.dispatch("tools/filter", this.params));
+    },
+    /* onNodeCheckedType(node) {
+      this.checkedNodesType.push(node.id);
+      console.log(node.text);
+      this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+      this.$store
+        .dispatch("filter/setParams", this.payload)
+        .then(this.$store.dispatch("tools/filter", this.params));
+    }, */
+    onNodeUncheckedGsbpm(node) {
+      if (this.checkedNodesGsbpm.indexOf(node.id) >= 0) {
+        this.checkedNodesGsbpm.splice(
+          this.checkedNodesGsbpm.indexOf(node.id),
+          1
+        );
+        console.log(node.text + "- unchecked");
+        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+        this.$store
+          .dispatch("filter/setParams", this.payload)
+          .then(this.$store.dispatch("tools/filter", this.params));
+      } else {
+        this.$store.dispatch("tools/filter", this.params);
+      }
+    },
+    /*  onNodeUncheckedType(node) {
+      if (this.checkedNodesType.indexOf(node.id) >= 0) {
+        this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
+        console.log(node.text + "- unchecked");
+        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+        this.$store
+          .dispatch("filter/setParams", this.payload)
+          .then(this.$store.dispatch("tools/filter", this.params));
+      } else {
+        this.$store.dispatch("tools/filter", this.params);
+      }
+    }, */
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
@@ -275,6 +369,8 @@ export default {
     this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
       this.setOldValues();
     });
+    this.$store.dispatch("gsbpm/findAll");
+    this.$store.dispatch("tooltype/findAll");
   }
 };
 </script>

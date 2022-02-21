@@ -4,7 +4,7 @@
     :minimize="minimize"
     :show="show"
     @update:show="
-      (value) => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
+      value => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
     "
   >
     <CSidebarBrand class="d-md-down-none" to="/">
@@ -40,27 +40,23 @@
       </li> -->
       <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
-      </li> 
-        <li class="c-sidebar-nav-item" v-if="isToolList">
+      </li>
+      <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-inputs" class="demo-tree">
-           <treeselect v-model="value" :multiple="true" :options="getGsbpmList"  :disable-branch-nodes="true" :show-count="true"
-         @select="onNodeCheckedGsbpm"
-         @deselect="onNodeUncheckedGsbpm"
-           
+          <treeselect
+            v-model="value"
+            :multiple="true"
+            :options="getGsbpmList"
+            :disable-branch-nodes="true"
+            :show-count="true"
+            @select="onNodeCheckedGsbpm"
+            @deselect="onNodeUncheckedGsbpm"
           />
         </div>
       </li>
       <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
-          <!-- <tree
-            v-if="tooltypeList"
-            id="customtree-gray"
-            :initial-model="getTooltypeList"
-            :model-defaults="modelDefaults"
-            ref="treeType"
-            v-on:treeViewNodeCheckboxChange="refreshCheckedList"
-          ></tree> -->
           <tree
             :data="getTooltypeList"
             :options="treeOptions"
@@ -77,21 +73,22 @@
 import { mapGetters } from "vuex";
 //import TreeView from "@grapoza/vue-tree";
 import LiquorTree from "liquor-tree";
-import Treeselect from '@riophae/vue-treeselect'
-  // import the styles
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import Treeselect from "@riophae/vue-treeselect";
+// import the styles
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 //import progressMixin from "@/components/mixins/progress.mixin";
 
 export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    tree: LiquorTree, Treeselect, 
+    tree: LiquorTree,
+    Treeselect
   },
   data() {
     return {
       value: null,
-        // define options
+      // define options
 
       model: [
         {
@@ -103,9 +100,9 @@ export default {
               text: "Using jQuery to Work with the DOM Tree",
               children: [
                 { text: "Loading jQuery on Your HTML Page" },
-                { text: "Replacing the Heading Text Using jQuery" },
-              ],
-            },
+                { text: "Replacing the Heading Text Using jQuery" }
+              ]
+            }
           ],
           state: {
             selected: false,
@@ -119,8 +116,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         },
         {
           id: "inputs-radio-2",
@@ -137,8 +134,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         },
         {
           id: "inputs-checkbox-2",
@@ -155,8 +152,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         },
         {
           id: "inputs-checkbox-3",
@@ -173,16 +170,16 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
-        },
+            dropable: true
+          }
+        }
       ],
       treeOptions: {
         checkbox: true,
         propertyNames: {
           text: "text",
-          children: "children",
-        },
+          children: "children"
+        }
       },
       modelDefaults: {
         /* addChildTitle: "Add a new child node",
@@ -191,12 +188,12 @@ export default {
         customizations: {
           classes: {
             treeViewNodeSelfExpander: "action-button",
-            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right",
+            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right"
             //treeViewNodeSelfAction: "action-button"
             /* treeViewNodeSelfAddChildIcon: "fas fa-plus-circle",
             treeViewNodeSelfDeleteIcon: "fas fa-minus-circle" */
-          },
-        },
+          }
+        }
       },
       checkedNodesGsbpm: [],
       checkedNodesType: [],
@@ -204,9 +201,9 @@ export default {
       payload: [
         {
           gsbpm: null,
-          type: null,
-        },
-      ],
+          type: null
+        }
+      ]
     };
   },
   methods: {
@@ -226,14 +223,12 @@ export default {
       console.log(node.text);
     }, */
     onNodeCheckedGsbpm(node) {
-      
-        this.checkedNodesGsbpm.push(node.id);
-        console.log(node.text);
-        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
-        this.$store
-          .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("tools/filter", this.params));
-     
+      this.checkedNodesGsbpm.push(node.id);
+      console.log(node.text);
+      this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
+      this.$store
+        .dispatch("filter/setParams", this.payload)
+        .then(this.$store.dispatch("tools/filter", this.params));
     },
     onNodeCheckedType(node) {
       this.checkedNodesType.push(node.id);
@@ -274,7 +269,7 @@ export default {
       this.payload.gsbpm = gsbpm;
       this.payload.type = type;
       //this.$store.dispatch("tools/filter", this.payload);
-    },
+    }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
       let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
@@ -292,13 +287,10 @@ export default {
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",
-      isHome: "isHome",
-      /* isDeskAppList: "isDeskAppList",
-      isSoftProcList: "isSoftProcList",
-      isStatServiceList: "isStatServiceList",
-      isStatMethodList: "isStatMethodList" */
+      isHome: "isHome"
     }),
-    /* getGsbpmList: function() {
+
+    getGsbpmList: function() {
       return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
@@ -307,41 +299,8 @@ export default {
           children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name,
-              treeNodeSpec: {
-                input: {
-                  type: "checkbox"
-                }
-
-                //value: "aValueToSubmit",
-              }
+              label: gsbpmSubProcess.name
             };
-          }),
-
-          treeNodeSpec: {
-            input: {
-              type: "checkbox"
-            },
-
-            state: {
-              expanded: false
-            }
-
-            //value: "aValueToSubmit",
-          }
-        };
-      }); */
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
-        return {
-          // ...gsbpm,
-          id: "id-" + gsbpm.id,
-          label: gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
-            return {
-              id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name,
-              };
           }),
 
           state: {
@@ -356,8 +315,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         };
       });
     },
@@ -375,8 +334,8 @@ export default {
         };
       });
     } */
-    getTooltypeList: function () {
-      return this.tooltypeList.map((tool) => {
+    getTooltypeList: function() {
+      return this.tooltypeList.map(tool => {
         return {
           // ...gsbpm,
           id: tool.id,
@@ -393,16 +352,16 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         };
       });
-    },
+    }
   },
   created() {
     this.$store.dispatch("gsbpm/findAll");
     this.$store.dispatch("tooltype/findAll");
-  },
+  }
 };
 </script>
 
