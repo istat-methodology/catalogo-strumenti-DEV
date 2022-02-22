@@ -39,7 +39,7 @@ const mutations = {
         state.isToolEdit = true;
         break;
       case Context.MethodList:
-        state.isMethodsList= true;
+        state.isMethodsList = true;
         break;
       default:
         break;

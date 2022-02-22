@@ -1,34 +1,34 @@
-import { gsbpmService } from "@/services";
+import { agentService } from "@/services";
 
 const state = {
-  gsbpmList: [],
-  gsbpm: null
+  agentList: [],
+  agent: null
 };
 
 const mutations = {
-  SET_GSBPMLIST(state, gsbpmList) {
-    state.gsbpmList = gsbpmList;
+  SET_AGENTLIST(state, agentList) {
+    state.agentList = agentList;
   },
-  SET_GSBPM(state, gsbpm) {
-    state.service = gsbpm;
+  SET_AGENT(state, agent) {
+    state.agent = agent;
   }
 };
 
 const actions = {
   findGsbpm({ commit }, payload) {
-    return gsbpmService
+    return agentService
       .findServices(payload)
       .then(data => {
-        commit("SET_GSBPMLIST", data);
+        commit("SET_AGENTLIST", data);
       })
       .catch(err => {
         console.log(err);
       });
   },
   findAll({ commit }) {
-    gsbpmService.findAll().then(
+    agentService.findAll().then(
       data => {
-        commit("SET_GSBPMLIST", data);
+        commit("SET_AGENTLIST", data);
       },
       error => {
         console.log(error);
@@ -36,12 +36,12 @@ const actions = {
     );
   },
   save({ commit, dispatch }, payload) {
-    return gsbpmService
+    return agentService
       .save(payload)
       .then(data => {
         //console.log(data);
-        commit("SET_GSBPM", data);
-        dispatch("message/success", "Gbpm salvato!", {
+        commit("SET_AGENT", data);
+        dispatch("message/success", "Agent salvato!", {
           root: true
         });
       })
@@ -50,22 +50,22 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return gsbpmService
+    return agentService
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_GSBPM", data);
+        commit("SET_AGENT", data);
       })
       .catch(err => {
         console.log(err);
       });
   },
   update({ commit, dispatch }, payload) {
-    return gsbpmService
+    return agentService
       .update(payload)
       .then(data => {
-        commit("SET_GSBPM", data);
-        dispatch("message/success", "Gsbpm aggiornato!", {
+        commit("SET_AGENT", data);
+        dispatch("message/success", "Agent aggiornato!", {
           root: true
         });
       })
@@ -74,11 +74,11 @@ const actions = {
       });
   },
   delete({ dispatch }, id) {
-    return gsbpmService
+    return agentService
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Gsbpm eliminato!", {
+        dispatch("message/success", "Agent eliminato!", {
           root: true
         });
       })
@@ -89,15 +89,15 @@ const actions = {
 };
 
 const getters = {
-  gsbpmList: state => {
-    return state.gsbpmList;
+  agentList: state => {
+    return state.agentList;
   },
-  gsbpm: state => {
-    return state.gsbpm;
+  agent: state => {
+    return state.agent;
   }
 };
 
-export const gsbpm = {
+export const agent = {
   namespaced: true,
   state,
   mutations,

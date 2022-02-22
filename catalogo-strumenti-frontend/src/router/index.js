@@ -187,7 +187,8 @@ const routes = [
       {
         path: "catalogue/methods",
         name: "MethodList",
-        component: () => import("../views/catalogue/statisticalMethods/StatisticalMethodList"),
+        component: () =>
+          import("../views/catalogue/statisticalMethods/StatisticalMethodList"),
         meta: { authorize: [] }
       },
       {

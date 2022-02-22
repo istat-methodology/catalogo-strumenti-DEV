@@ -20,6 +20,7 @@ import { services } from "./modules/services/services"; */
 import { gsbpm } from "./modules/gsbpm/gsbpm";
 import { tooltype } from "./modules/tooltype/tooltype";
 import { documentation } from "./modules/documentation/documentation";
+import { agent } from "./modules/agent/agentTools";
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
@@ -34,6 +35,7 @@ export default new Vuex.Store({
     tools,
     methods,
     documentation,
+    agent,
     /* applications,
     methods,
     procedures,
