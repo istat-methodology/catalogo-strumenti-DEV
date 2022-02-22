@@ -50,4 +50,6 @@ class MethodsService extends AbstractService {
 }
 
 export const methodsService = new MethodsService("/catalog/statisticalmethods");
-export const methodsOpenService = new MethodsService("/catalog/open/statisticalmethods");
+export const methodsOpenService = new MethodsService(
+  "/catalog/open/statisticalmethods"
+);

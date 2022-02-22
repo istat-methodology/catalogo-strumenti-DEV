@@ -5,3 +5,4 @@ export * from "./tools/tools.service";
 export * from "./methods/methods.service";
 export * from "./gsbpm/gsbpm.service";
 export * from "./tooltype/tooltype.service";
+export * from "./documentation/documentation.service";

@@ -2,8 +2,8 @@ import { methodsService } from "@/services";
 import { methodsOpenService } from "@/services";
 
 const state = {
-    statisticalMethodsList: [],
-    statisticalMethod: null
+  statisticalMethodsList: [],
+  statisticalMethod: null
 };
 
 const mutations = {
@@ -90,10 +90,10 @@ const actions = {
 };
 
 const getters = {
- statisticalMethodsList: state => {
+  statisticalMethodsList: state => {
     return state.statisticalMethodsList;
   },
- statisticalMethod: state => {
+  statisticalMethod: state => {
     return state.statisticalMethod;
   }
 };
