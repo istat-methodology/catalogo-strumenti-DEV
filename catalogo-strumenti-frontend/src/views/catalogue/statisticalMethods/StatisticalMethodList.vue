@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-  <div class="col-12">
+    <div class="col-12">
       <div class="card fade-in">
         <header class="card-header">
           Elenco Metodi Statistici
@@ -103,7 +103,7 @@ export default {
   created() {
     this.$store.dispatch("coreui/setContext", Context.MethodList);
     // if (this.params) {
-   // this.$store.dispatch("tools/filter", this.params);
+    // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("methods/findAll");
     // }
   }
