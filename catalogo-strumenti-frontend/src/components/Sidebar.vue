@@ -23,6 +23,16 @@
           <span class="badge badge-primary">Alpha</span>
         </router-link>
       </li>
+      <li class="c-sidebar-nav-item">
+        <router-link
+          tag="a"
+          :to="{ name: 'MethodList' }"
+          class="c-sidebar-nav-link"
+          :class="{ 'c-active': isMethodsList}"
+        >
+          <CIcon name="cil-home" class="c-sidebar-nav-icon" />Metodi Statistici
+        </router-link>
+      </li>
       <!--  <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
       </li>
@@ -284,6 +294,7 @@ export default {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("filter", ["params"]),
     ...mapGetters("coreui", ["isToolList"]),
+    ...mapGetters("coreui", ["isMethodsList"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",

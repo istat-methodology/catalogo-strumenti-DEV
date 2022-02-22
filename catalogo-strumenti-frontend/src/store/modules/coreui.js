@@ -7,7 +7,8 @@ const state = {
   isLoading: false,
   isHome: false,
   isToolList: false,
-  isToolEdit: false
+  isToolEdit: false,
+  isMethodsList: false
 };
 
 const mutations = {
@@ -37,6 +38,9 @@ const mutations = {
       case Context.ToolEdit:
         state.isToolEdit = true;
         break;
+      case Context.MethodList:
+        state.isMethodsList= true;
+        break;
       default:
         break;
     }
@@ -47,6 +51,7 @@ const mutations = {
     state.isToolList = false;
     state.isToolDetail = false;
     state.isToolEdit = false;
+    state.isMethodsList = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -96,6 +101,9 @@ const getters = {
   },
   isToolEdit: state => {
     return state.isToolEdit;
+  },
+  isMethodsList: state => {
+    return state.isMethodsList;
   }
 };
 
