@@ -89,7 +89,7 @@ export default {
   },
   computed: {
     ...mapGetters("coreui", ["isMethodsList"]),
-    ...mapGetters("statisticalMethodsList", ["statisticalMethodsList"]),
+    ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
     computedItems() {
