@@ -192,6 +192,13 @@ const routes = [
         meta: { authorize: [] }
       },
       {
+        path: "catalogue/methods/add",
+        name: "MethodAdd",
+        component: () =>
+          import("../views/catalogue/statisticalMethods/StatisticalMethodAdd"),
+        meta: { authorize: [] }
+      },
+      {
         path: "settings/users",
         name: "UserList",
         component: () => import("../views/settings/user/UserList"),

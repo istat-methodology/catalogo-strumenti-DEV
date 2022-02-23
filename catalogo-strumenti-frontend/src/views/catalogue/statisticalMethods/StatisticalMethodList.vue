@@ -5,7 +5,7 @@
         <header class="card-header">
           Elenco Metodi Statistici
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'ToolAdd' }">
+            <router-link tag="a" :to="{ name: 'MethodAdd' }">
               <add-icon />
             </router-link>
           </div>
