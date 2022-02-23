@@ -79,8 +79,8 @@
               :options="getAgentList"
               :disable-branch-nodes="true"
               :show-count="true"
-              @select="onNodeCheckedMethods"
-              @deselect="onNodeUncheckedMethods"
+              @select="onNodeCheckedAgent"
+              @deselect="onNodeUncheckedAgent"
             />
           </div>
         </CCardBody>
@@ -277,6 +277,7 @@ export default {
       checkedNodesGsbpm: [],
       checkedNodesMethods: [],
       checkedNodesDocumentation: [],
+      checkedNodesAgent: [],
       methodsChecked: [],
       agentChecked: [],
       documentationChecked: [],
@@ -450,10 +451,10 @@ export default {
     onNodeCheckedDocumentation(node) {
       this.checkedNodesDocumentation.push(node.id);
       console.log(node.text);
-      /* this.filter(this.checkedNodesMethods, this.checkedNodesType);
-      this.$store
-        .dispatch("filter/setParams", this.payload)
-        .then(this.$store.dispatch("tools/filter", this.params)); */
+    },
+    onNodeCheckedAgent(node) {
+      this.checkedNodesAgent.push(node.id);
+      console.log(node.text);
     },
     setCheckedNodesMethods() {
       this.tool.statisticalMethods.map(method => {
@@ -499,6 +500,15 @@ export default {
       if (this.checkedNodesDocumentation.indexOf(node.id) >= 0) {
         this.checkedNodesDocumentation.splice(
           this.checkedNodesDocumentation.indexOf(node.id),
+          1
+        );
+        console.log(node.text + "- unchecked");
+      }
+    },
+    onNodeUncheckedAgent(node) {
+      if (this.checkedNodesAgent.indexOf(node.id) >= 0) {
+        this.checkedNodesAgent.splice(
+          this.checkedNodesAgent.indexOf(node.id),
           1
         );
         console.log(node.text + "- unchecked");
