@@ -36,7 +36,7 @@ INSERT INTO `csm_statistical_service` VALUES (100,'http',NULL,NULL,NULL,NULL,'5.
 truncate `CSM_Agent`; 
 INSERT INTO `CSM_Agent` (`ID`,`Name`,`Organization`) VALUES (10,'Mario Rossi','Istat'),(20,'Luca Verdi','Eurostat'),(30,'Luca Valente','Istat');
 truncate `CSM_link_Agent_tool`;
-INSERT INTO `CSM_link_Agent_tool` (`agent`,`tool`,`role`,`notes`,`reference_date`) VALUES (10,100,'Developer','Note','2010-2020'),(20,100,'Referent','Note','2020 onwards'),(30,200,'Developer','Note','2005-2015');
+INSERT INTO `CSM_link_Agent_tool` (`id`,`agent`,`tool`,`role`,`notes`,`reference_date`) VALUES (10, 10,100,'Developer','Note','2010-2020'),(20, 20,100,'Referent','Note','2020 onwards'),(30, 30,200,'Developer','Note','2005-2015');
     
 -- Sezione documentale esterna, link alle risorse di documentazione
 truncate `CSM_Documentation`;

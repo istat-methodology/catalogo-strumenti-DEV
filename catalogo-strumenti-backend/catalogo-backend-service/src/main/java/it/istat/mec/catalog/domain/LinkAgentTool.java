@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,13 +21,14 @@ public class LinkAgentTool implements Serializable  {
 	
 
 	private static final long serialVersionUID = -6213687145415319796L;
- 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
 	@ManyToOne
     @JoinColumn(name = "AGENT")
 	private Agent agent;
 	
-	@Id
+	
  	@ManyToOne
     @JoinColumn(name = "TOOL")
 	private CatalogTool tool;

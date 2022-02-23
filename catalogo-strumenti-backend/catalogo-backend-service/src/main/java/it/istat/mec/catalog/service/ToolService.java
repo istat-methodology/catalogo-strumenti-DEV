@@ -2,12 +2,17 @@ package it.istat.mec.catalog.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.istat.mec.catalog.dao.GsbpmProcessDao;
 import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
+import it.istat.mec.catalog.dto.GSBPMProcessDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.translators.Translators;
@@ -18,6 +23,8 @@ public class ToolService {
 	
 	@Autowired
 	ToolDao toolDao;
+	@Autowired
+	GsbpmProcessDao gsbpmProcessDao;
 
 	public List<CatalogToolDTO> findAllTools(Integer[] type, Integer[] gsbpmIds, String[] orderBy, String[] sort) {
 	
@@ -46,10 +53,24 @@ public class ToolService {
 	
 	public CatalogToolDTO newTool(CreateToolRequest request) {
 		CatalogTool tool = new CatalogTool();
-		tool = Translators.translate(request);			
+		tool = Translators.translate(request);	
+		
 		Date date = new Date(System.currentTimeMillis());	
 		
 		tool.setLastUpdate(date);
+		
+		int[] gsbpmIds = request.getGsbpm();
+		List <GsbpmProcess> gsbpmProcesses = new ArrayList <GsbpmProcess>();
+		
+		Optional<GsbpmProcess> gsbpmProcess;
+		
+		for(int i=0; i<gsbpmIds.length; i++) {
+			gsbpmProcess = gsbpmProcessDao.findById(gsbpmIds[i]);
+					
+			gsbpmProcesses.add(gsbpmProcess.get());
+		}		
+		tool.setGsbpmProcesses(gsbpmProcesses);		
+		
 		toolDao.save(tool);
 		return Translators.translate(tool);
 	}
