@@ -47,11 +47,7 @@
           @click.prevent="handleSubmit"
           >Aggiungi</CButton
         >
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="backToList"
+        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
           >Back</CButton
         >
       </CCardFooter>
@@ -99,7 +95,7 @@ export default {
       /*   } */
     },
     goBack() {
-      this.$router.push("/catalogue/tools");
+      this.$router.push("/catalogue/methods");
     },
     onChange(event) {
       this.tipologia = event.target.value;

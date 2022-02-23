@@ -40,17 +40,39 @@
                   <edit-icon />
                 </router-link>
               </td>
-              <td v-if="isAuthenticated">
+              <td>
+                <span class="icon-link" @click="modalOpen(item)"
+                  ><delete-icon
+                /></span>
+              </td>
+
+              <!-- <td v-if="isAuthenticated">
                 <router-link tag="a" :to="{ name: 'ToolAdd' }">
                   <delete-icon />
                 </router-link>
-              </td>
+              </td> -->
             </template>
           </CDataTable>
         </CCardBody>
         <!--   </CCard> -->
       </div>
     </div>
+    <CModal title="Warning!" :show.sync="warningModal">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          @click="deleteStatisticalMethod"
+        >
+          Delete
+        </CButton>
+      </template>
+      Elimina Metodo Statistico '{{ selectedStatisticalMethod.name }}'?
+    </CModal>
   </div>
 </template>
 
@@ -84,7 +106,9 @@ export default {
           sorter: false,
           filter: false
         }
-      ]
+      ],
+      selectedStatisticalMethod: {},
+      warningModal: false
     };
   },
   computed: {
@@ -98,6 +122,20 @@ export default {
       } else {
         return [];
       }
+    }
+  },
+
+  methods: {
+    deleteStatisticalMethod() {
+      this.$store.dispatch("methods/delete", this.selectedStatisticalMethod.id);
+      this.warningModal = false;
+    },
+    modalOpen(app) {
+      this.selectedStatisticalMethod = app;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
     }
   },
   created() {
