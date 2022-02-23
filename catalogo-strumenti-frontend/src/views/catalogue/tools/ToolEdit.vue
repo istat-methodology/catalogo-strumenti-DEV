@@ -69,10 +69,26 @@
           </div>
         </CCardBody>
       </CCard>
+      <CCard v-if="this.agentList">
+        <CCardHeader>Referenti</CCardHeader>
+        <CCardBody>
+          <div id="app-tree1" class="demo-tree">
+            <treeselect
+              v-model="agentChecked"
+              :multiple="true"
+              :options="getAgentList"
+              :disable-branch-nodes="true"
+              :show-count="true"
+              @select="onNodeCheckedMethods"
+              @deselect="onNodeUncheckedMethods"
+            />
+          </div>
+        </CCardBody>
+      </CCard>
       <CCard v-if="this.documentationList">
         <CCardHeader>Documentazione</CCardHeader>
         <CCardBody>
-          <div id="app-tree1" class="demo-tree">
+          <div id="app-tree3" class="demo-tree">
             <treeselect
               v-model="documentationChecked"
               :multiple="true"
@@ -262,6 +278,7 @@ export default {
       checkedNodesMethods: [],
       checkedNodesDocumentation: [],
       methodsChecked: [],
+      agentChecked: [],
       documentationChecked: [],
       //toolNodes: [],
       elenco: []
@@ -273,6 +290,7 @@ export default {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
+    ...mapGetters("agent", ["agentList"]),
     getGsbpmList: function() {
       return this.gsbpmList.map(gsbpm => {
         return {
@@ -340,6 +358,36 @@ export default {
     },
     getDocumentationList: function() {
       return this.documentationList.map(doc => {
+        return {
+          // ...gsbpm,
+          id: doc.id,
+          label: doc.name,
+          /*  children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            return {
+              id: gsbpmSubProcess.id,
+              label: gsbpmSubProcess.name
+            };
+          }), */
+
+          state: {
+            selected: false,
+            selectable: true,
+            checked: false,
+            expanded: false,
+            disabled: false,
+            visible: true,
+            indeterminate: false,
+            matched: false,
+            editable: true,
+            dragging: false,
+            draggable: true,
+            dropable: true
+          }
+        };
+      });
+    },
+    getAgentList: function() {
+      return this.agentList.map(doc => {
         return {
           // ...gsbpm,
           id: doc.id,
@@ -514,6 +562,7 @@ export default {
     this.$store.dispatch("tooltype/findAll");
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentation/findAll");
+    this.$store.dispatch("agent/findAll");
   }
 };
 </script>
