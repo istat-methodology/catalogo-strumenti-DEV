@@ -34,7 +34,7 @@ public class CreateToolRequest implements Serializable {
 	private String outcomes;	
 	private String serviceDependencies;		
 	private String restrictions;
-	private int gsbpm;		
+	private int[] gsbpm;		
 	private String businessFunction;	
 	private String processDesign;
 	

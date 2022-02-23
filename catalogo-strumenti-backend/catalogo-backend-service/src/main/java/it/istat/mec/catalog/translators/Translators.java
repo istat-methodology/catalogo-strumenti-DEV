@@ -252,7 +252,8 @@ public class Translators {
 		
 		final ModelMapper modelMapper = new ModelMapper();
 		final CatalogTool tool = (CatalogTool) modelMapper.map(x, targetClass);
-		tool.setToolType(new ToolType(x.getToolType()));
+		tool.setToolType(new ToolType(x.getToolType()));	
+	
 		return tool;
 	}
 
@@ -348,6 +349,11 @@ public class Translators {
 	public static List<ToolTypeDto> translateToolTypeList(List<ToolType> list) {
 		
 		return mapList(list, ToolTypeDto.class);
+	}
+	
+	public static List<GsbpmProcess> translateGSBPMProcessList(List<GSBPMProcessDto> list) {
+		
+		return mapList(list, GsbpmProcess.class);
 	}
 
 }

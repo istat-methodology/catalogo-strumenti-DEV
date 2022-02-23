@@ -182,6 +182,7 @@ CREATE INDEX `fk_csm_documentation_csm_document_type1_idx` ON `catalog`.`csm_doc
 DROP TABLE IF EXISTS `catalog`.`csm_link_agent_tool` ;
 
 CREATE TABLE IF NOT EXISTS `catalog`.`csm_link_agent_tool` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
   `agent` INT NOT NULL,
   `tool` INT NOT NULL,
   `role` VARCHAR(100) NULL DEFAULT NULL,
