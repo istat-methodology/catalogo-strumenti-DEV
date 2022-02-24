@@ -40,126 +40,6 @@ const routes = [
         component: () => import("../views/catalogue/Catalogue"),
         meta: { authorize: [] }
       },
-      /* {
-        path: "catalogue/dailyreport",
-        name: "DailyReport",
-        component: () => import("../views/catalogue/report/DailyReport"),
-        meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
-      },
-      {
-        path: "catalogue/totalreport",
-        name: "TotalReport",
-        component: () => import("../views/catalogue/report/TotalReport"),
-        meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
-      }, */
-      /* {
-        path: "catalogue/address/view/:state",
-        name: "AddressList",
-        component: () => import("../views/catalogue/address/AddressList"),
-        meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
-      },
-      {
-        path: "catalogue/address/edit/:state",
-        name: "AddressEdit",
-        component: () => import("../views/catalogue/address/AddressEdit"),
-        meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
-      },
-      {
-        path: "catalogue/address/block/:state",
-        name: "AddressBlock",
-        component: () => import("../views/catalogue/address/AddressBlock"),
-        meta: { authorize: [Role.Admin, Role.Supervisor, Role.Reviewer] }
-      }, */
-      /*  {
-        path: "catalogue/dug",
-        name: "DugList",
-        component: () => import("../views/catalogue/dug/DugList"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/dug/add",
-        name: "DugAdd",
-        component: () => import("../views/catalogue/dug/DugAdd"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },*/
-      /*  {
-        path: "catalogue/applicazioni",
-        name: "DeskAppList",
-        component: () => import("../views/catalogue/deskapp/DeskAppList"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/applicazioni/modifica/:id",
-        name: "DeskAppEdit",
-        component: () => import("../views/catalogue/deskapp/DeskAppEdit"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/applicazioni/aggiungi",
-        name: "DeskAppAdd",
-        component: () => import("../views/catalogue/deskapp/DeskAppAdd"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/procedure",
-        name: "SoftProcList",
-        component: () =>
-          import("../views/catalogue/softwareproc/SoftwareProcList"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/procedure/modifica/:id",
-        name: "SoftProcEdit",
-        component: () =>
-          import("../views/catalogue/softwareproc/SoftwareProcEdit"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/procedure/aggiungi",
-        name: "SoftProcAdd",
-        component: () =>
-          import("../views/catalogue/softwareproc/SoftwareProcAdd"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/servizi",
-        name: "StatServiceList",
-        component: () =>
-          import("../views/catalogue/statservice/StatServiceList"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/servizi/modifica/:id",
-        name: "StatServiceEdit",
-        component: () =>
-          import("../views/catalogue/statservice/StatServiceEdit"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/servizi/aggiungi",
-        name: "StatServiceAdd",
-        component: () =>
-          import("../views/catalogue/statservice/StatServiceAdd"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      }, */
-      /* {
-        path: "catalogue/metodi",
-        name: "StatMethodList",
-        component: () => import("../views/catalogue/statmethod/StatMethodList"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/metodi/modifica/:id",
-        name: "StatMethodEdit",
-        component: () => import("../views/catalogue/statmethod/StatMethodEdit"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      },
-      {
-        path: "catalogue/metodi/aggiungi",
-        name: "StatMethodAdd",
-        component: () => import("../views/catalogue/statmethod/StatMethodAdd"),
-        meta: { authorize: [Role.Admin, Role.Supervisor] }
-      }, */
       {
         path: "catalogue/tools",
         name: "ToolList",
@@ -185,14 +65,21 @@ const routes = [
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/methods",
+        path: "catalogue/metodi",
         name: "MethodList",
         component: () =>
           import("../views/catalogue/statisticalMethods/StatisticalMethodList"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/methods/add",
+        path: "catalogue/metodi/modifica/:id",
+        name: "MethodEdit",
+        component: () =>
+          import("../views/catalogue/statisticalMethods/StatisticalMethodEdit"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/metodi/aggiungi",
         name: "MethodAdd",
         component: () =>
           import("../views/catalogue/statisticalMethods/StatisticalMethodAdd"),

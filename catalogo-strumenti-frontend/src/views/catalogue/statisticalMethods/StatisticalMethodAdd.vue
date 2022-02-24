@@ -91,11 +91,11 @@ export default {
       if (!this.$v.tool.$invalid) {*/
       this.$store
         .dispatch("methods/save", this.statisticalMethodLocal)
-        .then(this.$router.push("/catalogue/methods"));
+        .then(this.$router.push("/catalogue/metodi"));
       /*   } */
     },
     goBack() {
-      this.$router.push("/catalogue/methods");
+      this.$router.push("/catalogue/metodi");
     },
     onChange(event) {
       this.tipologia = event.target.value;

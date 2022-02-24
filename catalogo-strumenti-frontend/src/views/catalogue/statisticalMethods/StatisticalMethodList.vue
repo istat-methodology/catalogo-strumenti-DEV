@@ -27,7 +27,7 @@
               <td>
                 <router-link
                   tag="a"
-                  :to="{ name: 'ToolDetails', params: { id: item.id } }"
+                  :to="{ name: 'MethodDetails', params: { id: item.id } }"
                 >
                   <view-icon />
                 </router-link>
@@ -35,7 +35,7 @@
               <td v-if="isAuthenticated">
                 <router-link
                   tag="a"
-                  :to="{ name: 'ToolEdit', params: { id: item.id } }"
+                  :to="{ name: 'MethodEdit', params: { id: item.id } }"
                 >
                   <edit-icon />
                 </router-link>

@@ -2,8 +2,8 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="tool">
-        <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
+      <CCard v-if="statisticalMethod">
+        <CCardHeader>Modifica Metodo Statistico</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome"
@@ -90,9 +90,11 @@ export default {
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
-      this.$store.dispatch("tools/update", this.toolLocal).then(() => {
-        this.backToList();
-      });
+      this.$store
+        .dispatch("methods/update", this.statisticalMethodLocal)
+        .then(() => {
+          this.backToList();
+        });
       /*   } */
     },
     setOldValues() {
@@ -102,10 +104,10 @@ export default {
       this.statisticalMethodLocal.requirements = this.statisticalMethod.requirements;
       this.statisticalMethodLocal.assumptions = this.statisticalMethod.assumptions;
       this.statisticalMethodLocal.constraints = this.statisticalMethod.constraints;
-       this.statisticalMethodLocal.notes = this.statisticalMethod.notes;
+      this.statisticalMethodLocal.notes = this.statisticalMethod.notes;
     },
     backToList() {
-      this.$router.push("/catalogue/methods");
+      this.$router.push("/catalogue/metodi");
     }
   },
   created() {
