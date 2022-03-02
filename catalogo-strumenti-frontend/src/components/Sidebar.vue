@@ -40,7 +40,7 @@
           class="c-sidebar-nav-link"
           :class="{ 'c-active': isAgentList }"
         >
-          <CIcon name="cil-at" class="c-sidebar-nav-icon" />Responsabili
+          <CIcon name="cil-at" class="c-sidebar-nav-icon" />Referenti
         </router-link>
       </li>
       <li class="c-sidebar-nav-item">
