@@ -7,7 +7,7 @@
         <CCardBody>
           <CInput
             label="Nome"
-            placeholder="Name"
+            placeholder="Nome"
             v-model="documentationLocal.name"
           />
           <CInput
@@ -51,7 +51,7 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
-import { mapGetters } from "vuex";
+//import { mapGetters } from "vuex";
 export default {
   name: "documentationlAdd",
   data() {
@@ -67,7 +67,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("documentation", ["documentation"])
+    //...mapGetters("documentation", ["documentation"])
   },
   /* validations: {
     tool: {
@@ -78,8 +78,6 @@ export default {
   }, */
   methods: {
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.tool.$invalid) {*/
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
         .then(this.$router.push("/catalogue/documentazione"));

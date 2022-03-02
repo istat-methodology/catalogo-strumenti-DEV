@@ -1,4 +1,5 @@
 import { documentationService } from "@/services";
+import { documentationOpenService } from "@/services";
 
 const state = {
   documentationList: [],
@@ -16,7 +17,7 @@ const mutations = {
 
 const actions = {
   findAll({ commit }) {
-    documentationService.findAll().then(
+    documentationOpenService.findAll().then(
       data => {
         commit("SET_DOCUMENTATIONLIST", data);
       },
@@ -40,7 +41,7 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return documentationService
+    return documentationOpenService
       .findById(id)
       .then(data => {
         //console.log(data);

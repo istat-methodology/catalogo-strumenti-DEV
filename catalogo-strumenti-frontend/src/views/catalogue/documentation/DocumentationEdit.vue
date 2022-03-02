@@ -8,27 +8,27 @@
           <CInput
             label="Nome"
             placeholder="Nome"
-            v-model="documentation.name"
+            v-model="documentationLocal.name"
           />
           <CInput
             label="Editore"
             placeholder="Editore"
-            v-model="documentation.publisher"
+            v-model="documentationLocal.publisher"
           />
           <CInput
             label="Documento"
             placeholder="Documento"
-            v-model="documentation.documentType"
+            v-model="documentationLocal.documentType"
           />
           <CInput
             label="Note"
             placeholder="Note"
-            v-model="documentation.notes"
+            v-model="documentationLocal.notes"
           />
           <CInput
             label="Fonti"
             placeholder="Fonti"
-            v-model="documentation.resource"
+            v-model="documentationLocal.resource"
           />
         </CCardBody>
       </CCard>
@@ -56,7 +56,7 @@
 import { mapGetters } from "vuex";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "ToolEdit",
+  name: "DocumentationEdit",
   data() {
     return {
       documentationLocal: {

@@ -20,7 +20,9 @@ class DocumentationService extends AbstractService {
       });
   }
 }
-
 export const documentationService = new DocumentationService(
+  "/catalog/documentations"
+);
+export const documentationOpenService = new DocumentationService(
   "/catalog/open/documentations"
 );
