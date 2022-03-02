@@ -82,7 +82,28 @@ const routes = [
         path: "catalogue/metodi/aggiungi",
         name: "MethodAdd",
         component: () =>
-          import("../views/catalogue/statisticalMethods/StatisticalMethodAdd"),
+          import("../views/catalogue/documentation/DocumentationAdd"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/documentazione",
+        name: "DocumentationList",
+        component: () =>
+          import("../views/catalogue/documentation/DocumentationList"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/documentazione/modifica/:id",
+        name: "DocumentationEdit",
+        component: () =>
+          import("../views/catalogue/documentation/DocumentationEdit"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/documentazione/aggiungi",
+        name: "DocumentationAdd",
+        component: () =>
+          import("../views/catalogue/documentation/DocumentationAdd"),
         meta: { authorize: [] }
       },
       {
