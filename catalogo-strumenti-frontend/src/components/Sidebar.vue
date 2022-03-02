@@ -28,9 +28,29 @@
           tag="a"
           :to="{ name: 'MethodList' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isMethodsList}"
+          :class="{ 'c-active': isMethodsList }"
         >
-          <CIcon name="cil-home" class="c-sidebar-nav-icon" />Metodi Statistici
+          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Metodi Statistici
+        </router-link>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <router-link
+          tag="a"
+          :to="{ name: 'AgentList' }"
+          class="c-sidebar-nav-link"
+          :class="{ 'c-active': isAgentList }"
+        >
+          <CIcon name="cil-at" class="c-sidebar-nav-icon" />Responsabili
+        </router-link>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <router-link
+          tag="a"
+          :to="{ name: 'DocumentationList' }"
+          class="c-sidebar-nav-link"
+          :class="{ 'c-active': isDocumentationList }"
+        >
+          <CIcon name="cil-layers" class="c-sidebar-nav-icon" />Documenti
         </router-link>
       </li>
       <!--  <li class="c-sidebar-nav-title" v-if="isToolList">
@@ -295,6 +315,8 @@ export default {
     ...mapGetters("filter", ["params"]),
     ...mapGetters("coreui", ["isToolList"]),
     ...mapGetters("coreui", ["isMethodsList"]),
+    ...mapGetters("coreui", ["isAgentList"]),
+    ...mapGetters("coreui", ["isDocumentationList"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",

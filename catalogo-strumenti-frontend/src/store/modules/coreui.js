@@ -8,7 +8,9 @@ const state = {
   isHome: false,
   isToolList: false,
   isToolEdit: false,
-  isMethodsList: false
+  isMethodsList: false,
+  isAgentList: false,
+  isDocumentationList: false
 };
 
 const mutations = {
@@ -24,6 +26,7 @@ const mutations = {
     state.isLoading = isLoading;
   },
   SET_CONTEXT(state, context) {
+    this.clearContext;
     state.context = parseInt(context);
     switch (parseInt(context)) {
       case Context.Home:
@@ -41,6 +44,13 @@ const mutations = {
       case Context.MethodList:
         state.isMethodsList = true;
         break;
+      case Context.AgentList:
+        state.isAgentList = true;
+        break;
+      case Context.DocumentationList:
+        state.isDocumentationList = true;
+        break;
+
       default:
         break;
     }
@@ -52,6 +62,8 @@ const mutations = {
     state.isToolDetail = false;
     state.isToolEdit = false;
     state.isMethodsList = false;
+    state.isAgentList = false;
+    state.isDocumentationList = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -104,6 +116,12 @@ const getters = {
   },
   isMethodsList: state => {
     return state.isMethodsList;
+  },
+  isAgentList: state => {
+    return state.isAgentList;
+  },
+  isDocumentationList: state => {
+    return state.isDocumentationList;
   }
 };
 
