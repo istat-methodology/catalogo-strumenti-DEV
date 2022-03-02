@@ -7,7 +7,7 @@
         <CCardBody>
           <CInput
             label="Nome"
-            placeholder="Name"
+            placeholder="Nome"
             v-model="documentation.name"
           />
           <CInput

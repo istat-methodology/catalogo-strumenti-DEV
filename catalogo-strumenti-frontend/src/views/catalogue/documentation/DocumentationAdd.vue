@@ -3,37 +3,32 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader>Nuovo Metodo Statistico</CCardHeader>
+        <CCardHeader>Nuova Documentazione</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome"
             placeholder="Name"
-            v-model="statisticalMethodLocal.name"
+            v-model="documentationLocal.name"
           />
           <CInput
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="statisticalMethodLocal.description"
+            label="Editore"
+            placeholder="Editore"
+            v-model="documentationLocal.publisher"
           />
           <CInput
-            label="Requisiti"
-            placeholder="Requisiti"
-            v-model="statisticalMethodLocal.requirements"
-          />
-          <CInput
-            label="Presupposti"
-            placeholder="Presupposti"
-            v-model="statisticalMethodLocal.assumptions"
-          />
-          <CInput
-            label="Vincoli"
-            placeholder="Vincoli"
-            v-model="statisticalMethodLocal.constraints"
+            label="Documento"
+            placeholder="Documento"
+            v-model="documentationLocal.documentType"
           />
           <CInput
             label="Note"
             placeholder="Note"
-            v-model="statisticalMethodLocal.notes"
+            v-model="documentationLocal.notes"
+          />
+          <CInput
+            label="Fonti"
+            placeholder="Fonti"
+            v-model="documentationLocal.resource"
           />
         </CCardBody>
       </CCard>
@@ -58,25 +53,21 @@
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
 export default {
-  name: "ToolAdd",
+  name: "documentationlAdd",
   data() {
     return {
-      statisticalMethodLocal: {
+      documentationLocal: {
         id: "",
         name: "",
-        description: "",
-        requirements: "",
-        assumptions: "",
-        constraints: "",
-        notes: ""
+        publisher: "",
+        documentType: "",
+        notes: "",
+        resource: ""
       }
     };
   },
   computed: {
-    /* ...mapGetters("auth", ["isReviewer", "isSupervisor"]), */
-    /* ...mapGetters("address", ["assignedId", "assignedName"]), */
-
-    ...mapGetters("tooltype", ["tooltypeList"])
+    ...mapGetters("documentation", ["documentation"])
   },
   /* validations: {
     tool: {
@@ -90,19 +81,19 @@ export default {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.tool.$invalid) {*/
       this.$store
-        .dispatch("methods/save", this.statisticalMethodLocal)
-        .then(this.$router.push("/catalogue/metodi"));
+        .dispatch("documentation/save", this.documentationLocal)
+        .then(this.$router.push("/catalogue/documentazione"));
       /*   } */
     },
     goBack() {
-      this.$router.push("/catalogue/metodi");
+      this.$router.push("/catalogue/documentazione");
     },
     onChange(event) {
       this.tipologia = event.target.value;
     }
   },
   created() {
-    this.$store.dispatch("tooltype/findAll");
+    this.$store.dispatch("documentation/findAll");
   }
 };
 </script>
