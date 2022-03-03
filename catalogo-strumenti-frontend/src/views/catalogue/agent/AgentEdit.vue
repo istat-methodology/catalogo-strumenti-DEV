@@ -2,33 +2,25 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="documentation">
+      <CCard v-if="agent">
         <CCardHeader>Modifica Metodo Statistico</CCardHeader>
         <CCardBody>
+          <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
           <CInput
-            label="Nome"
-            placeholder="Nome"
-            v-model="documentationLocal.name"
+            label="Organizzazione"
+            placeholder="Organizzazione"
+            v-model="agentLocal.organization"
           />
           <CInput
-            label="Editore"
-            placeholder="Editore"
-            v-model="documentationLocal.publisher"
+            label="Contatto"
+            placeholder="Contatto"
+            v-model="agentLocal.contact"
           />
-          <CInput
-            label="Documento"
-            placeholder="Documento"
-            v-model="documentationLocal.documentType"
-          />
-          <CInput
-            label="Note"
-            placeholder="Note"
-            v-model="documentationLocal.notes"
-          />
+          <CInput label="Note" placeholder="Note" v-model="agentLocal.notes" />
           <CInput
             label="Fonti"
             placeholder="Fonti"
-            v-model="documentationLocal.resource"
+            v-model="agentLocal.resource"
           />
         </CCardBody>
       </CCard>
@@ -59,18 +51,17 @@ export default {
   name: "DocumentationEdit",
   data() {
     return {
-      documentationLocal: {
+      agentLocal: {
         id: "",
         name: "",
-        publisher: "",
-        documentType: "",
-        notes: "",
-        resource: ""
+        organization: "",
+        contact: "",
+        notes: ""
       }
     };
   },
   computed: {
-    ...mapGetters("documentation", ["documentation"])
+    ...mapGetters("agent", ["agent"])
   },
 
   /* validations: {
@@ -84,32 +75,27 @@ export default {
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
-      this.$store
-        .dispatch("documentation/update", this.documentationLocal)
-        .then(() => {
-          this.backToList();
-        });
+      this.$store.dispatch("agent/update", this.agentLocal).then(() => {
+        this.backToList();
+      });
       /*   } */
     },
     setOldValues() {
-      this.documentationLocal.id = this.documentation.id;
-      this.documentationLocal.name = this.documentation.name;
-      this.documentationLocal.publisher = this.documentation.publisher;
-      this.documentationLocal.documentType = this.documentation.documentType;
-      this.documentationLocal.notes = this.documentation.notes;
-      this.documentationLocal.resource = this.documentation.resource;
+      this.agentLocal.id = this.agent.id;
+      this.agentLocal.name = this.agent.name;
+      this.agentLocal.organization = this.agent.organization;
+      this.agentLocal.contact = this.agent.contact;
+      this.agentLocal.notes = this.agent.notes;
     },
     backToList() {
-      this.$router.push("/catalogue/documentazione");
+      this.$router.push("/catalogue/referenti");
     }
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
-    this.$store
-      .dispatch("documentation/findById", this.$route.params.id)
-      .then(() => {
-        this.setOldValues();
-      });
+    this.$store.dispatch("agent/findById", this.$route.params.id).then(() => {
+      this.setOldValues();
+    });
   }
 };
 </script>

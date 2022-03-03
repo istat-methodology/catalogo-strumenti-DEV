@@ -113,17 +113,15 @@ const routes = [
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/documentazione/modifica/:id",
-        name: "DocumentationEdit",
-        component: () =>
-          import("../views/catalogue/documentation/DocumentationEdit"),
+        path: "catalogue/referenti/modifica/:id",
+        name: "AgentEdit",
+        component: () => import("../views/catalogue/agent/AgentEdit"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/documentazione/aggiungi",
-        name: "DocumentationAdd",
-        component: () =>
-          import("../views/catalogue/documentation/DocumentationAdd"),
+        path: "catalogue/referenti/aggiungi",
+        name: "AgentAdd",
+        component: () => import("../views/catalogue/agent/AgentAdd"),
         meta: { authorize: [] }
       },
       {
