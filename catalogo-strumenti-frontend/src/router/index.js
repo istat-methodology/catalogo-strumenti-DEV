@@ -107,6 +107,26 @@ const routes = [
         meta: { authorize: [] }
       },
       {
+        path: "catalogue/referenti",
+        name: "AgentList",
+        component: () => import("../views/catalogue/agent/AgentList"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/documentazione/modifica/:id",
+        name: "DocumentationEdit",
+        component: () =>
+          import("../views/catalogue/documentation/DocumentationEdit"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/documentazione/aggiungi",
+        name: "DocumentationAdd",
+        component: () =>
+          import("../views/catalogue/documentation/DocumentationAdd"),
+        meta: { authorize: [] }
+      },
+      {
         path: "settings/users",
         name: "UserList",
         component: () => import("../views/settings/user/UserList"),
