@@ -3,32 +3,24 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader>Nuova Documentazione</CCardHeader>
+        <CCardHeader>Nuovo Referente</CCardHeader>
         <CCardBody>
+          <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
           <CInput
-            label="Nome"
-            placeholder="Nome"
-            v-model="documentationLocal.name"
+            label="Organizzazione"
+            placeholder="Organizzazione"
+            v-model="agentLocal.organization"
           />
           <CInput
-            label="Editore"
-            placeholder="Editore"
-            v-model="documentationLocal.publisher"
+            label="Contatto"
+            placeholder="Contatto"
+            v-model="agentLocal.contact"
           />
-          <CInput
-            label="Documento"
-            placeholder="Documento"
-            v-model="documentationLocal.documentType"
-          />
-          <CInput
-            label="Note"
-            placeholder="Note"
-            v-model="documentationLocal.notes"
-          />
+          <CInput label="Note" placeholder="Note" v-model="agentLocal.notes" />
           <CInput
             label="Fonti"
             placeholder="Fonti"
-            v-model="documentationLocal.resource"
+            v-model="agentLocal.resource"
           />
         </CCardBody>
       </CCard>
@@ -56,13 +48,12 @@ export default {
   name: "documentationlAdd",
   data() {
     return {
-      documentationLocal: {
+      agentLocal: {
         id: "",
         name: "",
-        publisher: "",
-        documentType: "",
-        notes: "",
-        resource: ""
+        organization: "",
+        contact: "",
+        notes: ""
       }
     };
   },
@@ -79,19 +70,19 @@ export default {
   methods: {
     handleSubmit() {
       this.$store
-        .dispatch("documentation/save", this.documentationLocal)
-        .then(this.$router.push("/catalogue/documentazione"));
+        .dispatch("agent/save", this.agentLocal)
+        .then(this.$router.push("/catalogue/referenti"));
       /*   } */
     },
     goBack() {
-      this.$router.push("/catalogue/documentazione");
+      this.$router.push("/catalogue/referenti");
     },
     onChange(event) {
       this.tipologia = event.target.value;
     }
   },
   created() {
-    this.$store.dispatch("documentation/findAll");
+    this.$store.dispatch("agent/findAll");
   }
 };
 </script>

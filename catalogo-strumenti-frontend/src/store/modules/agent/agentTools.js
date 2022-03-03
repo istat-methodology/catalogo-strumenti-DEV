@@ -1,4 +1,5 @@
 import { agentService } from "@/services";
+import { agentOpenService } from "@/services";
 
 const state = {
   agentList: [],
@@ -15,18 +16,8 @@ const mutations = {
 };
 
 const actions = {
-  findGsbpm({ commit }, payload) {
-    return agentService
-      .findServices(payload)
-      .then(data => {
-        commit("SET_AGENTLIST", data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
   findAll({ commit }) {
-    agentService.findAll().then(
+    agentOpenService.findAll().then(
       data => {
         commit("SET_AGENTLIST", data);
       },
@@ -50,7 +41,7 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return agentService
+    return agentOpenService
       .findById(id)
       .then(data => {
         //console.log(data);

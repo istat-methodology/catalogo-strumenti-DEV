@@ -20,5 +20,6 @@ class AgentService extends AbstractService {
       });
   }
 }
+export const agentService = new AgentService("/catalog/agents");
 
-export const agentService = new AgentService("/catalog/open/agents");
+export const agentOpenService = new AgentService("/catalog/open/agents");
