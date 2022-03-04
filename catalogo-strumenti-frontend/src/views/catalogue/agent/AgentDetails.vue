@@ -2,28 +2,20 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="statisticalMethod">
-        <CCardHeader>{{ statisticalMethod.name | dashEmpty }}</CCardHeader>
+      <CCard v-if="agent">
+        <CCardHeader>{{ agent.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
-            <label>Descrizione:</label>
-            <span>{{ statisticalMethod.description | dashEmpty }}</span>
+            <label>Organizzazione:</label>
+            <span>{{ agent.organization | dashEmpty }}</span>
           </div>
           <div>
-            <label>Requisiti:</label>
-            <span>{{ statisticalMethod.requirements | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Presupposti:</label>
-            <span>{{ statisticalMethod.assumption | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Vincoli:</label>
-            <span>{{ statisticalMethod.constraints | dashEmpty }}</span>
+            <label>Contatto:</label>
+            <span>{{ agent.contact | dashEmpty }}</span>
           </div>
           <div>
             <label>Note:</label>
-            <span>{{ statisticalMethod.notes | dashEmpty }}</span>
+            <span>{{ agent.notes | dashEmpty }}</span>
           </div>
         </CCardBody>
         <CCardFooter>
@@ -44,17 +36,17 @@
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
 export default {
-  name: "ToolDetails",
+  name: "AgentDetails",
   computed: {
-    ...mapGetters("methods", ["statisticalMethod"])
+    ...mapGetters("agent", ["agent"])
   },
   methods: {
     backToList() {
-      this.$router.push("/catalogue/metodi");
+      this.$router.push("/catalogue/referenti");
     }
   },
   created() {
-    this.$store.dispatch("methods/findById", this.$route.params.id);
+    this.$store.dispatch("agent/findById", this.$route.params.id);
     //this.$store.dispatch("coreui/setContext", Context.ToolDetail);
   }
 };

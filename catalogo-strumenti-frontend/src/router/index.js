@@ -141,6 +141,12 @@ const routes = [
         meta: { authorize: [] }
       },
       {
+        path: "catalogue/agent/dettaglio/:id",
+        name: "AgentDetails",
+        component: () => import("../views/catalogue/agent/AgentDetails"),
+        meta: { authorize: [] }
+      },
+      {
         path: "settings/users",
         name: "UserList",
         component: () => import("../views/settings/user/UserList"),
