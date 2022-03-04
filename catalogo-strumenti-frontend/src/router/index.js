@@ -82,7 +82,16 @@ const routes = [
         path: "catalogue/metodi/aggiungi",
         name: "MethodAdd",
         component: () =>
-          import("../views/catalogue/documentation/DocumentationAdd"),
+          import("../views/catalogue/statisticalMethods/StatisticalMethodAdd"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/metodi/dettaglio/:id",
+        name: "MethodDetails",
+        component: () =>
+          import(
+            "../views/catalogue/statisticalMethods/StatisticalMethodDetails"
+          ),
         meta: { authorize: [] }
       },
       {
@@ -104,6 +113,13 @@ const routes = [
         name: "DocumentationAdd",
         component: () =>
           import("../views/catalogue/documentation/DocumentationAdd"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/documentazione/dettaglio/:id",
+        name: "DocumentationDetails",
+        component: () =>
+          import("../views/catalogue/documentation/DocumentationDetails"),
         meta: { authorize: [] }
       },
       {
