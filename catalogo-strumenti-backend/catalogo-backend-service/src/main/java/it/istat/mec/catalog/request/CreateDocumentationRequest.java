@@ -12,5 +12,5 @@ public class CreateDocumentationRequest {
 	private String documentType;
 	private String notes;	
 	private String resource;
-    private Long tool;
+    private Integer tool;
 }

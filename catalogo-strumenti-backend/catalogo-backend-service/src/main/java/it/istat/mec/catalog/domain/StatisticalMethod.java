@@ -25,7 +25,7 @@ public class StatisticalMethod  implements Serializable  {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 	
 	@Column(name = "name")
 	private String name;
@@ -54,4 +54,12 @@ public class StatisticalMethod  implements Serializable  {
             @JoinColumn(name = "METHOD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)})
 	private List<CatalogTool> catalogTools;
+	public StatisticalMethod() {
+		
+	}
+	public StatisticalMethod(Integer id) {
+		super();
+		this.id = id;
+	}
+	
 }

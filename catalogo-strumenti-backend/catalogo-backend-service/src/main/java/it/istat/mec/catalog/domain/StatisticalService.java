@@ -38,9 +38,6 @@ public class StatisticalService  extends CatalogTool  implements Serializable  {
 	@Column(name = "RESTRICTIONS")
 	private String restrictions;	
 	
-	@Column(name = "GSBPM")
-	private String gsbpm;	
-	
 	@Column(name = "BUSINESS_FUNCTION")
 	private String businessFunction;
 	

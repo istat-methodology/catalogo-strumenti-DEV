@@ -75,21 +75,23 @@ public class CatalogTool implements Serializable  {
 	
 	@JsonBackReference
 	@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)  
-    private List<LinkAgentTool> agentTools;
+    private List<LinkAgentTool> linkAgentsTools;
 	
-	@OneToMany(mappedBy = "catalogTool", cascade = CascadeType.ALL)    
+	@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)    
     private List<Documentation> documentations;
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	
+	
+	@ManyToMany
     @JoinTable(name = "csm_link_method_tool", joinColumns = {
-            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "METHOD", referencedColumnName = "ID", nullable = false)})
+            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "METHOD", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
 	private List<StatisticalMethod> statisticalMethods;
 	
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "csm_tool_gsbpm", joinColumns = {
-            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "GSBPM", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    @JoinTable(name = "csm_tool_gsbpm",  joinColumns = {
+            @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "GSBPM", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
     private List<GsbpmProcess> gsbpmProcesses;
     
 	

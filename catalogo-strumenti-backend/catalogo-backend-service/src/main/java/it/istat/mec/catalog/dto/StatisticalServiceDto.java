@@ -14,8 +14,7 @@ public class StatisticalServiceDto extends CatalogToolDTO implements Serializabl
 	private String url;	
 	private String outcomes;	
 	private String serviceDependencies;		
-	private String restrictions;
-	private String gsbpm;		
+	private String restrictions;	
 	private String businessFunction;	
 	private String processDesign;
 }

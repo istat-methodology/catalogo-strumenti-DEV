@@ -11,8 +11,8 @@ public interface DocumentationDao extends JpaRepository<Documentation, Long> {
 	@Override
 	List<Documentation> findAll();
 	
-	@Override
-	Optional<Documentation> findById(Long id);
+	
+	Optional<Documentation> findById(Integer integer);
 
 	public void save(Optional<Documentation> tools);
 

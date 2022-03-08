@@ -7,10 +7,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.istat.mec.catalog.dao.AgentDao;
+import it.istat.mec.catalog.dao.DocumentationDao;
 import it.istat.mec.catalog.dao.GsbpmProcessDao;
 import it.istat.mec.catalog.dao.ToolDao;
+import it.istat.mec.catalog.domain.Agent;
 import it.istat.mec.catalog.domain.CatalogTool;
+import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.GsbpmProcess;
+import it.istat.mec.catalog.domain.LinkAgentTool;
+import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -22,7 +28,11 @@ import org.springframework.data.domain.Sort.Order;
 public class ToolService {
 	
 	@Autowired
-	ToolDao toolDao;
+	ToolDao toolDao;	
+	@Autowired
+	AgentDao agentDao;
+	@Autowired
+	DocumentationDao documentationDao;
 	@Autowired
 	GsbpmProcessDao gsbpmProcessDao;
 
@@ -59,7 +69,7 @@ public class ToolService {
 		
 		tool.setLastUpdate(date);
 		
-		int[] gsbpmIds = request.getGsbpm();
+		Integer[] gsbpmIds = request.getGsbpmProcesses();
 		List <GsbpmProcess> gsbpmProcesses = new ArrayList <GsbpmProcess>();
 		
 		Optional<GsbpmProcess> gsbpmProcess;
@@ -89,7 +99,49 @@ public class ToolService {
 		
 		CatalogTool tool = toolDao.findById(request.getId()).get();	
 		
+		List<GsbpmProcess> gsbpmProcesses = new ArrayList<GsbpmProcess>();
+		List<LinkAgentTool> linkAgentsTools = new ArrayList<LinkAgentTool>();
+		List<StatisticalMethod> statisticalMethods = new ArrayList<StatisticalMethod>();
+		List<Documentation> documentations = new ArrayList<Documentation>();
+		
 		tool = Translators.translate(request);
+		
+		if(request.getGsbpmProcesses()!=null) {
+			for(int i=0; i<request.getGsbpmProcesses().length; i++)
+				gsbpmProcesses.add(new GsbpmProcess(request.getGsbpmProcesses()[i]));
+		}
+		if(request.getLinkAgents()!=null) {
+			for(int i=0; i<request.getLinkAgents().length; i++) {				
+				LinkAgentTool linkAgentTool = new LinkAgentTool();		
+				
+				Agent agent = agentDao.findById(request.getLinkAgents()[i].getAgent()).get();
+				linkAgentTool.setAgent(agent);
+				linkAgentTool.setTool(tool);
+				linkAgentTool.setNotes(request.getLinkAgents()[i].getReferenceDate());
+				linkAgentTool.setReferenceDate(request.getLinkAgents()[i].getReferenceDate());
+				linkAgentTool.setRole(request.getLinkAgents()[i].getRole());	
+				
+				linkAgentsTools.add(linkAgentTool);
+			}
+		}
+		if(request.getStatisticalMethods()!=null) {
+			for(int i=0; i<request.getStatisticalMethods().length; i++)
+				statisticalMethods.add(new StatisticalMethod(request.getStatisticalMethods()[i]));
+		}
+		if(request.getDocumentations()!=null) {
+			for(int i=0; i<request.getDocumentations().length; i++) {				
+				Documentation doc = documentationDao.findById(request.getDocumentations()[i]).get();
+				doc.setTool(tool);
+				documentations.add(doc);
+			}
+			
+		}
+		tool.setGsbpmProcesses(gsbpmProcesses);
+		tool.setLinkAgentsTools(linkAgentsTools);
+		tool.setStatisticalMethods(statisticalMethods);
+		tool.setDocumentations(documentations);
+				
+		
 		Date date = new Date(System.currentTimeMillis());	
 		
 		tool.setLastUpdate(date);

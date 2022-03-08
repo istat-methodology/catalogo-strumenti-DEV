@@ -10,8 +10,7 @@ public class LinkAgentToolDto implements Serializable  {
 	private static final long serialVersionUID = -1468589263439846991L;
 	
 	private Integer id;
-	private AgentDto agent;
-	//private String tool;	
+	private AgentDto agent;	
 	private String role;	
 	private String notes;	
 	private String referenceDate;

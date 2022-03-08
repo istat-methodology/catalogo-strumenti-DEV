@@ -21,7 +21,7 @@ public class Documentation implements Serializable  {
 	
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "NAME")
 	private String name;
@@ -40,6 +40,13 @@ public class Documentation implements Serializable  {
 	 
 	@ManyToOne
     @JoinColumn(name = "TOOL")
-    private CatalogTool catalogTool;
+    private CatalogTool tool;
 	 
+	public Documentation() {
+		
+	}
+	public Documentation(Integer id) {
+		super();
+		this.id = id;
+	}
 }
