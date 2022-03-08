@@ -30,6 +30,16 @@
             placeholder="Fonti"
             v-model="documentationLocal.resource"
           />
+          <div>
+            <label>Strumento Statistico</label>
+          </div>
+
+          <v-select
+            label="name"
+            :options="toolscatalog"
+            placeholder="Strumento Statistico"
+            @input="changeTool"
+          ></v-select>
         </CCardBody>
       </CCard>
 
@@ -51,7 +61,7 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
-//import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "documentationlAdd",
   data() {
@@ -62,21 +72,18 @@ export default {
         publisher: "",
         documentType: "",
         notes: "",
-        resource: ""
+        resource: "",
+        tool: ""
       }
     };
   },
   computed: {
-    //...mapGetters("documentation", ["documentation"])
+    ...mapGetters("tools", ["toolscatalog"])
   },
-  /* validations: {
-    tool: {
-      name: {
-        required
-      }
-    }
-  }, */
   methods: {
+    changeTool(value) {
+      this.documentationLocal.tool = value.id;
+    },
     handleSubmit() {
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
@@ -92,6 +99,7 @@ export default {
   },
   created() {
     this.$store.dispatch("documentation/findAll");
+    this.$store.dispatch("tools/findAll");
   }
 };
 </script>
