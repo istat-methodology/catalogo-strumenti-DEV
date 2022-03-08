@@ -70,7 +70,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("documentation", ["documentation"])
+    ...mapGetters("documentation", ["documentation"]),
+    ...mapGetters("tools", ["toolscatalog"])
   },
 
   /* validations: {
@@ -110,6 +111,7 @@ export default {
       .then(() => {
         this.setOldValues();
       });
+    this.$store.dispatch("tools/findAll");
   }
 };
 </script>
