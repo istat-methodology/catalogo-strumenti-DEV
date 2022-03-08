@@ -34,7 +34,10 @@ public class CreateToolRequest implements Serializable {
 	private String outcomes;	
 	private String serviceDependencies;		
 	private String restrictions;
-	private int[] gsbpm;		
+	private Integer[] gsbpmProcesses;	
+	private Integer[] statisticalMethods;
+	private CreateLinkAgentToolRequest[] linkAgents;	 
+	private Integer[] documentations;
 	private String businessFunction;	
 	private String processDesign;
 	

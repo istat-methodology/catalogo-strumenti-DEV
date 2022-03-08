@@ -41,4 +41,12 @@ public class LinkAgentTool implements Serializable  {
 	
 	@Column(name = "REFERENCE_DATE")
 	private String referenceDate;
+	
+	public LinkAgentTool() {
+		
+	}
+	public LinkAgentTool(Integer id) {
+		super();
+		this.id = id;
+	}
 }

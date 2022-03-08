@@ -19,8 +19,7 @@ public interface ToolDao extends JpaRepository<CatalogTool, Long> {
 	List<CatalogTool> findAll();
 
 	
-	@Override
-	Optional<CatalogTool> findById(Long id);
+	Optional<CatalogTool> findById(Integer integer);
 
 	public void save(Optional<CatalogTool> tools);
 

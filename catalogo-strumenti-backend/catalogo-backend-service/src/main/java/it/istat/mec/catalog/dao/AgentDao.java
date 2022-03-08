@@ -12,8 +12,8 @@ public interface AgentDao extends JpaRepository<Agent, Long> {
 	@Override
 	List<Agent> findAll();
 	
-	@Override
-	Optional<Agent> findById(Long id);
+	
+	Optional<Agent> findById(Integer integer);
 
 	public void save(Optional<Agent> tools);
 
