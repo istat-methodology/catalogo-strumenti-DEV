@@ -69,7 +69,8 @@
           </div>
         </CCardBody>
       </CCard>
-      <CCard v-if="this.agentList">
+      <app-linked-agent></app-linked-agent>
+      <!-- <CCard v-if="this.agentList">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
           <div id="app-tree1" class="demo-tree">
@@ -84,7 +85,7 @@
             />
           </div>
         </CCardBody>
-      </CCard>
+      </CCard> -->
       <CCard v-if="this.documentationList">
         <CCardHeader>Documentazione</CCardHeader>
         <CCardBody>
@@ -232,11 +233,14 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
+import LinkedAgent from "@/components/LinkedAgent";
+
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
   components: {
-    Treeselect
+    Treeselect,
+    "app-linked-agent": LinkedAgent
   },
   data() {
     return {
@@ -292,6 +296,9 @@ export default {
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
     ...mapGetters("agent", ["agentList"]),
+    components: {
+      "app-header-nav": LinkedAgent
+    },
     getGsbpmList: function() {
       return this.gsbpmList.map(gsbpm => {
         return {

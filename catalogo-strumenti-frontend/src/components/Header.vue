@@ -29,21 +29,6 @@
         <CDropdownHeader tag="div" class="text-center" color="light">
           <strong>Gestione</strong>
         </CDropdownHeader>
-        <!-- <CDropdownItem>
-          <router-link
-            :to="{
-              name: 'DugList'
-            }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <span class="pl-1"
-                ><arrow-right-icon class="pr-3" />Lista Dug</span
-              >
-            </a>
-          </router-link>
-        </CDropdownItem> -->
         <CDropdownItem>
           <router-link
             :to="{
@@ -59,96 +44,6 @@
             </a>
           </router-link>
         </CDropdownItem>
-<!--         <CDropdownHeader tag="div" class="text-center" color="light">
-          <strong>Classificazioni</strong>
-        </CDropdownHeader>
-        <CDropdownItem>
-          <router-link
-            :to="{
-              name: 'DeskAppList'
-            }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <span class="pl-1"
-                ><arrow-right-icon class="pr-3" />Applicazioni Desktop</span
-              >
-            </a>
-          </router-link>
-        </CDropdownItem>
-        <CDropdownItem>
-          <router-link
-            :to="{
-              name: 'SoftProcList'
-            }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <span class="pl-1"
-                ><arrow-right-icon class="pr-3" />Procedure Software</span
-              >
-            </a>
-          </router-link>
-        </CDropdownItem>
-        <CDropdownItem>
-          <router-link
-            :to="{
-              name: 'StatServiceList'
-            }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <span class="pl-1"
-                ><arrow-right-icon class="pr-3" />Servizi Statistici</span
-              >
-            </a>
-          </router-link>
-        </CDropdownItem>
-        <CDropdownItem>
-          <router-link
-            :to="{
-              name: 'StatMethodList'
-            }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <span class="pl-1"
-                ><arrow-right-icon class="pr-3" />Metodi Statistici</span
-              >
-            </a>
-          </router-link>
-        </CDropdownItem>
-      </CDropdown>
-      <CDropdown
-        inNav
-        class="c-header-nav-items"
-        placement="bottom"
-        add-menu-classes="dropdown-menu-right pt-0"
-        v-else
-        ><template #toggler>
-          <CHeaderNavLink>
-            <div class="c-header-nav-first">Impostazioni</div>
-          </CHeaderNavLink>
-        </template>
-        <CDropdownItem>
-          <router-link
-            :to="{
-              name: 'UserPassChange'
-            }"
-            custom
-            v-slot="{ href, navigate }"
-          >
-            <a :href="href" @click="navigate">
-              <span class="pl-1"
-                ><arrow-right-icon class="pr-3" />Cambio Password</span
-              >
-            </a>
-          </router-link>
-        </CDropdownItem> -->
       </CDropdown>
     </CHeaderNav>
     <CHeaderNav class="mr-4">
