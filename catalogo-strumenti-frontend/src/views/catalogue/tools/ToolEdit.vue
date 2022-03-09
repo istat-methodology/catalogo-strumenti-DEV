@@ -69,7 +69,13 @@
           </div>
         </CCardBody>
       </CCard>
-      <app-linked-agent></app-linked-agent>
+
+      <CCard>
+        <CCardHeader>Elenco Referenti</CCardHeader>
+        <CCardBody>
+          <app-linked-agent></app-linked-agent>
+        </CCardBody>
+      </CCard>
       <!-- <CCard v-if="this.agentList">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>

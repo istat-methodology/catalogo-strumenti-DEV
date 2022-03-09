@@ -1,22 +1,17 @@
 <template>
-  <CCard v-if="agentList">
-    <CCardHeader>Elenco Referenti</CCardHeader>
-    <CCardBody>
-      <div>
-        <div>
-          <label>Referente</label>
-        </div>
+  <div v-if="agentList">
+    <div>
+      <label>Referente</label>
+    </div>
 
-        <v-select
-          label="name"
-          :options="agentList"
-          placeholder="Referenti"
-          v-model="value"
-          @input="changeTool"
-        ></v-select>
-      </div>
-    </CCardBody>
-  </CCard>
+    <v-select
+      label="name"
+      :options="agentList"
+      placeholder="Referenti"
+      v-model="value"
+      @input="changeTool"
+    ></v-select>
+  </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
