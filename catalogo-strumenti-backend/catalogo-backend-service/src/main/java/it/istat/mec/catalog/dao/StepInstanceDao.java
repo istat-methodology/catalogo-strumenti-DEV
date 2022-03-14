@@ -16,15 +16,15 @@ import it.istat.mec.catalog.domain.StepInstance;
 public interface StepInstanceDao extends CrudRepository<StepInstance, Long> {
 
   //  @Query("SELECT si from BusinessFunction sf join sf.businessProcesses sp join sp.businessSteps ss join ss.stepInstances si where sf=:businessFunction  and si.appService.id=:codiceAppServiceR ORDER BY si.id ASC ")
-     @Query("SELECT * from StepInstance ")
+     @Query("SELECT si from StepInstance si ")
     List<StepInstance> findAllStepInstanceByFunctionAndService(@Param("businessFunction") BusinessFunction businessFunction, @Param("codiceAppServiceR") int codiceAppServiceR);
 
    // @Query("SELECT si from BusinessProcess bpp join bpp.businessSubProcesses sp join sp.businessSteps ss join ss.stepInstances si where bpp=:businessProcess ORDER BY si.id ASC ")
-     @Query("SELECT * from StepInstance ")
+      @Query("SELECT si from StepInstance si ")
     List<StepInstance> findAllStepInstanceByProcess(@Param("businessProcess") BusinessProcess businessProcess);
 
     //@Query("SELECT si from BusinessProcess sbp  join sbp.businessSteps ss join ss.stepInstances si   where sbp=:subBusinessProcess ORDER BY si.id ASC ")
-     @Query("SELECT * from StepInstance ")
+      @Query("SELECT si from StepInstance si ")
     List<StepInstance> findAllStepInstanceBySubBProcess(@Param("subBusinessProcess") BusinessProcess subBusinessProcess);
     
 
