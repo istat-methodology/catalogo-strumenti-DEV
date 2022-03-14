@@ -70,10 +70,11 @@
         </CCardBody>
       </CCard>
 
-      <CCard>
+      <CCard v-if="getLinkedAgentList">
         <CCardHeader>Elenco Referenti</CCardHeader>
         <CCardBody>
-          <app-linked-agent></app-linked-agent>
+          <app-linked-agent v-for="item in getLinkedAgentList" :key="item.id">
+          </app-linked-agent>
         </CCardBody>
       </CCard>
       <!-- <CCard v-if="this.agentList">
@@ -283,6 +284,7 @@ export default {
         businessFunction: "",
         processDesign: ""
       },
+      linkedToolList: [],
       gsbpmChecked: [],
       checkedNodesGsbpm: [],
       checkedNodesMethods: [],
@@ -302,9 +304,6 @@ export default {
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
     ...mapGetters("agent", ["agentList"]),
-    components: {
-      "app-header-nav": LinkedAgent
-    },
     getGsbpmList: function() {
       return this.gsbpmList.map(gsbpm => {
         return {
@@ -400,33 +399,21 @@ export default {
         };
       });
     },
-    getAgentList: function() {
-      return this.agentList.map(doc => {
+    getLinkedAgentList: function() {
+      return this.tool.linkAgentsTool.map(agentTool => {
         return {
-          // ...gsbpm,
-          id: doc.id,
-          label: doc.name,
-          /*  children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
-            return {
-              id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
-            };
-          }), */
+          id: agentTool.id,
 
-          state: {
-            selected: false,
-            selectable: true,
-            checked: false,
-            expanded: false,
-            disabled: false,
-            visible: true,
-            indeterminate: false,
-            matched: false,
-            editable: true,
-            dragging: false,
-            draggable: true,
-            dropable: true
-          }
+          agent: {
+            id: agentTool.agent.id,
+            name: agentTool.agent.name,
+            organization: agentTool.agent.organization,
+            contact: agentTool.agent.contact,
+            notes: agentTool.agent.notes
+          },
+          role: agentTool.role,
+          notes: agentTool.notes,
+          referenceDate: agentTool.referenceDate
         };
       });
     }

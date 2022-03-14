@@ -9,7 +9,7 @@
       :options="agentList"
       placeholder="Referenti"
       v-model="value"
-      @input="changeTool"
+      @input="changeAgent"
     ></v-select>
   </div>
 </template>
@@ -20,10 +20,27 @@ export default {
   // mixins: [progressMixin],
   data() {
     return {
-      value: null
+      value: null,
+      linkedAgentLocal: {
+        id: "",
+        agent: {
+          id: "",
+          name: "",
+          organization: "",
+          contact: "",
+          notes: ""
+        },
+        role: "",
+        notes: "",
+        referenceDate: ""
+      }
     };
   },
-  methods: {},
+  methods: {
+    changeAgent(value) {
+      this.linkedAgentLocal.agent.id = value.id;
+    }
+  },
   computed: {
     ...mapGetters("agent", ["agentList"])
   },
