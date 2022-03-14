@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "IS2_BUSINESS_PROCESS")
+@Table(name = "CSM_BUSINESS_PROCESS")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BusinessProcess extends AbstractDomainObject implements Serializable {
 
@@ -45,7 +45,7 @@ public class BusinessProcess extends AbstractDomainObject implements Serializabl
 
     @JsonBackReference
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinTable(name = "is2_link_process_step", joinColumns = @JoinColumn(name = "BUSINESS_PROCESS_ID"), inverseJoinColumns = @JoinColumn(name = "PROCESS_STEP_ID"))
+    @JoinTable(name = "csm_link_process_step", joinColumns = @JoinColumn(name = "BUSINESS_PROCESS_ID"), inverseJoinColumns = @JoinColumn(name = "PROCESS_STEP_ID"))
     @OrderBy(value = "id")
     private List<ProcessStep> businessSteps;
     @JsonBackReference
