@@ -35,8 +35,8 @@ public class BusinessProcess extends AbstractDomainObject implements Serializabl
     @Column(name = "ORDER_CODE")
     private Short order;
 
-    @ManyToMany(mappedBy = "businessProcesses")
-    private List<BusinessFunction> businessFunctions;
+    //@ManyToMany(mappedBy = "businessProcesses")
+    //private List<BusinessFunction> businessFunctions;
 
     @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.ALL})
