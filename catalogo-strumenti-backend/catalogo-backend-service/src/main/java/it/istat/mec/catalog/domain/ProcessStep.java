@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @EqualsAndHashCode(callSuper = false, exclude = "stepInstances")
-@Table(name = "IS2_PROCESS_STEP")
+@Table(name = "CSM_PROCESS_STEP")
 public class ProcessStep extends AbstractDomainObject implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class ProcessStep extends AbstractDomainObject implements Serializable {
     private BusinessService businessService;
     @JsonBackReference
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinTable(name = "is2_link_step_instance", joinColumns = {
+    @JoinTable(name = "csm_link_step_instance", joinColumns = {
             @JoinColumn(name = "PROCESS_STEP_ID")}, inverseJoinColumns = {
             @JoinColumn(name = "PROCESS_STEP_INSTANCE_ID")})
 
