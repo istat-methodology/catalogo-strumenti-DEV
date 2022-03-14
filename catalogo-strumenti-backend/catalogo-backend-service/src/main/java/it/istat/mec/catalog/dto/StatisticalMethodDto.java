@@ -21,5 +21,5 @@ public class StatisticalMethodDto  implements Serializable {
 	private Date lastUpdate;		
 	private String tags;	
 	private String version;	
-	private Date releaseDate;
+	private Date releaseDate; 
 }
