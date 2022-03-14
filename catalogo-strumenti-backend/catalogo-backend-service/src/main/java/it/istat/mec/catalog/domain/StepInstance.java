@@ -19,7 +19,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "IS2_STEP_INSTANCE")
+@Table(name = "CSM_STEP_INSTANCE")
 @NamedQuery(name = "StepInstance.findAll", query = "SELECT s FROM StepInstance s")
 public class StepInstance implements Serializable {
 
