@@ -70,7 +70,7 @@
         </CCardBody>
       </CCard>
 
-      <CCard v-if="getLinkedAgentList">
+      <CCard v-if="this.agentList">
         <CCardHeader>Elenco Referenti</CCardHeader>
         <CCardBody>
           <app-linked-agent v-for="item in getLinkedAgentList" :key="item.id">

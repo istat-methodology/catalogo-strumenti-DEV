@@ -130,6 +130,17 @@
           </div>
         </CCardBody>
       </CCard>
+      <CCard v-if="tool.documentations">
+        <CCardHeader>Documentazione</CCardHeader>
+        <CCardBody>
+          <CDataTable
+            :items="getDocumentationList"
+            :fields="fieldsDocumentation"
+            :items-per-page="10"
+          >
+          </CDataTable>
+        </CCardBody>
+      </CCard>
       <CCard v-if="tool.gsbpmProcesses">
         <CCardHeader>Processi GSBPM</CCardHeader>
         <CCardBody>
@@ -248,6 +259,28 @@ export default {
           label: "Attivo",
           _style: "width:20%;"
         }
+      ],
+      fieldsDocumentation: [
+        /*  {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        }, */
+        {
+          key: "name",
+          label: "Nome",
+          _style: "width:20%;"
+        },
+        {
+          key: "publisher",
+          label: "Editore",
+          _style: "width:20%;"
+        },
+        {
+          key: "resource",
+          label: "Fonte",
+          _style: "width:20%;"
+        }
       ]
     };
   },
@@ -281,6 +314,16 @@ export default {
         };
       });
     }
+  },
+  getDocumentationList: function() {
+    return this.documentationList.map(doc => {
+      return {
+        id: doc.id,
+        name: doc.name,
+        publisher: doc.publisher,
+        resource: doc.resource
+      };
+    });
   },
   methods: {
     /* handleSubmit() {
