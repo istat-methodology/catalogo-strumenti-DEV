@@ -68,6 +68,32 @@
           ></tree>
         </div>
       </li> -->
+      <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
+      <li class="c-sidebar-nav-item" v-if="isToolList">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label class="form-check-label" for="flexCheckDefault">
+            Default checkbox
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckChecked"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            Checked checkbox
+          </label>
+        </div>
+      </li>
       <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
       </li>
@@ -84,7 +110,7 @@
           />
         </div>
       </li>
-      <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
+      <!-- <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
           <tree
@@ -95,14 +121,14 @@
             class="tree--small"
           ></tree>
         </div>
-      </li>
+      </li> -->
     </ul>
   </CSidebar>
 </template>
 <script>
 import { mapGetters } from "vuex";
 //import TreeView from "@grapoza/vue-tree";
-import LiquorTree from "liquor-tree";
+//import LiquorTree from "liquor-tree";
 import Treeselect from "@riophae/vue-treeselect";
 // import the styles
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -112,7 +138,7 @@ export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    tree: LiquorTree,
+    // tree: LiquorTree,
     Treeselect
   },
   data() {
@@ -212,16 +238,11 @@ export default {
         }
       },
       modelDefaults: {
-        /* addChildTitle: "Add a new child node",
-        deleteTitle: "Delete this node", */
         expanderTitle: "Expand this node",
         customizations: {
           classes: {
             treeViewNodeSelfExpander: "action-button",
             treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right"
-            //treeViewNodeSelfAction: "action-button"
-            /* treeViewNodeSelfAddChildIcon: "fas fa-plus-circle",
-            treeViewNodeSelfDeleteIcon: "fas fa-minus-circle" */
           }
         }
       },

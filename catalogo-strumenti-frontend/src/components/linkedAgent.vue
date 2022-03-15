@@ -23,13 +23,11 @@ export default {
       value: null,
       linkedAgentLocal: {
         id: "",
-        agent: {
-          id: "",
-          name: "",
-          organization: "",
-          contact: "",
-          notes: ""
-        },
+        agentId: "",
+        agentName: "",
+        agentOrganization: "",
+        agentContact: "",
+        agentNotes: "",
         role: "",
         notes: "",
         referenceDate: ""

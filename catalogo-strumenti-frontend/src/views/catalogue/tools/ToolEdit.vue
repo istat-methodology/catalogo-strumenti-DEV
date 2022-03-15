@@ -404,13 +404,12 @@ export default {
         return {
           id: agentTool.id,
 
-          agent: {
-            id: agentTool.agent.id,
-            name: agentTool.agent.name,
-            organization: agentTool.agent.organization,
-            contact: agentTool.agent.contact,
-            notes: agentTool.agent.notes
-          },
+          agentId: agentTool.agent.id,
+          agentName: agentTool.agent.name,
+          agentOrganization: agentTool.agent.organization,
+          agentContact: agentTool.agent.contact,
+          agentNotes: agentTool.agent.notes,
+
           role: agentTool.role,
           notes: agentTool.notes,
           referenceDate: agentTool.referenceDate

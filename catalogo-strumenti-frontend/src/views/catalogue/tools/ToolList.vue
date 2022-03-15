@@ -80,11 +80,11 @@ export default {
           label: "Tipologia",
           _style: "width:20%;"
         },
-        {
+        /* {
           key: "releaseDate",
           label: "Data Rilascio",
           _style: "width:10%;"
-        },
+        }, */
         {
           key: "gsbpm",
           label: "Gsbpm",
