@@ -29,7 +29,7 @@ public class StatisticalMethodController {
 	}
 	
 	@GetMapping(value = "/open/statisticalmethods/{id}")
-	public StatisticalMethodDto getStatisticalMethod(@PathVariable("id") Long id) {
+	public StatisticalMethodDto getStatisticalMethod(@PathVariable("id") Integer id) {
 
 		return statisticalMethodService.findStatisticalMethodById(id);
 
@@ -54,7 +54,7 @@ public class StatisticalMethodController {
 	}
 	
 	@DeleteMapping(value = "/statisticalmethods/{id}")
-	public StatisticalMethodDto deleteStatisticalMethod(@PathVariable("id") Long id) {
+	public StatisticalMethodDto deleteStatisticalMethod(@PathVariable("id") Integer id) {
 
 		return statisticalMethodService.deleteStatisticalMethod(id);
 	}

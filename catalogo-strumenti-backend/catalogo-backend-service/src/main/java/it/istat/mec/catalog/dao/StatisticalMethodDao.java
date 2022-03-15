@@ -3,11 +3,10 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 
 @Repository
-public interface StatisticalMethodDao extends JpaRepository<StatisticalMethod, Long> {
+public interface StatisticalMethodDao extends JpaRepository<StatisticalMethod, Integer> {
 
 	@Override
 	List<StatisticalMethod> findAll();
@@ -15,7 +14,7 @@ public interface StatisticalMethodDao extends JpaRepository<StatisticalMethod, L
 	//List<StatisticalMethod> findByCatalogTools(List<CatalogTool> tools);
 	
 	@Override
-	Optional<StatisticalMethod> findById(Long id);
+	Optional<StatisticalMethod> findById(Integer id);
 
 	public void save(Optional<StatisticalMethod> tools);
 

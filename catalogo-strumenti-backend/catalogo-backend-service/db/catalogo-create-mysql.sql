@@ -240,10 +240,10 @@ CREATE TABLE IF NOT EXISTS `catalog`.`csm_statistical_method` (
   `Assumptions` TEXT NULL DEFAULT NULL,
   `Constraints` TEXT NULL DEFAULT NULL,
   `Notes` TEXT NULL DEFAULT NULL,
-   `Lastupdate` TEXT NULL DEFAULT NULL,
+   `Last_Update` TEXT NULL DEFAULT NULL,
     `Tags` TEXT NULL DEFAULT NULL,
      `Version` TEXT NULL DEFAULT NULL,
-      `ReleaseDate` TEXT NULL DEFAULT NULL,
+      `Release_Date` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

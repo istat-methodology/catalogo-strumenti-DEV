@@ -42,7 +42,7 @@ public class StatisticalMethodService {
 		return Translators.translate(sm);
 	}
 	
-	public StatisticalMethodDto findStatisticalMethodById(Long id) {
+	public StatisticalMethodDto findStatisticalMethodById(Integer id) {
 
 		if (!statisticalMethodDao.findById(id).isPresent())
 			throw new NoDataException("Statistical Method not present");
@@ -62,7 +62,7 @@ public class StatisticalMethodService {
 		
 		return Translators.translate(sm);
 	}
-	public StatisticalMethodDto deleteStatisticalMethod(Long id) {		
+	public StatisticalMethodDto deleteStatisticalMethod(Integer id) {		
 		if (!statisticalMethodDao.findById(id).isPresent())
 			throw new NoDataException("Statistical Method not present");
 			StatisticalMethod sm = statisticalMethodDao.findById(id).get();
