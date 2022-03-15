@@ -1,6 +1,7 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -44,6 +45,18 @@ public class StatisticalMethod  implements Serializable  {
 	
 	@Column(name = "NOTES")
 	private String notes;		
+	
+	@Column(name = "LAST_UPDATE")
+	private Date lastUpdate;
+	
+	@Column(name = "TAGS")
+	private String tags;
+
+	@Column(name = "VERSION")
+	private String version;
+	
+	@Column(name = "RELEASE_DATE")
+	private Date releaseDate;
 	
 //	@OneToMany
 //    @JoinColumn(name = "TOOL", insertable = true, updatable = true)

@@ -1,5 +1,7 @@
 package it.istat.mec.catalog.dto;
 import java.io.Serializable;
+import java.util.Date;
+
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,9 @@ public class StatisticalMethodDto  implements Serializable {
 	private String requirements;	
 	private String assumptions;			
 	private String constraints;	
-	private String notes;				
+	private String notes;		
+	private Date lastUpdate;		
+	private String tags;	
+	private String version;	
+	private Date releaseDate; 
 }
