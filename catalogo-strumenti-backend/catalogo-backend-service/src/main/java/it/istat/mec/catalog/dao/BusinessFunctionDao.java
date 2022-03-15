@@ -15,7 +15,7 @@ public interface BusinessFunctionDao extends JpaRepository<BusinessFunction, Lon
 	@Override
 	Optional<BusinessFunction> findById(Long id);
 
-	public void save(Optional<BusinessFunction> tools);
+	public void save(Optional<BusinessFunction> businessFunction);
 
-	public void delete(BusinessFunction tools);
+	public void delete(BusinessFunction businessFunction);
 }
