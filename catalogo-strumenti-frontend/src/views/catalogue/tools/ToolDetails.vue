@@ -150,6 +150,26 @@
           >
         </CCardFooter>
       </CCard>
+      <CCard v-if="tool.linkAgentsTool">
+        <CCardHeader>Referenti</CCardHeader>
+        <CCardBody>
+          <CDataTable
+            :items="tool.linkAgentsTool"
+            :fields="fieldsAgent"
+            :items-per-page="10"
+          >
+          </CDataTable>
+        </CCardBody>
+        <CCardFooter>
+          <CButton
+            shape="square"
+            size="sm"
+            color="light"
+            @click.prevent="backToList"
+            >Back</CButton
+          >
+        </CCardFooter>
+      </CCard>
     </div>
   </div>
 </template>
@@ -175,6 +195,28 @@ export default {
         {
           key: "description",
           label: "Descrizione",
+          _style: "width:20%;"
+        },
+        {
+          key: "notes",
+          label: "Note",
+          _style: "width:60%;"
+        }
+      ],
+      fieldsAgent: [
+        /*  {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        }, */
+        {
+          key: "name",
+          label: "Nome",
+          _style: "width:20%;"
+        },
+        {
+          key: "role",
+          label: "Ruolo",
           _style: "width:20%;"
         },
         {
