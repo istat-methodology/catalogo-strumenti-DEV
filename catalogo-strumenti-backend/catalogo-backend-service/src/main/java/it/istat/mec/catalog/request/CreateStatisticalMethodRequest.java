@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateStatisticalMethodRequest {
 	
-	private Long id;	
+	private Integer id;	
 	private String name;		
 	private String description;	
 	private String requirements;	
