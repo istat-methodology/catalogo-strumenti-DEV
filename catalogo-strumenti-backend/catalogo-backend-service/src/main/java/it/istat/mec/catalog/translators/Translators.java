@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import it.istat.mec.catalog.constants.CatalogConst;
 import it.istat.mec.catalog.domain.Agent;
 import it.istat.mec.catalog.domain.BusinessFunction;
+import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.domain.Documentation;
@@ -21,6 +22,7 @@ import it.istat.mec.catalog.domain.StatisticalService;
 import it.istat.mec.catalog.domain.ToolType;
 import it.istat.mec.catalog.dto.AgentDto;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
+import it.istat.mec.catalog.dto.BusinessProcessDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
@@ -102,6 +104,20 @@ public class Translators {
 		final BusinessFunctionDto bsDto = modelMapper.map(x, BusinessFunctionDto.class);
 		return bsDto;
 	}
+	
+	public static BusinessProcessDto translate(BusinessProcess x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final BusinessProcessDto bpDto = modelMapper.map(x, BusinessProcessDto.class);
+		return bpDto;
+	}
+	
+//	public static BusinessProcessDto translate(BusinessProcess x) {
+//
+//		final ModelMapper modelMapper = new ModelMapper();
+//		final BusinessProcessDto bpDto = modelMapper.map(x, BusinessProcessDto.class);
+//		return bpDto;
+//	}
 
 	/*public static DesktopApplicationDto translate(DesktopApplication x) {
 
