@@ -152,7 +152,7 @@
           </CDataTable>
         </CCardBody>
       </CCard>
-      <CCard>
+      <CCard v-if="tool.linkAgentsTool">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
           <CDataTable
