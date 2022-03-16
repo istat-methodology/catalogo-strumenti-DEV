@@ -313,17 +313,18 @@ export default {
           active: gsbpm.active
         };
       });
+    },
+
+    getDocumentationList: function() {
+      return this.tool.documentations.map(doc => {
+        return {
+          id: doc.id,
+          name: doc.name,
+          publisher: doc.publisher,
+          resource: doc.resource
+        };
+      });
     }
-  },
-  getDocumentationList: function() {
-    return this.documentationList.map(doc => {
-      return {
-        id: doc.id,
-        name: doc.name,
-        publisher: doc.publisher,
-        resource: doc.resource
-      };
-    });
   },
   methods: {
     /* handleSubmit() {
