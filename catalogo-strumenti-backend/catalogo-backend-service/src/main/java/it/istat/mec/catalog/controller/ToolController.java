@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.request.CreateToolRequest;
-import it.istat.mec.catalog.request.UpdateToolRequest;
 import it.istat.mec.catalog.service.ToolService;
 import lombok.extern.slf4j.Slf4j;
 

@@ -12,32 +12,42 @@ import it.istat.mec.catalog.constants.CatalogConst;
 import it.istat.mec.catalog.domain.Agent;
 import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.BusinessProcess;
+import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.GsbpmProcess;
+import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.domain.StatisticalService;
+import it.istat.mec.catalog.domain.StepInstance;
 import it.istat.mec.catalog.domain.ToolType;
 import it.istat.mec.catalog.dto.AgentDto;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.BusinessProcessDto;
+import it.istat.mec.catalog.dto.BusinessServiceDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
+import it.istat.mec.catalog.dto.ProcessStepDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.dto.StatisticalServiceDto;
+import it.istat.mec.catalog.dto.StepInstanceDto;
 import it.istat.mec.catalog.dto.ToolTypeDto;
 import it.istat.mec.catalog.request.CreateAgentRequest;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
+import it.istat.mec.catalog.request.CreateBusinessProcessRequest;
+import it.istat.mec.catalog.request.CreateBusinessServiceRequest;
 import it.istat.mec.catalog.request.CreateDesktopApplicationRequest;
 import it.istat.mec.catalog.request.CreateDocumentationRequest;
+import it.istat.mec.catalog.request.CreateProcessStepRequest;
 import it.istat.mec.catalog.request.CreateSoftwareProcedureRequest;
 import it.istat.mec.catalog.request.CreateStatisticalMethodRequest;
 import it.istat.mec.catalog.request.CreateStatisticalServiceRequest;
+import it.istat.mec.catalog.request.CreateStepInstanceRequest;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.request.UpdateToolRequest;
 
@@ -97,12 +107,19 @@ public class Translators {
 		final AgentDto dTO = modelMapper.map(x, AgentDto.class);
 		return dTO;
 	}
+	
+	public static BusinessServiceDto translate(BusinessService x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final BusinessServiceDto bsDto = modelMapper.map(x, BusinessServiceDto.class);
+		return bsDto;
+	}
 
 	public static BusinessFunctionDto translate(BusinessFunction x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
-		final BusinessFunctionDto bsDto = modelMapper.map(x, BusinessFunctionDto.class);
-		return bsDto;
+		final BusinessFunctionDto bfDto = modelMapper.map(x, BusinessFunctionDto.class);
+		return bfDto;
 	}
 	
 	public static BusinessProcessDto translate(BusinessProcess x) {
@@ -110,14 +127,21 @@ public class Translators {
 		final ModelMapper modelMapper = new ModelMapper();
 		final BusinessProcessDto bpDto = modelMapper.map(x, BusinessProcessDto.class);
 		return bpDto;
+	}	
+	
+	public static ProcessStepDto translate(ProcessStep x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final ProcessStepDto psDto = modelMapper.map(x, ProcessStepDto.class);
+		return psDto;
 	}
 	
-//	public static BusinessProcessDto translate(BusinessProcess x) {
-//
-//		final ModelMapper modelMapper = new ModelMapper();
-//		final BusinessProcessDto bpDto = modelMapper.map(x, BusinessProcessDto.class);
-//		return bpDto;
-//	}
+	public static StepInstanceDto translate(StepInstance x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final StepInstanceDto siDto = modelMapper.map(x, StepInstanceDto.class);
+		return siDto;
+	}	
 
 	/*public static DesktopApplicationDto translate(DesktopApplication x) {
 
@@ -197,9 +221,25 @@ public class Translators {
 	public static List<AgentDto> translateAgentList(List<Agent> list) {
 		return mapList(list, AgentDto.class);
 	}
+	
+	public static List<BusinessServiceDto> translateBS(List<BusinessService> list) {
+		return mapList(list, BusinessServiceDto.class);
+	}
 
 	public static List<BusinessFunctionDto> translateBF(List<BusinessFunction> list) {
 		return mapList(list, BusinessFunctionDto.class);
+	}
+	
+	public static List<BusinessProcessDto> translateBP(List<BusinessProcess> list) {
+		return mapList(list, BusinessProcessDto.class);
+	}
+	
+	public static List<ProcessStepDto> translatePS(List<ProcessStep> list) {
+		return mapList(list, ProcessStepDto.class);
+	}
+	
+	public static List<StepInstanceDto> translateSI(List<StepInstance> list) {
+		return mapList(list, StepInstanceDto.class);
 	}
 
 	public static List<DesktopApplicationDto> translateDA(List<DesktopApplication> list) {
@@ -247,11 +287,39 @@ public class Translators {
 		return agent;
 	}
 
+	public static BusinessService translate(CreateBusinessServiceRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final BusinessService bs = modelMapper.map(x, BusinessService.class);
+		return bs;
+	}
+	
 	public static BusinessFunction translate(CreateBusinessFunctionRequest x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
-		final BusinessFunction bs = modelMapper.map(x, BusinessFunction.class);
-		return bs;
+		final BusinessFunction bf = modelMapper.map(x, BusinessFunction.class);
+		return bf;
+	}
+	
+	public static BusinessProcess translate(CreateBusinessProcessRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final BusinessProcess bp = modelMapper.map(x, BusinessProcess.class);
+		return bp;
+	}
+	
+	public static ProcessStep translate(CreateProcessStepRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final ProcessStep ps = modelMapper.map(x, ProcessStep.class);
+		return ps;
+	}
+	
+	public static StepInstance translate(CreateStepInstanceRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final StepInstance si = modelMapper.map(x, StepInstance.class);
+		return si;
 	}
 
 	public static CatalogTool translate(CreateToolRequest x) {
@@ -306,7 +374,8 @@ public class Translators {
 		final ModelMapper modelMapper = new ModelMapper();
 		final StatisticalService ss = modelMapper.map(x, StatisticalService.class);
 		return ss;
-	}
+	}	
+	
 
 	public static CatalogTool translateUpdate(UpdateToolRequest x, CatalogTool tool) {
 		final ModelMapper modelMapper = new ModelMapper();
@@ -314,12 +383,40 @@ public class Translators {
 
 		return tool;
 	}
-
-	public static BusinessFunction translateUpdate(CreateBusinessFunctionRequest x, BusinessFunction bs) {
+	
+	public static BusinessService translateUpdate(CreateBusinessServiceRequest x, BusinessService bs) {
 		final ModelMapper modelMapper = new ModelMapper();
 		modelMapper.map(x, bs);
 
 		return bs;
+	}
+
+	public static BusinessFunction translateUpdate(CreateBusinessFunctionRequest x, BusinessFunction bf) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, bf);
+
+		return bf;
+	}
+	
+	public static BusinessProcess translateUpdate(CreateBusinessProcessRequest x, BusinessProcess bp) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, bp);
+
+		return bp;
+	}
+	
+	public static ProcessStep translateUpdate(CreateProcessStepRequest x, ProcessStep ps) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, ps);
+
+		return ps;
+	}
+	
+	public static StepInstance translateUpdate(CreateStepInstanceRequest x, StepInstance si) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, si);
+
+		return si;
 	}
 
 	public static Agent translateUpdate(CreateAgentRequest x, Agent agent) {
