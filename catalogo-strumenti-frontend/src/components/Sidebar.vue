@@ -53,7 +53,7 @@
           <CIcon name="cil-layers" class="c-sidebar-nav-icon" />Documenti
         </router-link>
       </li>
-      <!--  <li class="c-sidebar-nav-title" v-if="isToolList">
+      <!-- <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
       </li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
@@ -67,7 +67,7 @@
             ref="treeGsbpm"
           ></tree>
         </div>
-      </li> -->
+      </li>
       <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div class="form-check">
@@ -92,6 +92,18 @@
           <label class="form-check-label" for="flexCheckChecked">
             Checked checkbox
           </label>
+        </div>
+      </li> -->
+      <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
+      <li class="c-sidebar-nav-item" v-if="isToolList">
+        <div id="app-tree" class="demo-tree">
+          <tree
+            :data="getTooltypeList"
+            :options="treeOptions"
+            @node:checked="onNodeCheckedType"
+            @node:unchecked="onNodeUncheckedType"
+            class="tree--small"
+          ></tree>
         </div>
       </li>
       <li class="c-sidebar-nav-title" v-if="isToolList">
@@ -128,7 +140,7 @@
 <script>
 import { mapGetters } from "vuex";
 //import TreeView from "@grapoza/vue-tree";
-//import LiquorTree from "liquor-tree";
+import LiquorTree from "liquor-tree";
 import Treeselect from "@riophae/vue-treeselect";
 // import the styles
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -138,7 +150,7 @@ export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    // tree: LiquorTree,
+    tree: LiquorTree,
     Treeselect
   },
   data() {

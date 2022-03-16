@@ -152,7 +152,7 @@
           </CDataTable>
         </CCardBody>
       </CCard>
-      <CCard v-if="tool.linkAgentsTool">
+      <CCard>
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
           <CDataTable
@@ -293,9 +293,9 @@ export default {
 
           agentId: agentTool.agent.id,
           agentName: agentTool.agent.name,
-          agentOrganization: agentTool.agent.organization,
+          /*  agentOrganization: agentTool.agent.organization,
           agentContact: agentTool.agent.contact,
-          agentNotes: agentTool.agent.notes,
+          agentNotes: agentTool.agent.notes, */
 
           role: agentTool.role,
           notes: agentTool.notes,
