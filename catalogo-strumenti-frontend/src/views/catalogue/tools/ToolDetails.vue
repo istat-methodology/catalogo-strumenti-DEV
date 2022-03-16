@@ -130,32 +130,45 @@
           </div>
         </CCardBody>
       </CCard>
+      <CCard v-if="tool.documentations">
+        <CCardHeader>Documentazione</CCardHeader>
+        <CCardBody>
+          <CDataTable
+            :items="getDocumentationList"
+            :fields="fieldsDocumentation"
+            :items-per-page="10"
+          >
+          </CDataTable>
+        </CCardBody>
+      </CCard>
+      <CCard v-if="tool.gsbpmProcesses">
+        <CCardHeader>Processi GSBPM</CCardHeader>
+        <CCardBody>
+          <CDataTable
+            :items="getGsbpmList"
+            :fields="fieldsGsbpm"
+            :items-per-page="10"
+          >
+          </CDataTable>
+        </CCardBody>
+      </CCard>
+      <CCard v-if="tool.linkAgentsTool">
+        <CCardHeader>Referenti</CCardHeader>
+        <CCardBody>
+          <CDataTable
+            :items="getLinkedAgentList"
+            :fields="fieldsAgent"
+            :items-per-page="10"
+          >
+          </CDataTable>
+        </CCardBody>
+      </CCard>
       <CCard v-if="tool.statisticalMethods">
         <CCardHeader>Metodi Statistici</CCardHeader>
         <CCardBody>
           <CDataTable
             :items="tool.statisticalMethods"
             :fields="fields"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Back</CButton
-          >
-        </CCardFooter>
-      </CCard>
-      <CCard v-if="tool.linkAgentsTool">
-        <CCardHeader>Referenti</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="tool.linkAgentsTool"
-            :fields="fieldsAgent"
             :items-per-page="10"
           >
           </CDataTable>
@@ -210,25 +223,108 @@ export default {
           _style: "width:10%;"
         }, */
         {
+          key: "agentName",
+          label: "Nome",
+          _style: "width:20%;"
+        },
+        {
+          key: "agentRole",
+          label: "Ruolo",
+          _style: "width:20%;"
+        },
+        {
+          key: "agentNotes",
+          label: "Note",
+          _style: "width:60%;"
+        }
+      ],
+      fieldsGsbpm: [
+        /*  {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        }, */
+        {
+          key: "label",
+          label: "Nome",
+          _style: "width:20%;"
+        },
+        {
+          key: "code",
+          label: "Codice",
+          _style: "width:20%;"
+        },
+        {
+          key: "active",
+          label: "Attivo",
+          _style: "width:20%;"
+        }
+      ],
+      fieldsDocumentation: [
+        /*  {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        }, */
+        {
           key: "name",
           label: "Nome",
           _style: "width:20%;"
         },
         {
-          key: "role",
-          label: "Ruolo",
+          key: "publisher",
+          label: "Editore",
           _style: "width:20%;"
         },
         {
-          key: "notes",
-          label: "Note",
-          _style: "width:60%;"
+          key: "resource",
+          label: "Fonte",
+          _style: "width:20%;"
         }
       ]
     };
   },
   computed: {
-    ...mapGetters("tools", ["tool"])
+    ...mapGetters("tools", ["tool"]),
+    getLinkedAgentList: function() {
+      return this.tool.linkAgentsTool.map(agentTool => {
+        return {
+          id: agentTool.id,
+
+          agentId: agentTool.agent.id,
+          agentName: agentTool.agent.name,
+          agentOrganization: agentTool.agent.organization,
+          agentContact: agentTool.agent.contact,
+          agentNotes: agentTool.agent.notes,
+
+          role: agentTool.role,
+          notes: agentTool.notes,
+          referenceDate: agentTool.referenceDate
+        };
+      });
+    },
+    getGsbpmList: function() {
+      return this.tool.gsbpmProcesses.map(gsbpm => {
+        return {
+          // ...gsbpm,
+          id: gsbpm.id,
+          code: gsbpm.code,
+          label: gsbpm.name,
+          active: gsbpm.active
+        };
+      });
+    },
+
+    getDocumentationList: function() {
+      return this.tool.documentations.map(doc => {
+        return {
+          id: doc.id,
+          name: doc.name,
+          publisher: doc.publisher,
+          resource: doc.resource
+        };
+      });
+    }
   },
   methods: {
     /* handleSubmit() {
