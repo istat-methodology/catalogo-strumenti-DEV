@@ -22,13 +22,13 @@ public class BusinessFunctionController {
 	@Autowired
 	private BusinessFunctionService businessFunctionService;
 	
-	@GetMapping("/businessfunctions")
+	@GetMapping("/open/businessfunctions")
 	public List<BusinessFunctionDto> getAllBusinessFunctions() {
 
 		return businessFunctionService.findAllBusinessFunctions();
 	}
 	
-	@GetMapping(value = "/businessfunctions/{id}")
+	@GetMapping(value = "/open/businessfunctions/{id}")
 	public BusinessFunctionDto getBusinessFunction(@PathVariable("id") Long id) {
 
 		return businessFunctionService.findBusinessFunctionById(id);

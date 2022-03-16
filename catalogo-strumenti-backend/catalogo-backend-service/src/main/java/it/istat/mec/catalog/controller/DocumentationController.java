@@ -29,7 +29,7 @@ public class DocumentationController {
 	}
 	
 	@GetMapping(value = "/open/documentations/{id}")
-	public DocumentationDto getAgent(@PathVariable("id") Long id) {
+	public DocumentationDto getDocumentation(@PathVariable("id") Long id) {
 
 		return documentationService.findDocumentationById(id);
 
@@ -42,13 +42,13 @@ public class DocumentationController {
 	}
 	
 	@PutMapping(value = "/documentations/{id}")
-	public DocumentationDto updateAgent(@RequestBody CreateDocumentationRequest request) {
+	public DocumentationDto updateDocumentation(@RequestBody CreateDocumentationRequest request) {
 		
 		return documentationService.updateDocumentation(request);
 	}
 	
 	@DeleteMapping(value = "/documentations/{id}")
-	public DocumentationDto deleteAgent(@PathVariable("id") Long id) {
+	public DocumentationDto deleteDocumentation(@PathVariable("id") Long id) {
 
 		return documentationService.deleteDocumentation(id);
 	}
