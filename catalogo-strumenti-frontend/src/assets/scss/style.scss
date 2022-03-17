@@ -306,3 +306,14 @@ button:focus {
   margin-left: 5px;
   margin-right: 5px;
 }
+.tree-anchor {
+  color: #fff !important;
+}
+.tree--small .tree-checkbox {
+  width: 18px !important;
+  height: 18px !important;
+}
+.tree-node:hover {
+  color: #fff !important;
+  background: #321fdb !important;
+}
