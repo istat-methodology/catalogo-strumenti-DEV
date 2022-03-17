@@ -152,7 +152,7 @@
           </CDataTable>
         </CCardBody>
       </CCard>
-      <CCard v-if="tool.linkAgentsTool">
+      <CCard v-if="tool.linkAgentsTools">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
           <CDataTable
@@ -287,15 +287,15 @@ export default {
   computed: {
     ...mapGetters("tools", ["tool"]),
     getLinkedAgentList: function() {
-      return this.tool.linkAgentsTool.map(agentTool => {
+      return this.tool.linkAgentsTools.map(agentTool => {
         return {
           id: agentTool.id,
 
           agentId: agentTool.agent.id,
           agentName: agentTool.agent.name,
-          /*  agentOrganization: agentTool.agent.organization,
+          agentOrganization: agentTool.agent.organization,
           agentContact: agentTool.agent.contact,
-          agentNotes: agentTool.agent.notes, */
+          agentNotes: agentTool.agent.notes,
 
           role: agentTool.role,
           notes: agentTool.notes,
