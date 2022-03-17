@@ -400,7 +400,7 @@ export default {
       });
     },
     getLinkedAgentList: function() {
-      return this.tool.linkAgentsTool.map(agentTool => {
+      return this.tool.linkAgentsTools.map(agentTool => {
         return {
           id: agentTool.id,
 
