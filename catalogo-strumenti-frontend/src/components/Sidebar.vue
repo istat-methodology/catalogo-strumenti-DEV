@@ -23,7 +23,7 @@
           <span class="badge badge-primary">Alpha</span>
         </router-link>
       </li>
-      <li class="c-sidebar-nav-item">
+      <li class="c-sidebar-nav-item" v-if="isToolList">
         <router-link
           tag="a"
           :to="{ name: 'MethodList' }"
@@ -33,7 +33,7 @@
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Metodi Statistici
         </router-link>
       </li>
-      <li class="c-sidebar-nav-item">
+      <li class="c-sidebar-nav-item" v-if="isToolList">
         <router-link
           tag="a"
           :to="{ name: 'AgentList' }"
@@ -43,7 +43,7 @@
           <CIcon name="cil-at" class="c-sidebar-nav-icon" />Referenti
         </router-link>
       </li>
-      <li class="c-sidebar-nav-item">
+      <li class="c-sidebar-nav-item" v-if="isToolList">
         <router-link
           tag="a"
           :to="{ name: 'DocumentationList' }"

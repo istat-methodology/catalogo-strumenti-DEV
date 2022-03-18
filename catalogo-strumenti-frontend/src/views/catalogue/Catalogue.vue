@@ -14,6 +14,19 @@
           </p>
         </div>
       </div>
+      <div class="card">
+        <header class="card-header">
+          <span>Funzioni di Business</span>
+        </header>
+        <div class="card-body">
+          In questa sezione puoi trovare la lista delle Funzioni di Business.
+          <p class="section-link">
+            <router-link tag="a" :to="{ name: 'BusinessList' }"
+              ><span>Vai alla lista <chevron-right-icon /></span>
+            </router-link>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
   <!-- <div class="col-4">
