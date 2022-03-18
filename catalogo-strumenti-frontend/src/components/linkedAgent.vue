@@ -1,16 +1,26 @@
 <template>
   <div v-if="agentList">
     <div>
-      <label>Referente</label>
+      <label>Referente {{ agentName | dashEmpty }}</label>
     </div>
+    <CCardBody>
+      <CInput
+        label="Organizzazione"
+        placeholder="Organizzazione"
+        v-model="agentOrganization"
+      />
+      <CInput label="Ruolo" placeholder="Ruolo" v-model="role" />
+      <CInput label="Contatto" placeholder="Contatto" v-model="agentContact" />
+      <CInput label="Note" placeholder="Note" v-model="agentNotes" />
 
-    <v-select
+      <!-- <v-select
       label="name"
       :options="agentList"
       placeholder="Referenti"
       v-model="value"
       @input="changeAgent"
-    ></v-select>
+    ></v-select> -->
+    </CCardBody>
   </div>
 </template>
 <script>
@@ -21,18 +31,20 @@ export default {
   data() {
     return {
       value: null,
-      linkedAgentLocal: {
-        id: "",
-        agentId: "",
-        agentName: "",
-        agentOrganization: "",
-        agentContact: "",
-        agentNotes: "",
-        role: "",
-        notes: "",
-        referenceDate: ""
-      }
+      linkedAgentLocal: {}
     };
+  },
+  props: {
+    id: String,
+    agentId: String,
+    agentName: String,
+    agentOrganization: String,
+    agentContact: String,
+    agentNotes: String,
+    role: String,
+    notes: String,
+    referenceDate: String,
+    agentList: []
   },
   methods: {
     changeAgent(value) {

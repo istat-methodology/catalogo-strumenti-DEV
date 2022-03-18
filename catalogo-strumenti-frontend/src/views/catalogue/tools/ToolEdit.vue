@@ -70,13 +70,7 @@
         </CCardBody>
       </CCard>
 
-      <CCard v-if="this.agentList">
-        <CCardHeader>Elenco Referenti</CCardHeader>
-        <CCardBody>
-          <app-linked-agent v-for="item in getLinkedAgentList" :key="item.id">
-          </app-linked-agent>
-        </CCardBody>
-      </CCard>
+      
       <!-- <CCard v-if="this.agentList">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
@@ -215,7 +209,22 @@
           />
         </CCardBody>
       </CCard>
-
+      <CCard v-if="this.agentList">
+        <CCardHeader>Elenco Referenti</CCardHeader>
+        <CCardBody>
+          <app-linked-agent
+            v-for="item in getLinkedAgentList"
+            :key="item.id"
+            :agentList="agentList"
+            :agentId="item.agentId"
+            :agentName="item.agentName"
+            :agentOrganization="item.agentOrganization"
+            :agentContact="item.agentContact"
+            :agentNotes="item.agentNotes"
+          >
+          </app-linked-agent>
+        </CCardBody>
+      </CCard>
       <CCardFooter>
         <CButton
           shape="square"
