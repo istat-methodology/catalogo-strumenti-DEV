@@ -20,9 +20,9 @@ class BusinessService extends AbstractService {
       });
   }
 }
-export const documentationService = new BusinessService(
+export const businessService = new BusinessService(
   "/catalog/businessfunctions"
 );
-export const documentationOpenService = new BusinessService(
+export const businessOpenService = new BusinessService(
   "/catalog/open/businessfunctions"
 );

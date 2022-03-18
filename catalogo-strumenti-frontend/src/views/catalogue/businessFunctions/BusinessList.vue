@@ -16,7 +16,7 @@
         <CCardBody>
           <CDataTable
             v-if="businessList"
-            :items="computedItems"
+            :items="businessList"
             :fields="fields"
             column-filter
             :items-per-page="10"
@@ -81,7 +81,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { Context } from "@/common";
+//import { Context } from "@/common";
 export default {
   name: "businessList",
   data() {
@@ -98,23 +98,23 @@ export default {
           _style: "width:30%;"
         },
         {
-          key: "publisher",
-          label: "Editore",
+          key: "descr",
+          label: "Descrizione",
           _style: "width:60%;"
         },
         {
-          key: "documentType",
-          label: "Documento",
+          key: "label",
+          label: "Etichetta",
           _style: "width:30%;"
         },
         {
-          key: "notes",
-          label: "Note",
+          key: "active",
+          label: "Attivo",
           _style: "width:60%;"
         },
         {
-          key: "resource",
-          label: "Fonti",
+          key: "gsbpm",
+          label: "Gsbpm",
           _style: "width:60%;"
         },
         {
@@ -131,14 +131,14 @@ export default {
   },
   computed: {
     ...mapGetters("business", ["businessList"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
-    computedItems() {
+    ...mapGetters("auth", ["isAuthenticated"])
+    /* computedItems() {
       if (this.documentationList) {
         return this.documentationList;
       } else {
         return [];
       }
-    }
+    } */
   },
 
   methods: {
@@ -155,7 +155,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.BusinessList);
+    //this.$store.dispatch("coreui/setContext", Context.BusinessList);
     // if (this.params) {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("business/findAll");

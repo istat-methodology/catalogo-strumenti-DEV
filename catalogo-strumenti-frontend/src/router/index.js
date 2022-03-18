@@ -123,6 +123,34 @@ const routes = [
         meta: { authorize: [] }
       },
       {
+        path: "catalogue/businessfunctions",
+        name: "BusinessList",
+        component: () =>
+          import("../views/catalogue/businessFunctions/BusinessList"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/businessfunctions/modifica/:id",
+        name: "BusinessEdit",
+        component: () =>
+          import("../views/catalogue/businessFunctions/BusinessEdit"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/businessfunctions/aggiungi",
+        name: "BusinessAdd",
+        component: () =>
+          import("../views/catalogue/businessFunctions/BusinessAdd"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/businessfunctions/dettaglio/:id",
+        name: "BusinessDetails",
+        component: () =>
+          import("../views/catalogue/businessFunctions/BusinessDetails"),
+        meta: { authorize: [] }
+      },
+      {
         path: "catalogue/referenti",
         name: "AgentList",
         component: () => import("../views/catalogue/agent/AgentList"),
