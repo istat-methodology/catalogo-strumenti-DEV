@@ -70,7 +70,6 @@
         </CCardBody>
       </CCard>
 
-      
       <!-- <CCard v-if="this.agentList">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
