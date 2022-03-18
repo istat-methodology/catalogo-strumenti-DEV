@@ -1,14 +1,11 @@
 <template>
   <div class="row">
-    <div class="col-12" v-if="isLoading">
-      <tile></tile>
-    </div>
-    <div class="col-12" v-else>
+    <div class="col-12">
       <div class="card fade-in">
         <header class="card-header">
-          Elenco Strumenti
+          Elenco Business Functions
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'ToolAdd' }">
+            <router-link tag="a" :to="{ name: 'BusinessList' }">
               <add-icon />
             </router-link>
           </div>
@@ -18,7 +15,7 @@
  -->
         <CCardBody>
           <CDataTable
-            v-if="toolscatalog"
+            v-if="businessList"
             :items="computedItems"
             :fields="fields"
             column-filter
@@ -30,7 +27,10 @@
               <td>
                 <router-link
                   tag="a"
-                  :to="{ name: 'ToolDetails', params: { id: item.id } }"
+                  :to="{
+                    name: 'BusinessDetails',
+                    params: { id: item.id }
+                  }"
                 >
                   <view-icon />
                 </router-link>
@@ -38,22 +38,44 @@
               <td v-if="isAuthenticated">
                 <router-link
                   tag="a"
-                  :to="{ name: 'ToolEdit', params: { id: item.id } }"
+                  :to="{ name: 'BusinessEdit', params: { id: item.id } }"
                 >
                   <edit-icon />
                 </router-link>
               </td>
-              <td v-if="isAuthenticated">
+              <td>
+                <span class="icon-link" @click="modalOpen(item)"
+                  ><delete-icon
+                /></span>
+              </td>
+
+              <!-- <td v-if="isAuthenticated">
                 <router-link tag="a" :to="{ name: 'ToolAdd' }">
                   <delete-icon />
                 </router-link>
-              </td>
+              </td> -->
             </template>
           </CDataTable>
         </CCardBody>
         <!--   </CCard> -->
       </div>
     </div>
+    <CModal title="Warning!" :show.sync="warningModal">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          @click="deleteBusiness"
+        >
+          Delete
+        </CButton>
+      </template>
+      Elimina Business Function '{{ selectedBusiness.name }}'?
+    </CModal>
   </div>
 </template>
 
@@ -61,7 +83,7 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 export default {
-  name: "ToolList",
+  name: "businessList",
   data() {
     return {
       fields: [
@@ -73,27 +95,27 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "tooltype",
-          label: "Tipologia",
-          _style: "width:20%;"
-        },
-        /* {
-          key: "releaseDate",
-          label: "Data Rilascio",
-          _style: "width:10%;"
-        }, */
-        {
-          key: "gsbpm",
-          label: "Gsbpm",
           _style: "width:30%;"
         },
         {
-          key: "methods",
-          label: "Metodi",
+          key: "publisher",
+          label: "Editore",
+          _style: "width:60%;"
+        },
+        {
+          key: "documentType",
+          label: "Documento",
           _style: "width:30%;"
+        },
+        {
+          key: "notes",
+          label: "Note",
+          _style: "width:60%;"
+        },
+        {
+          key: "resource",
+          label: "Fonti",
+          _style: "width:60%;"
         },
         {
           key: "show_details",
@@ -102,41 +124,41 @@ export default {
           sorter: false,
           filter: false
         }
-      ]
+      ],
+      selectedBusiness: {},
+      warningModal: false
     };
   },
   computed: {
-    ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("tools", ["toolscatalog"]),
+    ...mapGetters("business", ["businessList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("filter", ["params"]),
     computedItems() {
-      if (this.toolscatalog) {
-        return this.toolscatalog.map(item => {
-          return Object.assign({}, item, {
-            tooltype: item.toolType.name,
-            gsbpm: item.gsbpmProcesses
-              .map(gsbpmProcess => {
-                return gsbpmProcess.name;
-              })
-              .join(", "),
-            methods: item.statisticalMethods
-              .map(method => {
-                return method.name;
-              })
-              .join(", ")
-          });
-        });
+      if (this.documentationList) {
+        return this.documentationList;
       } else {
         return [];
       }
     }
   },
+
+  methods: {
+    deleteDocumentation() {
+      this.$store.dispatch("business/delete", this.selectedBusiness.id);
+      this.warningModal = false;
+    },
+    modalOpen(app) {
+      this.selectedBusiness = app;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
+    }
+  },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.ToolList);
+    this.$store.dispatch("coreui/setContext", Context.BusinessList);
     // if (this.params) {
-    this.$store.dispatch("tools/filter", this.params);
-    //this.$store.dispatch("tools/findAll");
+    // this.$store.dispatch("tools/filter", this.params);
+    this.$store.dispatch("business/findAll");
     // }
   }
 };
