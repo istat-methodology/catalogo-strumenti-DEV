@@ -1,6 +1,7 @@
 name: GitHub Actions Upgrade Catalogo FE
 on:
   workflow_dispatch:
+  
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
