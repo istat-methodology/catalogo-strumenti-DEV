@@ -1,4 +1,4 @@
-name: Upgrade Catalogo FE
+name: Upgrade Catalogo BE Service
 on:
   workflow_dispatch:
 
@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.IS2_USERNAME }}
           password: ${{ secrets.IS2_PASSWORD }}
           port: ${{ secrets.IS2_PORT }}
-          script: sh /home/is2admin/upgradeCatalogoFE.sh ${{ steps.get_version.outputs.VERSION }}
+          script: sh /home/is2admin/upgradeCatalogoBEService.sh ${{ steps.get_version.outputs.VERSION }}
