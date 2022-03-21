@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.IS2_USERNAME }}
           password: ${{ secrets.IS2_PASSWORD }}
           port: ${{ secrets.IS2_PORT }}
-          script: sh upgradeFE.sh ${{ steps.get_version.outputs.VERSION }}
+          script: sh /home/is2admin/upgradeFE.sh ${{ steps.get_version.outputs.VERSION }}
