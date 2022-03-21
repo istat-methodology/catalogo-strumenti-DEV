@@ -106,10 +106,10 @@
           ></tree>
         </div>
       </li>
-      <li class="c-sidebar-nav-title" v-if="isToolList">
+      <li class="c-sidebar-nav-title" v-if="isToolList || isBusinessList">
         Classificazione GSBPM
       </li>
-      <li class="c-sidebar-nav-item" v-if="isToolList">
+      <li class="c-sidebar-nav-item" v-if="isToolList || isBusinessList">
         <div id="app-inputs" class="demo-tree">
           <treeselect
             v-model="value"
@@ -350,6 +350,7 @@ export default {
     ...mapGetters("coreui", ["isMethodsList"]),
     ...mapGetters("coreui", ["isAgentList"]),
     ...mapGetters("coreui", ["isDocumentationList"]),
+    ...mapGetters("coreui", ["isBusinessList"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",

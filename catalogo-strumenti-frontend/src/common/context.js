@@ -4,5 +4,6 @@ export const Context = {
   ToolDetail: 2,
   MethodList: 3,
   AgentList: 4,
-  DocumentationList: 5
+  DocumentationList: 5,
+  BusinessList: 6
 };

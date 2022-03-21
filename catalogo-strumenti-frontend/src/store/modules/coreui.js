@@ -10,7 +10,8 @@ const state = {
   isToolEdit: false,
   isMethodsList: false,
   isAgentList: false,
-  isDocumentationList: false
+  isDocumentationList: false,
+  isBusinessList: false
 };
 
 const mutations = {
@@ -50,6 +51,9 @@ const mutations = {
       case Context.DocumentationList:
         state.isDocumentationList = true;
         break;
+      case Context.BusinessList:
+        state.isBusinessList = true;
+        break;
 
       default:
         break;
@@ -64,6 +68,7 @@ const mutations = {
     state.isMethodsList = false;
     state.isAgentList = false;
     state.isDocumentationList = false;
+    state.isBusinessList = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -122,6 +127,9 @@ const getters = {
   },
   isDocumentationList: state => {
     return state.isDocumentationList;
+  },
+  isBusinessList: state => {
+    return state.isBusinessList;
   }
 };
 

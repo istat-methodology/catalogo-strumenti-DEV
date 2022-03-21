@@ -81,7 +81,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-//import { Context } from "@/common";
+import { Context } from "@/common";
 export default {
   name: "businessList",
   data() {
@@ -106,11 +106,6 @@ export default {
           key: "label",
           label: "Etichetta",
           _style: "width:30%;"
-        },
-        {
-          key: "active",
-          label: "Attivo",
-          _style: "width:60%;"
         },
         {
           key: "gsbpm",
@@ -155,7 +150,7 @@ export default {
     }
   },
   created() {
-    //this.$store.dispatch("coreui/setContext", Context.BusinessList);
+    this.$store.dispatch("coreui/setContext", Context.BusinessList);
     // if (this.params) {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("business/findAll");
