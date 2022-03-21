@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       value: null,
-      linkedAgentLocal: {}
+      linkedAgentLocal:  {}
     };
   },
   props: {
