@@ -244,6 +244,7 @@ CREATE TABLE IF NOT EXISTS `catalog`.`csm_statistical_method` (
     `Tags` TEXT NULL DEFAULT NULL,
      `Version` TEXT NULL DEFAULT NULL,
       `Release_Date` TEXT NULL DEFAULT NULL,
+      `Standard_Istat` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -406,18 +407,12 @@ CREATE TABLE IF NOT EXISTS `catalog`.`csm_business_function` (
   `NAME` VARCHAR(100) NULL DEFAULT NULL,
   `DESCR` TEXT NULL DEFAULT NULL,
   `LABEL` VARCHAR(50) NULL DEFAULT NULL,
-  `ACTIVE` INT NULL DEFAULT NULL,
-  `GSBPM_PROCESS_ID` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  CONSTRAINT `fk_csm_business_function_csm_gsbpm_process`
-    FOREIGN KEY (`GSBPM_PROCESS_ID`)
-    REFERENCES `catalog`.`csm_gsbpm_process` (`ID`))
+  `ACTIVE` INT NULL DEFAULT NULL,  
+  PRIMARY KEY (`ID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
-
-CREATE INDEX `fk_csm_business_function_csm_gsbpm_process` ON `catalog`.`csm_business_function` (`GSBPM_PROCESS_ID` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -675,6 +670,53 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 CREATE INDEX `fk_csm_bfunc_bprocess_csm_business_process` ON `catalog`.`csm_link_function_process` (`BUSINESS_PROCESS_ID` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `catalog`.`csm_link_gsbpm_business_function`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `catalog`.`csm_link_gsbpm_business_function` ;
+
+CREATE TABLE IF NOT EXISTS `catalog`.`csm_link_gsbpm_business_function` (
+  `GSBPM_ID` INT NOT NULL,
+  `BUSINESS_FUNCTION_ID` INT NOT NULL,
+  PRIMARY KEY (`GSBPM_ID`, `BUSINESS_FUNCTION_ID`),
+  CONSTRAINT `fk_csm_gsbpm_csm_bfunction_csm_gsbpm`
+    FOREIGN KEY (`GSBPM_ID`)
+    REFERENCES `catalog`.`csm_gsbpm_process` (`ID`),
+  CONSTRAINT `fk_csm_gsbpm_csm_bfunctioncsm_business_function`
+    FOREIGN KEY (`BUSINESS_FUNCTION_ID`)
+    REFERENCES `catalog`.`csm_business_function` (`ID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+
+CREATE INDEX `fk_csm_gsbpm_csm_bfunction_csm_gsbpm` ON `catalog`.`csm_link_gsbpm_business_function` (`GSBPM_ID` ASC) VISIBLE;
+
+-- -----------------------------------------------------
+-- Table `catalog`.`csm_statistical_program`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `catalog`.`csm_statistical_program` ;
+
+CREATE TABLE IF NOT EXISTS `catalog`.`csm_statistical_program` (
+  `GSBPM_ID` INT NOT NULL,
+  `BUSINESS_PROCESS_ID` INT NOT NULL,
+   `NAME` VARCHAR(45) NULL DEFAULT NULL,
+  `DESCR` VARCHAR(100) NULL DEFAULT NULL,
+  `CYCLE` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`GSBPM_ID`, `BUSINESS_PROCESS_ID`),
+  CONSTRAINT `fk_csm_gsbpm_csm_bprocess_csm_gsbpm`
+    FOREIGN KEY (`GSBPM_ID`)
+    REFERENCES `catalog`.`csm_gsbpm_process` (`ID`),
+  CONSTRAINT `fk_csm_gsbpm_csm_bprocess_csm_business_process`
+    FOREIGN KEY (`BUSINESS_PROCESS_ID`)
+    REFERENCES `catalog`.`csm_business_process` (`ID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+
+CREATE INDEX `fk_csm_gsbpm_csm_bprocess_csm_gsbpm` ON `catalog`.`csm_statistical_program` (`GSBPM_ID` ASC) VISIBLE;
+
 
 
 -- -----------------------------------------------------
@@ -1085,6 +1127,7 @@ DROP TABLE IF EXISTS `catalog`.`csm_process_design` ;
 CREATE TABLE IF NOT EXISTS `catalog`.`csm_process_design` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
+  `DESCR` TEXT NULL DEFAULT NULL,
   `step` INT NOT NULL,
   `type` INT NOT NULL,
   `csm_information_object_id` INT NOT NULL,
