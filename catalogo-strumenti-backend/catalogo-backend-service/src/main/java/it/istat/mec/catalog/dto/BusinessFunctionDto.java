@@ -1,5 +1,7 @@
 package it.istat.mec.catalog.dto;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
@@ -12,4 +14,5 @@ public class BusinessFunctionDto implements Serializable {
 	private String descr;		
 	private String label;	
 	private String active;		
+	private List<GSBPMProcessDto> gsbpmProcesses;
 }

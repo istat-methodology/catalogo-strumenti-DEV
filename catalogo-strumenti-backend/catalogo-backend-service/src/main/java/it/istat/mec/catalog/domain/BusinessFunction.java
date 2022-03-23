@@ -1,8 +1,13 @@
 package it.istat.mec.catalog.domain;
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,4 +34,9 @@ public class BusinessFunction implements Serializable  {
 	@Column(name = "ACTIVE")
 	private String active;	
 	
+	@ManyToMany
+    @JoinTable(name = "csm_link_gsbpm_business_function", joinColumns = {
+            @JoinColumn(name = "GSBPM_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+	private List<GsbpmProcess> gsbpmProcesses;
 }

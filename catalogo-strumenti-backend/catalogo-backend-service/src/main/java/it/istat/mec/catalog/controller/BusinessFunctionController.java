@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
@@ -22,10 +23,18 @@ public class BusinessFunctionController {
 	@Autowired
 	private BusinessFunctionService businessFunctionService;
 	
+//	@GetMapping("/open/businessfunctions")
+//	public List<BusinessFunctionDto> getAllBusinessFunctions() {
+//
+//		return businessFunctionService.findAllBusinessFunctions();
+//	}
 	@GetMapping("/open/businessfunctions")
-	public List<BusinessFunctionDto> getAllBusinessFunctions() {
+	public List<BusinessFunctionDto> getAllBusinessFunctions(
+			@RequestParam(value = "gsbpmIds", required = false) Integer[] gsbpmIds,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "id,name") String[] orderBy,
+			@RequestParam(value = "sort", required = false, defaultValue = "ASC,ASC") String[] sort) {
 
-		return businessFunctionService.findAllBusinessFunctions();
+		return businessFunctionService.findAllFunctionsByGsbpms(gsbpmIds,orderBy,sort);
 	}
 	
 	@GetMapping(value = "/open/businessfunctions/{id}")
