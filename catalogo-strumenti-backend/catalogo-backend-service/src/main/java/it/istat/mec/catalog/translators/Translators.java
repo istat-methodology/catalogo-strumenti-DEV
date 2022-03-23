@@ -211,6 +211,10 @@ public class Translators {
 		return mapList(list, CatalogToolDTO.class,modelMapper);
 	}
 	
+	public static List<BusinessFunctionDto> translateBusinessFunctions(List<BusinessFunction> list) {	
+		return mapList(list, BusinessFunctionDto.class);
+	}
+	
 	public static List<GSBPMProcessDto> translateGsbpmProcess(List<GsbpmProcess> list) {
 		//final ModelMapper modelMapper = new ModelMapper();
 	//	TypeMap<GsbpmProcess, GSBPMProcessDto> typeMap = modelMapper.createTypeMap(GsbpmProcess.class, GSBPMProcessDto.class).addMapping(mapper -> mapper.when(getGsbpmProcessParent == null).map(GsbpmProcess::getGsbpmSubProcesses, GSBPMProcessDto::setGsbpmSubProcesses));

@@ -18,4 +18,5 @@ public class CreateStatisticalMethodRequest {
 	private String tags;	
 	private String version;	
 	private Date releaseDate;
+	private Integer standardIstat;
 }

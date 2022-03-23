@@ -14,5 +14,4 @@ public class CreateBusinessFunctionRequest implements Serializable {
 	private String descr;		
 	private String label;	
 	private String active;	
-	private String gsbpm;
 }

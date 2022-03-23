@@ -64,7 +64,12 @@ public class GsbpmProcess  implements Serializable {
 
     @OneToMany(mappedBy = "gsbpmProcessParent",fetch = FetchType.LAZY)
     private List<GsbpmProcess> gsbpmSubProcesses = new ArrayList<>();
-
+    
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "csm_link_method_tool", joinColumns = {
+            @JoinColumn(name = "GSBPM_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false)})
+	private List<BusinessFunction> businessFunctions;
    
     public GsbpmProcess() {
     }

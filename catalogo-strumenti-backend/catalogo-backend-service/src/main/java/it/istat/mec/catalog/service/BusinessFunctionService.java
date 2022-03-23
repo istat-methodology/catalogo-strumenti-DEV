@@ -1,9 +1,13 @@
 package it.istat.mec.catalog.service;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.BusinessFunctionDao;
 import it.istat.mec.catalog.domain.BusinessFunction;
+import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
@@ -20,6 +24,26 @@ public class BusinessFunctionService {
 		return Translators.translateBF(businessFunctionDao.findAll());
 
 	}
+	
+	public List<BusinessFunctionDto> findAllFunctionsByGsbpms(Integer[] gsbpmIds, String[] orderBy, String[] sort) {
+		
+		List<Order> orders = new ArrayList<Order>();
+		for (int i = 0; i < orderBy.length; i++) {
+			Order order = new Order((i<sort.length &&  Sort.Direction.DESC.name().equalsIgnoreCase(sort[i]))? Sort.Direction.DESC:Sort.Direction.ASC,orderBy[i]);
+			orders.add(order);
+
+		}
+		Sort sortQuery = Sort.by(orders);
+		
+		List<GsbpmProcess> gsbpmProcesses=new ArrayList<GsbpmProcess>();
+		if(gsbpmIds!=null)  
+		for (int i = 0; i < gsbpmIds.length; i++) {
+			gsbpmProcesses.add(new GsbpmProcess(gsbpmIds[i]));
+		}	 
+		
+	 
+	 return Translators.translateBusinessFunctions(businessFunctionDao.findAllWithFilter(gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
+  	}
 	
 	public BusinessFunctionDto newBusinessFunction(CreateBusinessFunctionRequest request) {
 		BusinessFunction bs = new BusinessFunction();

@@ -20,7 +20,7 @@ INSERT INTO `CSM_Methodological_Tool` (`ID`,`Name`,`Description`,`Tags`,`Version
 
 
 truncate `csm_statistical_method`;
-INSERT INTO `csm_statistical_method` VALUES (1,'Fellegi Sunter','Probabilistic Record Linkage',NULL,NULL,NULL,'https://ec.europa.eu/eurostat/cros/content/fellegi-sunter-and-jaro-approach-record-linkage-method_en'),(2,'Selemix','Selective Editing via Mixture Models',NULL,NULL,NULL,'https://www.istat.it/it/metodi-e-strumenti/metodi-e-strumenti-it/elaborazione/strumenti-di-elaborazione/selemix','2022-01-01','tag1, tag2','1.0','2020-06-10');
+INSERT INTO `csm_statistical_method` VALUES (1,'Fellegi Sunter','Probabilistic Record Linkage',NULL,NULL,NULL,'https://ec.europa.eu/eurostat/cros/content/fellegi-sunter-and-jaro-approach-record-linkage-method_en'),(2,'Selemix','Selective Editing via Mixture Models',NULL,NULL,NULL,'https://www.istat.it/it/metodi-e-strumenti/metodi-e-strumenti-it/elaborazione/strumenti-di-elaborazione/selemix','2022-01-01','tag1, tag2','1.0','2020-06-10',0);
 truncate `csm_link_method_tool`;
 INSERT INTO `csm_link_method_tool` VALUES (2,100),(2,150),(1,200);
  
