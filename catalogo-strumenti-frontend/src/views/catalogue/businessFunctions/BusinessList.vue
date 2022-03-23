@@ -16,7 +16,7 @@
         <CCardBody>
           <CDataTable
             v-if="businessList"
-            :items="businessList"
+            :items="getBusinessList"
             :fields="fields"
             column-filter
             :items-per-page="10"
@@ -65,14 +65,14 @@
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Close
         </CButton>
-        <CButton
+        <!-- <CButton
           shape="square"
           size="sm"
           color="primary"
           @click="deleteBusiness"
         >
           Delete
-        </CButton>
+        </CButton> -->
       </template>
       Elimina Business Function '{{ selectedBusiness.name }}'?
     </CModal>
@@ -126,14 +126,17 @@ export default {
   },
   computed: {
     ...mapGetters("business", ["businessList"]),
-    ...mapGetters("auth", ["isAuthenticated"])
-    /* computedItems() {
-      if (this.documentationList) {
-        return this.documentationList;
-      } else {
-        return [];
-      }
-    } */
+    ...mapGetters("auth", ["isAuthenticated"]),
+    getBusinessList: function() {
+      return this.businessList.map(business => {
+        return {
+          name: business.name == null ? "" : business.name,
+          descr: business.descr == null ? "" : business.descr.isnull,
+          label: business.label == null ? "" : business.label,
+          gsbpm: business.gsbpm == null ? "" : business.gsbpm
+        };
+      });
+    }
   },
 
   methods: {
