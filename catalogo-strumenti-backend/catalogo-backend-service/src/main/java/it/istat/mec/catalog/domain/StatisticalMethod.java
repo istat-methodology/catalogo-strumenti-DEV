@@ -58,6 +58,9 @@ public class StatisticalMethod  implements Serializable  {
 	@Column(name = "RELEASE_DATE")
 	private Date releaseDate;
 	
+	@Column(name = "STANDARD_ISTAT")
+	private Integer standardIstat;
+	
 //	@OneToMany
 //    @JoinColumn(name = "TOOL", insertable = true, updatable = true)
 //    private CatalogTool catalogTool;

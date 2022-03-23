@@ -27,9 +27,6 @@ public class BusinessFunction implements Serializable  {
 	private String label;
 
 	@Column(name = "ACTIVE")
-	private String active;
-
-	@Column(name = "GSBPM_PROCESS_ID")
-	private String gsbpm;
+	private String active;	
 	
 }
