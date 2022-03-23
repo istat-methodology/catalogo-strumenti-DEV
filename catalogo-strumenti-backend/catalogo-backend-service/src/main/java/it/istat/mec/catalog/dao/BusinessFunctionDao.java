@@ -24,6 +24,6 @@ public interface BusinessFunctionDao extends JpaRepository<BusinessFunction, Lon
 
 	public void delete(BusinessFunction businessFunction);
 	
-	@Query("SELECT DISTINCT f FROM csm_business_function f  left outer JOIN f.gsbpmProcesses p WHERE 1=1  AND ((:sizeGsbpmIds = 0)  OR (p IN (:gsbpmIds)) )")	
+	@Query("SELECT DISTINCT f FROM BusinessFunction f  left outer JOIN f.gsbpmProcesses p WHERE 1=1  AND ((:sizeGsbpmIds = 0)  OR (p IN (:gsbpmIds)) )")	
 	public List<BusinessFunction>  findAllWithFilter(@Param("gsbpmIds") List<GsbpmProcess> gsbpmIds, @Param("sizeGsbpmIds") Integer sizeGsbpmIds, Sort sort );
 }
