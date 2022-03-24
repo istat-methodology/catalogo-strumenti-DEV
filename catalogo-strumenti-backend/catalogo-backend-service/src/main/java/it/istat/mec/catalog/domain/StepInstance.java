@@ -1,10 +1,15 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -38,4 +43,9 @@ public class StepInstance implements Serializable  {
 	@Column(name = "APP_SERVICE_ID")
 	private String appServiceId;
 	
+	@ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "csm_link_step_instance", joinColumns = {
+            @JoinColumn(name = "PROCESS_STEP_INSTANCE_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false)})
+	private List<ProcessStep> processSteps;
 }

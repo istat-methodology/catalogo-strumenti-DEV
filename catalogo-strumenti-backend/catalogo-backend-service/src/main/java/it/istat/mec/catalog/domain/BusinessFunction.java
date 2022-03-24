@@ -39,4 +39,10 @@ public class BusinessFunction implements Serializable  {
             @JoinColumn(name = "GSBPM_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
 	private List<GsbpmProcess> gsbpmProcesses;
+	
+	@ManyToMany
+    @JoinTable(name = "csm_link_function_process", joinColumns = {
+            @JoinColumn(name = "BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+	private List<BusinessProcess> businessProcesses;
 }

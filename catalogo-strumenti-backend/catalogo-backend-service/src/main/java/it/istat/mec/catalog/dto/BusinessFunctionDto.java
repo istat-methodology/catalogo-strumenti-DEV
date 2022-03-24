@@ -15,4 +15,5 @@ public class BusinessFunctionDto implements Serializable {
 	private String label;	
 	private String active;		
 	private List<GSBPMProcessDto> gsbpmProcesses;
+	private List<BusinessProcessDto> businessProcesses;
 }
