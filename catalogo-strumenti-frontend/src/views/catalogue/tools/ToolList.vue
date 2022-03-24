@@ -76,23 +76,23 @@ export default {
           _style: "width:20%;"
         },
         {
-          key: "tooltype",
-          label: "Tipologia",
+          key: "description",
+          label: "Descrizione",
           _style: "width:20%;"
         },
-        /* {
-          key: "releaseDate",
-          label: "Data Rilascio",
-          _style: "width:10%;"
-        }, */
         {
-          key: "gsbpm",
-          label: "Gsbpm",
+          key: "standardIstat",
+          label: "Standar Istat",
+          _style: "width:10%;"
+        },
+        {
+          key: "tags",
+          label: "Tags",
           _style: "width:30%;"
         },
         {
-          key: "methods",
-          label: "Metodi",
+          key: "version",
+          label: "Versione",
           _style: "width:30%;"
         },
         {
