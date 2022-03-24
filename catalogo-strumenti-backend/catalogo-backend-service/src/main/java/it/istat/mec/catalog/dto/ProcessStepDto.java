@@ -1,6 +1,6 @@
 package it.istat.mec.catalog.dto;
 import java.io.Serializable;
-
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
@@ -14,4 +14,5 @@ public class ProcessStepDto implements Serializable  {
 	private String label;	
 	private String businessServiceId;	
 	private String substep;	
+	private List<StepInstanceDto> stepInstances;
 }

@@ -1,5 +1,6 @@
 package it.istat.mec.catalog.dto;
 import java.io.Serializable;
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,6 @@ public class BusinessProcessDto implements Serializable {
 	private String label;	
 	private String orderCode;	
 	private String parent;	
-	
+	private List<ProcessStepDto> processSteps;
 }
 
