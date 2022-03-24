@@ -86,7 +86,7 @@
           </div>
         </CCardBody>
       </CCard> -->
-      <CCard v-if="this.documentationList">
+      <!-- <CCard v-if="this.documentationList">
         <CCardHeader>Documentazione</CCardHeader>
         <CCardBody>
           <div id="app-tree3" class="demo-tree">
@@ -101,7 +101,7 @@
             />
           </div>
         </CCardBody>
-      </CCard>
+      </CCard> -->
       <CCard v-if="tool.toolType.id == 3">
         <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
@@ -224,6 +224,20 @@
           </app-linked-agent>
         </CCardBody>
       </CCard>
+      <CCard v-if="this.documentationList">
+        <CCardHeader>Documentazione</CCardHeader>
+        <CCardBody>
+          <app-doumentation
+            v-for="item in getDocumentation"
+            :key="item.id"
+            :name="item.name"
+            :publisher="item.publisher"
+            :documentType="item.doumentType"
+            :resource="item.resource"
+          >
+          </app-doumentation>
+        </CCardBody>
+      </CCard>
       <CCardFooter>
         <CButton
           shape="square"
@@ -249,13 +263,15 @@ import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
 import LinkedAgent from "@/components/LinkedAgent";
+import Documentation from "@/components/Documentation";
 
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
   components: {
     Treeselect,
-    "app-linked-agent": LinkedAgent
+    "app-linked-agent": LinkedAgent,
+    "app-doumentation": Documentation
   },
   data() {
     return {
@@ -421,6 +437,17 @@ export default {
           role: agentTool.role,
           notes: agentTool.notes,
           referenceDate: agentTool.referenceDate
+        };
+      });
+    },
+    getDocumentation: function() {
+      return this.tool.documentations.map(doc => {
+        return {
+          id: doc.id,
+          name: doc.name,
+          publisher: doc.publisher,
+          doumentType: doc.documentType,
+          resource: doc.resource
         };
       });
     }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="agentList">
+  <div>
     <div>
       <label>Referente {{ agentName | dashEmpty }}</label>
     </div>
@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+//import { mapGetters } from "vuex";
 export default {
   name: "LinkedAgent",
   // mixins: [progressMixin],
@@ -45,17 +45,17 @@ export default {
     notes: String,
     referenceDate: String,
     agentList: []
-  },
-  methods: {
+  }
+  /* methods: {
     changeAgent(value) {
       this.linkedAgentLocal.agent.id = value.id;
     }
-  },
-  computed: {
+  } */
+  /*  computed: {
     ...mapGetters("agent", ["agentList"])
-  },
-  created() {
+  }, */
+  /*  created() {
     this.$store.dispatch("agent/findAll");
-  }
+  } */
 };
 </script>
