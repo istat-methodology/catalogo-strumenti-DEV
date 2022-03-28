@@ -507,13 +507,12 @@ DROP TABLE IF EXISTS `csm_link_agent_tool`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `csm_link_agent_tool` (
+  `ID` int NOT NULL PRIMARY KEY,
   `agent` int NOT NULL,
   `tool` int NOT NULL,
   `role` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Notes` text COLLATE utf8mb4_unicode_ci,
   `Reference_Date` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`agent`,`tool`),
-  KEY `fk_CSM_link_Agent_tool_CSM_Methodological_Tool` (`tool`),
   CONSTRAINT `fk_CSM_link_Agent_CSM_Methodological_tool` FOREIGN KEY (`agent`) REFERENCES `csm_agent` (`ID`),
   CONSTRAINT `fk_CSM_link_Agent_tool_CSM_Methodological_Tool` FOREIGN KEY (`tool`) REFERENCES `csm_methodological_tool` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
