@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <label>Documento {{ name | dashEmpty }}</label>
+      <label>Documento {{ name | dashEmpty }} </label>
     </div>
     <CCardBody>
       <CInput
