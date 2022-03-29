@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.DocumentationDao;
 import it.istat.mec.catalog.dao.ToolDao;
-import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -40,7 +39,7 @@ public class DocumentationService {
 		return Translators.translate(doc);
 	}
 	
-	public DocumentationDto findDocumentationById(Long id) {
+	public DocumentationDto findDocumentationById(Integer id) {
 
 		if (!documentationDao.findById(id).isPresent())
 			throw new NoDataException("Documentation not present");
@@ -61,7 +60,7 @@ public class DocumentationService {
 		
 		return Translators.translate(doc);
 	}
-	public DocumentationDto deleteDocumentation(Long id) {		
+	public DocumentationDto deleteDocumentation(Integer id) {		
 		if (!documentationDao.findById(id).isPresent())
 			throw new NoDataException("Documentation not present");
 			Documentation doc = documentationDao.findById(id).get();

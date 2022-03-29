@@ -29,7 +29,7 @@ public class DocumentationController {
 	}
 	
 	@GetMapping(value = "/open/documentations/{id}")
-	public DocumentationDto getDocumentation(@PathVariable("id") Long id) {
+	public DocumentationDto getDocumentation(@PathVariable("id") Integer id) {
 
 		return documentationService.findDocumentationById(id);
 
@@ -48,7 +48,7 @@ public class DocumentationController {
 	}
 	
 	@DeleteMapping(value = "/documentations/{id}")
-	public DocumentationDto deleteDocumentation(@PathVariable("id") Long id) {
+	public DocumentationDto deleteDocumentation(@PathVariable("id") Integer id) {
 
 		return documentationService.deleteDocumentation(id);
 	}

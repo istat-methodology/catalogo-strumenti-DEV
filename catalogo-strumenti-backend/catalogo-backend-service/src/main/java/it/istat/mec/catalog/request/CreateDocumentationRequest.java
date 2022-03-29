@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateDocumentationRequest {
 	
-	private Long id;	
+	private Integer id;	
 	private String name;	
 	private String publisher;
 	private String documentType;

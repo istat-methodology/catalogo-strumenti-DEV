@@ -30,7 +30,7 @@ public class Documentation implements Serializable  {
 	private String publisher;
 	
 	@Column(name = "DOCUMENT_TYPE")
-	private String documentType;
+	private DocumentType documentType;
 	
 	@Column(name = "NOTES")
 	private String notes;

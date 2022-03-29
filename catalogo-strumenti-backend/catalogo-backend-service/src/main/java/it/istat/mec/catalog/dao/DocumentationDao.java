@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import it.istat.mec.catalog.domain.Documentation;
 
 @Repository
-public interface DocumentationDao extends JpaRepository<Documentation, Long> {
+public interface DocumentationDao extends JpaRepository<Documentation, Integer> {
 
 	@Override
 	List<Documentation> findAll();
