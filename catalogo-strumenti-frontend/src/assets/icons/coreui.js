@@ -5,7 +5,8 @@ import {
   cilLayers,
   cilLockLocked,
   cilTerminal,
-  cilUser
+  cilUser,
+  cilBaseball
 } from "@coreui/icons";
 
 export const iconsSet = Object.assign({
@@ -15,5 +16,6 @@ export const iconsSet = Object.assign({
   cilLayers,
   cilLockLocked,
   cilTerminal,
-  cilUser
+  cilUser,
+  cilBaseball
 });

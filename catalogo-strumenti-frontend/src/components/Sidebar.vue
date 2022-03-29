@@ -31,7 +31,7 @@
           class="c-sidebar-nav-link"
           :class="{ 'c-active': isToolList }"
         >
-          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Strumenti
+          <CIcon name="cil-baseball" class="c-sidebar-nav-icon" />Strumenti
           Metodologici
         </router-link>
       </li>

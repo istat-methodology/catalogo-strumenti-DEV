@@ -186,7 +186,7 @@
     </div>
     <div class="col-4">
 
-      <CCard >
+      <CCard  v-if="false">
         <CCardHeader>Menu List</CCardHeader>
         <CCardBody>
           <!--CDataTable
