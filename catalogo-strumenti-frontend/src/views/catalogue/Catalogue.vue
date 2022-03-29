@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-4">
+    <div class="col-sm-6 col-md-4">
       <div class="card">
         <header class="card-header">
           <span>Strumenti Metodologici</span>
@@ -14,6 +14,8 @@
           </p>
         </div>
       </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
       <div class="card">
         <header class="card-header">
           <span>Funzioni di Business</span>
@@ -29,7 +31,8 @@
       </div>
     </div>
   </div>
-  <!-- <div class="col-4">
+
+  <!--div class="col-4">
       <div class="card">
         <header class="card-header">
           <span>Procedure Software</span>
@@ -67,6 +70,6 @@ export default {
   name: "Catalogue",
   created() {
     this.$store.dispatch("coreui/setContext", Context.Home);
-  }
+  },
 };
 </script>

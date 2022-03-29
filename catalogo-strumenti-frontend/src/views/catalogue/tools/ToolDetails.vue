@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <div class="col-12">
+    <div class="col-8">
       <CCard v-if="tool">
         <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
         <CCardBody>
@@ -183,6 +183,29 @@
           >
         </CCardFooter>
       </CCard>
+    </div>
+    <div class="col-4">
+
+      <CCard >
+        <CCardHeader>Menu List</CCardHeader>
+        <CCardBody>
+          <!--CDataTable
+            :items=""
+            :fields=""
+            :items-per-page="10"          
+          </CDataTable-->
+        </CCardBody>
+        <CCardFooter>
+          <CButton
+            shape="square"
+            size="sm"
+            color="light"
+            @click.prevent="backToList"
+            >Back</CButton
+          >
+        </CCardFooter>
+      </CCard>
+
     </div>
   </div>
 </template>
