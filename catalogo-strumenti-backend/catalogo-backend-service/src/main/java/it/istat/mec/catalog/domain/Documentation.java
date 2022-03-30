@@ -17,8 +17,9 @@ import lombok.Setter;
 @Table(name = "CSM_DOCUMENTATION")
 public class Documentation implements Serializable  {
 
-	private static final long serialVersionUID = 6402993856799845862L;
 	
+	private static final long serialVersionUID = -6958458136121721618L;
+
 	@Id
 	@Column(name = "ID")
 	private Integer id;
@@ -30,7 +31,7 @@ public class Documentation implements Serializable  {
 	private String publisher;
 	
 	@Column(name = "DOCUMENT_TYPE")
-	private DocumentType documentType;
+	private String documentType;
 	
 	@Column(name = "NOTES")
 	private String notes;
