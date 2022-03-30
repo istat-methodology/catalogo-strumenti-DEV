@@ -207,17 +207,8 @@
           <li v-if="tool">
             <a href="#id-main">{{ tool.name | dashEmpty }}</a>
             <ul>
-              
-              <li v-if="tool.toolType.id == 3">                
-                <a href="#id-three">{{ tool.toolType.name | dashEmpty }}, type = 3</a>
-              </li>
-              
-              
-              <li v-if="tool.toolType.id == 2">
-                <a href="#id-two">{{ tool.toolType.name | dashEmpty }}, type = 2</a>
-              </li>
-              <li v-if="tool.toolType.id == 1">
-                <a href="#id-one">{{ tool.toolType.name | dashEmpty }}, type = 1</a>
+              <li>
+                <a href="#id-two">{{ tool.toolType.name | dashEmpty }}, type = {{tool.toolType.id }}</a>
               </li>
               <li v-if="tool.documentations">
                 <a href="#id-documentations">Documentazione</a>
