@@ -82,7 +82,7 @@ export default {
         },
         {
           key: "standardIstat",
-          label: "Standar Istat",
+          label: "Standard Istat",
           _style: "width:10%;"
         },
         {
