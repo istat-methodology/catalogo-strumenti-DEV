@@ -1,5 +1,6 @@
 package it.istat.mec.catalog.domain;
 
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -14,12 +15,13 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CLS_DOCUMENT_TYPE")
-public class DocumentType implements Serializable  {
+public class DocumentType implements Serializable{
 
-	private static final long serialVersionUID = 5618704681989455879L;
-	@Id
+	private static final long serialVersionUID = 2030797155841387448L;
+
+	@Id 
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "NAME")
 	private String name;
