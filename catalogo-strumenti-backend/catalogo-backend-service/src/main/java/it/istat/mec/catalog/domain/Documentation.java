@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,8 +31,10 @@ public class Documentation implements Serializable  {
 	@Column(name = "PUBLISHER")
 	private String publisher;
 	
-	@Column(name = "DOCUMENT_TYPE")
-	private String documentType;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "DOCUMENT_TYPE", nullable = false, insertable = false)
+	private DocumentType documentType;
 	
 	@Column(name = "NOTES")
 	private String notes;

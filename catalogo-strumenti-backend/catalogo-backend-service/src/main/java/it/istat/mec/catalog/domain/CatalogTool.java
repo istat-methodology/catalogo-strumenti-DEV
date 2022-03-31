@@ -50,7 +50,7 @@ public class CatalogTool implements Serializable  {
 	private String name;
 	
 	@Column(name = "STANDARD_ISTAT")
-	private int standardIstat;	
+	private Integer standardIstat;	
 
 	@Column(name = "TAGS")
 	private String tags;
