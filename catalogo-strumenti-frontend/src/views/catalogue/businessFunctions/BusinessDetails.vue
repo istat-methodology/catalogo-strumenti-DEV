@@ -168,8 +168,8 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id);
-    this.$store.dispatch("coreui/setContext", Context.ToolDetail);
+    this.$store.dispatch("business/findById", this.$route.params.id);
+    this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
   }
 };
 </script>
