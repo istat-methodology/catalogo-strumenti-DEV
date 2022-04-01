@@ -348,8 +348,7 @@ INSERT INTO csm_step_instance_signature (id, required, app_role_id, step_instanc
 -- Sezione documentale esterna, link alle persone coinvolte nello sviluppo o nella documentazione
 INSERT INTO `CSM_Agent` (`ID`,`Name`,`Organization`) VALUES (50,'Marina Belli','Istat');
 INSERT INTO `CSM_Agent` (`ID`,`Name`,`Organization`) VALUES (20,'Luca Valente','Istat');
-INSERT INTO `CSM_link_Agent_tool` (`agent`,`tool`,`role`,`notes`,`reference_date`) VALUES (50,200,'Developer','Note','2010-2020');
-INSERT INTO `CSM_link_Agent_tool` (`agent`,`tool`,`role`,`notes`,`reference_date`) VALUES (20,200,'Referente','Note','2020 onwards');
+INSERT INTO `CSM_link_Agent_tool` (`ID`,`agent`,`tool`,`role`,`notes`,`reference_date`) VALUES (5,50,200,'Developer','Note','2010-2020'),(6,20,200,'Referente','Note','2020 onwards');
     
 -- Sezione documentale esterna, link alle risorse di documentazione
 INSERT INTO CSM_Documentation (`ID`,`Name`,`Publisher`,`Document_type`,`Notes`,`Resource`,`tool`) VALUES 

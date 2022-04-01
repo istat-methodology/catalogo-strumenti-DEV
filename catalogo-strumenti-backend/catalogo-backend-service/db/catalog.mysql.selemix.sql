@@ -183,8 +183,8 @@ INSERT INTO `csm_desktop_application` VALUES (150,'https://www.istat.it/it/files
 
 -- Sezione documentale esterna, link alle persone coinvolte nello sviluppo o nella documentazione
 INSERT INTO `CSM_Agent` (`ID`,`Name`,`Organization`) VALUES (10,'Mario Rossi','Istat'),(20,'Luca Verdi','Eurostat'),(30,'Mauro Bruni','Istat');
-INSERT INTO `CSM_link_Agent_tool` (`agent`,`tool`,`role`,`Notes`,`Reference_Date`) VALUES 
-(10,100,'Developer','Note','2010-2020'),(20,100,'Referent','Note','2020 onwards'),(30,150,'Developer','Note','2010-2020'),(20,150,'Referent','Note','2020 onwards');
+INSERT INTO `CSM_link_Agent_tool` (`ID`,`agent`,`tool`,`role`,`Notes`,`Reference_Date`) VALUES 
+(1,10,100,'Developer','Note','2010-2020'),(2,20,100,'Referent','Note','2020 onwards'),(3,30,150,'Developer','Note','2010-2020'),(4,20,150,'Referent','Note','2020 onwards');
     
 -- Sezione documentale esterna, link alle risorse di documentazione
 INSERT INTO `CSM_Documentation` (`ID`,`Name`,`Publisher`,`Document_type`,`Notes`,`Resource`,`tool`) VALUES 
