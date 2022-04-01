@@ -7,7 +7,15 @@
         <CCardBody>
           <div>
             <label>Descrizione:</label>
-            <span>{{ tool.description | dashEmpty }}</span>
+            <span>{{ tool.descr | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Etichetta:</label>
+            <span>{{ tool.label | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Active:</label>
+            <span>{{ tool.active | dashEmpty }}</span>
           </div>
           <div>
             <label>Fasi GSBPM:</label>
@@ -17,14 +25,7 @@
             })
             .join(", "), | dashEmpty }}</span>
           </div>
-          <div>
-            <label>Versione:</label>
-            <span>{{ tool.version | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Tags:</label>
-            <span>{{ tool.tags | dashEmpty }}</span>
-          </div>
+
           <!--div>
             <label>Servizio:</label>
             <span>{{ tool.service | dashEmpty }}</span>
