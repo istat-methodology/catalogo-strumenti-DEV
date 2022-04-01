@@ -25,113 +25,9 @@
             })
             .join(", "), | dashEmpty }}</span>
           </div>
-
-          <!--div>
-            <label>Servizio:</label>
-            <span>{{ tool.service | dashEmpty }}</span>
-          </div-->
-          <div>
-            <label>Ultima Modifica:</label>
-            <span>{{ tool.lastUpdate | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Requisiti:</label>
-            <span>{{ tool.requirements | dashEmpty }}</span>
-          </div>
         </CCardBody>
       </CCard>
-      <CCard v-if="tool.toolType.id == 3">
-        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Codice:</label>
-            <span>{{ tool.code | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Download:</label>
-            <span>{{ tool.download | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Flusso di lavoro:</label>
-            <span>{{ tool.workflow | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Linguaggio:</label>
-            <span>{{ tool.language | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Dipendenze:</label>
-            <span>{{ tool.ependencies | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Prerequisiti:</label>
-            <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-          </div>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.toolType.id == 2">
-        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Download:</label>
-            <span>{{ tool.download | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>licenza:</label>
-            <span>{{ tool.licence | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Linguaggio:</label>
-            <span>{{ tool.language | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Pacchetto:</label>
-            <span>{{ tool.packageApplication | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Sistema Operativo:</label>
-            <span>{{ tool.operativeSystem | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Versione:</label>
-            <span>{{ tool.version | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Prerequisiti:</label>
-            <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-          </div>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.toolType.id == 1">
-        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Protocollo:</label>
-            <span>{{ tool.protocol | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Url:</label>
-            <span>{{ tool.url | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Contributi:</label>
-            <span>{{ tool.outcomes | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Dipendenze:</label>
-            <span>{{ tool.serviceDependencies | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Restrizioni:</label>
-            <span>{{ tool.restrictions | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Funzione operativa:</label>
-            <span>{{ tool.businessFunction | dashEmpty }}</span>
-          </div>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.documentations">
+      <!-- <CCard v-if="tool.documentations">
         <CCardHeader>Documentazione</CCardHeader>
         <CCardBody>
           <CDataTable
@@ -163,7 +59,7 @@
           >
           </CDataTable>
         </CCardBody>
-      </CCard>
+      </CCard> -->
       <CCard v-if="tool.statisticalMethods">
         <CCardHeader>Metodi Statistici</CCardHeader>
         <CCardBody>
