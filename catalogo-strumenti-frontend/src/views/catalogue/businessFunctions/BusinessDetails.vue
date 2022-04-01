@@ -2,24 +2,24 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="tool">
-        <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
+      <CCard v-if="business">
+        <CCardHeader>{{ business.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Descrizione:</label>
-            <span>{{ tool.descr | dashEmpty }}</span>
+            <span>{{ business.descr | dashEmpty }}</span>
           </div>
           <div>
             <label>Etichetta:</label>
-            <span>{{ tool.label | dashEmpty }}</span>
+            <span>{{ business.label | dashEmpty }}</span>
           </div>
           <div>
             <label>Active:</label>
-            <span>{{ tool.active | dashEmpty }}</span>
+            <span>{{ business.active | dashEmpty }}</span>
           </div>
           <div>
             <label>Fasi GSBPM:</label>
-            <span>{{ tool.gsbpmProcesses
+            <span>{{ business.gsbpmProcesses
             .map(gsbpmProcess => {
               return gsbpmProcess.name;
             })
@@ -27,68 +27,15 @@
           </div>
         </CCardBody>
       </CCard>
-      <!-- <CCard v-if="tool.documentations">
-        <CCardHeader>Documentazione</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="getDocumentationList"
-            :fields="fieldsDocumentation"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.gsbpmProcesses">
-        <CCardHeader>Processi GSBPM</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="getGsbpmList"
-            :fields="fieldsGsbpm"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.linkAgentsTools">
-        <CCardHeader>Referenti</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="getLinkedAgentList"
-            :fields="fieldsAgent"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-      </CCard> -->
-      <!-- <CCard v-if="tool.statisticalMethods">
-        <CCardHeader>Metodi Statistici</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="tool.statisticalMethods"
-            :fields="fields"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Back</CButton
-          >
-        </CCardFooter>
-      </CCard> -->
     </div>
   </div>
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
-import { Context } from "@/common";
+//import { Context } from "@/common";
 export default {
-  name: "ToolDetails",
+  name: "BusinessDetails",
   data() {
     return {
       fields: [
@@ -100,42 +47,40 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:30%;"
         },
         {
-          key: "description",
+          key: "descr",
           label: "Descrizione",
+          _style: "width:30%;"
+        },
+        {
+          key: "label",
+          label: "Etichetta",
           _style: "width:20%;"
         },
         {
-          key: "notes",
-          label: "Note",
-          _style: "width:60%;"
+          key: "active",
+          label: "Attivo",
+          _style: "width:20%;"
         }
       ]
     };
   },
   computed: {
-    ...mapGetters("tools", ["tool"]),
-    getLinkedAgentList: function() {
-      return this.tool.linkAgentsTools.map(agentTool => {
+    ...mapGetters("business", ["business"]),
+    getBusinessProcesses: function() {
+      return this.business.businessProcesses.map(item => {
         return {
-          id: agentTool.id,
-
-          agentId: agentTool.agent.id,
-          agentName: agentTool.agent.name,
-          agentOrganization: agentTool.agent.organization,
-          agentContact: agentTool.agent.contact,
-          agentNotes: agentTool.agent.notes,
-
-          role: agentTool.role,
-          notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate
+          id: item.id,
+          name: item.name,
+          desr: item.desr,
+          label: item.label
         };
       });
-    },
-    getGsbpmList: function() {
-      return this.tool.gsbpmProcesses.map(gsbpm => {
+    }
+    /* getGsbpmList: function() {
+      return this.business.gsbpmProcesses.map(gsbpm => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
@@ -144,18 +89,7 @@ export default {
           active: gsbpm.active
         };
       });
-    },
-
-    getDocumentationList: function() {
-      return this.tool.documentations.map(doc => {
-        return {
-          id: doc.id,
-          name: doc.name,
-          publisher: doc.publisher,
-          resource: doc.resource
-        };
-      });
-    }
+    } */
   },
   methods: {
     /* handleSubmit() {
@@ -164,12 +98,12 @@ export default {
       });
     }, */
     backToList() {
-      this.$router.push("/catalogue/tools");
+      this.$router.push("/catalogue/businessList");
     }
   },
   created() {
     this.$store.dispatch("business/findById", this.$route.params.id);
-    this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
+    //this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
   }
 };
 </script>
