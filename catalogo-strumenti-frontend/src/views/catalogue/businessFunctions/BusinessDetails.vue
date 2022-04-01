@@ -60,7 +60,7 @@
           </CDataTable>
         </CCardBody>
       </CCard> -->
-      <CCard v-if="tool.statisticalMethods">
+      <!-- <CCard v-if="tool.statisticalMethods">
         <CCardHeader>Metodi Statistici</CCardHeader>
         <CCardBody>
           <CDataTable
@@ -79,7 +79,7 @@
             >Back</CButton
           >
         </CCardFooter>
-      </CCard>
+      </CCard> -->
     </div>
   </div>
 </template>
@@ -111,72 +111,6 @@ export default {
           key: "notes",
           label: "Note",
           _style: "width:60%;"
-        }
-      ],
-      fieldsAgent: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
-        {
-          key: "agentName",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "agentRole",
-          label: "Ruolo",
-          _style: "width:20%;"
-        },
-        {
-          key: "agentNotes",
-          label: "Note",
-          _style: "width:60%;"
-        }
-      ],
-      fieldsGsbpm: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
-        {
-          key: "label",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "code",
-          label: "Codice",
-          _style: "width:20%;"
-        },
-        {
-          key: "active",
-          label: "Attivo",
-          _style: "width:20%;"
-        }
-      ],
-      fieldsDocumentation: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
-        {
-          key: "name",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "publisher",
-          label: "Editore",
-          _style: "width:20%;"
-        },
-        {
-          key: "resource",
-          label: "Fonte",
-          _style: "width:20%;"
         }
       ]
     };
