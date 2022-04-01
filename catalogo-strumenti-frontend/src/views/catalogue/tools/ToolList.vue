@@ -64,12 +64,8 @@ export default {
   name: "ToolList",
   data() {
     return {
+      /*
       fields: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
         {
           key: "name",
           label: "Nome",
@@ -102,7 +98,43 @@ export default {
           sorter: false,
           filter: false
         }
+      ],
+      */
+      fields: [
+        /*  {
+          key: "id",
+          label: "Identificativo",
+          _style: "width:10%;"
+        }, */
+        {
+          key: "name",
+          label: "Nome",
+          _style: "width:20%;"
+        },
+        {
+          key: "tooltype",
+          label: "Tipologia",
+          _style: "width:20%;"
+        },
+        {
+          key: "gsbpm",
+          label: "Gsbpm",
+          _style: "width:30%;"
+        },
+        {
+          key: "methods",
+          label: "Metodi",
+          _style: "width:30%;"
+        },
+        {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false
+        }
       ]
+
     };
   },
   computed: {
