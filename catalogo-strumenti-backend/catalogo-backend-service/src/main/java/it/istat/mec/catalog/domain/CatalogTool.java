@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
@@ -62,8 +63,11 @@ public class CatalogTool implements Serializable  {
     @JoinColumn(name = "TOOL_TYPE", nullable = false, insertable = false)
  	private ToolType toolType;
 	
-	@Column(name = "SERVICE")
-	private int service;
+	
+    
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "SERVICE", nullable = false, insertable = false)
+	private BusinessService businessService;
 
 	@Column(name = "LAST_UPDATE")
 	private Date lastUpdate;

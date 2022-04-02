@@ -4,16 +4,16 @@ package it.istat.mec.catalog.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CatalogToolDTO implements Serializable {
+public class CatalogToolMiniDto implements Serializable {
 
  
-	private static final long serialVersionUID = -6905546979001300372L;
-	
+	private static final long serialVersionUID = -6905546979001303372L;
 	private Long id;	
 	private Date releaseDate;	
 	private String description;		
@@ -23,11 +23,11 @@ public class CatalogToolDTO implements Serializable {
 	private String version;
 	private ToolTypeDto toolType;	
 	private Date lastUpdate;	
-	private String requirements;
-	private BusinessServiceMiniDto businessService;
+	private String requirements;	
 	private List<GSBPMProcessMiniDto> gsbpmProcesses;
 	private List<StatisticalMethodDto> statisticalMethods;
 	private List<LinkAgentToolDto> linkAgentsTools;
+	private List<DocumentationDto> documentations;	 
 	
-	private List<DocumentationDto> documentations;
+	
 }
