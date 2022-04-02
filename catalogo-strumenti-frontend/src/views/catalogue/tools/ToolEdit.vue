@@ -209,10 +209,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="this.agentList">
-        <CCardHeader
-          >Elenco Referenti
-          <b-button squared variant="primary" :key="id">Add..</b-button>
-        </CCardHeader>
+        <CCardHeader>Elenco Referenti</CCardHeader>
         <CCardBody>
           <app-linked-agent
             v-for="item in getLinkedAgentList"
@@ -228,10 +225,7 @@
         </CCardBody>
       </CCard>
       <CCard v-if="this.documentationList">
-        <CCardHeader
-          >Documentazione
-          <b-button squared variant="primary">Add..</b-button></CCardHeader
-        >
+        <CCardHeader>Documentazione </CCardHeader>
         <CCardBody>
           <app-doumentation
             v-for="item in getDocumentation"

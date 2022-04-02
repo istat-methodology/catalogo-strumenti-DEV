@@ -2,186 +2,30 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="tool">
-        <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
+      <CCard v-if="business">
+        <CCardHeader>{{ business.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <div>
             <label>Descrizione:</label>
-            <span>{{ tool.description | dashEmpty }}</span>
+            <span>{{ business.descr | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Etichetta:</label>
+            <span>{{ business.label | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Active:</label>
+            <span>{{ business.active | dashEmpty }}</span>
           </div>
           <div>
             <label>Fasi GSBPM:</label>
-            <span>{{ tool.gsbpmProcesses
+            <span>{{ business.gsbpmProcesses
             .map(gsbpmProcess => {
               return gsbpmProcess.name;
             })
             .join(", "), | dashEmpty }}</span>
           </div>
-          <div>
-            <label>Versione:</label>
-            <span>{{ tool.version | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Tags:</label>
-            <span>{{ tool.tags | dashEmpty }}</span>
-          </div>
-          <!--div>
-            <label>Servizio:</label>
-            <span>{{ tool.service | dashEmpty }}</span>
-          </div-->
-          <div>
-            <label>Ultima Modifica:</label>
-            <span>{{ tool.lastUpdate | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Requisiti:</label>
-            <span>{{ tool.requirements | dashEmpty }}</span>
-          </div>
         </CCardBody>
-      </CCard>
-      <CCard v-if="tool.toolType.id == 3">
-        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Codice:</label>
-            <span>{{ tool.code | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Download:</label>
-            <span>{{ tool.download | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Flusso di lavoro:</label>
-            <span>{{ tool.workflow | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Linguaggio:</label>
-            <span>{{ tool.language | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Dipendenze:</label>
-            <span>{{ tool.ependencies | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Prerequisiti:</label>
-            <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-          </div>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.toolType.id == 2">
-        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Download:</label>
-            <span>{{ tool.download | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>licenza:</label>
-            <span>{{ tool.licence | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Linguaggio:</label>
-            <span>{{ tool.language | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Pacchetto:</label>
-            <span>{{ tool.packageApplication | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Sistema Operativo:</label>
-            <span>{{ tool.operativeSystem | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Versione:</label>
-            <span>{{ tool.version | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Prerequisiti:</label>
-            <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-          </div>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.toolType.id == 1">
-        <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Protocollo:</label>
-            <span>{{ tool.protocol | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Url:</label>
-            <span>{{ tool.url | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Contributi:</label>
-            <span>{{ tool.outcomes | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Dipendenze:</label>
-            <span>{{ tool.serviceDependencies | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Restrizioni:</label>
-            <span>{{ tool.restrictions | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Funzione operativa:</label>
-            <span>{{ tool.businessFunction | dashEmpty }}</span>
-          </div>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.documentations">
-        <CCardHeader>Documentazione</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="getDocumentationList"
-            :fields="fieldsDocumentation"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.gsbpmProcesses">
-        <CCardHeader>Processi GSBPM</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="getGsbpmList"
-            :fields="fieldsGsbpm"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.linkAgentsTools">
-        <CCardHeader>Referenti</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="getLinkedAgentList"
-            :fields="fieldsAgent"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.statisticalMethods">
-        <CCardHeader>Metodi Statistici</CCardHeader>
-        <CCardBody>
-          <CDataTable
-            :items="tool.statisticalMethods"
-            :fields="fields"
-            :items-per-page="10"
-          >
-          </CDataTable>
-        </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Back</CButton
-          >
-        </CCardFooter>
       </CCard>
     </div>
   </div>
@@ -189,9 +33,9 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
-import { Context } from "@/common";
+//import { Context } from "@/common";
 export default {
-  name: "ToolDetails",
+  name: "BusinessDetails",
   data() {
     return {
       fields: [
@@ -203,55 +47,16 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:30%;"
         },
         {
-          key: "description",
+          key: "descr",
           label: "Descrizione",
-          _style: "width:20%;"
+          _style: "width:30%;"
         },
-        {
-          key: "notes",
-          label: "Note",
-          _style: "width:60%;"
-        }
-      ],
-      fieldsAgent: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
-        {
-          key: "agentName",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "agentRole",
-          label: "Ruolo",
-          _style: "width:20%;"
-        },
-        {
-          key: "agentNotes",
-          label: "Note",
-          _style: "width:60%;"
-        }
-      ],
-      fieldsGsbpm: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
         {
           key: "label",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "code",
-          label: "Codice",
+          label: "Etichetta",
           _style: "width:20%;"
         },
         {
@@ -259,52 +64,23 @@ export default {
           label: "Attivo",
           _style: "width:20%;"
         }
-      ],
-      fieldsDocumentation: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
-        {
-          key: "name",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "publisher",
-          label: "Editore",
-          _style: "width:20%;"
-        },
-        {
-          key: "resource",
-          label: "Fonte",
-          _style: "width:20%;"
-        }
       ]
     };
   },
   computed: {
-    ...mapGetters("tools", ["tool"]),
-    getLinkedAgentList: function() {
-      return this.tool.linkAgentsTools.map(agentTool => {
+    ...mapGetters("business", ["business"]),
+    getBusinessProcesses: function() {
+      return this.business.businessProcesses.map(item => {
         return {
-          id: agentTool.id,
-
-          agentId: agentTool.agent.id,
-          agentName: agentTool.agent.name,
-          agentOrganization: agentTool.agent.organization,
-          agentContact: agentTool.agent.contact,
-          agentNotes: agentTool.agent.notes,
-
-          role: agentTool.role,
-          notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate
+          id: item.id,
+          name: item.name,
+          desr: item.desr,
+          label: item.label
         };
       });
-    },
-    getGsbpmList: function() {
-      return this.tool.gsbpmProcesses.map(gsbpm => {
+    }
+    /* getGsbpmList: function() {
+      return this.business.gsbpmProcesses.map(gsbpm => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
@@ -313,18 +89,7 @@ export default {
           active: gsbpm.active
         };
       });
-    },
-
-    getDocumentationList: function() {
-      return this.tool.documentations.map(doc => {
-        return {
-          id: doc.id,
-          name: doc.name,
-          publisher: doc.publisher,
-          resource: doc.resource
-        };
-      });
-    }
+    } */
   },
   methods: {
     /* handleSubmit() {
@@ -333,12 +98,12 @@ export default {
       });
     }, */
     backToList() {
-      this.$router.push("/catalogue/tools");
+      this.$router.push("/catalogue/businessList");
     }
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id);
-    this.$store.dispatch("coreui/setContext", Context.ToolDetail);
+    this.$store.dispatch("business/findById", this.$route.params.id);
+    //this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
   }
 };
 </script>

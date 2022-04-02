@@ -208,7 +208,10 @@
             <a href="#id-main">{{ tool.name | dashEmpty }}</a>
             <ul>
               <li>
-                <a href="#id-two">{{ tool.toolType.name | dashEmpty }}, type = {{tool.toolType.id }}</a>
+                <a href="#id-two"
+                  >{{ tool.toolType.name | dashEmpty }}, type =
+                  {{ tool.toolType.id }}</a
+                >
               </li>
               <li v-if="tool.documentations">
                 <a href="#id-documentations">Documentazione</a>
@@ -219,11 +222,10 @@
               <li v-if="tool.linkAgentsTools">
                 <a href="#id-link-agents-tools">Referenti</a>
               </li>
-              
+
               <li v-if="tool.statisticalMethods">
                 <a href="#id-statistical-methods">Metodi Statistici</a>
               </li>
-              
             </ul>
           </li>
         </ul>
@@ -271,18 +273,18 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "notes",
           label: "Note",
-          _style: "width:60%;",
-        },
+          _style: "width:60%;"
+        }
       ],
       fieldsAgent: [
         /*  {
@@ -293,18 +295,18 @@ export default {
         {
           key: "agentName",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "agentRole",
           label: "Ruolo",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "agentNotes",
           label: "Note",
-          _style: "width:60%;",
-        },
+          _style: "width:60%;"
+        }
       ],
       fieldsGsbpm: [
         /*  {
@@ -315,18 +317,18 @@ export default {
         {
           key: "label",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "code",
           label: "Codice",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "active",
           label: "Attivo",
-          _style: "width:20%;",
-        },
+          _style: "width:20%;"
+        }
       ],
       fieldsDocumentation: [
         /*  {
@@ -337,25 +339,25 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "publisher",
           label: "Editore",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "resource",
           label: "Fonte",
-          _style: "width:20%;",
-        },
-      ],
+          _style: "width:20%;"
+        }
+      ]
     };
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
-    getLinkedAgentList: function () {
-      return this.tool.linkAgentsTools.map((agentTool) => {
+    getLinkedAgentList: function() {
+      return this.tool.linkAgentsTools.map(agentTool => {
         return {
           id: agentTool.id,
 
@@ -367,32 +369,32 @@ export default {
 
           role: agentTool.role,
           notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate,
+          referenceDate: agentTool.referenceDate
         };
       });
     },
-    getGsbpmList: function () {
-      return this.tool.gsbpmProcesses.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.tool.gsbpmProcesses.map(gsbpm => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
           code: gsbpm.code,
           label: gsbpm.name,
-          active: gsbpm.active,
+          active: gsbpm.active
         };
       });
     },
 
-    getDocumentationList: function () {
-      return this.tool.documentations.map((doc) => {
+    getDocumentationList: function() {
+      return this.tool.documentations.map(doc => {
         return {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
-          resource: doc.resource,
+          resource: doc.resource
         };
       });
-    },
+    }
   },
   methods: {
     /* handleSubmit() {
@@ -402,12 +404,12 @@ export default {
     }, */
     backToList() {
       this.$router.push("/catalogue/tools");
-    },
+    }
   },
   created() {
     this.$store.dispatch("tools/findById", this.$route.params.id);
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  },
+  }
 };
 </script>
 <style scoped>

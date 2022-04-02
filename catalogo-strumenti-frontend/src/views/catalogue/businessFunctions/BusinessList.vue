@@ -130,6 +130,7 @@ export default {
     getBusinessList: function() {
       return this.businessList.map(business => {
         return {
+          id: business.id,
           name: business.name == null ? "" : business.name,
           descr: business.descr == null ? "" : business.descr.isnull,
           label: business.label == null ? "" : business.label,
