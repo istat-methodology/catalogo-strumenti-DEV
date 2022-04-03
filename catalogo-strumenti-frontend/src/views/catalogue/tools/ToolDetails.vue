@@ -1,14 +1,14 @@
 <template>
   <!-- wait until service is loaded -->
-
   <div class="row">
-    <div class="col-8">
+    <div class="col-8">      
       <a
+        class="a-card"
         href=""
-        @mouseover="setActiveItemList('#id-main', true)"
-        @mouseleave="setActiveItemList('#id-main', false)"
+        @mouseover="setActiveItemList('#id-link-main', true)"
+        @mouseleave="setActiveItemList('#id-link-main', false)"
       >
-        <CCard v-if="tool">
+        <CCard v-if="tool" id="id-card-main">
           <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
           <CCardBody>
             <div>
@@ -49,109 +49,107 @@
       </a>
 
       <a
+        class="a-card"
         href=""
-        @mouseover="setActiveItemList('#id-tooltype', true)"
-        @mouseleave="setActiveItemList('#id-tooltype', false)"
+        @mouseover="setActiveItemList('#id-link-tooltype', true)"
+        @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
-        <CCard v-if="tool.toolType.id == 3">
+        <CCard id="id-card-tooltype">
           <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
           <CCardBody>
-            <div>
-              <label>Codice:</label>
-              <span>{{ tool.code | dashEmpty }}</span>
+            <div v-if="tool.toolType.id == 3">
+              <div>
+                <label>Codice:</label>
+                <span>{{ tool.code | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Download:</label>
+                <span>{{ tool.download | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Flusso di lavoro:</label>
+                <span>{{ tool.workflow | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Linguaggio:</label>
+                <span>{{ tool.language | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Dipendenze:</label>
+                <span>{{ tool.ependencies | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Prerequisiti:</label>
+                <span>{{ tool.technicalRequirements | dashEmpty }}</span>
+              </div>
             </div>
-            <div>
-              <label>Download:</label>
-              <span>{{ tool.download | dashEmpty }}</span>
+            <div v-if="tool.toolType.id == 2">
+              <div>
+                <label>Download:</label>
+                <span>{{ tool.download | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>licenza:</label>
+                <span>{{ tool.licence | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Linguaggio:</label>
+                <span>{{ tool.language | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Pacchetto:</label>
+                <span>{{ tool.packageApplication | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Sistema Operativo:</label>
+                <span>{{ tool.operativeSystem | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Versione:</label>
+                <span>{{ tool.version | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Prerequisiti:</label>
+                <span>{{ tool.technicalRequirements | dashEmpty }}</span>
+              </div>
             </div>
-            <div>
-              <label>Flusso di lavoro:</label>
-              <span>{{ tool.workflow | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Linguaggio:</label>
-              <span>{{ tool.language | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Dipendenze:</label>
-              <span>{{ tool.ependencies | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Prerequisiti:</label>
-              <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-            </div>
-          </CCardBody>
-        </CCard>
-        <CCard v-if="tool.toolType.id == 2">
-          <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-          <CCardBody>
-            <div>
-              <label>Download:</label>
-              <span>{{ tool.download | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>licenza:</label>
-              <span>{{ tool.licence | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Linguaggio:</label>
-              <span>{{ tool.language | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Pacchetto:</label>
-              <span>{{ tool.packageApplication | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Sistema Operativo:</label>
-              <span>{{ tool.operativeSystem | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Versione:</label>
-              <span>{{ tool.version | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Prerequisiti:</label>
-              <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-            </div>
-          </CCardBody>
-        </CCard>
-      
-        <CCard v-if="tool.toolType.id == 1">
-          <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
-          <CCardBody>
-            <div>
-              <label>Protocollo:</label>
-              <span>{{ tool.protocol | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Url:</label>
-              <span>{{ tool.url | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Contributi:</label>
-              <span>{{ tool.outcomes | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Dipendenze:</label>
-              <span>{{ tool.serviceDependencies | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Restrizioni:</label>
-              <span>{{ tool.restrictions | dashEmpty }}</span>
-            </div>
-            <div>
-              <label>Funzione operativa:</label>
-              <span>{{ tool.businessFunction | dashEmpty }}</span>
+            <div v-if="tool.toolType.id == 1">
+              <div>
+                <label>Protocollo:</label>
+                <span>{{ tool.protocol | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Url:</label>
+                <span>{{ tool.url | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Contributi:</label>
+                <span>{{ tool.outcomes | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Dipendenze:</label>
+                <span>{{ tool.serviceDependencies | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Restrizioni:</label>
+                <span>{{ tool.restrictions | dashEmpty }}</span>
+              </div>
+              <div>
+                <label>Funzione operativa:</label>
+                <span>{{ tool.businessFunction | dashEmpty }}</span>
+              </div>
             </div>
           </CCardBody>
         </CCard>
       </a>
+      <div id="middle"/>
       <a
+        class="a-card"
         href=""
-        @mouseover="setActiveItemList('#id-statistical-methods', true)"
-        @mouseleave="setActiveItemList('#id-statistical-methods', false)"
+        @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
+        @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
-        <CCard v-if="tool.statisticalMethods">
+        <CCard v-if="tool.statisticalMethods" id="id-card-statistical-methods">
           <CCardHeader>Metodi Statistici</CCardHeader>
           <CCardBody>
             <CDataTable
@@ -173,11 +171,12 @@
         </CCard>
       </a>
       <a
+        class="a-card"
         href=""
-        @mouseover="setActiveItemList('#id-documentations', true)"
-        @mouseleave="setActiveItemList('#id-documentations', false)"
+        @mouseover="setActiveItemList('#id-link-documentations', true)"
+        @mouseleave="setActiveItemList('#id-link-documentations', false)"
       >
-        <CCard v-if="tool.documentations">
+        <CCard class="border-card" v-if="tool.documentations" id="id-card-documentations">
           <CCardHeader>Documentazione</CCardHeader>
           <CCardBody>
             <CDataTable
@@ -190,11 +189,12 @@
         </CCard>
       </a>
       <a
+        class="a-card"
         href=""
         @mouseover="setActiveItemList('#id-link-agents-tools', true)"
         @mouseleave="setActiveItemList('#id-link-agents-tools', false)"
       >
-        <CCard v-if="tool.linkAgentsTools">
+        <CCard v-if="tool.linkAgentsTools" id="id-card-link-agents-tools">
           <CCardHeader>Referenti</CCardHeader>
           <CCardBody>
             <CDataTable
@@ -212,26 +212,52 @@
       <section class="menu">
         <header><h2 class="menu-heading">Elenco:</h2></header>
         <ul class="menu-list">
-          <li class="list-item" id="id-main">
-            <a class="item-link" aria-current="true">{{
-              tool.name | dashEmpty
-            }}</a>
+          <li class="list-item" id="id-link-main">
+            <a
+              class="item-link"
+              href="#"
+              @mouseover="setActiveCard('#id-card-main', true)"
+              @mouseleave="setActiveCard('#id-card-main', false)"
+              >{{ tool.name | dashEmpty }}</a
+            >
           </li>
-          <li class="list-item" id="id-tooltype">
-            <a class="item-link"
+          <li class="list-item" id="id-link-tooltype">
+            <a
+              href="#"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-tooltype', true)"
+              @mouseleave="setActiveCard('#id-card-tooltype', false)"
               >{{ tool.toolType.name | dashEmpty }}, type =
               {{ tool.toolType.id }}</a
             >
           </li>
-          <li class="list-item" id="id-statistical-methods">
-            <a class="item-link">Metodi Statistici</a>
+          <li class="list-item" id="id-link-statistical-methods">
+            <a
+              href="#middle"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-statistical-methods', true)"
+              @mouseleave="setActiveCard('#id-card-statistical-methods', false)"
+              >Metodi Statistici</a
+            >
           </li>
 
-          <li class="list-item" id="id-documentations">
-            <a class="item-link">Documentazione</a>
+          <li class="list-item" id="id-link-documentations">
+            <a
+              href="#middle"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-documentations', true)"
+              @mouseleave="setActiveCard('#id-card-documentations', false)"
+              >Documentazione</a
+            >
           </li>
           <li class="list-item" id="id-link-agents-tools">
-            <a class="item-link">Referenti</a>
+            <a
+              href="#middle"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-link-agents-tools', true)"
+              @mouseleave="setActiveCard('#id-card-link-agents-tools', false)"
+              >Referenti</a
+            >
           </li>
         </ul>
       </section>
@@ -384,14 +410,13 @@ export default {
         this.backToList();
       });
     }, */
-    setActiveItemList(selector, toDo) {
-      let element = document.querySelector(selector);
-      element.setAttribute(
-        "style",
-        toDo
-          ? "border-left: 2px solid #196fed;"
-          : "border-left: 2px solid #aebad1"
-      );
+    setActiveItemList(selector, bool) {
+      document.querySelector(selector).className = bool
+        ? "list-item-hover"
+        : "list-item";
+    },
+    setActiveCard(selector, bool) {
+      document.querySelector(selector).className = bool ? "card-hover" : "card";
     },
     backToList() {
       this.$router.push("/catalogue/tools");
@@ -444,30 +469,25 @@ label {
   text-transform: uppercase;
 }
 .list-item {
-  background-color: var(--category-color-background);
-
   border-left: 2px solid #aebad1;
   list-style: none;
 }
-.list-item:hover {
-  color: var(--text-primary);
-  font-weight: 600;
+.list-item:hover,
+.list-item-hover {
   border-left: 2px solid #196fed;
-  background-color: var(--category-color-background);
+  list-style: none;
 }
 
 .item-link {
   display: block;
   padding: 0.5rem 1rem;
   font: var(--type-body-m);
-  border-left: 2px solid rgb(235, 235, 235);
-  color: var(--text-secondary);
+  color: gray;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
 }
-.item-link:hover {
-  color: gray;
-}
+
 ol,
 ul {
   list-style: none;
@@ -475,5 +495,34 @@ ul {
 }
 ul {
   list-style-type: disc;
+}
+a {
+  text-decoration: none;
+  color: gray;
+}
+.card:hover,
+.card-hover {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+  margin-bottom: 1.5rem !important;
+  word-wrap: break-word !important;
+  background-clip: border-box !important;
+  border-radius: 0.25rem !important;
+  background-color: #fff !important;
+  border: 1px solid #196fed !important;
+}
+.card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+  margin-bottom: 1.5rem !important;
+  word-wrap: break-word !important;
+  background-clip: border-box !important;
+  border-radius: 0.25rem !important;
+  background-color: #fff !important;
+  border: 1px solid #d8dbe0 !important;
 }
 </style>
