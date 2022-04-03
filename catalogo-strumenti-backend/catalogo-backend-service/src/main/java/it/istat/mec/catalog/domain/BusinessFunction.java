@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -34,10 +35,10 @@ public class BusinessFunction implements Serializable  {
 	@Column(name = "ACTIVE")
 	private String active;	
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "csm_link_gsbpm_business_function", joinColumns = {
-            @JoinColumn(name = "GSBPM_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+            @JoinColumn(name = "BUSINESS_FUNCTION_ID" , referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "GSBPM_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
 	private List<GsbpmProcess> gsbpmProcesses;
 	
 	@ManyToMany
