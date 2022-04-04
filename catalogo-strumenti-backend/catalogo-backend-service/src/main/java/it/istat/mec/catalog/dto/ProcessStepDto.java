@@ -15,4 +15,5 @@ public class ProcessStepDto implements Serializable  {
 	private String businessServiceId;	
 	private String substep;	
 	private List<StepInstanceDto> stepInstances;
+	private List<ProcessDesignDto> processDesigns;
 }

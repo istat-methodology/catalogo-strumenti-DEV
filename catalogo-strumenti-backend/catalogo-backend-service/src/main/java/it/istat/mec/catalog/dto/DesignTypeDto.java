@@ -5,12 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class DataTypeDto implements Serializable  {
+public class DesignTypeDto implements Serializable  {
 
 	
 	private static final long serialVersionUID = 204395729981711595L;
 	
 	private Long id;	
-	private String type;	
-
+	private String name;	
+	private String descr;
 }

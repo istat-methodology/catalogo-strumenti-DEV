@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "CLS_TOOL_TYPE")
+@Table(name = "csm_information_object")
 public class InformationObject implements Serializable  {
 
 	private static final long serialVersionUID = -4138548145919392087L;
@@ -31,8 +32,11 @@ public class InformationObject implements Serializable  {
 	private String csmAppRoleId;
 	
 	@Column(name = "CSM_BUSINESS_SERVICE_ID")
-	private String csmBusinessServiceId;
-	
+	private String businessService;
+/*	
+	@OneToOne(mappedBy = "informationObject")
+	private ProcessDesign processDesign;
+	*/
 	public InformationObject() {		
 	}
 	public InformationObject(Integer id) {

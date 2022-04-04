@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "CLS_TOOL_TYPE")
+@Table(name = "CLS_DESIGN_TYPE")
 public class DesignType implements Serializable  {
 
 	private static final long serialVersionUID = 6751134601358411316L;

@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -22,24 +23,25 @@ public class ProcessDesign implements Serializable  {
 	private static final long serialVersionUID = 4182189367596411863L;
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "NAME")
 	private String name;
 	
 	@Column(name = "DESC")
 	private String desc;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "STEP", nullable = false, insertable = false)
+	private ProcessStep step;	
 	
-	@Column(name = "STEP")
-	private String step;	
-	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne
     @JoinColumn(name = "TYPE", nullable = false, insertable = false)
  	private DesignType designType;
-	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+		
+	@ManyToOne
     @JoinColumn(name = "CSM_INFORMATION_OBJECT_ID", nullable = false, insertable = false)
- 	private InformationObject csmInformationObjecdId;
+	private InformationObject informationObject;
 	
 	
 	
