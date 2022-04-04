@@ -1,10 +1,9 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <div class="col-8">      
-      <a
-        class="a-card"
-        href=""
+    <div class="col-8">
+      <div
+       
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
@@ -32,10 +31,6 @@
               <label>Tags:</label>
               <span>{{ tool.tags | dashEmpty }}</span>
             </div>
-            <!--div>
-            <label>Servizio:</label>
-            <span>{{ tool.service | dashEmpty }}</span>
-          </div-->
             <div>
               <label>Ultima Modifica:</label>
               <span>{{ tool.lastUpdate | dashEmpty }}</span>
@@ -46,11 +41,10 @@
             </div>
           </CCardBody>
         </CCard>
-      </a>
+      </div>
 
-      <a
-        class="a-card"
-        href=""
+      <div
+              
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
@@ -141,11 +135,10 @@
             </div>
           </CCardBody>
         </CCard>
-      </a>
-      <div id="middle"/>
-      <a
-        class="a-card"
-        href=""
+      </div>
+      <div id="middle" />
+      <div
+              
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
@@ -169,14 +162,27 @@
             </CDataTable>
           </CCardBody>
         </CCard>
-      </a>
-      <a
-        class="a-card"
-        href=""
-        @mouseover="setActiveItemList('#id-link-documentations', true)"
-        @mouseleave="setActiveItemList('#id-link-documentations', false)"
+      </div>
+      <div
+            
+        @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
+        @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
-        <CCard class="border-card" v-if="tool.documentations" id="id-card-documentations">
+        <CCard id="id-card-functionalities">
+          <CCardHeader>Funzionalità</CCardHeader>
+          <CCardBody> </CCardBody>
+        </CCard>
+      </div>
+      <div
+             
+        @mouseover="setActiveItemList('#id-link-functionalities', true)"
+        @mouseleave="setActiveItemList('#id-link-functionalities', false)"
+      >
+        <CCard
+          class="border-card"
+          v-if="tool.documentations"
+          id="id-card-documentations"
+        >
           <CCardHeader>Documentazione</CCardHeader>
           <CCardBody>
             <CDataTable
@@ -187,10 +193,9 @@
             </CDataTable>
           </CCardBody>
         </CCard>
-      </a>
-      <a
-        class="a-card"
-        href=""
+      </div>
+      <div
+       
         @mouseover="setActiveItemList('#id-link-agents-tools', true)"
         @mouseleave="setActiveItemList('#id-link-agents-tools', false)"
       >
@@ -205,12 +210,12 @@
             </CDataTable>
           </CCardBody>
         </CCard>
-      </a>
+      </div>
     </div>
 
     <aside class="container-rigth">
       <section class="menu">
-        <header><h2 class="menu-heading">Elenco:</h2></header>
+        <header><h2 class="menu-heading">Contenuto:</h2></header>
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
             <a
@@ -227,8 +232,7 @@
               class="item-link"
               @mouseover="setActiveCard('#id-card-tooltype', true)"
               @mouseleave="setActiveCard('#id-card-tooltype', false)"
-              >{{ tool.toolType.name | dashEmpty }}, type =
-              {{ tool.toolType.id }}</a
+              >{{ tool.toolType.name | dashEmpty }}</a
             >
           </li>
           <li class="list-item" id="id-link-statistical-methods">
@@ -238,6 +242,15 @@
               @mouseover="setActiveCard('#id-card-statistical-methods', true)"
               @mouseleave="setActiveCard('#id-card-statistical-methods', false)"
               >Metodi Statistici</a
+            >
+          </li>
+          <li class="list-item" id="id-link-functionalities">
+            <a
+              href="#middle"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-functionalities', true)"
+              @mouseleave="setActiveCard('#id-card-functionalities', false)"
+              >Funzionalità</a
             >
           </li>
 
@@ -512,6 +525,8 @@ a {
   border-radius: 0.25rem !important;
   background-color: #fff !important;
   border: 1px solid #196fed !important;
+  box-shadow:none !important;
+
 }
 .card {
   position: relative !important;
@@ -524,5 +539,6 @@ a {
   border-radius: 0.25rem !important;
   background-color: #fff !important;
   border: 1px solid #d8dbe0 !important;
+  box-shadow:none !important;
 }
 </style>
