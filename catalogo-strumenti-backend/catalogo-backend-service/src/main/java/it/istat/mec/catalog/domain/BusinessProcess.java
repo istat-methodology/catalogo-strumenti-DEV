@@ -53,5 +53,6 @@ public class BusinessProcess implements Serializable  {
             @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
 	private List<ProcessStep> processSteps;
+	
 }
 
