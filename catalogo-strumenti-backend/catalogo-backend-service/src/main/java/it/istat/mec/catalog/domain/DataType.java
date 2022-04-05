@@ -21,9 +21,7 @@ public class DataType implements Serializable  {
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NAME")
-	private String name;
-	
-	@Column(name = "DESCR")
-	private String descr;
+	@Column(name = "type")
+	private String type;
+ 
 }
