@@ -56,6 +56,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_TOOL", data);
+        return data;
       })
       .catch(err => {
         console.log(err);

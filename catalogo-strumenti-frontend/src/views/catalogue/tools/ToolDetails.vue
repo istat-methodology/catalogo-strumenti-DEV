@@ -377,6 +377,7 @@ export default {
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
+    ...mapGetters("businessService", ["businessService"]),
     getLinkedAgentList: function () {
       return this.tool.linkAgentsTools.map((agentTool) => {
         return {
@@ -436,8 +437,9 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id);
-    this.$store.dispatch("businessService/findById", 100);
+    this.$store.dispatch("tools/findById", this.$route.params.id).then(tool => {
+      if(tool && tool.businessService) this.$store.dispatch("businessService/findById", tool.businessService.id);
+    });
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
   },
 };
