@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="card fade-in">
         <header class="card-header">
-          Elenco Business Functions
+          Elenco Processi
           <div class="card-header-actions">
             <router-link tag="a" :to="{ name: 'BusinessList' }">
               <add-icon />
@@ -95,22 +95,17 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;"
-        },
-        {
-          key: "descr",
-          label: "Descrizione",
           _style: "width:60%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:30%;"
+          _style: "width:10%;"
         },
         {
           key: "gsbpm",
           label: "Gsbpm",
-          _style: "width:60%;"
+          _style: "width:30%;"
         },
         {
           key: "show_details",
@@ -132,9 +127,13 @@ export default {
         return {
           id: business.id,
           name: business.name == null ? "" : business.name,
-          descr: business.descr == null ? "" : business.descr.isnull,
+          descr: business.descr == null ? "" : business.descr,
           label: business.label == null ? "" : business.label,
-          gsbpm: business.gsbpm == null ? "" : business.gsbpm
+          gsbpm: business.gsbpmProcesses == null ? "" : business.gsbpmProcesses
+              .map(gsbpmProcess => {
+                return gsbpmProcess.code +' '+ gsbpmProcess.name;
+              })
+              .join(", ")
         };
       });
     }

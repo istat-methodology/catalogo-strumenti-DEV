@@ -42,8 +42,7 @@
           class="c-sidebar-nav-link"
           :class="{ 'c-active': isBusinessList }"
         >
-          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Funzioni di
-          Busines
+          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
         </router-link>
       </li>
 
