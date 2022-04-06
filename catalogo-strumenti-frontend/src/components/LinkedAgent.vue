@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div>
+    <!-- <div>
       <label>Referente {{ agentName | dashEmpty }}</label>
-    </div>
-    <CCardBody>
+    </div> -->
+    <!-- <CCardBody>
       <CInput
         label="Organizzazione"
         placeholder="Organizzazione"
@@ -12,15 +12,37 @@
       <CInput label="Ruolo" placeholder="Ruolo" v-model="role" />
       <CInput label="Contatto" placeholder="Contatto" v-model="agentContact" />
       <CInput label="Note" placeholder="Note" v-model="agentNotes" />
-
-      <!-- <v-select
-      label="name"
-      :options="agentList"
-      placeholder="Referenti"
-      v-model="value"
-      @input="changeAgent"
-    ></v-select> -->
-    </CCardBody>
+    </CCardBody> -->
+    <CCard>
+      <CCardHeader>{{ agentName | dashEmpty }}</CCardHeader>
+      <CCardBody>
+        <div>
+          <label>Organizzazione:</label>
+          <span>{{ agentOrganization | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Ruolo:</label>
+          <span>{{ role | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Contatto:</label>
+          <span>{{ agentContact | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Note:</label>
+          <span>{{ agentNotes | dashEmpty }}</span>
+        </div>
+      </CCardBody>
+      <CCardFooter>
+        <CButton
+          shape="square"
+          size="sm"
+          color="light"
+          @click.prevent="deleteAgent"
+          >Delete</CButton
+        >
+      </CCardFooter>
+    </CCard>
   </div>
 </template>
 <script>

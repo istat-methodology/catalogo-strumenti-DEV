@@ -70,6 +70,6 @@ export default {
   name: "Catalogue",
   created() {
     this.$store.dispatch("coreui/setContext", Context.Home);
-  },
+  }
 };
 </script>
