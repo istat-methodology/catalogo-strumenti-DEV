@@ -22,6 +22,7 @@ import { tooltype } from "./modules/tooltype/tooltype";
 import { documentation } from "./modules/documentation/documentation";
 import { business } from "./modules/business/business";
 import { agent } from "./modules/agent/agentTools";
+import { businessService } from "./modules/service/businessService";
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
