@@ -56,8 +56,8 @@ export default {
   // mixins: [progressMixin],
   data() {
     return {
-      value: null,
-      linkedAgentLocal: {}
+      /* value: null,
+      documentationLocal: {} */
     };
   },
   props: {
