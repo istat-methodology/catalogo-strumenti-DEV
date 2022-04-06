@@ -31,16 +31,24 @@
       </CCardHeader>
       <CCardBody>
         <div>
-          <label>Descrizione:</label>
+          <label>Descrizione: </label>
           <span>{{ descr | dashEmpty }}</span>
         </div>
         <div>
-          <label>Etichetta:</label>
+          <label>Etichetta: </label>
           <span>{{ label | dashEmpty }}</span>
         </div>
         <div>
-          <label>Codice Ordine:</label>
+          <label>Codice Ordine: </label>
           <span>{{ orderCode | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Passi di Business: </label>
+          <span>{{ processSteps
+            .map(step => {
+              return step.name;
+            })
+            .join(", "), | dashEmpty }}</span>
         </div>
       </CCardBody>
       <!--  <CCardFooter> </CCardFooter> -->
