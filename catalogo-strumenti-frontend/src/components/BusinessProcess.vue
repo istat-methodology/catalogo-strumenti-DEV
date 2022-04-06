@@ -18,7 +18,17 @@
       <CInput label="Note" placeholder="Note" v-model="notes" />
     </CCardBody> -->
     <CCard>
-      <CCardHeader>{{ name | dashEmpty }}</CCardHeader>
+      <CCardHeader
+        >{{ name | dashEmpty }}
+        <CButton
+          shape="square"
+          size="sm"
+          color="light"
+          class="s-flex justify-content-end"
+          @click.prevent="deleteProcess"
+          >Delete</CButton
+        >
+      </CCardHeader>
       <CCardBody>
         <div>
           <label>Descrizione:</label>
@@ -33,15 +43,7 @@
           <span>{{ orderCode | dashEmpty }}</span>
         </div>
       </CCardBody>
-      <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="deleteAgent"
-          >Delete</CButton
-        >
-      </CCardFooter>
+      <!--  <CCardFooter> </CCardFooter> -->
     </CCard>
   </div>
 </template>

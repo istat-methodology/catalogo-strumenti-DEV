@@ -376,7 +376,7 @@ export default {
   computed: {
     ...mapGetters("tools", ["tool"]),
 
-    ...mapGetters("businessService", {
+    ...mapGetters("bus inessService", {
       businessServiceService: "businessService"
     }),
     getLinkedAgentList: function() {
