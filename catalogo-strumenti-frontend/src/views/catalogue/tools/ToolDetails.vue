@@ -166,6 +166,10 @@
       >
         <CCard id="id-card-functionalities">
           <CCardHeader>Funzionalità</CCardHeader>
+          <div v-if="businessServiceService">
+            <label>name</label> <span>{{ businessServiceService.name }}</span>
+          </div>
+
           <CCardBody> </CCardBody>
         </CCard>
       </div>
@@ -371,6 +375,10 @@ export default {
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
+
+    ...mapGetters("businessService", {
+      businessServiceService: "businessService"
+    }),
     getLinkedAgentList: function() {
       return this.tool.linkAgentsTools.map(agentTool => {
         return {
@@ -430,7 +438,13 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id);
+    this.$store.dispatch("tools/findById", this.$route.params.id).then(tool => {
+      if (tool && tool.businessService)
+        this.$store.dispatch(
+          "businessService/findById",
+          tool.businessService.id
+        );
+    });
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
   }
 };

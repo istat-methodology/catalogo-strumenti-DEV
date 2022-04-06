@@ -8,3 +8,4 @@ export * from "./tooltype/tooltype.service";
 export * from "./documentation/documentation.service";
 export * from "./business/business.service";
 export * from "./agent/agent.service";
+export * from "./service/businessService.service";
