@@ -170,6 +170,11 @@
       >
         <CCard id="id-card-functionalities">
           <CCardHeader>Funzionalità</CCardHeader>
+          <div v-if="businessServiceService">
+              <label>name</label> <span>{{businessServiceService.name}}</span>
+          </div>
+
+
           <CCardBody> </CCardBody>
         </CCard>
       </div>
@@ -377,7 +382,7 @@ export default {
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
-    ...mapGetters("businessService", ["businessService"]),
+    ...mapGetters("businessService", {businessServiceService: "businessService"}),
     getLinkedAgentList: function () {
       return this.tool.linkAgentsTools.map((agentTool) => {
         return {
