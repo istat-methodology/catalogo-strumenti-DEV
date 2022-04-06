@@ -25,6 +25,22 @@
             })
             .join(", "), | dashEmpty }}</span>
           </div>
+          <CCard v-if="this.business">
+            <CCardHeader>Elenco Processi</CCardHeader>
+            <CCardBody>
+              <app-process-agent
+                v-for="item in getBusinessProcesses"
+                :key="item.id"
+                :name="item.name"
+                :descr="item.descr"
+                :label="item.label"
+                :orderCode="item.orderCode"
+                :parent="item.parent"
+                :processSteps="item.processSteps"
+              >
+              </app-process-agent>
+            </CCardBody>
+          </CCard>
         </CCardBody>
       </CCard>
     </div>
@@ -33,9 +49,13 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
+import BusinessProcess from "@/components/BusinessProcess";
 //import { Context } from "@/common";
 export default {
   name: "BusinessDetails",
+  components: {
+    "app-process-agent": BusinessProcess
+  },
   data() {
     return {
       fields: [
@@ -75,7 +95,10 @@ export default {
           id: item.id,
           name: item.name,
           desr: item.desr,
-          label: item.label
+          label: item.label,
+          orderCode: item.orderCode,
+          parent: item.parent,
+          processSteps: item.processSteps
         };
       });
     }

@@ -3,7 +3,6 @@
   <div class="row">
     <div class="col-8">
       <div
-       
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
@@ -44,7 +43,6 @@
       </div>
 
       <div
-              
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
@@ -138,7 +136,6 @@
       </div>
       <div id="middle" />
       <div
-              
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
@@ -164,7 +161,6 @@
         </CCard>
       </div>
       <div
-            
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
@@ -174,7 +170,6 @@
         </CCard>
       </div>
       <div
-             
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
@@ -195,7 +190,6 @@
         </CCard>
       </div>
       <div
-       
         @mouseover="setActiveItemList('#id-link-agents-tools', true)"
         @mouseleave="setActiveItemList('#id-link-agents-tools', false)"
       >
@@ -294,18 +288,18 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "notes",
           label: "Note",
-          _style: "width:60%;",
-        },
+          _style: "width:60%;"
+        }
       ],
       fieldsAgent: [
         /*  {
@@ -316,18 +310,18 @@ export default {
         {
           key: "agentName",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "agentRole",
           label: "Ruolo",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "agentNotes",
           label: "Note",
-          _style: "width:60%;",
-        },
+          _style: "width:60%;"
+        }
       ],
       fieldsGsbpm: [
         /*  {
@@ -338,18 +332,18 @@ export default {
         {
           key: "label",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "code",
           label: "Codice",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "active",
           label: "Attivo",
-          _style: "width:20%;",
-        },
+          _style: "width:20%;"
+        }
       ],
       fieldsDocumentation: [
         /*  {
@@ -360,25 +354,25 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "publisher",
           label: "Editore",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "resource",
           label: "Fonte",
-          _style: "width:20%;",
-        },
-      ],
+          _style: "width:20%;"
+        }
+      ]
     };
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
-    getLinkedAgentList: function () {
-      return this.tool.linkAgentsTools.map((agentTool) => {
+    getLinkedAgentList: function() {
+      return this.tool.linkAgentsTools.map(agentTool => {
         return {
           id: agentTool.id,
 
@@ -390,32 +384,32 @@ export default {
 
           role: agentTool.role,
           notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate,
+          referenceDate: agentTool.referenceDate
         };
       });
     },
-    getGsbpmList: function () {
-      return this.tool.gsbpmProcesses.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.tool.gsbpmProcesses.map(gsbpm => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
           code: gsbpm.code,
           label: gsbpm.name,
-          active: gsbpm.active,
+          active: gsbpm.active
         };
       });
     },
 
-    getDocumentationList: function () {
-      return this.tool.documentations.map((doc) => {
+    getDocumentationList: function() {
+      return this.tool.documentations.map(doc => {
         return {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
-          resource: doc.resource,
+          resource: doc.resource
         };
       });
-    },
+    }
   },
   methods: {
     /* handleSubmit() {
@@ -433,12 +427,12 @@ export default {
     },
     backToList() {
       this.$router.push("/catalogue/tools");
-    },
+    }
   },
   created() {
     this.$store.dispatch("tools/findById", this.$route.params.id);
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  },
+  }
 };
 </script>
 <style scoped>
@@ -525,8 +519,7 @@ a {
   border-radius: 0.25rem !important;
   background-color: #fff !important;
   border: 1px solid #196fed !important;
-  box-shadow:none !important;
-
+  box-shadow: none !important;
 }
 .card {
   position: relative !important;
@@ -539,6 +532,6 @@ a {
   border-radius: 0.25rem !important;
   background-color: #fff !important;
   border: 1px solid #d8dbe0 !important;
-  box-shadow:none !important;
+  box-shadow: none !important;
 }
 </style>
