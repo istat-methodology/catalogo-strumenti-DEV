@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <!-- <div>
       <label>Documento {{ name | dashEmpty }} </label>
     </div>
     <CCardBody>
@@ -16,7 +16,37 @@
       />
       <CInput label="Fonte" placeholder="Fonte" v-model="resource" />
       <CInput label="Note" placeholder="Note" v-model="notes" />
-    </CCardBody>
+    </CCardBody> -->
+    <CCard>
+      <CCardHeader>{{ name | dashEmpty }}</CCardHeader>
+      <CCardBody>
+        <div>
+          <label>Pubblicazione:</label>
+          <span>{{ publisher | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Tipo Documento:</label>
+          <span>{{ documentType | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Fonte:</label>
+          <span>{{ resource | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Note:</label>
+          <span>{{ notes | dashEmpty }}</span>
+        </div>
+      </CCardBody>
+      <CCardFooter>
+        <CButton
+          shape="square"
+          size="sm"
+          color="light"
+          @click.prevent="deleteAgent"
+          >Delete</CButton
+        >
+      </CCardFooter>
+    </CCard>
   </div>
 </template>
 <script>
