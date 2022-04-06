@@ -39,6 +39,7 @@ export default new Vuex.Store({
     documentation,
     agent,
     business,
+    businessService,
     /* applications,
     methods,
     procedures,
