@@ -12,16 +12,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "CSM_CLS_DATA_TYPE")
-public class DataType implements Serializable  {
+@Table(name = "CLS_DESIGN_TYPE")
+public class DesignType implements Serializable  {
 
-	private static final long serialVersionUID = 2770935607864704065L;
+	private static final long serialVersionUID = 6751134601358411316L;
 
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
-	@Column(name = "type")
+	@Column(name = "TYPE")
 	private String type;
- 
+	
+	public DesignType() {		
+	}
+	public DesignType(Integer id) {
+		this.id=id;
+	}
 }

@@ -21,6 +21,9 @@ spring:
     hikari:
       minimum-idle: 1
       maximum-pool-size: 3
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
 server:
   port: 8081
 
@@ -55,6 +58,6 @@ logging:
   level:
     org:
       hibernate:
-        SQL: INFO
+        SQL: DEBUG
 
 

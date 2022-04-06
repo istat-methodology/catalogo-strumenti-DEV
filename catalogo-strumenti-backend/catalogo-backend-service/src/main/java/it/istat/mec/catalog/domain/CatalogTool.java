@@ -62,8 +62,11 @@ public class CatalogTool implements Serializable  {
     @JoinColumn(name = "TOOL_TYPE", nullable = false, insertable = false)
  	private ToolType toolType;
 	
-	@Column(name = "SERVICE")
-	private int service;
+	
+    
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "SERVICE", nullable = false, insertable = false)
+	private BusinessService businessService;
 
 	@Column(name = "LAST_UPDATE")
 	private Date lastUpdate;

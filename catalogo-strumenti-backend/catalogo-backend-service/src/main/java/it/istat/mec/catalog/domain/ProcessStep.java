@@ -6,10 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -36,8 +39,10 @@ public class ProcessStep implements Serializable  {
 	@Column(name = "LABEL")
 	private String label;
 
-	@Column(name = "BUSINESS_SERVICE_ID")
-	private String businessServiceId;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "BUSINESS_SERVICE_ID", nullable = false, insertable = false)
+	private BusinessService businessService;
 	
 	@Column(name = "SUBSTEP")
 	private String substep;	
@@ -53,4 +58,7 @@ public class ProcessStep implements Serializable  {
             @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "PROCESS_STEP_INSTANCE_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
 	private List<StepInstance> stepInstances;
+	
+	@OneToMany(mappedBy = "step", cascade = CascadeType.ALL)   
+	private List<ProcessDesign> processDesigns;
 }
