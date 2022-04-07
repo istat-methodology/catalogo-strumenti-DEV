@@ -25,22 +25,22 @@
             })
             .join(", "), | dashEmpty }}</span>
           </div>
-          <CCard v-if="this.business">
-            <CCardHeader>Elenco Processi</CCardHeader>
-            <CCardBody>
-              <app-process-agent
-                v-for="item in getBusinessProcesses"
-                :key="item.id"
-                :name="item.name"
-                :descr="item.descr"
-                :label="item.label"
-                :orderCode="item.orderCode"
-                :parent="item.parent"
-                :processSteps="item.processSteps"
-              >
-              </app-process-agent>
-            </CCardBody>
-          </CCard>
+        </CCardBody>
+      </CCard>
+      <CCard v-if="this.business">
+        <CCardHeader>Elenco Processi</CCardHeader>
+        <CCardBody>
+          <app-process-agent
+            v-for="item in getBusinessProcesses"
+            :key="item.id"
+            :name="item.name"
+            :descr="item.descr"
+            :label="item.label"
+            :orderCode="item.orderCode"
+            :parent="item.parent"
+            :processSteps="item.processSteps"
+          >
+          </app-process-agent>
         </CCardBody>
       </CCard>
     </div>

@@ -17,7 +17,7 @@
       <CInput label="Fonte" placeholder="Fonte" v-model="resource" />
       <CInput label="Note" placeholder="Note" v-model="notes" />
     </CCardBody> -->
-    <CCard>
+    <!-- <CCard>
       <CCardHeader
         >{{ name | dashEmpty }}
         <CButton
@@ -51,8 +51,15 @@
             .join(", "), | dashEmpty }}</span>
         </div>
       </CCardBody>
-      <!--  <CCardFooter> </CCardFooter> -->
-    </CCard>
+    </CCard> -->
+    <li>
+      {{ name | dashEmpty }}
+    </li>
+    <ul id="example-1">
+      <li v-for="item in processSteps" :key="item.message">
+        {{ item.name }}
+      </li>
+    </ul>
   </div>
 </template>
 <script>
