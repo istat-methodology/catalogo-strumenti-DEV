@@ -148,8 +148,9 @@ export default {
           return Object.assign({}, item, {
             tooltype: item.toolType.name,
             gsbpm: item.gsbpmProcesses
-              .map(gsbpmProcess => {
-                return gsbpmProcess.name;
+              .map(gsbpmProcess => {                
+                return gsbpmProcess.code + " " +  gsbpmProcess.name;
+
               })
               .join(", "),
             methods: item.statisticalMethods
