@@ -392,11 +392,11 @@ export default {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
-          label: gsbpm.name,
+          label: gsbpm.code + " " + gsbpm.name,
           children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
             };
           }),
 

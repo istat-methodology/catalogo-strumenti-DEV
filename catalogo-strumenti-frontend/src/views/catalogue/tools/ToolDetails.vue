@@ -214,28 +214,21 @@
                 <ul class="list-group list-group-horizontal">
                   <li class="list-group-item col-2 center bold">Type</li>
                   <li class="list-group-item col-2 center bold">Name</li>
-                  <li class="list-group-item col-4 center bold">Description</li>
-                  <li class="list-group-item col-4 center bold">
-                    process Design
-                  </li>
+                  <li class="list-group-item col-8 center bold">Description</li>
                 </ul>
-
                 <ul
                   v-for="item in item.processDesigns"
                   :key="item.id"
                   class="list-group list-group-horizontal"
                 >
                   <li class="list-group-item col-2">
-                    {{ item.designType.type }}
+                  {{ item.id }} . {{ item.designType.type }}
                   </li>
                   <li class="list-group-item col-2">
                     {{ item.informationObject.name }}
                   </li>
-                  <li class="list-group-item col-4">
+                  <li class="list-group-item col-8">
                     {{ item.informationObject.descr }}
-                  </li>
-                  <li class="list-group-item col-4">
-                    {{ item.informationObject.processDesign }}
                   </li>
                 </ul>
               </div>
