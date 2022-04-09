@@ -174,12 +174,14 @@
                 v-for="(item, index) in businessServiceService.processSteps"
                 :key="item.name"
               >
-                <div @click="isFolding(index, item.name)">
+                <div @click="setActiveIndex(index)">
                   <div class="list-group">
                     
-                    <button type="button" class="list-group-item list-group-item-action"  >
+                    <button type="button" class="list-group-item list-group-item-action" >
                       <div class="row">
-                          <div class="col-2">{{ item.name }}</div><div class="col-10">{{ item.descr }}</div>
+                          <div class="col-2">                        
+                          <i v-if="index == isActiveIndex" class="bold">-</i><i v-if="index !== isActiveIndex" class="bold" >+</i>
+                          {{ item.name }}</div><div class="col-10">{{ item.descr }}</div>
                       </div>
                     </button>
                   </div>
@@ -193,7 +195,7 @@
           v-for="(item, index) in businessServiceService.processSteps"
           :key="item.name"
         >
-          <CCard v-if="index == isOpenIndex">
+          <CCard v-if="index == isActiveIndex">
             <CCardHeader>{{ item.name }}</CCardHeader>
             <CCardBody>
               <div>
@@ -349,8 +351,8 @@ export default {
   //components: { plusORminus },
   data() {
     return {
-      isOpen: -1,
-      click: false,
+
+      activeIndex: -1,      
       fields: [
         /*  {
           key: "id",
@@ -565,8 +567,8 @@ export default {
         };
       });
     },
-    isOpenIndex() {
-      return this.isOpen;
+    isActiveIndex() {
+      return this.activeIndex;
     },
   },
   methods: {
@@ -584,10 +586,8 @@ export default {
     setActiveCard(selector, bool) {
       document.querySelector(selector).className = bool ? "card-hover" : "card";
     },
-    isFolding(index, selector) {
-      this.isOpen !== index ? this.isOpen = index:this.isOpen=-1;
-      document.querySelector('#'+ selector).removeClass("active");
-
+    setActiveIndex(index) {
+      this.activeIndex !== index ? this.activeIndex = index:this.activeIndex=-1;
     },
     backToList() {
       this.$router.push("/catalogue/tools");
