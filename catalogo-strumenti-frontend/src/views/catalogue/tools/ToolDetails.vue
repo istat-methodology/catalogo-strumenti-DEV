@@ -180,7 +180,7 @@
                     <button type="button" class="list-group-item list-group-item-action" >
                       <div class="row">
                           <div class="col-2">                        
-                          <i v-if="index == isActiveIndex" class="bold">-</i><i v-if="index !== isActiveIndex" class="bold" >+</i>
+                          <minus-icon v-if="index == isActiveIndex" /><plus-icon v-if="index !== isActiveIndex" />
                           {{ item.name }}</div><div class="col-10">{{ item.descr }}</div>
                       </div>
                     </button>
