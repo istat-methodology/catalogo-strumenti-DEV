@@ -166,7 +166,7 @@
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
-        <CCard id="id-card-functionalities" >
+        <CCard id="id-card-functionalities">
           <CCardHeader>Funzionalità</CCardHeader>
           <CCardBody>
             <div>
@@ -176,14 +176,82 @@
               >
                 <div @click="setActiveIndex(index)">
                   <div class="list-group">
+                    <!--
+                      hover change background color
+                      list-group-item-action
+                      :class="index == isActiveIndex ? 'list-group-active-item' : 'list-group-item'"
+                    -->
                     
-                    <button type="button" class="list-group-item list-group-item-action" >
+                    <li
+                      type="button"                      
+                      :class = "index == isActiveIndex ? 'list-group-active-item' : 'list-group-item'"                      
+                    >
                       <div class="row">
-                          <div class="col-2">                        
-                          <minus-icon v-if="index == isActiveIndex" /><plus-icon v-if="index !== isActiveIndex" />
-                          {{ item.name }}</div><div class="col-10">{{ item.descr }}</div>
+                        <div class="col-2">
+                          <minus-icon v-if="index == isActiveIndex" /><plus-icon
+                            v-if="index !== isActiveIndex"
+                          />
+                          {{ item.name }}
+                        </div>
+                        <div class="col-10">{{ item.descr }}</div>
                       </div>
-                    </button>
+                    </li>
+                    <CCard v-if="index == isActiveIndex">
+                      <!--CCardHeader>{{ item.name }}</CCardHeader-->
+                      <CCardBody>
+                        <div>
+                          <!--div>
+                            <ul class="list-group list-group-horizontal">
+                              <li
+                                class="
+                                  list-group-item
+                                  col-12
+                                  cursor-pointer
+                                  padding-description
+                                "
+                              >
+                                {{ item.descr }}
+                              </li>
+                            </ul>
+                          </div-->
+
+                          <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item col-2 center bold">
+                              DesignType
+                            </li>
+                            <li class="list-group-item col-10 center bold">
+                              information Object
+                            </li>
+                          </ul>
+                          <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item col-2 center bold">
+                              Type
+                            </li>
+                            <li class="list-group-item col-2 center bold">
+                              Name
+                            </li>
+                            <li class="list-group-item col-8 center bold">
+                              Description
+                            </li>
+                          </ul>
+                          <ul
+                            v-for="item in item.processDesigns"
+                            :key="item.id"
+                            class="list-group list-group-horizontal"
+                          >
+                            <li class="list-group-item col-2">
+                              {{ item.id }} . {{ item.designType.type }}
+                            </li>
+                            <li class="list-group-item col-2">
+                              {{ item.informationObject.name }}
+                            </li>
+                            <li class="list-group-item col-8">
+                              {{ item.informationObject.descr }}
+                            </li>
+                          </ul>
+                        </div>
+                      </CCardBody>
+                    </CCard>
                   </div>
                 </div>
               </div>
@@ -191,7 +259,7 @@
           </CCardBody>
         </CCard>
 
-        <div
+        <!--div
           v-for="(item, index) in businessServiceService.processSteps"
           :key="item.name"
         >
@@ -236,7 +304,7 @@
               </div>
             </CCardBody>
           </CCard>
-        </div>
+        </div-->
       </div>
       <div
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
@@ -351,8 +419,7 @@ export default {
   //components: { plusORminus },
   data() {
     return {
-
-      activeIndex: -1,      
+      activeIndex: -1,
       fields: [
         /*  {
           key: "id",
@@ -578,7 +645,6 @@ export default {
       });
     }, */
     setActiveItemList(selector, bool) {
-       
       document.querySelector(selector).className = bool
         ? "list-item-hover"
         : "list-item";
@@ -587,7 +653,9 @@ export default {
       document.querySelector(selector).className = bool ? "card-hover" : "card";
     },
     setActiveIndex(index) {
-      this.activeIndex !== index ? this.activeIndex = index:this.activeIndex=-1;
+      this.activeIndex !== index
+        ? (this.activeIndex = index)
+        : (this.activeIndex = -1);
     },
     backToList() {
       this.$router.push("/catalogue/tools");
@@ -709,24 +777,37 @@ a {
 .border {
   border: 1px solid rgb(197, 197, 197);
 }
+.no-border {
+  border: 0 !important;
+}
 .center {
   text-align: center;
 }
 .bold {
   font-weight: 700;
 }
-.list-group, .list-group-horizontal, .list-group-item {  
-    border-radius:0 !important;
-    border:0 !important;
+.list-group,
+.list-group-horizontal,
+.list-group-item {
+  border-radius: 0 !important;
+  border: 0 !important;
 }
 .list-group-item {
   border-color: rgba(255, 255, 255) !important ;
   border-bottom: 1px solid #d8dbe0 !important;
-  padding-top: 0.25em  !important;
-  padding-bottom: 0.25em  !important;
-  min-height: 3.5em !important;;
+  padding-top: 0.25em !important;
+  padding-bottom: 0.25em !important;
+  min-height: 3.5em !important;
 }
-.padding-description{
+.list-group-active-item {
+  font-weight: 700;
+  border-color: #fff !important ;
+  border: 1px solid #fff !important;
+  padding-top: 1.25em !important;
+  padding-bottom: 1.25em !important;
+  min-height: 3.5em !important;
+}
+.padding-description {
   padding-bottom: 1.6em !important;
 }
 </style>
