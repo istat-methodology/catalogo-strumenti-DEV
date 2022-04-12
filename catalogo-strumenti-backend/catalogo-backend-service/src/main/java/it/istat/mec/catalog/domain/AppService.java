@@ -32,7 +32,7 @@ public class AppService implements Serializable  {
 	private String descr;
 	
 	@Column(name = "IMPLEMENTATION_LANGUAGE")
-	private Long implementationLanguage;
+	private String implementationLanguage;
 
 	@Column(name = "ENGINE")
 	private String engine;
@@ -41,7 +41,7 @@ public class AppService implements Serializable  {
 	private String SourcePath;
 	
 	@Column(name = "SOURCE_CODE")
-	private Long sourceCode;
+	private String sourceCode;
 
 	@Column(name = "AUTHOR")
 	private String author;
@@ -50,7 +50,7 @@ public class AppService implements Serializable  {
 	private String licence;
 	
 	@Column(name = "CONTACT")
-	private Integer contact;
+	private String contact;
 	
 	
  
@@ -58,7 +58,7 @@ public class AppService implements Serializable  {
     private List<StepInstance> stepInstances;
 	
 	@ManyToOne
-    @JoinColumn(name = "BUSINESS_SERVICE_ID", nullable = false, insertable = false)
+    @JoinColumn(name = "BUSINESS_SERVICE_ID")
 	private BusinessService businessService;
 	
 }

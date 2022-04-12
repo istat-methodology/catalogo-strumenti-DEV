@@ -15,12 +15,12 @@ public class AppServiceDto implements Serializable {
 	private Integer id;	
 	private String name;	
 	private String descr;	
-	private Long implementationLanguage;	
+	private String implementationLanguage;	
 	private String engine;	
 	private String SourcePath;	
-	private Long sourceCode;	
+	private String sourceCode;	
 	private String author;	
 	private String licence;	
-	private Integer contact;
-	private List<StepInstance> stepInstances;
+	private String contact;
+	private List<StepInstanceDto> stepInstances;
 }
