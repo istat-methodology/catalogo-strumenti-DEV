@@ -64,6 +64,16 @@ const actions = {
         console.log(err);
       });
   },
+  filter({ commit }, payload) {
+    return businessOpenService
+      .filter(payload)
+      .then(data => {
+        commit("SET_BUSINESS", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   delete({ dispatch }, id) {
     return businessService
       .delete(id)

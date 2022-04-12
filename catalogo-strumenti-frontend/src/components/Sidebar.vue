@@ -310,26 +310,26 @@ export default {
     }, */
     onNodeCheckedGsbpm(node) {
       this.checkedNodesGsbpm.push(node.id);
-      console.log(node.text);
+      console.log(node.id);
       this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
-      this.$store
-        .dispatch("filter/setParams", this.payload)
-        .then(this.$store.dispatch("tools/filter", this.params));
+      if (this.isToolList == true) {
+        this.$store
+          .dispatch("filter/setParams", this.payload)
+          .then(this.$store.dispatch("tools/filter", this.params));
+      }
+      if (this.isBusinessList == true) {
+        this.$store
+          .dispatch("filter/setParams", this.payload)
+          .then(this.$store.dispatch("business/filter", this.params));
+      }
     },
     onNodeCheckedType(node) {
       this.checkedNodesType.push(node.id);
       console.log(node.text);
       this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
-      if (this.isToolList) {
-        this.$store
-          .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("tools/filter", this.params));
-      }
-      if (this.isBusinessList) {
-        this.$store
-          .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("business/filter", this.params));
-      }
+      this.$store
+        .dispatch("filter/setParams", this.payload)
+        .then(this.$store.dispatch("tools/filter", this.params));
     },
     onNodeUncheckedGsbpm(node) {
       if (this.checkedNodesGsbpm.indexOf(node.id) >= 0) {
@@ -337,19 +337,31 @@ export default {
           this.checkedNodesGsbpm.indexOf(node.id),
           1
         );
-        console.log(node.text + "- unchecked");
+        console.log(node.id + "- unchecked");
         this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
-        this.$store
-          .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("tools/filter", this.params));
+        if (this.isToolList == true) {
+          this.$store
+            .dispatch("filter/setParams", this.payload)
+            .then(this.$store.dispatch("tools/filter", this.params));
+        }
+        if (this.isBusinessList == true) {
+          this.$store
+            .dispatch("filter/setParams", this.payload)
+            .then(this.$store.dispatch("business/filter", this.params));
+        }
       } else {
-        this.$store.dispatch("tools/filter", this.params);
+        if (this.isToolList == true) {
+          this.$store.dispatch("tools/filter", this.params);
+        }
+        if (this.isBusinessList == true) {
+          this.$store.dispatch("business/filter", this.params);
+        }
       }
     },
     onNodeUncheckedType(node) {
       if (this.checkedNodesType.indexOf(node.id) >= 0) {
         this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
-        console.log(node.text + "- unchecked");
+        console.log(node.id + "- unchecked");
         this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
         this.$store
           .dispatch("filter/setParams", this.payload)

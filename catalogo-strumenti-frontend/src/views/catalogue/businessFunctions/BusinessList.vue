@@ -83,7 +83,7 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 export default {
-  name: "businessList",
+  name: "BusinessList",
   data() {
     return {
       fields: [
@@ -122,20 +122,43 @@ export default {
   computed: {
     ...mapGetters("business", ["businessList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    getBusinessList: function() {
-      return this.businessList.map(business => {
-        return {
-          id: business.id,
-          name: business.name == null ? "" : business.name,
-          descr: business.descr == null ? "" : business.descr,
-          label: business.label == null ? "" : business.label,
-          gsbpm: business.gsbpmProcesses == null ? "" : business.gsbpmProcesses
-              .map(gsbpmProcess => {
-                return gsbpmProcess.code +' '+ gsbpmProcess.name;
-              })
-              .join(", ")
-        };
+    ...mapGetters("filter", ["params"]),
+    /* getBusinessList() {
+      return this.businessList.map(item => {
+        return Object.assign({}, item, {
+          id: item.id,
+          name: item.name == null ? "" : item.name,
+          descr: item.descr == null ? "" : item.descr,
+          label: item.label == null ? "" : item.label,
+          gsbpm: item.gsbpmProcesses
+            .map(gsbpmProcess => {
+              return gsbpmProcess.name;
+            })
+            .join(", ")
+        });
       });
+    } */
+    getBusinessList: function() {
+      if (this.businessList) {
+        return this.businessList.map(business => {
+          return {
+            id: business.id,
+            name: business.name == null ? "" : business.name,
+            descr: business.descr == null ? "" : business.descr,
+            label: business.label == null ? "" : business.label,
+            gsbpm:
+              business.gsbpmProcesses == null
+                ? ""
+                : business.gsbpmProcesses
+                    .map(gsbpmProcess => {
+                      return gsbpmProcess.code + " " + gsbpmProcess.name;
+                    })
+                    .join(", ")
+          };
+        });
+      } else {
+        return [];
+      }
     }
   },
 
@@ -155,8 +178,8 @@ export default {
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessList);
     // if (this.params) {
-    // this.$store.dispatch("tools/filter", this.params);
-    this.$store.dispatch("business/findAll");
+    this.$store.dispatch("business/filter", this.params);
+    //this.$store.dispatch("business/findAll");
     // }
   }
 };
