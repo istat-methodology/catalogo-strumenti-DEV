@@ -68,7 +68,7 @@ const actions = {
     return businessOpenService
       .filter(payload)
       .then(data => {
-        commit("SET_BUSINESS", data);
+        commit("SET_BUSINESSLIST", data);
       })
       .catch(err => {
         console.log(err);
