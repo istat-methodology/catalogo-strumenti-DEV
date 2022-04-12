@@ -1,25 +1,21 @@
 package it.istat.mec.catalog.domain;
-
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "CSM_BUSINESS_SERVICE")
+@Table(name = "CSM_APP_SERVICE")
 public class AppService implements Serializable  {
 
 	
@@ -54,7 +50,7 @@ public class AppService implements Serializable  {
 	private String licence;
 	
 	@Column(name = "CONTACT")
-	private Long contact;
+	private Integer contact;
 	
 	
  

@@ -12,7 +12,7 @@ public class AppServiceDto implements Serializable {
 	 
 	private static final long serialVersionUID = -8722479449260924506L;
 
-	private Long id;	
+	private Integer id;	
 	private String name;	
 	private String descr;	
 	private Long implementationLanguage;	
@@ -21,6 +21,6 @@ public class AppServiceDto implements Serializable {
 	private Long sourceCode;	
 	private String author;	
 	private String licence;	
-	private Long contact;
+	private Integer contact;
 	private List<StepInstance> stepInstances;
 }
