@@ -134,7 +134,6 @@ export default {
           filter: false
         }
       ]
-
     };
   },
   computed: {
