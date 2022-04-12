@@ -6,7 +6,7 @@ import Vue from "vue";
  *
  * Documentation on the component is available at:
  *
- * https://www.npmjs.com/package/vue-material-design-icons
+ * https://www.npmjs.com/package/-vuematerial-design-icons
  */
 import "vue-material-design-icons/styles.css";
 
@@ -34,6 +34,8 @@ import ArrowLeftIcon from "icons/ChevronDoubleLeft.vue";
 import ArrowRightIcon from "icons/ChevronDoubleRight.vue";
 import WarningIcon from "icons/AlertOctagonOutline.vue";
 import ChartBarIcon from "icons/ChartBar.vue";
+import MinusIcon from "icons/Minus.vue";
+import PlusIcon from "icons/Plus.vue";
 
 Vue.component("chevron-right-icon", ChevronRightBoxIcon);
 Vue.component("home-icon", HomeIcon);
@@ -59,3 +61,6 @@ Vue.component("arrow-left-icon", ArrowLeftIcon);
 Vue.component("arrow-right-icon", ArrowRightIcon);
 Vue.component("warning-icon", WarningIcon);
 Vue.component("chart-bar-icon", ChartBarIcon);
+Vue.component("minus-icon", MinusIcon);
+Vue.component("plus-icon", PlusIcon);
+

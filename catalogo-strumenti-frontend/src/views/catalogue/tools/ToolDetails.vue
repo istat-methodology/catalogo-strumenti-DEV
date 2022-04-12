@@ -160,18 +160,151 @@
           </CCardBody>
         </CCard>
       </div>
+
       <div
-        @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
-        @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
+        v-if="businessServiceService.processSteps"
+        @mouseover="setActiveItemList('#id-link-functionalities', true)"
+        @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
         <CCard id="id-card-functionalities">
           <CCardHeader>Funzionalità</CCardHeader>
-          <div v-if="businessServiceService">
-            <label>name</label> <span>{{ businessServiceService.name }}</span>
-          </div>
+          <CCardBody>
+            <div>
+              <div
+                v-for="(item, index) in businessServiceService.processSteps"
+                :key="item.name"
+              >
+                <div @click="setActiveIndex(index)">
+                  <div class="list-group">
+                    <!--
+                      hover change background color
+                      list-group-item-action
+                      :class="index == isActiveIndex ? 'list-group-active-item' : 'list-group-item'"
+                    -->
+                    
+                    <li
+                      type="button"                      
+                      :class = "index == isActiveIndex ? 'list-group-active-item' : 'list-group-item'"                      
+                    >
+                      <div class="row">
+                        <div class="col-2">
+                          <minus-icon v-if="index == isActiveIndex" /><plus-icon
+                            v-if="index !== isActiveIndex"
+                          />
+                          {{ item.name }}
+                        </div>
+                        <div class="col-10">{{ item.descr }}</div>
+                      </div>
+                    </li>
+                    <CCard v-if="index == isActiveIndex">
+                      <!--CCardHeader>{{ item.name }}</CCardHeader-->
+                      <CCardBody>
+                        <div>
+                          <!--div>
+                            <ul class="list-group list-group-horizontal">
+                              <li
+                                class="
+                                  list-group-item
+                                  col-12
+                                  cursor-pointer
+                                  padding-description
+                                "
+                              >
+                                {{ item.descr }}
+                              </li>
+                            </ul>
+                          </div-->
 
-          <CCardBody> </CCardBody>
+                          <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item col-2 center bold">
+                              DesignType
+                            </li>
+                            <li class="list-group-item col-10 center bold">
+                              information Object
+                            </li>
+                          </ul>
+                          <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item col-2 center bold">
+                              Type
+                            </li>
+                            <li class="list-group-item col-2 center bold">
+                              Name
+                            </li>
+                            <li class="list-group-item col-8 center bold">
+                              Description
+                            </li>
+                          </ul>
+                          <ul
+                            v-for="item in item.processDesigns"
+                            :key="item.id"
+                            class="list-group list-group-horizontal"
+                          >
+                            <li class="list-group-item col-2">
+                              {{ item.id }} . {{ item.designType.type }}
+                            </li>
+                            <li class="list-group-item col-2">
+                              {{ item.informationObject.name }}
+                            </li>
+                            <li class="list-group-item col-8">
+                              {{ item.informationObject.descr }}
+                            </li>
+                          </ul>
+                        </div>
+                      </CCardBody>
+                    </CCard>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CCardBody>
         </CCard>
+
+        <!--div
+          v-for="(item, index) in businessServiceService.processSteps"
+          :key="item.name"
+        >
+          <CCard v-if="index == isActiveIndex">
+            <CCardHeader>{{ item.name }}</CCardHeader>
+            <CCardBody>
+              <div>
+                <div>
+                  <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item col-12 cursor-pointer padding-description">
+                      {{ item.descr }}
+                    </li>
+                  </ul>
+                </div>
+
+                <ul class="list-group list-group-horizontal ">
+                  <li class="list-group-item col-2 center bold">DesignType</li>
+                  <li class="list-group-item col-10 center bold">
+                    information Object
+                  </li>
+                </ul>
+                <ul class="list-group list-group-horizontal">
+                  <li class="list-group-item col-2 center bold">Type</li>
+                  <li class="list-group-item col-2 center bold">Name</li>
+                  <li class="list-group-item col-8 center bold">Description</li>
+                </ul>
+                <ul
+                  v-for="item in item.processDesigns"
+                  :key="item.id"
+                  class="list-group list-group-horizontal"
+                >
+                  <li class="list-group-item col-2">
+                  {{ item.id }} . {{ item.designType.type }}
+                  </li>
+                  <li class="list-group-item col-2">
+                    {{ item.informationObject.name }}
+                  </li>
+                  <li class="list-group-item col-8">
+                    {{ item.informationObject.descr }}
+                  </li>
+                </ul>
+              </div>
+            </CCardBody>
+          </CCard>
+        </div-->
       </div>
       <div
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
@@ -279,10 +412,14 @@
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+//import plusORminus from "@/components/plusORminus";
+
 export default {
   name: "ToolDetails",
+  //components: { plusORminus },
   data() {
     return {
+      activeIndex: -1,
       fields: [
         /*  {
           key: "id",
@@ -292,18 +429,18 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "notes",
           label: "Note",
-          _style: "width:60%;"
-        }
+          _style: "width:60%;",
+        },
       ],
       fieldsAgent: [
         /*  {
@@ -314,18 +451,18 @@ export default {
         {
           key: "agentName",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "agentRole",
           label: "Ruolo",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "agentNotes",
           label: "Note",
-          _style: "width:60%;"
-        }
+          _style: "width:60%;",
+        },
       ],
       fieldsGsbpm: [
         /*  {
@@ -336,18 +473,18 @@ export default {
         {
           key: "label",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "code",
           label: "Codice",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "active",
           label: "Attivo",
-          _style: "width:20%;"
-        }
+          _style: "width:20%;",
+        },
       ],
       fieldsDocumentation: [
         /*  {
@@ -358,29 +495,108 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "publisher",
           label: "Editore",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "resource",
           label: "Fonte",
-          _style: "width:20%;"
-        }
-      ]
+          _style: "width:20%;",
+        },
+      ],
+      fieldsFunctions: [
+        {
+          key: "name",
+          label: "name",
+        },
+        {
+          key: "descr",
+          label: "descr",
+        },
+        {
+          key: "processDesigns",
+          label: "processDesigns",
+        },
+        {
+          key: "stepInstances",
+          label: "stepInstances",
+        },
+        {
+          key: "substep",
+          label: "substep",
+        },
+      ],
+      processDesigns: [
+        {
+          key: "id",
+          label: "id",
+        },
+        {
+          key: "name",
+          label: "name",
+        },
+        {
+          key: "descr",
+          label: "descr",
+        },
+        {
+          key: "step",
+          label: "step",
+        },
+        {
+          key: "designType",
+          label: "designType",
+        },
+        {
+          key: "informationObject",
+          label: "informationObject",
+        },
+      ],
+      designType: [
+        {
+          key: "id",
+          label: "id",
+        },
+        {
+          key: "type",
+          label: "type",
+        },
+      ],
+      informationObject: [
+        {
+          key: "businessService",
+          label: "businessService",
+        },
+        {
+          key: "csmAppRoleId",
+          label: "csmAppRoleId",
+        },
+        {
+          key: "name",
+          label: "name",
+        },
+        {
+          key: "descr",
+          label: "descr",
+        },
+        {
+          key: "processDesign",
+          label: "processDesign",
+        },
+      ],
     };
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
-
-    ...mapGetters("bus inessService", {
-      businessServiceService: "businessService"
+    ...mapGetters("businessService", {
+      businessServiceService: "businessService",
     }),
-    getLinkedAgentList: function() {
-      return this.tool.linkAgentsTools.map(agentTool => {
+    getLinkedAgentList: function () {
+      return this.tool.linkAgentsTools.map((agentTool) => {
         return {
           id: agentTool.id,
 
@@ -392,32 +608,35 @@ export default {
 
           role: agentTool.role,
           notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate
+          referenceDate: agentTool.referenceDate,
         };
       });
     },
-    getGsbpmList: function() {
-      return this.tool.gsbpmProcesses.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.tool.gsbpmProcesses.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
           code: gsbpm.code,
           label: gsbpm.name,
-          active: gsbpm.active
+          active: gsbpm.active,
         };
       });
     },
 
-    getDocumentationList: function() {
-      return this.tool.documentations.map(doc => {
+    getDocumentationList: function () {
+      return this.tool.documentations.map((doc) => {
         return {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
-          resource: doc.resource
+          resource: doc.resource,
         };
       });
-    }
+    },
+    isActiveIndex() {
+      return this.activeIndex;
+    },
   },
   methods: {
     /* handleSubmit() {
@@ -433,20 +652,27 @@ export default {
     setActiveCard(selector, bool) {
       document.querySelector(selector).className = bool ? "card-hover" : "card";
     },
+    setActiveIndex(index) {
+      this.activeIndex !== index
+        ? (this.activeIndex = index)
+        : (this.activeIndex = -1);
+    },
     backToList() {
       this.$router.push("/catalogue/tools");
-    }
+    },
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id).then(tool => {
-      if (tool && tool.businessService)
-        this.$store.dispatch(
-          "businessService/findById",
-          tool.businessService.id
-        );
-    });
+    this.$store
+      .dispatch("tools/findById", this.$route.params.id)
+      .then((tool) => {
+        if (tool && tool.businessService)
+          this.$store.dispatch(
+            "businessService/findById",
+            tool.businessService.id
+          );
+      });
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  }
+  },
 };
 </script>
 <style scoped>
@@ -547,5 +773,41 @@ a {
   background-color: #fff !important;
   border: 1px solid #d8dbe0 !important;
   box-shadow: none !important;
+}
+.border {
+  border: 1px solid rgb(197, 197, 197);
+}
+.no-border {
+  border: 0 !important;
+}
+.center {
+  text-align: center;
+}
+.bold {
+  font-weight: 700;
+}
+.list-group,
+.list-group-horizontal,
+.list-group-item {
+  border-radius: 0 !important;
+  border: 0 !important;
+}
+.list-group-item {
+  border-color: rgba(255, 255, 255) !important ;
+  border-bottom: 1px solid #d8dbe0 !important;
+  padding-top: 0.25em !important;
+  padding-bottom: 0.25em !important;
+  min-height: 3.5em !important;
+}
+.list-group-active-item {
+  font-weight: 700;
+  border-color: #fff !important ;
+  border: 1px solid #fff !important;
+  padding-top: 1.25em !important;
+  padding-bottom: 1.25em !important;
+  min-height: 3.5em !important;
+}
+.padding-description {
+  padding-bottom: 1.6em !important;
 }
 </style>
