@@ -14,6 +14,6 @@ public class DocumentationDto implements Serializable {
 	private DocumentationTypeDto documentType;	
 	private String notes;	
 	private String resource;	
-	private CatalogToolMiniDto tool;
+	private String tool;
 	
 }
