@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CLS_DOCUMENT_TYPE")
-public class DocumentType implements Serializable{
+public class DocumentationType implements Serializable{
 
 	private static final long serialVersionUID = 2030797155841387448L;
 

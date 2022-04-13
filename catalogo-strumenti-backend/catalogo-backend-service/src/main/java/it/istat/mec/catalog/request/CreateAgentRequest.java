@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateAgentRequest {
 	
-	private Long id;	
+	private Integer id;	
 	private String name;	
 	private String organization;	
 	private String contact;	

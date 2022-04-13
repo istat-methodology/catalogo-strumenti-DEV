@@ -16,4 +16,5 @@ public class BusinessServiceDto implements Serializable {
 	private String descr;
 	
 	private List<ProcessStepDto> processSteps;
+	private List<AppServiceDto> appServices;
 }

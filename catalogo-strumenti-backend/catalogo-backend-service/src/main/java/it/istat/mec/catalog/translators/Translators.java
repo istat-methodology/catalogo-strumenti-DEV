@@ -16,6 +16,7 @@ import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.domain.Documentation;
+import it.istat.mec.catalog.domain.DocumentationType;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
@@ -30,6 +31,7 @@ import it.istat.mec.catalog.dto.BusinessServiceDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
+import it.istat.mec.catalog.dto.DocumentationTypeDto;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
 import it.istat.mec.catalog.dto.ProcessStepDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
@@ -466,6 +468,11 @@ public class Translators {
 	public static List<ToolTypeDto> translateToolTypeList(List<ToolType> list) {
 		
 		return mapList(list, ToolTypeDto.class);
+	}
+	
+    public static List<DocumentationTypeDto> translateDocumentationTypeList(List<DocumentationType> list) {
+		
+		return mapList(list, DocumentationTypeDto.class);
 	}
 	
 	public static List<GsbpmProcess> translateGSBPMProcessList(List<GSBPMProcessDto> list) {

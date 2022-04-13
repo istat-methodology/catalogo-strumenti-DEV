@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class DocumentTypeDto implements Serializable  {
+public class DocumentationTypeDto implements Serializable  {
 
 	
 	private static final long serialVersionUID = -2849827615748381854L;

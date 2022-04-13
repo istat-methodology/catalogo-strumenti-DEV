@@ -6,10 +6,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -26,7 +28,7 @@ public class StepInstance implements Serializable  {
 
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "METHOD")
 	private String method;
@@ -40,12 +42,15 @@ public class StepInstance implements Serializable  {
 	@Column(name = "FUNCTIONALITY")
 	private String functionality;
 
-	@Column(name = "APP_SERVICE_ID")
-	private String appServiceId;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_link_step_instance", joinColumns = {
             @JoinColumn(name = "PROCESS_STEP_INSTANCE_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false)})
 	private List<ProcessStep> processSteps;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "APP_SERVICE_ID", nullable = false, insertable = false)
+	private AppService appService;
+	
 }

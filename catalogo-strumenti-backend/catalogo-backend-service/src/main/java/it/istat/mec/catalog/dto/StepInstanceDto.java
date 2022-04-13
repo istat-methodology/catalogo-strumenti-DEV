@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class StepInstanceDto implements Serializable  {
 
 	private static final long serialVersionUID = -3088590458451619674L;
-	private Long id;	
+	private Integer id;	
 	private String method;	
 	private String statMethod;	
 	private String descr;		
