@@ -7,7 +7,7 @@ import it.istat.mec.catalog.domain.Agent;
 
 
 @Repository
-public interface AgentDao extends JpaRepository<Agent, Long> {
+public interface AgentDao extends JpaRepository<Agent, Integer> {
 
 	@Override
 	List<Agent> findAll();

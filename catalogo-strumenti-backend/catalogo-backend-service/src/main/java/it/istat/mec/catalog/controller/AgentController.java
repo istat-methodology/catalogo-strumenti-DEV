@@ -29,7 +29,7 @@ public class AgentController {
 	}
 	
 	@GetMapping(value = "/open/agents/{id}")
-	public AgentDto getAgent(@PathVariable("id") Long id) {
+	public AgentDto getAgent(@PathVariable("id") Integer id) {
 
 		return agentService.findAgentById(id);
 
@@ -48,7 +48,7 @@ public class AgentController {
 	}
 	
 	@DeleteMapping(value = "/agents/{id}")
-	public AgentDto deleteAgent(@PathVariable("id") Long id) {
+	public AgentDto deleteAgent(@PathVariable("id") Integer id) {
 
 		return agentService.deleteAgent(id);
 	}

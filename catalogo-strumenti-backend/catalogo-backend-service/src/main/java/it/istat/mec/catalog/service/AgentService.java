@@ -28,7 +28,7 @@ public class AgentService {
 		return Translators.translate(agent);
 	}
 	
-	public AgentDto findAgentById(Long id) {
+	public AgentDto findAgentById(Integer id) {
 
 		if (!agentDao.findById(id).isPresent())
 			throw new NoDataException("Agent not present");
@@ -48,7 +48,7 @@ public class AgentService {
 		
 		return Translators.translate(agent);
 	}
-	public AgentDto deleteAgent(Long id) {		
+	public AgentDto deleteAgent(Integer id) {		
 		if (!agentDao.findById(id).isPresent())
 			throw new NoDataException("Agent not present");
 			Agent agent = agentDao.findById(id).get();
