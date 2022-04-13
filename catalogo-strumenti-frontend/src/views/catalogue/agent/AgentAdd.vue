@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       agentLocal: {
-        id: "",
+        id: 0,
         name: "",
         organization: "",
         contact: "",
