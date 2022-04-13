@@ -134,7 +134,16 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       if (this.documentationList) {
-        return this.documentationList;
+        return this.documentationList.map(item => {
+          return {
+            id: item.id,
+            name: item.name,
+            publisher: item.publisher,
+            documentType: item.documentType.name,
+            notes: item.notes,
+            resource: item.resource
+          };
+        });
       } else {
         return [];
       }
