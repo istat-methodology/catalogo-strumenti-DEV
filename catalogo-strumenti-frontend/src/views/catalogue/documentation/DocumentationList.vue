@@ -136,6 +136,7 @@ export default {
       if (this.documentationList) {
         return this.documentationList.map(item => {
           return {
+            id: item.id,
             name: item.name,
             publisher: item.publisher,
             documentType: item.documentType.name,
