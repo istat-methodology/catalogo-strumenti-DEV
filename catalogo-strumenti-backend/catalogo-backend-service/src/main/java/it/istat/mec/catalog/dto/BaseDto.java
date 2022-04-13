@@ -12,7 +12,4 @@ public class BaseDto implements Serializable {
 	
 	private Integer id;	
 	private String name;	
-	private String organization;	
-	private String contact;	
-	private String notes;	
 }
