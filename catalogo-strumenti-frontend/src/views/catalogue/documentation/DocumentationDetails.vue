@@ -11,7 +11,7 @@
           </div>
           <div>
             <label>Documento:</label>
-            <span>{{ documentation.documentType | dashEmpty }}</span>
+            <span>{{ documentation.documentType.name | dashEmpty }}</span>
           </div>
           <div>
             <label>Note:</label>
