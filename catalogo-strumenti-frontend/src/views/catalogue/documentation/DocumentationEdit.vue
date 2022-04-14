@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard v-if="documentation">
-        <CCardHeader>Modifica Metodo Statistico</CCardHeader>
+        <CCardHeader>Modifica Documentazione</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome"
@@ -15,11 +15,21 @@
             placeholder="Editore"
             v-model="documentationLocal.publisher"
           />
-          <CInput
+          <!-- <CInput
             label="Tipo Documento"
             placeholder="Tipo Documento"
-            v-model="documentationLocal.documentType"
-          />
+            v-model="documentationLocal.documentType.name"
+          /> -->
+          <div>
+            <label>Tipo Documento</label>
+          </div>
+          <v-select
+            label="name"
+            :options="documentationTypeList"
+            placeholder="Strumento Statistico"
+            v-model="documentation.documentType.name"
+            @input="changeDocumentType"
+          ></v-select>
           <CInput
             label="Note"
             placeholder="Note"
@@ -83,6 +93,7 @@ export default {
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
+    ...mapGetters("documentationType", ["documentationTypeList"]),
     ...mapGetters("tools", ["toolscatalog"])
   },
 
@@ -96,6 +107,9 @@ export default {
   methods: {
     changeTool(value) {
       this.documentationLocal.tool = value.id;
+    },
+    changeDocumentType(value) {
+      this.documentationLocal.documentType = value.id;
     },
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
@@ -111,7 +125,7 @@ export default {
       this.documentationLocal.id = this.documentation.id;
       this.documentationLocal.name = this.documentation.name;
       this.documentationLocal.publisher = this.documentation.publisher;
-      this.documentationLocal.documentType = this.documentation.documentType;
+      this.documentationLocal.documentType = this.documentation.documentType.id;
       this.documentationLocal.notes = this.documentation.notes;
       this.documentationLocal.resource = this.documentation.resource;
       this.documentationLocal.tool = this.documentation.tool.id;
@@ -128,6 +142,7 @@ export default {
         this.setOldValues();
       });
     this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("documentationType/findAll");
   }
 };
 </script>

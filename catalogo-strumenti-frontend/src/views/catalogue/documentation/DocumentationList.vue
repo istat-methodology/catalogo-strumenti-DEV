@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       fields: [
-        /*  {
+        /* {
           key: "id",
           label: "Identificativo",
           _style: "width:10%;"

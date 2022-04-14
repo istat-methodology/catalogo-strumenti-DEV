@@ -20,6 +20,7 @@ import { services } from "./modules/services/services"; */
 import { gsbpm } from "./modules/gsbpm/gsbpm";
 import { tooltype } from "./modules/tooltype/tooltype";
 import { documentation } from "./modules/documentation/documentation";
+import { documentationType } from "./modules/documentationType/documentationType";
 import { business } from "./modules/business/business";
 import { agent } from "./modules/agent/agentTools";
 import { businessService } from "./modules/service/businessService";
@@ -40,6 +41,7 @@ export default new Vuex.Store({
     agent,
     business,
     businessService,
+    documentationType,
     /* applications,
     methods,
     procedures,
