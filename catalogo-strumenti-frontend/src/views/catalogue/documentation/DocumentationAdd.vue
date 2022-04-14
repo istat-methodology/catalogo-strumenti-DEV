@@ -15,11 +15,16 @@
             placeholder="Editore"
             v-model="documentationLocal.publisher"
           />
-          <CInput
-            label="Documento"
-            placeholder="Documento"
-            v-model="documentationLocal.documentType"
-          />
+          <div>
+            <label>Tipo Documento</label>
+          </div>
+          <v-select
+            label="name"
+            :options="documentationTypeList"
+            placeholder="Strumento Statistico"
+            v-model="documentation.documentType.name"
+            @input="changeDocumentType"
+          ></v-select>
           <CInput
             label="Note"
             placeholder="Note"
@@ -63,7 +68,7 @@
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
 export default {
-  name: "documentationlAdd",
+  name: "documentationAdd",
   data() {
     return {
       documentationLocal: {
@@ -78,11 +83,16 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("documentation", ["documentation"]),
+    ...mapGetters("documentationType", ["documentationTypeList"]),
     ...mapGetters("tools", ["toolscatalog"])
   },
   methods: {
     changeTool(value) {
       this.documentationLocal.tool = value.id;
+    },
+    changeDocumentType(value) {
+      this.documentationLocal.documentType = value.id;
     },
     handleSubmit() {
       this.$store
@@ -92,14 +102,15 @@ export default {
     },
     goBack() {
       this.$router.push("/catalogue/documentazione");
-    },
-    onChange(event) {
-      this.tipologia = event.target.value;
     }
+    /* onChange(event) {
+      this.tipologia = event.target.value;
+    } */
   },
   created() {
-    this.$store.dispatch("documentation/findAll");
+    //this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("documentationType/findAll");
   }
 };
 </script>
