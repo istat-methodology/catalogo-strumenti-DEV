@@ -22,7 +22,7 @@
             label="name"
             :options="documentationTypeList"
             placeholder="Strumento Statistico"
-            v-model="documentation.documentType.name"
+            v-model="documentationLocal.documentType.name"
             @input="changeDocumentType"
           ></v-select>
           <CInput
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       documentationLocal: {
-        id: "",
+        id: 0,
         name: "",
         publisher: "",
         documentType: "",
