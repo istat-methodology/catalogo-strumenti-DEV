@@ -137,32 +137,17 @@
           </CCardBody>
         </CCard>
       </div>
+
       <div id="id-functionalities" />
       <div
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
-        <h2>Metodi Statistici</h2>
-        <CCard v-if="tool.statisticalMethods" id="id-card-statistical-methods">
-          <CCardBody>
-            <CDataTable
-              :items="tool.statisticalMethods"
-              :fields="fields"
-              :items-per-page="10"
-              ><template #show_details="{ item }">
-                <td>
-                  <router-link
-                    tag="a"
-                    :to="{ name: 'MethodDetails', params: { id: item.id } }"
-                  >
-                    <view-icon />
-                  </router-link>
-                </td>
-              </template>
-            </CDataTable>
-          </CCardBody>
-        </CCard>
+        <app-methods
+          :statisticalMethods="tool.statisticalMethods"
+        ></app-methods>
       </div>
+
       <!--         
         functionalities
       -->
@@ -253,36 +238,18 @@
         @mouseover="setActiveItemList('#id-link-documentations', true)"
         @mouseleave="setActiveItemList('#id-link-documentations', false)"
       >
-        <h2 id="id-documentations">Documentazione</h2>
-        <CCard
-          class="border-card"
-          v-if="tool.documentations"
-          id="id-card-documentations"
-        >
-          <CCardBody>
-            <CDataTable
-              :items="getDocumentationList"
-              :fields="fieldsDocumentation"
-              :items-per-page="10"
-               ><template #show_details="{ item }">
-                <td>
-                  <router-link
-                    tag="a"
-                    :to="{ name: 'DocumentationDetails', params: { id: item.id } }"
-                  >
-                    <view-icon />
-                  </router-link>
-                </td>
-              </template>
-            >
-            </CDataTable>
-          </CCardBody>
-        </CCard>
+        <app-documentations
+          :documentations="getDocumentationList"
+        ></app-documentations>
       </div>
       <div
         @mouseover="setActiveItemList('#id-link-link-agents-tools', true)"
         @mouseleave="setActiveItemList('#id-link-link-agents-tools', false)"
       >
+        <app-linkedAgents
+          :linkedAgents="getLinkedAgentList"
+        ></app-linkedAgents>
+
         <h2 id="id-link-agents-tools">Referenti</h2>
         <CCard v-if="tool.linkAgentsTools" id="id-card-link-agents-tools">
           <CCardBody>
@@ -290,7 +257,7 @@
               :items="getLinkedAgentList"
               :fields="fieldsAgent"
               :items-per-page="10"
-                  ><template #show_details="{ item }">
+              ><template #show_details="{ item }">
                 <td>
                   <router-link
                     tag="a"
@@ -300,7 +267,7 @@
                   </router-link>
                 </td>
               </template>
-            >
+              >
             </CDataTable>
           </CCardBody>
         </CCard>
@@ -373,6 +340,9 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
+import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
+import DocumentationView from "../documentation/shared/DocumentationView";
+import LinkedAgentView from "../agent/shared/LinkedAgentView";
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 //import plusORminus from "@/components/plusORminus";
@@ -439,20 +409,18 @@ export default {
         },
       ],
       fieldsDocumentation: [
-      
         {
           key: "name",
           label: "Nome",
           _style: "width:90%;",
         },
-         {
+        {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
           filter: false,
         },
-       
       ],
       fieldsFunctions: [
         {
@@ -576,6 +544,7 @@ export default {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
+          documentType: doc.documentType.name,
           resource: doc.resource,
         };
       });
@@ -583,6 +552,11 @@ export default {
     isActiveIndex() {
       return this.activeIndex;
     },
+  },
+  components: {
+    "app-documentations": DocumentationView,
+    "app-methods": StatisticalMethodView,
+    "app-linkedAgents": LinkedAgentView
   },
   methods: {
     /* handleSubmit() {
