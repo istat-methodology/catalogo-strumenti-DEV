@@ -44,7 +44,7 @@ public class BaseDomain  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    protected Long id;
+    protected Integer id;
     @Column(name = "NAME")
     protected String name;
     @Column(name = "DESCR")
@@ -67,7 +67,7 @@ public class BaseDomain  implements Serializable {
     public BaseDomain() {
     }
 
-    public BaseDomain(Long idFunction) {
+    public BaseDomain(Integer idFunction) {
         super();
         this.id = idFunction;
     }

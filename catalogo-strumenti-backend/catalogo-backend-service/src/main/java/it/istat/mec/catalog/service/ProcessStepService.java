@@ -28,7 +28,7 @@ public class ProcessStepService {
 		return Translators.translate(ps);
 	}
 	
-	public ProcessStepDto findProcessStepById(Long id) {
+	public ProcessStepDto findProcessStepById(Integer id) {
 
 		if (!processStepDao.findById(id).isPresent())
 			throw new NoDataException("ProcessStep not present");
@@ -48,7 +48,7 @@ public class ProcessStepService {
 		
 		return Translators.translate(ps);
 	}
-	public ProcessStepDto deleteProcessStep(Long id) {		
+	public ProcessStepDto deleteProcessStep(Integer id) {		
 		if (!processStepDao.findById(id).isPresent())
 			throw new NoDataException("ProcessStep not present");
 			ProcessStep ps = processStepDao.findById(id).get();

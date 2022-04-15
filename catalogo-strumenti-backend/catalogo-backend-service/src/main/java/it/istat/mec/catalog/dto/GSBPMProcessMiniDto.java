@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class GSBPMProcessMiniDto implements Serializable {
+public class GSBPMProcessMiniDto extends BaseDto implements Serializable {
 
 	private static final long serialVersionUID = -6905546979001300372L;
     
-	private Integer id; 
 	private String code; 
-    private String name;       
+          
  
 }

@@ -9,7 +9,7 @@ public class CreateStepInstanceRequest implements Serializable  {
 
 	
 	private static final long serialVersionUID = -3888879913264397676L;
-	private Long id;	
+	private Integer id;	
 	private String method;	
 	private String statMethod;	
 	private String descr;		

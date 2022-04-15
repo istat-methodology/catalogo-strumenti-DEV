@@ -25,7 +25,7 @@ public class BusinessService implements Serializable  {
 	private static final long serialVersionUID = 4780254819197312841L;
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "NAME")
 	private String name;

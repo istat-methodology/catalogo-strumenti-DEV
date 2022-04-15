@@ -28,7 +28,7 @@ public class BusinessServiceService {
 		return Translators.translate(bs);
 	}
 	
-	public BusinessServiceDto findBusinessServiceById(Long id) {
+	public BusinessServiceDto findBusinessServiceById(Integer id) {
 
 		if (!businessServiceDao.findById(id).isPresent())
 			throw new NoDataException("BusinessService not present");
@@ -48,7 +48,7 @@ public class BusinessServiceService {
 		
 		return Translators.translate(bs);
 	}
-	public BusinessServiceDto deleteBusinessService(Long id) {		
+	public BusinessServiceDto deleteBusinessService(Integer id) {		
 		if (!businessServiceDao.findById(id).isPresent())
 			throw new NoDataException("BusinessService not present");
 			BusinessService bs = businessServiceDao.findById(id).get();

@@ -7,13 +7,13 @@ import it.istat.mec.catalog.domain.BusinessService;
 
 
 @Repository
-public interface BusinessServiceDao extends JpaRepository<BusinessService, Long> {
+public interface BusinessServiceDao extends JpaRepository<BusinessService, Integer> {
 
 	@Override
 	List<BusinessService> findAll();
 	
 	@Override
-	Optional<BusinessService> findById(Long id);
+	Optional<BusinessService> findById(Integer id);
 
 	public void save(Optional<BusinessService> businessService);
 

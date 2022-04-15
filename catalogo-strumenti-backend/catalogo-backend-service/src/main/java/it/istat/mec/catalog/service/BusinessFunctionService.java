@@ -52,7 +52,7 @@ public class BusinessFunctionService {
 		return Translators.translate(bs);
 	}
 	
-	public BusinessFunctionDto findBusinessFunctionById(Long id) {
+	public BusinessFunctionDto findBusinessFunctionById(Integer id) {
 
 		if (!businessFunctionDao.findById(id).isPresent())
 			throw new NoDataException("BusinessFunction not present");
@@ -72,7 +72,7 @@ public class BusinessFunctionService {
 		
 		return Translators.translate(bs);
 	}
-	public BusinessFunctionDto deleteBusinessFunction(Long id) {		
+	public BusinessFunctionDto deleteBusinessFunction(Integer id) {		
 		if (!businessFunctionDao.findById(id).isPresent())
 			throw new NoDataException("BusinessFunction not present");
 			BusinessFunction bs = businessFunctionDao.findById(id).get();

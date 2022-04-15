@@ -28,7 +28,7 @@ public class ProcessStep implements Serializable  {
 	private static final long serialVersionUID = -7586846904189535365L;
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "NAME")
 	private String name;

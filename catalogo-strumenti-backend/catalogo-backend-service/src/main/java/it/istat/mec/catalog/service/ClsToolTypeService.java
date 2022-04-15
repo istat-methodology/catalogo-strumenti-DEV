@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.istat.mec.catalog.dao.ClsToolTypeDao;
+import it.istat.mec.catalog.dao.ToolTypeDao;
 import it.istat.mec.catalog.dto.ToolTypeDto;
 import it.istat.mec.catalog.translators.Translators;
 
@@ -12,7 +12,7 @@ import it.istat.mec.catalog.translators.Translators;
 public class ClsToolTypeService {
 
 	@Autowired
-	ClsToolTypeDao dao;
+	ToolTypeDao dao;
 
 	public List<ToolTypeDto> findAll() {
 		

@@ -8,13 +8,13 @@ import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
 
 @Repository
-public interface SoftwareProcedureDao extends JpaRepository<SoftwareProcedure, Long> {
+public interface SoftwareProcedureDao extends JpaRepository<SoftwareProcedure, Integer> {
 
 	@Override
 	List<SoftwareProcedure> findAll();
 	
 	@Override
-	Optional<SoftwareProcedure> findById(Long id);
+	Optional<SoftwareProcedure> findById(Integer id);
 
 	public void save(Optional<SoftwareProcedure> tools);
 

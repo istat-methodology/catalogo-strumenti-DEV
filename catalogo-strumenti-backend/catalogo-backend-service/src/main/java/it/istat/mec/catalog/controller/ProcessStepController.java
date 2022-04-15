@@ -29,7 +29,7 @@ public class ProcessStepController {
 	}
 	
 	@GetMapping(value = "/open/processsteps/{id}")
-	public ProcessStepDto getProcessStep(@PathVariable("id") Long id) {
+	public ProcessStepDto getProcessStep(@PathVariable("id") Integer id) {
 
 		return processStepService.findProcessStepById(id);
 
@@ -48,7 +48,7 @@ public class ProcessStepController {
 	}
 	
 	@DeleteMapping(value = "/processsteps/{id}")
-	public ProcessStepDto deleteProcessStep(@PathVariable("id") Long id) {
+	public ProcessStepDto deleteProcessStep(@PathVariable("id") Integer id) {
 
 		return processStepService.deleteProcessStep(id);
 	}

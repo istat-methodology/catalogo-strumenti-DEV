@@ -38,7 +38,7 @@ public class BusinessFunctionController {
 	}
 	
 	@GetMapping(value = "/open/businessfunctions/{id}")
-	public BusinessFunctionDto getBusinessFunction(@PathVariable("id") Long id) {
+	public BusinessFunctionDto getBusinessFunction(@PathVariable("id") Integer id) {
 
 		return businessFunctionService.findBusinessFunctionById(id);
 
@@ -57,7 +57,7 @@ public class BusinessFunctionController {
 	}
 	
 	@DeleteMapping(value = "/businessfunctions/{id}")
-	public BusinessFunctionDto deleteBusinessFunction(@PathVariable("id") Long id) {
+	public BusinessFunctionDto deleteBusinessFunction(@PathVariable("id") Integer id) {
 
 		return businessFunctionService.deleteBusinessFunction(id);
 	}

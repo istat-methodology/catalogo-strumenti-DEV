@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class BusinessFunctionDto implements Serializable {
 	
 	private static final long serialVersionUID = 7587361829337508840L;
-	private Long id;	
+	private Integer id;	
 	private String name;		
 	private String descr;		
 	private String label;	

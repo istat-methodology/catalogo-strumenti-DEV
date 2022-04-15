@@ -28,7 +28,7 @@ public class StepInstanceService {
 		return Translators.translate(si);
 	}
 	
-	public StepInstanceDto findStepInstanceById(Long id) {
+	public StepInstanceDto findStepInstanceById(Integer id) {
 
 		if (!stepInstanceDao.findById(id).isPresent())
 			throw new NoDataException("StepInstance not present");
@@ -48,7 +48,7 @@ public class StepInstanceService {
 		
 		return Translators.translate(si);
 	}
-	public StepInstanceDto deleteStepInstance(Long id) {		
+	public StepInstanceDto deleteStepInstance(Integer id) {		
 		if (!stepInstanceDao.findById(id).isPresent())
 			throw new NoDataException("StepInstance not present");
 			StepInstance si = stepInstanceDao.findById(id).get();

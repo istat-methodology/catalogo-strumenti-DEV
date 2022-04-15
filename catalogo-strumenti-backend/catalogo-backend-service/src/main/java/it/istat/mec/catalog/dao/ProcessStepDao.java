@@ -8,12 +8,12 @@ import it.istat.mec.catalog.domain.ProcessStep;
 
 
 @Repository
-public interface ProcessStepDao extends JpaRepository<ProcessStep, Long> {
+public interface ProcessStepDao extends JpaRepository<ProcessStep, Integer> {
 	@Override
 	List<ProcessStep> findAll();
 	
 	@Override
-	Optional<ProcessStep> findById(Long id);
+	Optional<ProcessStep> findById(Integer id);
 
 	public void save(Optional<ProcessStep> processStep);
 

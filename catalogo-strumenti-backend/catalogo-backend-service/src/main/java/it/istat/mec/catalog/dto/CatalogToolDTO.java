@@ -14,11 +14,11 @@ public class CatalogToolDTO implements Serializable {
  
 	private static final long serialVersionUID = -6905546979001300372L;
 	
-	private Long id;	
+	private Integer id;	
 	private Date releaseDate;	
 	private String description;		
 	private String name;	
-	private int standardIstat;	
+	private Integer standardIstat;	
 	private String tags;	
 	private String version;
 	private ToolTypeDto toolType;	

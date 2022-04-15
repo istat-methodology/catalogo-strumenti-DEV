@@ -56,7 +56,7 @@ public class ToolController {
 	}
 	
 	@GetMapping(value = "/open/tools/{id}")
-	public CatalogToolDTO getTool(@PathVariable("id") Long id) {
+	public CatalogToolDTO getTool(@PathVariable("id") Integer id) {
 
 		return toolService.findToolById(id);
 
@@ -76,7 +76,7 @@ public class ToolController {
 	}
 	
 	@DeleteMapping(value = "/tools/{id}")
-	public CatalogToolDTO deleteTool(@PathVariable("id") Long id) {
+	public CatalogToolDTO deleteTool(@PathVariable("id") Integer id) {
 
 		return toolService.deleteTool(id);
 	}

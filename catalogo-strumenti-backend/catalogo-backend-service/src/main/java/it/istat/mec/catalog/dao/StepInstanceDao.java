@@ -6,12 +6,12 @@ import org.springframework.stereotype.Repository;
 import it.istat.mec.catalog.domain.StepInstance;
 
 @Repository
-public interface StepInstanceDao extends JpaRepository<StepInstance, Long> {
+public interface StepInstanceDao extends JpaRepository<StepInstance, Integer> {
 	@Override
 	List<StepInstance> findAll();
 	
 	@Override
-	Optional<StepInstance> findById(Long id);
+	Optional<StepInstance> findById(Integer id);
 
 	public void save(Optional<StepInstance> stepInstance);
 

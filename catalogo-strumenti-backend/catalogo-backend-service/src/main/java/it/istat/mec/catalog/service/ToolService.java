@@ -110,7 +110,7 @@ public class ToolService {
 		return Translators.translate(tool);
 	}
 	
-	public CatalogToolDTO findToolById(Long id) {
+	public CatalogToolDTO findToolById(Integer id) {
 
 		if (!toolDao.findById(id).isPresent())
 			throw new NoDataException("Tool not present");
@@ -175,7 +175,7 @@ public class ToolService {
 		
 		return Translators.translate(tool);
 	}
-	public CatalogToolDTO deleteTool(Long id) {		
+	public CatalogToolDTO deleteTool(Integer id) {		
 		if (!toolDao.findById(id).isPresent())
 			throw new NoDataException("Tool not present");
 			CatalogTool tool = toolDao.findById(id).get();

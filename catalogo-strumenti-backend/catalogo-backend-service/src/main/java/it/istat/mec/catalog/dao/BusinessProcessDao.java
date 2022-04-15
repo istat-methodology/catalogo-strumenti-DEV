@@ -6,12 +6,12 @@ import org.springframework.stereotype.Repository;
 import it.istat.mec.catalog.domain.BusinessProcess;
 
 @Repository
-public interface BusinessProcessDao extends JpaRepository<BusinessProcess, Long> {
+public interface BusinessProcessDao extends JpaRepository<BusinessProcess, Integer> {
 	@Override
 	List<BusinessProcess> findAll();
 	
 	@Override
-	Optional<BusinessProcess> findById(Long id);
+	Optional<BusinessProcess> findById(Integer id);
 
 	public void save(Optional<BusinessProcess> businessProcess);
 

@@ -19,7 +19,7 @@ public class DataType implements Serializable  {
 
 	@Id
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "type")
 	private String type;

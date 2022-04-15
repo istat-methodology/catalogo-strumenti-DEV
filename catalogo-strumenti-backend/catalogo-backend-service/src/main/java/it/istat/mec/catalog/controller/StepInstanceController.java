@@ -29,7 +29,7 @@ public class StepInstanceController {
 	}
 	
 	@GetMapping(value = "/open/stepinstances/{id}")
-	public StepInstanceDto getStepInstance(@PathVariable("id") Long id) {
+	public StepInstanceDto getStepInstance(@PathVariable("id") Integer id) {
 
 		return stepInstanceService.findStepInstanceById(id);
 
@@ -48,7 +48,7 @@ public class StepInstanceController {
 	}
 	
 	@DeleteMapping(value = "/stepinstances/{id}")
-	public StepInstanceDto deleteStepInstance(@PathVariable("id") Long id) {
+	public StepInstanceDto deleteStepInstance(@PathVariable("id") Integer id) {
 
 		return stepInstanceService.deleteStepInstance(id);
 	}

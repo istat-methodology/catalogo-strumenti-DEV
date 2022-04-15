@@ -61,9 +61,7 @@ public class StatisticalMethod  implements Serializable  {
 	@Column(name = "STANDARD_ISTAT")
 	private Integer standardIstat;
 	
-//	@OneToMany
-//    @JoinColumn(name = "TOOL", insertable = true, updatable = true)
-//    private CatalogTool catalogTool;
+
 
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_link_method_tool", joinColumns = {

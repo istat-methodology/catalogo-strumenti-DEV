@@ -12,13 +12,13 @@ import it.istat.mec.catalog.domain.GsbpmProcess;
 
 
 @Repository
-public interface BusinessFunctionDao extends JpaRepository<BusinessFunction, Long> {
+public interface BusinessFunctionDao extends JpaRepository<BusinessFunction, Integer> {
 
 	@Override
 	List<BusinessFunction> findAll();
 	
 	@Override
-	Optional<BusinessFunction> findById(Long id);
+	Optional<BusinessFunction> findById(Integer id);
 
 	public void save(Optional<BusinessFunction> businessFunction);
 

@@ -29,7 +29,7 @@ public class BusinessServiceController {
 	}
 	
 	@GetMapping(value = "/open/businessservices/{id}")
-	public BusinessServiceDto getBusinessService(@PathVariable("id") Long id) {
+	public BusinessServiceDto getBusinessService(@PathVariable("id") Integer id) {
 
 		return businessServiceService.findBusinessServiceById(id);
 
@@ -48,7 +48,7 @@ public class BusinessServiceController {
 	}
 	
 	@DeleteMapping(value = "/businessservices/{id}")
-	public BusinessServiceDto deleteBusinessService(@PathVariable("id") Long id) {
+	public BusinessServiceDto deleteBusinessService(@PathVariable("id") Integer id) {
 
 		return businessServiceService.deleteBusinessService(id);
 	}

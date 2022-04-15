@@ -10,7 +10,7 @@ public class DataTypeDto implements Serializable  {
 	
 	private static final long serialVersionUID = 204395729981711595L;
 	
-	private Long id;	
+	private Integer id;	
 	private String type;	
 
 }
