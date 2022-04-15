@@ -17,7 +17,7 @@
                 tag="a"
                 :to="{
                   name: 'AgentDetails',
-                  params: { id: linkedAgent.id }
+                  params: { id: linkedAgent.agentId }
                 }"
               >
                 <view-icon />

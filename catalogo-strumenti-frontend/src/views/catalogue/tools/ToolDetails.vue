@@ -249,6 +249,7 @@
         <app-linkedAgents
           :linkedAgents="getLinkedAgentList"
         ></app-linkedAgents>
+
       </div>
     </div>
 
