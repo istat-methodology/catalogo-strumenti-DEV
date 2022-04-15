@@ -249,28 +249,6 @@
         <app-linkedAgents
           :linkedAgents="getLinkedAgentList"
         ></app-linkedAgents>
-
-        <h2 id="id-link-agents-tools">Referenti</h2>
-        <CCard v-if="tool.linkAgentsTools" id="id-card-link-agents-tools">
-          <CCardBody>
-            <CDataTable
-              :items="getLinkedAgentList"
-              :fields="fieldsAgent"
-              :items-per-page="10"
-              ><template #show_details="{ item }">
-                <td>
-                  <router-link
-                    tag="a"
-                    :to="{ name: 'AgentDetails', params: { id: item.agentId } }"
-                  >
-                    <view-icon />
-                  </router-link>
-                </td>
-              </template>
-              >
-            </CDataTable>
-          </CCardBody>
-        </CCard>
       </div>
     </div>
 
