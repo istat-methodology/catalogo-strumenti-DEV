@@ -3,6 +3,7 @@
   <div class="row">
     <div class="col-8">
       <h1>Strumento</h1>
+      <div id="id-tooltype" />
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
@@ -43,12 +44,12 @@
           </CCardBody>
         </CCard>
       </div>
-
+      <div id="id-statistical-methods"/>
       <div
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
-        <h2 id="id-tooltype">{{ tool.toolType.name | dashEmpty }}</h2>
+        <h2>{{ tool.toolType.name | dashEmpty }}</h2>
         <CCard id="id-card-tooltype">
           <CCardBody>
             <div v-if="tool.toolType.id == 3">
@@ -136,12 +137,12 @@
           </CCardBody>
         </CCard>
       </div>
-
+      <div id="id-functionalities" />
       <div
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
-        <h2 id="id-statistical-methods">Metodi Statistici</h2>
+        <h2>Metodi Statistici</h2>
         <CCard v-if="tool.statisticalMethods" id="id-card-statistical-methods">
           <CCardBody>
             <CDataTable
@@ -172,7 +173,7 @@
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
-        <h2 id="id-functionalities">Funzionalità</h2>
+        <h2>Funzionalità</h2>
         <CCard id="id-card-functionalities">
           <CCardBody>
             <div>
