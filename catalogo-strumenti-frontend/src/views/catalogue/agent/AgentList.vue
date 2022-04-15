@@ -4,15 +4,15 @@
       <div class="card fade-in">
         <header class="card-header">
           Elenco Referenti
-          <div class="card-header-actions">
+          <div class="card-header-actions"  v-if="isAuthenticated">
             <router-link tag="a" :to="{ name: 'AgentAdd' }">
-              <add-icon />
+              <button class="btn btn-primary" type="button">
+                <add-icon /> Nuovo
+              </button>
             </router-link>
           </div>
         </header>
-        <!--  <CCard>
-          <CCardHeader>Elenco Strumenti</CCardHeader>
- -->
+
         <CCardBody>
           <CDataTable
             v-if="agentList"
@@ -43,17 +43,11 @@
                   <edit-icon />
                 </router-link>
               </td>
-              <td>
+              <td v-if="isAuthenticated">
                 <span class="icon-link" @click="modalOpen(item)"
                   ><delete-icon
                 /></span>
               </td>
-
-              <!-- <td v-if="isAuthenticated">
-                <router-link tag="a" :to="{ name: 'ToolAdd' }">
-                  <delete-icon />
-                </router-link>
-              </td> -->
             </template>
           </CDataTable>
         </CCardBody>
@@ -87,19 +81,14 @@ export default {
           label: "Nome",
           _style: "width:30%;"
         },
-        {
-          key: "organization",
-          label: "Organizzazione",
-          _style: "width:60%;"
-        },
-        {
+       {
           key: "contact",
           label: "Contatto",
           _style: "width:30%;"
         },
         {
-          key: "notes",
-          label: "Note",
+          key: "organization",
+          label: "Organizzazione",
           _style: "width:60%;"
         },
         {

@@ -8,8 +8,10 @@
         <header class="card-header">
           Elenco Strumenti
           <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'ToolAdd' }">
-              <add-icon />
+            <router-link tag="a" :to="{ name: 'ToolAdd' }"  v-if="isAuthenticated">
+              <button class="btn btn-primary" type="button">
+              <add-icon /> Nuovo
+              </button>
             </router-link>
           </div>
         </header>

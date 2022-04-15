@@ -48,7 +48,7 @@
           >Aggiungi</CButton
         >
         <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
-          >Back</CButton
+          >Indietro</CButton
         >
       </CCardFooter>
     </div>

@@ -44,7 +44,7 @@
           </CCardBody>
         </CCard>
       </div>
-      <div id="id-statistical-methods"/>
+      <div id="id-statistical-methods" />
       <div
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
@@ -221,13 +221,19 @@
                           :key="item.id"
                           class="list-group list-group-horizontal"
                         >
-                          <li class="list-group-item list-group-active-item col-2">
+                          <li
+                            class="list-group-item list-group-active-item col-2"
+                          >
                             {{ item.id }} . {{ item.designType.type }}
                           </li>
-                          <li class="list-group-item list-group-active-item col-2">
+                          <li
+                            class="list-group-item list-group-active-item col-2"
+                          >
                             F {{ item.informationObject.name }}
                           </li>
-                          <li class="list-group-item list-group-active-item col-8">
+                          <li
+                            class="list-group-item list-group-active-item col-8"
+                          >
                             {{ item.informationObject.descr }}
                           </li>
                         </ul>
@@ -260,6 +266,16 @@
               :items="getDocumentationList"
               :fields="fieldsDocumentation"
               :items-per-page="10"
+               ><template #show_details="{ item }">
+                <td>
+                  <router-link
+                    tag="a"
+                    :to="{ name: 'DocumentationDetails', params: { id: item.id } }"
+                  >
+                    <view-icon />
+                  </router-link>
+                </td>
+              </template>
             >
             </CDataTable>
           </CCardBody>
@@ -276,6 +292,16 @@
               :items="getLinkedAgentList"
               :fields="fieldsAgent"
               :items-per-page="10"
+                  ><template #show_details="{ item }">
+                <td>
+                  <router-link
+                    tag="a"
+                    :to="{ name: 'AgentDetails', params: { id: item.agentId } }"
+                  >
+                    <view-icon />
+                  </router-link>
+                </td>
+              </template>
             >
             </CDataTable>
           </CCardBody>
@@ -360,47 +386,36 @@ export default {
     return {
       activeIndex: -1,
       fields: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:80%;",
         },
         {
-          key: "description",
-          label: "Descrizione",
-          _style: "width:20%;",
-        },
-        {
-          key: "notes",
-          label: "Note",
-          _style: "width:60%;",
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
         },
       ],
       fieldsAgent: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
         {
           key: "agentName",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:60%;",
         },
         {
           key: "agentRole",
           label: "Ruolo",
-          _style: "width:20%;",
+          _style: "width:39%;",
         },
         {
-          key: "agentNotes",
-          label: "Note",
-          _style: "width:60%;",
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
         },
       ],
       fieldsGsbpm: [
@@ -426,26 +441,20 @@ export default {
         },
       ],
       fieldsDocumentation: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
+      
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:90%;",
         },
-        {
-          key: "publisher",
-          label: "Editore",
-          _style: "width:20%;",
+         {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
         },
-        {
-          key: "resource",
-          label: "Fonte",
-          _style: "width:20%;",
-        },
+       
       ],
       fieldsFunctions: [
         {
@@ -545,7 +554,7 @@ export default {
           agentContact: agentTool.agent.contact,
           agentNotes: agentTool.agent.notes,
 
-          role: agentTool.role,
+          agentRole: agentTool.role,
           notes: agentTool.notes,
           referenceDate: agentTool.referenceDate,
         };
@@ -738,9 +747,8 @@ a {
 }
 .list-group-active {
   border-color: rgba(255, 255, 255) !important ;
-  
+
   border: 1px dotted #d8dbe0 !important;
-  
 }
 .list-group-item {
   border-color: rgba(255, 255, 255) !important ;
