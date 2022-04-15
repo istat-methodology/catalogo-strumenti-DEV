@@ -35,7 +35,7 @@ public class Documentation implements Serializable  {
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DOCUMENT_TYPE", nullable = false, insertable = false)
+    @JoinColumn(name = "DOCUMENT_TYPE")
 	private DocumentationType documentType;
 	
 	@Column(name = "NOTES")

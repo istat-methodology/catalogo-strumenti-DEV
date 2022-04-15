@@ -35,14 +35,13 @@ public class DocumentationService {
 		Documentation doc = new Documentation();
 		doc = Translators.translate(request);
 
-		if (request.getTool() != null) {
+		if (request.getTool() == null || !toolDao.findById(request.getTool()).isPresent())
+			throw new NoDataException("Statistical Tool not present");
+		doc.setTool(toolDao.findById(request.getTool()).get());
 
-			if (!toolDao.findById(request.getTool()).isPresent())
-				throw new NoDataException("Statistical Tool not present");
-			doc.setTool(toolDao.findById(request.getTool()).get());
+		if (request.getDocumentType() != null)
 
-		}
-		if (request.getDocumentType() != null) {
+		{
 
 			if (!documentationTypeDao.findById(request.getDocumentType()).isPresent())
 				throw new NoDataException("Documetation type not present");
@@ -67,14 +66,15 @@ public class DocumentationService {
 		Documentation doc = documentationDao.findById(request.getId()).get();
 
 		doc = Translators.translateUpdate(request, doc);
-		if (request.getTool()!=null && (doc.getTool()==null || !request.getTool().equals(doc.getTool().getId()))) {
+		if (request.getTool() != null && (doc.getTool() == null || !request.getTool().equals(doc.getTool().getId()))) {
 
 			if (!toolDao.findById(request.getTool()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
 			doc.setTool(toolDao.findById(request.getTool()).get());
 		}
-		
-		if (request.getDocumentType()!=null && (doc.getDocumentType()==null || !request.getDocumentType().equals(doc.getDocumentType().getId()))) {
+
+		if (request.getDocumentType() != null && (doc.getDocumentType() == null
+				|| !request.getDocumentType().equals(doc.getDocumentType().getId()))) {
 
 			if (!documentationTypeDao.findById(request.getDocumentType()).isPresent())
 				throw new NoDataException("Documetation type not present");
