@@ -2,12 +2,14 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-8">
+      <h1>Strumento</h1>
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
+        <h2 id="id-main">{{ tool.name | dashEmpty }}</h2>
+
         <CCard v-if="tool" id="id-card-main">
-          <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
           <CCardBody>
             <div>
               <label>Descrizione:</label>
@@ -46,8 +48,8 @@
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
+        <h2 id="id-tooltype">{{ tool.toolType.name | dashEmpty }}</h2>
         <CCard id="id-card-tooltype">
-          <CCardHeader>{{ tool.toolType.name | dashEmpty }}</CCardHeader>
           <CCardBody>
             <div v-if="tool.toolType.id == 3">
               <div>
@@ -134,13 +136,13 @@
           </CCardBody>
         </CCard>
       </div>
-      <div id="middle" />
+
       <div
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
+        <h2 id="id-statistical-methods">Metodi Statistici</h2>
         <CCard v-if="tool.statisticalMethods" id="id-card-statistical-methods">
-          <CCardHeader>Metodi Statistici</CCardHeader>
           <CCardBody>
             <CDataTable
               :items="tool.statisticalMethods"
@@ -160,14 +162,18 @@
           </CCardBody>
         </CCard>
       </div>
+      <!-- 
+        
+        functionalities
 
+      -->
       <div
         v-if="businessServiceService.processSteps"
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
+        <h2 id="id-functionalities">Funzionalità</h2>
         <CCard id="id-card-functionalities">
-          <CCardHeader>Funzionalità</CCardHeader>
           <CCardBody>
             <div>
               <div
@@ -175,147 +181,79 @@
                 :key="item.name"
               >
                 <div @click="setActiveIndex(index)">
-                  <div class="list-group">
-                    <!--
-                      hover change background color
-                      list-group-item-action
-                      :class="index == isActiveIndex ? 'list-group-active-item' : 'list-group-item'"
-                    -->
-                    
-                    <li
-                      type="button"                      
-                      :class = "index == isActiveIndex ? 'list-group-active-item' : 'list-group-item'"                      
-                    >
-                      <div class="row">
-                        <div class="col-2">
-                          <minus-icon v-if="index == isActiveIndex" /><plus-icon
-                            v-if="index !== isActiveIndex"
-                          />
-                          {{ item.name }}
-                        </div>
-                        <div class="col-10">{{ item.descr }}</div>
+                  <ul class="list-group list-group-horizontal">
+                    <li class="col-2 list-group-item">
+                      <minus-icon v-if="index == isActiveIndex" /><plus-icon
+                        v-if="index !== isActiveIndex"
+                      />
+                      {{ item.name }}
+                    </li>
+                    <li class="col-10 list-group-item">{{ item.descr }}</li>
+                  </ul>
+                  <ul
+                    class="list-group list-group-horizontal list-group-active"
+                    v-if="index == isActiveIndex"
+                  >
+                    <li class="col-12 list-group-item">
+                      <div>
+                        <ul class="list-group list-group-horizontal">
+                          <li class="list-group-item col-2 center bold">
+                            DesignType
+                          </li>
+                          <li class="list-group-item col-10 center bold">
+                            information Object
+                          </li>
+                        </ul>
+                        <ul class="list-group list-group-horizontal">
+                          <li class="list-group-item col-2 center bold">
+                            Type
+                          </li>
+                          <li class="list-group-item col-2 center bold">
+                            Name
+                          </li>
+                          <li class="list-group-item col-8 center bold">
+                            Description
+                          </li>
+                        </ul>
+                        <ul
+                          v-for="item in item.processDesigns"
+                          :key="item.id"
+                          class="list-group list-group-horizontal"
+                        >
+                          <li class="list-group-item list-group-active-item col-2">
+                            {{ item.id }} . {{ item.designType.type }}
+                          </li>
+                          <li class="list-group-item list-group-active-item col-2">
+                            F {{ item.informationObject.name }}
+                          </li>
+                          <li class="list-group-item list-group-active-item col-8">
+                            {{ item.informationObject.descr }}
+                          </li>
+                        </ul>
                       </div>
                     </li>
-                    <CCard v-if="index == isActiveIndex">
-                      <!--CCardHeader>{{ item.name }}</CCardHeader-->
-                      <CCardBody>
-                        <div>
-                          <!--div>
-                            <ul class="list-group list-group-horizontal">
-                              <li
-                                class="
-                                  list-group-item
-                                  col-12
-                                  cursor-pointer
-                                  padding-description
-                                "
-                              >
-                                {{ item.descr }}
-                              </li>
-                            </ul>
-                          </div-->
-
-                          <ul class="list-group list-group-horizontal">
-                            <li class="list-group-item col-2 center bold">
-                              DesignType
-                            </li>
-                            <li class="list-group-item col-10 center bold">
-                              information Object
-                            </li>
-                          </ul>
-                          <ul class="list-group list-group-horizontal">
-                            <li class="list-group-item col-2 center bold">
-                              Type
-                            </li>
-                            <li class="list-group-item col-2 center bold">
-                              Name
-                            </li>
-                            <li class="list-group-item col-8 center bold">
-                              Description
-                            </li>
-                          </ul>
-                          <ul
-                            v-for="item in item.processDesigns"
-                            :key="item.id"
-                            class="list-group list-group-horizontal"
-                          >
-                            <li class="list-group-item col-2">
-                              {{ item.id }} . {{ item.designType.type }}
-                            </li>
-                            <li class="list-group-item col-2">
-                              {{ item.informationObject.name }}
-                            </li>
-                            <li class="list-group-item col-8">
-                              {{ item.informationObject.descr }}
-                            </li>
-                          </ul>
-                        </div>
-                      </CCardBody>
-                    </CCard>
-                  </div>
+                  </ul>
                 </div>
               </div>
             </div>
           </CCardBody>
         </CCard>
-
-        <!--div
-          v-for="(item, index) in businessServiceService.processSteps"
-          :key="item.name"
-        >
-          <CCard v-if="index == isActiveIndex">
-            <CCardHeader>{{ item.name }}</CCardHeader>
-            <CCardBody>
-              <div>
-                <div>
-                  <ul class="list-group list-group-horizontal">
-                    <li class="list-group-item col-12 cursor-pointer padding-description">
-                      {{ item.descr }}
-                    </li>
-                  </ul>
-                </div>
-
-                <ul class="list-group list-group-horizontal ">
-                  <li class="list-group-item col-2 center bold">DesignType</li>
-                  <li class="list-group-item col-10 center bold">
-                    information Object
-                  </li>
-                </ul>
-                <ul class="list-group list-group-horizontal">
-                  <li class="list-group-item col-2 center bold">Type</li>
-                  <li class="list-group-item col-2 center bold">Name</li>
-                  <li class="list-group-item col-8 center bold">Description</li>
-                </ul>
-                <ul
-                  v-for="item in item.processDesigns"
-                  :key="item.id"
-                  class="list-group list-group-horizontal"
-                >
-                  <li class="list-group-item col-2">
-                  {{ item.id }} . {{ item.designType.type }}
-                  </li>
-                  <li class="list-group-item col-2">
-                    {{ item.informationObject.name }}
-                  </li>
-                  <li class="list-group-item col-8">
-                    {{ item.informationObject.descr }}
-                  </li>
-                </ul>
-              </div>
-            </CCardBody>
-          </CCard>
-        </div-->
       </div>
+      <!-- 
+        
+        documentations
+
+      -->
       <div
-        @mouseover="setActiveItemList('#id-link-functionalities', true)"
-        @mouseleave="setActiveItemList('#id-link-functionalities', false)"
+        @mouseover="setActiveItemList('#id-link-documentations', true)"
+        @mouseleave="setActiveItemList('#id-link-documentations', false)"
       >
+        <h2 id="id-documentations">Documentazione</h2>
         <CCard
           class="border-card"
           v-if="tool.documentations"
           id="id-card-documentations"
         >
-          <CCardHeader>Documentazione</CCardHeader>
           <CCardBody>
             <CDataTable
               :items="getDocumentationList"
@@ -327,11 +265,11 @@
         </CCard>
       </div>
       <div
-        @mouseover="setActiveItemList('#id-link-agents-tools', true)"
-        @mouseleave="setActiveItemList('#id-link-agents-tools', false)"
+        @mouseover="setActiveItemList('#id-link-link-agents-tools', true)"
+        @mouseleave="setActiveItemList('#id-link-link-agents-tools', false)"
       >
+        <h2 id="id-link-agents-tools">Referenti</h2>
         <CCard v-if="tool.linkAgentsTools" id="id-card-link-agents-tools">
-          <CCardHeader>Referenti</CCardHeader>
           <CCardBody>
             <CDataTable
               :items="getLinkedAgentList"
@@ -344,7 +282,7 @@
       </div>
     </div>
 
-    <aside class="container-rigth">
+    <aside class="container-rigth col-2">
       <section class="menu">
         <header><h2 class="menu-heading">Contenuto:</h2></header>
         <ul class="menu-list">
@@ -359,7 +297,7 @@
           </li>
           <li class="list-item" id="id-link-tooltype">
             <a
-              href="#"
+              href="#id-tooltype"
               class="item-link"
               @mouseover="setActiveCard('#id-card-tooltype', true)"
               @mouseleave="setActiveCard('#id-card-tooltype', false)"
@@ -368,7 +306,7 @@
           </li>
           <li class="list-item" id="id-link-statistical-methods">
             <a
-              href="#middle"
+              href="#id-statistical-methods"
               class="item-link"
               @mouseover="setActiveCard('#id-card-statistical-methods', true)"
               @mouseleave="setActiveCard('#id-card-statistical-methods', false)"
@@ -377,7 +315,7 @@
           </li>
           <li class="list-item" id="id-link-functionalities">
             <a
-              href="#middle"
+              href="#id-functionalities"
               class="item-link"
               @mouseover="setActiveCard('#id-card-functionalities', true)"
               @mouseleave="setActiveCard('#id-card-functionalities', false)"
@@ -387,16 +325,16 @@
 
           <li class="list-item" id="id-link-documentations">
             <a
-              href="#middle"
+              href="#id-documentations"
               class="item-link"
               @mouseover="setActiveCard('#id-card-documentations', true)"
               @mouseleave="setActiveCard('#id-card-documentations', false)"
               >Documentazione</a
             >
           </li>
-          <li class="list-item" id="id-link-agents-tools">
+          <li class="list-item" id="id-link-link-agents-tools">
             <a
-              href="#middle"
+              href="#id-link-agents-tools"
               class="item-link"
               @mouseover="setActiveCard('#id-card-link-agents-tools', true)"
               @mouseleave="setActiveCard('#id-card-link-agents-tools', false)"
@@ -690,6 +628,7 @@ label {
 .container-rigth {
   position: -webkit-sticky;
   position: sticky;
+
   top: 110px;
   display: -ms-flexbox;
   display: flex;
@@ -721,7 +660,7 @@ label {
 }
 .list-item:hover,
 .list-item-hover {
-  border-left: 2px solid #196fed;
+  border-left: 2px solid #1a1a1af6;
   list-style: none;
 }
 
@@ -757,9 +696,10 @@ a {
   word-wrap: break-word !important;
   background-clip: border-box !important;
   border-radius: 0.25rem !important;
-  background-color: #fff !important;
-  border: 1px solid #196fed !important;
+  background-color: #f9f9f9 !important;
+  border: 1px solid #bbbbbb !important;
   box-shadow: none !important;
+  transition: background-color 0.5s !important;
 }
 .card {
   position: relative !important;
@@ -770,12 +710,15 @@ a {
   word-wrap: break-word !important;
   background-clip: border-box !important;
   border-radius: 0.25rem !important;
-  background-color: #fff !important;
-  border: 1px solid #d8dbe0 !important;
+  background-color: #f9f9f9 !important;
+  border: none !important;
   box-shadow: none !important;
+  transition: background-color 0.5s !important;
 }
 .border {
-  border: 1px solid rgb(197, 197, 197);
+  border: 2px solid rgb(197, 197, 197) !important
+  
+  ;
 }
 .no-border {
   border: 0 !important;
@@ -792,6 +735,12 @@ a {
   border-radius: 0 !important;
   border: 0 !important;
 }
+.list-group-active {
+  border-color: rgba(255, 255, 255) !important ;
+  
+  border: 1px dotted #d8dbe0 !important;
+  
+}
 .list-group-item {
   border-color: rgba(255, 255, 255) !important ;
   border-bottom: 1px solid #d8dbe0 !important;
@@ -800,14 +749,50 @@ a {
   min-height: 3.5em !important;
 }
 .list-group-active-item {
-  font-weight: 700;
-  border-color: #fff !important ;
-  border: 1px solid #fff !important;
+  border: 0 !important;
   padding-top: 1.25em !important;
   padding-bottom: 1.25em !important;
   min-height: 3.5em !important;
 }
 .padding-description {
   padding-bottom: 1.6em !important;
+}
+h1 {
+  font-size: 38px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2em;
+  margin: 0.67em 0;
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 24px;
+  color: #213547;
+  margin: 36px 0;
+  transition: color 0.5s;
+  padding-top: 36px;
+  border-top: 1px solid rgba(60, 60, 60, 0.12);
+}
+
+a {
+  display: block;
+  position: relative;
 }
 </style>
