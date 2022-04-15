@@ -163,10 +163,8 @@
           </CCardBody>
         </CCard>
       </div>
-      <!-- 
-        
+      <!--         
         functionalities
-
       -->
       <div
         v-if="businessServiceService.processSteps"
@@ -629,7 +627,6 @@ label {
 .container-rigth {
   position: -webkit-sticky;
   position: sticky;
-
   top: 110px;
   display: -ms-flexbox;
   display: flex;
