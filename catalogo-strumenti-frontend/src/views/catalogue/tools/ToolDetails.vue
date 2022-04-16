@@ -156,6 +156,12 @@
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
+
+      <app-business-service
+          :businessServiceService="businessServiceService"
+        ></app-business-service>
+
+    
         <h2>Funzionalità</h2>
         <CCard id="id-card-functionalities">
           <CCardBody>
@@ -228,6 +234,7 @@
             </div>
           </CCardBody>
         </CCard>
+      
       </div>
       <!-- 
         
@@ -322,6 +329,8 @@
 import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
 import DocumentationView from "../documentation/shared/DocumentationView";
 import LinkedAgentView from "../agent/shared/LinkedAgentView";
+import BusinessServiceView from "./shared/BusinessServiceView";
+
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 //import plusORminus from "@/components/plusORminus";
@@ -535,7 +544,8 @@ export default {
   components: {
     "app-documentations": DocumentationView,
     "app-methods": StatisticalMethodView,
-    "app-linkedAgents": LinkedAgentView
+    "app-linkedAgents": LinkedAgentView,
+    "app-business-service": BusinessServiceView
   },
   methods: {
     /* handleSubmit() {
