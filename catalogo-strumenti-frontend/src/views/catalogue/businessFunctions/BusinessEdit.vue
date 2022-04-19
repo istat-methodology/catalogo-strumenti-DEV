@@ -568,7 +568,7 @@ export default {
   },
   created() {
     //this.$store.dispatch("tools/findById", this.$route.params.id);
-    this.$store.dispatch("coreui/setContext", Context.ToolEdit);
+    this.$store.dispatch("coreui/setContext", Context.BusinessEdit);
     this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
       this.setOldValues();
       this.setCheckedNodesGsbpm();

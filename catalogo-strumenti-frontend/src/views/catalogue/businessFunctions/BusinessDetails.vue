@@ -50,6 +50,7 @@
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
 import BusinessProcess from "@/components/BusinessProcess";
+import { Context } from "@/common";
 //import { Context } from "@/common";
 export default {
   name: "BusinessDetails",
@@ -125,6 +126,7 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch("coreui/setContext", Context.ToolDetail);
     this.$store.dispatch("business/findById", this.$route.params.id);
     //this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
   }
