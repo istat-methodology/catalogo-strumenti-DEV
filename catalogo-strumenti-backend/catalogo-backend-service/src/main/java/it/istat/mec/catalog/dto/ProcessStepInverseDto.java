@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class BusinessFunctionDto extends BaseDto {
-	
-	private static final long serialVersionUID = 7587361829337508840L;
-		
+public class ProcessStepInverseDto extends BaseDto {
+
+	private static final long serialVersionUID = -7489319580466971471L;
+
 	private String descr;		
 	private String label;	
-	private String active;		
-	private List<GSBPMProcessMiniDto> gsbpmProcesses;
-	private List<BusinessProcessDto> businessProcesses;
+	private String businessServiceId;	
+	private String substep;	
+
+	private List<BusinessProcessInverseDto> businessProcesses;
 }

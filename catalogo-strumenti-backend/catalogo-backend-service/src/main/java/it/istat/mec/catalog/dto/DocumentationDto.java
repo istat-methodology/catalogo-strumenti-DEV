@@ -1,10 +1,11 @@
 package it.istat.mec.catalog.dto;
-import java.io.Serializable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class DocumentationDto extends BaseDto implements Serializable {
+@EqualsAndHashCode(callSuper=true)
+public class DocumentationDto extends BaseDto {
 	
 	private static final long serialVersionUID = 6651381114832440178L;
 	

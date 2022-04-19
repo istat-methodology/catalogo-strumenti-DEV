@@ -3,8 +3,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.ProcessStepDao;
+import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.dto.ProcessStepDto;
+import it.istat.mec.catalog.dto.ProcessStepInverseDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateProcessStepRequest;
 import it.istat.mec.catalog.translators.Translators;
@@ -54,6 +56,11 @@ public class ProcessStepService {
 			ProcessStep ps = processStepDao.findById(id).get();
 			processStepDao.delete(ps);
 			return Translators.translate(ps);		
+	}
+
+	public List<ProcessStepInverseDto> getProcessStepsByBusinessService(Integer id) {
+		
+		return Translators.translateProcessStepInverse(processStepDao.findByBusinessService(new BusinessService(id)));
 	}
 }
 

@@ -21,5 +21,5 @@ public class AppServiceDto extends BaseDto {
 	private String author;	
 	private String licence;	
 	private String contact;
-	private List<StepInstanceDto> stepInstances;
+	private List<StepInstanceInverseDto> stepInstances;
 }

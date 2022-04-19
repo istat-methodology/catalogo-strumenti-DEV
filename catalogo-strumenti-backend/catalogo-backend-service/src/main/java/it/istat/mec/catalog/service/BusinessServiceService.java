@@ -22,8 +22,7 @@ public class BusinessServiceService {
 	}
 	
 	public BusinessServiceDto newBusinessService(CreateBusinessServiceRequest request) {
-		BusinessService bs = new BusinessService();
-		bs = Translators.translate(request);		
+		BusinessService bs  = Translators.translate(request);		
 		businessServiceDao.save(bs);
 		return Translators.translate(bs);
 	}

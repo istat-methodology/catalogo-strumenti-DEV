@@ -10,19 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
- 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "CSM_BUSINESS_SERVICE")
 public class BusinessService implements Serializable  {
 
-	
 	private static final long serialVersionUID = 4780254819197312841L;
+	
 	@Id
 	@Column(name = "ID")
 	private Integer id;
@@ -39,5 +37,9 @@ public class BusinessService implements Serializable  {
 	@OneToMany(mappedBy = "businessService", cascade = CascadeType.ALL)  
     private List<AppService> appServices;
 	
+	public BusinessService(Integer id) {
+		super();
+		this.id = id;
+	}
 	
 }

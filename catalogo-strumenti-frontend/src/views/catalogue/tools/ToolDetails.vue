@@ -156,12 +156,13 @@
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
-
-      <app-business-service
+        <app-business-service
           :businessServiceService="businessServiceService"
         ></app-business-service>
+        <app-step-instances
+          :businessServiceService="businessServiceService"
+        ></app-step-instances>
 
-    
         <h2>Funzionalità</h2>
         <CCard id="id-card-functionalities">
           <CCardBody>
@@ -234,7 +235,6 @@
             </div>
           </CCardBody>
         </CCard>
-      
       </div>
       <!-- 
         
@@ -253,10 +253,7 @@
         @mouseover="setActiveItemList('#id-link-link-agents-tools', true)"
         @mouseleave="setActiveItemList('#id-link-link-agents-tools', false)"
       >
-        <app-linkedAgents
-          :linkedAgents="getLinkedAgentList"
-        ></app-linkedAgents>
-
+        <app-linkedAgents :linkedAgents="getLinkedAgentList"></app-linkedAgents>
       </div>
     </div>
 
@@ -330,6 +327,7 @@ import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMetho
 import DocumentationView from "../documentation/shared/DocumentationView";
 import LinkedAgentView from "../agent/shared/LinkedAgentView";
 import BusinessServiceView from "./shared/BusinessServiceView";
+import StepInstancesView from "./shared/StepInstancesView";
 
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
@@ -545,7 +543,8 @@ export default {
     "app-documentations": DocumentationView,
     "app-methods": StatisticalMethodView,
     "app-linkedAgents": LinkedAgentView,
-    "app-business-service": BusinessServiceView
+    "app-business-service": BusinessServiceView,
+    "app-step-instances": StepInstancesView,
   },
   methods: {
     /* handleSubmit() {

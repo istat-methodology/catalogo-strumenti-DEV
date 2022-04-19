@@ -1,5 +1,6 @@
 package it.istat.mec.catalog.controller;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +10,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import it.istat.mec.catalog.dto.StepInstanceDto;
+import it.istat.mec.catalog.dto.StepInstanceInverseDto;
 import it.istat.mec.catalog.request.CreateStepInstanceRequest;
 import it.istat.mec.catalog.service.StepInstanceService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @RestController
 @RequestMapping("/catalog")
 public class StepInstanceController {
@@ -26,6 +28,12 @@ public class StepInstanceController {
 	public List<StepInstanceDto> getAllStepInstances() {
 
 		return stepInstanceService.findAllStepInstances();
+	}
+	
+	@GetMapping("/open/step-instances/app-service/{id}")
+	public List<StepInstanceInverseDto> getStepInstancesByAppService(@PathVariable("id") Integer id) {
+
+		return stepInstanceService.findStepInstancesByAppService(id);
 	}
 	
 	@GetMapping(value = "/open/stepinstances/{id}")
