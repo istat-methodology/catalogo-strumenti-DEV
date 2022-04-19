@@ -48,7 +48,7 @@ public interface GsbpmProcessDao extends JpaRepository<GsbpmProcess, Integer> {
     List<GsbpmProcess> findAllSubProcesses();
 
     @Query("SELECT gp FROM GsbpmProcess gp WHERE gp.gsbpmProcessParent.id=:gsbpmProcess and gp.active = 1 ORDER BY gp.gsbpmProcessParent, gp.subProcess ASC")
-    List<GsbpmProcess> findSubProcessesByGsbpmParentProcess(@Param("gsbpmProcess") Long gsbpmProcess);
+    List<GsbpmProcess> findSubProcessesByGsbpmParentProcess(@Param("gsbpmProcess") Integer gsbpmProcess);
 
     @Query("SELECT max(gp.subProcess) FROM GsbpmProcess gp")
     Integer getGsbpmRows();

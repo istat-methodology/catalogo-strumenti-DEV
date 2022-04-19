@@ -1,14 +1,17 @@
 package it.istat.mec.catalog.request;
 import java.util.Date;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateStatisticalMethodRequest {
+@EqualsAndHashCode(callSuper=true)
+public class CreateStatisticalMethodRequest extends CreateBaseRequest{
 	
-	private Integer id;	
-	private String name;		
+
+	private static final long serialVersionUID = -876023417978467575L;
 	private String description;	
 	private String requirements;	
 	private String assumptions;	

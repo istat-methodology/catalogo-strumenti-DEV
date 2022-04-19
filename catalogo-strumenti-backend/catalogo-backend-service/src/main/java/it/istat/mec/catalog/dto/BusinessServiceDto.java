@@ -11,7 +11,7 @@ public class BusinessServiceDto implements Serializable {
 	
 	private static final long serialVersionUID = 4566784616153269006L;
 	
-	private Long id;	
+	private Integer id;	
 	private String name;	
 	private String descr;
 	

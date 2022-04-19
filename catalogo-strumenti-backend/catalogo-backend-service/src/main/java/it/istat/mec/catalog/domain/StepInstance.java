@@ -33,8 +33,10 @@ public class StepInstance implements Serializable  {
 	@Column(name = "METHOD")
 	private String method;
 	
-	@Column(name = "STATMETHOD")
-	private String statMethod;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "STATMETHOD", nullable = false, insertable = false)
+	private StatisticalMethod statMethod;
 	
 	@Column(name = "DESCR")
 	private String descr;	

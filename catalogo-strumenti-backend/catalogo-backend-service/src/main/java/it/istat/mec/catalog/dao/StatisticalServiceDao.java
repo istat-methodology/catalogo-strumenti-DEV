@@ -6,13 +6,13 @@ import org.springframework.stereotype.Repository;
 import it.istat.mec.catalog.domain.StatisticalService;
 
 @Repository
-public interface StatisticalServiceDao extends JpaRepository<StatisticalService, Long> {
+public interface StatisticalServiceDao extends JpaRepository<StatisticalService, Integer> {
 
 	@Override
 	List<StatisticalService> findAll();
 	
 	@Override
-	Optional<StatisticalService> findById(Long id);
+	Optional<StatisticalService> findById(Integer id);
 
 	public void save(Optional<StatisticalService> tools);
 

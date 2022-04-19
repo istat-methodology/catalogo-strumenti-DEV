@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class CreateStatisticalServiceRequest implements Serializable {
 	
 	private static final long serialVersionUID = 2787428890801105770L;
-	private Long id;	
+	private Integer id;	
 	private String protocol;	
 	private String url;	
 	private String outcomes;	

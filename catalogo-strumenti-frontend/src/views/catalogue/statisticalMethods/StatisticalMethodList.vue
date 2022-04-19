@@ -4,9 +4,11 @@
       <div class="card fade-in">
         <header class="card-header">
           Elenco Metodi Statistici
-          <div class="card-header-actions">
+          <div class="card-header-actions" v-if="isAuthenticated">
             <router-link tag="a" :to="{ name: 'MethodAdd' }">
-              <add-icon />
+              <button class="btn btn-primary" type="button">
+                <add-icon /> Nuovo
+              </button>
             </router-link>
           </div>
         </header>
@@ -23,7 +25,7 @@
             sorter
             hover
             pagination
-            ><template #show_details="{item}">
+            ><template #show_details="{ item }">
               <td>
                 <router-link
                   tag="a"
@@ -40,17 +42,11 @@
                   <edit-icon />
                 </router-link>
               </td>
-              <td>
+              <td v-if="isAuthenticated">
                 <span class="icon-link" @click="modalOpen(item)"
                   ><delete-icon
                 /></span>
               </td>
-
-              <!-- <td v-if="isAuthenticated">
-                <router-link tag="a" :to="{ name: 'ToolAdd' }">
-                  <delete-icon />
-                </router-link>
-              </td> -->
             </template>
           </CDataTable>
         </CCardBody>
@@ -84,31 +80,26 @@ export default {
   data() {
     return {
       fields: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;"
+          _style: "width:50%;",
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:60%;"
+          _style: "width:49%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       selectedStatisticalMethod: {},
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
@@ -122,7 +113,7 @@ export default {
       } else {
         return [];
       }
-    }
+    },
   },
 
   methods: {
@@ -136,7 +127,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.MethodList);
@@ -144,6 +135,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("methods/findAll");
     // }
-  }
+  },
 };
 </script>

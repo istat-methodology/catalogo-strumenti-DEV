@@ -38,7 +38,7 @@ public class CatalogTool implements Serializable  {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "RELEASE_DATE")
 	private Date releaseDate;
@@ -102,7 +102,7 @@ public class CatalogTool implements Serializable  {
 		super();
 		
 	}
-	public CatalogTool(Long id) {
+	public CatalogTool(Integer id) {
 		super();
 		this.id = id;
 	}

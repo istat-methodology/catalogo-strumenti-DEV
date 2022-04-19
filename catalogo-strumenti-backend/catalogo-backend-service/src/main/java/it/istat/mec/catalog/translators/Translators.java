@@ -34,10 +34,12 @@ import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.DocumentationTypeDto;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
 import it.istat.mec.catalog.dto.ProcessStepDto;
+import it.istat.mec.catalog.dto.ProcessStepInverseDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.dto.StatisticalServiceDto;
 import it.istat.mec.catalog.dto.StepInstanceDto;
+import it.istat.mec.catalog.dto.StepInstanceInverseDto;
 import it.istat.mec.catalog.dto.ToolTypeDto;
 import it.istat.mec.catalog.request.CreateAgentRequest;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
@@ -242,6 +244,10 @@ public class Translators {
 	
 	public static List<ProcessStepDto> translatePS(List<ProcessStep> list) {
 		return mapList(list, ProcessStepDto.class);
+	}
+	
+	public static List<ProcessStepInverseDto> translateProcessStepInverse(List<ProcessStep> list) {
+		return mapList(list, ProcessStepInverseDto.class);
 	}
 	
 	public static List<StepInstanceDto> translateSI(List<StepInstance> list) {
@@ -478,6 +484,11 @@ public class Translators {
 	public static List<GsbpmProcess> translateGSBPMProcessList(List<GSBPMProcessDto> list) {
 		
 		return mapList(list, GsbpmProcess.class);
+	}
+
+	public static List<StepInstanceInverseDto> translateStepInstancesInverse(List<StepInstance> list) {
+
+		return mapList(list, StepInstanceInverseDto.class);
 	}
 
 }

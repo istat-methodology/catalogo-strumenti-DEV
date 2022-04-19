@@ -38,7 +38,7 @@
           size="sm"
           color="light"
           @click.prevent="backToList"
-          >Back</CButton
+          >Indietro</CButton
         >
       </CCardFooter>
     </div>

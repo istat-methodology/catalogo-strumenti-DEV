@@ -13,7 +13,7 @@ import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 
 @Repository
-public interface ToolDao extends JpaRepository<CatalogTool, Long> {
+public interface ToolDao extends JpaRepository<CatalogTool, Integer> {
 	
 	@Override
 	List<CatalogTool> findAll();

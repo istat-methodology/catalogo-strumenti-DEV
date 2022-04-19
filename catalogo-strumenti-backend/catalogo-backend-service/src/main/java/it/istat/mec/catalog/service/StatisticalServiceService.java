@@ -27,7 +27,7 @@ public class StatisticalServiceService {
 
 	}
 	
-	public List<StatisticalServiceDto> findByCataloTools(Long id) {
+	public List<StatisticalServiceDto> findByCataloTools(Integer id) {
 		List<CatalogTool>catalogTools = new ArrayList<CatalogTool>();
 		catalogTools.add(new CatalogTool(id));
 		//return Translators.translateSM(statisticalMethodDao.findByCatalogTools(catalogTools));
@@ -42,7 +42,7 @@ public class StatisticalServiceService {
 		return Translators.translate(ss);
 	}
 	
-	public StatisticalServiceDto findStatisticalServiceById(Long id) {
+	public StatisticalServiceDto findStatisticalServiceById(Integer id) {
 
 		if (!statisticalServiceDao.findById(id).isPresent())
 			throw new NoDataException("Statistical Service not present");
@@ -67,7 +67,7 @@ public class StatisticalServiceService {
 		
 		return Translators.translate(ss);
 	}
-	public StatisticalServiceDto deleteStatisticalService(Long id) {		
+	public StatisticalServiceDto deleteStatisticalService(Integer id) {		
 		if (!statisticalServiceDao.findById(id).isPresent())
 			throw new NoDataException("Statistical Service not present");
 			StatisticalService ss = statisticalServiceDao.findById(id).get();

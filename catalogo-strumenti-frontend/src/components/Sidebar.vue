@@ -24,7 +24,7 @@
         </router-link>
       </li>
 
-      <li class="c-sidebar-nav-item" v-if="isHome">
+      <li class="c-sidebar-nav-item" v-if="isHome || isToolSession">
         <router-link
           tag="a"
           :to="{ name: 'ToolList' }"
@@ -46,7 +46,7 @@
         </router-link>
       </li>
 
-      <li class="c-sidebar-nav-item" v-if="isToolList">
+      <li class="c-sidebar-nav-item" v-if="isToolSession">
         <router-link
           tag="a"
           :to="{ name: 'MethodList' }"
@@ -56,7 +56,7 @@
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Metodi Statistici
         </router-link>
       </li>
-      <li class="c-sidebar-nav-item" v-if="isToolList">
+      <li class="c-sidebar-nav-item" v-if="isToolSession">
         <router-link
           tag="a"
           :to="{ name: 'AgentList' }"
@@ -66,7 +66,7 @@
           <CIcon name="cil-at" class="c-sidebar-nav-icon" />Referenti
         </router-link>
       </li>
-      <li class="c-sidebar-nav-item" v-if="isToolList">
+      <li class="c-sidebar-nav-item" v-if="isToolSession">
         <router-link
           tag="a"
           :to="{ name: 'DocumentationList' }"
@@ -393,6 +393,7 @@ export default {
     ...mapGetters("coreui", ["isAgentList"]),
     ...mapGetters("coreui", ["isDocumentationList"]),
     ...mapGetters("coreui", ["isBusinessList"]),
+    ...mapGetters("coreui", ["isToolSession"]),
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",

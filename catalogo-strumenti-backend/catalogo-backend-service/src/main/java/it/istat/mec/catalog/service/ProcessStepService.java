@@ -3,8 +3,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.ProcessStepDao;
+import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.dto.ProcessStepDto;
+import it.istat.mec.catalog.dto.ProcessStepInverseDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateProcessStepRequest;
 import it.istat.mec.catalog.translators.Translators;
@@ -28,7 +30,7 @@ public class ProcessStepService {
 		return Translators.translate(ps);
 	}
 	
-	public ProcessStepDto findProcessStepById(Long id) {
+	public ProcessStepDto findProcessStepById(Integer id) {
 
 		if (!processStepDao.findById(id).isPresent())
 			throw new NoDataException("ProcessStep not present");
@@ -48,12 +50,17 @@ public class ProcessStepService {
 		
 		return Translators.translate(ps);
 	}
-	public ProcessStepDto deleteProcessStep(Long id) {		
+	public ProcessStepDto deleteProcessStep(Integer id) {		
 		if (!processStepDao.findById(id).isPresent())
 			throw new NoDataException("ProcessStep not present");
 			ProcessStep ps = processStepDao.findById(id).get();
 			processStepDao.delete(ps);
 			return Translators.translate(ps);		
+	}
+
+	public List<ProcessStepInverseDto> getProcessStepsByBusinessService(Integer id) {
+		
+		return Translators.translateProcessStepInverse(processStepDao.findByBusinessService(new BusinessService(id)));
 	}
 }
 

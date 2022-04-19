@@ -1,16 +1,15 @@
 package it.istat.mec.catalog.request;
-import java.io.Serializable;
-
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateBusinessFunctionRequest implements Serializable {
+@EqualsAndHashCode(callSuper=true)
+public class CreateBusinessFunctionRequest extends CreateBaseRequest {
 	
 	private static final long serialVersionUID = 1721161190669807674L;
-	private Long id;	
-	private String name;		
+		
 	private String descr;		
 	private String label;	
 	private String active;	

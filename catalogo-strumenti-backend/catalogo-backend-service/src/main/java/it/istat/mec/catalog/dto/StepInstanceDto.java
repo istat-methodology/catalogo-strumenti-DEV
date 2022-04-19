@@ -10,7 +10,7 @@ public class StepInstanceDto implements Serializable  {
 	private static final long serialVersionUID = -3088590458451619674L;
 	private Integer id;	
 	private String method;	
-	private String statMethod;	
+	private BaseDto statMethod;	
 	private String descr;		
 	private String functionality;	
 	private String appServiceId;

@@ -8,22 +8,26 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import it.istat.mec.catalog.domain.BusinessFunction;
+import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 
 
 @Repository
-public interface BusinessFunctionDao extends JpaRepository<BusinessFunction, Long> {
+public interface BusinessFunctionDao extends JpaRepository<BusinessFunction, Integer> {
 
 	@Override
 	List<BusinessFunction> findAll();
 	
 	@Override
-	Optional<BusinessFunction> findById(Long id);
+	Optional<BusinessFunction> findById(Integer id);
 
 	public void save(Optional<BusinessFunction> businessFunction);
 
 	public void delete(BusinessFunction businessFunction);
 	
 	@Query("SELECT DISTINCT f FROM BusinessFunction f  left outer JOIN f.gsbpmProcesses p WHERE 1=1  AND ((:sizeGsbpmIds = 0)  OR (p IN (:gsbpmIds)) )")	
-	public List<BusinessFunction>  findAllWithFilter(@Param("gsbpmIds") List<GsbpmProcess> gsbpmIds, @Param("sizeGsbpmIds") Integer sizeGsbpmIds, Sort sort );
+	public List<BusinessFunction> findAllWithFilter(@Param("gsbpmIds") List<GsbpmProcess> gsbpmIds, @Param("sizeGsbpmIds") Integer sizeGsbpmIds, Sort sort );
+     
+	@Query("SELECT DISTINCT f FROM BusinessFunction f JOIN f.businessProcesses bp JOIN bp.processSteps ps WHERE ps.businessService = :businessService")	
+	public List<BusinessFunction> findByBusinessService(@Param("businessService") BusinessService businessService);
 }

@@ -50,4 +50,7 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+.c-app {
+    background-color: #ffffff !important;
+}
 </style>

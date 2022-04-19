@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +23,7 @@ public class Documentation implements Serializable  {
 	
 	private static final long serialVersionUID = -6958458136121721618L;
 
-	@Id
+	@Id  @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Integer id;
 
@@ -33,7 +35,7 @@ public class Documentation implements Serializable  {
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DOCUMENT_TYPE", nullable = false, insertable = false)
+    @JoinColumn(name = "DOCUMENT_TYPE")
 	private DocumentationType documentType;
 	
 	@Column(name = "NOTES")

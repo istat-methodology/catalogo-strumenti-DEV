@@ -54,7 +54,7 @@ public class GsbpmProcessService {
 		return Translators.translateGsbpmProcess(gsbpmProcessDao.findAllSubProcesses());
 	}
 
-	public List<GSBPMProcessDto> findSubProcessesByGsbpmParentProcess(Long gsbpmProcess) {
+	public List<GSBPMProcessDto> findSubProcessesByGsbpmParentProcess(Integer gsbpmProcess) {
 		return Translators.translateGsbpmProcess(gsbpmProcessDao.findSubProcessesByGsbpmParentProcess(gsbpmProcess));
 	}
 

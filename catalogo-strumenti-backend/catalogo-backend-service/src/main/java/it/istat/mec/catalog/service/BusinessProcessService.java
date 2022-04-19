@@ -28,7 +28,7 @@ public class BusinessProcessService {
 		return Translators.translate(bp);
 	}
 	
-	public BusinessProcessDto findBusinessProcessById(Long id) {
+	public BusinessProcessDto findBusinessProcessById(Integer id) {
 
 		if (!businessProcessDao.findById(id).isPresent())
 			throw new NoDataException("BusinessProcess not present");
@@ -48,7 +48,7 @@ public class BusinessProcessService {
 		
 		return Translators.translate(bp);
 	}
-	public BusinessProcessDto deleteBusinessProcess(Long id) {		
+	public BusinessProcessDto deleteBusinessProcess(Integer id) {		
 		if (!businessProcessDao.findById(id).isPresent())
 			throw new NoDataException("BusinessProcess not present");
 			BusinessProcess bp = businessProcessDao.findById(id).get();

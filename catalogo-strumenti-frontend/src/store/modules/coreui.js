@@ -11,7 +11,8 @@ const state = {
   isMethodsList: false,
   isAgentList: false,
   isDocumentationList: false,
-  isBusinessList: false
+  isBusinessList: false,
+  isToolSession:false
 };
 
 const mutations = {
@@ -35,26 +36,33 @@ const mutations = {
         break;
       case Context.ToolList:
         state.isToolList = true;
+        state.isToolSession = true;
         break;
       case Context.ToolDetail:
         state.isToolDetail = true;
+        state.isToolSession = true;
         break;
       case Context.ToolEdit:
         state.isToolEdit = true;
+        state.isToolSession = true;
         break;
       case Context.MethodList:
         state.isMethodsList = true;
+        state.isToolSession = true;
         break;
       case Context.AgentList:
         state.isAgentList = true;
+        state.isToolSession = true;
         break;
       case Context.DocumentationList:
         state.isDocumentationList = true;
+        state.isToolSession = true;
         break;
       case Context.BusinessList:
         state.isBusinessList = true;
+        state.isToolSession = true;
         break;
-
+     
       default:
         break;
     }
@@ -69,6 +77,7 @@ const mutations = {
     state.isAgentList = false;
     state.isDocumentationList = false;
     state.isBusinessList = false;
+    state.isToolSession = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -130,6 +139,9 @@ const getters = {
   },
   isBusinessList: state => {
     return state.isBusinessList;
+  },
+  isToolSession: state => {
+    return state.isToolSession;
   }
 };
 
