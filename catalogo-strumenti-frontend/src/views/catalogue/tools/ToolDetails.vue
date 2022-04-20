@@ -144,7 +144,7 @@
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
         <app-methods
-          :businessFunctions="businessFunctionsByService"
+          :statisticalMethods="tool.statisticalMethods"
         ></app-methods>
       </div>
 
@@ -160,7 +160,7 @@
           :businessServiceService="businessServiceService"
         ></app-business-service>
         <app-business-functions
-          :businessServiceService="this.bFunctionsList"
+          :businessFunctions="bFunctionsList"
         ></app-business-functions>
 
         <h2>Funzionalità</h2>
@@ -328,7 +328,6 @@ import BusinessFunctionsView from "../businessFunctions/shared/BusinessFunctions
 import DocumentationView from "../documentation/shared/DocumentationView";
 import LinkedAgentView from "../agent/shared/LinkedAgentView";
 import BusinessServiceView from "./shared/BusinessServiceView";
- 
 
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
@@ -546,7 +545,7 @@ export default {
     "app-methods": StatisticalMethodView,
     "app-linkedAgents": LinkedAgentView,
     "app-business-service": BusinessServiceView,
-    "app-business-functions":BusinessFunctionsView
+    "app-business-functions": BusinessFunctionsView,
   },
   methods: {
     /* handleSubmit() {
@@ -575,18 +574,16 @@ export default {
     this.$store
       .dispatch("tools/findById", this.$route.params.id)
       .then((tool) => {
-        if (tool && tool.businessService)
+        if (tool && tool.businessService) {
           this.$store.dispatch(
             "businessService/findById",
             tool.businessService.id
           );
-      }) 
-      .then((tool) => {
-        if (tool && tool.businessService)
           this.$store.dispatch(
-            "businessService/findByBusinessService",
+            "business/findBFunctionsByBService",
             tool.businessService.id
           );
+        }
       });
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
   },
