@@ -3,12 +3,16 @@ import { businessOpenService } from "@/services";
 
 const state = {
   businessList: [],
+  bFunctionsList: [],
   business: null
 };
 
 const mutations = {
   SET_BUSINESSLIST(state, businessList) {
     state.businessList = businessList;
+  },
+  SET_BFUNCTIONSLIST(state, bFunctionsList) {
+    state.bFunctionsList = bFunctionsList;
   },
   SET_BUSINESS(state, business) {
     state.business = business;
@@ -46,6 +50,17 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_BUSINESS", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  findBFunctionsByBService({ commit }, id) {
+    return businessOpenService
+      .findBFunctionsByBService(id)
+      .then(data => {
+        //console.log(data);
+        commit("SET_BFUNCTIONSLIST", data);
       })
       .catch(err => {
         console.log(err);
@@ -95,6 +110,9 @@ const getters = {
   },
   business: state => {
     return state.business;
+  },
+  bFunctionsList: state => {
+    return state.bFunctionsList;
   }
 };
 
