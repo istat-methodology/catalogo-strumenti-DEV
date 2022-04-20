@@ -144,7 +144,7 @@
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
         <app-methods
-          :statisticalMethods="tool.statisticalMethods"
+          :businessFunctions="businessFunctionsByService"
         ></app-methods>
       </div>
 
@@ -159,9 +159,9 @@
         <app-business-service
           :businessServiceService="businessServiceService"
         ></app-business-service>
-        <app-step-instances
-          :businessServiceService="businessServiceService"
-        ></app-step-instances>
+        <app-business-functions
+          :businessServiceService="this.bFunctionsList"
+        ></app-business-functions>
 
         <h2>Funzionalità</h2>
         <CCard id="id-card-functionalities">
@@ -324,10 +324,11 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
+import BusinessFunctionsView from "../businessFunctions/shared/BusinessFunctionsView";
 import DocumentationView from "../documentation/shared/DocumentationView";
 import LinkedAgentView from "../agent/shared/LinkedAgentView";
 import BusinessServiceView from "./shared/BusinessServiceView";
-import StepInstancesView from "./shared/StepInstancesView";
+ 
 
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
@@ -495,6 +496,7 @@ export default {
     ...mapGetters("businessService", {
       businessServiceService: "businessService",
     }),
+    ...mapGetters("business", ["bFunctionsList"]),
     getLinkedAgentList: function () {
       return this.tool.linkAgentsTools.map((agentTool) => {
         return {
@@ -544,7 +546,7 @@ export default {
     "app-methods": StatisticalMethodView,
     "app-linkedAgents": LinkedAgentView,
     "app-business-service": BusinessServiceView,
-    "app-step-instances": StepInstancesView,
+    "app-business-functions":BusinessFunctionsView
   },
   methods: {
     /* handleSubmit() {
@@ -576,6 +578,13 @@ export default {
         if (tool && tool.businessService)
           this.$store.dispatch(
             "businessService/findById",
+            tool.businessService.id
+          );
+      }) 
+      .then((tool) => {
+        if (tool && tool.businessService)
+          this.$store.dispatch(
+            "businessService/findByBusinessService",
             tool.businessService.id
           );
       });

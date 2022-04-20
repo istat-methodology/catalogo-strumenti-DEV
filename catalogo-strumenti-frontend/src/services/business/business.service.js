@@ -47,6 +47,18 @@ class BusinessService extends AbstractService {
         console.log(error);
       });
   }
+  findBFunctionsByBService(id) {
+    return axiosCatalog
+      .get(this.endpoint + "/business-service/" + id)
+      .then(res => {
+        var data = res.data ? res.data : {};
+        
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 }
 
 export const businessService = new BusinessService(
