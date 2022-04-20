@@ -110,6 +110,9 @@ const getters = {
   },
   business: state => {
     return state.business;
+  },
+  bFunctionsList: state => {
+    return state.bFunctionsList;
   }
 };
 
