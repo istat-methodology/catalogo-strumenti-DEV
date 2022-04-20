@@ -4,18 +4,17 @@
       <tile></tile>
     </div>
     <div class="col-12" v-else>
-      
-        <h2>
-          Elenco Strumenti
-          <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'ToolAdd' }"  v-if="isAuthenticated">
-              <button class="btn btn-primary" type="button">
+      <h2>
+        Elenco Strumenti
+        <div class="card-header-actions">
+          <router-link tag="a" :to="{ name: 'ToolAdd' }" v-if="isAuthenticated">
+            <button class="btn btn-primary" type="button">
               <add-icon /> Nuovo
-              </button>
-            </router-link>
-          </div>
-        </h2>
-        <!--  <CCard>
+            </button>
+          </router-link>
+        </div>
+      </h2>
+      <!--  <CCard>
           <CCardHeader>Elenco Strumenti</CCardHeader>
  -->
       <div class="card fade-in">
@@ -150,9 +149,8 @@ export default {
           return Object.assign({}, item, {
             tooltype: item.toolType.name,
             gsbpm: item.gsbpmProcesses
-              .map(gsbpmProcess => {                
-                return gsbpmProcess.code + " " +  gsbpmProcess.name;
-
+              .map(gsbpmProcess => {
+                return gsbpmProcess.code + " " + gsbpmProcess.name;
               })
               .join(", "),
             methods: item.statisticalMethods
@@ -299,9 +297,8 @@ a {
 }
 .list-group-active {
   border-color: rgba(255, 255, 255) !important ;
-  
+
   border: 1px dotted #d8dbe0 !important;
-  
 }
 .list-group-item {
   border-color: rgba(255, 255, 255) !important ;
@@ -358,4 +355,3 @@ a {
   position: relative;
 }
 </style>
-

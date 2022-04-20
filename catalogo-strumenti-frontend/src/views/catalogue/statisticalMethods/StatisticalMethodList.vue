@@ -83,23 +83,23 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:50%;",
+          _style: "width:50%;"
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:49%;",
+          _style: "width:49%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedStatisticalMethod: {},
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
@@ -113,7 +113,7 @@ export default {
       } else {
         return [];
       }
-    },
+    }
   },
 
   methods: {
@@ -127,7 +127,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.MethodList);
@@ -135,6 +135,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("methods/findAll");
     // }
-  },
+  }
 };
 </script>
