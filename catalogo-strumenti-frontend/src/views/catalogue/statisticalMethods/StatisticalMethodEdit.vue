@@ -35,6 +35,31 @@
             placeholder="Note"
             v-model="statisticalMethodLocal.notes"
           />
+          <CInput
+            label="Ultimo Aggiornamento"
+            placeholder="Ultimo Aggiornamento"
+            v-model="statisticalMethodLocal.lastUpdate"
+          />
+          <CInput
+            label="Tag"
+            placeholder="Tag"
+            v-model="statisticalMethodLocal.tags"
+          />
+          <CInput
+            label="Versione"
+            placeholder="Versione"
+            v-model="statisticalMethodLocal.version"
+          />
+          <CInput
+            label="Data di Pubblicazione"
+            placeholder="Data di Pubblicazione"
+            v-model="statisticalMethodLocal.releaseDate"
+          />
+          <CInput
+            label="Standard Istat"
+            placeholder="Standard Istat"
+            v-model="statisticalMethodLocal.standardIstat"
+          />
         </CCardBody>
       </CCard>
       <CCardFooter>
@@ -71,7 +96,12 @@ export default {
         requirements: "",
         assumptions: "",
         constraints: "",
-        notes: ""
+        notes: "",
+        lastUpdate: "",
+        tags: "",
+        version: "",
+        releaseDate: "",
+        standardIstat: ""
       }
     };
   },
@@ -105,6 +135,11 @@ export default {
       this.statisticalMethodLocal.assumptions = this.statisticalMethod.assumptions;
       this.statisticalMethodLocal.constraints = this.statisticalMethod.constraints;
       this.statisticalMethodLocal.notes = this.statisticalMethod.notes;
+      this.statisticalMethodLocal.lastUpdate = this.statisticalMethod.lastUpdate;
+      this.statisticalMethodLocal.tags = this.statisticalMethod.tags;
+      this.statisticalMethodLocal.version = this.statisticalMethod.version;
+      this.statisticalMethodLocal.releaseDate = this.statisticalMethod.releaseDate;
+      this.statisticalMethodLocal.standardIstat = this.statisticalMethod.standardIstat;
     },
     backToList() {
       this.$router.push("/catalogue/metodi");
