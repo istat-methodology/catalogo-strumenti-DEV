@@ -1,15 +1,26 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <div class="col-8">
-      <h1>Strumento</h1>
+    <div class="col-9">
       <div id="id-tooltype" />
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
-        <h2 id="id-main">{{ tool.name | dashEmpty }}</h2>
-
+        <CCardHeader
+          ><h2 id="id-main">{{ tool.name | dashEmpty }}</h2>
+          <div class="card-header-actions">
+            <router-link
+              tag="a"
+              :to="{
+                name: 'ToolEdit',
+                params: { id: tool.id },
+              }"
+            >
+              <edit-icon />
+            </router-link>
+          </div>
+        </CCardHeader>
         <CCard v-if="tool" id="id-card-main">
           <CCardBody>
             <div>
@@ -159,10 +170,8 @@
         <app-business-service
           :businessServiceService="businessServiceService"
         ></app-business-service>
-        <app-business-functions
-          :businessFunctions="bFunctionsList"
-        ></app-business-functions>
-
+      
+ <!-- 
         <h2>Funzionalità</h2>
         <CCard id="id-card-functionalities">
           <CCardBody>
@@ -234,8 +243,25 @@
               </div>
             </div>
           </CCardBody>
-        </CCard>
+        </CCard>  -->
       </div>
+
+
+      <!--         
+        process
+      -->
+      <div
+        v-if="businessServiceService.processSteps"
+        @mouseover="setActiveItemList('#id-link-process', true)"
+        @mouseleave="setActiveItemList('#id-link-process', false)"
+      >
+   
+        <app-business-functions
+          :businessFunctions="bFunctionsList"
+        ></app-business-functions>
+  </div>
+
+
       <!-- 
         
         documentations
@@ -295,6 +321,15 @@
               @mouseover="setActiveCard('#id-card-functionalities', true)"
               @mouseleave="setActiveCard('#id-card-functionalities', false)"
               >Funzionalità</a
+            >
+          </li>
+             <li class="list-item" id="id-link-process">
+            <a
+              href="#id-process"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-process', true)"
+              @mouseleave="setActiveCard('#id-card-process', false)"
+              >Processi</a
             >
           </li>
 
@@ -373,11 +408,6 @@ export default {
         },
       ],
       fieldsGsbpm: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
         {
           key: "label",
           label: "Nome",
@@ -611,8 +641,8 @@ label {
   flex: 0 1 306px;
   height: 100%;
   margin: 0 80px 0 0;
-  font-family: cousine, monospace;
-  font-size: 14px;
+
+  font-size: 12px;
   line-height: 16px;
 }
 

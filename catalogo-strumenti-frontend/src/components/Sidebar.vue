@@ -129,22 +129,7 @@
           ></tree>
         </div>
       </li>
-      <li class="c-sidebar-nav-title" v-if="isToolList || isBusinessList">
-        Classificazione GSBPM
-      </li>
-      <li class="c-sidebar-nav-item" v-if="isToolList || isBusinessList">
-        <div id="app-inputs" class="demo-tree">
-          <treeselect
-            v-model="value"
-            :multiple="true"
-            :options="getGsbpmList"
-            :disable-branch-nodes="true"
-            :show-count="true"
-            @select="onNodeCheckedGsbpm"
-            @deselect="onNodeUncheckedGsbpm"
-          />
-        </div>
-      </li>
+ 
       <!-- <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
@@ -164,7 +149,7 @@
 import { mapGetters } from "vuex";
 //import TreeView from "@grapoza/vue-tree";
 import LiquorTree from "liquor-tree";
-import Treeselect from "@riophae/vue-treeselect";
+ 
 // import the styles
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 //import progressMixin from "@/components/mixins/progress.mixin";
@@ -173,8 +158,7 @@ export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    tree: LiquorTree,
-    Treeselect
+    tree: LiquorTree 
   },
   data() {
     return {
