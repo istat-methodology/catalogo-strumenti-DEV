@@ -25,6 +25,26 @@
             <label>Note:</label>
             <span>{{ statisticalMethod.notes | dashEmpty }}</span>
           </div>
+          <div>
+            <label>Ultimo Aggiornamento:</label>
+            <span>{{ statisticalMethod.lastUpdate | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Tag:</label>
+            <span>{{ statisticalMethod.tags | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Versione:</label>
+            <span>{{ statisticalMethod.version | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Data di Pubblicazione:</label>
+            <span>{{ statisticalMethod.releaseDate | dashEmpty }}</span>
+          </div>
+          <div>
+            <label>Standard Istat:</label>
+            <span>{{ statisticalMethod.standardIstat | dashEmpty }}</span>
+          </div>
         </CCardBody>
         <CCardFooter>
           <CButton
