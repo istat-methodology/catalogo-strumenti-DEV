@@ -13,6 +13,7 @@
     "@coreui/icons": "^1.0.1",
     "@coreui/react-pro": "^4.2.0-rc.0",
     "@coreui/vue": "^3.2.7",
+    "@coreui/vue-pro": "^4.3.0-beta.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^2.0.6",

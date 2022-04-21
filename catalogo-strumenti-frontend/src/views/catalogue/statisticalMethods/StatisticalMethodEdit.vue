@@ -86,9 +86,13 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { CDatePicker } from "@coreui/vue";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
+  components: {
+    CDatePicker
+  },
   data() {
     return {
       statisticalMethodLocal: {
