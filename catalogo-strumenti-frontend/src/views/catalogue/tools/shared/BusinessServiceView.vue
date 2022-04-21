@@ -88,7 +88,6 @@
                   >
                     No data available
                   </h5>
-                  ======= >>>>>>> 8d4013880b786b022c352fda14de3c393e3dfce2
                 </div>
                 <div class="card-group">
                   <span><strong>Contatto:</strong></span>
