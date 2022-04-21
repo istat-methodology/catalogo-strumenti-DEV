@@ -43,7 +43,7 @@
                     }}</span>
                   </div>
                 </div>
-                  <div class="card-group">
+                <div class="card-group">
                   <span><strong>File/Package:</strong></span>
                   <div class="card-slot">
                     <span v-if="appService">{{ appService.sourcePath }}</span>
@@ -56,8 +56,6 @@
                   <div class="card-slot">
                     <span v-if="appService">{{ appService.author }}</span>
                   </div>
-<<<<<<< HEAD
-                  <!-- @end Condition to show filtrable table if results are more then 5 lines-->
                   <table
                     class="table table-hover"
                     v-if="appService && appService.stepInstances.length < 20"
@@ -90,8 +88,7 @@
                   >
                     No data available
                   </h5>
-=======
->>>>>>> 8d4013880b786b022c352fda14de3c393e3dfce2
+                  ======= >>>>>>> 8d4013880b786b022c352fda14de3c393e3dfce2
                 </div>
                 <div class="card-group">
                   <span><strong>Contatto:</strong></span>
@@ -99,8 +96,6 @@
                     <span v-if="appService">{{ appService.contact }}</span>
                   </div>
                 </div>
-
-              
 
                 <div class="card-group">
                   <span><strong>Licenza:</strong></span>
@@ -187,20 +182,19 @@ export default {
       fields: [
         {
           key: "functionality",
-<<<<<<< HEAD
-          label: "functionality"
+          label: "Funzionalità"
         },
         {
           key: "method",
-          label: "method"
+          label: "Metodo"
         },
         {
           key: "statMethodName",
-          label: "statMethod"
+          label: "Metodo Statistico"
         },
         {
           key: "descr",
-          label: "descr"
+          label: "Descrizione"
         }
       ]
     };
@@ -208,28 +202,6 @@ export default {
   methods: {
     getStepInstancesList: function(stepInstances) {
       return stepInstances.map(stepInstance => {
-=======
-          label: "Funzionalità",
-        },
-        {
-          key: "method",
-          label: "Metodo",
-        },
-        {
-          key: "statMethodName",
-          label: "Metodo Statistico",
-        },
-        {
-          key: "descr",
-          label: "Descrizione",
-        },
-      ],
-    };
-  },
-  methods: {
-    getStepInstancesList: function (stepInstances) {
-      return stepInstances.map((stepInstance) => {
->>>>>>> 8d4013880b786b022c352fda14de3c393e3dfce2
         return {
           id: stepInstance.id,
           functionality: stepInstance.functionality,
@@ -239,13 +211,8 @@ export default {
           statMethodId: stepInstance.statMethod.id
         };
       });
-<<<<<<< HEAD
     }
   }
-=======
-    },
-  },
->>>>>>> 8d4013880b786b022c352fda14de3c393e3dfce2
 };
 </script>
 <style scoped>
