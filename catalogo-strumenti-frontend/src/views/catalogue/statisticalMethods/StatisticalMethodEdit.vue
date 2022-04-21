@@ -50,11 +50,16 @@
             placeholder="Versione"
             v-model="statisticalMethodLocal.version"
           />
-          <CInput
+          <div class="row">
+            <div class="col-lg-4">
+              <div data-coreui-toggle="date-picker"></div>
+            </div>
+          </div>
+          <!--  <CInput
             label="Data di Pubblicazione"
             placeholder="Data di Pubblicazione"
             v-model="statisticalMethodLocal.releaseDate"
-          />
+          /> -->
           <CInput
             label="Standard Istat"
             placeholder="Standard Istat"
