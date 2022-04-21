@@ -50,11 +50,8 @@
             placeholder="Versione"
             v-model="statisticalMethodLocal.version"
           />
-          <div class="row">
-            <div class="col-lg-4">
-              <div data-coreui-toggle="date-picker"></div>
-            </div>
-          </div>
+          <CDatePicker locale="en-US" />
+          <CDatePicker date="2022/2/16" locale="en-US" />
           <!--  <CInput
             label="Data di Pubblicazione"
             placeholder="Data di Pubblicazione"
