@@ -1,7 +1,5 @@
 package it.istat.mec.catalog.request;
 
-import java.util.Date;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,9 +10,9 @@ public class CreateToolRequest extends CreateBaseRequest {
 
 	private static final long serialVersionUID = 260178678713176491L;
 
-	private Date releaseDate;
+	
+	private String releaseDate;
 	private String description;	
-
 	private Integer standardIstat;	
 	private String tags;
 	private String version;
@@ -41,6 +39,7 @@ public class CreateToolRequest extends CreateBaseRequest {
 	private Integer[] documentations;
 	private String businessFunction;	
 	private String processDesign;
+	
 	
 
 }

@@ -1,5 +1,4 @@
 package it.istat.mec.catalog.request;
-import java.util.Date;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,9 +16,9 @@ public class CreateStatisticalMethodRequest extends CreateBaseRequest{
 	private String assumptions;	
 	private String constraints;	
 	private String notes;	
-	private Date lastUpdate;	
+	private String lastUpdate;	
 	private String tags;	
 	private String version;	
-	private Date releaseDate;
+	private String releaseDate;
 	private Integer standardIstat;
 }
