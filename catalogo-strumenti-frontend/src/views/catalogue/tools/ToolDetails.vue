@@ -14,7 +14,7 @@
               tag="a"
               :to="{
                 name: 'ToolEdit',
-                params: { id: tool.id },
+                params: { id: tool.id }
               }"
             >
               <edit-icon />
@@ -170,8 +170,8 @@
         <app-business-service
           :businessServiceService="businessServiceService"
         ></app-business-service>
-      
- <!-- 
+
+        <!-- 
         <h2>Funzionalità</h2>
         <CCard id="id-card-functionalities">
           <CCardBody>
@@ -246,7 +246,6 @@
         </CCard>  -->
       </div>
 
-
       <!--         
         process
       -->
@@ -255,12 +254,10 @@
         @mouseover="setActiveItemList('#id-link-process', true)"
         @mouseleave="setActiveItemList('#id-link-process', false)"
       >
-   
         <app-business-functions
           :businessFunctions="bFunctionsList"
         ></app-business-functions>
-  </div>
-
+      </div>
 
       <!-- 
         
@@ -323,7 +320,7 @@
               >Funzionalità</a
             >
           </li>
-             <li class="list-item" id="id-link-process">
+          <li class="list-item" id="id-link-process">
             <a
               href="#id-process"
               class="item-link"
@@ -378,156 +375,156 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:80%;",
+          _style: "width:80%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       fieldsAgent: [
         {
           key: "agentName",
           label: "Nome",
-          _style: "width:60%;",
+          _style: "width:60%;"
         },
         {
           key: "agentRole",
           label: "Ruolo",
-          _style: "width:39%;",
+          _style: "width:39%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       fieldsGsbpm: [
         {
           key: "label",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "code",
           label: "Codice",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "active",
           label: "Attivo",
-          _style: "width:20%;",
-        },
+          _style: "width:20%;"
+        }
       ],
       fieldsDocumentation: [
         {
           key: "name",
           label: "Nome",
-          _style: "width:90%;",
+          _style: "width:90%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       fieldsFunctions: [
         {
           key: "name",
-          label: "name",
+          label: "name"
         },
         {
           key: "descr",
-          label: "descr",
+          label: "descr"
         },
         {
           key: "processDesigns",
-          label: "processDesigns",
+          label: "processDesigns"
         },
         {
           key: "stepInstances",
-          label: "stepInstances",
+          label: "stepInstances"
         },
         {
           key: "substep",
-          label: "substep",
-        },
+          label: "substep"
+        }
       ],
       processDesigns: [
         {
           key: "id",
-          label: "id",
+          label: "id"
         },
         {
           key: "name",
-          label: "name",
+          label: "name"
         },
         {
           key: "descr",
-          label: "descr",
+          label: "descr"
         },
         {
           key: "step",
-          label: "step",
+          label: "step"
         },
         {
           key: "designType",
-          label: "designType",
+          label: "designType"
         },
         {
           key: "informationObject",
-          label: "informationObject",
-        },
+          label: "informationObject"
+        }
       ],
       designType: [
         {
           key: "id",
-          label: "id",
+          label: "id"
         },
         {
           key: "type",
-          label: "type",
-        },
+          label: "type"
+        }
       ],
       informationObject: [
         {
           key: "businessService",
-          label: "businessService",
+          label: "businessService"
         },
         {
           key: "csmAppRoleId",
-          label: "csmAppRoleId",
+          label: "csmAppRoleId"
         },
         {
           key: "name",
-          label: "name",
+          label: "name"
         },
         {
           key: "descr",
-          label: "descr",
+          label: "descr"
         },
         {
           key: "processDesign",
-          label: "processDesign",
-        },
-      ],
+          label: "processDesign"
+        }
+      ]
     };
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
     ...mapGetters("businessService", {
-      businessServiceService: "businessService",
+      businessServiceService: "businessService"
     }),
     ...mapGetters("business", ["bFunctionsList"]),
-    getLinkedAgentList: function () {
-      return this.tool.linkAgentsTools.map((agentTool) => {
+    getLinkedAgentList: function() {
+      return this.tool.linkAgentsTools.map(agentTool => {
         return {
           id: agentTool.id,
 
@@ -539,43 +536,43 @@ export default {
 
           agentRole: agentTool.role,
           notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate,
+          referenceDate: agentTool.referenceDate
         };
       });
     },
-    getGsbpmList: function () {
-      return this.tool.gsbpmProcesses.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.tool.gsbpmProcesses.map(gsbpm => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
           code: gsbpm.code,
           label: gsbpm.name,
-          active: gsbpm.active,
+          active: gsbpm.active
         };
       });
     },
 
-    getDocumentationList: function () {
-      return this.tool.documentations.map((doc) => {
+    getDocumentationList: function() {
+      return this.tool.documentations.map(doc => {
         return {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
           documentType: doc.documentType.name,
-          resource: doc.resource,
+          resource: doc.resource
         };
       });
     },
     isActiveIndex() {
       return this.activeIndex;
-    },
+    }
   },
   components: {
     "app-documentations": DocumentationView,
     "app-methods": StatisticalMethodView,
     "app-linkedAgents": LinkedAgentView,
     "app-business-service": BusinessServiceView,
-    "app-business-functions": BusinessFunctionsView,
+    "app-business-functions": BusinessFunctionsView
   },
   methods: {
     /* handleSubmit() {
@@ -598,25 +595,23 @@ export default {
     },
     backToList() {
       this.$router.push("/catalogue/tools");
-    },
+    }
   },
   created() {
-    this.$store
-      .dispatch("tools/findById", this.$route.params.id)
-      .then((tool) => {
-        if (tool && tool.businessService) {
-          this.$store.dispatch(
-            "businessService/findById",
-            tool.businessService.id
-          );
-          this.$store.dispatch(
-            "business/findBFunctionsByBService",
-            tool.businessService.id
-          );
-        }
-      });
+    this.$store.dispatch("tools/findById", this.$route.params.id).then(tool => {
+      if (tool && tool.businessService) {
+        this.$store.dispatch(
+          "businessService/findById",
+          tool.businessService.id
+        );
+        this.$store.dispatch(
+          "business/findBFunctionsByBService",
+          tool.businessService.id
+        );
+      }
+    });
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  },
+  }
 };
 </script>
 <style scoped>
