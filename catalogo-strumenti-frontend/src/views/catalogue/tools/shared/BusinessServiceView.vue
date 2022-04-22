@@ -5,11 +5,16 @@
     </div>
     <div class="card-body">
       <div
-        v-for="appService of businessServiceService.appServices"
+        v-for="(appService,index) of businessServiceService.appServices"
         :key="appService.id"
       >
         <!-- appservices -->
         <div class="card card-border bg-lighter">
+          <div class="card-header">
+               {{ appService.name }}
+          <div class="card-header-actions">
+              #{{index+1}}
+            </div> </div>
           <div class="card-body">
             <CRow
               class="
@@ -22,12 +27,7 @@
               "
             >
               <CCol>
-                <div class="card-group">
-                  <span><strong>Nome:</strong></span>
-                  <div class="card-slot">
-                    {{ appService.name }}
-                  </div>
-                </div>
+           
                 <div class="card-group">
                   <span><strong>Descrizione:</strong></span>
                   <div class="card-slot">
