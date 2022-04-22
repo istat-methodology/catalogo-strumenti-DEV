@@ -35,11 +35,11 @@
             placeholder="Note"
             v-model="statisticalMethodLocal.notes"
           />
-          <CInput
+          <!-- <CInput
             label="Ultimo Aggiornamento"
             placeholder="Ultimo Aggiornamento"
             v-model="statisticalMethodLocal.lastUpdate"
-          />
+          /> -->
           <CInput
             label="Tag"
             placeholder="Tag"
@@ -53,6 +53,7 @@
           <label>Data di Pubblicazione</label>
           <div>
             <date-pick
+              aria-label="Data di Pubblicazione"
               v-model="statisticalMethodLocal.releaseDate"
               :displayFormat="'DD/MM/YYYY'"
             ></date-pick>
@@ -67,6 +68,10 @@
             placeholder="Standard Istat"
             v-model="statisticalMethodLocal.standardIstat"
           />
+          <!-- <div>
+            <label>Ultimo Aggiornamento:</label>
+            <span>{{ statisticalMethodLocal.lastUpdate | dashEmpty }}</span>
+          </div> -->
         </CCardBody>
       </CCard>
       <CCardFooter>
@@ -167,8 +172,6 @@ export default {
 };
 </script>
 <style scoped>
-/*/*/
-
 .vdpArrowPrev:after {
   border-right-color: #cc99cd;
 }
