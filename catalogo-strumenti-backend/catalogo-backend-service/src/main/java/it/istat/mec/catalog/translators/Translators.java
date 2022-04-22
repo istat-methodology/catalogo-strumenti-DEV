@@ -18,6 +18,7 @@ import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.DocumentationType;
 import it.istat.mec.catalog.domain.GsbpmProcess;
+import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
 import it.istat.mec.catalog.domain.StatisticalMethod;
@@ -33,6 +34,7 @@ import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.DocumentationTypeDto;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
+import it.istat.mec.catalog.dto.LinkAgentToolDto;
 import it.istat.mec.catalog.dto.ProcessStepDto;
 import it.istat.mec.catalog.dto.ProcessStepInverseDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
@@ -47,6 +49,7 @@ import it.istat.mec.catalog.request.CreateBusinessProcessRequest;
 import it.istat.mec.catalog.request.CreateBusinessServiceRequest;
 import it.istat.mec.catalog.request.CreateDesktopApplicationRequest;
 import it.istat.mec.catalog.request.CreateDocumentationRequest;
+import it.istat.mec.catalog.request.CreateLinkAgentToolRequest;
 import it.istat.mec.catalog.request.CreateProcessStepRequest;
 import it.istat.mec.catalog.request.CreateSoftwareProcedureRequest;
 import it.istat.mec.catalog.request.CreateStatisticalMethodRequest;
@@ -109,6 +112,13 @@ public class Translators {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final AgentDto dTO = modelMapper.map(x, AgentDto.class);
+		return dTO;
+	}
+	
+	public static LinkAgentToolDto translate(LinkAgentTool x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final LinkAgentToolDto dTO = modelMapper.map(x, LinkAgentToolDto.class);
 		return dTO;
 	}
 	
@@ -230,6 +240,10 @@ public class Translators {
 		return mapList(list, AgentDto.class);
 	}
 	
+	public static List<LinkAgentToolDto> translateLinkAgentToolList(List<LinkAgentTool> list) {
+		return mapList(list, LinkAgentToolDto.class);
+	}
+	
 	public static List<BusinessServiceDto> translateBS(List<BusinessService> list) {
 		return mapList(list, BusinessServiceDto.class);
 	}
@@ -297,6 +311,13 @@ public class Translators {
 		final ModelMapper modelMapper = new ModelMapper();
 		final Agent agent = modelMapper.map(x, Agent.class);
 		return agent;
+	}
+	
+	public static LinkAgentTool translate(CreateLinkAgentToolRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final LinkAgentTool toolAgent = modelMapper.map(x, LinkAgentTool.class);
+		return toolAgent;
 	}
 
 	public static BusinessService translate(CreateBusinessServiceRequest x) {
@@ -436,6 +457,13 @@ public class Translators {
 		modelMapper.map(x, agent);
 
 		return agent;
+	}
+	
+	public static LinkAgentTool translateUpdate(CreateLinkAgentToolRequest x, LinkAgentTool toolAgent) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, toolAgent);
+
+		return toolAgent;
 	}
 
 	public static Documentation translateUpdate(CreateDocumentationRequest x, Documentation doc) {
