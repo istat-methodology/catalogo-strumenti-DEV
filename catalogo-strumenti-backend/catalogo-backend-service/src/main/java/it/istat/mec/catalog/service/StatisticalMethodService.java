@@ -1,5 +1,6 @@
 package it.istat.mec.catalog.service;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,8 @@ public class StatisticalMethodService {
 	public StatisticalMethodDto newStatisticalMethod(CreateStatisticalMethodRequest request) {
 		StatisticalMethod sm = new StatisticalMethod();
 		sm = Translators.translate(request);	
+		Date date = new Date(System.currentTimeMillis());		
+		sm.setLastUpdate(date);
 		statisticalMethodDao.save(sm);
 		return Translators.translate(sm);
 	}
@@ -57,7 +60,8 @@ public class StatisticalMethodService {
 		StatisticalMethod sm = statisticalMethodDao.findById(request.getId()).get();	
 		
 		sm = Translators.translateUpdate(request, sm);
-		
+		Date date = new Date(System.currentTimeMillis());		
+		sm.setLastUpdate(date);
 		statisticalMethodDao.save(sm);		
 		
 		return Translators.translate(sm);

@@ -5,11 +5,16 @@
     </div>
     <div class="card-body">
       <div
-        v-for="appService of businessServiceService.appServices"
+        v-for="(appService,index) of businessServiceService.appServices"
         :key="appService.id"
       >
         <!-- appservices -->
         <div class="card card-border bg-lighter">
+          <div class="card-header">
+               {{ appService.name }}
+          <div class="card-header-actions">
+              #{{index+1}}
+            </div> </div>
           <div class="card-body">
             <CRow
               class="
@@ -22,12 +27,7 @@
               "
             >
               <CCol>
-                <div class="card-group">
-                  <span><strong>Nome:</strong></span>
-                  <div class="card-slot">
-                    {{ appService.name }}
-                  </div>
-                </div>
+           
                 <div class="card-group">
                   <span><strong>Descrizione:</strong></span>
                   <div class="card-slot">
@@ -56,38 +56,7 @@
                   <div class="card-slot">
                     <span v-if="appService">{{ appService.author }}</span>
                   </div>
-                  <table
-                    class="table table-hover"
-                    v-if="appService && appService.stepInstances.length < 20"
-                  >
-                    <thead>
-                      <tr>
-                        <th scope="col">functionality</th>
-                        <th scope="col">method</th>
-                        <th scope="col">statMethod</th>
-                        <th scope="col">descr</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="item in getStepInstancesList(
-                          appService.stepInstances
-                        )"
-                        :key="item.id"
-                      >
-                        <td>{{ item.functionality }}</td>
-                        <td>{{ item.method }}</td>
-                        <td>{{ item.statMethodName }}</td>
-                        <td>{{ item.descr }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <h5
-                    v-if="!appService.stepInstances.length"
-                    class="default-value card-body"
-                  >
-                    No data available
-                  </h5>
+                  
                 </div>
                 <div class="card-group">
                   <span><strong>Contatto:</strong></span>
