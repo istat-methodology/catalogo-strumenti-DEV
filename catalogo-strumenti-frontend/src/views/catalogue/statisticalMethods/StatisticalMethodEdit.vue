@@ -50,8 +50,13 @@
             placeholder="Versione"
             v-model="statisticalMethodLocal.version"
           />
-          <CDatePicker locale="en-US" />
-          <CDatePicker date="2022/2/16" locale="en-US" />
+          <label>Data di Pubblicazione</label>
+          <div>
+            <date-pick
+              v-model="statisticalMethodLocal.releaseDate"
+              :displayFormat="'DD/MM/YYYY'"
+            ></date-pick>
+          </div>
           <!--  <CInput
             label="Data di Pubblicazione"
             placeholder="Data di Pubblicazione"
@@ -86,12 +91,14 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { CDatePicker } from "@coreui/vue";
+//import { CDatePicker } from "@coreui/vue";
+import DatePick from "vue-date-pick";
+import "vue-date-pick/dist/vueDatePick.css";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
   components: {
-    CDatePicker
+    DatePick
   },
   data() {
     return {
@@ -159,3 +166,28 @@ export default {
   }
 };
 </script>
+<style scoped>
+/*/*/
+
+.vdpArrowPrev:after {
+  border-right-color: #cc99cd;
+}
+
+.vdpArrowNext:after {
+  border-left-color: #cc99cd;
+}
+
+.vdpCell.selectable:hover .vdpCellContent,
+.vdpCell.selected .vdpCellContent {
+  background: #cc99cd;
+}
+
+.vdpCell.today {
+  color: #cc99cd;
+}
+
+.vdpTimeUnit > input:hover,
+.vdpTimeUnit > input:focus {
+  border-bottom-color: #cc99cd;
+}
+</style>
