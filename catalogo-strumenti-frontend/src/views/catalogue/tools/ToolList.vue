@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  
     <div class="col-12" v-if="isLoading">
       <tile></tile>
     </div>
@@ -52,7 +52,7 @@
         </CCardBody>
       </CCard>
     </div>
-  </div>
+  
 </template>
 
 <script>

@@ -8,18 +8,21 @@
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
         <div>
-          <h2 id="id-main">{{ tool.name | dashEmpty }}</h2>
-          <div class="card-header-actions">
-            <router-link
-              tag="a"
-              :to="{
-                name: 'ToolEdit',
-                params: { id: tool.id },
-              }"
-            >
-              <edit-icon />
-            </router-link>
-          </div>
+          <h2 id="id-main">
+            {{ tool.name | dashEmpty
+            }}<span>
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'ToolEdit',
+                  params: { id: tool.id },
+                }"
+                class="icon-prop"
+              >
+                <edit-icon />
+              </router-link>
+            </span>
+          </h2>
         </div>
 
         <CCard v-if="tool" id="id-card-main">
@@ -160,9 +163,7 @@
         ></app-methods>
       </div>
 
-      <!--         
-        functionalities
-      -->
+      <!-- functionalities  -->
       <div
         v-if="businessServiceService.processSteps"
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
@@ -172,84 +173,9 @@
           :businessServiceService="businessServiceService"
         ></app-business-service>
 
-        <!-- 
-        <h2>Funzionalità</h2>
-        <CCard id="id-card-functionalities">
-          <CCardBody>
-            <div>
-              <div
-                v-for="(item, index) in businessServiceService.processSteps"
-                :key="item.name"
-              >
-                <div @click="setActiveIndex(index)">
-                  <ul class="list-group list-group-horizontal">
-                    <li class="col-2 list-group-item">
-                      <minus-icon v-if="index == isActiveIndex" /><plus-icon
-                        v-if="index !== isActiveIndex"
-                      />
-                      {{ item.name }}
-                    </li>
-                    <li class="col-10 list-group-item">{{ item.descr }}</li>
-                  </ul>
-                  <ul
-                    class="list-group list-group-horizontal list-group-active"
-                    v-if="index == isActiveIndex"
-                  >
-                    <li class="col-12 list-group-item">
-                      <div>
-                        <ul class="list-group list-group-horizontal">
-                          <li class="list-group-item col-2 center bold">
-                            DesignType
-                          </li>
-                          <li class="list-group-item col-10 center bold">
-                            information Object
-                          </li>
-                        </ul>
-                        <ul class="list-group list-group-horizontal">
-                          <li class="list-group-item col-2 center bold">
-                            Type
-                          </li>
-                          <li class="list-group-item col-2 center bold">
-                            Name
-                          </li>
-                          <li class="list-group-item col-8 center bold">
-                            Description
-                          </li>
-                        </ul>
-                        <ul
-                          v-for="item in item.processDesigns"
-                          :key="item.id"
-                          class="list-group list-group-horizontal"
-                        >
-                          <li
-                            class="list-group-item list-group-active-item col-2"
-                          >
-                            {{ item.id }} . {{ item.designType.type }}
-                          </li>
-                          <li
-                            class="list-group-item list-group-active-item col-2"
-                          >
-                            F {{ item.informationObject.name }}
-                          </li>
-                          <li
-                            class="list-group-item list-group-active-item col-8"
-                          >
-                            {{ item.informationObject.descr }}
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </CCardBody>
-        </CCard>  -->
       </div>
 
-      <!--         
-        process
-      -->
+      <!--  process  -->
       <div
         v-if="businessServiceService.processSteps"
         @mouseover="setActiveItemList('#id-link-process', true)"
@@ -617,4 +543,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+.icon-prop {
+  display: inline;
+  padding-left:6px;
+}
+</style>
 
