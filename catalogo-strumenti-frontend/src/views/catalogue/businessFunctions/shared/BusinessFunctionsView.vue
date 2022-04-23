@@ -1,31 +1,31 @@
 <template>
-  <div class="card w-100">
-    <div class="card-header">
-      <h5>Processi</h5>
-    </div>
-    <div class="card-body">
-      <div class="card-columns">
-        <div
-          class="card card-border bg-lighter mb-3"
-          v-for="businessFunction of businessFunctions"
-          :key="businessFunction.id"
-        >
-          <div class="card-header">
-            <strong>{{ businessFunction.name }}</strong>
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'BusinessFunctionsView',
-                  params: { id: businessFunction.id }
-                }"
-              >
-                <view-icon />
-              </router-link>
+  <div>
+    <h5>Processi</h5>
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="card-columns">
+          <div
+            class="card card-border bg-lighter mb-3"
+            v-for="businessFunction of businessFunctions"
+            :key="businessFunction.id"
+          >
+            <div class="card-header">
+              <strong>{{ businessFunction.name }}</strong>
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'BusinessFunctionsView',
+                    params: { id: businessFunction.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            <p class="card-text">{{ businessFunction.description }}</p>
+            <div class="card-body">
+              <p class="card-text">{{ businessFunction.description }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -39,9 +39,9 @@ export default {
     businessFunctions: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 <style scoped>

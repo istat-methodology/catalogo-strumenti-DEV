@@ -1,55 +1,54 @@
 <template>
-  <div class="card w-100">
-    <div class="card-header">
-      <h5>Referenti</h5>
-    </div>
-    <div class="card-body">
-      <div class="card-columns">
-        <div
-          class="card card-border bg-lighter mb-3"
-          v-for="linkedAgent of linkedAgents"
-          :key="linkedAgent.id"
-        >
-          <div class="card-header">
-            <strong>{{ linkedAgent.agentName }}</strong>
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'AgentDetails',
-                  params: { id: linkedAgent.agentId }
-                }"
-              >
-                <view-icon />
-              </router-link>
+  <div>
+    <h2>Referenti</h2>
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="card-columns">
+          <div
+            class="card card-border bg-lighter mb-3"
+            v-for="linkedAgent of linkedAgents"
+            :key="linkedAgent.id"
+          >
+            <div class="card-header">
+              <strong>{{ linkedAgent.agentName }}</strong>
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'AgentDetails',
+                    params: { id: linkedAgent.agentId },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-             <div class="mb-2">
-              <span><strong>Ruolo</strong></span>
+            <div class="card-body">
+              <div class="mb-2">
+                <span><strong>Ruolo</strong></span>
+              </div>
+              <div class="card-slot">
+                <span>{{ linkedAgent.agentRole }}</span>
+              </div>
+              <div class="mb-2">
+                <span><strong>Contatto</strong></span>
+              </div>
+              <div class="card-slot">
+                <span>{{ linkedAgent.agentContact }}</span>
+              </div>
+              <div class="mb-2">
+                <span><strong>Data</strong></span>
+              </div>
+              <div class="card-slot">
+                <span>{{ linkedAgent.referenceDate }}</span>
+              </div>
+              <div class="mb-2">
+                <span><strong>Note</strong></span>
+              </div>
+              <div class="card-slot">
+                <span>{{ linkedAgent.notes }}</span>
+              </div>
             </div>
-            <div class="card-slot">
-              <span>{{ linkedAgent.agentRole }}</span>
-            </div>
-                <div class="mb-2">
-              <span><strong>Contatto</strong></span>
-            </div>
-            <div class="card-slot">
-              <span>{{ linkedAgent.agentContact }}</span>
-            </div>
-                 <div class="mb-2">
-              <span><strong>Data</strong></span>
-            </div>
-            <div class="card-slot">
-              <span>{{ linkedAgent.referenceDate}}</span>
-            </div>
-                     <div class="mb-2">
-              <span><strong>Note</strong></span>
-            </div>
-            <div class="card-slot">
-              <span>{{ linkedAgent.notes}}</span>
-            </div>
-            
           </div>
         </div>
       </div>
@@ -63,9 +62,9 @@ export default {
     linkedAgents: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 <style scoped>

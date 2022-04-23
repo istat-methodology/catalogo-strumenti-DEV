@@ -1,31 +1,33 @@
 <template>
-  <div class="card w-100">
-    <div class="card-header">
-      <h5>Documentazione</h5>
-    </div>
-    <div class="card-body">
-      <div class="card-columns">
-        <div
-          class="card card-border bg-lighter mb-3"
-          v-for="documentation of documentations"
-          :key="documentation.id"
-        >
-          <div class="card-header">
-            <strong>{{ documentation.name }}</strong>
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'DocumentationDetails',
-                  params: { id: documentation.id }
-                }"
-              >
-                <view-icon />
-              </router-link>
+  <div>
+    <h2 class="card-header">
+      Documentazione
+    </h2>
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="card-columns">
+          <div
+            class="card card-border bg-lighter mb-3"
+            v-for="documentation of documentations"
+            :key="documentation.id"
+          >
+            <div class="card-header">
+              <strong>{{ documentation.name }}</strong>
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'DocumentationDetails',
+                    params: { id: documentation.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            <p class="card-text">{{ documentation.documentType  }}</p>
+            <div class="card-body">
+              <p class="card-text">{{ documentation.documentType }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -39,9 +41,9 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 <style scoped>

@@ -1,31 +1,32 @@
 <template>
-  <div class="card w-100">
-    <div class="card-header">
-      <h5>Metodi statistici</h5>
-    </div>
-    <div class="card-body">
-      <div class="card-columns">
-        <div
-          class="card card-border bg-lighter mb-3"
-          v-for="statisticalMethod of statisticalMethods"
-          :key="statisticalMethod.id"
-        >
-          <div class="card-header">
-            <strong>{{ statisticalMethod.name }}</strong>
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'StatisticalMethodView',
-                  params: { id: statisticalMethod.id }
-                }"
-              >
-                <view-icon />
-              </router-link>
+  <div>
+    <h2>Metodi statistici</h2>
+
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="card-columns">
+          <div
+            class="card card-border bg-lighter mb-3"
+            v-for="statisticalMethod of statisticalMethods"
+            :key="statisticalMethod.id"
+          >
+            <div class="card-header">
+              <strong>{{ statisticalMethod.name }}</strong>
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'StatisticalMethodView',
+                    params: { id: statisticalMethod.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            <p class="card-text">{{ statisticalMethod.description }}</p>
+            <div class="card-body">
+              <p class="card-text">{{ statisticalMethod.description }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -39,9 +40,9 @@ export default {
     statisticalMethods: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 <style scoped>

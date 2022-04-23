@@ -1,130 +1,132 @@
 <template>
-  <div class="card w-100">
-    <div class="card-header">
-      <h5>Funzionalità</h5>
-    </div>
-    <div class="card-body">
-      <div
-        v-for="(appService, index) of businessServiceService.appServices"
-        :key="appService.id"
-      >
-        <!-- appservices -->
-        <div class="card card-border bg-lighter">
-          <div class="card-header">
-            {{ appService.name }}
-            <div class="card-header-actions">#{{ index + 1 }}</div>
-          </div>
-          <div class="card-body">
-            <CRow
-              class="
-                row
-                row-cols-xs-2
-                row-cols-sm-2
-                row-cols-md-2
-                row-cols-lg-2
-                row-cols-2
-              "
-            >
-              <CCol>
-                <div class="card-group">
-                  <span><strong>Descrizione:</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{ appService.descr }}</span>
-                  </div>
-                </div>
-
-                <div class="card-group">
-                  <span><strong>Linguaggio di implementazione:</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{
-                      appService.implementationLanguage
-                    }}</span>
-                  </div>
-                </div>
-                <div class="card-group">
-                  <span><strong>File/Package:</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{ appService.sourcePath }}</span>
-                  </div>
-                </div>
-              </CCol>
-              <CCol>
-                <div class="card-group">
-                  <span><strong>Autore:</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{ appService.author }}</span>
-                  </div>
-                </div>
-                <div class="card-group">
-                  <span><strong>Contatto:</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{ appService.contact }}</span>
-                  </div>
-                </div>
-
-                <div class="card-group">
-                  <span><strong>Licenza:</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService.licence">{{
-                      appService.licence
-                    }}</span>
-                    <span v-else class="default-value">no value</span>
-                  </div>
-                </div>
-              </CCol>
-            </CRow>
-          </div>
-
-          <div class="card-body">
-            <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-            <div
-              class="table-responsive"
-              v-if="appService.stepInstances.length > 20"
-            >
-              <CDataTable
-                :items="getStepInstancesList(appService.stepInstances)"
-                :fields="fields"
-                column-filter
-                table-filter
-                items-per-page-select
-                :items-per-page="5"
-                hover
-                sorter
-                pagination
-              >
-              </CDataTable>
+  <div>
+    <h2>Funzionalità</h2>
+    <div class="card w-100">
+      <div class="card-body">
+        <div
+          v-for="(appService, index) of businessServiceService.appServices"
+          :key="appService.id"
+        >
+          <!-- appservices -->
+          <div class="card card-border bg-lighter">
+            <div class="card-header">
+              {{ appService.name }}
+              <div class="card-header-actions">#{{ index + 1 }}</div>
             </div>
-            <!-- @end Condition to show filtrable table if results are more then 5 lines-->
-            <table
-              class="table table-hover"
-              v-if="appService && appService.stepInstances.length < 20"
-            >
-              <thead>
-                <tr>
-                  <th scope="col">Funzionalità</th>
-                  <th scope="col">Metodo</th>
-                  <th scope="col">Metodo Statistico</th>
-                  <th scope="col">Descrizione</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="item in getStepInstancesList(appService.stepInstances)"
-                  :key="item.id"
+            <div class="card-body">
+              <CRow
+                class="
+                  row
+                  row-cols-xs-2
+                  row-cols-sm-2
+                  row-cols-md-2
+                  row-cols-lg-2
+                  row-cols-2
+                "
+              >
+                <CCol>
+                  <div class="card-group">
+                    <span><strong>Descrizione:</strong></span>
+                    <div class="card-slot">
+                      <span v-if="appService">{{ appService.descr }}</span>
+                    </div>
+                  </div>
+
+                  <div class="card-group">
+                    <span><strong>Linguaggio di implementazione:</strong></span>
+                    <div class="card-slot">
+                      <span v-if="appService">{{
+                        appService.implementationLanguage
+                      }}</span>
+                    </div>
+                  </div>
+                  <div class="card-group">
+                    <span><strong>File/Package:</strong></span>
+                    <div class="card-slot">
+                      <span v-if="appService">{{ appService.sourcePath }}</span>
+                    </div>
+                  </div>
+                </CCol>
+                <CCol>
+                  <div class="card-group">
+                    <span><strong>Autore:</strong></span>
+                    <div class="card-slot">
+                      <span v-if="appService">{{ appService.author }}</span>
+                    </div>
+                  </div>
+                  <div class="card-group">
+                    <span><strong>Contatto:</strong></span>
+                    <div class="card-slot">
+                      <span v-if="appService">{{ appService.contact }}</span>
+                    </div>
+                  </div>
+
+                  <div class="card-group">
+                    <span><strong>Licenza:</strong></span>
+                    <div class="card-slot">
+                      <span v-if="appService.licence">{{
+                        appService.licence
+                      }}</span>
+                      <span v-else class="default-value">no value</span>
+                    </div>
+                  </div>
+                </CCol>
+              </CRow>
+            </div>
+
+            <div class="card-body">
+              <!-- @start Condition to show filtrable table if results are more then 5 lines-->
+              <div
+                class="table-responsive"
+                v-if="appService.stepInstances.length > 20"
+              >
+                <CDataTable
+                  :items="getStepInstancesList(appService.stepInstances)"
+                  :fields="fields"
+                  column-filter
+                  table-filter
+                  items-per-page-select
+                  :items-per-page="5"
+                  hover
+                  sorter
+                  pagination
                 >
-                  <td>{{ item.functionality }}</td>
-                  <td>{{ item.method }}</td>
-                  <td>{{ item.statMethodName }}</td>
-                  <td>{{ item.descr }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <h5
-              v-if="!appService.stepInstances.length"
-              class="default-value card-body"
-            >
-              No data available
-            </h5>
+                </CDataTable>
+              </div>
+              <!-- @end Condition to show filtrable table if results are more then 5 lines-->
+              <table
+                class="table table-hover"
+                v-if="appService && appService.stepInstances.length < 20"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">Funzionalità</th>
+                    <th scope="col">Metodo</th>
+                    <th scope="col">Metodo Statistico</th>
+                    <th scope="col">Descrizione</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="item in getStepInstancesList(
+                      appService.stepInstances
+                    )"
+                    :key="item.id"
+                  >
+                    <td>{{ item.functionality }}</td>
+                    <td>{{ item.method }}</td>
+                    <td>{{ item.statMethodName }}</td>
+                    <td>{{ item.descr }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5
+                v-if="!appService.stepInstances.length"
+                class="default-value card-body"
+              >
+                No data available
+              </h5>
+            </div>
           </div>
         </div>
       </div>
@@ -138,8 +140,8 @@ export default {
     businessServiceService: {
       type: Object,
       required: true,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -147,37 +149,37 @@ export default {
       fields: [
         {
           key: "functionality",
-          label: "Funzionalità"
+          label: "Funzionalità",
         },
         {
           key: "method",
-          label: "Metodo"
+          label: "Metodo",
         },
         {
           key: "statMethodName",
-          label: "Metodo Statistico"
+          label: "Metodo Statistico",
         },
         {
           key: "descr",
-          label: "Descrizione"
-        }
-      ]
+          label: "Descrizione",
+        },
+      ],
     };
   },
   methods: {
-    getStepInstancesList: function(stepInstances) {
-      return stepInstances.map(stepInstance => {
+    getStepInstancesList: function (stepInstances) {
+      return stepInstances.map((stepInstance) => {
         return {
           id: stepInstance.id,
           functionality: stepInstance.functionality,
           method: stepInstance.method,
           descr: stepInstance.descr,
           statMethodName: stepInstance.statMethod.name,
-          statMethodId: stepInstance.statMethod.id
+          statMethodId: stepInstance.statMethod.id,
         };
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
