@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <div class="col-12">
+    <div class="col-9">
       <CCard v-if="tool">
         <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
         <CCardBody>
@@ -10,6 +10,21 @@
             placeholder="Descrizione"
             v-model="toolLocal.description"
           />
+          <div class="form-group" role="group">
+            <label for="app-tree">Fasi GSBPM</label>
+
+            <div id="app-tree" class="demo-tree">
+              <treeselect
+                v-model="gsbpmChecked"
+                :multiple="true"
+                :options="getGsbpmList"
+                :disable-branch-nodes="true"
+                :show-count="true"
+                @select="onNodeCheckedGsbpm"
+                @deselect="onNodeUncheckedGsbpm"
+              />
+            </div>
+          </div>
           <CInput
             label="Versione"
             placeholder="Versione"
@@ -28,48 +43,7 @@
           />
         </CCardBody>
       </CCard>
-      <CCard v-if="this.gsbpmList">
-        <CCardHeader>Fasi GSBPM</CCardHeader>
-        <CCardBody>
-          <div id="app-tree" class="demo-tree">
-            <treeselect
-              v-model="gsbpmChecked"
-              :multiple="true"
-              :options="getGsbpmList"
-              :disable-branch-nodes="true"
-              :show-count="true"
-              @select="onNodeCheckedGsbpm"
-              @deselect="onNodeUncheckedGsbpm"
-            />
-          </div>
-          <!-- <CListGroup>
-            <CListGroupItem
-              v-for="process in tool.gsbpmProcesses"
-              :key="process.id"
-              ><CFormCheck label="process.name"
-                >{{ process.name | dashEmpty }}
-              </CFormCheck>
-            </CListGroupItem>
-          </CListGroup> -->
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.statisticalMethodsList">
-        <CCardHeader>Metodi Statistici</CCardHeader>
-        <CCardBody>
-          <div id="app-tree1" class="demo-tree">
-            <treeselect
-              v-model="methodsChecked"
-              :multiple="true"
-              :options="getMethodsList"
-              :disable-branch-nodes="true"
-              :show-count="true"
-              @select="onNodeCheckedMethods"
-              @deselect="onNodeUncheckedMethods"
-            />
-          </div>
-        </CCardBody>
-      </CCard>
-
+    
       <!-- <CCard v-if="this.agentList">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
@@ -102,7 +76,7 @@
           </div>
         </CCardBody>
       </CCard> -->
-      <CCard v-if="tool.toolType.id == 3">
+      <CCard v-if="tool && tool.toolType.id == 3">
         <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <CInput
@@ -137,7 +111,7 @@
           />
         </CCardBody>
       </CCard>
-      <CCard v-if="tool.toolType.id == 2">
+      <CCard v-if="tool && tool.toolType.id == 2">
         <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <CInput
@@ -177,7 +151,7 @@
           />
         </CCardBody>
       </CCard>
-      <CCard v-if="tool.toolType.id == 1">
+      <CCard v-if="tool && tool.toolType.id == 1">
         <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
         <CCardBody>
           <CInput
@@ -208,7 +182,28 @@
           />
         </CCardBody>
       </CCard>
-      <CCard v-if="this.agentList">
+ 
+      <CCard v-if="this.statisticalMethodsList">
+        <CCardHeader>Metodi Statistici</CCardHeader>
+        <CCardBody>
+          <div id="app-tree1" class="demo-tree">
+            <treeselect
+              v-model="methodsChecked"
+              :multiple="true"
+              :options="getMethodsList"
+              :disable-branch-nodes="true"
+              :show-count="true"
+              @select="onNodeCheckedMethods"
+              @deselect="onNodeUncheckedMethods"
+            />
+          </div>
+        </CCardBody>
+      </CCard>
+
+ <app-linkedAgents :linkedAgents="getLinkedAgentList" :editPage="true"></app-linkedAgents>
+
+ fra
+      <CCard v-if="!this.agentList">
         <CCardHeader>Elenco Referenti</CCardHeader>
         <CCardBody>
           <app-linked-agent
@@ -224,6 +219,7 @@
           </app-linked-agent>
         </CCardBody>
       </CCard>
+      
       <CCard v-if="this.documentationList">
         <CCardHeader>Documentazione </CCardHeader>
         <CCardBody>
@@ -232,12 +228,13 @@
             :key="item.id"
             :name="item.name"
             :publisher="item.publisher"
-            :documentType="item.doumentType"
+            :documentType="item.documentType"
             :resource="item.resource"
           >
           </app-doumentation>
         </CCardBody>
       </CCard>
+      
       <CCardFooter>
         <CButton
           shape="square"
@@ -256,6 +253,77 @@
         >
       </CCardFooter>
     </div>
+    <aside class="container-rigth col-2">
+      <section class="menu">
+        <header><h2 class="menu-heading">Contenuto:</h2></header>
+        <ul class="menu-list">
+          <li class="list-item" id="id-link-main">
+            <a
+              class="item-link"
+              href="#"
+              @mouseover="setActiveCard('#id-card-main', true)"
+              @mouseleave="setActiveCard('#id-card-main', false)"
+              >{{ tool.name | dashEmpty }}</a
+            >
+          </li>
+          <li class="list-item" id="id-link-tooltype">
+            <a
+              href="#id-tooltype"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-tooltype', true)"
+              @mouseleave="setActiveCard('#id-card-tooltype', false)"
+              >{{ tool.toolType.name | dashEmpty }}</a
+            >
+          </li>
+          <li class="list-item" id="id-link-statistical-methods">
+            <a
+              href="#id-statistical-methods"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-statistical-methods', true)"
+              @mouseleave="setActiveCard('#id-card-statistical-methods', false)"
+              >Metodi Statistici</a
+            >
+          </li>
+          <li class="list-item" id="id-link-functionalities">
+            <a
+              href="#id-functionalities"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-functionalities', true)"
+              @mouseleave="setActiveCard('#id-card-functionalities', false)"
+              >Funzionalità</a
+            >
+          </li>
+          <li class="list-item" id="id-link-process">
+            <a
+              href="#id-process"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-process', true)"
+              @mouseleave="setActiveCard('#id-card-process', false)"
+              >Processi</a
+            >
+          </li>
+
+          <li class="list-item" id="id-link-documentations">
+            <a
+              href="#id-documentations"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-documentations', true)"
+              @mouseleave="setActiveCard('#id-card-documentations', false)"
+              >Documentazione</a
+            >
+          </li>
+          <li class="list-item" id="id-link-link-agents-tools">
+            <a
+              href="#id-link-agents-tools"
+              class="item-link"
+              @mouseover="setActiveCard('#id-card-link-agents-tools', true)"
+              @mouseleave="setActiveCard('#id-card-link-agents-tools', false)"
+              >Referenti</a
+            >
+          </li>
+        </ul>
+      </section>
+    </aside>
   </div>
 </template>
 <script>
@@ -264,6 +332,7 @@ import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
 import LinkedAgent from "@/components/LinkedAgent";
 import Documentation from "@/components/Documentation";
+import LinkedAgentView from "../agent/shared/LinkedAgentView";
 
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
@@ -271,7 +340,8 @@ export default {
   components: {
     Treeselect,
     "app-linked-agent": LinkedAgent,
-    "app-doumentation": Documentation
+    "app-doumentation": Documentation,
+    "app-linkedAgents": LinkedAgentView,
   },
   data() {
     return {
@@ -306,7 +376,7 @@ export default {
         restrictions: "",
         gsbpm: "",
         businessFunction: "",
-        processDesign: ""
+        processDesign: "",
       },
       linkedToolList: [],
       gsbpmChecked: [],
@@ -318,7 +388,7 @@ export default {
       agentChecked: [],
       documentationChecked: [],
       //toolNodes: [],
-      elenco: []
+      elenco: [],
     };
   },
   computed: {
@@ -328,16 +398,16 @@ export default {
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
     ...mapGetters("agent", ["agentList"]),
-    getGsbpmList: function() {
-      return this.gsbpmList.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
+              label: gsbpmSubProcess.name,
               /* state: {
                 selected: this.toolNodes.includes(gsbpmSubProcess.id)
                   ? true
@@ -345,86 +415,31 @@ export default {
               } */
             };
           }),
-
-          state: {
-            selected: false,
-            selectable: false,
-            checked: false,
-            expanded: false,
-            disabled: false,
-            visible: true,
-            indeterminate: false,
-            matched: false,
-            editable: true,
-            dragging: false,
-            draggable: true,
-            dropable: true
-          }
         };
       });
     },
-    getMethodsList: function() {
-      return this.statisticalMethodsList.map(method => {
+    getMethodsList: function () {
+      return this.statisticalMethodsList.map((method) => {
         return {
           // ...gsbpm,
           id: method.id,
           label: method.name,
-          /*  children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
-            return {
-              id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
-            };
-          }), */
-
-          state: {
-            selected: false,
-            selectable: true,
-            checked: false,
-            expanded: false,
-            disabled: false,
-            visible: true,
-            indeterminate: false,
-            matched: false,
-            editable: true,
-            dragging: false,
-            draggable: true,
-            dropable: true
-          }
         };
       });
     },
-    getDocumentationList: function() {
-      return this.documentationList.map(doc => {
+    getDocumentationList: function () {
+      return this.documentationList.map((doc) => {
         return {
           // ...gsbpm,
           id: doc.id,
           label: doc.name,
-          /*  children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
-            return {
-              id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
-            };
-          }), */
-
-          state: {
-            selected: false,
-            selectable: true,
-            checked: false,
-            expanded: false,
-            disabled: false,
-            visible: true,
-            indeterminate: false,
-            matched: false,
-            editable: true,
-            dragging: false,
-            draggable: true,
-            dropable: true
-          }
+       
         };
       });
     },
-    getLinkedAgentList: function() {
-      return this.tool.linkAgentsTools.map(agentTool => {
+    getLinkedAgentList: function () {
+      if(this.tool)
+      return this.tool.linkAgentsTools.map((agentTool) => {
         return {
           id: agentTool.id,
 
@@ -436,21 +451,23 @@ export default {
 
           role: agentTool.role,
           notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate
+          referenceDate: agentTool.referenceDate,
         };
       });
+      else return [];
     },
-    getDocumentation: function() {
-      return this.tool.documentations.map(doc => {
+    getDocumentation: function () {
+     if(this.tool) return this.tool.documentations.map((doc) => {
         return {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
-          doumentType: doc.documentType,
-          resource: doc.resource
+          documentType: doc.documentType.name,
+          resource: doc.resource,
         };
       });
-    }
+      else return [];
+    },
   },
 
   /* validations: {
@@ -470,7 +487,7 @@ export default {
         .then(this.$store.dispatch("tools/filter", this.params)); */
     },
     setCheckedNodesGsbpm() {
-      this.tool.gsbpmProcesses.map(gsbpmProc => {
+      this.tool.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
@@ -491,12 +508,12 @@ export default {
       console.log(node.text);
     },
     setCheckedNodesMethods() {
-      this.tool.statisticalMethods.map(method => {
+      this.tool.statisticalMethods.map((method) => {
         this.methodsChecked.push(method.id);
       });
     },
     setCheckedNodesDocumentation() {
-      this.tool.documentations.map(doc => {
+      this.tool.documentations.map((doc) => {
         this.documentationChecked.push(doc.id);
       });
     },
@@ -591,7 +608,7 @@ export default {
     },
     backToList() {
       this.$router.push("/catalogue/tools");
-    }
+    },
   },
   created() {
     //this.$store.dispatch("tools/findById", this.$route.params.id);
@@ -607,6 +624,6 @@ export default {
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("agent/findAll");
-  }
+  },
 };
 </script>
