@@ -1,68 +1,171 @@
 <template>
-  <div>
-    <h2>Referenti</h2>
-    <div class="card w-100">
-      <div class="card-body">
-        <div class="columns">
-          <div class="row">
-            <div
-              class="card col-3"
-              v-for="linkedAgent of linkedAgents"
-              :key="linkedAgent.id"
-            >
-              <div class="card-header">
-                <strong>{{ linkedAgent.agentName }}</strong>
-                <div class="card-header-actions">
-                  <router-link
-                    tag="a"
-                    :to="{
-                      name: 'AgentDetails',
-                      params: { id: linkedAgent.agentId },
-                    }"
-                  >
-                    <view-icon />
-                  </router-link>
-                </div>
+  <CCard>
+    <CCardHeader>Referenti</CCardHeader>
+    <CCardBody>
+        <div class="row">
+    <div class="form-group" v-if="agents">
+        <label for="description">Organization*</label>
+        <v-select
+          label="name"
+          :options="agents"
+         
+          v-model="selectedAgent"
+         @input="newAgent"
+        ></v-select>
+        <span class="help-block"
+          >Please select an Organization.</span
+        >
+      </div>
+        </div> 
+      <div class="columns">
+        <div class="row">
+          <div
+            class="card col-4"
+            v-for="(linkedAgent, index) of linkedAgents"
+            :key="linkedAgent.id"
+          >
+            <div class="card-header">
+              <strong>{{ linkedAgent.agentName }}</strong>
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'AgentDetails',
+                    params: { id: linkedAgent.agentId },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+                <span v-if="editPage">
+                  <span
+                    class="icon-link"
+                    @click="changeState(index)"
+                    v-if="getState(index)"
+                    ><edit-icon
+                  /></span>
+                  <span class="icon-link" @click="changeState(index)" v-else
+                    ><add-box-icon
+                  /></span>
+                  <span class="icon-link" @click="modalOpen(item)"
+                    ><delete-icon
+                  /></span>
+                </span>
               </div>
-              <div class="card-body">                
-                  
-                  <div class="card-slot">
-                    <span><strong>Ruolo: </strong></span>
-                    <span>{{ linkedAgent.agentRole }}</span>
-                  </div>
-                  
-                  <div class="card-slot">
-                    <span><strong>Contatto: </strong></span>
-                    <span>{{ linkedAgent.agentContact }}</span>
-                  </div>
-                  
-                  <div class="card-slot">
-                    <span><strong>Data: </strong></span>
-                    <span>{{ linkedAgent.referenceDate }}</span>
-                  </div>
-                  
-                  <div class="card-slot">
-                    <span><strong>Note: </strong></span>
-                    <span>{{ linkedAgent.notes }}</span>
-                  </div>
-                  
-                </div>
+            </div>
+            <div class="card-body">
+              <div class="card-slot">
+                <span><strong>Contatto: </strong></span>
+                <span v-if="!editPage">{{ linkedAgent.agentContact }}</span>
+                 <CInput v-else              
+                  placeholder="Contatto" 
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.agentContact"
+                />
               </div>
-            
+              <div class="card-slot">
+                <span><strong>Ruolo: </strong></span>
+                <span  v-if="!editPage">{{ linkedAgent.agentRole }}</span>
+                 <CInput v-else              
+                  placeholder="Ruolo"
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.agentRole"
+                />
+              </div>
+
+                <div class="card-slot">
+                <span><strong>Organizzazione: </strong></span>
+                <span v-if="!editPage">{{ linkedAgent.agentOrganization }}</span>
+                  <CInput v-else              
+                  placeholder="Organizzazione"
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.agentOrganization"
+                />
+              </div>
+              <div class="card-slot">
+                <span><strong>Data: </strong></span>
+                <span v-if="!editPage">{{ linkedAgent.referenceDate }}</span>
+                  <CInput v-else              
+                  placeholder="Data"
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.referenceDate"
+                />
+              </div>
+
+              <div class="card-slot">
+                <span><strong>Note: </strong></span>
+                <span v-if="!editPage">{{ linkedAgent.notes }}</span>
+                  <textarea v-else              
+                  placeholder="Note"
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.notes"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </CCardBody>
+  </CCard>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      editState: false,
+      localAgents: { ...this.agents }, //clone the object
+      selectedAgent:null,
+      states: Array(this.linkedAgents.length).fill(false),
+    };
+  },
+  methods: {
+    setIsEdit(value) {
+      this.editState = value;
+    },
+    isEdit() {
+      return this.editPage && this.editState;
+    },
+    getState(idx) {
+      return this.states[idx];
+    },
+    changeState(idx) {
+      this.$set(this.states, idx, !this.states[idx]);
+    },
+    newAgent() {
+    
+    let newLinkedAgent=  {
+            id: 0,
+            agentId: this.selectedAgent.id,
+            agentName:this.selectedAgent.name,
+            toolId:this.toolId,
+            role:  "",
+            notes: "",
+            referenceDate:  "",
+          };
+      console.log(this.newLinkedAgent);
+      this.linkedAgents.push(newLinkedAgent);
+    },
+  },
   name: "LinkedAgentView",
   props: {
+    toolId: {
+      type: Number,
+      required: true,
+      default: () => null,
+    },
     linkedAgents: {
       type: Array,
       required: true,
       default: () => [],
+    },
+    agents: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+    editPage: {
+      type: Boolean,
+      required: false,
+      default: () => false,
     },
   },
 };
@@ -102,8 +205,7 @@ body {
   padding: 12px;
   text-align: left;
   background-color: #f1f1f1;
-  margin-left:5px;
-
+  margin-left: 5px;
 }
 
 /* Responsive columns - one column layout (vertical) on small screens */
