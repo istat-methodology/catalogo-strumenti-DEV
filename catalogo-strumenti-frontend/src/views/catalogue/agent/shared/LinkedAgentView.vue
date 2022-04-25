@@ -2,21 +2,70 @@
   <CCard>
     <CCardHeader>Referenti</CCardHeader>
     <CCardBody>
-        <div class="row">
-    <div class="form-group" v-if="agents">
-        <label for="description">Organization*</label>
-        <v-select
-          label="name"
-          :options="agents"
-         
-          v-model="selectedAgent"
-         @input="newAgent"
-        ></v-select>
-        <span class="help-block"
-          >Please select an Organization.</span
-        >
+      {{ agentList }}
+      <div class="row">
+    
+        <div v-if="!viewAddAgent">
+          <div class="form-group" v-if="agentList">
+            <label for="description">Referente*</label>
+            <v-select
+              label="name"
+              :options="agentList"
+              v-model="selectedAgent"
+              @input="newAgent"
+            ></v-select>
+            <span class="help-block">Please select an Organization.</span>
+          </div>
+
+          <span class="icon-link" @click="viewAddAgent = true"
+            ><add-icon
+          /></span>
+          <div class="card-slot">
+            <CInput
+              label="Ruolo"
+              placeholder="Ruolo"
+              v-model="newAgent.agentRole"
+            />
+          </div>
+
+          <div class="card-slot">
+            <CInput
+              label="Organizzazione"
+              placeholder="Organizzazione"
+              v-model="newAgent.agentOrganization"
+            />
+          </div>
+          <div class="card-slot">
+            <CInput
+              label="Data"
+              placeholder="Data"
+              v-model="newAgent.referenceDate"
+            />
+          </div>
+
+          <div class="card-slot">
+            <textarea
+              label="Note"
+              placeholder="Note"
+              v-model="newAgent.notes"
+            />
+          </div>
+          <div class="card-slot">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+          </div>
+        </div>
+
+        <div v-else>
+          <app-agent-add :goBackClose="true" @appClose="updateAgentList" />
+        </div>
       </div>
-        </div> 
       <div class="columns">
         <div class="row">
           <div
@@ -56,26 +105,31 @@
               <div class="card-slot">
                 <span><strong>Contatto: </strong></span>
                 <span v-if="!editPage">{{ linkedAgent.agentContact }}</span>
-                 <CInput v-else              
-                  placeholder="Contatto" 
+                <CInput
+                  v-else
+                  placeholder="Contatto"
                   :disabled="getState(index)"
                   v-model="linkedAgent.agentContact"
                 />
               </div>
               <div class="card-slot">
                 <span><strong>Ruolo: </strong></span>
-                <span  v-if="!editPage">{{ linkedAgent.agentRole }}</span>
-                 <CInput v-else              
+                <span v-if="!editPage">{{ linkedAgent.agentRole }}</span>
+                <CInput
+                  v-else
                   placeholder="Ruolo"
                   :disabled="getState(index)"
                   v-model="linkedAgent.agentRole"
                 />
               </div>
 
-                <div class="card-slot">
+              <div class="card-slot">
                 <span><strong>Organizzazione: </strong></span>
-                <span v-if="!editPage">{{ linkedAgent.agentOrganization }}</span>
-                  <CInput v-else              
+                <span v-if="!editPage">{{
+                  linkedAgent.agentOrganization
+                }}</span>
+                <CInput
+                  v-else
                   placeholder="Organizzazione"
                   :disabled="getState(index)"
                   v-model="linkedAgent.agentOrganization"
@@ -84,7 +138,8 @@
               <div class="card-slot">
                 <span><strong>Data: </strong></span>
                 <span v-if="!editPage">{{ linkedAgent.referenceDate }}</span>
-                  <CInput v-else              
+                <CInput
+                  v-else
                   placeholder="Data"
                   :disabled="getState(index)"
                   v-model="linkedAgent.referenceDate"
@@ -94,7 +149,8 @@
               <div class="card-slot">
                 <span><strong>Note: </strong></span>
                 <span v-if="!editPage">{{ linkedAgent.notes }}</span>
-                  <textarea v-else              
+                <textarea
+                  v-else
                   placeholder="Note"
                   :disabled="getState(index)"
                   v-model="linkedAgent.notes"
@@ -108,16 +164,33 @@
   </CCard>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import AgentAdd from "./AgentAdd.vue";
+
 export default {
   data() {
     return {
       editState: false,
-      localAgents: { ...this.agents }, //clone the object
-      selectedAgent:null,
+      viewAddAgent: false,
+
+      selectedAgent: null,
       states: Array(this.linkedAgents.length).fill(false),
     };
   },
+  computed: {
+    ...mapGetters("agent", ["agentList"]),
+  },
+  components: {
+    "app-agent-add": AgentAdd,
+  },
+
   methods: {
+    updateAgentList() {
+      this.$store.dispatch("agent/findAll");
+      this.viewAddAgent = false;
+      console.log(this.agentList);
+    },
+
     setIsEdit(value) {
       this.editState = value;
     },
@@ -131,16 +204,15 @@ export default {
       this.$set(this.states, idx, !this.states[idx]);
     },
     newAgent() {
-    
-    let newLinkedAgent=  {
-            id: 0,
-            agentId: this.selectedAgent.id,
-            agentName:this.selectedAgent.name,
-            toolId:this.toolId,
-            role:  "",
-            notes: "",
-            referenceDate:  "",
-          };
+      let newLinkedAgent = {
+        id: 0,
+        agentId: this.selectedAgent.id,
+        agentName: this.selectedAgent.name,
+        toolId: this.toolId,
+        role: "",
+        notes: "",
+        referenceDate: "",
+      };
       console.log(this.newLinkedAgent);
       this.linkedAgents.push(newLinkedAgent);
     },
@@ -157,11 +229,7 @@ export default {
       required: true,
       default: () => [],
     },
-    agents: {
-      type: Array,
-      required: false,
-      default: () => [],
-    },
+
     editPage: {
       type: Boolean,
       required: false,

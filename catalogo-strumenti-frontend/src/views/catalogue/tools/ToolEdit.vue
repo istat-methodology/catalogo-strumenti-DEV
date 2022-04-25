@@ -11,7 +11,7 @@
             color="primary"
             class="mr-2"
             @click.prevent="handleSubmit"
-            >Update</CButton
+            >Salva</CButton
           >
           <CButton
             shape="square"
@@ -257,7 +257,6 @@
 
             <app-linkedAgents
               :linkedAgents="getLinkedAgentList"
-              :agents="agentList"
               :toolId="tool.id"
               :editPage="true"
             ></app-linkedAgents>
@@ -360,7 +359,6 @@ export default {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
-    ...mapGetters("agent", ["agentList"]),
     getGsbpmList: function () {
       return this.gsbpmList.map((gsbpm) => {
         return {
