@@ -27,7 +27,7 @@ public class LinkAgentToolController {
 	}
 	
 	
-	@GetMapping("/open/linkagenttools/{toolId}")
+	@GetMapping("/open/linkagenttools/tool/{toolId}")
 	public List<LinkAgentToolDto> findLinkAgentToolsByTool(@PathVariable("toolId") Integer toolId) {
 
 		return linkAgentToolService.findLinkAgentToolsByTool(toolId);
