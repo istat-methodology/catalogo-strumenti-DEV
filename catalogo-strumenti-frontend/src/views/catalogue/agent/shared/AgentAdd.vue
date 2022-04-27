@@ -66,7 +66,7 @@ export default {
     handleSubmit() {
       this.$store
         .dispatch("agent/save", this.agentLocal).then( this.$store.dispatch("agent/findAll"))
-        .then(this.goBack());
+        .then(this.goBack()) ;
       /*   } */
     },
     goBack() {

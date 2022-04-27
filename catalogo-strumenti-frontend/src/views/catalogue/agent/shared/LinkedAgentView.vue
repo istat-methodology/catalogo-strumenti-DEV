@@ -11,8 +11,7 @@
             <v-select
               label="name"
               :options="agentList"
-              v-model="selectedAgent"
-              @input="newAgent"
+               @input="selectId($event)"
             ></v-select>
             <span class="help-block">Please select an Organization.</span>
           </div>
@@ -24,22 +23,15 @@
             <CInput
               label="Ruolo"
               placeholder="Ruolo"
-              v-model="newAgent.agentRole"
+              v-model="newLinkedAgent.role"
             />
           </div>
 
           <div class="card-slot">
             <CInput
-              label="Organizzazione"
-              placeholder="Organizzazione"
-              v-model="newAgent.agentOrganization"
-            />
-          </div>
-          <div class="card-slot">
-            <CInput
               label="Data"
               placeholder="Data"
-              v-model="newAgent.referenceDate"
+              v-model="newLinkedAgent.referenceDate"
             />
           </div>
 
@@ -47,7 +39,7 @@
             <textarea
               label="Note"
               placeholder="Note"
-              v-model="newAgent.notes"
+              v-model="newLinkedAgent.notes"
             />
           </div>
           <div class="card-slot">
@@ -56,7 +48,7 @@
               size="sm"
               color="primary"
               class="mr-2"
-              @click.prevent="handleSubmit"
+              @click.prevent="handleSubmitNewAgent"
               >Salva</CButton
             >
           </div>
@@ -172,9 +164,17 @@ export default {
     return {
       editState: false,
       viewAddAgent: false,
-
+      selectedId:0,
       selectedAgent: null,
       states: Array(this.linkedAgents.length).fill(false),
+       newLinkedAgent : {
+        id: 0,
+        agent: null,
+        tool: this.toolId,
+        role: "",
+        notes: "",
+        referenceDate: "",
+      },
     };
   },
   computed: {
@@ -190,7 +190,9 @@ export default {
       this.viewAddAgent = false;
       console.log(this.agentList);
     },
-
+   selectId(e) {
+      this.selectedId = e.id
+    },
     setIsEdit(value) {
       this.editState = value;
     },
@@ -203,18 +205,17 @@ export default {
     changeState(idx) {
       this.$set(this.states, idx, !this.states[idx]);
     },
-    newAgent() {
-      let newLinkedAgent = {
-        id: 0,
-        agentId: this.selectedAgent.id,
-        agentName: this.selectedAgent.name,
-        toolId: this.toolId,
-        role: "",
-        notes: "",
-        referenceDate: "",
-      };
+    handleSubmitNewAgent() {
+      this.newLinkedAgent.agent=this.selectedId
       console.log(this.newLinkedAgent);
-      this.linkedAgents.push(newLinkedAgent);
+     
+      this.$store
+        .dispatch("linkedagent/save", this.newLinkedAgent) 
+    },
+      handleDeleteLinkedAgent() {
+      
+      console.log(this.newLinkedAgent);
+      this.linkedAgents.push(this.newLinkedAgent);
     },
   },
   name: "LinkedAgentView",
