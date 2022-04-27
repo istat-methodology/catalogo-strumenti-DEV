@@ -2,7 +2,10 @@ package it.istat.mec.catalog.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.istat.mec.catalog.dao.AgentDao;
 import it.istat.mec.catalog.dao.LinkAgentToolDao;
+import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.dto.LinkAgentToolDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -14,6 +17,10 @@ public class LinkAgentToolService {
 
 	@Autowired
 	LinkAgentToolDao linkAgentToolDao;
+	@Autowired
+	ToolDao toolDao;	
+	@Autowired
+	AgentDao agentDao;
 
 	public List<LinkAgentToolDto> findAllLinkAgentTools() {
 		
@@ -22,9 +29,14 @@ public class LinkAgentToolService {
 	}
 	
 	public LinkAgentToolDto newLinkAgentTool(CreateLinkAgentToolRequest request) {
-		LinkAgentTool toolAgent = new LinkAgentTool();
-		toolAgent = Translators.translate(request);		
-		linkAgentToolDao.save(toolAgent);
+		LinkAgentTool toolAgent = Translators.translate(request);	
+		if (!toolDao.findById(request.getTool()).isPresent())
+			throw new NoDataException("Tool not present");
+		toolAgent.setTool(toolDao.findById(request.getTool()).get());
+		if (!agentDao.findById(request.getAgent()).isPresent())
+			throw new NoDataException("Tool not present");
+		toolAgent.setAgent(agentDao.findById(request.getAgent()).get());
+		toolAgent=linkAgentToolDao.save(toolAgent);
 		return Translators.translate(toolAgent);
 	}
 	
