@@ -17,8 +17,8 @@
       <CInput label="Fonte" placeholder="Fonte" v-model="resource" />
       <CInput label="Note" placeholder="Note" v-model="notes" />
     </CCardBody> -->
+    <h2>{{ name | dashEmpty }}</h2>
     <CCard>
-      <CCardHeader>{{ name | dashEmpty }}</CCardHeader>
       <CCardBody>
         <div>
           <label>Pubblicazione:</label>

@@ -23,6 +23,7 @@ import { documentation } from "./modules/documentation/documentation";
 import { documentationType } from "./modules/documentationType/documentationType";
 import { business } from "./modules/business/business";
 import { agent } from "./modules/agent/agentTools";
+import { linkedagent } from "./modules/linkedAgent/linkedAgentTools";
 import { businessService } from "./modules/service/businessService";
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
@@ -39,6 +40,7 @@ export default new Vuex.Store({
     methods,
     documentation,
     agent,
+    linkedagent,
     business,
     businessService,
     documentationType,

@@ -9,4 +9,5 @@ export * from "./documentation/documentation.service";
 export * from "./documentationType/documentationType.service";
 export * from "./business/business.service";
 export * from "./agent/agent.service";
+export * from "./linkedagent/linkedagent.service";
 export * from "./service/businessService.service";

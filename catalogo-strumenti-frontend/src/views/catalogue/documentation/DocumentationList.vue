@@ -1,17 +1,17 @@
 <template>
   <div class="row">
     <div class="col-12">
+      <h2>
+        Elenco Documentazione
+        <div class="card-header-actions" v-if="isAuthenticated">
+          <router-link tag="a" :to="{ name: 'DocumentationAdd' }">
+            <button class="btn btn-primary" type="button">
+              <add-icon /> Nuovo
+            </button>
+          </router-link>
+        </div>
+      </h2>
       <div class="card fade-in">
-        <header class="card-header">
-          Elenco Documentazione
-          <div class="card-header-actions" v-if="isAuthenticated">
-            <router-link tag="a" :to="{ name: 'DocumentationAdd' }">
-              <button class="btn btn-primary" type="button">
-                <add-icon /> Nuovo
-              </button>
-            </router-link>
-          </div>
-        </header>
         <!--  <CCard>
           <CCardHeader>Elenco Strumenti</CCardHeader>
  -->

@@ -1,18 +1,17 @@
 <template>
   <div class="row">
     <div class="col-12">
+      <h2>
+        Elenco Referenti
+        <div class="card-header-actions" v-if="isAuthenticated">
+          <router-link tag="a" :to="{ name: 'AgentAdd' }">
+            <button class="btn btn-primary" type="button">
+              <add-icon /> Nuovo
+            </button>
+          </router-link>
+        </div>
+      </h2>
       <div class="card fade-in">
-        <header class="card-header">
-          Elenco Referenti
-          <div class="card-header-actions"  v-if="isAuthenticated">
-            <router-link tag="a" :to="{ name: 'AgentAdd' }">
-              <button class="btn btn-primary" type="button">
-                <add-icon /> Nuovo
-              </button>
-            </router-link>
-          </div>
-        </header>
-
         <CCardBody>
           <CDataTable
             v-if="agentList"
@@ -23,13 +22,13 @@
             sorter
             hover
             pagination
-            ><template #show_details="{item}">
+            ><template #show_details="{ item }">
               <td>
                 <router-link
                   tag="a"
                   :to="{
                     name: 'AgentDetails',
-                    params: { id: item.id }
+                    params: { id: item.id },
                   }"
                 >
                   <view-icon />
@@ -79,28 +78,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;"
+          _style: "width:30%;",
         },
-       {
+        {
           key: "contact",
           label: "Contatto",
-          _style: "width:30%;"
+          _style: "width:30%;",
         },
         {
           key: "organization",
           label: "Organizzazione",
-          _style: "width:60%;"
+          _style: "width:60%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       selectedAgent: {},
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
@@ -112,7 +111,7 @@ export default {
       } else {
         return [];
       }
-    }
+    },
   },
 
   methods: {
@@ -126,7 +125,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.AgentList);
@@ -134,6 +133,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("agent/findAll");
     // }
-  }
+  },
 };
 </script>

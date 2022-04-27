@@ -2,75 +2,85 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="tool">
-        <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="toolLocal.description"
-          />
-          <CInput
-            label="Versione"
-            placeholder="Versione"
-            v-model="toolLocal.versione"
-          />
-          <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
-          <CInput
-            label="Ultima Modifica"
-            placeholder="Ultima Modifica"
-            v-model="toolLocal.lastUpdate"
-          />
-          <CInput
-            label="Requisiti"
-            placeholder="Requisiti"
-            v-model="toolLocal.requirements"
-          />
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.gsbpmList">
-        <CCardHeader>Fasi GSBPM</CCardHeader>
-        <CCardBody>
-          <div id="app-tree" class="demo-tree">
-            <treeselect
-              v-model="gsbpmChecked"
-              :multiple="true"
-              :options="getGsbpmList"
-              :disable-branch-nodes="true"
-              :show-count="true"
-              @select="onNodeCheckedGsbpm"
-              @deselect="onNodeUncheckedGsbpm"
-            />
-          </div>
-          <!-- <CListGroup>
-            <CListGroupItem
-              v-for="process in tool.gsbpmProcesses"
-              :key="process.id"
-              ><CFormCheck label="process.name"
-                >{{ process.name | dashEmpty }}
-              </CFormCheck>
-            </CListGroupItem>
-          </CListGroup> -->
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.statisticalMethodsList">
-        <CCardHeader>Metodi Statistici</CCardHeader>
-        <CCardBody>
-          <div id="app-tree1" class="demo-tree">
-            <treeselect
-              v-model="methodsChecked"
-              :multiple="true"
-              :options="getMethodsList"
-              :disable-branch-nodes="true"
-              :show-count="true"
-              @select="onNodeCheckedMethods"
-              @deselect="onNodeUncheckedMethods"
-            />
-          </div>
-        </CCardBody>
-      </CCard>
+      <div v-if="tool">
+        <CCardHeader>{{ tool.name | dashEmpty }}
+ <div class="card-header-actions">
+          <CButton
+            shape="square"
+            size="sm"
+            color="primary"
+            class="mr-2"
+            @click.prevent="handleSubmit"
+            >Salva</CButton
+          >
+          <CButton
+            shape="square"
+            size="sm"
+            color="light"
+            @click.prevent="backToList"
+            >Indietro</CButton
+          >
+ </div>
+ </CCardHeader>
 
-      <!-- <CCard v-if="this.agentList">
+        <CTabs
+          variant="pills"
+          :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
+          
+        >
+          <CTab>
+            <template #title>
+              <span>Strumento</span>
+              <span class="float-right"><check-icon /></span>
+            </template>
+
+            <CCard v-if="tool">
+              <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
+              <CCardBody>
+                <CInput
+                  label="Descrizione"
+                  placeholder="Descrizione"
+                  v-model="toolLocal.description"
+                />
+                <div class="form-group" role="group">
+                  <label for="app-tree">Fasi GSBPM</label>
+
+                  <div id="app-tree" class="demo-tree">
+                    <treeselect
+                      v-model="gsbpmChecked"
+                      :multiple="true"
+                      :options="getGsbpmList"
+                      :disable-branch-nodes="true"
+                      :show-count="true"
+                      @select="onNodeCheckedGsbpm"
+                      @deselect="onNodeUncheckedGsbpm"
+                    />
+                  </div>
+                </div>
+                <CInput
+                  label="Versione"
+                  placeholder="Versione"
+                  v-model="toolLocal.versione"
+                />
+                <CInput
+                  label="Tags"
+                  placeholder="Tags"
+                  v-model="toolLocal.tags"
+                />
+                <CInput
+                  label="Ultima Modifica"
+                  placeholder="Ultima Modifica"
+                  v-model="toolLocal.lastUpdate"
+                />
+                <CInput
+                  label="Requisiti"
+                  placeholder="Requisiti"
+                  v-model="toolLocal.requirements"
+                />
+              </CCardBody>
+            </CCard>
+
+            <!-- <CCard v-if="this.agentList">
         <CCardHeader>Referenti</CCardHeader>
         <CCardBody>
           <div id="app-tree1" class="demo-tree">
@@ -86,7 +96,7 @@
           </div>
         </CCardBody>
       </CCard> -->
-      <!-- <CCard v-if="this.documentationList">
+            <!-- <CCard v-if="this.documentationList">
         <CCardHeader>Documentazione</CCardHeader>
         <CCardBody>
           <div id="app-tree3" class="demo-tree">
@@ -102,159 +112,180 @@
           </div>
         </CCardBody>
       </CCard> -->
-      <CCard v-if="tool.toolType.id == 3">
-        <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Codice"
-            placeholder="Codice"
-            v-model="toolLocal.code"
-          />
-          <CInput
-            label="Download"
-            placeholder="Download"
-            v-model="toolLocal.download"
-          />
-          <CInput
-            label="Flusso di lavoro"
-            placeholder="Flusso di lavoro"
-            v-model="toolLocal.workflow"
-          />
-          <CInput
-            label="Linguaggio"
-            placeholder="Linguaggio"
-            v-model="toolLocal.language"
-          />
-          <CInput
-            label="Dipendenze"
-            placeholder="Dipendenze"
-            v-model="toolLocal.depenencies"
-          />
-          <CInput
-            label="Requisiti Tecnici"
-            placeholder="Requisiti Tecnici"
-            v-model="toolLocal.technicalRequirements"
-          />
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.toolType.id == 2">
-        <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Download"
-            placeholder="Download"
-            v-model="toolLocal.download"
-          />
-          <CInput
-            label="Licenza"
-            placeholder="Licenza"
-            v-model="toolLocal.licence"
-          />
-          <CInput
-            label="Linguaggio"
-            placeholder="Linguaggio"
-            v-model="toolLocal.language"
-          />
-          <CInput
-            label="Pacchetto"
-            placeholder="Pacchetto"
-            v-model="toolLocal.packageApplication"
-          />
-          <CInput
-            label="Sistema Operativo"
-            placeholder="Sistema Operativo"
-            v-model="toolLocal.operativeSystem"
-          />
-          <CInput
-            label="Verione"
-            placeholder="Versione"
-            v-model="toolLocal.version"
-          />
-          <CInput
-            label="Requisiti Tecnici"
-            placeholder="Requisiti Tecnici"
-            v-model="toolLocal.technicalRequirements"
-          />
-        </CCardBody>
-      </CCard>
-      <CCard v-if="tool.toolType.id == 1">
-        <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Potocollo"
-            placeholder="Protocollo"
-            v-model="toolLocal.protocol"
-          />
-          <CInput label="Url" placeholder="Url" v-model="toolLocal.url" />
-          <CInput
-            label="Contributi"
-            placeholder="Contributi"
-            v-model="toolLocal.outcomes"
-          />
-          <CInput
-            label="Dipendenze"
-            placeholder="Dipendenze"
-            v-model="toolLocal.serviceDependencies"
-          />
-          <CInput
-            label="Restrizioni"
-            placeholder="Retrizioni"
-            v-model="toolLocal.restrictions"
-          />
-          <CInput
-            label="Funzione"
-            placeholder="Funzione"
-            v-model="toolLocal.businessFunction"
-          />
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.agentList">
-        <CCardHeader>Elenco Referenti</CCardHeader>
-        <CCardBody>
-          <app-linked-agent
-            v-for="item in getLinkedAgentList"
-            :key="item.id"
-            :agentList="agentList"
-            :agentId="item.agentId"
-            :agentName="item.agentName"
-            :agentOrganization="item.agentOrganization"
-            :agentContact="item.agentContact"
-            :agentNotes="item.agentNotes"
-          >
-          </app-linked-agent>
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.documentationList">
-        <CCardHeader>Documentazione </CCardHeader>
-        <CCardBody>
-          <app-doumentation
-            v-for="item in getDocumentation"
-            :key="item.id"
-            :name="item.name"
-            :publisher="item.publisher"
-            :documentType="item.doumentType"
-            :resource="item.resource"
-          >
-          </app-doumentation>
-        </CCardBody>
-      </CCard>
-      <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          >Update</CButton
-        >
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="backToList"
-          >Indietro</CButton
-        >
-      </CCardFooter>
+          </CTab>
+          <CTab>
+            <template #title>
+              <span>{{ tool.toolType.name | dashEmpty }}</span>
+              <span class="float-right"><check-icon /></span>
+            </template>
+
+            <CCard v-if="tool && tool.toolType.id == 3">
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardBody>
+                <CInput
+                  label="Codice"
+                  placeholder="Codice"
+                  v-model="toolLocal.code"
+                />
+                <CInput
+                  label="Download"
+                  placeholder="Download"
+                  v-model="toolLocal.download"
+                />
+                <CInput
+                  label="Flusso di lavoro"
+                  placeholder="Flusso di lavoro"
+                  v-model="toolLocal.workflow"
+                />
+                <CInput
+                  label="Linguaggio"
+                  placeholder="Linguaggio"
+                  v-model="toolLocal.language"
+                />
+                <CInput
+                  label="Dipendenze"
+                  placeholder="Dipendenze"
+                  v-model="toolLocal.depenencies"
+                />
+                <CInput
+                  label="Requisiti Tecnici"
+                  placeholder="Requisiti Tecnici"
+                  v-model="toolLocal.technicalRequirements"
+                />
+              </CCardBody>
+            </CCard>
+            <CCard v-if="tool && tool.toolType.id == 2">
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardBody>
+                <CInput
+                  label="Download"
+                  placeholder="Download"
+                  v-model="toolLocal.download"
+                />
+                <CInput
+                  label="Licenza"
+                  placeholder="Licenza"
+                  v-model="toolLocal.licence"
+                />
+                <CInput
+                  label="Linguaggio"
+                  placeholder="Linguaggio"
+                  v-model="toolLocal.language"
+                />
+                <CInput
+                  label="Pacchetto"
+                  placeholder="Pacchetto"
+                  v-model="toolLocal.packageApplication"
+                />
+                <CInput
+                  label="Sistema Operativo"
+                  placeholder="Sistema Operativo"
+                  v-model="toolLocal.operativeSystem"
+                />
+                <CInput
+                  label="Verione"
+                  placeholder="Versione"
+                  v-model="toolLocal.version"
+                />
+                <CInput
+                  label="Requisiti Tecnici"
+                  placeholder="Requisiti Tecnici"
+                  v-model="toolLocal.technicalRequirements"
+                />
+              </CCardBody>
+            </CCard>
+            <CCard v-if="tool && tool.toolType.id == 1">
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardBody>
+                <CInput
+                  label="Protocollo"
+                  placeholder="Protocollo"
+                  v-model="toolLocal.protocol"
+                />
+                <CInput label="Url" placeholder="Url" v-model="toolLocal.url" />
+                <CInput
+                  label="Contributi"
+                  placeholder="Contributi"
+                  v-model="toolLocal.outcomes"
+                />
+                <CInput
+                  label="Dipendenze"
+                  placeholder="Dipendenze"
+                  v-model="toolLocal.serviceDependencies"
+                />
+                <CInput
+                  label="Restrizioni"
+                  placeholder="Retrizioni"
+                  v-model="toolLocal.restrictions"
+                />
+                <CInput
+                  label="Funzione"
+                  placeholder="Funzione"
+                  v-model="toolLocal.businessFunction"
+                />
+              </CCardBody>
+            </CCard>
+          </CTab>
+          <CTab>
+            <template #title>
+              <span>Metodi Statistici</span>
+              <span class="float-right"><check-icon /></span>
+            </template>
+
+            <CCard v-if="this.statisticalMethodsList">
+              <CCardHeader>Metodi Statistici</CCardHeader>
+              <CCardBody>
+                <div id="app-tree1" class="demo-tree">
+                  <treeselect
+                    v-model="methodsChecked"
+                    :multiple="true"
+                    :options="getMethodsList"
+                    :disable-branch-nodes="true"
+                    :show-count="true"
+                    @select="onNodeCheckedMethods"
+                    @deselect="onNodeUncheckedMethods"
+                  />
+                </div>
+              </CCardBody>
+            </CCard>
+          </CTab>
+          <CTab>
+            <template #title>
+              <span>Referenti</span>
+              <span class="float-right"><check-icon /></span>
+            </template>
+
+            <app-linkedAgents
+              :linkedAgents="getLinkedAgentList"
+              :toolId="tool.id"
+              :editPage="true"
+            ></app-linkedAgents>
+          </CTab>
+          <CTab>
+            <template #title>
+              <span>Documentazione</span>
+              <span class="float-right" ><check-icon /></span>
+            </template>
+
+            <CCard v-if="this.documentationList">
+              <CCardHeader>Documentazione </CCardHeader>
+              <CCardBody>
+                <app-doumentation
+                  v-for="item in getDocumentation"
+                  :key="item.id"
+                  :name="item.name"
+                  :publisher="item.publisher"
+                  :documentType="item.documentType"
+                  :resource="item.resource"
+                >
+                </app-doumentation>
+              </CCardBody>
+            </CCard>
+          </CTab>
+        </CTabs>
+
+       
+      </div>
     </div>
   </div>
 </template>
@@ -262,16 +293,17 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
-import LinkedAgent from "@/components/LinkedAgent";
+
 import Documentation from "@/components/Documentation";
+import LinkedAgentView from "../agent/shared/LinkedAgentView";
 
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "ToolEdit",
   components: {
     Treeselect,
-    "app-linked-agent": LinkedAgent,
-    "app-doumentation": Documentation
+    "app-doumentation": Documentation,
+    "app-linkedAgents": LinkedAgentView,
   },
   data() {
     return {
@@ -306,7 +338,7 @@ export default {
         restrictions: "",
         gsbpm: "",
         businessFunction: "",
-        processDesign: ""
+        processDesign: "",
       },
       linkedToolList: [],
       gsbpmChecked: [],
@@ -318,7 +350,7 @@ export default {
       agentChecked: [],
       documentationChecked: [],
       //toolNodes: [],
-      elenco: []
+      elenco: [],
     };
   },
   computed: {
@@ -327,17 +359,16 @@ export default {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
-    ...mapGetters("agent", ["agentList"]),
-    getGsbpmList: function() {
-      return this.gsbpmList.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
+              label: gsbpmSubProcess.name,
               /* state: {
                 selected: this.toolNodes.includes(gsbpmSubProcess.id)
                   ? true
@@ -345,112 +376,59 @@ export default {
               } */
             };
           }),
-
-          state: {
-            selected: false,
-            selectable: false,
-            checked: false,
-            expanded: false,
-            disabled: false,
-            visible: true,
-            indeterminate: false,
-            matched: false,
-            editable: true,
-            dragging: false,
-            draggable: true,
-            dropable: true
-          }
         };
       });
     },
-    getMethodsList: function() {
-      return this.statisticalMethodsList.map(method => {
+    getMethodsList: function () {
+      return this.statisticalMethodsList.map((method) => {
         return {
           // ...gsbpm,
           id: method.id,
           label: method.name,
-          /*  children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
-            return {
-              id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
-            };
-          }), */
-
-          state: {
-            selected: false,
-            selectable: true,
-            checked: false,
-            expanded: false,
-            disabled: false,
-            visible: true,
-            indeterminate: false,
-            matched: false,
-            editable: true,
-            dragging: false,
-            draggable: true,
-            dropable: true
-          }
         };
       });
     },
-    getDocumentationList: function() {
-      return this.documentationList.map(doc => {
+    getDocumentationList: function () {
+      return this.documentationList.map((doc) => {
         return {
           // ...gsbpm,
           id: doc.id,
           label: doc.name,
-          /*  children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
-            return {
-              id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name
-            };
-          }), */
-
-          state: {
-            selected: false,
-            selectable: true,
-            checked: false,
-            expanded: false,
-            disabled: false,
-            visible: true,
-            indeterminate: false,
-            matched: false,
-            editable: true,
-            dragging: false,
-            draggable: true,
-            dropable: true
-          }
         };
       });
     },
-    getLinkedAgentList: function() {
-      return this.tool.linkAgentsTools.map(agentTool => {
-        return {
-          id: agentTool.id,
+    getLinkedAgentList: function () {
+      if (this.tool)
+        return this.tool.linkAgentsTools.map((agentTool) => {
+          return {
+            id: agentTool.id,
+            tooId:this.tool.id,
+            agentId: agentTool.agent.id,
+            agentName: agentTool.agent.name,
+            agentOrganization: agentTool.agent.organization,
+            agentContact: agentTool.agent.contact,
+            agentNotes: agentTool.agent.notes,
 
-          agentId: agentTool.agent.id,
-          agentName: agentTool.agent.name,
-          agentOrganization: agentTool.agent.organization,
-          agentContact: agentTool.agent.contact,
-          agentNotes: agentTool.agent.notes,
-
-          role: agentTool.role,
-          notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate
-        };
-      });
+            role: agentTool.role,
+            notes: agentTool.notes,
+            referenceDate: agentTool.referenceDate,
+          };
+        });
+      else return [];
     },
-    getDocumentation: function() {
-      return this.tool.documentations.map(doc => {
-        return {
-          id: doc.id,
-          name: doc.name,
-          publisher: doc.publisher,
-          doumentType: doc.documentType,
-          resource: doc.resource
-        };
-      });
-    }
+    getDocumentation: function () {
+      if (this.tool)
+        return this.tool.documentations.map((doc) => {
+          return {
+            id: doc.id,
+            name: doc.name,
+            publisher: doc.publisher,
+            documentType: doc.documentType.name,
+            resource: doc.resource,
+          };
+        });
+      else return [];
+    },
   },
 
   /* validations: {
@@ -470,7 +448,7 @@ export default {
         .then(this.$store.dispatch("tools/filter", this.params)); */
     },
     setCheckedNodesGsbpm() {
-      this.tool.gsbpmProcesses.map(gsbpmProc => {
+      this.tool.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
@@ -491,12 +469,12 @@ export default {
       console.log(node.text);
     },
     setCheckedNodesMethods() {
-      this.tool.statisticalMethods.map(method => {
+      this.tool.statisticalMethods.map((method) => {
         this.methodsChecked.push(method.id);
       });
     },
     setCheckedNodesDocumentation() {
-      this.tool.documentations.map(doc => {
+      this.tool.documentations.map((doc) => {
         this.documentationChecked.push(doc.id);
       });
     },
@@ -591,7 +569,7 @@ export default {
     },
     backToList() {
       this.$router.push("/catalogue/tools");
-    }
+    },
   },
   created() {
     //this.$store.dispatch("tools/findById", this.$route.params.id);
@@ -607,6 +585,6 @@ export default {
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("agent/findAll");
-  }
+  },
 };
 </script>
