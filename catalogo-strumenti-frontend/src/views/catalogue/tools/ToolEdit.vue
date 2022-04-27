@@ -258,7 +258,7 @@
             <app-linkedAgents
               :linkedAgents="getLinkedAgentList"
               :toolId="tool.id"
-              :editPage="true"
+              
             ></app-linkedAgents>
           </CTab>
           <CTab>
@@ -295,7 +295,7 @@ import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
 
 import Documentation from "@/components/Documentation";
-import LinkedAgentView from "../agent/shared/LinkedAgentView";
+import LinkedAgentView from "../agent/shared/LinkedAgentEditView";
 
 /* import { required } from "vuelidate/lib/validators"; */
 export default {

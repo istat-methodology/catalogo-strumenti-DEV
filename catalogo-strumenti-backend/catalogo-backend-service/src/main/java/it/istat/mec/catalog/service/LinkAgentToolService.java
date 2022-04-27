@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.AgentDao;
 import it.istat.mec.catalog.dao.LinkAgentToolDao;
 import it.istat.mec.catalog.dao.ToolDao;
+import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.dto.LinkAgentToolDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -25,6 +26,12 @@ public class LinkAgentToolService {
 	public List<LinkAgentToolDto> findAllLinkAgentTools() {
 		
 		return Translators.translateLinkAgentToolList(linkAgentToolDao.findAll());
+
+	}
+	
+	public List<LinkAgentToolDto> findLinkAgentToolsByTool(Integer tool) {
+		
+		return Translators.translateLinkAgentToolList(linkAgentToolDao.findByTool(new CatalogTool(tool) ));
 
 	}
 	
