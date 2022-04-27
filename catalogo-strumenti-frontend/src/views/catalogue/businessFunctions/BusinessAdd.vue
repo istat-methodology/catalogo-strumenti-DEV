@@ -3,163 +3,32 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader>Nuovo Tool</CCardHeader>
+        <CCardHeader>Nuova Business Function</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome"
-            placeholder="Name"
-            v-model="toolLocal.description"
+            placeholder="Nome"
+            v-model="businessLocal.name"
           />
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
-            v-model="toolLocal.description"
+            v-model="businessLocal.descr"
           />
           <CInput
-            label="Versione"
-            placeholder="Versione"
-            v-model="toolLocal.versione"
-          />
-          <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
-          <CInput
-            label="Ultima Modifica"
-            placeholder="Ultima Modifica"
-            v-model="toolLocal.lastUpdate"
+            label="Etichetta"
+            placeholder="Etichetta"
+            v-model="businessLocal.label"
           />
           <CInput
-            label="Requisiti"
-            placeholder="Requisiti"
-            v-model="toolLocal.requirements"
-          />
-        </CCardBody>
-      </CCard>
-      <CCard>
-        <CCardHeader>Tipologia</CCardHeader>
-        <CCardBody v-if="tooltypeList">
-          <select @change="onChange($event)">
-            <option
-              v-for="option in tooltypeList"
-              v-bind:value="option.id"
-              :key="option.id"
-            >
-              {{ option.name }}
-            </option>
-          </select>
-          <!-- <select
-            class="form-select"
-            @change="onChange($event)"
-            aria-label="Default select example"
-          >
-            <option selected>Tipologia</option>
-            <option value="1">Servizio Statistico</option>
-            <option value="2">Applicazione Desktop</option>
-            <option value="3">Procedura Software</option>
-          </select></CCardBody -->
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.tipologia == '3'">
-        <CCardHeader> Procedura Software</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Codice"
-            placeholder="Codice"
-            v-model="toolLocal.code"
+            label="Codice Ordine"
+            placeholder="Codie Ordine"
+            v-model="businessLocal.orderCode"
           />
           <CInput
-            label="Download"
-            placeholder="Download"
-            v-model="toolLocal.download"
-          />
-          <CInput
-            label="Flusso di lavoro"
-            placeholder="Flusso di lavoro"
-            v-model="toolLocal.workflow"
-          />
-          <CInput
-            label="Linguaggio"
-            placeholder="Linguaggio"
-            v-model="toolLocal.language"
-          />
-          <CInput
-            label="Dipendenze"
-            placeholder="Dipendenze"
-            v-model="toolLocal.depenencies"
-          />
-          <CInput
-            label="Requisiti Tecnici"
-            placeholder="Requisiti Tecnici"
-            v-model="toolLocal.technicalRequirements"
-          />
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.tipologia == '2'">
-        <CCardHeader> Applicazione Desktop</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Download"
-            placeholder="Download"
-            v-model="toolLocal.download"
-          />
-          <CInput
-            label="Licenza"
-            placeholder="Licenza"
-            v-model="toolLocal.licence"
-          />
-          <CInput
-            label="Linguaggio"
-            placeholder="Linguaggio"
-            v-model="toolLocal.language"
-          />
-          <CInput
-            label="Pacchetto"
-            placeholder="Pacchetto"
-            v-model="toolLocal.packageApplication"
-          />
-          <CInput
-            label="Sistema Operativo"
-            placeholder="Sistema Operativo"
-            v-model="toolLocal.operativeSystem"
-          />
-          <CInput
-            label="Verione"
-            placeholder="Versione"
-            v-model="toolLocal.version"
-          />
-          <CInput
-            label="Requisiti Tecnici"
-            placeholder="Requisiti Tecnici"
-            v-model="toolLocal.technicalRequirements"
-          />
-        </CCardBody>
-      </CCard>
-      <CCard v-if="this.tipologia == '1'">
-        <CCardHeader> Servizio Statistico</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Potocollo"
-            placeholder="Protocollo"
-            v-model="toolLocal.protocol"
-          />
-          <CInput label="Url" placeholder="Url" v-model="toolLocal.url" />
-          <CInput
-            label="Contributi"
-            placeholder="Contributi"
-            v-model="toolLocal.outcomes"
-          />
-          <CInput
-            label="Dipendenze"
-            placeholder="Dipendenze"
-            v-model="toolLocal.serviceDependencies"
-          />
-          <CInput
-            label="Restrizioni"
-            placeholder="Retrizioni"
-            v-model="toolLocal.restrictions"
-          />
-          <CInput
-            label="Funzione"
-            placeholder="Funzione"
-            v-model="toolLocal.businessFunction"
+            label="Processo Padre"
+            placeholder="Processso Padre"
+            v-model="businessLocal.parent"
           />
         </CCardBody>
       </CCard>
@@ -171,13 +40,9 @@
           color="primary"
           class="mr-2"
           @click.prevent="handleSubmit"
-          >Update</CButton
+          >Aggiungi</CButton
         >
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="backToList"
+        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
           >Indietro</CButton
         >
       </CCardFooter>
@@ -188,77 +53,36 @@
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
 export default {
-  name: "ToolAdd",
+  name: "businessAdd",
   data() {
     return {
-      toolLocal: {
-        id: "",
-        releaseDate: "",
-        description: "",
+      businessLocal: {
+        id: "0",
         name: "",
-        standardIstat: "",
-        tags: "",
-        version: "",
-        toolType: "",
-        service: "",
-        lastUpdate: "",
-        requirements: "",
-        download: "",
-        licence: "",
-        language: "",
-        packageApplication: "",
-        operativeSystem: "",
-        technicalRequirements: "",
-        code: "",
-        dependencies: "",
-        workflow: "",
-        assumptions: "",
-        constraints: "",
-        notes: "",
-        protocol: "",
-        url: "",
-        outcomes: "",
-        serviceDependencies: "",
-        restrictions: "",
-        gsbpm: "",
-        businessFunction: "",
-        processDesign: ""
-      },
-      tipologia: 1,
-      value: 0
+        descr: "",
+        label: "",
+        orderCode: "",
+        parent: "",
+        processSteps: []
+      }
     };
   },
   computed: {
-    /* ...mapGetters("auth", ["isReviewer", "isSupervisor"]), */
-    /* ...mapGetters("address", ["assignedId", "assignedName"]), */
-
-    ...mapGetters("tooltype", ["tooltypeList"])
+    ...mapGetters("business", ["business"])
   },
-  /* validations: {
-    tool: {
-      name: {
-        required
-      }
-    }
-  }, */
   methods: {
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.tool.$invalid) {*/
       this.$store
-        .dispatch("tools/save", this.toolLocal)
-        .then(this.$router.push("/catalogue/tools"));
+        .dispatch("business/save", this.businessLocal)
+        .then(this.$router.push("/catalogue/businessfunctions"));
       /*   } */
     },
     goBack() {
-      this.$router.push("/catalogue/tools");
-    },
-    onChange(event) {
-      this.tipologia = event.target.value;
+      this.$router.push("/catalogue/businessfunctions");
     }
   },
   created() {
-    this.$store.dispatch("tooltype/findAll");
+    this.$store.dispatch("business/findAll");
   }
 };
 </script>

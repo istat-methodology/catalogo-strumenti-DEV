@@ -31,7 +31,7 @@
                   tag="a"
                   :to="{
                     name: 'DocumentationDetails',
-                    params: { id: item.id },
+                    params: { id: item.id }
                   }"
                 >
                   <view-icon />
@@ -85,28 +85,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:49%;",
+          _style: "width:49%;"
         },
         {
           key: "documentType",
           label: "Documento",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "publisher",
           label: "Editore",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedDocumentation: {},
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
@@ -114,20 +114,20 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       if (this.documentationList) {
-        return this.documentationList.map((item) => {
+        return this.documentationList.map(item => {
           return {
             id: item.id,
             name: item.name,
             publisher: item.publisher,
             documentType: item.documentType.name,
             notes: item.notes,
-            resource: item.resource,
+            resource: item.resource
           };
         });
       } else {
         return [];
       }
-    },
+    }
   },
 
   methods: {
@@ -144,7 +144,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.DocumentationList);
@@ -152,6 +152,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("documentation/findAll");
     // }
-  },
+  }
 };
 </script>

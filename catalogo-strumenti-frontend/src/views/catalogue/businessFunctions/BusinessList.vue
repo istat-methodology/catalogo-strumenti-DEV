@@ -4,7 +4,7 @@
       <h2>
         Elenco Processi
         <div class="card-header-actions">
-          <router-link tag="a" :to="{ name: 'BusinessList' }">
+          <router-link tag="a" :to="{ name: 'BusinessAdd' }">
             <add-icon />
           </router-link>
         </div>
@@ -65,14 +65,14 @@
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Close
         </CButton>
-        <!-- <CButton
+        <CButton
           shape="square"
           size="sm"
           color="primary"
           @click="deleteBusiness"
         >
           Delete
-        </CButton> -->
+        </CButton>
       </template>
       Elimina Business Function '{{ selectedBusiness.name }}'?
     </CModal>
@@ -163,8 +163,10 @@ export default {
   },
 
   methods: {
-    deleteDocumentation() {
-      this.$store.dispatch("business/delete", this.selectedBusiness.id);
+    deleteBusiness() {
+      this.$store
+        .dispatch("business/delete", this.selectedBusiness.id)
+        .then(this.$router.push("/catalogue/businessfunctions"));
       this.warningModal = false;
     },
     modalOpen(app) {

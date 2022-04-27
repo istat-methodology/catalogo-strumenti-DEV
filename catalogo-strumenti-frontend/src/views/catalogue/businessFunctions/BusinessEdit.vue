@@ -56,7 +56,7 @@
 import { mapGetters } from "vuex";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "DocumentationEdit",
+  name: "BusinessEdit",
   data() {
     return {
       businessLocal: {
@@ -100,7 +100,7 @@ export default {
       this.businessLocal.processSteps = this.business.processSteps;
     },
     backToList() {
-      this.$router.push("/catalogue/business");
+      this.$router.push("/catalogue/businessfunctions");
     }
   },
   created() {
