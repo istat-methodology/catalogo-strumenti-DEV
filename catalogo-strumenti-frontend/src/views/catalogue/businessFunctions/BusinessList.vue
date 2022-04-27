@@ -1,15 +1,15 @@
 <template>
   <div class="row">
     <div class="col-12">
+      <h2>
+        Elenco Processi
+        <div class="card-header-actions">
+          <router-link tag="a" :to="{ name: 'BusinessList' }">
+            <add-icon />
+          </router-link>
+        </div>
+      </h2>
       <div class="card fade-in">
-        <header class="card-header">
-          Elenco Processi
-          <div class="card-header-actions">
-            <router-link tag="a" :to="{ name: 'BusinessList' }">
-              <add-icon />
-            </router-link>
-          </div>
-        </header>
         <!--  <CCard>
           <CCardHeader>Elenco Strumenti</CCardHeader>
  -->
@@ -23,13 +23,13 @@
             sorter
             hover
             pagination
-            ><template #show_details="{item}">
+            ><template #show_details="{ item }">
               <td>
                 <router-link
                   tag="a"
                   :to="{
                     name: 'BusinessDetails',
-                    params: { id: item.id }
+                    params: { id: item.id },
                   }"
                 >
                   <view-icon />
@@ -95,28 +95,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:60%;"
+          _style: "width:60%;",
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;"
+          _style: "width:10%;",
         },
         {
           key: "gsbpm",
           label: "Gsbpm",
-          _style: "width:30%;"
+          _style: "width:30%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       selectedBusiness: {},
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
@@ -138,9 +138,9 @@ export default {
         });
       });
     } */
-    getBusinessList: function() {
+    getBusinessList: function () {
       if (this.businessList) {
-        return this.businessList.map(business => {
+        return this.businessList.map((business) => {
           return {
             id: business.id,
             name: business.name == null ? "" : business.name,
@@ -150,16 +150,16 @@ export default {
               business.gsbpmProcesses == null
                 ? ""
                 : business.gsbpmProcesses
-                    .map(gsbpmProcess => {
+                    .map((gsbpmProcess) => {
                       return gsbpmProcess.code + " " + gsbpmProcess.name;
                     })
-                    .join(", ")
+                    .join(", "),
           };
         });
       } else {
         return [];
       }
-    }
+    },
   },
 
   methods: {
@@ -173,7 +173,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessList);
@@ -181,6 +181,6 @@ export default {
     this.$store.dispatch("business/filter", this.params);
     //this.$store.dispatch("business/findAll");
     // }
-  }
+  },
 };
 </script>
