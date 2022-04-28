@@ -3,30 +3,30 @@
   <div class="row">
     <div class="col-12">
       <div v-if="tool">
-        <CCardHeader>{{ tool.name | dashEmpty }}
- <div class="card-header-actions">
-          <CButton
-            shape="square"
-            size="sm"
-            color="primary"
-            class="mr-2"
-            @click.prevent="handleSubmit"
-            >Salva</CButton
-          >
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Indietro</CButton
-          >
- </div>
- </CCardHeader>
+        <CCardHeader
+          >{{ tool.name | dashEmpty }}
+          <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="backToList"
+              >Indietro</CButton
+            >
+          </div>
+        </CCardHeader>
 
         <CTabs
           variant="pills"
           :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
-          
         >
           <CTab>
             <template #title>
@@ -255,16 +255,12 @@
               <span class="float-right"><check-icon /></span>
             </template>
 
-            <app-linkedAgents
-              :linkedAgents="getLinkedAgentList"
-              :toolId="tool.id"
-              
-            ></app-linkedAgents>
+            <app-linkedAgents :toolId="tool.id"></app-linkedAgents>
           </CTab>
           <CTab>
             <template #title>
               <span>Documentazione</span>
-              <span class="float-right" ><check-icon /></span>
+              <span class="float-right"><check-icon /></span>
             </template>
 
             <CCard v-if="this.documentationList">
@@ -283,8 +279,6 @@
             </CCard>
           </CTab>
         </CTabs>
-
-       
       </div>
     </div>
   </div>
@@ -402,7 +396,7 @@ export default {
         return this.tool.linkAgentsTools.map((agentTool) => {
           return {
             id: agentTool.id,
-            tooId:this.tool.id,
+            tooId: this.tool.id,
             agentId: agentTool.agent.id,
             agentName: agentTool.agent.name,
             agentOrganization: agentTool.agent.organization,

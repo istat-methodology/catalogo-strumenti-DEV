@@ -1,5 +1,5 @@
 import { linkedAgentService } from "@/services";
- 
+import { linkedAgentOpenService } from "@/services";
 
 const state = {
   linkedAgentList: [],
@@ -22,8 +22,8 @@ const actions = {
       .save(payload)
       .then(data => {
         //console.log(data);
-        commit("SET_AGENT", data);
-        dispatch("message/success", "Agent salvato!", {
+        commit("SET_LINKEDAGENT", data);
+        dispatch("message/success", "Associazione salvata!", {
           root: true
         });
       })
@@ -31,13 +31,24 @@ const actions = {
         console.log(err);
       });
   },
-  /* 
+  findByCatalogTool({ commit }, id) {
+    return linkedAgentOpenService
+      .findByCatalogTool(id)
+      .then(data => {
+        //console.log(data);
+        commit("SET_LINKEDAGENTLIST", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+   
   update({ commit, dispatch }, payload) {
     return linkedAgentService
       .update(payload)
       .then(data => {
-        commit("SET_AGENT", data);
-        dispatch("message/success", "Agent aggiornato!", {
+        commit("SET_LINKEDAGENT", data);
+        dispatch("message/success", "Associazione aggiornata!", {
           root: true
         });
       })
@@ -50,7 +61,7 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Agent eliminato!", {
+        dispatch("message/success", "Associazione eliminata!", {
           root: true
         });
       })
@@ -58,7 +69,7 @@ const actions = {
         console.log(err);
       });
   }
-  */
+
 };
 
 const getters = {

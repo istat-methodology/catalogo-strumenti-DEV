@@ -25,12 +25,12 @@ public class LinkAgentTool implements Serializable  {
 	private Integer id;
 	
 	@ManyToOne
-    @JoinColumn(name = "AGENT")
+    @JoinColumn(name = "AGENT",updatable = false)
 	private Agent agent;
 	
 	
  	@ManyToOne
-    @JoinColumn(name = "TOOL")
+    @JoinColumn(name = "TOOL",updatable = false)
 	private CatalogTool tool;
 	
 	@Column(name = "ROLE")

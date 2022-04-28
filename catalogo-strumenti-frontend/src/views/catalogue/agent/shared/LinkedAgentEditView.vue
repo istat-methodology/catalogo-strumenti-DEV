@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="agentList">
     <CCard>
       <CCardHeader>Referenti associati</CCardHeader>
       <CCardBody>
@@ -76,7 +76,7 @@
           <div class="row">
             <div
               class="card"
-              v-for="(linkedAgent, index) of linkedAgents"
+              v-for="(linkedAgent, index) of getLinkedAgentList"
               :key="linkedAgent.id"
             >
               <div class="card-header">
@@ -87,18 +87,19 @@
                       ><edit-icon
                     /></span>
                     <span class="icon-link" @click="modalOpen(linkedAgent)"
-                        ><delete-icon
-                      /></span>
-                    </span>
-                    <span v-else>
-                      <span class="icon-link" @click="changeState(index)"
-                        ><success-icon
-                      /></span>
-                      <span class="icon-link" @click="modalOpen(linkedAgent)"
-                        ><arrow-right-icon
-                      /></span>
-                    </span>
-            
+                      ><delete-icon
+                    /></span>
+                  </span>
+                  <span v-else>
+                    <span
+                      class="icon-link"
+                      @click="handleUpdateLinkedAgent(index, linkedAgent)"
+                      ><success-icon
+                    /></span>
+                    <span class="icon-link" @click="modalOpen(linkedAgent)"
+                      ><arrow-right-icon
+                    /></span>
+                  </span>
                 </div>
               </div>
               <div class="card-body">
@@ -155,16 +156,25 @@
         </div>
       </CCardBody>
     </CCard>
-    <CModal title="Warning!" :show.sync="warningModal" v-if="selectedAgent">
+    <CModal
+      title="Warning!"
+      :show.sync="warningModal"
+      v-if="selectedLinkedAgent"
+    >
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Close
         </CButton>
-        <CButton shape="square" size="sm" color="primary" @click="deleteAgent">
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          @click="handleDeleteLinkedAgent"
+        >
           Delete
         </CButton>
       </template>
-      Elimina referente '{{ selectedAgent.name }}'?
+      Elimina referente '{{ selectedLinkedAgent.agentName }}'?
     </CModal>
   </div>
 </template>
@@ -181,7 +191,8 @@ export default {
       selectedId: 0,
       selectedAgent: null,
       selectedLinkedAgent: null,
-      states: Array(this.linkedAgents.length).fill(true),
+      states: [],
+      warningModal: false,
       newLinkedAgent: {
         id: 0,
         agent: null,
@@ -194,6 +205,27 @@ export default {
   },
   computed: {
     ...mapGetters("agent", ["agentList"]),
+    ...mapGetters("linkedagent", ["linkedAgentList"]),
+
+    getLinkedAgentList: function () {
+      if (this.linkedAgentList)
+        return this.linkedAgentList.map((agentTool) => {
+          return {
+            id: agentTool.id,
+            tooId: this.toolId,
+            agentId: agentTool.agent.id,
+            agentName: agentTool.agent.name,
+            agentOrganization: agentTool.agent.organization,
+            agentContact: agentTool.agent.contact,
+            agentNotes: agentTool.agent.notes,
+
+            role: agentTool.role,
+            notes: agentTool.notes,
+            referenceDate: agentTool.referenceDate,
+          };
+        });
+      else return [];
+    },
   },
   components: {
     "app-agent-add": AgentAdd,
@@ -222,14 +254,41 @@ export default {
     },
     handleSubmitNewAgent() {
       this.newLinkedAgent.agent = this.selectedId;
-      
+
       this.$store
         .dispatch("linkedagent/save", this.newLinkedAgent)
-        .then(this.$store.dispatch("tools/findById", this.toolId));
+        .then(
+          this.$store
+            .dispatch("linkedagent/findByCatalogTool", this.toolId)
+            .then((this.states = Array(this.linkedAgentList.length).fill(true)))
+        );
+    },
+    handleUpdateLinkedAgent(index, selectedUpdateLinkedAgent) {
+      this.changeState(index);
+
+      let updateLinkedAgent = {
+        id: selectedUpdateLinkedAgent.id,
+        tool: this.toolId,
+        role: selectedUpdateLinkedAgent.role,
+        notes: selectedUpdateLinkedAgent.notes,
+        referenceDate: selectedUpdateLinkedAgent.referenceDate,
+      };
+
+      console.log(updateLinkedAgent);
+        this.$store
+         .dispatch("linkedagent/update", updateLinkedAgent)
+        .then(this.$store.dispatch("linkedagent/findByCatalogTool", this.toolId).then( this.states=Array(this.linkedAgentList.length).fill(true)));
     },
     handleDeleteLinkedAgent() {
-      console.log(this.newLinkedAgent);
-      this.linkedAgents.push(this.newLinkedAgent);
+      this.$store
+        .dispatch("linkedagent/delete", this.selectedLinkedAgent.id)
+        .then(
+          this.$store
+            .dispatch("linkedagent/findByCatalogTool", this.toolId)
+            .then((this.states = Array(this.linkedAgentList.length).fill(true)))
+        );
+      this.selectedLinkedAgent = null;
+      this.warningModal = false;
     },
     modalOpen(app) {
       this.selectedLinkedAgent = app;
@@ -246,17 +305,17 @@ export default {
       required: true,
       default: () => null,
     },
-    linkedAgents: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
 
     editPage: {
       type: Boolean,
       required: false,
       default: () => false,
     },
+  },
+  created() {
+    this.$store
+      .dispatch("linkedagent/findByCatalogTool", this.toolId)
+      .then((this.states = Array(this.linkedAgentList.length).fill(true)));
   },
 };
 </script>
