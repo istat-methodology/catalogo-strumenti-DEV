@@ -3,35 +3,35 @@
   <div class="row">
     <div class="col-12">
       <div v-if="tool">
-        <CCardHeader>{{ tool.name | dashEmpty }}
- <div class="card-header-actions">
-          <CButton
-            shape="square"
-            size="sm"
-            color="primary"
-            class="mr-2"
-            @click.prevent="handleSubmit"
-            >Salva</CButton
-          >
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Indietro</CButton
-          >
- </div>
- </CCardHeader>
+        <CCardHeader
+          >{{ tool.name | dashEmpty }}
+          <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="backToList"
+              >Indietro</CButton
+            >
+          </div>
+        </CCardHeader>
 
         <CTabs
           variant="pills"
           :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
-          
         >
           <CTab>
             <template #title>
               <span>Strumento</span>
-              <span class="float-right"><check-icon /></span>
+             
             </template>
 
             <CCard v-if="tool">
@@ -116,7 +116,7 @@
           <CTab>
             <template #title>
               <span>{{ tool.toolType.name | dashEmpty }}</span>
-              <span class="float-right"><check-icon /></span>
+             
             </template>
 
             <CCard v-if="tool && tool.toolType.id == 3">
@@ -229,7 +229,7 @@
           <CTab>
             <template #title>
               <span>Metodi Statistici</span>
-              <span class="float-right"><check-icon /></span>
+           
             </template>
 
             <CCard v-if="this.statisticalMethodsList">
@@ -252,22 +252,18 @@
           <CTab>
             <template #title>
               <span>Referenti</span>
-              <span class="float-right"><check-icon /></span>
+             
             </template>
 
-            <app-linkedAgents
-              :linkedAgents="getLinkedAgentList"
-              :toolId="tool.id"
-              :editPage="true"
-            ></app-linkedAgents>
+            <app-linkedAgents :toolId="tool.id"></app-linkedAgents>
           </CTab>
           <CTab>
             <template #title>
               <span>Documentazione</span>
-              <span class="float-right" ><check-icon /></span>
+             
             </template>
 
-            <CCard v-if="this.documentationList">
+            <CCard v-if="this.tool">
               <CCardHeader>Documentazione </CCardHeader>
               <CCardBody>
                 <app-doumentation
@@ -283,8 +279,6 @@
             </CCard>
           </CTab>
         </CTabs>
-
-       
       </div>
     </div>
   </div>
@@ -295,7 +289,7 @@ import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
 
 import Documentation from "@/components/Documentation";
-import LinkedAgentView from "../agent/shared/LinkedAgentView";
+import LinkedAgentView from "../agent/shared/LinkedAgentEditView";
 
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
@@ -382,7 +376,7 @@ export default {
     getMethodsList: function () {
       return this.statisticalMethodsList.map((method) => {
         return {
-          // ...gsbpm,
+          
           id: method.id,
           label: method.name,
         };
@@ -391,7 +385,7 @@ export default {
     getDocumentationList: function () {
       return this.documentationList.map((doc) => {
         return {
-          // ...gsbpm,
+         
           id: doc.id,
           label: doc.name,
         };
@@ -402,7 +396,7 @@ export default {
         return this.tool.linkAgentsTools.map((agentTool) => {
           return {
             id: agentTool.id,
-            tooId:this.tool.id,
+            tooId: this.tool.id,
             agentId: agentTool.agent.id,
             agentName: agentTool.agent.name,
             agentOrganization: agentTool.agent.organization,

@@ -1,10 +1,13 @@
 <template>
   <div>
-    <h5>Processi</h5>
+    <h2>Processi</h2>
     <div class="card w-100">
       <div class="card-body">
         <div class="columns">
           <div class="row">
+              <div  v-if="businessFunctions.length===0">
+               <span>Nessun processo associato</span>
+            </div>
             <div
               class="card cols-3"
               v-for="businessFunction of businessFunctions"

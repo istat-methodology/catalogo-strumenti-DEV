@@ -6,7 +6,10 @@
       <div class="card-body">
         <div class="columns">
           <div class="row">
-            <div
+            <div  v-if="statisticalMethods.length===0">
+               <span>Nessun metodo statitico associato</span>
+            </div>
+            <div  
               class="card col-3"
               v-for="statisticalMethod of statisticalMethods"
               :key="statisticalMethod.id"

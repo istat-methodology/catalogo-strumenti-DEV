@@ -20,6 +20,7 @@ import lombok.Setter;
 public class Agent implements Serializable  {
 
 	
+
 	private static final long serialVersionUID = 5508154355442723459L;
 	@Id  @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
@@ -39,5 +40,15 @@ public class Agent implements Serializable  {
 	
 	@OneToMany(mappedBy = "agent")
     private List<LinkAgentTool> linkAgentTools;
+	
+	public Agent(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	public Agent() {
+		super();
+		 
+	}
 
 }

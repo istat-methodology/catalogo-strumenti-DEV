@@ -1,14 +1,22 @@
 package it.istat.mec.catalog.service;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.AgentDao;
+import it.istat.mec.catalog.dao.BusinessServiceDao;
 import it.istat.mec.catalog.dao.DocumentationDao;
 import it.istat.mec.catalog.dao.GsbpmProcessDao;
 import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.Agent;
+import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.GsbpmProcess;
@@ -16,6 +24,7 @@ import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.exceptions.NoDataException;
+import it.istat.mec.catalog.exceptions.TechnicalException;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.translators.Translators;
 import org.springframework.data.domain.Sort;
@@ -24,7 +33,10 @@ import org.springframework.data.domain.Sort.Order;
 public class ToolService {
 	
 	@Autowired
-	ToolDao toolDao;	
+	ToolDao toolDao;
+	@Autowired
+	BusinessServiceDao businessServiceDao;
+	
 	@Autowired
 	AgentDao agentDao;
 	@Autowired
@@ -57,6 +69,7 @@ public class ToolService {
 	 return Translators.translate(toolDao.findAllWithFilter(types,types.size(), gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
   	}
 	
+	@Transactional
 	public CatalogToolDTO newTool(CreateToolRequest request) {
 		CatalogTool tool = new CatalogTool();
 		
@@ -106,6 +119,15 @@ public class ToolService {
 		Date date = new Date(System.currentTimeMillis());	
 		
 		tool.setLastUpdate(date);	
+		
+		BusinessService businessService=new BusinessService();
+		businessService.setName(tool.getName());
+		businessService.setDescr(tool.getDescription());
+		
+		businessService=businessServiceDao.save(businessService);
+		tool.setBusinessService(businessService);
+		
+		
 		toolDao.save(tool);
 		return Translators.translate(tool);
 	}
