@@ -37,6 +37,7 @@ import WarningIcon from "icons/AlertOctagonOutline.vue";
 import ChartBarIcon from "icons/ChartBar.vue";
 import MinusIcon from "icons/Minus.vue";
 import PlusIcon from "icons/Plus.vue";
+import UndoIcon from "icons/Undo.vue";
 
 Vue.component("chevron-right-icon", ChevronRightBoxIcon);
 Vue.component("home-icon", HomeIcon);
@@ -65,4 +66,5 @@ Vue.component("warning-icon", WarningIcon);
 Vue.component("chart-bar-icon", ChartBarIcon);
 Vue.component("minus-icon", MinusIcon);
 Vue.component("plus-icon", PlusIcon);
+Vue.component("undo-icon", UndoIcon);
 
