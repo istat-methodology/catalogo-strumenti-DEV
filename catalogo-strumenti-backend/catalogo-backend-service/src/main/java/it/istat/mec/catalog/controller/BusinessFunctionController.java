@@ -56,7 +56,7 @@ public class BusinessFunctionController {
 	public BusinessFunctionDto addProcessToBusinessFunction(@PathVariable("id_function") Integer id_function, 
 			@PathVariable("id_process") Integer id_process) {
 		
-		return businessFunctionService.addProcessToBusinesFunction(id_function, id_process);
+		return businessFunctionService.addProcessToBusinessFunction(id_function, id_process);
 	}
 	
 	@DeleteMapping(value = "/businessfunctions/{id}")

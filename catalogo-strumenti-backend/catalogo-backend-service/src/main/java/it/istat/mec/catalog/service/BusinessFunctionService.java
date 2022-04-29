@@ -90,7 +90,7 @@ public class BusinessFunctionService {
 		return Translators.translate(bs);
 	}
 	
-	public BusinessFunctionDto addProcessToBusinesFunction(Integer id_function, Integer id_process) {
+	public BusinessFunctionDto addProcessToBusinessFunction(Integer id_function, Integer id_process) {
 		
 		if (!businessFunctionDao.findById(id_function).isPresent())
 			throw new NoDataException("BusinessFunction not present");
