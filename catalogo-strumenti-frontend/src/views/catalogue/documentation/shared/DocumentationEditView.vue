@@ -1,14 +1,67 @@
 <template>
   <div>
-    <h2>Documentazione</h2>
-    <div class="card w-100">
-      <div class="card-body">
-        <div class="columns">
+
           <div class="row">
+    <div>
+      
+  <span v-if="!viewNewDocument ">Nuovo Documento</span
+          >
+        <span
+          class="icon-link float-right"
+          @click="viewNewDocument = !viewNewDocument"
+          ><plus-icon
+            title="Aggiungi un nuovo d un referente"
+            v-if="!viewNewDocument" /><undo-icon
+            title="Annulla"
+            v-if="viewNewDocument"
+        /></span>
+      </div>
+      
+    <div  v-if="viewNewDocument" class="row">
+      <CCard>
+        <CCardHeader>Nuovo Documento</CCardHeader>
+        <CCardBody>
+          <CInput
+            label="Nome"
+            placeholder="Nome"
+            v-model="documentationLocal.name"
+          />
+          <CInput
+            label="Editore"
+            placeholder="Editore"
+            v-model="documentationLocal.publisher"
+          />
+          <div>
+            <label>Tipo Documento</label>
+          </div>
+          <v-select
+            label="name"
+            :options="documentationTypeList"
+            placeholder="Strumento Statistico"
+            v-model="documentationLocal.documentType.name"
+            @input="changeDocumentType"
+          ></v-select>
+          <CInput
+            label="Note"
+            placeholder="Note"
+            v-model="documentationLocal.notes"
+          />
+          <CInput
+            label="Fonti"
+            placeholder="Fonti"
+            v-model="documentationLocal.resource"
+          />
+        </CCardBody>
+      </CCard>
+    </div>
+    
+
+
     <div  v-if="documentations.length===0">
                <span>Nessuna documentazione associata</span>
             </div>
-
+             </div>
+ <div class="row">
             <div
               class="card col-3"
               v-for="documentation of documentations"
@@ -26,6 +79,10 @@
                   >
                     <view-icon />
                   </router-link>
+                    <span class="icon-link" @click="modalOpen(linkedAgent)"
+                      ><delete-icon
+                    />
+                    </span>  
                 </div>
               </div>
               <div class="card-body">
@@ -34,18 +91,27 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+    
 </template>
 <script>
 export default {
   name: "DocumentationView",
+   data() {
+    return {
+      viewAddDocument: true,
+      viewNewDocument:false,
+      }
+      },
   props: {
     documentations: {
       type: Array,
       required: true,
       default: () => [],
+    },
+    toolId: {
+      type: Number,
+      required: true,
+      default:null,
     },
   },
 };

@@ -23,7 +23,7 @@
             shape="square"
             size="sm"
             color="light"
-            @click.prevent="backToList"
+            @click.prevent="$router.back()"
             >Indietro</CButton
           >
         </CCardFooter>

@@ -1,24 +1,8 @@
 <template>
   <div>
-    <!-- <div>
-      <label>Documento {{ name | dashEmpty }} </label>
-    </div>
-    <CCardBody>
-      <CInput
-        label="Pubblicazione"
-        placeholder="Pubblicazione"
-        v-model="publisher"
-      />
-      <CInput
-        label="Tipo Documento"
-        placeholder="Tipo Documento"
-        v-model="documentType"
-      />
-      <CInput label="Fonte" placeholder="Fonte" v-model="resource" />
-      <CInput label="Note" placeholder="Note" v-model="notes" />
-    </CCardBody> -->
-    <h2>{{ name | dashEmpty }}</h2>
-    <CCard>
+
+    <div class="card w-100">
+            <CCardHeader>{{ name | dashEmpty }}</CCardHeader>
       <CCardBody>
         <div>
           <label>Pubblicazione:</label>
@@ -46,7 +30,7 @@
           >Delete</CButton
         >
       </CCardFooter>
-    </CCard>
+    </div>
   </div>
 </template>
 <script>

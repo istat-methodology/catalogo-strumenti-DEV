@@ -18,7 +18,7 @@
               shape="square"
               size="sm"
               color="light"
-              @click.prevent="backToList"
+              @click.prevent="$router.back()"
               >Indietro</CButton
             >
           </div>
@@ -31,7 +31,6 @@
           <CTab>
             <template #title>
               <span>Strumento</span>
-             
             </template>
 
             <CCard v-if="tool">
@@ -67,7 +66,7 @@
                   placeholder="Tags"
                   v-model="toolLocal.tags"
                 />
-              
+
                 <CInput
                   label="Requisiti"
                   placeholder="Requisiti"
@@ -112,7 +111,6 @@
           <CTab>
             <template #title>
               <span>{{ tool.toolType.name | dashEmpty }}</span>
-             
             </template>
 
             <CCard v-if="tool && tool.toolType.id == 3">
@@ -225,7 +223,6 @@
           <CTab>
             <template #title>
               <span>Metodi Statistici</span>
-           
             </template>
 
             <CCard v-if="this.statisticalMethodsList">
@@ -233,7 +230,7 @@
               <CCardBody>
                 <div id="app-tree1" class="demo-tree">
                   <treeselect
-                    v-model="methodsChecked"
+                    v-model="checkedNodesMethods"
                     :multiple="true"
                     :options="getMethodsList"
                     :disable-branch-nodes="true"
@@ -248,7 +245,6 @@
           <CTab>
             <template #title>
               <span>Referenti</span>
-             
             </template>
 
             <app-linkedAgents :toolId="tool.id"></app-linkedAgents>
@@ -256,21 +252,14 @@
           <CTab>
             <template #title>
               <span>Documentazione</span>
-             
             </template>
 
             <CCard v-if="this.tool">
               <CCardHeader>Documentazione </CCardHeader>
               <CCardBody>
-                <app-doumentation
-                  v-for="item in getDocumentation"
-                  :key="item.id"
-                  :name="item.name"
-                  :publisher="item.publisher"
-                  :documentType="item.documentType"
-                  :resource="item.resource"
-                >
-                </app-doumentation>
+                <app-edit-documentation :documentations=getDocumentation :toolId=this.tool>
+                 </app-edit-documentation>
+
               </CCardBody>
             </CCard>
           </CTab>
@@ -284,7 +273,7 @@ import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
 
-import Documentation from "@/components/Documentation";
+import DocumentationEditView from "../documentation/shared/DocumentationEditView";
 import LinkedAgentView from "../agent/shared/LinkedAgentEditView";
 
 /* import { required } from "vuelidate/lib/validators"; */
@@ -292,7 +281,7 @@ export default {
   name: "ToolEdit",
   components: {
     Treeselect,
-    "app-doumentation": Documentation,
+    "app-edit-documentation": DocumentationEditView,
     "app-linkedAgents": LinkedAgentView,
   },
   data() {
@@ -329,11 +318,13 @@ export default {
         gsbpm: "",
         businessFunction: "",
         processDesign: "",
+        statisticalMethods:[],
+        gsbpmProcesses:	[]
       },
       linkedToolList: [],
-      gsbpmChecked: [],
+       gsbpmChecked: [],
       checkedNodesGsbpm: [],
-      checkedNodesMethods: [],
+       checkedNodesMethods: [],
       checkedNodesDocumentation: [],
       checkedNodesAgent: [],
       methodsChecked: [],
@@ -372,7 +363,6 @@ export default {
     getMethodsList: function () {
       return this.statisticalMethodsList.map((method) => {
         return {
-          
           id: method.id,
           label: method.name,
         };
@@ -381,7 +371,6 @@ export default {
     getDocumentationList: function () {
       return this.documentationList.map((doc) => {
         return {
-         
           id: doc.id,
           label: doc.name,
         };
@@ -428,7 +417,20 @@ export default {
       }
     }
   }, */
+    mutations: {
+     
+    },
   methods: {
+      handleSubmit() {
+
+      this.toolLocal.toolType = this.tool.toolType.id;
+        this.toolLocal.statisticalMethods = this.checkedNodesMethods;
+      this.$store
+        .dispatch("tools/update", this.toolLocal).then(() => {
+          this.loadTool();
+      }); 
+
+    },
     onNodeCheckedGsbpm(node) {
       this.checkedNodesGsbpm.push(node.id);
       console.log(node.text);
@@ -444,7 +446,7 @@ export default {
     },
     onNodeCheckedMethods(node) {
       this.checkedNodesMethods.push(node.id);
-      console.log(node.text);
+  
       /* this.filter(this.checkedNodesMethods, this.checkedNodesType);
       this.$store
         .dispatch("filter/setParams", this.payload)
@@ -452,11 +454,11 @@ export default {
     },
     onNodeCheckedDocumentation(node) {
       this.checkedNodesDocumentation.push(node.id);
-      console.log(node.text);
+     
     },
     onNodeCheckedAgent(node) {
       this.checkedNodesAgent.push(node.id);
-      console.log(node.text);
+      
     },
     setCheckedNodesMethods() {
       this.tool.statisticalMethods.map((method) => {
@@ -489,7 +491,7 @@ export default {
           this.checkedNodesMethods.indexOf(node.id),
           1
         );
-        console.log(node.text + "- unchecked");
+       
         /* this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
         this.$store
           .dispatch("filter/setParams", this.payload)
@@ -504,7 +506,7 @@ export default {
           this.checkedNodesDocumentation.indexOf(node.id),
           1
         );
-        console.log(node.text + "- unchecked");
+         
       }
     },
     onNodeUncheckedAgent(node) {
@@ -516,14 +518,7 @@ export default {
         console.log(node.text + "- unchecked");
       }
     },
-    handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
-      this.$store.dispatch("tools/update", this.toolLocal).then(() => {
-         this.$router.push({ name: 'ToolEdit', params: { id: this.tool.id } });
-      });
-      /*   } */
-    },
+
     setOldValues() {
       this.toolLocal.id = this.tool.id;
       this.toolLocal.releaseDate = this.tool.releaseDate;
@@ -556,20 +551,28 @@ export default {
       this.toolLocal.gsbpm = this.tool.gsbpm;
       this.toolLocal.businessFunction = this.tool.buinessFunction;
       this.toolLocal.processDesign = this.tool.processDesign;
+      this.toolLocal.statisticalMethods = [];
+    
     },
     backToList() {
       this.$router.push("/catalogue/tools");
     },
+    loadTool() {
+      this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
+        this.setOldValues();
+        this.setCheckedNodesGsbpm();
+        this.setCheckedNodesMethods();
+        this.setCheckedNodesDocumentation();
+      });
+    },
   },
+
   created() {
     //this.$store.dispatch("tools/findById", this.$route.params.id);
     this.$store.dispatch("coreui/setContext", Context.ToolEdit);
-    this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
-      this.setOldValues();
-      this.setCheckedNodesGsbpm();
-      this.setCheckedNodesMethods();
-      this.setCheckedNodesDocumentation();
-    });
+
+    this.loadTool();
+
     this.$store.dispatch("gsbpm/findAll");
     this.$store.dispatch("tooltype/findAll");
     this.$store.dispatch("methods/findAll");
