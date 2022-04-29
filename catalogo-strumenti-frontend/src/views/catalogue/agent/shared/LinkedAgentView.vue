@@ -1,7 +1,7 @@
 <template>
 <div>
   <h2>Referenti associati</h2>
-  <CCard>
+  <div  class="card w-100">
   
     <CCardBody>
       <div class="columns">
@@ -56,7 +56,7 @@
         </div>
       </div>
     </CCardBody>
-  </CCard>
+  </div>
 </div>
 </template>
 <script>

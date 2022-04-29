@@ -67,11 +67,7 @@
                   placeholder="Tags"
                   v-model="toolLocal.tags"
                 />
-                <CInput
-                  label="Ultima Modifica"
-                  placeholder="Ultima Modifica"
-                  v-model="toolLocal.lastUpdate"
-                />
+              
                 <CInput
                   label="Requisiti"
                   placeholder="Requisiti"
@@ -524,7 +520,7 @@ export default {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
       this.$store.dispatch("tools/update", this.toolLocal).then(() => {
-        this.backToList();
+         this.$router.push({ name: 'ToolEdit', params: { id: this.tool.id } });
       });
       /*   } */
     },

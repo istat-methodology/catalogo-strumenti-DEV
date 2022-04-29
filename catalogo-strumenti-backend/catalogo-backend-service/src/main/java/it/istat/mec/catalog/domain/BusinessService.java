@@ -13,10 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Data
-@NoArgsConstructor
+
 @Entity
 @Table(name = "CSM_BUSINESS_SERVICE")
 public class BusinessService implements Serializable  {
@@ -42,6 +42,10 @@ public class BusinessService implements Serializable  {
 	public BusinessService(Integer id) {
 		super();
 		this.id = id;
+	}
+	public BusinessService() {
+		super();
+
 	}
 	
 }
