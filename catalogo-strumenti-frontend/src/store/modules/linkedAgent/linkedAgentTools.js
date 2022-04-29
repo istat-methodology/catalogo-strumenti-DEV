@@ -23,6 +23,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_LINKEDAGENT", data);
+        
         dispatch("message/success", "Associazione salvata!", {
           root: true
         });
@@ -48,6 +49,7 @@ const actions = {
       .update(payload)
       .then(data => {
         commit("SET_LINKEDAGENT", data);
+        
         dispatch("message/success", "Associazione aggiornata!", {
           root: true
         });
@@ -60,7 +62,7 @@ const actions = {
     return linkedAgentService
       .delete(id)
       .then(() => {
-        dispatch("findAll");
+        
         dispatch("message/success", "Associazione eliminata!", {
           root: true
         });

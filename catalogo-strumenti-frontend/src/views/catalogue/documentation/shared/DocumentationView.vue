@@ -1,10 +1,14 @@
 <template>
   <div>
-    <h2 class="card-header">Documentazione</h2>
+    <h2 >Documentazione</h2>
     <div class="card w-100">
       <div class="card-body">
         <div class="columns">
           <div class="row">
+    <div  v-if="documentations.length===0">
+               <span>Nessuna documentazione associata</span>
+            </div>
+
             <div
               class="card col-3"
               v-for="documentation of documentations"

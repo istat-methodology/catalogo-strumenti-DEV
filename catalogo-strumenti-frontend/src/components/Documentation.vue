@@ -66,6 +66,7 @@ export default {
     publisher: String,
     resource: String,
     notes: String,
+    documentType:String,
     toolList: []
   }
   /*  methods: {

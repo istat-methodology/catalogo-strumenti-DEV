@@ -96,7 +96,7 @@
                       @click="handleUpdateLinkedAgent(index, linkedAgent)"
                       ><success-icon
                     /></span>
-                    <span class="icon-link" @click="modalOpen(linkedAgent)"
+                    <span class="icon-link" @click="changeState(index)"
                       ><arrow-right-icon
                     /></span>
                   </span>
@@ -105,12 +105,12 @@
               <div class="card-body">
                 <div class="card-slot">
                   <span><strong>Contatto: </strong></span>
+                  <span>{{ linkedAgent.agentContact }}</span>
+                </div>
 
-                  <CInput
-                    placeholder="Contatto"
-                    :disabled="getState(index)"
-                    v-model="linkedAgent.agentContact"
-                  />
+                <div class="card-slot">
+                  <span><strong>Organizzazione: </strong></span>
+                  <span>{{ linkedAgent.agentOrganization }}</span>
                 </div>
                 <div class="card-slot">
                   <span><strong>Ruolo: </strong></span>
@@ -118,19 +118,10 @@
                   <CInput
                     placeholder="Ruolo"
                     :disabled="getState(index)"
-                    v-model="linkedAgent.agentRole"
+                    v-model="linkedAgent.role"
                   />
                 </div>
 
-                <div class="card-slot">
-                  <span><strong>Organizzazione: </strong></span>
-
-                  <CInput
-                    placeholder="Organizzazione"
-                    :disabled="getState(index)"
-                    v-model="linkedAgent.agentOrganization"
-                  />
-                </div>
                 <div class="card-slot">
                   <span><strong>Data: </strong></span>
 
@@ -218,7 +209,6 @@ export default {
             agentOrganization: agentTool.agent.organization,
             agentContact: agentTool.agent.contact,
             agentNotes: agentTool.agent.notes,
-
             role: agentTool.role,
             notes: agentTool.notes,
             referenceDate: agentTool.referenceDate,
@@ -230,6 +220,9 @@ export default {
   components: {
     "app-agent-add": AgentAdd,
   },
+mounted() {
+    this.updateLinkedAgentList();
+},
 
   methods: {
     updateAgentList() {
@@ -239,12 +232,6 @@ export default {
     },
     selectId(e) {
       this.selectedId = e.id;
-    },
-    setIsEdit(value) {
-      this.editState = value;
-    },
-    isEdit() {
-      return this.editPage && this.editState;
     },
     getState(idx) {
       return this.states[idx];
@@ -262,6 +249,7 @@ export default {
             .dispatch("linkedagent/findByCatalogTool", this.toolId)
             .then((this.states = Array(this.linkedAgentList.length).fill(true)))
         );
+        this.viewNewAgent=false;
     },
     handleUpdateLinkedAgent(index, selectedUpdateLinkedAgent) {
       this.changeState(index);
@@ -269,27 +257,29 @@ export default {
       let updateLinkedAgent = {
         id: selectedUpdateLinkedAgent.id,
         tool: this.toolId,
-        role: selectedUpdateLinkedAgent.role,
+        role: selectedUpdateLinkedAgent.agentRole,
         notes: selectedUpdateLinkedAgent.notes,
         referenceDate: selectedUpdateLinkedAgent.referenceDate,
       };
 
       console.log(updateLinkedAgent);
-        this.$store
-         .dispatch("linkedagent/update", updateLinkedAgent)
-        .then(this.$store.dispatch("linkedagent/findByCatalogTool", this.toolId).then( this.states=Array(this.linkedAgentList.length).fill(true)));
+      this.$store
+        .dispatch("linkedagent/update", updateLinkedAgent)
+        .then(this.updateLinkedAgentList());
     },
     handleDeleteLinkedAgent() {
       this.$store
         .dispatch("linkedagent/delete", this.selectedLinkedAgent.id)
-        .then(
-          this.$store
-            .dispatch("linkedagent/findByCatalogTool", this.toolId)
-            .then((this.states = Array(this.linkedAgentList.length).fill(true)))
-        );
+        .then(this.updateLinkedAgentList());
       this.selectedLinkedAgent = null;
       this.warningModal = false;
     },
+    updateLinkedAgentList() {
+      this.$store
+      .dispatch("linkedagent/findByCatalogTool", this.toolId)
+      .then((this.states = Array(this.linkedAgentList.length).fill(true)));
+    },
+
     modalOpen(app) {
       this.selectedLinkedAgent = app;
       this.warningModal = true;
@@ -306,16 +296,9 @@ export default {
       default: () => null,
     },
 
-    editPage: {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
   },
   created() {
-    this.$store
-      .dispatch("linkedagent/findByCatalogTool", this.toolId)
-      .then((this.states = Array(this.linkedAgentList.length).fill(true)));
+   this.updateLinkedAgentList();
   },
 };
 </script>

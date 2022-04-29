@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,7 +23,7 @@ public class BusinessService implements Serializable  {
 
 	private static final long serialVersionUID = 4780254819197312841L;
 	
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Integer id;
 

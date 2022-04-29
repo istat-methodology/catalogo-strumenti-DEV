@@ -8,7 +8,7 @@
           <CInput
             label="Nome"
             placeholder="Name"
-            v-model="toolLocal.description"
+            v-model="toolLocal.name"
           />
           <CInput
             label="Descrizione"
@@ -21,11 +21,7 @@
             v-model="toolLocal.versione"
           />
           <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
-          <CInput
-            label="Ultima Modifica"
-            placeholder="Ultima Modifica"
-            v-model="toolLocal.lastUpdate"
-          />
+  
           <CInput
             label="Requisiti"
             placeholder="Requisiti"
@@ -36,7 +32,7 @@
       <CCard>
         <CCardHeader>Tipologia</CCardHeader>
         <CCardBody v-if="tooltypeList">
-          <select @change="onChange($event)">
+          <select @change="onChange($event)" v-model="toolLocal.toolType">
             <option
               v-for="option in tooltypeList"
               v-bind:value="option.id"
@@ -201,7 +197,7 @@ export default {
         version: "",
         toolType: "",
         service: "",
-        lastUpdate: "",
+      
         requirements: "",
         download: "",
         licence: "",

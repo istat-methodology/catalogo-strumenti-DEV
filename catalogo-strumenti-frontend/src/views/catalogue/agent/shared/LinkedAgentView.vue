@@ -1,9 +1,14 @@
 <template>
+<div>
+  <h2>Referenti associati</h2>
   <CCard>
-    <CCardHeader>Referenti</CCardHeader>
+  
     <CCardBody>
       <div class="columns">
         <div class="row">
+                <div  v-if="linkedAgents.length===0">
+               <span>Nessun referente associato</span>
+            </div>
           <div
             class="card col-4"
             v-for="linkedAgent of linkedAgents"
@@ -52,6 +57,7 @@
       </div>
     </CCardBody>
   </CCard>
+</div>
 </template>
 <script>
 export default {

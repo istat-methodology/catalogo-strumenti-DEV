@@ -65,7 +65,7 @@ public class CatalogTool implements Serializable  {
 	
     
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "SERVICE", nullable = false, insertable = false)
+    @JoinColumn(name = "SERVICE")
 	private BusinessService businessService;
 
 	@Column(name = "LAST_UPDATE")

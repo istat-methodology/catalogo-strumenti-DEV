@@ -31,7 +31,7 @@
           <CTab>
             <template #title>
               <span>Strumento</span>
-              <span class="float-right"><check-icon /></span>
+             
             </template>
 
             <CCard v-if="tool">
@@ -116,7 +116,7 @@
           <CTab>
             <template #title>
               <span>{{ tool.toolType.name | dashEmpty }}</span>
-              <span class="float-right"><check-icon /></span>
+             
             </template>
 
             <CCard v-if="tool && tool.toolType.id == 3">
@@ -229,7 +229,7 @@
           <CTab>
             <template #title>
               <span>Metodi Statistici</span>
-              <span class="float-right"><check-icon /></span>
+           
             </template>
 
             <CCard v-if="this.statisticalMethodsList">
@@ -252,7 +252,7 @@
           <CTab>
             <template #title>
               <span>Referenti</span>
-              <span class="float-right"><check-icon /></span>
+             
             </template>
 
             <app-linkedAgents :toolId="tool.id"></app-linkedAgents>
@@ -260,10 +260,10 @@
           <CTab>
             <template #title>
               <span>Documentazione</span>
-              <span class="float-right"><check-icon /></span>
+             
             </template>
 
-            <CCard v-if="this.documentationList">
+            <CCard v-if="this.tool">
               <CCardHeader>Documentazione </CCardHeader>
               <CCardBody>
                 <app-doumentation
@@ -376,7 +376,7 @@ export default {
     getMethodsList: function () {
       return this.statisticalMethodsList.map((method) => {
         return {
-          // ...gsbpm,
+          
           id: method.id,
           label: method.name,
         };
@@ -385,7 +385,7 @@ export default {
     getDocumentationList: function () {
       return this.documentationList.map((doc) => {
         return {
-          // ...gsbpm,
+         
           id: doc.id,
           label: doc.name,
         };
