@@ -59,13 +59,13 @@ public class CatalogTool implements Serializable  {
 	private String version;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "TOOL_TYPE", nullable = false, insertable = false)
+    @JoinColumn(name = "TOOL_TYPE", nullable = false, insertable = false,updatable = false)
  	private ToolType toolType;
 	
 	
     
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "SERVICE")
+    @JoinColumn(name = "SERVICE", nullable = false, updatable = false)
 	private BusinessService businessService;
 
 	@Column(name = "LAST_UPDATE")
