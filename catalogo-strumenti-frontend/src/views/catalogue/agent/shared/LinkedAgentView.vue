@@ -37,7 +37,6 @@
                 <span><strong>Ruolo: </strong></span>
                 <span>{{ linkedAgent.agentRole }}</span>
               </div>
-
               <div class="card-slot">
                 <span><strong>Organizzazione: </strong></span>
                 <span>{{ linkedAgent.agentOrganization }}</span>

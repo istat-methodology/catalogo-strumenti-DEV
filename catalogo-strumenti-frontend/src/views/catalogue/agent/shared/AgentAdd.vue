@@ -1,34 +1,35 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row">
-    <div class="col-12">
-      <label>Nuovo Referente</label>
+  <div>
+    <div class="columns">
+    
+        <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
+        <CInput
+          label="Organizzazione"
+          placeholder="Organizzazione"
+          v-model="agentLocal.organization"
+        />
+        <CInput
+          label="Contatto"
+          placeholder="Contatto"
+          v-model="agentLocal.contact"
+        />
+        
+        <CInput label="Note" placeholder="Note" v-model="agentLocal.notes" />
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          class="mr-2"
+          @click.prevent="handleSubmit"
+          >Aggiungi</CButton
+        >
+        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
+          >Indietro</CButton
+        >
+    
+      </div>
 
-      <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
-      <CInput
-        label="Organizzazione"
-        placeholder="Organizzazione"
-        v-model="agentLocal.organization"
-      />
-      <CInput
-        label="Contatto"
-        placeholder="Contatto"
-        v-model="agentLocal.contact"
-      />
-      <CInput label="Note" placeholder="Note" v-model="agentLocal.notes" />
-
-      <CButton
-        shape="square"
-        size="sm"
-        color="primary"
-        class="mr-2"
-        @click.prevent="handleSubmit"
-        >Aggiungi</CButton
-      >
-      <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
-        >Indietro</CButton
-      >
-    </div>
   </div>
 </template>
 <script>
@@ -77,3 +78,5 @@ export default {
   },
 };
 </script>
+
+
