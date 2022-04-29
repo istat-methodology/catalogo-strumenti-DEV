@@ -166,7 +166,8 @@ export default {
     deleteBusiness() {
       this.$store
         .dispatch("business/delete", this.selectedBusiness.id)
-        .then(this.$router.push("/catalogue/businessfunctions"));
+        .then(this.$router.push("/catalogue/businessfunctions"))
+        .catch(() => {});
       this.warningModal = false;
     },
     modalOpen(app) {
@@ -178,9 +179,11 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.BusinessList);
+    this.$store
+      .dispatch("coreui/setContext", Context.BusinessList)
+      .catch(() => {});
     // if (this.params) {
-    this.$store.dispatch("business/filter", this.params);
+    this.$store.dispatch("business/filter", this.params).catch(() => {});
     //this.$store.dispatch("business/findAll");
     // }
   }
