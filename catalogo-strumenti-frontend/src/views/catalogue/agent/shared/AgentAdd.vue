@@ -2,20 +2,21 @@
   <!-- wait until service is loaded -->
   <div>
     <div class="columns">
-    
-        <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
-        <CInput
-          label="Organizzazione"
-          placeholder="Organizzazione"
-          v-model="agentLocal.organization"
-        />
-        <CInput
-          label="Contatto"
-          placeholder="Contatto"
-          v-model="agentLocal.contact"
-        />
-        
-        <CInput label="Note" placeholder="Note" v-model="agentLocal.notes" />
+      <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
+      <CInput
+        label="Organizzazione"
+        placeholder="Organizzazione"
+        v-model="agentLocal.organization"
+      />
+      <CInput
+        label="Contatto"
+        placeholder="Contatto"
+        v-model="agentLocal.contact"
+      />
+
+      <CInput label="Note" placeholder="Note" v-model="agentLocal.notes" />
+
+      <div class="card-footer">
         <CButton
           shape="square"
           size="sm"
@@ -27,9 +28,8 @@
         <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
           >Indietro</CButton
         >
-    
       </div>
-
+    </div>
   </div>
 </template>
 <script>
