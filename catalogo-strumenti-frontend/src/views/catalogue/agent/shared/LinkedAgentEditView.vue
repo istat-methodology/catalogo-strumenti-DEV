@@ -5,7 +5,9 @@
         <span v-if="!viewNewAgent">Referenti associati</span>
         <span v-if="viewNewAgent"
           ><span v-if="viewNewAgent && !viewAddAgent">Associa Referente</span
-          ><span v-if="viewNewAgent && viewAddAgent">Nuovo Referente</span></span
+          ><span v-if="viewNewAgent && viewAddAgent"
+            >Nuovo Referente</span
+          ></span
         >
         <span
           class="icon-link float-right"
@@ -31,43 +33,41 @@
 
               <div v-else>
                 <div class="card-slot" v-if="agentList">
-                  <label for="description">Elenco Referenti</label>
+                  <label>Elenco Referenti</label>
                   <v-select
                     label="name"
                     :options="agentList"
                     @input="selectId($event)"
                   ></v-select>
-                  <span class="help-block">Please select an Organization.</span>
-
+                  <span class="help-block">Please select a referent.</span>
                   <span
-                    class="icon-link float"
+                    class="icon-link float-right"
                     @click="viewAddAgent = !viewAddAgent"
                     ><add-icon />Nuovo referente</span
                   >
                 </div>
-
                 <div class="card-slot">
-                  <label>Ruolo</label>
-                  <CInput placeholder="Ruolo" v-model="newLinkedAgent.role" />
-                </div>
-
-                <div class="card-slot">
-                  <label>Data</label>
                   <CInput
+                    label="Ruolo"
+                    placeholder="Ruolo"
+                    v-model="newLinkedAgent.role"
+                  />
+                </div>
+                <div class="card-slot">
+                  <CInput
+                    label="Data"
                     placeholder="Data"
                     v-model="newLinkedAgent.referenceDate"
                   />
                 </div>
-
                 <div class="card-slot">
-                  <label>Note</label>
-                  <textarea                   
+                  <CTextarea
+                    label="Note"
                     placeholder="Note"
                     v-model="newLinkedAgent.notes"
                   />
                 </div>
-              
-              <div class="card-footer">
+                <div class="card-footer">
                   <CButton
                     shape="square"
                     size="sm"
@@ -76,7 +76,7 @@
                     @click.prevent="handleSubmitNewAgent"
                     >Salva</CButton
                   >
-              </div>
+                </div>
               </div>
             </div>
           </div>
@@ -115,15 +115,13 @@
                 <span><strong>Contatto: </strong></span>
                 <span>{{ linkedAgent.agentContact }}</span>
               </div>
-
               <div class="card-slot">
                 <span><strong>Organizzazione: </strong></span>
                 <span>{{ linkedAgent.agentOrganization }}</span>
               </div>
               <div class="card-slot">
-                <span><strong>Ruolo: </strong></span>
-
                 <CInput
+                  label="Ruolo:"
                   placeholder="Ruolo"
                   :disabled="getState(index)"
                   v-model="linkedAgent.role"
@@ -131,9 +129,8 @@
               </div>
 
               <div class="card-slot">
-                <span><strong>Data: </strong></span>
-
                 <CInput
+                  label="Data:"
                   placeholder="Data"
                   :disabled="getState(index)"
                   v-model="linkedAgent.referenceDate"
@@ -141,9 +138,8 @@
               </div>
 
               <div class="card-slot">
-                <span><strong>Note: </strong></span>
-
-                <textarea
+                <CTextarea
+                  label="Note:"
                   placeholder="Note"
                   :disabled="getState(index)"
                   v-model="linkedAgent.notes"
@@ -293,7 +289,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   name: "LinkedAgentView",
   props: {
@@ -321,7 +317,7 @@ body {
 /* Float four columns side by side */
 .column {
   float: left;
-  width: 25%;
+  width: 50%;
   padding: 0 10px;
 }
 

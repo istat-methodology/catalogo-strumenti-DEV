@@ -45,7 +45,7 @@
 
             <div class="card-slot">
               <span><strong>Note: </strong></span>
-              <span>{{ linkedAgent.notes }}</span>
+              <span >{{ linkedAgent.notes }}</span>
             </div>
           </div>
         </div>
@@ -66,6 +66,7 @@ export default {
 };
 </script>
 
+
 <style scoped>
 * {
   box-sizing: border-box;
@@ -78,7 +79,7 @@ body {
 /* Float four columns side by side */
 .column {
   float: left;
-  width: 25%;
+  width: 50%;
   padding: 0 10px;
 }
 
@@ -110,5 +111,12 @@ body {
     display: block;
     margin-bottom: 20px;
   }
+}
+h2 {
+  font-size: 24px;
+  color: #213547;
+  margin-top: 10px !important;
+  transition: color 0.5s;
+  padding-top: 26px;
 }
 </style>
