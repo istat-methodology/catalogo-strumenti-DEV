@@ -7,15 +7,14 @@
           ><span v-if="viewNewAgent && !viewAddAgent">Associa Referente</span
           ><span v-if="viewNewAgent && viewAddAgent">Nuovo Referente</span></span
         >
-
         <span
           class="icon-link float-right"
           @click="viewNewAgent = !viewNewAgent"
           ><plus-icon
             title="Associa un referente"
-            v-if="!viewNewAgent" /><undo-icon
+            v-if="!viewNewAgent && !viewAddAgent" /><undo-icon
             title="Annulla"
-            v-if="viewNewAgent"
+            v-if="viewNewAgent && !viewAddAgent"
         /></span>
       </h2>
 
@@ -23,7 +22,6 @@
         <div class="row">
           <div class="card" v-if="viewNewAgent">
             <div class="card-body">
-
               <div v-if="viewAddAgent">
                 <app-agent-add
                   :goBackClose="true"
@@ -68,10 +66,8 @@
                     v-model="newLinkedAgent.notes"
                   />
                 </div>
-
-
-              </div>
-                              <div class="card-footer">
+              
+              <div class="card-footer">
                   <CButton
                     shape="square"
                     size="sm"
@@ -80,7 +76,8 @@
                     @click.prevent="handleSubmitNewAgent"
                     >Salva</CButton
                   >
-                </div>
+              </div>
+              </div>
             </div>
           </div>
 
@@ -296,7 +293,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   name: "LinkedAgentView",
   props: {
