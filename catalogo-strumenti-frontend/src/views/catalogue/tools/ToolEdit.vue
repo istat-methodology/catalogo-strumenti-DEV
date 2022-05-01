@@ -59,7 +59,7 @@
                 <CInput
                   label="Versione"
                   placeholder="Versione"
-                  v-model="toolLocal.versione"
+                  v-model="toolLocal.version"
                 />
                 <CInput
                   label="Tags"
@@ -212,11 +212,7 @@
                   placeholder="Retrizioni"
                   v-model="toolLocal.restrictions"
                 />
-                <CInput
-                  label="Funzione"
-                  placeholder="Funzione"
-                  v-model="toolLocal.businessFunction"
-                />
+               
               </CCardBody>
             </CCard>
           </CTab>
@@ -257,7 +253,7 @@
             <CCard v-if="this.tool">
               <CCardHeader>Documentazione </CCardHeader>
               <CCardBody>
-                <app-edit-documentation :documentations=getDocumentation :toolId=this.tool>
+                <app-edit-documentation @refreshTool="loadTool" :documentations="getDocumentation" :toolId="this.tool.id">
                  </app-edit-documentation>
 
               </CCardBody>
@@ -315,16 +311,15 @@ export default {
         outcomes: "",
         serviceDependencies: "",
         restrictions: "",
-        gsbpm: "",
         businessFunction: "",
         processDesign: "",
         statisticalMethods:[],
         gsbpmProcesses:	[]
       },
       linkedToolList: [],
-       gsbpmChecked: [],
+      gsbpmChecked: [],
       checkedNodesGsbpm: [],
-       checkedNodesMethods: [],
+      checkedNodesMethods: [],
       checkedNodesDocumentation: [],
       checkedNodesAgent: [],
       methodsChecked: [],
@@ -425,6 +420,8 @@ export default {
 
       this.toolLocal.toolType = this.tool.toolType.id;
         this.toolLocal.statisticalMethods = this.checkedNodesMethods;
+             this.toolLocal.gsbpmProcesses = this.checkedNodesGsbpm;
+        
       this.$store
         .dispatch("tools/update", this.toolLocal).then(() => {
           this.loadTool();
@@ -440,6 +437,7 @@ export default {
         .then(this.$store.dispatch("tools/filter", this.params)); */
     },
     setCheckedNodesGsbpm() {
+       this.gsbpmChecked=[];
       this.tool.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
@@ -461,11 +459,13 @@ export default {
       
     },
     setCheckedNodesMethods() {
+       this.methodsChecked=[];       
       this.tool.statisticalMethods.map((method) => {
         this.methodsChecked.push(method.id);
       });
     },
     setCheckedNodesDocumentation() {
+      this.documentationChecked=[];
       this.tool.documentations.map((doc) => {
         this.documentationChecked.push(doc.id);
       });
@@ -548,10 +548,11 @@ export default {
       this.toolLocal.outcomes = this.tool.outcomes;
       this.toolLocal.serviceDependencies = this.tool.serviceDepenencies;
       this.toolLocal.restrictions = this.tool.restrictions;
-      this.toolLocal.gsbpm = this.tool.gsbpm;
+      
       this.toolLocal.businessFunction = this.tool.buinessFunction;
       this.toolLocal.processDesign = this.tool.processDesign;
-      this.toolLocal.statisticalMethods = [];
+      this.toolLocal.statisticalMethods =this.tool.statisticalMethods;
+      this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses;;
     
     },
     backToList() {

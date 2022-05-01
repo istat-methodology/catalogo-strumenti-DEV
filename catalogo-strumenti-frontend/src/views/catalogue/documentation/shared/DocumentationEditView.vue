@@ -1,11 +1,18 @@
 <template>
   <div>
+    <div class="row">
 
-          <div class="row">
-    <div>
-      
-  <span v-if="!viewNewDocument ">Nuovo Documento</span
-          >
+
+ <span
+          class="icon-link float-right"
+          @click='$emit("refreshTool")'
+          ><success-icon
+            title="Aggiungi un nuovo d un referente"
+           /></span>
+
+
+      <div>
+        <span v-if="!viewNewDocument">Nuovo Documento</span>
         <span
           class="icon-link float-right"
           @click="viewNewDocument = !viewNewDocument"
@@ -16,92 +23,121 @@
             v-if="viewNewDocument"
         /></span>
       </div>
-      
-    <div  v-if="viewNewDocument" class="row">
-      <CCard>
-        <CCardHeader>Nuovo Documento</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Nome"
-            placeholder="Nome"
-            v-model="documentationLocal.name"
-          />
-          <CInput
-            label="Editore"
-            placeholder="Editore"
-            v-model="documentationLocal.publisher"
-          />
-          <div>
-            <label>Tipo Documento</label>
-          </div>
-          <v-select
-            label="name"
-            :options="documentationTypeList"
-            placeholder="Strumento Statistico"
-            v-model="documentationLocal.documentType.name"
-            @input="changeDocumentType"
-          ></v-select>
-          <CInput
-            label="Note"
-            placeholder="Note"
-            v-model="documentationLocal.notes"
-          />
-          <CInput
-            label="Fonti"
-            placeholder="Fonti"
-            v-model="documentationLocal.resource"
-          />
-        </CCardBody>
-      </CCard>
+
+      <div v-if="viewNewDocument" class="row">
+        <CCard>
+          <CCardHeader
+            >Nuovo Documento
+            <div class="card-header-actions">
+              <span @click="handleSubmit()">
+                <span class="icon-link"><success-icon /></span>
+                <span class="icon-link"><delete-icon /></span>
+              </span>
+            </div>
+          </CCardHeader>
+          <CCardBody>
+            <CInput
+              label="Nome"
+              placeholder="Nome"
+              v-model="documentationLocal.name"
+            />
+            <CInput
+              label="Editore"
+              placeholder="Editore"
+              v-model="documentationLocal.publisher"
+            />
+            <div>
+              <label>Tipo Documento</label>
+            </div>
+            <v-select
+              label="name"
+              :options="documentationTypeList"
+              placeholder="Tipo documento"
+              v-model="documentationLocal.documentType"
+            ></v-select>
+            <CInput
+              label="Note"
+              placeholder="Note"
+              v-model="documentationLocal.notes"
+            />
+            <CInput
+              label="Fonti"
+              placeholder="Fonti"
+              v-model="documentationLocal.resource"
+            />
+          </CCardBody>
+        </CCard>
+      </div>
+
+      <div v-if="documentations.length === 0">
+        <span>Nessuna documentazione associata</span>
+      </div>
     </div>
-    
-
-
-    <div  v-if="documentations.length===0">
-               <span>Nessuna documentazione associata</span>
-            </div>
-             </div>
- <div class="row">
-            <div
-              class="card col-3"
-              v-for="documentation of documentations"
-              :key="documentation.id"
+    <div class="row">
+      <div
+        class="card col-3"
+        v-for="documentation of documentations"
+        :key="documentation.id"
+      >
+        <div class="card-header">
+          <strong>{{ documentation.name }}</strong>
+          <div class="card-header-actions">
+            <router-link
+              tag="a"
+              :to="{
+                name: 'DocumentationDetails',
+                params: { id: documentation.id },
+              }"
             >
-              <div class="card-header">
-                <strong>{{ documentation.name }}</strong>
-                <div class="card-header-actions">
-                  <router-link
-                    tag="a"
-                    :to="{
-                      name: 'DocumentationDetails',
-                      params: { id: documentation.id },
-                    }"
-                  >
-                    <view-icon />
-                  </router-link>
-                    <span class="icon-link" @click="modalOpen(linkedAgent)"
-                      ><delete-icon
-                    />
-                    </span>  
-                </div>
-              </div>
-              <div class="card-body">
-                <p class="card-text">{{ documentation.documentType }}</p>
-              </div>
-            </div>
+              <view-icon />
+            </router-link>
+            <span class="icon-link" @click="modalOpen(documentation)"
+              ><delete-icon />
+            </span>
           </div>
         </div>
-    
+        <div class="card-body">
+          <p class="card-text">{{ documentation.documentType }}</p>
+        </div>
+      </div>
+    </div>
+      <CModal title="Warning!" :show.sync="warningModal" @close="() => { this.$emit('refreshTool') }">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton shape="square" size="sm" color="primary" @click="deleteDocumentation">
+          Delete
+        </CButton>
+      </template>
+      Elimina referente '{{ selectedDoc.name }}'?
+    </CModal>
+  </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "DocumentationView",
-   data() {
+  data() {
     return {
       viewAddDocument: true,
-      viewNewDocument:false,
-      }
+      viewNewDocument: false,
+      selectedDoc:{},
+      warningModal: false,
+      documentationLocal: {
+        name: "",
+        publisher: "",
+        documentType: "",
+        resource: "",
+        tool: this.toolId,
       },
+    };
+  },
+  computed: {
+    ...mapGetters("documentationType", ["documentationTypeList"]),
+  },
+  emits: ["refreshTool"],
+
   props: {
     documentations: {
       type: Array,
@@ -111,8 +147,49 @@ export default {
     toolId: {
       type: Number,
       required: true,
-      default:null,
+      default: null,
     },
+  },
+  methods: {
+    changeTool(value) {
+      this.documentationLocal.tool = value.id;
+    },
+    changeDocumentType(value) {
+      this.documentationLocal.documentType = value.id;
+    },
+    handleSubmit() {
+      this.documentationLocal.tool = this.toolId;
+      this.documentationLocal.documentType =
+        this.documentationLocal.documentType.id;
+      console.log(this.documentationLocal);
+      this.$store
+        .dispatch("documentation/save", this.documentationLocal)
+        .then(this.$emit("refreshTool"));
+        this.viewNewDocument=false;
+      
+    },
+    goBack() {
+      this.$router.push("/catalogue/documentazione");
+    },
+     deleteDocumentation() {
+     this.$store
+        .dispatch("documentation/delete", this.selectedDoc.id)
+        .then(this.$emit("refreshTool"));
+         this.warningModal = false;
+    },
+
+    modalOpen(app) {
+      this.selectedDoc = app;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
+    },
+  },
+  created() {
+    //this.$store.dispatch("documentation/findAll");
+    this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("documentationType/findAll");
   },
 };
 </script>

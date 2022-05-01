@@ -184,7 +184,7 @@ export default {
       viewNewAgent: false,
       selectedId: 0,
       selectedAgent: null,
-      selectedLinkedAgent: null,
+      selectedLinkedAgent: {},
       states: [],
       warningModal: false,
       newLinkedAgent: {
@@ -260,7 +260,7 @@ export default {
       let updateLinkedAgent = {
         id: selectedUpdateLinkedAgent.id,
         tool: this.toolId,
-        role: selectedUpdateLinkedAgent.agentRole,
+        role: selectedUpdateLinkedAgent.role,
         notes: selectedUpdateLinkedAgent.notes,
         referenceDate: selectedUpdateLinkedAgent.referenceDate,
       };
