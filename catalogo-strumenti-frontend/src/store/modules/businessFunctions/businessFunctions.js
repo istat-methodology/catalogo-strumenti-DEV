@@ -2,20 +2,16 @@ import { businessService } from "@/services";
 import { businessOpenService } from "@/services";
 
 const state = {
-  businessList: [],
-  bFunctionsList: [],
-  business: null
+  bFunctionList: [],
+  bFunction: null
 };
 
 const mutations = {
-  SET_BUSINESSLIST(state, businessList) {
-    state.businessList = businessList;
+  SET_BFUNCTIONLIST(state, bFunctionList) {
+    state.bFunctionList = bFunctionList;
   },
-  SET_BFUNCTIONSLIST(state, bFunctionsList) {
-    state.bFunctionsList = bFunctionsList;
-  },
-  SET_BUSINESS(state, business) {
-    state.business = business;
+  SET_BFUNCTION(state, bFunction) {
+    state.bFunction = bFunction;
   }
 };
 
@@ -23,7 +19,7 @@ const actions = {
   findAll({ commit }) {
     businessOpenService.findAll().then(
       data => {
-        commit("SET_BUSINESSLIST", data);
+        commit("SET_BFUNCTIONLIST", data);
       },
       error => {
         console.log(error);
@@ -35,7 +31,7 @@ const actions = {
       .save(payload)
       .then(data => {
         //console.log(data);
-        commit("SET_BUSINESS", data);
+        commit("SET_BFUNCTION", data);
         dispatch("message/success", "Business Function salvata!", {
           root: true
         });
@@ -49,7 +45,7 @@ const actions = {
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_BUSINESS", data);
+        commit("SET_BFUNCTION", data);
       })
       .catch(err => {
         console.log(err);
@@ -60,7 +56,7 @@ const actions = {
       .findBFunctionsByBService(id)
       .then(data => {
         //console.log(data);
-        commit("SET_BFUNCTIONSLIST", data);
+        commit("SET_BFUNCTIONLIST", data);
       })
       .catch(err => {
         console.log(err);
@@ -70,7 +66,7 @@ const actions = {
     return businessService
       .update(payload)
       .then(data => {
-        commit("SET_BUSINESS", data);
+        commit("SET_BFUNCTION", data);
         dispatch("message/success", "Business Function aggiornata!", {
           root: true
         });
@@ -83,7 +79,7 @@ const actions = {
     return businessOpenService
       .filter(payload)
       .then(data => {
-        commit("SET_BUSINESSLIST", data);
+        commit("SET_BFUNCTIONLIST", data);
       })
       .catch(err => {
         console.log(err);
@@ -103,18 +99,15 @@ const actions = {
 };
 
 const getters = {
-  businessList: state => {
-    return state.businessList;
+  bFunction: state => {
+    return state.bFunction;
   },
-  business: state => {
-    return state.business;
-  },
-  bFunctionsList: state => {
-    return state.bFunctionsList;
+  bFunctionList: state => {
+    return state.bFunctionList;
   }
 };
 
-export const business = {
+export const bFunction = {
   namespaced: true,
   state,
   mutations,

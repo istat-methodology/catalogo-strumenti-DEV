@@ -1,7 +1,7 @@
 import { axiosCatalog } from "@/http";
 import AbstractService from "@/services/abstract.service";
 
-class BusinessService extends AbstractService {
+class BusinessFunctionsService extends AbstractService {
   constructor(endpoint) {
     super(endpoint);
   }
@@ -52,7 +52,7 @@ class BusinessService extends AbstractService {
       .get(this.endpoint + "/business-service/" + id)
       .then(res => {
         var data = res.data ? res.data : {};
-        
+
         return data;
       })
       .catch(err => {
@@ -61,9 +61,9 @@ class BusinessService extends AbstractService {
   }
 }
 
-export const businessService = new BusinessService(
+export const businessService = new BusinessFunctionsService(
   "/catalog/businessfunctions"
 );
-export const businessOpenService = new BusinessService(
+export const businessOpenService = new BusinessFunctionsService(
   "/catalog/open/businessfunctions"
 );

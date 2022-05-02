@@ -7,7 +7,7 @@ export * from "./gsbpm/gsbpm.service";
 export * from "./tooltype/tooltype.service";
 export * from "./documentation/documentation.service";
 export * from "./documentationType/documentationType.service";
-export * from "./business/business.service";
+export * from "./businessFunctions/businessFunctions.service";
 export * from "./agent/agent.service";
 export * from "./linkedagent/linkedagent.service";
 export * from "./service/businessService.service";

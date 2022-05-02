@@ -21,7 +21,7 @@ import { gsbpm } from "./modules/gsbpm/gsbpm";
 import { tooltype } from "./modules/tooltype/tooltype";
 import { documentation } from "./modules/documentation/documentation";
 import { documentationType } from "./modules/documentationType/documentationType";
-import { business } from "./modules/business/business";
+import { bFunction } from "./modules/businessFunctions/businessFunctions";
 import { agent } from "./modules/agent/agentTools";
 import { linkedagent } from "./modules/linkedAgent/linkedAgentTools";
 import { businessService } from "./modules/service/businessService";
@@ -41,7 +41,7 @@ export default new Vuex.Store({
     documentation,
     agent,
     linkedagent,
-    business,
+    bFunction,
     businessService,
     documentationType,
     /* applications,

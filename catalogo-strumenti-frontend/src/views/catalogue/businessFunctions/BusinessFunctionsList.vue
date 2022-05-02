@@ -15,8 +15,8 @@
  -->
         <CCardBody>
           <CDataTable
-            v-if="businessList"
-            :items="getBusinessList"
+            v-if="bFunctionList"
+            :items="getBusinessFunctionList"
             :fields="fields"
             column-filter
             :items-per-page="10"
@@ -123,7 +123,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("business", ["businessList"]),
+    ...mapGetters("bFunction", ["bFunctionList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
     /* getBusinessList() {
@@ -141,9 +141,9 @@ export default {
         });
       });
     } */
-    getBusinessList: function() {
-      if (this.businessList) {
-        return this.businessList.map(business => {
+    getBusinessFunctionList: function() {
+      if (this.bFunctionList) {
+        return this.bFunctionList.map(business => {
           return {
             id: business.id,
             name: business.name == null ? "" : business.name,
@@ -168,7 +168,7 @@ export default {
   methods: {
     deleteBusiness() {
       this.$store
-        .dispatch("business/delete", this.selectedBusiness.id)
+        .dispatch("bFunction/delete", this.selectedBusiness.id)
         .then(this.$router.push("/catalogue/businessfunctions"))
         .catch(() => {});
       this.warningModal = false;
@@ -186,7 +186,7 @@ export default {
       .dispatch("coreui/setContext", Context.BusinessList)
       .catch(() => {});
     // if (this.params) {
-    this.$store.dispatch("business/filter", this.params).catch(() => {});
+    this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
     //this.$store.dispatch("business/findAll");
     // }
   }

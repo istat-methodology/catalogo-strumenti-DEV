@@ -2,7 +2,7 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="business">
+      <CCard v-if="bFunction">
         <CCardHeader>Modifica Business Function</CCardHeader>
         <CCardBody>
           <CInput
@@ -49,7 +49,7 @@ export default {
   name: "BusinessFunctionsEdit",
   data() {
     return {
-      businessLocal: {
+      businessFunctionLocal: {
         id: "",
         name: "",
         descr: "",
@@ -59,7 +59,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("business", ["business"])
+    ...mapGetters("bFunction", ["bFunction"])
   },
 
   /* validations: {
@@ -73,17 +73,19 @@ export default {
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
-      this.$store.dispatch("business/update", this.businessLocal).then(() => {
-        this.backToList();
-      });
+      this.$store
+        .dispatch("bFunction/update", this.businessFunctionLocal)
+        .then(() => {
+          this.backToList();
+        });
       /*   } */
     },
     setOldValues() {
-      this.businessLocal.id = this.business.id;
-      this.businessLocal.name = this.business.name;
-      this.businessLocal.descr = this.business.descr;
-      this.businessLocal.label = this.business.label;
-      this.businessLocal.businessProcesses = this.business.businessProcesses;
+      this.businessFunctionLocal.id = this.bFunction.id;
+      this.businessFunctionLocal.name = this.bFunction.name;
+      this.businessFunctionLocal.descr = this.bFuntion.descr;
+      this.businessFunctionLocal.label = this.bFunction.label;
+      this.businesFunctionLocal.businessProcesses = this.bFunction.businessProcesses;
     },
     backToList() {
       this.$router.push("/catalogue/businessfunctions");
@@ -92,12 +94,12 @@ export default {
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
     this.$store
-      .dispatch("business/findById", this.$route.params.id)
+      .dispatch("bFunction/findById", this.$route.params.id)
       .then(() => {
         this.setOldValues();
       });
     //this.$store.dispatch("tools/findAll");
-    this.$store.dispatch("business/findAll");
+    this.$store.dispatch("bFunction/findAll");
   }
 };
 </script>
