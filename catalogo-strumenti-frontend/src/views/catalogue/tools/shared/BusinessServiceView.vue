@@ -1,118 +1,127 @@
 <template>
   <div>
-    <div
-      v-for="(appService, index) of businessServiceService.appServices"
-      :key="appService.id"
-    >
-      <h2>Funzionalità : {{ appService.name }} # {{ index + 1 }}</h2>
-      <div class="card w-100">
-        <div class="card-body">
-          <!-- appservices -->
-          <!--div class="card">
+    <div v-if="businessServiceService.appServices">
+      <div
+        v-for="(appService, index) of businessServiceService.appServices"
+        :key="appService.id"
+      >
+        <h2>Funzionalità : {{ appService.name }} # {{ index + 1 }}</h2>
+        <div class="card w-100">
+          <div class="card-body">
+            <!-- appservices -->
+            <!--div class="card">
             <div class="card-header">
               {{ appService.name }}
               <div class="card-header-actions">#{{ index + 1 }}</div>
             </div>
 
             <div class="card-body"-->
-          <div class="columns">
-            <div class="row">
-              <div class="descriprion-functionalities col-12">
-                <!--span><strong>Descrizione:</strong></span-->
-                <div class="card-slot">
-                  <span v-if="appService">{{ appService.descr }}</span>
+            <div class="columns">
+              <div class="row">
+                <div class="descriprion-functionalities col-12">
+                  <!--span><strong>Descrizione:</strong></span-->
+                  <div class="card-slot">
+                    <span v-if="appService">{{ appService.descr }}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div class="card col-1">
-                <span><strong>Autore:</strong></span>
-                <div class="card-slot">
-                  <span v-if="appService">{{ appService.author }}</span>
+                <div class="card col-1">
+                  <span><strong>Autore:</strong></span>
+                  <div class="card-slot">
+                    <span v-if="appService">{{ appService.author }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="card col-3">
-                <span><strong>Contatto:</strong></span>
-                <div class="card-slot">
-                  <span v-if="appService">{{ appService.contact }}</span>
+                <div class="card col-3">
+                  <span><strong>Contatto:</strong></span>
+                  <div class="card-slot">
+                    <span v-if="appService">{{ appService.contact }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="card col-3">
-                <span><strong>Linguaggio di implementazione:</strong></span>
-                <div class="card-slot">
-                  <span v-if="appService">{{
-                    appService.implementationLanguage
-                  }}</span>
+                <div class="card col-3">
+                  <span><strong>Linguaggio di implementazione:</strong></span>
+                  <div class="card-slot">
+                    <span v-if="appService">{{
+                      appService.implementationLanguage
+                    }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="card col-2">
-                <span><strong>File/Package:</strong></span>
-                <div class="card-slot">
-                  <span v-if="appService">{{ appService.sourcePath }}</span>
+                <div class="card col-2">
+                  <span><strong>File/Package:</strong></span>
+                  <div class="card-slot">
+                    <span v-if="appService">{{ appService.sourcePath }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="card col-2">
-                <span><strong>Licenza:</strong></span>
-                <div class="card-slot">
-                  <span v-if="appService.licence">{{
-                    appService.licence
-                  }}</span>
-                  <span v-else class="default-value">no value</span>
+                <div class="card col-2">
+                  <span><strong>Licenza:</strong></span>
+                  <div class="card-slot">
+                    <span v-if="appService.licence">{{
+                      appService.licence
+                    }}</span>
+                    <span v-else class="default-value">no value</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!--div class="card-body"-->
-          <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-          <div
-            class="table-responsive"
-            v-if="appService.stepInstances.length > 20"
-          >
-            <CDataTable
-              :items="getStepInstancesList(appService.stepInstances)"
-              :fields="fields"
-              column-filter
-              table-filter
-              items-per-page-select
-              :items-per-page="5"
-              hover
-              sorter
-              pagination
+            <!--div class="card-body"-->
+            <!-- @start Condition to show filtrable table if results are more then 5 lines-->
+            <div
+              class="table-responsive"
+              v-if="appService.stepInstances.length > 20"
             >
-            </CDataTable>
-          </div>
-          <!-- @end Condition to show filtrable table if results are more then 5 lines-->
-          <table
-            class="table table-hover"
-            v-if="appService && appService.stepInstances.length < 20"
-          >
-            <thead>
-              <tr>
-                <th scope="col">Funzionalità</th>
-                <th scope="col">Metodo</th>
-                <th scope="col">Metodo Statistico</th>
-                <th scope="col">Descrizione</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="item in getStepInstancesList(appService.stepInstances)"
-                :key="item.id"
+              <CDataTable
+                :items="getStepInstancesList(appService.stepInstances)"
+                :fields="fields"
+                column-filter
+                table-filter
+                items-per-page-select
+                :items-per-page="5"
+                hover
+                sorter
+                pagination
               >
-                <td>{{ item.functionality }}</td>
-                <td>{{ item.method }}</td>
-                <td>{{ item.statMethodName }}</td>
-                <td>{{ item.descr }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <h5
-            v-if="!appService.stepInstances.length"
-            class="default-value card-body"
-          >
-            No data available
-          </h5>
+              </CDataTable>
+            </div>
+            <!-- @end Condition to show filtrable table if results are more then 5 lines-->
+            <table
+              class="table table-hover"
+              v-if="appService && appService.stepInstances.length < 20"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Funzionalità</th>
+                  <th scope="col">Metodo</th>
+                  <th scope="col">Metodo Statistico</th>
+                  <th scope="col">Descrizione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in getStepInstancesList(appService.stepInstances)"
+                  :key="item.id"
+                >
+                  <td>{{ item.functionality }}</td>
+                  <td>{{ item.method }}</td>
+                  <td>{{ item.statMethodName }}</td>
+                  <td>{{ item.descr }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h5
+              v-if="!appService.stepInstances.length"
+              class="default-value card-body"
+            >
+              Nessun dato disponibile
+            </h5>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div v-else>
+      <h2>Funzionalità</h2>
+      <div class="card w-100">
+        <div class="card-body">Nessuna funzionalità definita</div>
       </div>
     </div>
   </div>

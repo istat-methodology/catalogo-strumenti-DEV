@@ -238,6 +238,15 @@
               </CCardBody>
             </CCard>
           </CTab>
+
+   <CTab>
+            <template #title>
+              <span>Funzionalità</span>
+            </template>
+
+            <app-edit-business-service :businessServiceService="businessServiceService"></app-edit-business-service>
+          </CTab>
+
           <CTab>
             <template #title>
               <span>Referenti</span>
@@ -271,6 +280,7 @@ import Treeselect from "@riophae/vue-treeselect";
 
 import DocumentationEditView from "../documentation/shared/DocumentationEditView";
 import LinkedAgentView from "../agent/shared/LinkedAgentEditView";
+import BusinessServiceEditView from "../tools/shared/BusinessServiceEditView";
 
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
@@ -278,6 +288,7 @@ export default {
   components: {
     Treeselect,
     "app-edit-documentation": DocumentationEditView,
+    "app-edit-business-service": BusinessServiceEditView,
     "app-linkedAgents": LinkedAgentView,
   },
   data() {
@@ -391,7 +402,9 @@ export default {
       else return [];
     },
     getDocumentation: function () {
+    
       if (this.tool)
+       { alert(this.tool.documentations.length);
         return this.tool.documentations.map((doc) => {
           return {
             id: doc.id,
@@ -401,8 +414,10 @@ export default {
             resource: doc.resource,
           };
         });
+         }
       else return [];
     },
+   
   },
 
   /* validations: {
