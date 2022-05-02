@@ -4,7 +4,7 @@
       <h2>
         Elenco Processi
         <div class="card-header-actions">
-          <router-link tag="a" :to="{ name: 'BusinessAdd' }">
+          <router-link tag="a" :to="{ name: 'BusinessFunctionsAdd' }">
             <add-icon />
           </router-link>
         </div>
@@ -28,7 +28,7 @@
                 <router-link
                   tag="a"
                   :to="{
-                    name: 'BusinessDetails',
+                    name: 'BusinessFunctionsDetails',
                     params: { id: item.id }
                   }"
                 >
@@ -38,7 +38,10 @@
               <td v-if="isAuthenticated">
                 <router-link
                   tag="a"
-                  :to="{ name: 'BusinessEdit', params: { id: item.id } }"
+                  :to="{
+                    name: 'BusinessFunctionsEdit',
+                    params: { id: item.id }
+                  }"
                 >
                   <edit-icon />
                 </router-link>
@@ -83,7 +86,7 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 export default {
-  name: "BusinessList",
+  name: "BusinessFunctionsList",
   data() {
     return {
       fields: [

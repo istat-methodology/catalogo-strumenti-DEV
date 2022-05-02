@@ -2,8 +2,8 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard>
-        <CCardHeader>Nuova Business Function</CCardHeader>
+      <CCard v-if="business">
+        <CCardHeader>Modifica Business Function</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome"
@@ -22,7 +22,6 @@
           />
         </CCardBody>
       </CCard>
-
       <CCardFooter>
         <CButton
           shape="square"
@@ -30,9 +29,13 @@
           color="primary"
           class="mr-2"
           @click.prevent="handleSubmit"
-          >Aggiungi</CButton
+          >Update</CButton
         >
-        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
+        <CButton
+          shape="square"
+          size="sm"
+          color="light"
+          @click.prevent="backToList"
           >Indietro</CButton
         >
       </CCardFooter>
@@ -40,14 +43,14 @@
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
+/* import { required } from "vuelidate/lib/validators"; */
 export default {
-  name: "businessAdd",
+  name: "BusinessFunctionsEdit",
   data() {
     return {
       businessLocal: {
-        id: "0",
+        id: "",
         name: "",
         descr: "",
         label: "",
@@ -58,18 +61,42 @@ export default {
   computed: {
     ...mapGetters("business", ["business"])
   },
+
+  /* validations: {
+    dug: {
+      name: {
+        required
+      }
+    }
+  }, */
   methods: {
     handleSubmit() {
-      this.$store
-        .dispatch("business/save", this.businessLocal)
-        .then(this.$router.push("/catalogue/businessfunctions"));
+      /*  this.$v.$touch(); //validate form data
+      if (!this.$v.dug.$invalid) { */
+      this.$store.dispatch("business/update", this.businessLocal).then(() => {
+        this.backToList();
+      });
       /*   } */
     },
-    goBack() {
+    setOldValues() {
+      this.businessLocal.id = this.business.id;
+      this.businessLocal.name = this.business.name;
+      this.businessLocal.descr = this.business.descr;
+      this.businessLocal.label = this.business.label;
+      this.businessLocal.businessProcesses = this.business.businessProcesses;
+    },
+    backToList() {
       this.$router.push("/catalogue/businessfunctions");
     }
   },
   created() {
+    //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
+    this.$store
+      .dispatch("business/findById", this.$route.params.id)
+      .then(() => {
+        this.setOldValues();
+      });
+    //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("business/findAll");
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row"  v-if="tool">
+  <div class="row" v-if="tool">
     <div class="col-9">
       <div id="id-tooltype" />
       <div

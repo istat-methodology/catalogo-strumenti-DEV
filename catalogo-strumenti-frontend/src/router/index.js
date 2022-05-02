@@ -124,30 +124,32 @@ const routes = [
       },
       {
         path: "catalogue/businessfunctions",
-        name: "BusinessList",
+        name: "BusinessFunctionsList",
         component: () =>
-          import("../views/catalogue/businessFunctions/BusinessList"),
+          import("../views/catalogue/businessFunctions/BusinessFunctionsList"),
         meta: { authorize: [] }
       },
       {
         path: "catalogue/businessfunctions/modifica/:id",
-        name: "BusinessEdit",
+        name: "BusinessFunctionsEdit",
         component: () =>
-          import("../views/catalogue/businessFunctions/BusinessEdit"),
+          import("../views/catalogue/businessFunctions/BusinessFunctionsEdit"),
         meta: { authorize: [] }
       },
       {
         path: "catalogue/businessfunctions/aggiungi",
-        name: "BusinessAdd",
+        name: "BusinessFunctionsAdd",
         component: () =>
-          import("../views/catalogue/businessFunctions/BusinessAdd"),
+          import("../views/catalogue/businessFunctions/BusinessFunctionsAdd"),
         meta: { authorize: [] }
       },
       {
         path: "catalogue/businessfunctions/dettaglio/:id",
-        name: "BusinessDetails",
+        name: "BusinessFunctionsDetails",
         component: () =>
-          import("../views/catalogue/businessFunctions/BusinessDetails"),
+          import(
+            "../views/catalogue/businessFunctions/BusinessFunctionsDetails"
+          ),
         meta: { authorize: [] }
       },
       {

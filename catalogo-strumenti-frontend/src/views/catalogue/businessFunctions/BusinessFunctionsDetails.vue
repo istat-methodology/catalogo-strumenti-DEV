@@ -53,7 +53,7 @@ import BusinessProcess from "@/components/BusinessProcess";
 import { Context } from "@/common";
 //import { Context } from "@/common";
 export default {
-  name: "BusinessDetails",
+  name: "BusinessFunctionsDetails",
   components: {
     "app-process-agent": BusinessProcess
   },
