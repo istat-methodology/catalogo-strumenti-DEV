@@ -8,17 +8,17 @@
           <CInput
             label="Nome"
             placeholder="Nome"
-            v-model="businessLocal.name"
+            v-model="businessFunctionLocal.name"
           />
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
-            v-model="businessLocal.descr"
+            v-model="businessFunctionLocal.descr"
           />
           <CInput
             label="Etichetta"
             placeholder="Etichetta"
-            v-model="businessLocal.label"
+            v-model="businessFunctionLocal.label"
           />
         </CCardBody>
       </CCard>
@@ -83,7 +83,7 @@ export default {
     setOldValues() {
       this.businessFunctionLocal.id = this.bFunction.id;
       this.businessFunctionLocal.name = this.bFunction.name;
-      this.businessFunctionLocal.descr = this.bFuntion.descr;
+      this.businessFunctionLocal.descr = this.bFunction.descr;
       this.businessFunctionLocal.label = this.bFunction.label;
       this.businesFunctionLocal.businessProcesses = this.bFunction.businessProcesses;
     },
