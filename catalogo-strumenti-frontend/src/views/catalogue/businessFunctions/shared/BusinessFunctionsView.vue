@@ -5,8 +5,8 @@
       <div class="card-body">
         <div class="columns">
           <div class="row">
-              <div  v-if="businessFunctions.length===0">
-               <span>Nessun processo associato</span>
+            <div v-if="businessFunctions.length === 0">
+              <span>Nessun processo associato</span>
             </div>
             <div
               class="card cols-3"
@@ -20,7 +20,7 @@
                     tag="a"
                     :to="{
                       name: 'BusinessFunctionsView',
-                      params: { id: businessFunction.id },
+                      params: { id: businessFunction.id }
                     }"
                   >
                     <view-icon />
@@ -44,9 +44,9 @@ export default {
     businessFunctions: {
       type: Array,
       required: true,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 <style scoped>
@@ -63,7 +63,6 @@ h5 {
 .material-design-icon {
   margin-bottom: 0.2rem;
 }
-
 
 * {
   box-sizing: border-box;

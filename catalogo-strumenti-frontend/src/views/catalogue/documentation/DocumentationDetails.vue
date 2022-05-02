@@ -1,49 +1,47 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    
-      <CCard v-if="documentation">
-        <CCardHeader>{{ documentation.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Editore:</label>
-            <span>{{ documentation.publisher | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Documento:</label>
-            <span>{{ documentation.documentType.name | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Note:</label>
-            <span>{{ documentation.notes | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Requisiti:</label>
-            <span>{{ documentation.resource | dashEmpty }}</span>
-          </div>
+    <CCard v-if="documentation">
+      <CCardHeader>{{ documentation.name | dashEmpty }}</CCardHeader>
+      <CCardBody>
+        <div>
+          <label>Editore:</label>
+          <span>{{ documentation.publisher | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Documento:</label>
+          <span>{{ documentation.documentType.name | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Note:</label>
+          <span>{{ documentation.notes | dashEmpty }}</span>
+        </div>
+        <div>
+          <label>Requisiti:</label>
+          <span>{{ documentation.resource | dashEmpty }}</span>
+        </div>
 
-           <div>
-            <label>Strumento:</label>
-            <span>{{ documentation.tool.name | dashEmpty }}</span>
-             <router-link
-                tag="a"
-                :to="{ name: 'ToolDetails', params: { id: documentation.tool.id } }"
-              >
-                <view-icon />
-              </router-link>
-          </div>
-        </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="backToList"
-            >Indietro</CButton
+        <div>
+          <label>Strumento:</label>
+          <span>{{ documentation.tool.name | dashEmpty }}</span>
+          <router-link
+            tag="a"
+            :to="{ name: 'ToolDetails', params: { id: documentation.tool.id } }"
           >
-        </CCardFooter>
-      </CCard>
-   
+            <view-icon />
+          </router-link>
+        </div>
+      </CCardBody>
+      <CCardFooter>
+        <CButton
+          shape="square"
+          size="sm"
+          color="light"
+          @click.prevent="backToList"
+          >Indietro</CButton
+        >
+      </CCardFooter>
+    </CCard>
   </div>
 </template>
 <script>

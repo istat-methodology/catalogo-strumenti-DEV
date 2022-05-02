@@ -20,16 +20,6 @@
             placeholder="Etichetta"
             v-model="businessLocal.label"
           />
-          <CInput
-            label="Codice Ordine"
-            placeholder="Codie Ordine"
-            v-model="businessLocal.orderCode"
-          />
-          <CInput
-            label="Processo Padre"
-            placeholder="Processso Padre"
-            v-model="businessLocal.parent"
-          />
         </CCardBody>
       </CCard>
       <CCardFooter>
@@ -64,9 +54,7 @@ export default {
         name: "",
         descr: "",
         label: "",
-        orderCode: "",
-        parent: "",
-        processSteps: []
+        businessProcesses: []
       }
     };
   },
@@ -95,9 +83,7 @@ export default {
       this.businessLocal.name = this.business.name;
       this.businessLocal.descr = this.business.descr;
       this.businessLocal.label = this.business.label;
-      this.businessLocal.orderCode = this.business.orderCode;
-      this.businessLocal.parent = this.business.parent;
-      this.businessLocal.processSteps = this.business.processSteps;
+      this.businessLocal.businessProcesses = this.business.businessProcesses;
     },
     backToList() {
       this.$router.push("/catalogue/businessfunctions");

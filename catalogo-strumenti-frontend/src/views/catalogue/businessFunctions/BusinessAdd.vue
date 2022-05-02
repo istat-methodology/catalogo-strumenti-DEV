@@ -20,16 +20,6 @@
             placeholder="Etichetta"
             v-model="businessLocal.label"
           />
-          <CInput
-            label="Codice Ordine"
-            placeholder="Codie Ordine"
-            v-model="businessLocal.orderCode"
-          />
-          <CInput
-            label="Processo Padre"
-            placeholder="Processso Padre"
-            v-model="businessLocal.parent"
-          />
         </CCardBody>
       </CCard>
 
@@ -61,9 +51,7 @@ export default {
         name: "",
         descr: "",
         label: "",
-        orderCode: "",
-        parent: "",
-        processSteps: []
+        businessProcesses: []
       }
     };
   },
