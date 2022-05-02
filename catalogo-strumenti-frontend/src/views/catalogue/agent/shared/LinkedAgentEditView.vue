@@ -1,152 +1,155 @@
 <template>
   <div class="row" v-if="agentList">
-    <CCard>
-      <CCardHeader>Referenti associati</CCardHeader>
-      <CCardBody>
-        <span class="icon-link" @click="viewNewAgent = !viewNewAgent"
-          ><plus-icon />Nuova associazione</span
+    <div>
+      <h2>
+        <span v-if="!viewNewAgent">Referenti associati</span>
+        <span v-if="viewNewAgent"
+          ><span v-if="viewNewAgent && !viewAddAgent">Associa Referente</span
+          ><span v-if="viewNewAgent && viewAddAgent"
+            >Nuovo Referente</span
+          ></span
         >
-        <div>
-          <div v-if="viewNewAgent">
-            <div>
-              <div class="card">
-                <div class="card-header">
-                  <div class="form-group" v-if="agentList">
-                    <label for="description">Elenco Referenti</label>
-                    <v-select
-                      label="name"
-                      :options="agentList"
-                      @input="selectId($event)"
-                    ></v-select>
-                    <span class="help-block"
-                      >Please select an Organization.</span
-                    >
-                  </div>
+        <span
+          class="icon-link float-right"
+          @click="viewNewAgent = !viewNewAgent"
+          ><plus-icon
+            title="Associa un referente"
+            v-if="!viewNewAgent && !viewAddAgent" /><undo-icon
+            title="Annulla"
+            v-if="viewNewAgent && !viewAddAgent"
+        /></span>
+      </h2>
 
-                  <span class="icon-link" @click="viewAddAgent = !viewAddAgent"
-                    ><add-icon />Nuovo referente</span
-                  >
-                </div>
-                <div class="card-body">
-                  <div class="card-slot">
-                    <CInput
-                      label="Ruolo"
-                      placeholder="Ruolo"
-                      v-model="newLinkedAgent.role"
-                    />
-                  </div>
-
-                  <div class="card-slot">
-                    <CInput
-                      label="Data"
-                      placeholder="Data"
-                      v-model="newLinkedAgent.referenceDate"
-                    />
-                  </div>
-
-                  <div class="card-slot">
-                    <textarea
-                      label="Note"
-                      placeholder="Note"
-                      v-model="newLinkedAgent.notes"
-                    />
-                  </div>
-                  <div class="card-slot">
-                    <CButton
-                      shape="square"
-                      size="sm"
-                      color="primary"
-                      class="mr-2"
-                      @click.prevent="handleSubmitNewAgent"
-                      >Salva</CButton
-                    >
-                  </div>
-                </div>
-              </div>
+      <div class="columns">
+        <div class="row">
+          <div class="card" v-if="viewNewAgent">
+            <div class="card-body">
               <div v-if="viewAddAgent">
                 <app-agent-add
                   :goBackClose="true"
                   @appClose="updateAgentList"
                 />
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="row">
-            <div
-              class="card"
-              v-for="(linkedAgent, index) of getLinkedAgentList"
-              :key="linkedAgent.id"
-            >
-              <div class="card-header">
-                <strong>{{ linkedAgent.agentName }}</strong>
-                <div class="card-header-actions">
-                  <span v-if="getState(index)">
-                    <span class="icon-link" @click="changeState(index)"
-                      ><edit-icon
-                    /></span>
-                    <span class="icon-link" @click="modalOpen(linkedAgent)"
-                      ><delete-icon
-                    /></span>
-                  </span>
-                  <span v-else>
-                    <span
-                      class="icon-link"
-                      @click="handleUpdateLinkedAgent(index, linkedAgent)"
-                      ><success-icon
-                    /></span>
-                    <span class="icon-link" @click="changeState(index)"
-                      ><arrow-right-icon
-                    /></span>
-                  </span>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="card-slot">
-                  <span><strong>Contatto: </strong></span>
-                  <span>{{ linkedAgent.agentContact }}</span>
-                </div>
 
-                <div class="card-slot">
-                  <span><strong>Organizzazione: </strong></span>
-                  <span>{{ linkedAgent.agentOrganization }}</span>
+              <div v-else>
+                <div class="card-slot" v-if="agentList">
+                  <label>Elenco Referenti</label>
+                  <v-select
+                    label="name"
+                    :options="agentList"
+                    @input="selectId($event)"
+                  ></v-select>
+                  <span class="help-block">Please select a referent.</span>
+                  <span
+                    class="icon-link float-right"
+                    @click="viewAddAgent = !viewAddAgent"
+                    ><add-icon />Nuovo referente</span
+                  >
                 </div>
                 <div class="card-slot">
-                  <span><strong>Ruolo: </strong></span>
-
                   <CInput
+                    label="Ruolo"
                     placeholder="Ruolo"
-                    :disabled="getState(index)"
-                    v-model="linkedAgent.role"
+                    v-model="newLinkedAgent.role"
                   />
                 </div>
-
                 <div class="card-slot">
-                  <span><strong>Data: </strong></span>
-
                   <CInput
+                    label="Data"
                     placeholder="Data"
-                    :disabled="getState(index)"
-                    v-model="linkedAgent.referenceDate"
+                    v-model="newLinkedAgent.referenceDate"
                   />
                 </div>
-
                 <div class="card-slot">
-                  <span><strong>Note: </strong></span>
-
-                  <textarea
+                  <CTextarea
+                    label="Note"
                     placeholder="Note"
-                    :disabled="getState(index)"
-                    v-model="linkedAgent.notes"
+                    v-model="newLinkedAgent.notes"
                   />
+                </div>
+                <div class="card-footer">
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmitNewAgent"
+                    >Salva</CButton
+                  >
                 </div>
               </div>
             </div>
           </div>
+
+          <div
+            v-else
+            class="card"
+            v-for="(linkedAgent, index) of getLinkedAgentList"
+            :key="linkedAgent.id"
+          >
+            <div class="card-header">
+              <strong>{{ linkedAgent.agentName }}</strong>
+              <div class="card-header-actions">
+                <span v-if="getState(index)">
+                  <span class="icon-link" @click="changeState(index)"
+                    ><edit-icon
+                  /></span>
+                  <span class="icon-link" @click="modalOpen(linkedAgent)"
+                    ><delete-icon
+                  /></span>
+                </span>
+                <span v-else>
+                  <span
+                    class="icon-link"
+                    @click="handleUpdateLinkedAgent(index, linkedAgent)"
+                    ><success-icon
+                  /></span>
+                  <span class="icon-link" @click="changeState(index)"
+                    ><arrow-right-icon
+                  /></span>
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-slot">
+                <span><strong>Contatto: </strong></span>
+                <span>{{ linkedAgent.agentContact }}</span>
+              </div>
+              <div class="card-slot">
+                <span><strong>Organizzazione: </strong></span>
+                <span>{{ linkedAgent.agentOrganization }}</span>
+              </div>
+              <div class="card-slot">
+                <CInput
+                  label="Ruolo:"
+                  placeholder="Ruolo"
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.role"
+                />
+              </div>
+
+              <div class="card-slot">
+                <CInput
+                  label="Data:"
+                  placeholder="Data"
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.referenceDate"
+                />
+              </div>
+
+              <div class="card-slot">
+                <CTextarea
+                  label="Note:"
+                  placeholder="Note"
+                  :disabled="getState(index)"
+                  v-model="linkedAgent.notes"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </CCardBody>
-    </CCard>
+      </div>
+    </div>
     <CModal
       title="Warning!"
       :show.sync="warningModal"
@@ -181,7 +184,7 @@ export default {
       viewNewAgent: false,
       selectedId: 0,
       selectedAgent: null,
-      selectedLinkedAgent: null,
+      selectedLinkedAgent: {},
       states: [],
       warningModal: false,
       newLinkedAgent: {
@@ -220,9 +223,9 @@ export default {
   components: {
     "app-agent-add": AgentAdd,
   },
-mounted() {
+  mounted() {
     this.updateLinkedAgentList();
-},
+  },
 
   methods: {
     updateAgentList() {
@@ -249,7 +252,7 @@ mounted() {
             .dispatch("linkedagent/findByCatalogTool", this.toolId)
             .then((this.states = Array(this.linkedAgentList.length).fill(true)))
         );
-        this.viewNewAgent=false;
+      this.viewNewAgent = false;
     },
     handleUpdateLinkedAgent(index, selectedUpdateLinkedAgent) {
       this.changeState(index);
@@ -257,7 +260,7 @@ mounted() {
       let updateLinkedAgent = {
         id: selectedUpdateLinkedAgent.id,
         tool: this.toolId,
-        role: selectedUpdateLinkedAgent.agentRole,
+        role: selectedUpdateLinkedAgent.role,
         notes: selectedUpdateLinkedAgent.notes,
         referenceDate: selectedUpdateLinkedAgent.referenceDate,
       };
@@ -276,8 +279,8 @@ mounted() {
     },
     updateLinkedAgentList() {
       this.$store
-      .dispatch("linkedagent/findByCatalogTool", this.toolId)
-      .then((this.states = Array(this.linkedAgentList.length).fill(true)));
+        .dispatch("linkedagent/findByCatalogTool", this.toolId)
+        .then((this.states = Array(this.linkedAgentList.length).fill(true)));
     },
 
     modalOpen(app) {
@@ -295,10 +298,9 @@ mounted() {
       required: true,
       default: () => null,
     },
-
   },
   created() {
-   this.updateLinkedAgentList();
+    this.updateLinkedAgentList();
   },
 };
 </script>
@@ -315,7 +317,7 @@ body {
 /* Float four columns side by side */
 .column {
   float: left;
-  width: 25%;
+  width: 50%;
   padding: 0 10px;
 }
 
@@ -347,5 +349,12 @@ body {
     display: block;
     margin-bottom: 20px;
   }
+}
+h2 {
+  font-size: 24px;
+  color: #213547;
+  margin-top: 10px !important;
+  transition: color 0.5s;
+  padding-top: 26px;
 }
 </style>

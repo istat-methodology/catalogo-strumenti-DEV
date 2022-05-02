@@ -3,8 +3,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.ProcessStepDao;
+import it.istat.mec.catalog.dao.StepInstanceDao;
 import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.ProcessStep;
+import it.istat.mec.catalog.domain.StepInstance;
 import it.istat.mec.catalog.dto.ProcessStepDto;
 import it.istat.mec.catalog.dto.ProcessStepInverseDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -16,6 +18,8 @@ public class ProcessStepService {
 
 	@Autowired
 	ProcessStepDao processStepDao;
+	@Autowired
+	StepInstanceDao stepInstanceDao;
 
 	public List<ProcessStepDto> findAllProcessSteps() {
 		
@@ -50,12 +54,40 @@ public class ProcessStepService {
 		
 		return Translators.translate(ps);
 	}
+	
 	public ProcessStepDto deleteProcessStep(Integer id) {		
 		if (!processStepDao.findById(id).isPresent())
 			throw new NoDataException("ProcessStep not present");
 			ProcessStep ps = processStepDao.findById(id).get();
 			processStepDao.delete(ps);
 			return Translators.translate(ps);		
+	}
+	
+	public ProcessStepDto addStepInstanceToProcessStep(Integer id_process_step, Integer id_step_instance) {
+		
+		if (!processStepDao.findById(id_process_step).isPresent())
+			throw new NoDataException("ProcessStep not present");
+		ProcessStep ps = processStepDao.findById(id_process_step).get();	
+		if (!stepInstanceDao.findById(id_step_instance).isPresent())
+			throw new NoDataException("StepInstance not present");
+		StepInstance si = stepInstanceDao.findById(id_step_instance).get();
+		
+		ps.getStepInstances().add(si);
+		processStepDao.save(ps);
+		return Translators.translate(ps);
+	}
+	
+	public ProcessStepDto deleteStepInstanceFromProcessStep(Integer id_process_step, Integer id_step_instance) {	
+		if (!processStepDao.findById(id_process_step).isPresent())
+			throw new NoDataException("ProcessStep not present");
+		ProcessStep ps = processStepDao.findById(id_process_step).get();	
+		if (!stepInstanceDao.findById(id_step_instance).isPresent())
+			throw new NoDataException("StepInstance not present");
+		StepInstance si = stepInstanceDao.findById(id_step_instance).get();
+		
+		ps.getStepInstances().remove(si);
+		processStepDao.save(ps);
+		return Translators.translate(ps);	
 	}
 
 	public List<ProcessStepInverseDto> getProcessStepsByBusinessService(Integer id) {

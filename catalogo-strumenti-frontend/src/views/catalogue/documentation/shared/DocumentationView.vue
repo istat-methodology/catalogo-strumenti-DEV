@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 >Documentazione</h2>
+    <h2>Documentazione</h2>
     <div class="card w-100">
       <div class="card-body">
         <div class="columns">

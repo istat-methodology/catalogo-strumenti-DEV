@@ -1,63 +1,57 @@
 <template>
-<div>
-  <h2>Referenti associati</h2>
-  <CCard>
-  
-    <CCardBody>
-      <div class="columns">
-        <div class="row">
-                <div  v-if="linkedAgents.length===0">
-               <span>Nessun referente associato</span>
+  <div>
+    <h2>Referenti associati</h2>
+    <div class="columns">
+      <div class="row">
+        <div v-if="linkedAgents.length === 0">
+          <span>Nessun referente associato</span>
+        </div>
+        <div
+          class="card"
+          v-for="linkedAgent of linkedAgents"
+          :key="linkedAgent.id"
+        >
+          <div class="card-header">
+            <strong>{{ linkedAgent.agentName }}</strong>
+            <div class="card-header-actions">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'AgentDetails',
+                  params: { id: linkedAgent.agentId },
+                }"
+              >
+                <view-icon />
+              </router-link>
             </div>
-          <div
-            class="card col-4"
-            v-for="linkedAgent of linkedAgents"
-            :key="linkedAgent.id"
-          >
-            <div class="card-header">
-              <strong>{{ linkedAgent.agentName }}</strong>
-              <div class="card-header-actions">
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'AgentDetails',
-                    params: { id: linkedAgent.agentId },
-                  }"
-                >
-                  <view-icon />
-                </router-link>
-              </div>
+          </div>
+          <div class="card-body">
+            <div class="card-slot">
+              <span><strong>Contatto: </strong></span>
+              <span>{{ linkedAgent.agentContact }}</span>
             </div>
-            <div class="card-body">
-              <div class="card-slot">
-                <span><strong>Contatto: </strong></span>
-                <span>{{ linkedAgent.agentContact }}</span>
-              </div>
-              <div class="card-slot">
-                <span><strong>Ruolo: </strong></span>
-                <span>{{ linkedAgent.agentRole }}</span>
-              </div>
+            <div class="card-slot">
+              <span><strong>Ruolo: </strong></span>
+              <span>{{ linkedAgent.agentRole }}</span>
+            </div>
+            <div class="card-slot">
+              <span><strong>Organizzazione: </strong></span>
+              <span>{{ linkedAgent.agentOrganization }}</span>
+            </div>
+            <div class="card-slot">
+              <span><strong>Data: </strong></span>
+              <span>{{ linkedAgent.referenceDate }}</span>
+            </div>
 
-              <div class="card-slot">
-                <span><strong>Organizzazione: </strong></span>
-                <span>{{ linkedAgent.agentOrganization }}</span>
-              </div>
-              <div class="card-slot">
-                <span><strong>Data: </strong></span>
-                <span>{{ linkedAgent.referenceDate }}</span>
-              </div>
-
-              <div class="card-slot">
-                <span><strong>Note: </strong></span>
-                <span>{{ linkedAgent.notes }}</span>
-              </div>
+            <div class="card-slot">
+              <span><strong>Note: </strong></span>
+              <span >{{ linkedAgent.notes }}</span>
             </div>
           </div>
         </div>
       </div>
-    </CCardBody>
-  </CCard>
-</div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -72,6 +66,7 @@ export default {
 };
 </script>
 
+
 <style scoped>
 * {
   box-sizing: border-box;
@@ -84,7 +79,7 @@ body {
 /* Float four columns side by side */
 .column {
   float: left;
-  width: 25%;
+  width: 50%;
   padding: 0 10px;
 }
 
@@ -116,5 +111,12 @@ body {
     display: block;
     margin-bottom: 20px;
   }
+}
+h2 {
+  font-size: 24px;
+  color: #213547;
+  margin-top: 10px !important;
+  transition: color 0.5s;
+  padding-top: 26px;
 }
 </style>

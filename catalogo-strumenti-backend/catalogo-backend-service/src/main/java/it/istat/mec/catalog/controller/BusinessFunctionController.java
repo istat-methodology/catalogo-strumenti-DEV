@@ -52,10 +52,24 @@ public class BusinessFunctionController {
 		return businessFunctionService.updateBusinessFunction(request);
 	}
 	
+	@PutMapping(value = "/businessfunctions/{id_function}/processes/{id_process}")
+	public BusinessFunctionDto addProcessToBusinessFunction(@PathVariable("id_function") Integer id_function, 
+			@PathVariable("id_process") Integer id_process) {
+		
+		return businessFunctionService.addProcessToBusinessFunction(id_function, id_process);
+	}
+	
 	@DeleteMapping(value = "/businessfunctions/{id}")
 	public BusinessFunctionDto deleteBusinessFunction(@PathVariable("id") Integer id) {
 
 		return businessFunctionService.deleteBusinessFunction(id);
+	}
+	
+	@DeleteMapping(value = "/businessfunctions/{id_function}/processes/{id_process}")
+	public BusinessFunctionDto deleteProcessFromBusinessFunction(@PathVariable("id_function") Integer id_function, 
+			@PathVariable("id_process") Integer id_process) {
+
+		return businessFunctionService.deleteProcessFromBusinessFunction(id_function, id_process);
 	}
  
 	@GetMapping("/open/businessfunctions/business-service/{id}")

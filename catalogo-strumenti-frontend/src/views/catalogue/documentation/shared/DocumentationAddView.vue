@@ -2,8 +2,8 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="documentation">
-        <CCardHeader>Modifica Documentazione</CCardHeader>
+      <CCard>
+        <CCardHeader>Nuovo Documento</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome"
@@ -15,11 +15,6 @@
             placeholder="Editore"
             v-model="documentationLocal.publisher"
           />
-          <!-- <CInput
-            label="Tipo Documento"
-            placeholder="Tipo Documento"
-            v-model="documentationLocal.documentType.name"
-          /> -->
           <div>
             <label>Tipo Documento</label>
           </div>
@@ -27,7 +22,7 @@
             label="name"
             :options="documentationTypeList"
             placeholder="Strumento Statistico"
-            v-model="documentation.documentType.name"
+            v-model="documentationLocal.documentType.name"
             @input="changeDocumentType"
           ></v-select>
           <CInput
@@ -40,19 +35,9 @@
             placeholder="Fonti"
             v-model="documentationLocal.resource"
           />
-          <div>
-            <label>Strumento Statistico</label>
-          </div>
-
-          <v-select
-            label="name"
-            :options="toolscatalog"
-            placeholder="Strumento Statistico"
-            v-model="documentation.tool.name"
-            @input="changeTool"
-          ></v-select>
         </CCardBody>
       </CCard>
+
       <CCardFooter>
         <CButton
           shape="square"
@@ -60,13 +45,9 @@
           color="primary"
           class="mr-2"
           @click.prevent="handleSubmit"
-          >Update</CButton
+          >Aggiungi</CButton
         >
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="$router.back()"
+        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
           >Indietro</CButton
         >
       </CCardFooter>
@@ -74,14 +55,14 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
 /* import { required } from "vuelidate/lib/validators"; */
+import { mapGetters } from "vuex";
 export default {
-  name: "DocumentationEdit",
+  name: "documentationAdd",
   data() {
     return {
       documentationLocal: {
-        id: "",
+        id: 0,
         name: "",
         publisher: "",
         documentType: "",
@@ -96,14 +77,6 @@ export default {
     ...mapGetters("documentationType", ["documentationTypeList"]),
     ...mapGetters("tools", ["toolscatalog"])
   },
-
-  /* validations: {
-    dug: {
-      name: {
-        required
-      }
-    }
-  }, */
   methods: {
     changeTool(value) {
       this.documentationLocal.tool = value.id;
@@ -112,35 +85,20 @@ export default {
       this.documentationLocal.documentType = value.id;
     },
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
       this.$store
-        .dispatch("documentation/update", this.documentationLocal)
-        .then(() => {
-          this.backToList();
-        });
+        .dispatch("documentation/save", this.documentationLocal)
+        .then(this.$router.push("/catalogue/documentazione"));
       /*   } */
     },
-    setOldValues() {
-      this.documentationLocal.id = this.documentation.id;
-      this.documentationLocal.name = this.documentation.name;
-      this.documentationLocal.publisher = this.documentation.publisher;
-      this.documentationLocal.documentType = this.documentation.documentType.id;
-      this.documentationLocal.notes = this.documentation.notes;
-      this.documentationLocal.resource = this.documentation.resource;
-      this.documentationLocal.tool = this.documentation.tool.id;
-    },
-    backToList() {
+    goBack() {
       this.$router.push("/catalogue/documentazione");
     }
+    /* onChange(event) {
+      this.tipologia = event.target.value;
+    } */
   },
   created() {
-    //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
-    this.$store
-      .dispatch("documentation/findById", this.$route.params.id)
-      .then(() => {
-        this.setOldValues();
-      });
+    //this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
   }

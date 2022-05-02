@@ -18,7 +18,6 @@ public class CreateToolRequest extends CreateBaseRequest {
 	private String tags;
 	private String version;
 	private Integer toolType;
-	private Integer service;	
 	private String requirements;	
 	private String download;	
 	private String licence;	

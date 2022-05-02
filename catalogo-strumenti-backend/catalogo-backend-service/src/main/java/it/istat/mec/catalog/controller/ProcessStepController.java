@@ -54,10 +54,24 @@ public class ProcessStepController {
 		return processStepService.updateProcessStep(request);
 	}
 	
+	@PutMapping(value = "/process-steps/{id_process_step}/step-instance/{id_step_instance}")
+	public ProcessStepDto addStepInstanceToProcessStep(@PathVariable("id_process_step") Integer id_process_step, 
+			@PathVariable("id_step_instance") Integer id_step_instance) {
+		
+		return processStepService.addStepInstanceToProcessStep(id_process_step, id_step_instance);
+	}
+	
 	@DeleteMapping(value = "/process-steps/{id}")
 	public ProcessStepDto deleteProcessStep(@PathVariable("id") Integer id) {
 
 		return processStepService.deleteProcessStep(id);
+	}
+	
+	@DeleteMapping(value = "/process-steps/{id_process_step}/step-instance/{id_step_instance}")
+	public ProcessStepDto deleteStepInstanceFromProcessStep(@PathVariable("id_process_step") Integer id_process_step, 
+	@PathVariable("id_step_instance") Integer id_step_instance) {
+
+		return processStepService.deleteStepInstanceFromProcessStep(id_process_step, id_step_instance);
 	}
  
 }

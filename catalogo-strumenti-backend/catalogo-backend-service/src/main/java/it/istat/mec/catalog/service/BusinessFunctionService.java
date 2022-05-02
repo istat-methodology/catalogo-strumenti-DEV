@@ -9,7 +9,9 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import it.istat.mec.catalog.dao.BusinessFunctionDao;
+import it.istat.mec.catalog.dao.BusinessProcessDao;
 import it.istat.mec.catalog.domain.BusinessFunction;
+import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
@@ -22,6 +24,8 @@ public class BusinessFunctionService {
 
 	@Autowired
 	BusinessFunctionDao businessFunctionDao;
+	@Autowired
+	BusinessProcessDao businessProcessDao;
 
 	public List<BusinessFunctionDto> findAllBusinessFunctions() {
 
@@ -85,12 +89,39 @@ public class BusinessFunctionService {
 
 		return Translators.translate(bs);
 	}
+	
+	public BusinessFunctionDto addProcessToBusinessFunction(Integer id_function, Integer id_process) {
+		
+		if (!businessFunctionDao.findById(id_function).isPresent())
+			throw new NoDataException("BusinessFunction not present");
+		BusinessFunction bs = businessFunctionDao.findById(id_function).get();		
+		if (!businessProcessDao.findById(id_process).isPresent())
+			throw new NoDataException("BusinessProcess not present");
+		BusinessProcess bp = businessProcessDao.findById(id_process).get();
+		
+		bs.getBusinessProcesses().add(bp);
+		businessFunctionDao.save(bs);
+		return Translators.translate(bs);
+	}
 
 	public BusinessFunctionDto deleteBusinessFunction(Integer id) {
 		if (!businessFunctionDao.findById(id).isPresent())
 			throw new NoDataException("BusinessFunction not present");
 		BusinessFunction bs = businessFunctionDao.findById(id).get();
 		businessFunctionDao.delete(bs);
+		return Translators.translate(bs);
+	}
+	
+	public BusinessFunctionDto deleteProcessFromBusinessFunction(Integer id_function, Integer id_process) {
+		if (!businessFunctionDao.findById(id_function).isPresent())
+			throw new NoDataException("BusinessFunction not present");
+		BusinessFunction bs = businessFunctionDao.findById(id_function).get();		
+		if (!businessProcessDao.findById(id_process).isPresent())
+			throw new NoDataException("BusinessProcess not present");
+		BusinessProcess bp = businessProcessDao.findById(id_process).get();
+		
+		bs.getBusinessProcesses().remove(bp);		
+		businessFunctionDao.save(bs);
 		return Translators.translate(bs);
 	}
 }
