@@ -8,17 +8,17 @@
           <CInput
             label="Nome"
             placeholder="Nome"
-            v-model="businessLocal.name"
+            v-model="businessFunctionLocal.name"
           />
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
-            v-model="businessLocal.descr"
+            v-model="businessFunctionLocal.descr"
           />
           <CInput
             label="Etichetta"
             placeholder="Etichetta"
-            v-model="businessLocal.label"
+            v-model="businessFunctionLocal.label"
           />
         </CCardBody>
       </CCard>
@@ -46,7 +46,7 @@ export default {
   name: "businessFunctionsAdd",
   data() {
     return {
-      businessLocal: {
+      businessFunctionLocal: {
         id: "0",
         name: "",
         descr: "",
@@ -56,12 +56,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("business", ["business"])
+    ...mapGetters("bFunction", ["bFunction"])
   },
   methods: {
     handleSubmit() {
       this.$store
-        .dispatch("business/save", this.businessLocal)
+        .dispatch("bFunction/save", this.businessFunctionLocal)
         .then(this.$router.push("/catalogue/businessfunctions"));
       /*   } */
     },
@@ -70,7 +70,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("business/findAll");
+    this.$store.dispatch("bFunction/findAll");
   }
 };
 </script>
