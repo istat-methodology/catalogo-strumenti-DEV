@@ -10,7 +10,9 @@ import it.istat.mec.catalog.domain.ProcessStep;
 @Repository
 public interface ProcessDesignDao extends JpaRepository<ProcessDesign, Integer> {
 	
-	List<ProcessDesign> findByProcessStep(ProcessStep processStep);
+	List<ProcessDesign> findAll();
+	
+	List<ProcessDesign> findByStep(ProcessStep step);
 
 	public void save(Optional<ProcessDesign> processDesign);
 
