@@ -18,6 +18,7 @@ import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.DocumentationType;
 import it.istat.mec.catalog.domain.GsbpmProcess;
+import it.istat.mec.catalog.domain.InformationObject;
 import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.domain.ProcessDesign;
 import it.istat.mec.catalog.domain.ProcessStep;
@@ -35,6 +36,7 @@ import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.DocumentationTypeDto;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
+import it.istat.mec.catalog.dto.InformationObjectDto;
 import it.istat.mec.catalog.dto.LinkAgentToolDto;
 import it.istat.mec.catalog.dto.ProcessDesignDto;
 import it.istat.mec.catalog.dto.ProcessStepDto;
@@ -51,6 +53,7 @@ import it.istat.mec.catalog.request.CreateBusinessProcessRequest;
 import it.istat.mec.catalog.request.CreateBusinessServiceRequest;
 import it.istat.mec.catalog.request.CreateDesktopApplicationRequest;
 import it.istat.mec.catalog.request.CreateDocumentationRequest;
+import it.istat.mec.catalog.request.CreateInformationObjectRequest;
 import it.istat.mec.catalog.request.CreateLinkAgentToolRequest;
 import it.istat.mec.catalog.request.CreateProcessDesignRequest;
 import it.istat.mec.catalog.request.CreateProcessStepRequest;
@@ -71,6 +74,13 @@ public class Translators {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final GSBPMProcessDto dTO = modelMapper.map(x, GSBPMProcessDto.class);
+		return dTO;
+	}
+	
+	public static InformationObjectDto translate(InformationObject x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final InformationObjectDto dTO = modelMapper.map(x, InformationObjectDto.class);
 		return dTO;
 	}
 	
@@ -281,6 +291,10 @@ public class Translators {
 	public static List<StepInstanceDto> translateSI(List<StepInstance> list) {
 		return mapList(list, StepInstanceDto.class);
 	}
+	
+	public static List<InformationObjectDto> translateIO(List<InformationObject> list) {
+		return mapList(list, InformationObjectDto.class);
+	}
 
 	public static List<DesktopApplicationDto> translateDA(List<DesktopApplication> list) {
 		return mapList(list, DesktopApplicationDto.class);
@@ -367,6 +381,13 @@ public class Translators {
 		final ModelMapper modelMapper = new ModelMapper();
 		final ProcessDesign pd = modelMapper.map(x, ProcessDesign.class);
 		return pd;
+	}
+	
+	public static InformationObject translate(CreateInformationObjectRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final InformationObject io = modelMapper.map(x, InformationObject.class);
+		return io;
 	}
 	
 	public static StepInstance translate(CreateStepInstanceRequest x) {
@@ -478,6 +499,13 @@ public class Translators {
 		modelMapper.map(x, si);
 
 		return si;
+	}
+	
+	public static InformationObject translateUpdate(CreateInformationObjectRequest x, InformationObject io) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, io);
+
+		return io;
 	}
 
 	public static Agent translateUpdate(CreateAgentRequest x, Agent agent) {

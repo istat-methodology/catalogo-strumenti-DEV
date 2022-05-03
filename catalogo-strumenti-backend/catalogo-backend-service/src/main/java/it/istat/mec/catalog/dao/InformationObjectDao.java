@@ -10,6 +10,8 @@ import it.istat.mec.catalog.domain.InformationObject;
 @Repository
 public interface InformationObjectDao extends JpaRepository<InformationObject, Integer> {
 	
+	List<InformationObject> findAll();
+	
 	List<InformationObject> findByBusinessService(BusinessService businessService);
 
 	public void save(Optional<InformationObject> informationObject);
