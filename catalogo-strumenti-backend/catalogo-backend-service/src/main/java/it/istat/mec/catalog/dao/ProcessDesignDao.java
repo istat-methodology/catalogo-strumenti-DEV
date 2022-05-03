@@ -4,7 +4,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import it.istat.mec.catalog.domain.ProcessDesign;
-import it.istat.mec.catalog.domain.ProcessStep;
 
 
 @Repository
@@ -12,7 +11,7 @@ public interface ProcessDesignDao extends JpaRepository<ProcessDesign, Integer> 
 	
 	List<ProcessDesign> findAll();
 	
-	List<ProcessDesign> findByStep(ProcessStep step);
+	List<ProcessDesign> findByStep(Integer id_step);
 
 	public void save(Optional<ProcessDesign> processDesign);
 

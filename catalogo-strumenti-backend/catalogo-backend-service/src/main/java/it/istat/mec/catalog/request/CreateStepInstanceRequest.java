@@ -1,5 +1,6 @@
 package it.istat.mec.catalog.request;
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,11 +9,9 @@ import lombok.NoArgsConstructor;
 public class CreateStepInstanceRequest implements Serializable  {
 
 	
-	private static final long serialVersionUID = -3888879913264397676L;
+	private static final long serialVersionUID = -5844676942420048218L;
 	private Integer id;	
-	private String method;	
-	private String statMethod;	
-	private String descr;		
-	private String functionality;	
-	private String appServiceId;
+	private String name;	
+	private String desc;
+
 }

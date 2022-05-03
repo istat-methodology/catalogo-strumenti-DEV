@@ -19,6 +19,7 @@ import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.DocumentationType;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.LinkAgentTool;
+import it.istat.mec.catalog.domain.ProcessDesign;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.domain.SoftwareProcedure;
 import it.istat.mec.catalog.domain.StatisticalMethod;
@@ -35,6 +36,7 @@ import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.DocumentationTypeDto;
 import it.istat.mec.catalog.dto.GSBPMProcessDto;
 import it.istat.mec.catalog.dto.LinkAgentToolDto;
+import it.istat.mec.catalog.dto.ProcessDesignDto;
 import it.istat.mec.catalog.dto.ProcessStepDto;
 import it.istat.mec.catalog.dto.ProcessStepInverseDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
@@ -50,6 +52,7 @@ import it.istat.mec.catalog.request.CreateBusinessServiceRequest;
 import it.istat.mec.catalog.request.CreateDesktopApplicationRequest;
 import it.istat.mec.catalog.request.CreateDocumentationRequest;
 import it.istat.mec.catalog.request.CreateLinkAgentToolRequest;
+import it.istat.mec.catalog.request.CreateProcessDesignRequest;
 import it.istat.mec.catalog.request.CreateProcessStepRequest;
 import it.istat.mec.catalog.request.CreateSoftwareProcedureRequest;
 import it.istat.mec.catalog.request.CreateStatisticalMethodRequest;
@@ -68,6 +71,13 @@ public class Translators {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final GSBPMProcessDto dTO = modelMapper.map(x, GSBPMProcessDto.class);
+		return dTO;
+	}
+	
+	public static ProcessDesignDto translate(ProcessDesign x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final ProcessDesignDto dTO = modelMapper.map(x, ProcessDesignDto.class);
 		return dTO;
 	}
 
@@ -260,6 +270,10 @@ public class Translators {
 		return mapList(list, ProcessStepDto.class);
 	}
 	
+	public static List<ProcessDesignDto> translatePD(List<ProcessDesign> list) {
+		return mapList(list, ProcessDesignDto.class);
+	}
+	
 	public static List<ProcessStepInverseDto> translateProcessStepInverse(List<ProcessStep> list) {
 		return mapList(list, ProcessStepInverseDto.class);
 	}
@@ -348,6 +362,13 @@ public class Translators {
 		return ps;
 	}
 	
+	public static ProcessDesign translate(CreateProcessDesignRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final ProcessDesign pd = modelMapper.map(x, ProcessDesign.class);
+		return pd;
+	}
+	
 	public static StepInstance translate(CreateStepInstanceRequest x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
@@ -415,6 +436,13 @@ public class Translators {
 		modelMapper.map(x, tool);
 
 		return tool;
+	}
+	
+	public static ProcessDesign translateUpdate(CreateProcessDesignRequest x, ProcessDesign pd) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, pd);
+
+		return pd;
 	}
 	
 	public static BusinessService translateUpdate(CreateBusinessServiceRequest x, BusinessService bs) {
