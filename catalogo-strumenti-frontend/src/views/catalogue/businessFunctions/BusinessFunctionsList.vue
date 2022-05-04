@@ -169,7 +169,6 @@ export default {
     deleteBusiness() {
       this.$store
         .dispatch("bFunction/delete", this.selectedBusiness.id)
-        .then(this.$router.push("/catalogue/businessfunctions"))
         .catch(() => {});
       this.warningModal = false;
     },
