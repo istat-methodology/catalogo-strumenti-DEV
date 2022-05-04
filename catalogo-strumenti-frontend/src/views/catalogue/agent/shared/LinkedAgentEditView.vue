@@ -197,6 +197,7 @@ export default {
       },
     };
   },
+  emits: ["refreshTool"],
   computed: {
     ...mapGetters("agent", ["agentList"]),
     ...mapGetters("linkedagent", ["linkedAgentList"]),
@@ -223,10 +224,6 @@ export default {
   components: {
     "app-agent-add": AgentAdd,
   },
-  mounted() {
-    this.updateLinkedAgentList();
-  },
-
   methods: {
     updateAgentList() {
       this.$store.dispatch("agent/findAll");
@@ -265,19 +262,19 @@ export default {
         referenceDate: selectedUpdateLinkedAgent.referenceDate,
       };
 
-      console.log(updateLinkedAgent);
       this.$store
         .dispatch("linkedagent/update", updateLinkedAgent)
-        .then(this.updateLinkedAgentList());
+        .then(this.loadLinkedAgentList());
     },
     handleDeleteLinkedAgent() {
       this.$store
         .dispatch("linkedagent/delete", this.selectedLinkedAgent.id)
-        .then(this.updateLinkedAgentList());
+        .then(this.loadLinkedAgentList());
       this.selectedLinkedAgent = null;
       this.warningModal = false;
     },
-    updateLinkedAgentList() {
+    loadLinkedAgentList() {
+      alert("pippo");
       this.$store
         .dispatch("linkedagent/findByCatalogTool", this.toolId)
         .then((this.states = Array(this.linkedAgentList.length).fill(true)));
@@ -291,7 +288,7 @@ export default {
       this.warningModal = false;
     },
   },
-  name: "LinkedAgentView",
+  name: "LinkedAgentEditView",
   props: {
     toolId: {
       type: Number,
@@ -300,7 +297,7 @@ export default {
     },
   },
   created() {
-    this.updateLinkedAgentList();
+    this.loadLinkedAgentList();
   },
 };
 </script>

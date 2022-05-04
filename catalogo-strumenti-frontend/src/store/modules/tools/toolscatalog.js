@@ -55,7 +55,7 @@ const actions = {
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_TOOL", data);
+       commit("SET_TOOL", data);
         return data;
       })
       .catch(err => {
