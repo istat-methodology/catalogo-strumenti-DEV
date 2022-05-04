@@ -23,8 +23,10 @@ import { documentation } from "./modules/documentation/documentation";
 import { documentationType } from "./modules/documentationType/documentationType";
 import { bFunction } from "./modules/businessFunctions/businessFunctions";
 import { agent } from "./modules/agent/agentTools";
+import { appservice } from "./modules/appservice/appservice";
 import { linkedagent } from "./modules/linkedAgent/linkedAgentTools";
 import { businessService } from "./modules/service/businessService";
+
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
 import { pivot } from "./modules/report/pivot";
@@ -41,6 +43,7 @@ export default new Vuex.Store({
     documentation,
     agent,
     linkedagent,
+    appservice,
     bFunction,
     businessService,
     documentationType,

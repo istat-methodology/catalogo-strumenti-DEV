@@ -11,3 +11,4 @@ export * from "./businessFunctions/businessFunctions.service";
 export * from "./agent/agent.service";
 export * from "./linkedagent/linkedagent.service";
 export * from "./service/businessService.service";
+export * from "./appservice/appservice.service";
