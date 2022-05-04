@@ -82,9 +82,9 @@
             </div>
           </div>
         </div>
-        <div v-if="businessServiceService.appServices">
+        <div v-if="businessService.appServices">
           <div
-            v-for="(appService, index) of businessServiceService.appServices"
+            v-for="(appService, index) of this.businessService.appServices"
             :key="appService.id"
           >
             Funzionalità : {{ appService.name }} # {{ index + 1 }}
@@ -221,10 +221,10 @@
 export default {
   name: "BusinessServiceEditView",
   props: {
-    businessServiceService: {
+    businessService: {
       type: Object,
       required: true,
-      default: () => []
+      default: () => {}
     }
   },
   data() {
@@ -239,7 +239,7 @@ export default {
         implementationLanguage: "",
         sourcePath: "",
         licence: "",
-        businessService:this.businessServiceService.id
+        businessService:this.businessService.id
       },
       fields: [
         {
@@ -275,11 +275,10 @@ export default {
       });
     },
     handleNewAppService: function () {
-      this.newAppService.businessService=this.businessServiceService.id;
-       this.$store
-        .dispatch("documentation/save", this.documentationLocal)
-        .then(this.$router.push("/catalogue/documentazione"));
-
+      this.newAppService.businessService=this.businessService.appServices.length+1;
+    //   this.newAppService.businessService=this.tool.businessService.id;
+    //   this.$store        .dispatch("documentation/save", this.documentationLocal)    .then(this.$router.push("/catalogue/documentazione"));
+this.businessService.appServices.push(this.newAppService);
         },
   },
 };

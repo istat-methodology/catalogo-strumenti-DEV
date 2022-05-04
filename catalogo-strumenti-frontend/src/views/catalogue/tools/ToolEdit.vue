@@ -243,8 +243,8 @@
             <template #title>
               <span>Funzionalità</span>
             </template>
-
-            <app-edit-business-service :businessServiceService="businessServiceService"></app-edit-business-service>
+ 
+            <app-edit-business-service :businessService="businessServiceService"></app-edit-business-service>
           </CTab>
 
           <CTab>
@@ -345,6 +345,9 @@ export default {
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
+        ...mapGetters("businessService", {
+      businessServiceService: "businessService"
+    }),
     ...mapGetters("documentation", ["documentationList"]),
     getGsbpmList: function () {
       return this.gsbpmList.map((gsbpm) => {
@@ -575,6 +578,12 @@ export default {
     },
     loadTool() {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
+        if (this.tool && this.tool.businessService) {
+        this.$store.dispatch(
+          "businessService/findById",
+          this.tool.businessService.id
+        );
+        }
         this.setOldValues();
         this.setCheckedNodesGsbpm();
         this.setCheckedNodesMethods();
