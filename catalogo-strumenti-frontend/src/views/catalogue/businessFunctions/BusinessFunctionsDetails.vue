@@ -27,7 +27,7 @@
           </div>
         </CCardBody>
       </CCard>
-      <CCard v-if="this.business">
+      <CCard v-if="this.bFunction">
         <CCardHeader>Elenco Processi</CCardHeader>
         <CCardBody>
           <app-process-agent
