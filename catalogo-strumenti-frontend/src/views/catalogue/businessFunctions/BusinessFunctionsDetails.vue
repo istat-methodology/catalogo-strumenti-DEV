@@ -49,7 +49,7 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
-import BusinessProcess from "@/components/BusinessProcess";
+import BusinessProcess from "../businessProcesses/shared/BusinessProcess";
 import { Context } from "@/common";
 //import { Context } from "@/common";
 export default {
