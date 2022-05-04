@@ -134,8 +134,8 @@ export default {
     businessServiceService: {
       type: Object,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   data() {
     return {
@@ -143,37 +143,37 @@ export default {
       fields: [
         {
           key: "functionality",
-          label: "functionality",
+          label: "functionality"
         },
         {
           key: "method",
-          label: "method",
+          label: "method"
         },
         {
           key: "statMethodName",
-          label: "statMethod",
+          label: "statMethod"
         },
         {
           key: "descr",
-          label: "descr",
-        },
-      ],
+          label: "descr"
+        }
+      ]
     };
   },
   methods: {
-    getStepInstancesList: function (stepInstances) {
-      return stepInstances.map((stepInstance) => {
+    getStepInstancesList: function(stepInstances) {
+      return stepInstances.map(stepInstance => {
         return {
           id: stepInstance.id,
           functionality: stepInstance.functionality,
           method: stepInstance.method,
           descr: stepInstance.descr,
           statMethodName: stepInstance.statMethod.name,
-          statMethodId: stepInstance.statMethod.id,
+          statMethodId: stepInstance.statMethod.id
         };
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

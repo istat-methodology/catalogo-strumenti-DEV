@@ -4,22 +4,29 @@
       <CCardHeader>Funzionalità</CCardHeader>
       <CCardBody>
         <div>
-     
-        <span
-          class="icon-link float-right"
-          @click="viewNewAppService = !viewNewAppService"
-         title="Aggiungi un nuovo d un referente"
-            v-if="!viewNewAppService"><plus-icon/>Nuova implemetazione</span>   <span  title="Annulla"   class="icon-link float-right"  @click="viewNewAppService = !viewNewAppService"
-            v-if="viewNewAppService"> <undo-icon/>Chiudi</span>
-      </div>
-
+          <span
+            class="icon-link float-right"
+            @click="viewNewAppService = !viewNewAppService"
+            title="Aggiungi un nuovo d un referente"
+            v-if="!viewNewAppService"
+            ><plus-icon />Nuova implemetazione</span
+          >
+          <span
+            title="Annulla"
+            class="icon-link float-right"
+            @click="viewNewAppService = !viewNewAppService"
+            v-if="viewNewAppService"
+          >
+            <undo-icon />Chiudi</span
+          >
+        </div>
 
         <div v-if="businessServiceService.appServices">
           <div
             v-for="(appService, index) of businessServiceService.appServices"
             :key="appService.id"
           >
-         Funzionalità : {{ appService.name }} # {{ index + 1 }}
+            Funzionalità : {{ appService.name }} # {{ index + 1 }}
             <div class="card w-100">
               <div class="card-body">
                 <!-- appservices -->
@@ -139,7 +146,6 @@
         </div>
 
         <div v-else>
-  
           <div class="card w-100">
             <div class="card-body">Nessuna funzionalità definita</div>
           </div>
@@ -157,8 +163,8 @@ export default {
     businessServiceService: {
       type: Object,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   data() {
     return {
@@ -167,37 +173,37 @@ export default {
       fields: [
         {
           key: "functionality",
-          label: "Funzionalità",
+          label: "Funzionalità"
         },
         {
           key: "method",
-          label: "Metodo",
+          label: "Metodo"
         },
         {
           key: "statMethodName",
-          label: "Metodo Statistico",
+          label: "Metodo Statistico"
         },
         {
           key: "descr",
-          label: "Descrizione",
-        },
-      ],
+          label: "Descrizione"
+        }
+      ]
     };
   },
   methods: {
-    getStepInstancesList: function (stepInstances) {
-      return stepInstances.map((stepInstance) => {
+    getStepInstancesList: function(stepInstances) {
+      return stepInstances.map(stepInstance => {
         return {
           id: stepInstance.id,
           functionality: stepInstance.functionality,
           method: stepInstance.method,
           descr: stepInstance.descr,
           statMethodName: stepInstance.statMethod.name,
-          statMethodId: stepInstance.statMethod.id,
+          statMethodId: stepInstance.statMethod.id
         };
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
@@ -245,7 +251,7 @@ body {
 /* Style the counter cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-  
+
   text-align: left;
   background-color: #f1f1f1;
   margin-left: 5px;
