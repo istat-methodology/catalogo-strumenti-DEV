@@ -404,7 +404,7 @@ export default {
     getDocumentation: function () {
     
       if (this.tool)
-       { alert(this.tool.documentations.length);
+       {
         return this.tool.documentations.map((doc) => {
           return {
             id: doc.id,

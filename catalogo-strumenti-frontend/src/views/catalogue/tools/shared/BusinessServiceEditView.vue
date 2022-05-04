@@ -4,22 +4,90 @@
       <CCardHeader>Funzionalità</CCardHeader>
       <CCardBody>
         <div>
-     
-        <span
-          class="icon-link float-right"
-          @click="viewNewAppService = !viewNewAppService"
-         title="Aggiungi un nuovo d un referente"
-            v-if="!viewNewAppService"><plus-icon/>Nuova implemetazione</span>   <span  title="Annulla"   class="icon-link float-right"  @click="viewNewAppService = !viewNewAppService"
-            v-if="viewNewAppService"> <undo-icon/>Chiudi</span>
-      </div>
+          <span
+            class="icon-link float-right"
+            @click="viewNewAppService = !viewNewAppService"
+            title="Aggiungi un nuovo d un referente"
+            v-if="!viewNewAppService"
+            ><plus-icon />Nuova implemetazione</span
+          >
+  
+        </div>
+        <div v-if="viewNewAppService">
+          <div class="card">
+            <div class="card-header">Nuova implementazione
+  <div class="card-header-actions">
+            <span v-if="viewNewAppService">
+            <span title="Salva" class="icon-link float-right"  @click.prevent="handleNewAppService">
+              <success-icon
+            /></span>
+            <span
+              title="Annulla"
+              class="icon-link float-right"
+              @click="viewNewAppService = !viewNewAppService"
+            >
+              <undo-icon /></span
+          ></span>
+  </div> 
 
 
+            </div>
+            <div class="card-body">
+              <CInput
+                class="col-6"
+                label="Nome"
+                placeholder="Nome"
+                v-model="newAppService.name"
+              />
+              <CTextarea
+                class="col-12"
+                label="Descrizione"
+                v-model="newAppService.descr"
+              ></CTextarea>
+              <div class="row">
+                <CInput
+                  class="col-6"
+                  label="Autore"
+                  placeholder="Autore"
+                  v-model="newAppService.author"
+                />
+                <CInput
+                  class="col-6"
+                  label="Contatto"
+                  placeholder="Contatto"
+                  v-model="newAppService.contact"
+                />
+              </div>
+              <div class="row">
+                <CInput
+                  class="col-4"
+                  label="Linguaggio"
+                  placeholder="Note"
+                  v-model="newAppService.implementationLanguage"
+                />
+
+                <CInput
+                  class="col-8"
+                  label="File Sorgente"
+                  placeholder="File Sorgente"
+                  v-model="newAppService.sourcePath"
+                />
+              </div>
+              <CInput
+                class="col-6"
+                label="Licenza"
+                placeholder="Licenza"
+                v-model="newAppService.licence"
+              />  
+            </div>
+          </div>
+        </div>
         <div v-if="businessServiceService.appServices">
           <div
             v-for="(appService, index) of businessServiceService.appServices"
             :key="appService.id"
           >
-         Funzionalità : {{ appService.name }} # {{ index + 1 }}
+            Funzionalità : {{ appService.name }} # {{ index + 1 }}
             <div class="card w-100">
               <div class="card-body">
                 <!-- appservices -->
@@ -139,7 +207,6 @@
         </div>
 
         <div v-else>
-  
           <div class="card w-100">
             <div class="card-body">Nessuna funzionalità definita</div>
           </div>
@@ -164,6 +231,16 @@ export default {
     return {
       disabled: false,
       viewNewAppService: false,
+      newAppService: {
+        name: "",
+        descr: "",
+        author: "",
+        contact: "",
+        implementationLanguage: "",
+        sourcePath: "",
+        licence: "",
+        businessService:this.businessServiceService.id
+      },
       fields: [
         {
           key: "functionality",
@@ -197,6 +274,13 @@ export default {
         };
       });
     },
+    handleNewAppService: function () {
+      this.newAppService.businessService=this.businessServiceService.id;
+       this.$store
+        .dispatch("documentation/save", this.documentationLocal)
+        .then(this.$router.push("/catalogue/documentazione"));
+
+        },
   },
 };
 </script>
@@ -245,7 +329,7 @@ body {
 /* Style the counter cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-  
+
   text-align: left;
   background-color: #f1f1f1;
   margin-left: 5px;
