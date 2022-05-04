@@ -30,7 +30,7 @@
       <CCard v-if="this.bFunction">
         <CCardHeader>Elenco Processi</CCardHeader>
         <CCardBody>
-          <app-process-agent
+          <app-business-process
             v-for="item in getBusinessProcesses"
             :key="item.id"
             :name="item.name"
@@ -40,7 +40,7 @@
             :parent="item.parent"
             :processSteps="item.processSteps"
           >
-          </app-process-agent>
+          </app-business-process>
         </CCardBody>
       </CCard>
     </div>
@@ -55,7 +55,7 @@ import { Context } from "@/common";
 export default {
   name: "BusinessFunctionsDetails",
   components: {
-    "app-process-agent": BusinessProcess
+    "app-business-process": BusinessProcess
   },
   data() {
     return {
