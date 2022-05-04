@@ -89,7 +89,7 @@ const actions = {
     return businessService
       .delete(id)
       .then(() => {
-        //dispatch("findAll");
+        dispatch("findAll");
         dispatch("message/success", "Business Function eliminata!");
       })
       .catch(err => {
