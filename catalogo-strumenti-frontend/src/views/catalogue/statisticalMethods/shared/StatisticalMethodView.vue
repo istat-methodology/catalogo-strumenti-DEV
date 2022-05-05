@@ -2,36 +2,32 @@
   <div>
     <h2>Metodi statistici</h2>
 
-    <div class="card w-100">
-      <div class="card-body">
-        <div class="columns">
-          <div class="row">
-            <div  v-if="statisticalMethods.length===0">
-               <span>Nessun metodo statitico associato</span>
+    <div class="columns">
+      <div class="row">
+        <div v-if="statisticalMethods.length === 0">
+          <span>Nessun metodo statitico associato</span>
+        </div>
+        <div
+          class="card col-3"
+          v-for="statisticalMethod of statisticalMethods"
+          :key="statisticalMethod.id"
+        >
+          <div class="card-header">
+            <strong>{{ statisticalMethod.name }}</strong>
+            <div class="card-header-actions">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'StatisticalMethodView',
+                  params: { id: statisticalMethod.id },
+                }"
+              >
+                <view-icon />
+              </router-link>
             </div>
-            <div  
-              class="card col-3"
-              v-for="statisticalMethod of statisticalMethods"
-              :key="statisticalMethod.id"
-            >
-              <div class="card-header">
-                <strong>{{ statisticalMethod.name }}</strong>
-                <div class="card-header-actions">
-                  <router-link
-                    tag="a"
-                    :to="{
-                      name: 'StatisticalMethodView',
-                      params: { id: statisticalMethod.id },
-                    }"
-                  >
-                    <view-icon />
-                  </router-link>
-                </div>
-              </div>
-              <div class="card-body">
-                <p class="card-text">{{ statisticalMethod.description }}</p>
-              </div>
-            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ statisticalMethod.description }}</p>
           </div>
         </div>
       </div>

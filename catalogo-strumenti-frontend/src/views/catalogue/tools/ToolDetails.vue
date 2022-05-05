@@ -174,6 +174,79 @@
         ></app-business-service>
       </div>
 
+      <!--div
+        v-if="businessServiceService.processSteps"
+        @mouseover="setActiveItemList('#id-link-functionalities', true)"
+        @mouseleave="setActiveItemList('#id-link-functionalities', false)"
+      >
+        <h2>Funzionalità</h2>
+        <CCard id="id-card-functionalities">
+          <CCardBody>
+            <div>
+              <div
+                v-for="(item, index) in businessServiceService.processSteps"
+                :key="item.name"
+              >
+                <div @click="setActiveIndex(index)">
+                  <ul class="list-group list-group-horizontal">
+                    <li class="col-2 list-group-item">
+                      <minus-icon v-if="index == isActiveIndex" /><plus-icon
+                        v-if="index !== isActiveIndex"
+                      />
+                      {{ item.name }}
+                    </li>
+                    <li class="col-10 list-group-item">{{ item.descr }}</li>
+                  </ul>
+                  <ul
+                    class="list-group list-group-horizontal list-group-active"
+                    v-if="index == isActiveIndex"
+                  >
+                    <li class="col-12 list-group-item">
+                      <div>
+                        <ul class="list-group list-group-horizontal">
+                          <li class="list-group-item col-2 center bold">
+                            DesignType
+                          </li>
+                          <li class="list-group-item col-10 center bold">
+                            information Object
+                          </li>
+                        </ul>
+                        <ul class="list-group list-group-horizontal">
+                          <li class="list-group-item col-2 center bold">
+                            Type
+                          </li>
+                          <li class="list-group-item col-2 center bold">
+                            Name
+                          </li>
+                          <li class="list-group-item col-8 center bold">
+                            Description
+                          </li>
+                        </ul>
+                        <ul
+                          v-for="item in item.processDesigns"
+                          :key="item.id"
+                          class="list-group list-group-horizontal"
+                        >
+                          <li class="list-group-item list-group-active-item col-2">
+                            {{ item.id }} . {{ item.designType.type }}
+                          </li>
+                          <li class="list-group-item list-group-active-item col-2">
+                            F {{ item.informationObject.name }}
+                          </li>
+                          <li class="list-group-item list-group-active-item col-8">
+                            {{ item.informationObject.descr }}
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </CCardBody>
+        </CCard>
+      </div-->
+
       <!--  process  -->
       <div
         v-if="businessServiceService.processSteps"
@@ -243,7 +316,7 @@
               class="item-link"
               @mouseover="setActiveCard('#id-card-functionalities', true)"
               @mouseleave="setActiveCard('#id-card-functionalities', false)"
-              >Funzionalità</a
+              >Implementazione</a
             >
           </li>
           <li class="list-item" id="id-link-process">
@@ -492,6 +565,8 @@ export default {
     isActiveIndex() {
       return this.activeIndex;
     }
+
+
   },
   components: {
     "app-documentations": DocumentationView,
@@ -545,4 +620,5 @@ export default {
   display: inline;
   padding-left: 6px;
 }
+
 </style>
