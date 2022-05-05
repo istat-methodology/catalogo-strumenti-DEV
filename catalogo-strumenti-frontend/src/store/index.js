@@ -24,6 +24,7 @@ import { documentationType } from "./modules/documentationType/documentationType
 import { bFunction } from "./modules/businessFunctions/businessFunctions";
 import { agent } from "./modules/agent/agentTools";
 import { appservice } from "./modules/appservice/appservice";
+import { stepinstance } from "./modules/stepinstance/stepInstanceService";
 import { linkedagent } from "./modules/linkedAgent/linkedAgentTools";
 import { businessService } from "./modules/service/businessService";
 
@@ -44,6 +45,7 @@ export default new Vuex.Store({
     agent,
     linkedagent,
     appservice,
+    stepinstance,
     bFunction,
     businessService,
     documentationType,

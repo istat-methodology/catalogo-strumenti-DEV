@@ -152,54 +152,10 @@
                 <!--div class="card-body"-->
                 <!-- @start Condition to show filtrable table if results are more then 5 lines-->
                 <div  v-if="appService.stepInstances">
-                 <app-functionality-table :statisticalMethods="getStepInstancesList(appService.stepInstances)"></app-functionality-table> 
-                <div
-                  class="table-responsive"
-                  v-if="appService.stepInstances.length > 20"
-                >
-                  <CDataTable
-                    :items="getStepInstancesList(appService.stepInstances)"
-                    :fields="fields"
-                    column-filter
-                    table-filter
-                    items-per-page-select
-                    :items-per-page="5"
-                    hover
-                    sorter
-                    pagination
-                  >
-                  </CDataTable>
-                </div>
-                <!-- @end Condition to show filtrable table if results are more then 5 lines-->
-                <table
-                  class="table table-hover"
-                  v-if="appService && appService.stepInstances.length < 20"
-                >
-                  <thead>
-                    <tr>
-                      <th scope="col">Funzionalità</th>
-                      <th scope="col">Metodo</th>
-                      <th scope="col">Metodo Statistico</th>
-                      <th scope="col">Descrizione</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="item in getStepInstancesList(
-                        appService.stepInstances
-                      )"
-                      :key="item.id"
-                    >
-                      <td>{{ item.functionality }}</td>
-                      <td>{{ item.method }}</td>
-                      <td>{{ item.statMethodName }}</td>
-                      <td>{{ item.descr }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                 <app-functionality-table :statisticalMethodsList="statisticalMethodsList" :stepInstances="getStepInstancesList(appService.stepInstances)"></app-functionality-table> 
                  </div>
                 <span
-                  v-if="!appService.stepInstances"
+                  v-else
                   class="default-value card-body"
                 >
                   Nessuna funzionalità definita
@@ -222,6 +178,7 @@
 </template>
 <script>
 import FunctionalityTable from "./FunctionalityTable.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "BusinessServiceEditView",
     components: {
@@ -234,6 +191,10 @@ export default {
       default: () => {}
     }
   },
+   computed: {
+   
+    ...mapGetters("methods", ["statisticalMethodsList"])
+      },
   data() {
     return {
       disabled: false,

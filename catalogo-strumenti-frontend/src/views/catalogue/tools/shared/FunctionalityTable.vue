@@ -1,13 +1,17 @@
 <template>
-  <div class="table-container">
-    <b-button variant="success" @click="handleAdd()">Add</b-button>
+  <div  v-if="statisticalMethodsList">
+    <b-button variant="success" @click="handleAdd()">Nuova funzionalità</b-button>
+         <div
+                  class="table-responsive"
+                
+                >
     <b-editable-table
       disableDefaultEdit
       :rowUpdate="rowUpdate"
       :editMode="'row'"
       bordered
       class="editable-table"
-      v-model="items"
+      v-model="stepInstancesLocal"
       :fields="fields"
     >
       <template #cell(isActive)="data">
@@ -35,9 +39,7 @@
         ></BIconTrash>
       </template>
     </b-editable-table>
-    <pre>
-      {{ items }}
-    </pre>
+  </div>   
   </div>
 </template>
 
@@ -52,7 +54,7 @@ import {
   BButton,
 } from "bootstrap-vue";
 export default {
-      name: "FunctionalityTable",
+  name: "FunctionalityTable",
   components: {
     BEditableTable,
     BIconX,
@@ -61,15 +63,22 @@ export default {
     BIconCheck,
     BButton,
   },
-    props: {
-    statisticalMethods: {
+
+  props: {
+    stepInstances: {
       type: Array,
       required: true,
-      default: () =>[]
-    }
+      default: () => [],
+    },
+     statisticalMethodsList: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
   },
   data() {
     return {
+        stepInstancesLocal:[],
       fields: [
         {
           key: "functionality",
@@ -78,16 +87,16 @@ export default {
           editable: true,
           placeholder: "Nome funzionalità...",
           class: "name-col",
-          validate: this.validateName
+          validate: this.validateName,
         },
-         {
+        {
           key: "method",
           label: "Metodo",
           type: "text",
           editable: true,
           placeholder: "Nome metodo...",
           class: "name-col",
-          validate: this.validateName
+          validate: this.validateName,
         },
         {
           key: "statMethodName",
@@ -95,26 +104,36 @@ export default {
           type: "select",
           editable: true,
           class: "department-col",
-          options:"statisticalMethods",
-             
+          options: this.getStatisticalMethodsOptions(),
         },
-         {
+        {
           key: "descr",
           label: "Descrizione",
           type: "text",
           editable: true,
           placeholder: "Descrizione...",
           class: "name-col",
-          validate: this.validateName
+          validate: this.validateName,
         },
-        
+
         { key: "edit", label: "" },
-          { key: "delete", label: "" },
+        { key: "delete", label: "" },
       ],
       rowUpdate: {},
     };
   },
   methods: {
+    getStatisticalMethodsOptions: function () {
+      console.log(this.statisticalMethodsList);
+      if (this.statisticalMethodsList)
+        return this.statisticalMethodsList.map((method) => {
+          return {
+            value: method.id,
+            text: method.name,
+          };
+        });
+      else return [];
+    },
     handleAdd() {
       const newId = Date.now();
       this.rowUpdate = {
@@ -123,11 +142,11 @@ export default {
         action: "add",
         data: {
           id: newId,
-          age: null,
-          name: "",
-          department: 1,
-          dateOfBirth: null,
-          isActive: false,
+          functionality: "",
+          method: "",
+          statMethodName: -1,
+          descr: "",
+         
         },
       };
     },
@@ -145,14 +164,17 @@ export default {
       this.rowUpdate = { id: data.id, action: "delete" };
     },
     validateName(value) {
-        if (value === '') {
-          return {
-            valid: false,
-            errorMessage: 'Please enter name'
-          }
-        }
-        return {valid: true};
-      },
+      if (value === "") {
+        return {
+          valid: false,
+          errorMessage: "Please enter name",
+        };
+      }
+      return { valid: true };
+    },
+  },
+ created() {
+ this.stepInstancesLocal=this.stepInstances;
   },
 };
 </script>
