@@ -245,9 +245,7 @@ export default {
       this.$store
         .dispatch("linkedagent/save", this.newLinkedAgent)
         .then(
-         // setTimeout(200)
-         this.loadLinkedAgentList()
-         
+         this.loadLinkedAgentList() 
         );
       this.viewNewAgent = false;
     },

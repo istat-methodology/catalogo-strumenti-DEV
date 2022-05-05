@@ -1,7 +1,7 @@
 <template>
   <div>
     <CCard>
-      <CCardHeader>Funzionalità</CCardHeader>
+      <CCardHeader>Implementazioni e funzionalità</CCardHeader>
       <CCardBody>
         <div>
           <span
@@ -152,6 +152,7 @@
                 <!--div class="card-body"-->
                 <!-- @start Condition to show filtrable table if results are more then 5 lines-->
                 <div  v-if="appService.stepInstances">
+                 <app-functionality-table :statisticalMethods="getStepInstancesList(appService.stepInstances)"></app-functionality-table> 
                 <div
                   class="table-responsive"
                   v-if="appService.stepInstances.length > 20"
@@ -220,8 +221,12 @@
   </div-->
 </template>
 <script>
+import FunctionalityTable from "./FunctionalityTable.vue";
 export default {
   name: "BusinessServiceEditView",
+    components: {
+    "app-functionality-table": FunctionalityTable,
+   },
   props: {
     businessService: {
       type: Object,
@@ -281,6 +286,7 @@ export default {
     //   this.newAppService.businessService=this.tool.businessService.id;
     //   this.$store        .dispatch("documentation/save", this.documentationLocal)    .then(this.$router.push("/catalogue/documentazione"));
 this.businessService.appServices.push(this.newAppService);
+this.viewNewAppService=false;
         },
   },
 };

@@ -243,6 +243,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import _ from "lodash";
 import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
 
@@ -454,7 +455,7 @@ export default {
     backToList() {
       this.$router.push("/catalogue/tools");
     },
-    loadTool() {
+    loadTool:_.debounce(function ()  {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
         this.loadBusinessService();
         this.setOldValues();
@@ -462,7 +463,7 @@ export default {
         this.setCheckedNodesMethods();
         this.setCheckedNodesDocumentation();
       });
-    },
+    },500),
     loadBusinessService() {
       if (this.tool && this.tool.businessService) {
         this.$store.dispatch(
