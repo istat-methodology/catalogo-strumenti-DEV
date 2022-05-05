@@ -1,8 +1,13 @@
 package it.istat.mec.catalog.service;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.istat.mec.catalog.dao.BusinessServiceDao;
 import it.istat.mec.catalog.dao.InformationObjectDao;
+import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.InformationObject;
 import it.istat.mec.catalog.dto.InformationObjectDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -14,6 +19,8 @@ public class InformationObjectService {
 
 	@Autowired
 	InformationObjectDao informationObjectDao;
+	@Autowired
+	BusinessServiceDao businessServiceDao;
 
 	public List<InformationObjectDto> findAllInformationObjects() {
 		
@@ -24,6 +31,12 @@ public class InformationObjectService {
 	public InformationObjectDto newInformationObject(CreateInformationObjectRequest request) {
 		InformationObject io = new InformationObject();
 		io = Translators.translate(request);		
+		io.setCsmAppRoleId("999");
+		
+		BusinessService businessService = new BusinessService();		
+		businessService = businessServiceDao.findById(Integer.parseInt(request.getBusinessService())).get();
+		io.setBusinessService(businessService);
+		
 		informationObjectDao.save(io);
 		return Translators.translate(io);
 	}

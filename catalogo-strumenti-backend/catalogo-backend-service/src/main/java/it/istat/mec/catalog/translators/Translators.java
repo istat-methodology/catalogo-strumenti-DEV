@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import it.istat.mec.catalog.constants.CatalogConst;
 import it.istat.mec.catalog.domain.Agent;
+import it.istat.mec.catalog.domain.AppService;
 import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.BusinessService;
@@ -28,6 +29,7 @@ import it.istat.mec.catalog.domain.StatisticalService;
 import it.istat.mec.catalog.domain.StepInstance;
 import it.istat.mec.catalog.domain.ToolType;
 import it.istat.mec.catalog.dto.AgentDto;
+import it.istat.mec.catalog.dto.AppServiceDto;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.BusinessProcessDto;
 import it.istat.mec.catalog.dto.BusinessServiceDto;
@@ -48,6 +50,7 @@ import it.istat.mec.catalog.dto.StepInstanceDto;
 import it.istat.mec.catalog.dto.StepInstanceInverseDto;
 import it.istat.mec.catalog.dto.ToolTypeDto;
 import it.istat.mec.catalog.request.CreateAgentRequest;
+import it.istat.mec.catalog.request.CreateAppServiceRequest;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
 import it.istat.mec.catalog.request.CreateBusinessProcessRequest;
 import it.istat.mec.catalog.request.CreateBusinessServiceRequest;
@@ -74,6 +77,13 @@ public class Translators {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final GSBPMProcessDto dTO = modelMapper.map(x, GSBPMProcessDto.class);
+		return dTO;
+	}
+	
+	public static AppServiceDto translate(AppService x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final AppServiceDto dTO = modelMapper.map(x, AppServiceDto.class);
 		return dTO;
 	}
 	
@@ -341,6 +351,13 @@ public class Translators {
 		return agent;
 	}
 	
+	public static AppService translate(CreateAppServiceRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final AppService appService = modelMapper.map(x, AppService.class);
+		return appService;
+	}
+	
 	public static LinkAgentTool translate(CreateLinkAgentToolRequest x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
@@ -515,6 +532,13 @@ public class Translators {
 		return agent;
 	}
 	
+	public static AppService translateUpdate(CreateAppServiceRequest x, AppService appService) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, appService);
+
+		return appService;
+	}
+	
 	public static LinkAgentTool translateUpdate(CreateLinkAgentToolRequest x, LinkAgentTool toolAgent) {
 		final ModelMapper modelMapper = new ModelMapper();
 		modelMapper.map(x, toolAgent);
@@ -558,6 +582,11 @@ public class Translators {
 	public static List<ToolTypeDto> translateToolTypeList(List<ToolType> list) {
 		
 		return mapList(list, ToolTypeDto.class);
+	}
+	
+	public static List<AppServiceDto> translateAppServiceList(List<AppService> list) {
+		
+		return mapList(list, AppServiceDto.class);
 	}
 	
     public static List<DocumentationTypeDto> translateDocumentationTypeList(List<DocumentationType> list) {

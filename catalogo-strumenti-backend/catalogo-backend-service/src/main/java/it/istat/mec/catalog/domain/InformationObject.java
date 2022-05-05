@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -30,12 +33,15 @@ public class InformationObject implements Serializable  {
 	@Column(name = "CSM_APP_ROLE_ID")
 	private String csmAppRoleId;
 	
-	@Column(name = "CSM_BUSINESS_SERVICE_ID")
-	private String businessService;
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "CSM_BUSINESS_SERVICE_ID", updatable = false)	
+	private BusinessService businessService;
 /*	
 	@OneToOne(mappedBy = "informationObject")
 	private ProcessDesign processDesign;
 	*/
+	
+	
 	public InformationObject() {		
 	}
 	public InformationObject(Integer id) {
