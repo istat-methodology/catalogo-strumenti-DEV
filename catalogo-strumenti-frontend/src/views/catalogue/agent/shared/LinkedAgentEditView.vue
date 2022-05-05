@@ -175,7 +175,7 @@
 <script>
 import { mapGetters } from "vuex";
 import AgentAdd from "./AgentAdd.vue";
-
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -225,11 +225,11 @@ export default {
     "app-agent-add": AgentAdd,
   },
   methods: {
-    updateAgentList() {
+    updateAgentList:_.debounce(function () {
       this.$store.dispatch("agent/findAll");
       this.viewAddAgent = false;
-      console.log(this.agentList);
-    },
+      
+    },500),
     selectId(e) {
       this.selectedId = e.id;
     },
@@ -245,9 +245,9 @@ export default {
       this.$store
         .dispatch("linkedagent/save", this.newLinkedAgent)
         .then(
-          this.$store
-            .dispatch("linkedagent/findByCatalogTool", this.toolId)
-            .then((this.states = Array(this.linkedAgentList.length).fill(true)))
+         // setTimeout(200)
+         this.loadLinkedAgentList()
+         
         );
       this.viewNewAgent = false;
     },
@@ -273,12 +273,18 @@ export default {
       this.selectedLinkedAgent = null;
       this.warningModal = false;
     },
+
     loadLinkedAgentList() {
-      alert("pippo");
-      this.$store
+      this.loadDebounceLinkedAgentList(this.$store,this.toolId,this.states,this.linkedAgentList.length)
+   /*   this.$store
         .dispatch("linkedagent/findByCatalogTool", this.toolId)
-        .then((this.states = Array(this.linkedAgentList.length).fill(true)));
+        .then((this.states = Array(this.linkedAgentList.length).fill(true)));*/
     },
+  loadDebounceLinkedAgentList:  _.debounce((store,toolId,states,len) => {
+      store
+        .dispatch("linkedagent/findByCatalogTool", toolId)
+        .then((states = Array(len).fill(true)));
+    }, 500),
 
     modalOpen(app) {
       this.selectedLinkedAgent = app;
@@ -288,6 +294,9 @@ export default {
       this.warningModal = false;
     },
   },
+
+
+
   name: "LinkedAgentEditView",
   props: {
     toolId: {

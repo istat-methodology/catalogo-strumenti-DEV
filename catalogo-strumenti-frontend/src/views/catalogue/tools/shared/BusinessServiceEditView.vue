@@ -151,6 +151,7 @@
 
                 <!--div class="card-body"-->
                 <!-- @start Condition to show filtrable table if results are more then 5 lines-->
+                <div  v-if="appService.stepInstances">
                 <div
                   class="table-responsive"
                   v-if="appService.stepInstances.length > 20"
@@ -195,12 +196,13 @@
                     </tr>
                   </tbody>
                 </table>
-                <h5
-                  v-if="!appService.stepInstances.length"
+                 </div>
+                <span
+                  v-if="!appService.stepInstances"
                   class="default-value card-body"
                 >
-                  Nessun dato disponibile
-                </h5>
+                  Nessuna funzionalità definita
+                </span>
               </div>
             </div>
           </div>
