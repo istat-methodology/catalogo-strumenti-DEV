@@ -1,17 +1,18 @@
-package it.istat.mec.catalog.dto;
+package it.istat.mec.catalog.request;
 
+import java.io.Serializable;
 import java.util.List;
 
-
+import it.istat.mec.catalog.dto.StepInstanceInverseDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AppServiceDto extends BaseDto {
-	 
-	private static final long serialVersionUID = -8722479449260924506L;
-
+public class CreateAppServiceRequest implements Serializable {
+	
+	private static final long serialVersionUID = 5037760373614510313L;
+	
 	private Integer id;	
 	private String descr;	
 	private String implementationLanguage;	
@@ -22,4 +23,5 @@ public class AppServiceDto extends BaseDto {
 	private String licence;	
 	private String contact;
 	private List<StepInstanceInverseDto> stepInstances;
+	
 }
