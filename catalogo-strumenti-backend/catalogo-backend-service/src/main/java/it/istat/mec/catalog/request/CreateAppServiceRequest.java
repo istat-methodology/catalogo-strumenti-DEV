@@ -3,7 +3,6 @@ package it.istat.mec.catalog.request;
 import java.io.Serializable;
 import java.util.List;
 
-import it.istat.mec.catalog.dto.StepInstanceInverseDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +21,5 @@ public class CreateAppServiceRequest implements Serializable {
 	private String author;	
 	private String licence;	
 	private String contact;
-	private List<StepInstanceInverseDto> stepInstances;
 	
 }
