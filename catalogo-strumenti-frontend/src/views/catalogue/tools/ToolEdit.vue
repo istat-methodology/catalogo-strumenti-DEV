@@ -203,12 +203,12 @@
 
           <CTab>
             <template #title>
-              <span>Funzionalità</span>
+              <span>Implementazioni</span>
             </template>
 
             <app-edit-business-service
-              v-if="businessServiceService"
-              :businessService="businessServiceService"
+              v-if="this.tool.businessService"
+              :businessServiceID="this.tool.businessService.id"
             ></app-edit-business-service>
           </CTab>
 
@@ -310,9 +310,7 @@ export default {
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
-    ...mapGetters("businessService", {
-      businessServiceService: "businessService",
-    }),
+    
     ...mapGetters("documentation", ["documentationList"]),
     getGsbpmList: function () {
       return this.gsbpmList.map((gsbpm) => {
@@ -378,14 +376,6 @@ export default {
     },
   },
 
-  /* validations: {
-    dug: {
-      name: {
-        required
-      }
-    }
-  }, */
-  mutations: {},
   methods: {
     handleSubmit() {
       this.toolLocal.toolType = this.tool.toolType.id;
@@ -457,21 +447,14 @@ export default {
     },
     loadTool:_.debounce(function ()  {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
-        this.loadBusinessService();
+      
         this.setOldValues();
         this.setCheckedNodesGsbpm();
         this.setCheckedNodesMethods();
         this.setCheckedNodesDocumentation();
       });
     },500),
-    loadBusinessService() {
-      if (this.tool && this.tool.businessService) {
-        this.$store.dispatch(
-          "businessService/findById",
-          this.tool.businessService.id
-        );
-      }
-    },
+  
   },
 
   created() {

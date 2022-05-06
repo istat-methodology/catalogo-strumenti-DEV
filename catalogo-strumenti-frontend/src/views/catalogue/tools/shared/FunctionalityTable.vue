@@ -1,45 +1,25 @@
 <template>
-  <div  v-if="statisticalMethodsList">
-    <b-button variant="success" @click="handleAdd()">Nuova funzionalità</b-button>
-         <div
-                  class="table-responsive"
-                
-                >
-    <b-editable-table
-      disableDefaultEdit
-      :rowUpdate="rowUpdate"
-      :editMode="'row'"
-      bordered
-      class="editable-table"
-      v-model="stepInstancesLocal"
-      :fields="fields"
-    >
-      <template #cell(isActive)="data">
-        <span v-if="data.value">Yes</span>
-        <span v-else>No</span>
-      </template>
-      <template #cell(edit)="data">
-        <div v-if="data.isEdit">
-          <BIconX class="edit-icon" @click="handleSubmit(data, false)"></BIconX>
-          <BIconCheck
-            class="edit-icon"
-            @click="handleSubmit(data, true)"
-          ></BIconCheck>
-        </div>
-        <BIconPencil
-          v-else
-          class="edit-icon"
-          @click="handleEdit(data, true)"
-        ></BIconPencil>
-      </template>
-      <template #cell(delete)="data">
-        <BIconTrash
-          class="remove-icon"
-          @click="handleDelete(data)"
-        ></BIconTrash>
-      </template>
-    </b-editable-table>
-  </div>   
+  <div v-if="statisticalMethodsList">
+    <b-button variant="success" @click="handleAdd()" >+ Nuova funzionalità</b-button>
+    <div class="table-responsive">
+      <b-editable-table disableDefaultEdit :rowUpdate="rowUpdate" :editMode="'row'" bordered class="editable-table"
+        v-model="stepInstancesLocal" :fields="fields">
+        <template #cell(isActive)="data">
+          <span v-if="data.value">Yes</span>
+          <span v-else>No</span>
+        </template>
+        <template #cell(edit)="data">
+          <div v-if="data.isEdit">
+            <BIconX class="edit-icon" @click="handleSubmit(data, false)"></BIconX>
+            <BIconCheck class="edit-icon" @click="handleSubmit(data, true)"></BIconCheck>
+          </div>
+          <BIconPencil v-else class="edit-icon" @click="handleEdit(data, true)"></BIconPencil>
+        </template>
+        <template #cell(delete)="data">
+          <BIconTrash class="remove-icon" @click="handleDelete(data)"></BIconTrash>
+        </template>
+      </b-editable-table>
+    </div>
   </div>
 </template>
 
@@ -70,7 +50,7 @@ export default {
       required: true,
       default: () => [],
     },
-     statisticalMethodsList: {
+    statisticalMethodsList: {
       type: Array,
       required: true,
       default: () => [],
@@ -78,7 +58,8 @@ export default {
   },
   data() {
     return {
-        stepInstancesLocal:[],
+
+      stepInstancesLocal: [],
       fields: [
         {
           key: "functionality",
@@ -120,11 +101,12 @@ export default {
         { key: "delete", label: "" },
       ],
       rowUpdate: {},
+      enabledButtonAddFuncts: true,
     };
   },
   methods: {
     getStatisticalMethodsOptions: function () {
-      console.log(this.statisticalMethodsList);
+ 
       if (this.statisticalMethodsList)
         return this.statisticalMethodsList.map((method) => {
           return {
@@ -135,7 +117,8 @@ export default {
       else return [];
     },
     handleAdd() {
-      const newId = Date.now();
+
+      const newId =-Date.now();
       this.rowUpdate = {
         edit: true,
         id: newId,
@@ -146,18 +129,28 @@ export default {
           method: "",
           statMethodName: -1,
           descr: "",
-         
+          new: true,
+
+
         },
       };
     },
     handleSubmit(data, update) {
+      
       this.rowUpdate = {
         edit: false,
         id: data.id,
         action: update ? "update" : "cancel",
       };
+     if( data.id<0) {
+       console.log('NEW');
+         this.$store.dispatch("stepinstance/save", data) ;
+       }
+     else{console.log('SAVE')
+      this.$store.dispatch("stepinstance/update", data) ;}
     },
     handleEdit(data) {
+    
       this.rowUpdate = { edit: true, id: data.id };
     },
     handleDelete(data) {
@@ -173,8 +166,8 @@ export default {
       return { valid: true };
     },
   },
- created() {
- this.stepInstancesLocal=this.stepInstances;
+  created() {
+    this.stepInstancesLocal = this.stepInstances;
   },
 };
 </script>

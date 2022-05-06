@@ -82,7 +82,7 @@
             </div>
           </div>
         </div>
-        <div v-if="businessService.appServices">
+        <div v-if="this.businessService && this.businessService.appServices">
           <div
             v-for="(appService, index) of this.businessService.appServices"
             :key="appService.id"
@@ -151,15 +151,10 @@
 
                 <!--div class="card-body"-->
                 <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-                <div  v-if="appService.stepInstances">
+                <div  >
                  <app-functionality-table :statisticalMethodsList="statisticalMethodsList" :stepInstances="getStepInstancesList(appService.stepInstances)"></app-functionality-table> 
                  </div>
-                <span
-                  v-else
-                  class="default-value card-body"
-                >
-                  Nessuna funzionalità definita
-                </span>
+            
               </div>
             </div>
           </div>
@@ -179,21 +174,24 @@
 <script>
 import FunctionalityTable from "./FunctionalityTable.vue";
 import { mapGetters } from "vuex";
+import _ from "lodash";
 export default {
   name: "BusinessServiceEditView",
     components: {
     "app-functionality-table": FunctionalityTable,
    },
   props: {
-    businessService: {
-      type: Object,
+    businessServiceID: {
+      type: Number,
       required: true,
-      default: () => {}
+      default: () => null
     }
   },
    computed: {
-   
-    ...mapGetters("methods", ["statisticalMethodsList"])
+   ...mapGetters("businessService", {
+      businessService: "businessService",
+    }),
+    ...mapGetters("methods", ["statisticalMethodsList"]),
       },
   data() {
     return {
@@ -231,6 +229,7 @@ export default {
   },
   methods: {
     getStepInstancesList: function(stepInstances) {
+      if(stepInstances)
       return stepInstances.map(stepInstance => {
         return {
           id: stepInstance.id,
@@ -241,14 +240,30 @@ export default {
           statMethodId: stepInstance.statMethod.id
         };
       });
+      else return [];
     },
     handleNewAppService: function () {
-      this.newAppService.businessService=this.businessService.appServices.length+1;
-    //   this.newAppService.businessService=this.tool.businessService.id;
-    //   this.$store        .dispatch("documentation/save", this.documentationLocal)    .then(this.$router.push("/catalogue/documentazione"));
+    
+      this.newAppService.businessService=this.businessServiceID;
+       this.$store        .dispatch("appservice/save",   this.newAppService) .then(this.$router.push("/catalogue/documentazione"));
 this.businessService.appServices.push(this.newAppService);
 this.viewNewAppService=false;
         },
+
+  loadBusinessService:_.debounce(function ()  {
+      if (this.businessServiceID) {
+        this.$store.dispatch(
+          "businessService/findById",
+          this.businessServiceID
+        );
+      }
+   },500),
+
+  },
+   created() {
+
+
+    this.loadBusinessService();
   },
 };
 </script>
