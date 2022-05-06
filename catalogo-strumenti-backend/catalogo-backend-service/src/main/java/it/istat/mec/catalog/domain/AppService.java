@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +25,7 @@ public class AppService implements Serializable  {
 	
 	private static final long serialVersionUID = 7543049167079818501L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Integer id;
 
@@ -40,7 +42,7 @@ public class AppService implements Serializable  {
 	private String engine;
 	
 	@Column(name = "SOURCE_PATH")
-	private String SourcePath;
+	private String sourcePath;
 	
 	@Column(name = "SOURCE_CODE")
 	private String sourceCode;

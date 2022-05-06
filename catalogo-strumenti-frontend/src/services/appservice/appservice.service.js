@@ -20,6 +20,6 @@ class AppsService extends AbstractService {
       });
   }
 }
-export const appsService = new AppsService("/catalog/appservices");
+export const appsService = new AppsService("/catalog/app-services");
 
-export const appsOpenService = new AppsService("/catalog/open/appservices");
+export const appsOpenService = new AppsService("/catalog/open/app-services");
