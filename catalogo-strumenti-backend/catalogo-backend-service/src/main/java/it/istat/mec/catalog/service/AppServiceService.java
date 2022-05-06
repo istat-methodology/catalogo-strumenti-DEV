@@ -29,7 +29,7 @@ public class AppServiceService {
 	public AppServiceDto newAppService(CreateAppServiceRequest request) {
 		AppService appService = new AppService();
 		appService = Translators.translate(request);		
-		BusinessService businessService = businessServiceDao.findById(request.getId()).get();	
+		BusinessService businessService = businessServiceDao.findById(request.getBusinessService()).get();	
 		appService.setBusinessService(businessService);
 		appServiceDao.save(appService);
 		return Translators.translate(appService);
@@ -50,7 +50,7 @@ public class AppServiceService {
 		AppService appService = appServiceDao.findById(request.getId()).get();	
 		
 		appService = Translators.translateUpdate(request, appService);
-		BusinessService businessService = businessServiceDao.findById(request.getId()).get();	
+		BusinessService businessService = businessServiceDao.findById(request.getBusinessService()).get();	
 		appService.setBusinessService(businessService);
 		appServiceDao.save(appService);		
 		
