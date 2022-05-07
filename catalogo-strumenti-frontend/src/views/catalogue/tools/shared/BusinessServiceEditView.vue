@@ -4,89 +4,47 @@
       <CCardHeader>Implementazioni e funzionalità</CCardHeader>
       <CCardBody>
         <div>
-          <span
-            class="icon-link float-right"
-            @click="viewNewAppService = !viewNewAppService"
-            title="Aggiungi un nuovo d un referente"
-            v-if="!viewNewAppService"
-            ><plus-icon />Nuova implemetazione</span
-          >
-  
+          <span class="icon-link float-right" @click="viewNewAppService = !viewNewAppService"
+            title="Aggiungi un nuovo d un referente" v-if="!viewNewAppService">
+            <plus-icon />Nuova implemetazione
+          </span>
+
         </div>
         <div v-if="viewNewAppService">
           <div class="card">
             <div class="card-header">Nuova implementazione
-  <div class="card-header-actions">
-            <span v-if="viewNewAppService">
-            <span title="Salva" class="icon-link float-right"  @click.prevent="handleNewAppService">
-              <success-icon
-            /></span>
-            <span
-              title="Annulla"
-              class="icon-link float-right"
-              @click="viewNewAppService = !viewNewAppService"
-            >
-              <undo-icon /></span
-          ></span>
-  </div> 
+              <div class="card-header-actions">
+                <span v-if="viewNewAppService">
+                  <span title="Salva" class="icon-link float-right" @click.prevent="handleNewAppService">
+                    <success-icon />
+                  </span>
+                  <span title="Annulla" class="icon-link float-right" @click="viewNewAppService = !viewNewAppService">
+                    <undo-icon />
+                  </span></span>
+              </div>
 
 
             </div>
             <div class="card-body">
-              <CInput
-                class="col-6"
-                label="Nome"
-                placeholder="Nome"
-                v-model="newAppService.name"
-              />
-              <CTextarea
-                class="col-12"
-                label="Descrizione"
-                v-model="newAppService.descr"
-              ></CTextarea>
+              <CInput class="col-6" label="Nome" placeholder="Nome" v-model="newAppService.name" />
+              <CTextarea class="col-12" label="Descrizione" v-model="newAppService.descr"></CTextarea>
               <div class="row">
-                <CInput
-                  class="col-6"
-                  label="Autore"
-                  placeholder="Autore"
-                  v-model="newAppService.author"
-                />
-                <CInput
-                  class="col-6"
-                  label="Contatto"
-                  placeholder="Contatto"
-                  v-model="newAppService.contact"
-                />
+                <CInput class="col-6" label="Autore" placeholder="Autore" v-model="newAppService.author" />
+                <CInput class="col-6" label="Contatto" placeholder="Contatto" v-model="newAppService.contact" />
               </div>
               <div class="row">
-                <CInput
-                  class="col-4"
-                  label="Linguaggio"
-                  placeholder="Note"
-                  v-model="newAppService.implementationLanguage"
-                />
+                <CInput class="col-4" label="Linguaggio" placeholder="Note"
+                  v-model="newAppService.implementationLanguage" />
 
-                <CInput
-                  class="col-8"
-                  label="File Sorgente"
-                  placeholder="File Sorgente"
-                  v-model="newAppService.sourcePath"
-                />
+                <CInput class="col-8" label="File Sorgente" placeholder="File Sorgente"
+                  v-model="newAppService.sourcePath" />
               </div>
-              <CInput
-                class="col-6"
-                label="Licenza"
-                placeholder="Licenza"
-                v-model="newAppService.licence"
-              />  
+              <CInput class="col-6" label="Licenza" placeholder="Licenza" v-model="newAppService.licence" />
             </div>
           </div>
         </div>
         <div v-if="this.businessService && this.businessService.appServices">
-          <div
-            v-for="(appService, index) of this.businessService.appServices"
-            :key="appService.id"
-          >
+          <div v-for="(appService, index) of this.businessService.appServices" :key="appService.id">
             Funzionalità : {{ appService.name }} # {{ index + 1 }}
             <div class="card w-100">
               <div class="card-body">
@@ -120,12 +78,10 @@
                       </div>
                     </div>
                     <div class="card col-3">
-                      <span
-                        ><strong>Linguaggio di implementazione:</strong></span
-                      >
+                      <span><strong>Linguaggio di implementazione:</strong></span>
                       <div class="card-slot">
                         <span v-if="appService">{{
-                          appService.implementationLanguage
+                            appService.implementationLanguage
                         }}</span>
                       </div>
                     </div>
@@ -133,7 +89,7 @@
                       <span><strong>File/Package:</strong></span>
                       <div class="card-slot">
                         <span v-if="appService">{{
-                          appService.sourcePath
+                            appService.sourcePath
                         }}</span>
                       </div>
                     </div>
@@ -141,7 +97,7 @@
                       <span><strong>Licenza:</strong></span>
                       <div class="card-slot">
                         <span v-if="appService.licence">{{
-                          appService.licence
+                            appService.licence
                         }}</span>
                         <span v-else class="default-value">no value</span>
                       </div>
@@ -151,10 +107,11 @@
 
                 <!--div class="card-body"-->
                 <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-                <div  >
-                 <app-functionality-table :statisticalMethodsList="statisticalMethodsList" :stepInstances="getStepInstancesList(appService.stepInstances)"></app-functionality-table> 
-                 </div>
-            
+                <div>
+                  <app-functionality-table :statisticalMethodsList="statisticalMethodsList"
+                    :stepInstances="getStepInstancesList(appService.stepInstances)"></app-functionality-table>
+                </div>
+
               </div>
             </div>
           </div>
@@ -177,9 +134,9 @@ import { mapGetters } from "vuex";
 import _ from "lodash";
 export default {
   name: "BusinessServiceEditView",
-    components: {
+  components: {
     "app-functionality-table": FunctionalityTable,
-   },
+  },
   props: {
     businessServiceID: {
       type: Number,
@@ -187,12 +144,12 @@ export default {
       default: () => null
     }
   },
-   computed: {
-   ...mapGetters("businessService", {
+  computed: {
+    ...mapGetters("businessService", {
       businessService: "businessService",
     }),
     ...mapGetters("methods", ["statisticalMethodsList"]),
-      },
+  },
   data() {
     return {
       disabled: false,
@@ -205,7 +162,7 @@ export default {
         implementationLanguage: "",
         sourcePath: "",
         licence: "",
-        businessService:0
+        businessService: 0
       },
       fields: [
         {
@@ -228,39 +185,39 @@ export default {
     };
   },
   methods: {
-    getStepInstancesList: function(stepInstances) {
-      if(stepInstances)
-      return stepInstances.map(stepInstance => {
-        return {
-          id: stepInstance.id,
-          functionality: stepInstance.functionality,
-          method: stepInstance.method,
-          descr: stepInstance.descr,
-          statMethodName: stepInstance.statMethod.name,
-          statMethodId: stepInstance.statMethod.id
-        };
-      });
+    getStepInstancesList: function (stepInstances) {
+      if (stepInstances)
+        return stepInstances.map(stepInstance => {
+          return {
+            id: stepInstance.id,
+            functionality: stepInstance.functionality,
+            method: stepInstance.method,
+            descr: stepInstance.descr,
+            statMethodName: stepInstance.statMethod.name,
+            statMethodId: stepInstance.statMethod.id
+          };
+        });
       else return [];
     },
     handleNewAppService: function () {
-    
-      this.newAppService.businessService=this.businessServiceID;
-       this.$store        .dispatch("appservice/save",   this.newAppService) .then(this.$router.push("/catalogue/documentazione"));
-this.businessService.appServices.push(this.newAppService);
-this.viewNewAppService=false;
-        },
 
-  loadBusinessService:_.debounce(function ()  {
+      this.newAppService.businessService = this.businessServiceID;
+      this.$store.dispatch("appservice/save", this.newAppService).then(this.loadBusinessService());
+
+      this.viewNewAppService = false;
+    },
+
+    loadBusinessService: _.debounce(function () {
       if (this.businessServiceID) {
         this.$store.dispatch(
           "businessService/findById",
           this.businessServiceID
         );
       }
-   },500),
+    }, 500),
 
   },
-   created() {
+  created() {
 
 
     this.loadBusinessService();
@@ -271,13 +228,16 @@ this.viewNewAppService=false;
 h5 {
   margin-bottom: 0.1rem;
 }
+
 .card-border {
   border: 1px solid #d8dbe0 !important;
   box-shadow: none !important;
 }
+
 .bg-lighter {
   background-color: #f8f8f8 !important;
 }
+
 .material-design-icon {
   margin-bottom: 0.2rem;
 }
@@ -311,12 +271,14 @@ body {
 
 /* Style the counter cards */
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* this adds the "card" effect */
 
   text-align: left;
   background-color: #f1f1f1;
   margin-left: 5px;
 }
+
 .descriprion-functionalities {
   padding-bottom: 20px;
   font-size: large;
