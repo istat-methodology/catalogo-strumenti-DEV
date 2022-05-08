@@ -37,7 +37,7 @@ public class StepInstance implements Serializable  {
 	
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "STATMETHOD", nullable = false, insertable = false)
+    @JoinColumn(name = "STATMETHOD", nullable = false, insertable = true)
 	private StatisticalMethod statMethod;
 	
 	@Column(name = "DESCR")
@@ -54,7 +54,7 @@ public class StepInstance implements Serializable  {
 	private List<ProcessStep> processSteps;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "APP_SERVICE_ID", nullable = false, insertable = false)
+    @JoinColumn(name = "APP_SERVICE_ID", nullable = false, insertable = true)
 	private AppService appService;
 	
 }
