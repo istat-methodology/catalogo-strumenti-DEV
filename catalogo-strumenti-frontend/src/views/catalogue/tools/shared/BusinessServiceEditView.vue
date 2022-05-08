@@ -47,6 +47,13 @@
           <div v-for="(appService, index) of this.businessService.appServices" :key="appService.id">
             Funzionalità : {{ appService.name }} # {{ index + 1 }}
             <div class="card w-100">
+             
+                <div class="card-header-actions" >
+                   <span class="icon-link" @click="modalOpen(appService)"
+                  ><delete-icon
+                /></span>
+     
+        </div>
               <div class="card-body">
                 <!-- appservices -->
                 <!--div class="card">
@@ -58,7 +65,7 @@
             <div class="card-body"-->
                 <div class="columns">
                   <div class="row">
-                    <div class="descriprion-functionalities col-12">
+                    <div class="description-functionalities col-12">
                       <!--span><strong>Descrizione:</strong></span-->
                       <div class="card-slot">
                         <span v-if="appService">{{ appService.descr }}</span>
@@ -108,7 +115,7 @@
                 <!--div class="card-body"-->
                 <!-- @start Condition to show filtrable table if results are more then 5 lines-->
                 <div>
-                  <app-functionality-table :statisticalMethodsList="statisticalMethodsList"
+                  <app-functionality-table  @reLoadData="loadBusinessService" :appService="appService.id" :statisticalMethodsList="statisticalMethodsList"
                     :stepInstances="getStepInstancesList(appService.stepInstances)"></app-functionality-table>
                 </div>
 
@@ -124,6 +131,17 @@
         </div>
       </CCardBody>
     </CCard>
+     <CModal title="Warning!" :show.sync="warningModal">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton shape="square" size="sm" color="primary" @click="deleteAppService">
+          Delete
+        </CButton>
+      </template>
+      Elimina implementazione '{{ selectedAppService.name }}'?
+    </CModal>
   </div>
   <!--/div>
   </div-->
@@ -154,6 +172,8 @@ export default {
     return {
       disabled: false,
       viewNewAppService: false,
+      selectedAppService :{},
+      warningModal : false,
       newAppService: {
         name: "",
         descr: "",
@@ -185,6 +205,17 @@ export default {
     };
   },
   methods: {
+     deleteAppService() {
+      this.$store.dispatch("appservice/delete", this.selectedAppService.id).then(this.loadBusinessService());
+      this.warningModal = false;
+    },
+    modalOpen(appservice) {
+      this.selectedAppService = appservice;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
+    },
     getStepInstancesList: function (stepInstances) {
       if (stepInstances)
         return stepInstances.map(stepInstance => {
