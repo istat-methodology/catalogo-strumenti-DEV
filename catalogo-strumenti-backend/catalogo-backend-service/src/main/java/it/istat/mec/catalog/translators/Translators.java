@@ -1,5 +1,6 @@
 package it.istat.mec.catalog.translators;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,7 @@ import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.BusinessProcessDto;
 import it.istat.mec.catalog.dto.BusinessServiceDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
+import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.DocumentationTypeDto;
@@ -98,6 +100,13 @@ public class Translators {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final ProcessDesignDto dTO = modelMapper.map(x, ProcessDesignDto.class);
+		return dTO;
+	}
+	
+	public static CatalogToolMiniListDTO translateMini(CatalogTool x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final CatalogToolMiniListDTO dTO = modelMapper.map(x, CatalogToolMiniListDTO.class);
 		return dTO;
 	}
 
@@ -255,6 +264,13 @@ public class Translators {
 		return mapList(list, CatalogToolDTO.class,modelMapper);
 	}
 	
+	
+	
+	public static List<CatalogToolMiniListDTO> translateMiniTools(List<CatalogTool> list) {	
+		final ModelMapper modelMapper = new ModelMapper();
+		return  Arrays.asList(modelMapper.map(list, CatalogToolMiniListDTO[].class));
+		
+	}
 	public static List<BusinessFunctionDto> translateBusinessFunctions(List<BusinessFunction> list) {	
 		return mapList(list, BusinessFunctionDto.class);
 	}

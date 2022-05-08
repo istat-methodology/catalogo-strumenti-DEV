@@ -23,6 +23,7 @@ import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
+import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.exceptions.TechnicalException;
 import it.istat.mec.catalog.request.CreateToolRequest;
@@ -44,7 +45,7 @@ public class ToolService {
 	@Autowired
 	GsbpmProcessDao gsbpmProcessDao;
 
-	public List<CatalogToolDTO> findAllTools(Integer[] type, Integer[] gsbpmIds, String[] orderBy, String[] sort) {
+	public List<CatalogToolMiniListDTO> findAllTools(Integer[] type, Integer[] gsbpmIds, String[] orderBy, String[] sort) {
 	
 		List<Order> orders = new ArrayList<Order>();
 		for (int i = 0; i < orderBy.length; i++) {
@@ -65,9 +66,10 @@ public class ToolService {
 		for (int i = 0; i < type.length; i++) {
 			types.add(Integer.valueOf(type[i]));
 		}
-	 
-	 return Translators.translate(toolDao.findAllWithFilter(types,types.size(), gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
-  	}
+	  //return Translators.translate(toolDao.findAllWithFilter(types,types.size(), gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
+	 return Translators.translateMiniTools(toolDao.findAllWithFilter(types,types.size(), gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
+	  
+	}
 	
 	@Transactional
 	public CatalogToolDTO newTool(CreateToolRequest request) {

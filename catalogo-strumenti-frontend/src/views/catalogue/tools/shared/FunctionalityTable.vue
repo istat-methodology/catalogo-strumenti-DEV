@@ -63,6 +63,17 @@
         </template>
       </b-editable-table>
     </div>
+    <CModal title="Warning!" :show.sync="warningModal">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton shape="square" size="sm" color="primary" @click="deleteStepInstance">
+          Delete
+        </CButton>
+      </template>
+      Elimina funzionalità '{{ selectedStepInstance.functionality }}'?
+    </CModal>
   </div>
 </template>
 
@@ -108,7 +119,9 @@ export default {
     return {
       showNewFunct: false,
       stepInstancesLocal: [],
+      selectedStepInstance:{},
       selectedStatMethod:{},
+      warningModal : false,
       newStepInstance: {
         descr: "",
         method: "",
@@ -162,6 +175,17 @@ export default {
     };
   },
   methods: {
+      deleteStepInstance() {
+      this.$store.dispatch("appservice/delete", this.selectedStepInstance.id).then(this.$emit("reLoadData"));
+      this.warningModal = false;
+    },
+    modalOpen(app) {
+      this.selectedStepInstance = app;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
+    },
     getStatisticalMethodsOptions: function () {
 
       if (this.statisticalMethodsList)
