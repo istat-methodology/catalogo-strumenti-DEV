@@ -1,68 +1,79 @@
 <template>
   <div v-if="statisticalMethodsList">
-    <b-button variant="success" @click="showNewFunct = true">+ Nuova funzionalità</b-button>
-    <div v-if="showNewFunct">
-      <CCard>
-        <CCardHeader>Nuova funzionalità</CCardHeader>
-        <CCardBody>
-          <div class="row">
-            <div class="col-2"> <span><strong>Nome</strong></span></div>
-            <div class="col-3"> <span><strong>Metodo </strong></span></div>
-            <div class="col-3"> <span><strong>Metodo statistico</strong></span></div>
-            <div class="col-4"> <span><strong>Descrizione</strong></span></div>
-
-          </div>
-          <div class="row">
-            <div class="col-2">
-              <CInput placeholder="Nome" v-model="newStepInstance.functionality" />
-            </div>
-            <div class="col-3">
-              <CInput placeholder="Metodo" v-model="newStepInstance.method" />
-            </div>
-            <div class="col-3">
-          
-              <v-select  :options="getStatisticalMethodsOptions()" label="text" key="value" 
-                placeholder="Metodo Statistico" v-model="selectedStatMethod"></v-select>
-            </div>
-            <div class="col-4">
-              <CTextarea placeholder="Descrizione" v-model="newStepInstance.descr" />
-            </div>
-
-          </div>
-          <CInput label="Nome" placeholder="Nome" v-model="newStepInstance.functionality" />
-          <CInput label="Metodo" placeholder="Metodo" v-model="newStepInstance.method" />
-
-          <v-select label="text" key="value"  :options="getStatisticalMethodsOptions()"
-            placeholder="Metodo Statistico" v-model="selectedStatMethod"   ></v-select>
-          <CTextarea label="Descrizione" placeholder="Descrizione" v-model="newStepInstance.descr" />
-        </CCardBody>
-
-        <CCardFooter>
-          <CButton shape="square" size="sm" color="primary" class="mr-2" @click.prevent="handleSubmitAdd">Salva
-          </CButton>
-          <CButton shape="square" size="sm" color="light" @click.prevent="$router.back()">Chiudi</CButton>
-        </CCardFooter>
-      </CCard>
+    <div class="row">
+      <span @click="$emit('reLoadData')" title="Refresh" class="icon-link float-right">
+        <text-icon /> refresh
+      </span>
+      <span @click="showNewFunct = true" title="Nuova" class="icon-link float-right">
+        <block-icon /> Nuova funzionalità
+      </span>
     </div>
-    <div class="table-responsive">
-      <b-editable-table disableDefaultEdi :rowUpdate="rowUpdate" :editMode="'row'" bordered class="editable-table"
-        v-model="stepInstancesLocal" :fields="fields">
-        <template #cell(isActive)="data">
-          <span v-if="data.value">Yes</span>
-          <span v-else>No</span>
-        </template>
-        <template #cell(edit)="data">
-          <div v-if="data.isEdit">
-            <BIconX class="edit-icon" @click="handleSubmit(data, false)"></BIconX>
-            <BIconCheck class="edit-icon" @click="handleSubmit(data, true)"></BIconCheck>
-          </div>
-          <BIconPencil v-else class="edit-icon" @click="handleEdit(data, true)"></BIconPencil>
-        </template>
-        <template #cell(delete)="data">
-          <BIconTrash class="remove-icon" @click="handleDelete(data)"></BIconTrash>
-        </template>
-      </b-editable-table>
+    <div class="row" v-if="showNewFunct || stepInstancesLocal.length > 0">
+      <div class="col-2"> <span><strong>Nome</strong></span></div>
+      <div class="col-3"> <span><strong>Metodo </strong></span></div>
+      <div class="col-3"> <span><strong>Metodo statistico</strong></span></div>
+      <div class="col-3"> <span><strong>Descrizione</strong></span></div>
+      <div class="col-1"></div>
     </div>
+    <div class="row" v-if="showNewFunct">
+      <div class="col-2">
+        <CInput placeholder="Nome" v-model="newStepInstance.functionality" />
+      </div>
+      <div class="col-3">
+        <CInput placeholder="Metodo" v-model="newStepInstance.method" />
+      </div>
+      <div class="col-3">
+
+        <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
+          v-model="selectedStatMethod"></v-select>
+      </div>
+      <div class="col-3">
+        <CTextarea placeholder="Descrizione" v-model="newStepInstance.descr" />
+      </div>
+      <div class="col-1">
+            <span class="icon-link" @click.prevent="handleSubmitAdd">
+                <success-icon />&nbsp;
+              </span>
+                <span class="icon-link" @click.prevent="showNewFunct=false">
+                <minus-icon />
+              </span>
+ 
+      </div>
+
+    </div>
+
+    <div class="row" v-for="stepinstance of stepInstancesLocal" :key="stepinstance.id">
+      <div class="col-2">
+        <CInput placeholder="Nome" v-model="stepinstance.functionality" />
+      </div>
+      <div class="col-3">
+        <CInput placeholder="Metodo" v-model="stepinstance.method" />
+      </div>
+      <div class="col-3">
+
+        <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
+          v-model="stepinstance.statMethod"></v-select>
+      </div>
+      <div class="col-3">
+        <CTextarea placeholder="Descrizione" v-model="stepinstance.descr" />
+      </div>
+      <div class="col-1">
+        <span class="icon-link" @click.prevent="handleSubmitAdd(stepinstance)">
+                <success-icon />&nbsp;
+              </span>
+                <span class="icon-link" @click.prevent="modalOpen(stepinstance)">
+                <delete-icon />
+              </span>
+      
+      </div>
+    </div>
+
+
+
+
+
+
+
     <CModal title="Warning!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
@@ -78,25 +89,9 @@
 </template>
 
 <script>
-import BEditableTable from "bootstrap-vue-editable-table";
-
-import {
-  BIconTrash,
-  BIconPencil,
-  BIconX,
-  BIconCheck,
-  BButton,
-} from "bootstrap-vue";
 export default {
   name: "FunctionalityTable",
-  components: {
-    BEditableTable,
-    BIconX,
-    BIconTrash,
-    BIconPencil,
-    BIconCheck,
-    BButton,
-  },
+
   emits: ["reLoadData"],
   props: {
     appService: {
@@ -119,9 +114,9 @@ export default {
     return {
       showNewFunct: false,
       stepInstancesLocal: [],
-      selectedStepInstance:{},
-      selectedStatMethod:{},
-      warningModal : false,
+      selectedStepInstance: {},
+      selectedStatMethod: {},
+      warningModal: false,
       newStepInstance: {
         descr: "",
         method: "",
@@ -175,7 +170,7 @@ export default {
     };
   },
   methods: {
-      deleteStepInstance() {
+    deleteStepInstance() {
       this.$store.dispatch("appservice/delete", this.selectedStepInstance.id).then(this.$emit("reLoadData"));
       this.warningModal = false;
     },
@@ -191,10 +186,10 @@ export default {
       if (this.statisticalMethodsList)
         return this.statisticalMethodsList.map((method) => {
           return {
-            value: method.id,
-            text: method.name,
-           
-     
+            id: method.id,
+            name: method.name,
+
+
           };
         });
       else return [];
@@ -207,25 +202,28 @@ export default {
         id: data.id,
         action: update ? "update" : "cancel",
       };
-      console.log(data);
-      alert(this.stepInstancesLocal.length);
+
+
 
       let updateStepInstance = {
         id: data.item.id,
         descr: data.item.descr,
         method: data.item.method,
-        statMethod: data.item.statMethod,
+        statMethod: data.item.statMethodId,
         functionality: data.item.functionality,
         appService: this.appService,
       }
+      console.log(updateStepInstance);
+      console.log(this.stepInstancesLocal);
       this.$store.dispatch("stepinstance/update", updateStepInstance).then(this.$emit("reLoadData"));
 
 
 
     },
     handleSubmitAdd() {
-      this.newStepInstance.statMethod=this.selectedStatMethod.value;
+      this.newStepInstance.statMethod = this.selectedStatMethod.value;
       this.$store.dispatch("stepinstance/save", this.newStepInstance).then(this.$emit("reLoadData"));
+      this.showNewFunct = false;
 
     },
     handleEdit(data) {

@@ -5,7 +5,21 @@
       <div v-if="tool">
         <CCardHeader
           >{{ tool.name | dashEmpty }}
-          <div class="card-header-actions">
+         
+        </CCardHeader>
+
+        <CTabs
+          variant="pills"
+          :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
+        >
+          <CTab>
+            <template #title>
+              <span>Strumento</span>
+            </template>
+
+            <CCard v-if="tool">
+              <CCardHeader>{{ tool.name | dashEmpty }}
+               <div class="card-header-actions">
             <CButton
               shape="square"
               size="sm"
@@ -22,19 +36,7 @@
               >Indietro</CButton
             >
           </div>
-        </CCardHeader>
-
-        <CTabs
-          variant="pills"
-          :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
-        >
-          <CTab>
-            <template #title>
-              <span>Strumento</span>
-            </template>
-
-            <CCard v-if="tool">
-              <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Descrizione"
@@ -79,7 +81,25 @@
             </template>
 
             <CCard v-if="tool && tool.toolType.id == 3">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
+               <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Codice"
@@ -114,7 +134,25 @@
               </CCardBody>
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 2">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
+               <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Download"
@@ -154,7 +192,25 @@
               </CCardBody>
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 1">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
+               <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Protocollo"
@@ -186,7 +242,26 @@
             </template>
 
             <CCard v-if="this.statisticalMethodsList">
-              <CCardHeader>Metodi Statistici</CCardHeader>
+              <CCardHeader>Metodi Statistici
+ <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+
+              </CCardHeader>
               <CCardBody>
                 <div id="app-tree1" class="demo-tree">
                   <treeselect
