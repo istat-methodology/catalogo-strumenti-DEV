@@ -1,15 +1,9 @@
 <template>
   <div>
     <div class="row">
-
-
- <span
-          class="icon-link float-right"
-          @click='$emit("refreshTool")'
-          ><success-icon
-            title="Aggiungi un nuovo d un referente"
-           /></span>
-
+      <span class="icon-link float-right" @click="$emit('refreshTool')"
+        ><success-icon title="Aggiungi un nuovo d un referente"
+      /></span>
 
       <div>
         <span v-if="!viewNewDocument">Nuovo Documento</span>
@@ -18,7 +12,7 @@
           @click="viewNewDocument = !viewNewDocument"
           ><plus-icon
             title="Aggiungi un nuovo d un referente"
-            v-if="!viewNewDocument" /><undo-icon
+            v-if="!viewNewDocument"/><undo-icon
             title="Annulla"
             v-if="viewNewDocument"
         /></span>
@@ -86,7 +80,7 @@
               tag="a"
               :to="{
                 name: 'DocumentationDetails',
-                params: { id: documentation.id },
+                params: { id: documentation.id }
               }"
             >
               <view-icon />
@@ -101,12 +95,25 @@
         </div>
       </div>
     </div>
-      <CModal title="Warning!" :show.sync="warningModal" @close="() => { this.$emit('refreshTool') }">
+    <CModal
+      title="Warning!"
+      :show.sync="warningModal"
+      @close="
+        () => {
+          this.$emit('refreshTool');
+        }
+      "
+    >
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Close
         </CButton>
-        <CButton shape="square" size="sm" color="primary" @click="deleteDocumentation">
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          @click="deleteDocumentation"
+        >
           Delete
         </CButton>
       </template>
@@ -122,19 +129,19 @@ export default {
     return {
       viewAddDocument: true,
       viewNewDocument: false,
-      selectedDoc:{},
+      selectedDoc: {},
       warningModal: false,
       documentationLocal: {
         name: "",
         publisher: "",
         documentType: "",
         resource: "",
-        tool: this.toolId,
-      },
+        tool: this.toolId
+      }
     };
   },
   computed: {
-    ...mapGetters("documentationType", ["documentationTypeList"]),
+    ...mapGetters("documentationType", ["documentationTypeList"])
   },
   emits: ["refreshTool"],
 
@@ -142,13 +149,13 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     toolId: {
       type: Number,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     changeTool(value) {
@@ -159,23 +166,21 @@ export default {
     },
     handleSubmit() {
       this.documentationLocal.tool = this.toolId;
-      this.documentationLocal.documentType =
-        this.documentationLocal.documentType.id;
+      this.documentationLocal.documentType = this.documentationLocal.documentType.id;
       console.log(this.documentationLocal);
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
         .then(this.$emit("refreshTool"));
-        this.viewNewDocument=false;
-      
+      this.viewNewDocument = false;
     },
     goBack() {
       this.$router.push("/catalogue/documentazione");
     },
-     deleteDocumentation() {
-     this.$store
+    deleteDocumentation() {
+      this.$store
         .dispatch("documentation/delete", this.selectedDoc.id)
         .then(this.$emit("refreshTool"));
-         this.warningModal = false;
+      this.warningModal = false;
     },
 
     modalOpen(app) {
@@ -184,13 +189,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  },
+  }
 };
 </script>
 <style scoped>

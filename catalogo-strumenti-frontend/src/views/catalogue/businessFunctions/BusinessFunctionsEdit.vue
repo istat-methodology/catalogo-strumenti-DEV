@@ -39,14 +39,34 @@
           >Indietro</CButton
         >
       </CCardFooter>
+      <CCard v-if="this.bFunction">
+        <CCardHeader>Elenco Processi</CCardHeader>
+        <CCardBody>
+          <app-business-process
+            v-for="item in getBusinessProcesses"
+            :key="item.id"
+            :name="item.name"
+            :descr="item.descr"
+            :label="item.label"
+            :orderCode="item.orderCode"
+            :parent="item.parent"
+            :processSteps="item.processSteps"
+          >
+          </app-business-process>
+        </CCardBody>
+      </CCard>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import BusinessProcess from "../businessProcesses/shared/BusinessProcess";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "BusinessFunctionsEdit",
+  components: {
+    "app-business-process": BusinessProcess
+  },
   data() {
     return {
       businessFunctionLocal: {
@@ -59,7 +79,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("bFunction", ["bFunction"])
+    ...mapGetters("bFunction", ["bFunction"]),
+    getBusinessProcesses: function() {
+      return this.bFunction.businessProcesses.map(item => {
+        return {
+          id: item.id,
+          name: item.name,
+          desr: item.desr,
+          label: item.label,
+          orderCode: item.orderCode,
+          parent: item.parent,
+          processSteps: item.processSteps
+        };
+      });
+    }
   },
 
   /* validations: {
@@ -69,6 +102,7 @@ export default {
       }
     }
   }, */
+
   methods: {
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
