@@ -103,8 +103,8 @@ export default {
           desr: item.desr,
           label: item.label,
           orderCode: item.orderCode,
-          parent: item.parent
-          //processSteps: item.processSteps
+          parent: item.parent,
+          processSteps: item.processSteps
         };
       });
     }
