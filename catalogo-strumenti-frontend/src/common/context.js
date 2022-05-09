@@ -8,5 +8,5 @@ export const Context = {
   BusinessList: 6,
   BusinessDetail: 7,
   BusinessEdit: 8,
-  ToolEdit: 9,
+  ToolEdit: 9
 };
