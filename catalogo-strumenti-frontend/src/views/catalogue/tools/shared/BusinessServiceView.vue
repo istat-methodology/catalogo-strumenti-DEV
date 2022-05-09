@@ -7,105 +7,105 @@
         :key="appService.id"
       >
         <!--fieldset class="scheduler-border card"-->
-          <legend class="scheduler-border">
-            {{ appService.name }}
-          </legend>
-          <div class="card-body">
-            <div class="columns">
-              <div class="row">
-                <div class="description-fields col-12">                  
-                    <span v-if="appService">{{ appService.descr }}</span>                 
-                </div>
-                <div class="card col-md-auto">
-                  <span><strong>Autore</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{ appService.author }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto">
-                  <span><strong>Contatto</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{ appService.contact }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto">
-                  <span><strong>Linguaggio di implementazione</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{
-                      appService.implementationLanguage
-                    }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto">
-                  <span><strong>File/Package</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService">{{ appService.sourcePath }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto">
-                  <span><strong>Licenza</strong></span>
-                  <div class="card-slot">
-                    <span v-if="appService.licence">{{
-                      appService.licence
-                    }}</span>
-                    <span v-else class="default-value">no value</span>
-                  </div>
+        <legend class="scheduler-border">
+          {{ appService.name }}
+        </legend>
+        <div class="card-body">
+          <div class="columns">
+            <div class="row">
+              <div class="description-fields col-12">
+                <span v-if="appService">{{ appService.descr }}</span>
+              </div>
+              <div class="card col-md-auto">
+                <span><strong>Autore</strong></span>
+                <div class="card-slot">
+                  <span v-if="appService">{{ appService.author }}</span>
                 </div>
               </div>
+              <div class="card col-md-auto">
+                <span><strong>Contatto</strong></span>
+                <div class="card-slot">
+                  <span v-if="appService">{{ appService.contact }}</span>
+                </div>
               </div>
-
-            <!--div class="card-body"-->
-            <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-            <div
-              class="table-responsive"
-              v-if="appService.stepInstances.length > 20"
-            >
-              <CDataTable
-                :items="getStepInstancesList(appService.stepInstances)"
-                :fields="fields"
-                column-filter
-                table-filter
-                items-per-page-select
-                :items-per-page="5"
-                hover
-                sorter
-                pagination
-              >
-              </CDataTable>
+              <div class="card col-md-auto">
+                <span><strong>Linguaggio di implementazione</strong></span>
+                <div class="card-slot">
+                  <span v-if="appService">{{
+                    appService.implementationLanguage
+                  }}</span>
+                </div>
+              </div>
+              <div class="card col-md-auto">
+                <span><strong>File/Package</strong></span>
+                <div class="card-slot">
+                  <span v-if="appService">{{ appService.sourcePath }}</span>
+                </div>
+              </div>
+              <div class="card col-md-auto">
+                <span><strong>Licenza</strong></span>
+                <div class="card-slot">
+                  <span v-if="appService.licence">{{
+                    appService.licence
+                  }}</span>
+                  <span v-else class="default-value">no value</span>
+                </div>
+              </div>
             </div>
-            <!-- @end Condition to show filtrable table if results are more then 5 lines-->
-            <table
-              class="table table-hover"
-              v-if="appService && appService.stepInstances.length < 20"
-            >
-              <thead>
-                <tr>
-                  <th scope="col">Funzionalità</th>
-                  <th scope="col">Metodo</th>
-                  <th scope="col">Metodo Statistico</th>
-                  <th scope="col">Descrizione</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="item in getStepInstancesList(appService.stepInstances)"
-                  :key="item.id"
-                >
-                  <td>{{ item.functionality }}</td>
-                  <td>{{ item.method }}</td>
-                  <td>{{ item.statMethodName }}</td>
-                  <td>{{ item.descr }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <h5
-              v-if="!appService.stepInstances.length"
-              class="default-value card-body"
-            >
-              Nessun dato disponibile
-            </h5>
           </div>
-          <!--/div-->
+
+          <!--div class="card-body"-->
+          <!-- @start Condition to show filtrable table if results are more then 5 lines-->
+          <div
+            class="table-responsive"
+            v-if="appService.stepInstances.length > 20"
+          >
+            <CDataTable
+              :items="getStepInstancesList(appService.stepInstances)"
+              :fields="fields"
+              column-filter
+              table-filter
+              items-per-page-select
+              :items-per-page="5"
+              hover
+              sorter
+              pagination
+            >
+            </CDataTable>
+          </div>
+          <!-- @end Condition to show filtrable table if results are more then 5 lines-->
+          <table
+            class="table table-hover"
+            v-if="appService && appService.stepInstances.length < 20"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Funzionalità</th>
+                <th scope="col">Metodo</th>
+                <th scope="col">Metodo Statistico</th>
+                <th scope="col">Descrizione</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="item in getStepInstancesList(appService.stepInstances)"
+                :key="item.id"
+              >
+                <td>{{ item.functionality }}</td>
+                <td>{{ item.method }}</td>
+                <td>{{ item.statMethodName }}</td>
+                <td>{{ item.descr }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h5
+            v-if="!appService.stepInstances.length"
+            class="default-value card-body"
+          >
+            Nessun dato disponibile
+          </h5>
+        </div>
+        <!--/div-->
         <!--/fieldset-->
       </div>
     </div>
@@ -128,8 +128,8 @@ export default {
     businessServiceService: {
       type: Object,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   data() {
     return {
@@ -137,37 +137,37 @@ export default {
       fields: [
         {
           key: "functionality",
-          label: "Funzionalità",
+          label: "Funzionalità"
         },
         {
           key: "method",
-          label: "Metodo",
+          label: "Metodo"
         },
         {
           key: "statMethodName",
-          label: "Metodo Statistico",
+          label: "Metodo Statistico"
         },
         {
           key: "descr",
-          label: "Descrizione",
-        },
-      ],
+          label: "Descrizione"
+        }
+      ]
     };
   },
   methods: {
-    getStepInstancesList: function (stepInstances) {
-      return stepInstances.map((stepInstance) => {
+    getStepInstancesList: function(stepInstances) {
+      return stepInstances.map(stepInstance => {
         return {
           id: stepInstance.id,
           functionality: stepInstance.functionality,
           method: stepInstance.method,
           descr: stepInstance.descr,
           statMethodName: stepInstance.statMethod.name,
-          statMethodId: stepInstance.statMethod.id,
+          statMethodId: stepInstance.statMethod.id
         };
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
