@@ -3,10 +3,7 @@
   <div class="row">
     <div class="col-12">
       <div v-if="tool">
-        <CCardHeader
-          >{{ tool.name | dashEmpty }}
-         
-        </CCardHeader>
+        <CCardHeader>{{ tool.name | dashEmpty }} </CCardHeader>
 
         <CTabs
           variant="pills"
@@ -18,24 +15,25 @@
             </template>
 
             <CCard v-if="tool">
-              <CCardHeader>{{ tool.name | dashEmpty }}
-               <div class="card-header-actions">
-            <CButton
-              shape="square"
-              size="sm"
-              color="primary"
-              class="mr-2"
-              @click.prevent="handleSubmit"
-              >Salva</CButton
-            >
-            <CButton
-              shape="square"
-              size="sm"
-              color="light"
-              @click.prevent="$router.back()"
-              >Indietro</CButton
-            >
-          </div>
+              <CCardHeader
+                >{{ tool.name | dashEmpty }}
+                <div class="card-header-actions">
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="light"
+                    @click.prevent="$router.back()"
+                    >Indietro</CButton
+                  >
+                </div>
               </CCardHeader>
               <CCardBody>
                 <CInput
@@ -81,24 +79,25 @@
             </template>
 
             <CCard v-if="tool && tool.toolType.id == 3">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
-               <div class="card-header-actions">
-            <CButton
-              shape="square"
-              size="sm"
-              color="primary"
-              class="mr-2"
-              @click.prevent="handleSubmit"
-              >Salva</CButton
-            >
-            <CButton
-              shape="square"
-              size="sm"
-              color="light"
-              @click.prevent="$router.back()"
-              >Indietro</CButton
-            >
-          </div>
+              <CCardHeader>
+                {{ tool.toolType.name | dashEmpty }}
+                <div class="card-header-actions">
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="light"
+                    @click.prevent="$router.back()"
+                    >Indietro</CButton
+                  >
+                </div>
               </CCardHeader>
               <CCardBody>
                 <CInput
@@ -134,24 +133,25 @@
               </CCardBody>
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 2">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
-               <div class="card-header-actions">
-            <CButton
-              shape="square"
-              size="sm"
-              color="primary"
-              class="mr-2"
-              @click.prevent="handleSubmit"
-              >Salva</CButton
-            >
-            <CButton
-              shape="square"
-              size="sm"
-              color="light"
-              @click.prevent="$router.back()"
-              >Indietro</CButton
-            >
-          </div>
+              <CCardHeader>
+                {{ tool.toolType.name | dashEmpty }}
+                <div class="card-header-actions">
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="light"
+                    @click.prevent="$router.back()"
+                    >Indietro</CButton
+                  >
+                </div>
               </CCardHeader>
               <CCardBody>
                 <CInput
@@ -192,24 +192,25 @@
               </CCardBody>
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 1">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
-               <div class="card-header-actions">
-            <CButton
-              shape="square"
-              size="sm"
-              color="primary"
-              class="mr-2"
-              @click.prevent="handleSubmit"
-              >Salva</CButton
-            >
-            <CButton
-              shape="square"
-              size="sm"
-              color="light"
-              @click.prevent="$router.back()"
-              >Indietro</CButton
-            >
-          </div>
+              <CCardHeader>
+                {{ tool.toolType.name | dashEmpty }}
+                <div class="card-header-actions">
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="light"
+                    @click.prevent="$router.back()"
+                    >Indietro</CButton
+                  >
+                </div>
               </CCardHeader>
               <CCardBody>
                 <CInput
@@ -242,25 +243,25 @@
             </template>
 
             <CCard v-if="this.statisticalMethodsList">
-              <CCardHeader>Metodi Statistici
- <div class="card-header-actions">
-            <CButton
-              shape="square"
-              size="sm"
-              color="primary"
-              class="mr-2"
-              @click.prevent="handleSubmit"
-              >Salva</CButton
-            >
-            <CButton
-              shape="square"
-              size="sm"
-              color="light"
-              @click.prevent="$router.back()"
-              >Indietro</CButton
-            >
-          </div>
-
+              <CCardHeader
+                >Metodi Statistici
+                <div class="card-header-actions">
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  <CButton
+                    shape="square"
+                    size="sm"
+                    color="light"
+                    @click.prevent="$router.back()"
+                    >Indietro</CButton
+                  >
+                </div>
               </CCardHeader>
               <CCardBody>
                 <div id="app-tree1" class="demo-tree">
@@ -333,7 +334,7 @@ export default {
     Treeselect,
     "app-edit-documentation": DocumentationEditView,
     "app-edit-business-service": BusinessServiceEditView,
-    "app-linkedAgents": LinkedAgentView,
+    "app-linkedAgents": LinkedAgentView
   },
   data() {
     return {
@@ -369,7 +370,7 @@ export default {
         businessFunction: "",
         processDesign: "",
         statisticalMethods: [],
-        gsbpmProcesses: [],
+        gsbpmProcesses: []
       },
       linkedToolList: [],
       gsbpmChecked: [],
@@ -377,7 +378,7 @@ export default {
       agentChecked: [],
       documentationChecked: [],
 
-      elenco: [],
+      elenco: []
     };
   },
   computed: {
@@ -385,42 +386,42 @@ export default {
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
-    
+
     ...mapGetters("documentation", ["documentationList"]),
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
             };
-          }),
+          })
         };
       });
     },
-    getMethodsList: function () {
-      return this.statisticalMethodsList.map((method) => {
+    getMethodsList: function() {
+      return this.statisticalMethodsList.map(method => {
         return {
           id: method.id,
-          label: method.name,
+          label: method.name
         };
       });
     },
-    getDocumentationList: function () {
-      return this.documentationList.map((doc) => {
+    getDocumentationList: function() {
+      return this.documentationList.map(doc => {
         return {
           id: doc.id,
-          label: doc.name,
+          label: doc.name
         };
       });
     },
-    getLinkedAgentList: function () {
+    getLinkedAgentList: function() {
       if (this.tool)
-        return this.tool.linkAgentsTools.map((agentTool) => {
+        return this.tool.linkAgentsTools.map(agentTool => {
           return {
             id: agentTool.id,
             tooId: this.tool.id,
@@ -431,24 +432,24 @@ export default {
             agentNotes: agentTool.agent.notes,
             role: agentTool.role,
             notes: agentTool.notes,
-            referenceDate: agentTool.referenceDate,
+            referenceDate: agentTool.referenceDate
           };
         });
       else return [];
     },
-    getDocumentation: function () {
+    getDocumentation: function() {
       if (this.tool) {
-        return this.tool.documentations.map((doc) => {
+        return this.tool.documentations.map(doc => {
           return {
             id: doc.id,
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
-            resource: doc.resource,
+            resource: doc.resource
           };
         });
       } else return [];
-    },
+    }
   },
 
   methods: {
@@ -464,20 +465,20 @@ export default {
 
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.tool.gsbpmProcesses.map((gsbpmProc) => {
+      this.tool.gsbpmProcesses.map(gsbpmProc => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
 
     setCheckedNodesMethods() {
       this.methodsChecked = [];
-      this.tool.statisticalMethods.map((method) => {
+      this.tool.statisticalMethods.map(method => {
         this.methodsChecked.push(method.id);
       });
     },
     setCheckedNodesDocumentation() {
       this.documentationChecked = [];
-      this.tool.documentations.map((doc) => {
+      this.tool.documentations.map(doc => {
         this.documentationChecked.push(doc.id);
       });
     },
@@ -520,16 +521,14 @@ export default {
     backToList() {
       this.$router.push("/catalogue/tools");
     },
-    loadTool:_.debounce(function ()  {
+    loadTool: _.debounce(function() {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
-      
         this.setOldValues();
         this.setCheckedNodesGsbpm();
         this.setCheckedNodesMethods();
         this.setCheckedNodesDocumentation();
       });
-    },500),
-  
+    }, 500)
   },
 
   created() {
@@ -543,6 +542,6 @@ export default {
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("agent/findAll");
-  },
+  }
 };
 </script>

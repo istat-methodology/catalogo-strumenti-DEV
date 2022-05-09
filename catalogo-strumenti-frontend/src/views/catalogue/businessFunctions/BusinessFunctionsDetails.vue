@@ -30,7 +30,10 @@
       <CCard v-if="this.bFunction">
         <CCardHeader>Elenco Processi</CCardHeader>
         <CCardBody>
-          <app-business-process
+          <app-business-processview
+            :businessProcesses="getBusinessProcesses"
+          ></app-business-processview>
+          <!-- <app-business-process
             v-for="item in getBusinessProcesses"
             :key="item.id"
             :name="item.name"
@@ -40,7 +43,7 @@
             :parent="item.parent"
             :processSteps="item.processSteps"
           >
-          </app-business-process>
+          </app-business-process> -->
         </CCardBody>
       </CCard>
     </div>
@@ -49,13 +52,15 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
-import BusinessProcess from "../businessProcesses/shared/BusinessProcess";
+//import BusinessProcess from "../businessProcesses/shared/BusinessProcess";
+import BusinessProcessView from "../businessProcesses/shared/BusinessProcessView";
 import { Context } from "@/common";
 //import { Context } from "@/common";
 export default {
   name: "BusinessFunctionsDetails",
   components: {
-    "app-business-process": BusinessProcess
+    // "app-business-process": BusinessProcess,
+    "app-business-processview": BusinessProcessView
   },
   data() {
     return {
@@ -98,8 +103,8 @@ export default {
           desr: item.desr,
           label: item.label,
           orderCode: item.orderCode,
-          parent: item.parent,
-          processSteps: item.processSteps
+          parent: item.parent
+          //processSteps: item.processSteps
         };
       });
     }

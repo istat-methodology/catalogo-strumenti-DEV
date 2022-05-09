@@ -1,34 +1,34 @@
 <template>
   <div>
-    <h2>Documentazione</h2>
+    <!--  <h2>Elenco Bussiness Process</h2> -->
     <div class="columns">
       <div class="row">
-        <div v-if="documentations.length === 0">
-          <span>Nessuna documentazione associata</span>
+        <div v-if="businessProcesses.length === 0">
+          <span>Nessun Business Process associato</span>
         </div>
 
         <div
           class="card col-3"
-          v-for="documentation of documentations"
-          :key="documentation.id"
+          v-for="businessProcess of businessProcesses"
+          :key="businessProcess.id"
         >
           <div class="card-header">
-            <strong>{{ documentation.name }}</strong>
+            <strong>{{ businessProcess.name }}</strong>
             <div class="card-header-actions">
               <router-link
                 tag="a"
                 :to="{
-                  name: 'DocumentationDetails',
-                  params: { id: documentation.id }
+                  name: 'BusinessProcessDetails',
+                  params: { id: businessProcess.id }
                 }"
               >
                 <view-icon />
               </router-link>
             </div>
           </div>
-          <div class="card-body">
+          <!-- <div class="card-body">
             <p class="card-text">{{ documentation.documentType }}</p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -36,9 +36,9 @@
 </template>
 <script>
 export default {
-  name: "DocumentationView",
+  name: "BusinessProcessView",
   props: {
-    documentations: {
+    businessProcesses: {
       type: Array,
       required: true,
       default: () => []
