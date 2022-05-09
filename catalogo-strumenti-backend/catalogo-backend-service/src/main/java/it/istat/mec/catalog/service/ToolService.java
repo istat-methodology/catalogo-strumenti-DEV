@@ -16,12 +16,14 @@ import it.istat.mec.catalog.dao.DocumentationDao;
 import it.istat.mec.catalog.dao.GsbpmProcessDao;
 import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.Agent;
+import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.domain.StatisticalMethod;
+import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -205,5 +207,10 @@ public class ToolService {
 			CatalogTool tool = toolDao.findById(id).get();
 			toolDao.delete(tool);
 			return Translators.translate(tool);		
+	}
+
+	public List<CatalogToolMiniListDTO> findToolsByBusinessFunctions(Integer id) {
+	 	 return Translators.translateMiniTools(toolDao.findToolsByBusinessFunctions(new BusinessFunction(id)));
+		 
 	}
 }

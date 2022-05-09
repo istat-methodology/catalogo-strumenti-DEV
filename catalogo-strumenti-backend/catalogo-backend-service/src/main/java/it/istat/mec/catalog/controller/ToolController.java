@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.request.CreateToolRequest;
@@ -82,4 +84,10 @@ public class ToolController {
 		return toolService.deleteTool(id);
 	}
  
+	
+	@GetMapping("/open/tools/business-functions/{id}")
+	public List<CatalogToolMiniListDTO> findToolsByBusinessFunctions(@PathVariable("id") Integer id) {
+
+		return toolService.findToolsByBusinessFunctions(id);
+	} 
 }
