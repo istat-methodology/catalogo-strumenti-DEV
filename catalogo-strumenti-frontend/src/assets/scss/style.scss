@@ -431,6 +431,7 @@ a {
   border: 1px solid #bbbbbb !important;
   box-shadow: none !important;
   transition: background-color 0.5s !important;
+  margin-left:5px !important;
 }
 
 .border {
@@ -511,11 +512,33 @@ h2 {
   color: #213547;
   margin: 36px 0;
   transition: color 0.5s;
-  padding-top: 36px;
+  padding-top: 6px;
   /*border-top: 1px solid rgba(60, 60, 60, 0.12);*/
 }
 
 a {
   display: block;
   position: relative;
+}
+.c-main{
+  padding-top: 0  !important;
+}
+.description-fields {
+  padding-bottom: 20px;
+  font-size: large;
+  font-weight: bold;
+  color: #757373;
+}
+fieldset.scheduler-border {
+  border: 1px solid #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+}
+
+legend.scheduler-border {
+  width: inherit;
+  /* Or auto */
+  padding: 0 10px;
+  /* To give a bit of padding on the left and right */
+  border-bottom: none;
 }

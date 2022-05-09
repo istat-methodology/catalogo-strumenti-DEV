@@ -175,7 +175,7 @@
 <script>
 import { mapGetters } from "vuex";
 import AgentAdd from "./AgentAdd.vue";
-
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -197,6 +197,7 @@ export default {
       },
     };
   },
+  emits: ["refreshTool"],
   computed: {
     ...mapGetters("agent", ["agentList"]),
     ...mapGetters("linkedagent", ["linkedAgentList"]),
@@ -223,16 +224,12 @@ export default {
   components: {
     "app-agent-add": AgentAdd,
   },
-  mounted() {
-    this.updateLinkedAgentList();
-  },
-
   methods: {
-    updateAgentList() {
+    updateAgentList:_.debounce(function () {
       this.$store.dispatch("agent/findAll");
       this.viewAddAgent = false;
-      console.log(this.agentList);
-    },
+      
+    },500),
     selectId(e) {
       this.selectedId = e.id;
     },
@@ -248,9 +245,7 @@ export default {
       this.$store
         .dispatch("linkedagent/save", this.newLinkedAgent)
         .then(
-          this.$store
-            .dispatch("linkedagent/findByCatalogTool", this.toolId)
-            .then((this.states = Array(this.linkedAgentList.length).fill(true)))
+         this.loadLinkedAgentList() 
         );
       this.viewNewAgent = false;
     },
@@ -265,23 +260,29 @@ export default {
         referenceDate: selectedUpdateLinkedAgent.referenceDate,
       };
 
-      console.log(updateLinkedAgent);
       this.$store
         .dispatch("linkedagent/update", updateLinkedAgent)
-        .then(this.updateLinkedAgentList());
+        .then(this.loadLinkedAgentList());
     },
     handleDeleteLinkedAgent() {
       this.$store
         .dispatch("linkedagent/delete", this.selectedLinkedAgent.id)
-        .then(this.updateLinkedAgentList());
+        .then(this.loadLinkedAgentList());
       this.selectedLinkedAgent = null;
       this.warningModal = false;
     },
-    updateLinkedAgentList() {
-      this.$store
+
+    loadLinkedAgentList() {
+      this.loadDebounceLinkedAgentList(this.$store,this.toolId,this.states,this.linkedAgentList.length)
+   /*   this.$store
         .dispatch("linkedagent/findByCatalogTool", this.toolId)
-        .then((this.states = Array(this.linkedAgentList.length).fill(true)));
+        .then((this.states = Array(this.linkedAgentList.length).fill(true)));*/
     },
+  loadDebounceLinkedAgentList:  _.debounce((store,toolId,states,len) => {
+      store
+        .dispatch("linkedagent/findByCatalogTool", toolId)
+        .then((states = Array(len).fill(true)));
+    }, 500),
 
     modalOpen(app) {
       this.selectedLinkedAgent = app;
@@ -291,7 +292,10 @@ export default {
       this.warningModal = false;
     },
   },
-  name: "LinkedAgentView",
+
+
+
+  name: "LinkedAgentEditView",
   props: {
     toolId: {
       type: Number,
@@ -300,7 +304,7 @@ export default {
     },
   },
   created() {
-    this.updateLinkedAgentList();
+    this.loadLinkedAgentList();
   },
 };
 </script>

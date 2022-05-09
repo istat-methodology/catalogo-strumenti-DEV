@@ -1,10 +1,8 @@
 <template>
   <div class="row">
     <div class="col-sm-6 col-md-4">
+      <h2>Strumenti Metodologici</h2>
       <div class="card">
-        <header class="card-header">
-          <span>Strumenti Metodologici</span>
-        </header>
         <div class="card-body">
           In questa sezione puoi trovare la lista degli Strumenti Metodologici.
           <p class="section-link">
@@ -16,10 +14,8 @@
       </div>
     </div>
     <div class="col-sm-6 col-md-4">
+      <h2>Processi</h2>
       <div class="card">
-        <header class="card-header">
-          <span>Processi</span>
-        </header>
         <div class="card-body">
           In questa sezione puoi trovare la lista dei processi.
           <p class="section-link">
@@ -70,6 +66,6 @@ export default {
   name: "Catalogue",
   created() {
     this.$store.dispatch("coreui/setContext", Context.Home);
-  }
+  },
 };
 </script>

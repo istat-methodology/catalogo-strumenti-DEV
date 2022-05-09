@@ -1,7 +1,7 @@
 import { axiosCatalog } from "@/http";
 import AbstractService from "@/services/abstract.service";
 
-class AppsService extends AbstractService {
+class StepInstanceService extends AbstractService {
   constructor(endpoint) {
     super(endpoint);
   }
@@ -20,6 +20,6 @@ class AppsService extends AbstractService {
       });
   }
 }
-export const appsService = new AppsService("/catalog/app-services");
+export const stepInstanceService = new StepInstanceService("/catalog/stepinstances");
 
-export const appsOpenService = new AppsService("/catalog/open/app-services");
+export const stepInstanceOpenService = new StepInstanceService("/catalog/open/stepinstances");

@@ -5,7 +5,21 @@
       <div v-if="tool">
         <CCardHeader
           >{{ tool.name | dashEmpty }}
-          <div class="card-header-actions">
+         
+        </CCardHeader>
+
+        <CTabs
+          variant="pills"
+          :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
+        >
+          <CTab>
+            <template #title>
+              <span>Strumento</span>
+            </template>
+
+            <CCard v-if="tool">
+              <CCardHeader>{{ tool.name | dashEmpty }}
+               <div class="card-header-actions">
             <CButton
               shape="square"
               size="sm"
@@ -22,19 +36,7 @@
               >Indietro</CButton
             >
           </div>
-        </CCardHeader>
-
-        <CTabs
-          variant="pills"
-          :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
-        >
-          <CTab>
-            <template #title>
-              <span>Strumento</span>
-            </template>
-
-            <CCard v-if="tool">
-              <CCardHeader>{{ tool.name | dashEmpty }}</CCardHeader>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Descrizione"
@@ -51,8 +53,6 @@
                       :options="getGsbpmList"
                       :disable-branch-nodes="true"
                       :show-count="true"
-                      @select="onNodeCheckedGsbpm"
-                      @deselect="onNodeUncheckedGsbpm"
                     />
                   </div>
                 </div>
@@ -74,39 +74,6 @@
                 />
               </CCardBody>
             </CCard>
-
-            <!-- <CCard v-if="this.agentList">
-        <CCardHeader>Referenti</CCardHeader>
-        <CCardBody>
-          <div id="app-tree1" class="demo-tree">
-            <treeselect
-              v-model="agentChecked"
-              :multiple="true"
-              :options="getAgentList"
-              :disable-branch-nodes="true"
-              :show-count="true"
-              @select="onNodeCheckedAgent"
-              @deselect="onNodeUncheckedAgent"
-            />
-          </div>
-        </CCardBody>
-      </CCard> -->
-            <!-- <CCard v-if="this.documentationList">
-        <CCardHeader>Documentazione</CCardHeader>
-        <CCardBody>
-          <div id="app-tree3" class="demo-tree">
-            <treeselect
-              v-model="documentationChecked"
-              :multiple="true"
-              :options="getDocumentationList"
-              :disable-branch-nodes="true"
-              :show-count="true"
-              @select="onNodeCheckedDocumentation"
-              @deselect="onNodeUncheckedDocumentation"
-            />
-          </div>
-        </CCardBody>
-      </CCard> -->
           </CTab>
           <CTab>
             <template #title>
@@ -114,7 +81,25 @@
             </template>
 
             <CCard v-if="tool && tool.toolType.id == 3">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
+               <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Codice"
@@ -149,7 +134,25 @@
               </CCardBody>
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 2">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
+               <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Download"
@@ -189,7 +192,25 @@
               </CCardBody>
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 1">
-              <CCardHeader> {{ tool.toolType.name | dashEmpty }}</CCardHeader>
+              <CCardHeader> {{ tool.toolType.name | dashEmpty }}
+               <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+              </CCardHeader>
               <CCardBody>
                 <CInput
                   label="Protocollo"
@@ -212,7 +233,6 @@
                   placeholder="Retrizioni"
                   v-model="toolLocal.restrictions"
                 />
-               
               </CCardBody>
             </CCard>
           </CTab>
@@ -222,29 +242,49 @@
             </template>
 
             <CCard v-if="this.statisticalMethodsList">
-              <CCardHeader>Metodi Statistici</CCardHeader>
+              <CCardHeader>Metodi Statistici
+ <div class="card-header-actions">
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="$router.back()"
+              >Indietro</CButton
+            >
+          </div>
+
+              </CCardHeader>
               <CCardBody>
                 <div id="app-tree1" class="demo-tree">
                   <treeselect
-                    v-model="checkedNodesMethods"
+                    v-model="methodsChecked"
                     :multiple="true"
                     :options="getMethodsList"
                     :disable-branch-nodes="true"
                     :show-count="true"
-                    @select="onNodeCheckedMethods"
-                    @deselect="onNodeUncheckedMethods"
                   />
                 </div>
               </CCardBody>
             </CCard>
           </CTab>
 
-   <CTab>
+          <CTab>
             <template #title>
-              <span>Funzionalità</span>
+              <span>Implementazioni</span>
             </template>
 
-            <app-edit-business-service :businessServiceService="businessServiceService"></app-edit-business-service>
+            <app-edit-business-service
+              v-if="this.tool.businessService"
+              :businessServiceID="this.tool.businessService.id"
+            ></app-edit-business-service>
           </CTab>
 
           <CTab>
@@ -262,9 +302,12 @@
             <CCard v-if="this.tool">
               <CCardHeader>Documentazione </CCardHeader>
               <CCardBody>
-                <app-edit-documentation @refreshTool="loadTool" :documentations="getDocumentation" :toolId="this.tool.id">
-                 </app-edit-documentation>
-
+                <app-edit-documentation
+                  @refreshTool="handleSubmit"
+                  :documentations="getDocumentation"
+                  :toolId="this.tool.id"
+                >
+                </app-edit-documentation>
               </CCardBody>
             </CCard>
           </CTab>
@@ -275,6 +318,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import _ from "lodash";
 import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
 
@@ -324,19 +368,15 @@ export default {
         restrictions: "",
         businessFunction: "",
         processDesign: "",
-        statisticalMethods:[],
-        gsbpmProcesses:	[]
+        statisticalMethods: [],
+        gsbpmProcesses: [],
       },
       linkedToolList: [],
       gsbpmChecked: [],
-      checkedNodesGsbpm: [],
-      checkedNodesMethods: [],
-      checkedNodesDocumentation: [],
-      checkedNodesAgent: [],
       methodsChecked: [],
       agentChecked: [],
       documentationChecked: [],
-      //toolNodes: [],
+
       elenco: [],
     };
   },
@@ -345,22 +385,18 @@ export default {
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
+    
     ...mapGetters("documentation", ["documentationList"]),
     getGsbpmList: function () {
       return this.gsbpmList.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
-          label: gsbpm.name,
+          label: gsbpm.code + " " + gsbpm.name,
           children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.name,
-              /* state: {
-                selected: this.toolNodes.includes(gsbpmSubProcess.id)
-                  ? true
-                  : false
-              } */
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
             };
           }),
         };
@@ -393,7 +429,6 @@ export default {
             agentOrganization: agentTool.agent.organization,
             agentContact: agentTool.agent.contact,
             agentNotes: agentTool.agent.notes,
-
             role: agentTool.role,
             notes: agentTool.notes,
             referenceDate: agentTool.referenceDate,
@@ -402,9 +437,7 @@ export default {
       else return [];
     },
     getDocumentation: function () {
-    
-      if (this.tool)
-       {
+      if (this.tool) {
         return this.tool.documentations.map((doc) => {
           return {
             id: doc.id,
@@ -414,124 +447,39 @@ export default {
             resource: doc.resource,
           };
         });
-         }
-      else return [];
+      } else return [];
     },
-   
   },
 
-  /* validations: {
-    dug: {
-      name: {
-        required
-      }
-    }
-  }, */
-    mutations: {
-     
-    },
   methods: {
-      handleSubmit() {
-
+    handleSubmit() {
       this.toolLocal.toolType = this.tool.toolType.id;
-        this.toolLocal.statisticalMethods = this.checkedNodesMethods;
-             this.toolLocal.gsbpmProcesses = this.checkedNodesGsbpm;
-        
-      this.$store
-        .dispatch("tools/update", this.toolLocal).then(() => {
-          this.loadTool();
-      }); 
+      this.toolLocal.statisticalMethods = this.methodsChecked;
+      this.toolLocal.gsbpmProcesses = this.gsbpmChecked;
 
+      this.$store.dispatch("tools/update", this.toolLocal).then(() => {
+        this.loadTool();
+      });
     },
-    onNodeCheckedGsbpm(node) {
-      this.checkedNodesGsbpm.push(node.id);
-      console.log(node.text);
-      /* this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
-      this.$store
-        .dispatch("filter/setParams", this.payload)
-        .then(this.$store.dispatch("tools/filter", this.params)); */
-    },
+
     setCheckedNodesGsbpm() {
-       this.gsbpmChecked=[];
+      this.gsbpmChecked = [];
       this.tool.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
-    onNodeCheckedMethods(node) {
-      this.checkedNodesMethods.push(node.id);
-  
-      /* this.filter(this.checkedNodesMethods, this.checkedNodesType);
-      this.$store
-        .dispatch("filter/setParams", this.payload)
-        .then(this.$store.dispatch("tools/filter", this.params)); */
-    },
-    onNodeCheckedDocumentation(node) {
-      this.checkedNodesDocumentation.push(node.id);
-     
-    },
-    onNodeCheckedAgent(node) {
-      this.checkedNodesAgent.push(node.id);
-      
-    },
+
     setCheckedNodesMethods() {
-       this.methodsChecked=[];       
+      this.methodsChecked = [];
       this.tool.statisticalMethods.map((method) => {
         this.methodsChecked.push(method.id);
       });
     },
     setCheckedNodesDocumentation() {
-      this.documentationChecked=[];
+      this.documentationChecked = [];
       this.tool.documentations.map((doc) => {
         this.documentationChecked.push(doc.id);
       });
-    },
-    onNodeUncheckedGsbpm(node) {
-      if (this.checkedNodesGsbpm.indexOf(node.id) >= 0) {
-        this.checkedNodesGsbpm.splice(
-          this.checkedNodesGsbpm.indexOf(node.id),
-          1
-        );
-        console.log(node.text + "- unchecked");
-        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
-        this.$store
-          .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("tools/filter", this.params));
-      } else {
-        this.$store.dispatch("tools/filter", this.params);
-      }
-    },
-    onNodeUncheckedMethods(node) {
-      if (this.checkedNodesMethods.indexOf(node.id) >= 0) {
-        this.checkedNodesMethods.splice(
-          this.checkedNodesMethods.indexOf(node.id),
-          1
-        );
-       
-        /* this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
-        this.$store
-          .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("tools/filter", this.params)); */
-      } /* else {
-        this.$store.dispatch("tools/filter", this.params);
-      } */
-    },
-    onNodeUncheckedDocumentation(node) {
-      if (this.checkedNodesDocumentation.indexOf(node.id) >= 0) {
-        this.checkedNodesDocumentation.splice(
-          this.checkedNodesDocumentation.indexOf(node.id),
-          1
-        );
-         
-      }
-    },
-    onNodeUncheckedAgent(node) {
-      if (this.checkedNodesAgent.indexOf(node.id) >= 0) {
-        this.checkedNodesAgent.splice(
-          this.checkedNodesAgent.indexOf(node.id),
-          1
-        );
-        console.log(node.text + "- unchecked");
-      }
     },
 
     setOldValues() {
@@ -563,24 +511,25 @@ export default {
       this.toolLocal.outcomes = this.tool.outcomes;
       this.toolLocal.serviceDependencies = this.tool.serviceDepenencies;
       this.toolLocal.restrictions = this.tool.restrictions;
-      
+
       this.toolLocal.businessFunction = this.tool.buinessFunction;
       this.toolLocal.processDesign = this.tool.processDesign;
-      this.toolLocal.statisticalMethods =this.tool.statisticalMethods;
-      this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses;;
-    
+      this.toolLocal.statisticalMethods = this.tool.statisticalMethods;
+      this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses;
     },
     backToList() {
       this.$router.push("/catalogue/tools");
     },
-    loadTool() {
+    loadTool:_.debounce(function ()  {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
+      
         this.setOldValues();
         this.setCheckedNodesGsbpm();
         this.setCheckedNodesMethods();
         this.setCheckedNodesDocumentation();
       });
-    },
+    },500),
+  
   },
 
   created() {

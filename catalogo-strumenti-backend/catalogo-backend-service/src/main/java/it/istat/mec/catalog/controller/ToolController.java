@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
+import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.service.ToolService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,7 @@ public class ToolController {
 	private ToolService toolService;
 	
 	@GetMapping("/open/tools")
-	public List<CatalogToolDTO> getAllTools(@RequestParam(value = "type", required = false) Integer[] type,
+	public List<CatalogToolMiniListDTO> getAllTools(@RequestParam(value = "type", required = false) Integer[] type,
 			@RequestParam(value = "gsbpmIds", required = false) Integer[] gsbpmIds,
 			@RequestParam(value = "orderBy", required = false, defaultValue = "id,name") String[] orderBy,
 			@RequestParam(value = "sort", required = false, defaultValue = "ASC,ASC") String[] sort) {

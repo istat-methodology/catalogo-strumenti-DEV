@@ -188,7 +188,7 @@ export default {
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
-    this.$store.dispatch("tools/findAll");
+    //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
   },
 };

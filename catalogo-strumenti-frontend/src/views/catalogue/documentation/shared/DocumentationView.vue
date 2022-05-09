@@ -1,37 +1,33 @@
 <template>
   <div>
     <h2>Documentazione</h2>
-    <div class="card w-100">
-      <div class="card-body">
-        <div class="columns">
-          <div class="row">
-    <div  v-if="documentations.length===0">
-               <span>Nessuna documentazione associata</span>
-            </div>
+    <div class="columns">
+      <div class="row">
+        <div v-if="documentations.length === 0">
+          <span>Nessuna documentazione associata</span>
+        </div>
 
-            <div
-              class="card col-3"
-              v-for="documentation of documentations"
-              :key="documentation.id"
-            >
-              <div class="card-header">
-                <strong>{{ documentation.name }}</strong>
-                <div class="card-header-actions">
-                  <router-link
-                    tag="a"
-                    :to="{
-                      name: 'DocumentationDetails',
-                      params: { id: documentation.id },
-                    }"
-                  >
-                    <view-icon />
-                  </router-link>
-                </div>
-              </div>
-              <div class="card-body">
-                <p class="card-text">{{ documentation.documentType }}</p>
-              </div>
+        <div
+          class="card col-3"
+          v-for="documentation of documentations"
+          :key="documentation.id"
+        >
+          <div class="card-header">
+            <strong>{{ documentation.name }}</strong>
+            <div class="card-header-actions">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'DocumentationDetails',
+                  params: { id: documentation.id },
+                }"
+              >
+                <view-icon />
+              </router-link>
             </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ documentation.documentType }}</p>
           </div>
         </div>
       </div>
