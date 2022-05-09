@@ -249,7 +249,7 @@
         @mouseleave="setActiveItemList('#id-link-process', false)"
       >
         <app-business-functions
-          :businessFunctions="bFunctionsList"
+          :businessFunctions="bFunctionToolsList"
         ></app-business-functions>
       </div>
 
@@ -475,7 +475,7 @@ export default {
     ...mapGetters("businessService", {
       businessServiceService: "businessService",
     }),
-    ...mapGetters("business", ["bFunctionsList"]),
+    ...mapGetters("bFunction", ["bFunctionToolsList"]),
     getLinkedAgentList: function () {
       return this.tool.linkAgentsTools.map((agentTool) => {
         return {
@@ -560,7 +560,7 @@ export default {
             tool.businessService.id
           );
           this.$store.dispatch(
-            "business/findBFunctionsByBService",
+            "bFunction/findBFunctionsByBService",
             tool.businessService.id
           );
         }
