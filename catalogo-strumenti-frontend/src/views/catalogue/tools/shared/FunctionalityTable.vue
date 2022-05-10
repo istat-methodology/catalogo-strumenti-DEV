@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="row ">
-      <h3> Funzionalità</h3>
+      <h3> Funzionalità
 
       <span class="icon-link float-right" @click="showNewFunct = true" title="Aggiungi una nuova funzionalità">
-        <plus-icon />
+        <plus-icon title="Nuova funzionalità" />
       </span>
+      </h3>
 
     </div>
 
@@ -53,7 +54,7 @@
         </span>
       </div>
     </div>
-{{ stepInstancesLocal }}
+
     <div class="row" v-for="(stepinstance, index) of stepInstancesLocal" :key="stepinstance.id">
       <div class="col-1">
         {{ index + 1 }})
@@ -138,7 +139,7 @@ export default {
   methods: {
     deleteStepInstance() {
       this.$store
-        .dispatch("appservice/delete", this.selectedStepInstance.id)
+        .dispatch("stepinstance/delete", this.selectedStepInstance.id)
         .then(this.$emit("reLoadData", this.appService));
       this.warningModal = false;
     },
