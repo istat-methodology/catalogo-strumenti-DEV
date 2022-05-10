@@ -47,7 +47,7 @@
               class="icon-link col-1"
               @click="modalOpen(selectedUpdateAppService)"
             >
-              <delete-icon title="CAncella" />
+              <delete-icon title="Cancella" />
             </span>
             &nbsp;
             <span class="icon-link col-1" @click="closeEdit()">
@@ -78,11 +78,17 @@
                   >
                     <edit-icon title="Modifica" /> </span
                   >&nbsp;
-                  <span
+                  <span v-if="appService.stepInstances.length==0"
                     class="icon-link col-1"
                     @click.prevent="modalOpen(appService)"
                   >
                     <delete-icon title="Cancella" />
+                  </span>
+                    <span v-else
+                    class=" col-1 disable"
+              aria-disabled="true" 
+                  >
+                    <delete-icon title="Cancella"  />
                   </span>
                 </div>
               </div>
@@ -185,6 +191,7 @@
                 label="Descrizione"
                 v-model="selectedUpdateAppService.descr"
               ></CTextarea>
+            </div>
               <div class="row">
                 <CInput
                   class="col-6"
@@ -213,7 +220,7 @@
                   v-model="selectedUpdateAppService.licence"
                 />
               </div>
-            </div>
+          
             <hr />
 
             <app-functionality-table
