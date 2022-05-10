@@ -3,56 +3,57 @@
     <div>
       <div class="row">
         <h3>Implementazioni e funzionalità</h3>
-<div class="card-header" v-if="stateform == FormState.LIST">
+        <div class="card-header" v-if="stateform == FormState.LIST">
           Lista
           <div class="card-header-actions">
-        <span  class="icon-link float-right" @click="stateform = FormState.NEW"
-          title="Aggiungi una nuova implementazione">
-          <plus-icon />
-        </span>
-          </div></div>  
+            <span class="icon-link float-right" @click="stateform = FormState.NEW"
+              title="Aggiungi una nuova implementazione">
+              <plus-icon />
+            </span>
+          </div>
+        </div>
 
 
-<div class="card-header" v-if="stateform == FormState.NEW">
+        <div class="card-header" v-if="stateform == FormState.NEW">
           Nuova implementazione
           <div class="card-header-actions">
             <span>
               <span title="Salva" class="icon-link col-1" @click.prevent="handleNewAppService">
-                <success-icon />
+                <success-icon title="Salva" />
               </span>&nbsp;
 
               <span class="icon-link col-1" @click="closeNew()">
-                <close-circle-icon />
+                <close-circle-icon title="Chiudi" />
               </span>
             </span>
           </div>
         </div>
-          <div class="card-header" v-if="stateform == FormState.EDIT">
-        <div class="card-header-actions" >
-          Modifica
-          <span class="icon-link col-1" @click.prevent="handleSubmitAdd(selectedUpdateAppService)">
-            <success-icon />
-          </span>&nbsp;
-          <span class="icon-link col-1" @click="modalOpen(selectedUpdateAppService)">
-            <delete-icon />
-          </span>
-          &nbsp;
-          <span class="icon-link col-1" @click="closeEdit()">
-            <close-circle-icon />
-          </span>
+        <div class="card-header" v-if="stateform == FormState.EDIT">
+          <div class="card-header-actions">
+            Modifica
+            <span class="icon-link col-1" @click.prevent="handleUpdateAppService()">
+              <success-icon  title="Salva" />
+            </span>&nbsp;
+            <span class="icon-link col-1" @click="modalOpen(selectedUpdateAppService)">
+              <delete-icon  title="CAncella" />
+            </span>
+            &nbsp;
+            <span class="icon-link col-1" @click="closeEdit()">
+              <close-circle-icon title="Chiudi"/>
+            </span>
+          </div>
         </div>
-</div>
 
 
 
       </div>
 
       <div v-if="stateform == FormState.LIST">
-    
+
 
         <div class="columns">
-          <div class="row">
-            <div v-if="this.businessService.appServices === 0">
+          <div class="row" v-if="this.businessService">
+            <div v-if="this.businessService.appServices.length == 0">
               <span>Nessuna implementazione definita</span>
             </div>
 
@@ -60,14 +61,18 @@
               <div class="card-header">
                 <strong>{{ appService.name }}</strong>
                 <div class="card-header-actions">
-                  <span @click.prevent="handleSelectedEditAdd(appService)">
-                    <edit-icon />
-                  </span>
+                  <span class="icon-link col-1" @click.prevent="handleSelectedEdit(appService)">
+                    <edit-icon title="Modifica"/>
+                  </span>&nbsp;
+            <span class="icon-link col-1" @click.prevent="modalOpen(appService)">
+              <delete-icon title="Cancella"/>
+            </span>
                 </div>
               </div>
               <div class="card-body">
-                <p class="card-text">{{ appService.descr }}</p>
-                <p class="card-text"><strong>Linguaggio:</strong>{{ appService.implementationLanguage }}</p>
+                <p>{{ appService.descr }}</p>
+                <p><strong>Linguaggio:</strong>&nbsp;{{ appService.implementationLanguage }}</p>
+                <p><strong>Funzionalità:</strong>&nbsp;{{ appService.stepInstances.length }}</p>
               </div>
             </div>
           </div>
@@ -77,11 +82,9 @@
 
       <div v-if="stateform == FormState.NEW">
         <div class="card">
-      
-          <div class="card-body">
 
-            
-            <CInput class="col-6" label="Nome" placeholder="Nome" v-model="newAppService.name" />
+          <div class="card-body">
+        <CInput class="col-6" label="Nome" placeholder="Nome" v-model="newAppService.name" />
             <CTextarea class="col-12" label="Descrizione" v-model="newAppService.descr"></CTextarea>
             <div class="row">
               <CInput class="col-6" label="Autore" placeholder="Autore" v-model="newAppService.author" />
@@ -99,47 +102,44 @@
         </div>
       </div>
 
-      <div v-if="stateform == FormState.EDIT">
-     <div class="card">
-      
+      <div v-if="stateform == FormState.EDIT && selectedUpdateAppService">
+        <div class="card">
+ 
           <div class="card-body">
+       <div class="row">
+              <CInput class="col-6" label="Nome" placeholder="Nome" v-model="selectedUpdateAppService.name" />
 
 
-          <div class="row">
-            <CInput class="col-6" label="Nome" placeholder="Nome" v-model="selectedUpdateAppService.name" />
+              <CTextarea class="col-12" label="Descrizione" v-model="selectedUpdateAppService.descr"></CTextarea>
+              <div class="row">
+                <CInput class="col-6" label="Autore" placeholder="Autore" v-model="selectedUpdateAppService.author" />
+                <CInput class="col-6" label="Contatto" placeholder="Contatto"
+                  v-model="selectedUpdateAppService.contact" />
+              </div>
+              <div class="row">
+                <CInput class="col-4" label="Linguaggio" placeholder="Note"
+                  v-model="selectedUpdateAppService.implementationLanguage" />
 
-
-            <CTextarea class="col-12" label="Descrizione" v-model="selectedUpdateAppService.descr"></CTextarea>
-            <div class="row">
-              <CInput class="col-6" label="Autore" placeholder="Autore" v-model="selectedUpdateAppService.author" />
-              <CInput class="col-6" label="Contatto" placeholder="Contatto"
-                v-model="selectedUpdateAppService.contact" />
+                <CInput class="col-8" label="File Sorgente" placeholder="File Sorgente"
+                  v-model="selectedUpdateAppService.sourcePath" />
+              </div>
+              <CInput class="col-6" label="Licenza" placeholder="Licenza" v-model="selectedUpdateAppService.licence" />
             </div>
-            <div class="row">
-              <CInput class="col-4" label="Linguaggio" placeholder="Note"
-                v-model="selectedUpdateAppService.implementationLanguage" />
+<hr/>
+     
+             
+             
+              <app-functionality-table @reLoadData="reLoadBusinessService" :appService="selectedUpdateAppService.id"
+                :statisticalMethodsList="statisticalMethodsList" :stepInstances="
+                  getStepInstancesList(selectedUpdateAppService.stepInstances)
+                "></app-functionality-table>
 
-              <CInput class="col-8" label="File Sorgente" placeholder="File Sorgente"
-                v-model="selectedUpdateAppService.sourcePath" />
-            </div>
-            <CInput class="col-6" label="Licenza" placeholder="Licenza" v-model="selectedUpdateAppService.licence" />
+        
+
+
           </div>
 
-        <fieldset>
-          <legend>
-            <h4>Funzionalità</h4>
-          </legend>
-          <app-functionality-table @reLoadData="loadBusinessService" :appService="selectedUpdateAppService.id"
-            :statisticalMethodsList="statisticalMethodsList" :stepInstances="
-              getStepInstancesList(selectedUpdateAppService.stepInstances)
-            "></app-functionality-table>
-
-        </fieldset>
-
-
-      </div>
-
-      </div>
+        </div>
 
       </div>
 
@@ -228,7 +228,7 @@ export default {
     };
   },
   methods: {
-    handleSelectedEditAdd(app) {
+    handleSelectedEdit(app) {
       this.selectedUpdateAppService = app;
       this.stateform = this.FormState.EDIT;
     },
@@ -263,12 +263,12 @@ export default {
             functionality: stepInstance.functionality,
             method: stepInstance.method,
             descr: stepInstance.descr,
-            statMethodName: stepInstance.statMethod.name,
-            statMethodId: stepInstance.statMethod.id
+            statMethod:{id:stepInstance.statMethod.id,name:stepInstance.statMethod.name}  
           };
         });
       else return [];
     },
+   
     handleNewAppService: function () {
       this.newAppService.businessService = this.businessServiceID;
       this.$store
@@ -277,7 +277,20 @@ export default {
 
       this.stateform = this.FormState.LIST;
     },
+    handleUpdateAppService: function () {
+      this.selectedUpdateAppService.businessService = this.businessServiceID;
+      this.$store
+        .dispatch("appservice/update", this.selectedUpdateAppService) 
+        .then(this.loadBusinessService());
+      
+    },
+  reLoadBusinessService: _.debounce(function (idAppService) {
+      console.log(this.idAppService);
+      this.loadBusinessService();
+      this.selectedUpdateAppService=this.businessService.appServices.find(x => x.id === idAppService);
+      console.log(this.selectedUpdateAppService);
 
+    }, 500),
     loadBusinessService: _.debounce(function () {
       if (this.businessServiceID) {
         this.$store.dispatch(

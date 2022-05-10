@@ -1,26 +1,22 @@
 <template>
-  <div v-if="statisticalMethodsList">
-    <div class="row">
-      <span
-        @click="$emit('reLoadData')"
-        title="Refresh"
-        class="icon-link float-right"
-      >
-        <text-icon /> refresh
+  <div>
+    <div class="row ">
+      <h3> Funzionalità</h3>
+
+      <span class="icon-link float-right" @click="showNewFunct = true" title="Aggiungi una nuova funzionalità">
+        <plus-icon />
       </span>
-      <span
-        @click="showNewFunct = true"
-        title="Nuova"
-        class="icon-link float-right"
-      >
-        <block-icon /> Nuova funzionalità
-      </span>
+
     </div>
+
     <div class="row" v-if="showNewFunct || stepInstancesLocal.length > 0">
+      <div class="col-1">
+
+      </div>
       <div class="col-2">
         <span><strong>Nome</strong></span>
       </div>
-      <div class="col-3">
+      <div class="col-2">
         <span><strong>Metodo </strong></span>
       </div>
       <div class="col-3">
@@ -32,20 +28,18 @@
       <div class="col-1"></div>
     </div>
     <div class="row" v-if="showNewFunct">
+      <div class="col-1">
+        <span>*</span>
+      </div>
       <div class="col-2">
         <CInput placeholder="Nome" v-model="newStepInstance.functionality" />
       </div>
-      <div class="col-3">
+      <div class="col-2">
         <CInput placeholder="Metodo" v-model="newStepInstance.method" />
       </div>
       <div class="col-3">
-        <v-select
-          :options="getStatisticalMethodsOptions()"
-          label="name"
-          key="id"
-          placeholder="Metodo Statistico"
-          v-model="selectedStatMethod"
-        ></v-select>
+        <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
+          v-model="selectedStatMethod"></v-select>
       </div>
       <div class="col-3">
         <CTextarea placeholder="Descrizione" v-model="newStepInstance.descr" />
@@ -59,32 +53,26 @@
         </span>
       </div>
     </div>
-
-    <div
-      class="row"
-      v-for="stepinstance of stepInstancesLocal"
-      :key="stepinstance.id"
-    >
+{{ stepInstancesLocal }}
+    <div class="row" v-for="(stepinstance, index) of stepInstancesLocal" :key="stepinstance.id">
+      <div class="col-1">
+        {{ index + 1 }})
+      </div>
       <div class="col-2">
         <CInput placeholder="Nome" v-model="stepinstance.functionality" />
       </div>
-      <div class="col-3">
+      <div class="col-2">
         <CInput placeholder="Metodo" v-model="stepinstance.method" />
       </div>
       <div class="col-3">
-        <v-select
-          :options="getStatisticalMethodsOptions()"
-          label="name"
-          key="id"
-          placeholder="Metodo Statistico"
-          v-model="stepinstance.statMethod"
-        ></v-select>
+        <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
+          v-model="stepinstance.statMethod"   ></v-select>
       </div>
       <div class="col-3">
         <CTextarea placeholder="Descrizione" v-model="stepinstance.descr" />
       </div>
       <div class="col-1">
-        <span class="icon-link" @click.prevent="handleSubmitAdd(stepinstance)">
+        <span class="icon-link" @click.prevent="handleSubmitUpdate(stepinstance)">
           <success-icon />&nbsp;
         </span>
         <span class="icon-link" @click.prevent="modalOpen(stepinstance)">
@@ -98,12 +86,7 @@
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Close
         </CButton>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          @click="deleteStepInstance"
-        >
+        <CButton shape="square" size="sm" color="primary" @click="deleteStepInstance">
           Delete
         </CButton>
       </template>
@@ -149,55 +132,14 @@ export default {
         appService: this.appService
       },
 
-      fields: [
-        {
-          key: "functionality",
-          label: "Funzionalità",
-          type: "text",
-          editable: true,
-          placeholder: "Nome funzionalità...",
-          class: "name-col",
-          validate: this.validateName
-        },
-        {
-          key: "method",
-          label: "Metodo",
-          type: "text",
-          editable: true,
-          placeholder: "Nome metodo...",
-          class: "name-col",
-          validate: this.validateName
-        },
-        {
-          key: "statMethodName",
-          label: "MetodoStatistico",
-          type: "select",
-          editable: true,
-          class: "department-col",
-          options: this.getStatisticalMethodsOptions()
-        },
-        {
-          key: "descr",
-          label: "Descrizione",
-          type: "text",
-          editable: true,
-          placeholder: "Descrizione...",
-          class: "name-col",
-          validate: this.validateName
-        },
-
-        { key: "edit", label: "" },
-        { key: "delete", label: "" }
-      ],
-      rowUpdate: {},
-      enabledButtonAddFuncts: true
+     
     };
   },
   methods: {
     deleteStepInstance() {
       this.$store
         .dispatch("appservice/delete", this.selectedStepInstance.id)
-        .then(this.$emit("reLoadData"));
+        .then(this.$emit("reLoadData", this.appService));
       this.warningModal = false;
     },
     modalOpen(app) {
@@ -207,7 +149,7 @@ export default {
     modalClose() {
       this.warningModal = false;
     },
-    getStatisticalMethodsOptions: function() {
+    getStatisticalMethodsOptions: function () {
       if (this.statisticalMethodsList)
         return this.statisticalMethodsList.map(method => {
           return {
@@ -218,52 +160,36 @@ export default {
       else return [];
     },
 
-    handleSubmit(data, update) {
-      this.rowUpdate = {
-        edit: false,
-        id: data.id,
-        action: update ? "update" : "cancel"
-      };
-
-      let updateStepInstance = {
-        id: data.item.id,
-        descr: data.item.descr,
-        method: data.item.method,
-        statMethod: data.item.statMethodId,
-        functionality: data.item.functionality,
+    handleSubmitUpdate(selStepInstance) {
+      let updateStepInstance= {
+        id: selStepInstance.id,
+        descr: selStepInstance.descr,
+        method: selStepInstance.method,
+        statMethod:selStepInstance.statMethod.id,
+        functionality:selStepInstance.functionality,
         appService: this.appService
       };
-      console.log(updateStepInstance);
-      console.log(this.stepInstancesLocal);
       this.$store
         .dispatch("stepinstance/update", updateStepInstance)
-        .then(this.$emit("reLoadData"));
+        .then(this.$emit("reLoadData", this.appService));
     },
     handleSubmitAdd() {
-      this.newStepInstance.statMethod = this.selectedStatMethod.value;
+      this.newStepInstance.statMethod=this.selectedStatMethod.id;
       this.$store
         .dispatch("stepinstance/save", this.newStepInstance)
-        .then(this.$emit("reLoadData"));
+        .then(this.$emit("reLoadData", this.appService));
       this.showNewFunct = false;
     },
-    handleEdit(data) {
-      this.rowUpdate = { edit: true, id: data.id };
-    },
-    handleDelete(data) {
-      this.rowUpdate = { id: data.id, action: "delete" };
-    },
-    validateName(value) {
-      if (value === "") {
-        return {
-          valid: false,
-          errorMessage: "Please enter name"
-        };
-      }
-      return { valid: true };
-    }
+
   },
   created() {
-    this.stepInstancesLocal = this.stepInstances;
+    this.stepInstancesLocal = this.stepInstances; 
+     this.stepInstancesLocal.statMethod =  this.stepInstances.map(method => {
+          return {
+            id: method.id,
+            name: method.name
+          };
+        });  
   }
 };
 </script>

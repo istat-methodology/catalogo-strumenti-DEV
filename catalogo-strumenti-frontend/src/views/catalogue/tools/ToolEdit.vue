@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <div v-if="tool">
-        <CCardHeader>{{ tool.name | dashEmpty }} </CCardHeader>
+       
 
         <CTabs
           variant="pills"
@@ -16,7 +16,7 @@
 
             <CCard v-if="tool">
               <CCardHeader
-                >{{ tool.name | dashEmpty }}
+                >{{ tool.name | dashEmpty }} / Strumento
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -134,7 +134,7 @@
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 2">
               <CCardHeader>
-                {{ tool.toolType.name | dashEmpty }}
+                {{ tool.name | dashEmpty }} / {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -193,7 +193,7 @@
             </CCard>
             <CCard v-if="tool && tool.toolType.id == 1">
               <CCardHeader>
-                {{ tool.toolType.name | dashEmpty }}
+               {{ tool.name | dashEmpty }} / {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -244,7 +244,7 @@
 
             <CCard v-if="this.statisticalMethodsList">
               <CCardHeader
-                >Metodi Statistici
+                >{{ tool.name | dashEmpty }} /Metodi Statistici
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -301,7 +301,7 @@
             </template>
 
             <CCard v-if="this.tool">
-              <CCardHeader>Documentazione </CCardHeader>
+              <CCardHeader>{{ tool.name | dashEmpty }} / Documentazione </CCardHeader>
               <CCardBody>
                 <app-edit-documentation
                   @refreshTool="handleSubmit"
