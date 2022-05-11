@@ -13,7 +13,7 @@
           :key="businessProcess.id"
         >
           <div class="card-header">
-            <{{ businessProcess.name }}
+            {{ businessProcess.name }}
 
             <div class="card-header-actions">
               <router-link
