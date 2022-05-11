@@ -13,8 +13,8 @@
           :key="businessProcess.id"
         >
           <div class="card-header">
-            <strong>{{ businessProcess.name }}</strong>
-            
+            <{{ businessProcess.name }}
+
             <div class="card-header-actions">
               <router-link
                 tag="a"
@@ -27,13 +27,13 @@
               </router-link>
             </div>
           </div>
-            <div class="card-body">
-           <ul id="example-1">
+          <div class="card-body">
+            <ul id="example-1">
               <li v-for="item in businessProcess.processSteps" :key="item.id">
                 {{ item.name }}
               </li>
             </ul>
-          </div>  
+          </div>
         </div>
       </div>
     </div>
