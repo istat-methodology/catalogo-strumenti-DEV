@@ -8,8 +8,6 @@
           <span>Nessun metodo statitico associato</span>
         </div>
 
-
-        
         <div
           class="card col-3"
           v-for="statisticalMethod of statisticalMethods"
@@ -22,7 +20,7 @@
                 tag="a"
                 :to="{
                   name: 'StatisticalMethodView',
-                  params: { id: statisticalMethod.id },
+                  params: { id: statisticalMethod.id }
                 }"
               >
                 <view-icon />
@@ -44,9 +42,9 @@ export default {
     statisticalMethods: {
       type: Array,
       required: true,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 <style scoped>
