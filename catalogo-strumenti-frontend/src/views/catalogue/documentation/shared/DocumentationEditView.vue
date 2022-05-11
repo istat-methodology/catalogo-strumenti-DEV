@@ -1,34 +1,19 @@
 <template>
   <div>
-    <div class="row">
-      <span class="icon-link float-right" @click="$emit('refreshTool')"
-        ><success-icon title="Aggiungi un nuovo d un referente"
-      /></span>
-
-      <div>
-        <span v-if="!viewNewDocument">Nuovo Documento</span>
-        <span
+    <CCardHeader>{{ this.toolName | dashEmpty }} > Documentazione
+     <div v-if="!viewNewDocument" class="card-header-actions">             <span
           class="icon-link float-right"
-          @click="viewNewDocument = !viewNewDocument"
-          ><plus-icon
-            title="Aggiungi un nuovo d un referente"
-            v-if="!viewNewDocument"/><undo-icon
-            title="Annulla"
-            v-if="viewNewDocument"
-        /></span>
-      </div>
-
-      <div v-if="viewNewDocument" class="row">
-        <CCard>
-          <CCardHeader
-            >Nuovo Documento
-            <div class="card-header-actions">
-              <span @click="handleSubmit()">
-                <span class="icon-link"><success-icon /></span>
-                <span class="icon-link"><delete-icon /></span>
-              </span>
-            </div>
-          </CCardHeader>
+          @click="viewNewDocument = true"
+          ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Nuovo
+          Documento</span
+        >
+            </div>  
+              </CCardHeader>
+ 
+    
+      <div v-if="viewNewDocument" class="col-12">
+        <CCard class="col-12">
+          <CCardHeader>Nuovo Documento </CCardHeader>
           <CCardBody>
             <CInput
               label="Nome"
@@ -49,7 +34,7 @@
               placeholder="Tipo documento"
               v-model="documentationLocal.documentType"
             ></v-select>
-            <CInput
+            <CTextarea
               label="Note"
               placeholder="Note"
               v-model="documentationLocal.notes"
@@ -60,13 +45,37 @@
               v-model="documentationLocal.resource"
             />
           </CCardBody>
+          <CCardFooter>
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="viewNewDocument = false"
+              >Chiudi</CButton
+            >
+          </CCardFooter>
         </CCard>
       </div>
-
-      <div v-if="documentations.length === 0">
-        <span>Nessuna documentazione associata</span>
+  <CCardBody>
+      <div class="row">
+        <div v-if="documentations.length === 0">
+          <span>Nessuna documentazione associata</span>
+        </div>
+        <div v-else>
+          <p class="card-text">Elenco documenti disponibili:</p>
+        </div>
+     
       </div>
-    </div>
+   
+
     <div class="row">
       <div
         class="card col-3"
@@ -74,13 +83,13 @@
         :key="documentation.id"
       >
         <div class="card-header">
-          <strong>{{ documentation.name }}</strong>
+          {{ documentation.name }}
           <div class="card-header-actions">
             <router-link
               tag="a"
               :to="{
                 name: 'DocumentationDetails',
-                params: { id: documentation.id }
+                params: { id: documentation.id },
               }"
             >
               <view-icon />
@@ -95,6 +104,7 @@
         </div>
       </div>
     </div>
+   </CCardBody>
     <CModal
       title="Warning!"
       :show.sync="warningModal"
@@ -136,12 +146,12 @@ export default {
         publisher: "",
         documentType: "",
         resource: "",
-        tool: this.toolId
-      }
+        tool: this.toolId,
+      },
     };
   },
   computed: {
-    ...mapGetters("documentationType", ["documentationTypeList"])
+    ...mapGetters("documentationType", ["documentationTypeList"]),
   },
   emits: ["refreshTool"],
 
@@ -149,13 +159,18 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     toolId: {
       type: Number,
       required: true,
-      default: null
-    }
+      default: null,
+    },
+     toolName: {
+      type: String,
+      required: true,
+      default: null,
+    },
   },
   methods: {
     changeTool(value) {
@@ -166,7 +181,8 @@ export default {
     },
     handleSubmit() {
       this.documentationLocal.tool = this.toolId;
-      this.documentationLocal.documentType = this.documentationLocal.documentType.id;
+      this.documentationLocal.documentType =
+        this.documentationLocal.documentType.id;
       console.log(this.documentationLocal);
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
@@ -189,13 +205,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  }
+  },
 };
 </script>
 <style scoped>

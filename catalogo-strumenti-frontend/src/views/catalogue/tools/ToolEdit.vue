@@ -14,9 +14,9 @@
               <span>Strumento</span>
             </template>
 
-            <CCard v-if="tool">
+            <div v-if="tool">
               <CCardHeader
-                >{{ tool.name | dashEmpty }} / Strumento
+                >{{ tool.name | dashEmpty }} > Strumento
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -35,6 +35,7 @@
                   >
                 </div>
               </CCardHeader>
+              <CCard>
               <CCardBody>
                 <CInput
                   label="Descrizione"
@@ -71,14 +72,15 @@
                   v-model="toolLocal.requirements"
                 />
               </CCardBody>
-            </CCard>
+              </CCard>
+            </div>
           </CTab>
           <CTab>
             <template #title>
               <span>{{ tool.toolType.name | dashEmpty }}</span>
             </template>
 
-            <CCard v-if="tool && tool.toolType.id == 3">
+            <div v-if="tool && tool.toolType.id == 3">
               <CCardHeader>
                 {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
@@ -99,7 +101,7 @@
                   >
                 </div>
               </CCardHeader>
-              <CCardBody>
+  <CCard>            <CCardBody>
                 <CInput
                   label="Codice"
                   placeholder="Codice"
@@ -131,10 +133,11 @@
                   v-model="toolLocal.technicalRequirements"
                 />
               </CCardBody>
-            </CCard>
-            <CCard v-if="tool && tool.toolType.id == 2">
+         </CCard>  
+         </div>
+            <div v-if="tool && tool.toolType.id == 2">
               <CCardHeader>
-                {{ tool.name | dashEmpty }} / {{ tool.toolType.name | dashEmpty }}
+                {{ tool.name | dashEmpty }} > {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -153,6 +156,7 @@
                   >
                 </div>
               </CCardHeader>
+              <CCard>
               <CCardBody>
                 <CInput
                   label="Download"
@@ -190,10 +194,11 @@
                   v-model="toolLocal.technicalRequirements"
                 />
               </CCardBody>
-            </CCard>
-            <CCard v-if="tool && tool.toolType.id == 1">
+              </CCard>
+            </div>
+            <div v-if="tool && tool.toolType.id == 1">
               <CCardHeader>
-               {{ tool.name | dashEmpty }} / {{ tool.toolType.name | dashEmpty }}
+               {{ tool.name | dashEmpty }} > {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -212,6 +217,7 @@
                   >
                 </div>
               </CCardHeader>
+              <CCard>
               <CCardBody>
                 <CInput
                   label="Protocollo"
@@ -236,15 +242,16 @@
                 />
               </CCardBody>
             </CCard>
+            </div>
           </CTab>
           <CTab>
             <template #title>
               <span>Metodi Statistici</span>
             </template>
 
-            <CCard v-if="this.statisticalMethodsList">
+            <div v-if="this.statisticalMethodsList">
               <CCardHeader
-                >{{ tool.name | dashEmpty }} /Metodi Statistici
+                >{{ tool.name | dashEmpty }} > Metodi Statistici
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -263,6 +270,7 @@
                   >
                 </div>
               </CCardHeader>
+              <CCard>
               <CCardBody>
                 <div id="app-tree1" class="demo-tree">
                   <treeselect
@@ -274,7 +282,8 @@
                   />
                 </div>
               </CCardBody>
-            </CCard>
+              </CCard>
+            </div>
           </CTab>
 
           <CTab>
@@ -285,6 +294,7 @@
             <app-edit-business-service
               v-if="this.tool.businessService"
               :businessServiceID="this.tool.businessService.id"
+              :toolName="this.tool.name"
             ></app-edit-business-service>
           </CTab>
 
@@ -293,24 +303,24 @@
               <span>Referenti</span>
             </template>
 
-            <app-linkedAgents :toolId="tool.id"></app-linkedAgents>
+            <app-linkedAgents :toolId="tool.id" :toolName="this.tool.name"></app-linkedAgents>
           </CTab>
           <CTab>
             <template #title>
               <span>Documentazione</span>
             </template>
 
-            <CCard v-if="this.tool">
-              <CCardHeader>{{ tool.name | dashEmpty }} / Documentazione </CCardHeader>
-              <CCardBody>
-                <app-edit-documentation
+            <div v-if="this.tool">
+          
+               
+                <app-edit-documentation    :toolName="this.tool.name"
                   @refreshTool="handleSubmit"
                   :documentations="getDocumentation"
                   :toolId="this.tool.id"
                 >
                 </app-edit-documentation>
-              </CCardBody>
-            </CCard>
+          
+            </div>
           </CTab>
         </CTabs>
       </div>

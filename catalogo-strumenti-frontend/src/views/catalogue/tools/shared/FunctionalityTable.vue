@@ -1,94 +1,99 @@
 <template>
   <div>
-    <div class="row ">
-      <h3> Funzionalità
-
+ 
+  
+      
+           <CCardHeader> 
+Funzionalità dell'implementazione
+ <div  class="card-header-actions">  
       <span class="icon-link float-right" @click="showNewFunct = true" title="Aggiungi una nuova funzionalità">
-        <plus-icon title="Nuova funzionalità" />
+        <plus-icon title="Nuova funzionalità" />Nuova funzionalità
       </span>
-      </h3>
+ </div>
+           </CCardHeader>
 
-    </div>
-
+          <CCard><CCardBody>
+          
+ 
+   <div class="card-body">
     <div class="row" v-if="showNewFunct || stepInstancesLocal.length > 0">
-      <div class="col-1">
+    <table>
+    <tr>
+      <th></th>
+      <th>Nome</th>
+      <th>Metodo</th>
+<th>Metodo Statistico</th>
+<th>Descrizione</th>
+<th></th>
+<th></th>
 
-      </div>
-      <div class="col-2">
-        <span><strong>Nome</strong></span>
-      </div>
-      <div class="col-2">
-        <span><strong>Metodo </strong></span>
-      </div>
-      <div class="col-3">
-        <span><strong>Metodo statistico</strong></span>
-      </div>
-      <div class="col-3">
-        <span><strong>Descrizione</strong></span>
-      </div>
-      <div class="col-1"></div>
-    </div>
-    <div class="row" v-if="showNewFunct">
-      <div class="col-1">
-        <span>*</span>
-      </div>
-      <div class="col-2">
-        <CInput placeholder="Nome" v-model="newStepInstance.functionality" />
-      </div>
-      <div class="col-2">
-        <CInput placeholder="Metodo" v-model="newStepInstance.method" />
-      </div>
-      <div class="col-3">
+    </tr>
+   
+
+    <tr  v-if="showNewFunct">
+   <td> <span>*</span></td> 
+    
+     <td> <CInput placeholder="Nome" v-model="newStepInstance.functionality" /></td>   
+     <td> <CInput placeholder="Metodo" v-model="newStepInstance.method" /></td>
+    
+      <td>
         <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
           v-model="selectedStatMethod"></v-select>
-      </div>
-      <div class="col-3">
+      </td>
+      <td>
         <CTextarea placeholder="Descrizione" v-model="newStepInstance.descr" />
-      </div>
-      <div class="col-1">
+      </td>
+      <td>
         <span class="icon-link" @click.prevent="handleSubmitAdd">
-          <success-icon />&nbsp;
+          <floppy-icon />&nbsp;
         </span>
+      </td> <td>
         <span class="icon-link" @click.prevent="showNewFunct = false">
           <minus-icon />
         </span>
-      </div>
-    </div>
-
-    <div class="row" v-for="(stepinstance, index) of stepInstancesLocal" :key="stepinstance.id">
-      <div class="col-1">
+      </td>
+      </tr>
+ 
+    <tr  v-for="(stepinstance, index) of stepInstancesLocal" :key="stepinstance.id">
+      <td>
         {{ index + 1 }})
-      </div>
-      <div class="col-2">
+      </td>
+      <td>
         <CInput placeholder="Nome" v-model="stepinstance.functionality" />
-      </div>
-      <div class="col-2">
+      </td>
+      <td>
         <CInput placeholder="Metodo" v-model="stepinstance.method" />
-      </div>
-      <div class="col-3">
+      </td>
+      <td>
         <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
           v-model="stepinstance.statMethod"   ></v-select>
-      </div>
-      <div class="col-3">
+      </td>
+      <td>
         <CTextarea placeholder="Descrizione" v-model="stepinstance.descr" />
-      </div>
-      <div class="col-1">
+      </td>
+      <td>
         <span class="icon-link" @click.prevent="handleSubmitUpdate(stepinstance)">
-          <success-icon />&nbsp;
+          <floppy-icon title="Salva"/>&nbsp;
         </span>
+      </td><td>
         <span class="icon-link" @click.prevent="modalOpen(stepinstance)">
-          <delete-icon />
+          <delete-icon title="Cancella" />
         </span>
-      </div>
-    </div>
+        </td>
+      </tr>
+    </table>
+</div></div>
+</CCardBody>
+          </CCard>
+
 
     <CModal title="Warning!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
+          Chiudi
         </CButton>
         <CButton shape="square" size="sm" color="primary" @click="deleteStepInstance">
-          Delete
+          Cancella
         </CButton>
       </template>
       Elimina funzionalità '{{ selectedStepInstance.functionality }}'?
