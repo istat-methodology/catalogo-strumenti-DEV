@@ -38,6 +38,8 @@ import ChartBarIcon from "icons/ChartBar.vue";
 import MinusIcon from "icons/Minus.vue";
 import PlusIcon from "icons/Plus.vue";
 import UndoIcon from "icons/Undo.vue";
+import CloseIcon from "icons/Close.vue";
+import CloseCircleIcon from "icons/CloseCircle.vue";
 
 Vue.component("chevron-right-icon", ChevronRightBoxIcon);
 Vue.component("home-icon", HomeIcon);
@@ -67,4 +69,6 @@ Vue.component("chart-bar-icon", ChartBarIcon);
 Vue.component("minus-icon", MinusIcon);
 Vue.component("plus-icon", PlusIcon);
 Vue.component("undo-icon", UndoIcon);
+Vue.component("close-icon", CloseIcon);
+Vue.component("close-circle-icon", CloseCircleIcon);
 

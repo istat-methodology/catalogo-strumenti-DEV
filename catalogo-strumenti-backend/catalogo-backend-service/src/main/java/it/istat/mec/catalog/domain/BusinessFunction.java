@@ -18,6 +18,7 @@ import lombok.Setter;
 @Table(name = "CSM_BUSINESS_FUNCTION")
 public class BusinessFunction implements Serializable  {
 
+
 	private static final long serialVersionUID = 267803872317420154L;
 	@Id
 	@Column(name = "ID")
@@ -46,4 +47,15 @@ public class BusinessFunction implements Serializable  {
             @JoinColumn(name = "BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
 	private List<BusinessProcess> businessProcesses;
+	
+	
+	public BusinessFunction(Integer id) {
+		 super();
+		 this.id=id;
+	}
+	public BusinessFunction() {
+		 super();
+	}
+
+	
 }
