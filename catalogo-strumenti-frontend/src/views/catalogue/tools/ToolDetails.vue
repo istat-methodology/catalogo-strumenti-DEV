@@ -10,7 +10,7 @@
         <div>
           <h2>
             {{ tool.name | dashEmpty
-            }}<span>
+            }}<span class="float-right">
               <router-link
                 tag="a"
                 :to="{
@@ -26,15 +26,15 @@
         </div>
 
         <!--fieldset v-if="tool" class="scheduler-border card"-->
-          <div class="card-body">
-            <div class="columns">
-              <div class="row">
-                <div class="description-fields col-12">
-                  {{ tool.description | dashEmpty }}
-                </div>
-                <div class="card col-md-auto">
-                  <strong>Fasi GSBPM</strong>
-
+        <div class="card-body">
+          <div class="columns">
+            <div class="row">
+              <div class="description-fields col-12">
+                {{ tool.description | dashEmpty }}
+              </div>
+              <div class="card col-md-auto p-2">
+                <strong>Fasi GSBPM</strong>
+                <div class="card-slot  p-2">
                   {{ tool.gsbpmProcesses
             .map(gsbpmProcess => {
               return gsbpmProcess.code + " " + gsbpmProcess.name ;
@@ -42,34 +42,35 @@
             })
             .join(", "), | dashEmpty }}
                 </div>
+              </div>
 
-                <div class="card col-md-auto">
-                  <span><strong>Versione</strong></span>
-                  <div class="card-slot">
-                    <span>{{ tool.version | dashEmpty }}</span>
-                  </div>
+              <div class="card col-md-auto p-2">
+                <span><strong>Versione</strong></span>
+                <div class="card-slot  p-2">
+                  <span>{{ tool.version | dashEmpty }}</span>
                 </div>
-                <div class="card col-md-5">
-                  <span><strong>Tags</strong></span>
-                  <div class="card-slot">
-                    <span>{{ tool.tags | dashEmpty }}</span>
-                  </div>
+              </div>
+              <div class="card col-md-5 p-2">
+                <span><strong>Tags</strong></span>
+                <div class="card-slot  p-2">
+                  <span>{{ tool.tags | dashEmpty }}</span>
                 </div>
-                <div class="card col-md-auto">
-                  <span><strong>Ultima Modifica</strong></span>
-                  <div class="card-slot">
-                    <span>{{ tool.lastUpdate | dashEmpty }}</span>
-                  </div>
+              </div>
+              <div class="card col-md-auto p-2">
+                <span><strong>Ultima Modifica</strong></span>
+                <div class="card-slot  p-2">
+                  <span>{{ tool.lastUpdate | dashEmpty }}</span>
                 </div>
-                <div class="card col-md-auto">
-                  <span><strong>Requisiti</strong></span>
-                  <div class="card-slot">
-                    <span>{{ tool.requirements | dashEmpty }}</span>
-                  </div>
+              </div>
+              <div class="card col-md-auto p-2">
+                <span><strong>Requisiti</strong></span>
+                <div class="card-slot  p-2">
+                  <span>{{ tool.requirements | dashEmpty }}</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
         <!--/fieldset-->
       </div>
       <div id="id-tooltype" />
@@ -80,142 +81,142 @@
         <h2>{{ tool.toolType.name | dashEmpty }}</h2>
 
         <!--div class="scheduler-border card"-->
-          <div class="card-body">
-            <div v-if="tool.toolType.id == 3">
-              <div class="columns">
-                <div class="row">
-                  <div class="card col-md-auto">
-                    <span><strong>Codice</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.code | dashEmpty }}</span>
-                    </div>
+        <div class="card-body border-top">
+          <div v-if="tool.toolType.id == 3">
+            <div class="columns">
+              <div class="row">
+                <div class="card col-md-auto p-2">
+                  <span><strong>Codice</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.code | dashEmpty }}</span>
                   </div>
+                </div>
 
-                  <div class="card col-md-auto">
-                    <span><strong>Download</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.download | dashEmpty }}</span>
-                    </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Download</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.download | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Flusso di lavoro</strong></span>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Flusso di lavoro</strong></span>
 
-                    <div class="card-slot">
-                      <span>{{ tool.workflow | dashEmpty }}</span>
-                    </div>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.workflow | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Linguaggio</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.language | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Linguaggio</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.language | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Dipendenze</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.ependencies | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Dipendenze</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.dependencies | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Prerequisiti</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Prerequisiti</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.technicalRequirements | dashEmpty }}</span>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div v-if="tool.toolType.id == 2">
-              <div class="columns">
-                <div class="row">
-                  <div class="card col-md-auto">
-                    <span><strong>Download</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.download | dashEmpty }}</span>
-                    </div>
+          <div v-if="tool.toolType.id == 2">
+            <div class="columns">
+              <div class="row">
+                <div class="card col-md-auto p-2">
+                  <span><strong>Download</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.download | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>licenza</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.licence | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>licenza</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.licence | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Linguaggio</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.language | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Linguaggio</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.language | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Pacchetto</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.packageApplication | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Pacchetto</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.packageApplication | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Sistema Operativo</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.operativeSystem | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Sistema Operativo</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.operativeSystem | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Versione</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.version | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Versione</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.version | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Prerequisiti</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Prerequisiti</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.technicalRequirements | dashEmpty }}</span>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div v-if="tool.toolType.id == 1">
-              <div class="columns">
-                <div class="row">
-                  <div class="card col-md-auto">
-                    <span><strong>Protocollo</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.protocol | dashEmpty }}</span>
-                    </div>
+          <div v-if="tool.toolType.id == 1">
+            <div class="columns">
+              <div class="row">
+                <div class="card col-md-auto p-2">
+                  <span><strong>Protocollo</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.protocol | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Url</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.url | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Url</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.url | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Contributi</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.outcomes | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Contributi</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.outcomes | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Dipendenze</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.serviceDependencies | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Dipendenze</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.serviceDependencies | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Restrizioni</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.restrictions | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Restrizioni</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.restrictions | dashEmpty }}</span>
                   </div>
-                  <div class="card col-md-auto">
-                    <span><strong>Funzione operativa</strong></span>
-                    <div class="card-slot">
-                      <span>{{ tool.businessFunction | dashEmpty }}</span>
-                    </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Funzione operativa</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ tool.businessFunction | dashEmpty }}</span>
                   </div>
                 </div>
               </div>
+            </div>
             <!--/div-->
           </div>
         </div>
@@ -226,9 +227,11 @@
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
-        <app-methods
-          :statisticalMethods="tool.statisticalMethods"
-        ></app-methods>
+        <div class="card-body">
+          <app-methods
+            :statisticalMethods="tool.statisticalMethods"
+          ></app-methods>
+        </div>
       </div>
 
       <div id="id-functionalities" />
@@ -237,9 +240,11 @@
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
-        <app-business-service
-          :businessServiceService="businessServiceService"
-        ></app-business-service>
+        <div class="card-body border-top">
+          <app-business-service
+            :businessServiceService="businessServiceService"
+          ></app-business-service>
+        </div>
       </div>
 
       <div id="id-process" />
@@ -248,9 +253,11 @@
         @mouseover="setActiveItemList('#id-link-process', true)"
         @mouseleave="setActiveItemList('#id-link-process', false)"
       >
-        <app-business-functions
-          :businessFunctions="bFunctionToolsList"
-        ></app-business-functions>
+        <div class="card-body">
+          <app-business-functions
+            :businessFunctions="bFunctionToolsList"
+          ></app-business-functions>
+        </div>
       </div>
 
       <div id="id-documentations" />
@@ -258,9 +265,11 @@
         @mouseover="setActiveItemList('#id-link-documentations', true)"
         @mouseleave="setActiveItemList('#id-link-documentations', false)"
       >
-        <app-documentations
-          :documentations="getDocumentationList"
-        ></app-documentations>
+        <div class="card-body">
+          <app-documentations
+            :documentations="getDocumentationList"
+          ></app-documentations>
+        </div>
       </div>
 
       <div id="id-link-agents-tools" />
@@ -268,7 +277,11 @@
         @mouseover="setActiveItemList('#id-link-link-agents-tools', true)"
         @mouseleave="setActiveItemList('#id-link-link-agents-tools', false)"
       >
-        <app-linkedAgents :linkedAgents="getLinkedAgentList"></app-linkedAgents>
+        <div class="card-body">
+          <app-linkedAgents
+            :linkedAgents="getLinkedAgentList"
+          ></app-linkedAgents>
+        </div>
       </div>
     </div>
 
