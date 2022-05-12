@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="row">
         <div v-if="businessProcesses.length === 0">
-          <span>Nessun Business Process associato</span>
+            <span><i><h5>Nessun Business Process associato</h5></i></span>
         </div>
 
         <div

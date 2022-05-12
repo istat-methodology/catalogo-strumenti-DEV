@@ -4,11 +4,11 @@
     <div class="columns">
       <div class="row">
         <div v-if="documentations.length === 0">
-          <span>Nessuna documentazione associata</span>
+          <span><i><h5>Nessuna documentazione associata</h5></i></span>
         </div>
 
         <div
-          class="card col-3"
+          class="card col-md-3"
           v-for="documentation of documentations"
           :key="documentation.id"
         >

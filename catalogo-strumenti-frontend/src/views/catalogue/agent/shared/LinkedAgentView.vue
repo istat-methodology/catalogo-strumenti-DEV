@@ -4,10 +4,10 @@
     <div class="columns">
       <div class="row">
         <div v-if="linkedAgents.length === 0">
-          <span>Nessun referente associato</span>
-        </div>
+                <span><i><h5>Nessun referente associato></h5></i></span>
+        </div>  
         <div
-          class="card"
+          class="card col-md-3"
           v-for="linkedAgent of linkedAgents"
           :key="linkedAgent.id"
         >
@@ -112,11 +112,5 @@ body {
     margin-bottom: 20px;
   }
 }
-h2 {
-  font-size: 24px;
-  color: #213547;
-  margin-top: 10px !important;
-  transition: color 0.5s;
-  padding-top: 26px;
-}
+
 </style>

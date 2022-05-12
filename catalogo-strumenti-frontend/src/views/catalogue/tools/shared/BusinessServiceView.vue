@@ -6,11 +6,8 @@
         v-for="appService of businessServiceService.appServices"
         :key="appService.id"
       >
-        <!--fieldset class="scheduler-border card"-->
-        <legend class="scheduler-border">
-          {{ appService.name }}
-        </legend>
-        <div class="card-body">
+        <div class="p-2">
+          <h4 >{{ appService.name }}</h4>
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">

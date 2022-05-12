@@ -4,11 +4,10 @@
     <div class="columns">
       <div class="row">
         <div v-if="processSteps.length === 0">
-          <span>Nessun Business Process associato</span>
+            <span><i><h5>Nessun Business Process associato</h5></i></span>
         </div>
-
         <div
-          class="card col-3"
+          class="card col-md-3"
           v-for="processStep of processSteps"
           :key="processStep.id"
         >

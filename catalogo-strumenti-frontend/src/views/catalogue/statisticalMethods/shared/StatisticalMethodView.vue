@@ -1,15 +1,13 @@
 <template>
   <div>
     <h2>Metodi statistici</h2>
-
     <div class="columns">
       <div class="row">
         <div v-if="statisticalMethods.length === 0">
-          <span>Nessun metodo statitico associato</span>
+            <span><i><h5>Nessun metodo statitico associato</h5></i></span>
         </div>
-
         <div
-          class="card col-3"
+          class="card col-md-3"
           v-for="statisticalMethod of statisticalMethods"
           :key="statisticalMethod.id"
         >

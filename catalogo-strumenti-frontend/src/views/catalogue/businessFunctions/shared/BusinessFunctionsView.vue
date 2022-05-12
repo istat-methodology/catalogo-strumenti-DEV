@@ -6,7 +6,7 @@
         <div class="columns">
           <div class="row">
             <div v-if="businessFunctions.length === 0">
-              <span>Nessun processo associato</span>
+                <span><i><h5>Nessun processo associato</h5></i></span>
             </div>
             <div
               class="card cols-3"

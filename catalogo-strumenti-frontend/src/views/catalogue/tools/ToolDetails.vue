@@ -26,14 +26,14 @@
         </div>
 
         <!--fieldset v-if="tool" class="scheduler-border card"-->
-        <div class="card-body">
+        <div class="p-2">
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">
                 {{ tool.description | dashEmpty }}
               </div>
               <div class="card col-md-auto p-2">
-                <strong>Fasi GSBPM</strong>
+                <span><strong>Fasi GSBPM</strong></span>
                 <div class="card-slot  p-2">
                   {{ tool.gsbpmProcesses
             .map(gsbpmProcess => {
@@ -59,7 +59,7 @@
               <div class="card col-md-auto p-2">
                 <span><strong>Ultima Modifica</strong></span>
                 <div class="card-slot  p-2">
-                  <span>{{ tool.lastUpdate | dashEmpty }}</span>
+                  <span>{{ this.formatDate(tool.lastUpdate) | dashEmpty }}</span>
                 </div>
               </div>
               <div class="card col-md-auto p-2">
@@ -81,7 +81,7 @@
         <h2>{{ tool.toolType.name | dashEmpty }}</h2>
 
         <!--div class="scheduler-border card"-->
-        <div class="card-body border-top">
+        <div class="p-2">
           <div v-if="tool.toolType.id == 3">
             <div class="columns">
               <div class="row">
@@ -216,8 +216,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <!--/div-->
+            </div>           
           </div>
         </div>
       </div>
@@ -227,7 +226,7 @@
         @mouseover="setActiveItemList('#id-link-statistical-methods', true)"
         @mouseleave="setActiveItemList('#id-link-statistical-methods', false)"
       >
-        <div class="card-body">
+        <div class="p-2">
           <app-methods
             :statisticalMethods="tool.statisticalMethods"
           ></app-methods>
@@ -240,7 +239,7 @@
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
-        <div class="card-body border-top">
+        <div class="p-2">
           <app-business-service
             :businessServiceService="businessServiceService"
           ></app-business-service>
@@ -253,7 +252,7 @@
         @mouseover="setActiveItemList('#id-link-process', true)"
         @mouseleave="setActiveItemList('#id-link-process', false)"
       >
-        <div class="card-body">
+        <div class="p-2">
           <app-business-functions
             :businessFunctions="bFunctionToolsList"
           ></app-business-functions>
@@ -265,7 +264,7 @@
         @mouseover="setActiveItemList('#id-link-documentations', true)"
         @mouseleave="setActiveItemList('#id-link-documentations', false)"
       >
-        <div class="card-body">
+        <div class="p-2">
           <app-documentations
             :documentations="getDocumentationList"
           ></app-documentations>
@@ -277,7 +276,7 @@
         @mouseover="setActiveItemList('#id-link-link-agents-tools', true)"
         @mouseleave="setActiveItemList('#id-link-link-agents-tools', false)"
       >
-        <div class="card-body">
+        <div class="p-2">
           <app-linkedAgents
             :linkedAgents="getLinkedAgentList"
           ></app-linkedAgents>
@@ -562,6 +561,10 @@ export default {
     backToList() {
       this.$router.push("/catalogue/tools");
     },
+    formatDate(dt){
+      dt = new Date(dt);
+      return  dt.toLocaleDateString("it");
+    }
   },
   created() {
     this.$store
