@@ -307,7 +307,7 @@ export default {
     loadDebounceLinkedAgentList: _.debounce((store, toolId, states, len) => {
       store
         .dispatch("linkedagent/findByCatalogTool", toolId)
-        .then((states = Array(len).fill(true)));
+        .then(states = Array(len).fill(true));
     }, 500),
 
     modalOpen(app) {
