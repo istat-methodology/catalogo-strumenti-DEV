@@ -1,6 +1,8 @@
 <template>
   <div class="row" v-if="agentList">
+ 
     <div>
+        <CCardHeader>{{ this.toolName | dashEmpty }} >Referenti associati 
       <h2>
         <span v-if="!viewNewAgent">Referenti associati</span>
         <span v-if="viewNewAgent"
@@ -19,7 +21,7 @@
             v-if="viewNewAgent && !viewAddAgent"
         /></span>
       </h2>
-
+        </CCardHeader>
       <div class="columns">
         <div class="row">
           <div class="card" v-if="viewNewAgent">
@@ -301,6 +303,11 @@ export default {
       type: Number,
       required: true,
       default: () => null,
+    },
+     toolName: {
+      type: String,
+      required: true,
+      default: null,
     },
   },
   created() {

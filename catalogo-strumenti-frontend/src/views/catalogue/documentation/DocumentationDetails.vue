@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <CCard v-if="documentation">
+    <CCard v-if="documentation" c>
       <CCardHeader>{{ documentation.name | dashEmpty }}</CCardHeader>
       <CCardBody>
         <div>
@@ -23,9 +23,9 @@
 
         <div>
           <label>Strumento:</label>
-          <span>{{ documentation.tool.name | dashEmpty }}</span>
+          <span >{{ documentation.tool.name | dashEmpty }}</span>
           <router-link
-            tag="a"
+            tag="a" class="float-right"
             :to="{ name: 'ToolDetails', params: { id: documentation.tool.id } }"
           >
             <view-icon />

@@ -1,61 +1,58 @@
 <template>
   <div>
     <div>
-      <div class="row">
-        <h3>Implementazioni e funzionalità</h3>
-        <div class="card-header" v-if="stateform == FormState.LIST">
-          Lista
-          <div class="card-header-actions">
+     <CCardHeader>{{ this.toolName | dashEmpty }} >  Implementazioni
+     </CCardHeader>
+     
+        <div class="card-header"  v-if="stateform == FormState.LIST">
+        &nbsp;Elenco Implementazioni disponibili: 
+           <div class="card-header-actions">
             <span
-              class="icon-link float-right"
+              class="icon-link "
               @click="stateform = FormState.NEW"
               title="Aggiungi una nuova implementazione"
             >
-              <plus-icon />
+              <add-box-icon /> Nuova Implementazione              
             </span>
-          </div>
+      </div>
         </div>
 
         <div class="card-header" v-if="stateform == FormState.NEW">
-          Nuova implementazione
+          &nbsp;Nuova implementazione
           <div class="card-header-actions">
             <span>
               <span
                 title="Salva"
-                class="icon-link col-1"
+                class="icon-link "
                 @click.prevent="handleNewAppService"
               >
-                <success-icon title="Salva" /> </span
+                <floppy-icon title="Salva" />&nbsp;Salva </span
               >&nbsp;
 
-              <span class="icon-link col-1" @click="closeNew()">
-                <close-circle-icon title="Chiudi" />
+              <span class="icon-link  " @click="closeNew()">
+                <close-circle-icon title="Chiudi" />&nbsp;Chiudi
               </span>
             </span>
           </div>
         </div>
         <div class="card-header" v-if="stateform == FormState.EDIT">
+        Modifica Implementazione
           <div class="card-header-actions">
-            Modifica
+            <span>
             <span
-              class="icon-link col-1"
+              class="icon-link  "
               @click.prevent="handleUpdateAppService()"
             >
-              <success-icon title="Salva" /> </span
+              <floppy-icon title="Salva" />&nbsp;Salva </span
             >&nbsp;
-            <span
-              class="icon-link col-1"
-              @click="modalOpen(selectedUpdateAppService)"
-            >
-              <delete-icon title="Cancella" />
-            </span>
-            &nbsp;
-            <span class="icon-link col-1" @click="closeEdit()">
-              <close-circle-icon title="Chiudi" />
-            </span>
+           
+     
+            <span class="icon-link  " @click="closeEdit()">
+              <close-circle-icon title="Chiudi" />&nbsp;Chiudi
+            </span></span>
           </div>
         </div>
-      </div>
+  
 
       <div v-if="stateform == FormState.LIST">
         <div class="columns">
@@ -70,26 +67,21 @@
               :key="appService.id"
             >
               <div class="card-header">
-                <strong>{{ appService.name }}</strong>
+                 {{ appService.name }}
                 <div class="card-header-actions">
                   <span
-                    class="icon-link col-1"
+                    class="icon-link "
                     @click.prevent="handleSelectedEdit(appService)"
                   >
                     <edit-icon title="Modifica" /> </span
                   >&nbsp;
                   <span v-if="appService.stepInstances.length==0"
-                    class="icon-link col-1"
+                    class="icon-link "
                     @click.prevent="modalOpen(appService)"
                   >
                     <delete-icon title="Cancella" />
                   </span>
-                    <span v-else
-                    class=" col-1 disable"
-              aria-disabled="true" 
-                  >
-                    <delete-icon title="Cancella"  />
-                  </span>
+                
                 </div>
               </div>
               <div class="card-body">
@@ -168,8 +160,8 @@
       </div>
 
       <div v-if="stateform == FormState.EDIT && selectedUpdateAppService">
-        <div class="card">
-          <div class="card-body">
+        <CCard>
+          <CCardBody>
             <div class="row">
               <CInput
                 class="col-6"
@@ -219,11 +211,12 @@
                   placeholder="Licenza"
                   v-model="selectedUpdateAppService.licence"
                 />
-              </div>
-          
-            <hr />
-
-            <app-functionality-table
+               
+            </div>
+       
+      </CCardBody>
+          </CCard> 
+   <app-functionality-table
               v-if="businessService"
               @reLoadData="reLoadBusinessService"
               :appService="selectedUpdateAppService.id"
@@ -232,8 +225,9 @@
                 getStepInstancesList(selectedUpdateAppService.stepInstances)
               "
             ></app-functionality-table>
-          </div>
-        </div>
+              
+        
+  
       </div>
     </div>
     <CModal title="Warning!" :show.sync="warningModal">
@@ -270,6 +264,11 @@ export default {
   props: {
     businessServiceID: {
       type: Number,
+      required: true,
+      default: () => null,
+    },
+     toolName: {
+      type: String,
       required: true,
       default: () => null,
     },
