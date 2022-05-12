@@ -8,7 +8,7 @@
         </div>
 
         <div
-          class="card col-3"
+          class="card col-12"
           v-for="businessProcess of businessProcesses"
           :key="businessProcess.id"
         >
@@ -28,11 +28,9 @@
             </div>
           </div>
           <div class="card-body">
-            <ul id="example-1">
-              <li v-for="item in businessProcess.processSteps" :key="item.id">
-                {{ item.name }}
-              </li>
-            </ul>
+            <app-process-stepview
+              :processSteps="businessProcess.processSteps"
+            ></app-process-stepview>
           </div>
         </div>
       </div>
@@ -40,8 +38,13 @@
   </div>
 </template>
 <script>
+import ProcessStepView from "../../processSteps/shared/ProcessStepView";
 export default {
   name: "BusinessProcessView",
+  components: {
+    // "app-business-process": BusinessProcess,
+    "app-process-stepview": ProcessStepView
+  },
   props: {
     businessProcesses: {
       type: Array,

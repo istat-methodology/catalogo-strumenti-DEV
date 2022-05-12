@@ -19,11 +19,13 @@
           </div>
           <div>
             <label>Fasi GSBPM:</label>
-            <span>{{ bFunction.gsbpmProcesses
-            .map(gsbpmProcess => {
-              return gsbpmProcess.name;
-            })
-            .join(", "), | dashEmpty }}</span>
+            <span>{{
+              bFunction.gsbpmProcesses
+                .map(gsbpmProcess => {
+                  return gsbpmProcess.name;
+                })
+                .join(", ")
+            }}</span>
           </div>
         </CCardBody>
       </CCard>
