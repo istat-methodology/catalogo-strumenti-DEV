@@ -2,26 +2,26 @@
   <div>
     <div class="row">
       <span class="icon-link float-right" @click="$emit('refreshTool')"
-        ><success-icon title="Aggiungi un nuovo d un referente"
+        ><success-icon title="Aggiungi un nuovo Business Process"
       /></span>
 
       <div>
-        <span v-if="!viewNewDocument">Nuovo Documento</span>
+        <span v-if="!viewNewBProcess">Nuovo Processo</span>
         <span
           class="icon-link float-right"
-          @click="viewNewDocument = !viewNewDocument"
+          @click="viewNewBProcess = !viewNewBProcess"
           ><plus-icon
             title="Aggiungi un nuovo d un referente"
-            v-if="!viewNewDocument"/><undo-icon
+            v-if="!viewNewBProcess"/><undo-icon
             title="Annulla"
-            v-if="viewNewDocument"
+            v-if="viewNewBProcess"
         /></span>
       </div>
 
-      <div v-if="viewNewDocument" class="row">
+      <div v-if="viewNewBProcess" class="row">
         <CCard>
           <CCardHeader
-            >Nuovo Documento
+            >Nuovo Processo
             <div class="card-header-actions">
               <span @click="handleSubmit()">
                 <span class="icon-link"><success-icon /></span>
@@ -33,65 +33,65 @@
             <CInput
               label="Nome"
               placeholder="Nome"
-              v-model="documentationLocal.name"
+              v-model="b.ProcessLocal.name"
             />
             <CInput
               label="Editore"
               placeholder="Editore"
-              v-model="documentationLocal.publisher"
+              v-model="bProcessLocal.publisher"
             />
             <div>
-              <label>Tipo Documento</label>
+              <label>Istanza o modulo</label>
             </div>
             <v-select
-              label="name"
-              :options="documentationTypeList"
-              placeholder="Tipo documento"
-              v-model="documentationLocal.documentType"
+              label="Istanza o Modulo"
+              :options="bProcessStepIstances"
+              placeholder="Istanza o Modulo"
+              v-model="bProcessLocal.bProcessStepIstance"
             ></v-select>
             <CInput
               label="Note"
               placeholder="Note"
-              v-model="documentationLocal.notes"
+              v-model="bProcessLocal.notes"
             />
             <CInput
               label="Fonti"
               placeholder="Fonti"
-              v-model="documentationLocal.resource"
+              v-model="bProcessLocal.resource"
             />
           </CCardBody>
         </CCard>
       </div>
 
-      <div v-if="documentations.length === 0">
+      <!-- <div v-if="documentations.length === 0">
         <span>Nessuna documentazione associata</span>
-      </div>
+      </div> -->
     </div>
     <div class="row">
       <div
         class="card col-3"
-        v-for="documentation of documentations"
-        :key="documentation.id"
+        v-for="bFunction of bFunctions"
+        :key="bFunction.id"
       >
         <div class="card-header">
-          <strong>{{ documentation.name }}</strong>
+          <strong>{{ bFunction.name }}</strong>
           <div class="card-header-actions">
             <router-link
               tag="a"
               :to="{
                 name: 'DocumentationDetails',
-                params: { id: documentation.id }
+                params: { id: bFunction.id }
               }"
             >
               <view-icon />
             </router-link>
-            <span class="icon-link" @click="modalOpen(documentation)"
+            <span class="icon-link" @click="modalOpen(bFunction)"
               ><delete-icon />
             </span>
           </div>
         </div>
         <div class="card-body">
-          <p class="card-text">{{ documentation.documentType }}</p>
+          <p class="card-text">{{ bFuntion.documentType }}</p>
         </div>
       </div>
     </div>
@@ -127,11 +127,11 @@ export default {
   name: "DocumentationView",
   data() {
     return {
-      viewAddDocument: true,
-      viewNewDocument: false,
-      selectedDoc: {},
+      viewAddBProcess: true,
+      viewNewBProcess: false,
+      selectedBProcess: {},
       warningModal: false,
-      documentationLocal: {
+      bProcessLocal: {
         name: "",
         publisher: "",
         documentType: "",
@@ -146,12 +146,12 @@ export default {
   emits: ["refreshTool"],
 
   props: {
-    documentations: {
+    bFunctions: {
       type: Array,
       required: true,
       default: () => []
     },
-    toolId: {
+    proessId: {
       type: Number,
       required: true,
       default: null
