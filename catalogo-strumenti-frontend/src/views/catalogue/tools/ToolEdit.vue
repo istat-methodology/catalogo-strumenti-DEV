@@ -16,7 +16,7 @@
 
             <div v-if="tool">
               <CCardHeader
-                >{{ tool.name | dashEmpty }} > Strumento
+                ><i>{{ tool.name | dashEmpty }}</i>  > Strumento
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -137,7 +137,7 @@
          </div>
             <div v-if="tool && tool.toolType.id == 2">
               <CCardHeader>
-                {{ tool.name | dashEmpty }} > {{ tool.toolType.name | dashEmpty }}
+                <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -198,7 +198,7 @@
             </div>
             <div v-if="tool && tool.toolType.id == 1">
               <CCardHeader>
-               {{ tool.name | dashEmpty }} > {{ tool.toolType.name | dashEmpty }}
+               <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <CButton
                     shape="square"
@@ -251,7 +251,7 @@
 
             <div v-if="this.statisticalMethodsList">
               <CCardHeader
-                >{{ tool.name | dashEmpty }} > Metodi Statistici
+                ><i>{{ tool.name | dashEmpty }}</i>  > Metodi Statistici
                 <div class="card-header-actions">
                   <CButton
                     shape="square"

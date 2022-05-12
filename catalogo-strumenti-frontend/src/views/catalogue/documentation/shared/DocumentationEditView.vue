@@ -1,7 +1,7 @@
 <template>
   <div>
     <CCardHeader
-      >{{ this.toolName | dashEmpty }} > Documentazione
+      ><i>{{ this.toolName | dashEmpty }}</i> > Documentazione
       <div v-if="!viewNewDocument" class="card-header-actions">
         <span class="icon-link float-right" @click="viewNewDocument = true"
           ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Nuovo
@@ -11,8 +11,22 @@
     </CCardHeader>
 
     <div v-if="viewNewDocument" class="col-12">
-      <CCard class="col-12">
-        <CCardHeader>Nuovo Documento </CCardHeader>
+    
+        <CCardHeader
+          >Nuovo Documento
+          <div class="card-header-actions">
+            <span class="icon-link float-right" @click.prevent="handleSubmit"
+              ><floppy-icon title="Salva" />
+            </span>
+            &nbsp;
+            <span
+              class="icon-link float-right"
+              @click.prevent="viewNewDocument = false"
+              ><close-circle-icon title="Chiudi" />
+            </span>
+          </div>
+        </CCardHeader>
+          <CCard class="col-12"> 
         <CCardBody>
           <CInput
             label="Nome"
@@ -44,23 +58,7 @@
             v-model="documentationLocal.resource"
           />
         </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="primary"
-            class="mr-2"
-            @click.prevent="handleSubmit"
-            >Salva</CButton
-          >
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="viewNewDocument = false"
-            >Chiudi</CButton
-          >
-        </CCardFooter>
+         
       </CCard>
     </div>
     <CCardBody>
@@ -86,7 +84,7 @@
                 tag="a"
                 :to="{
                   name: 'DocumentationDetails',
-                  params: { id: documentation.id }
+                  params: { id: documentation.id },
                 }"
               >
                 <view-icon />
