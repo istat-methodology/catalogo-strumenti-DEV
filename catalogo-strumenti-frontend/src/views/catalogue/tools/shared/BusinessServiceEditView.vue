@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-     <CCardHeader>{{ this.toolName | dashEmpty }} >  Implementazioni
+     <CCardHeader><i>{{ this.toolName | dashEmpty }}</i> >  Implementazioni
      </CCardHeader>
      
         <div class="card-header"  v-if="stateform == FormState.LIST">

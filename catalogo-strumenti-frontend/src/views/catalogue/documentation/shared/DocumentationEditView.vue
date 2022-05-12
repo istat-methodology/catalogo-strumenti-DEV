@@ -1,70 +1,81 @@
 <template>
   <div>
-    <CCardHeader>{{ this.toolName | dashEmpty }} > Documentazione
-     <div v-if="!viewNewDocument" class="card-header-actions">             <span
-          class="icon-link float-right"
-          @click="viewNewDocument = true"
+    <CCardHeader
+      ><i>{{ this.toolName | dashEmpty }}</i> > Documentazione
+      <div v-if="!viewNewDocument" class="card-header-actions">
+        <span class="icon-link float-right" @click="viewNewDocument = true"
           ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Nuovo
           Documento</span
         >
-            </div>  
-              </CCardHeader>
- 
-    
-      <div v-if="viewNewDocument" class="col-12">
-        <CCard class="col-12">
-          <CCardHeader>Nuovo Documento </CCardHeader>
-          <CCardBody>
-            <CInput
-              label="Nome"
-              placeholder="Nome"
-              v-model="documentationLocal.name"
-            />
-            <CInput
-              label="Editore"
-              placeholder="Editore"
-              v-model="documentationLocal.publisher"
-            />
-            <div>
-              <label>Tipo Documento</label>
-            </div>
-            <v-select
-              label="name"
-              :options="documentationTypeList"
-              placeholder="Tipo documento"
-              v-model="documentationLocal.documentType"
-            ></v-select>
-            <CTextarea
-              label="Note"
-              placeholder="Note"
-              v-model="documentationLocal.notes"
-            />
-            <CInput
-              label="Fonti"
-              placeholder="Fonti"
-              v-model="documentationLocal.resource"
-            />
-          </CCardBody>
-          <CCardFooter>
-            <CButton
-              shape="square"
-              size="sm"
-              color="primary"
-              class="mr-2"
-              @click.prevent="handleSubmit"
-              >Salva</CButton
-            >
-            <CButton
-              shape="square"
-              size="sm"
-              color="light"
-              @click.prevent="viewNewDocument = false"
-              >Chiudi</CButton
-            >
-          </CCardFooter>
-        </CCard>
       </div>
-  <CCardBody>
+    </CCardHeader>
+
+    <div v-if="viewNewDocument" class="col-12">
+      <CCard class="col-12">
+        <CCardHeader
+          >Nuovo Documento
+          <div class="card-header-actions">
+            <span class="icon-link float-right" @click.prevent="handleSubmit"
+              ><floppy-icon title="Salva" />
+            </span>
+            &nbsp;
+            <span
+              class="icon-link float-right"
+              @click.prevent="viewNewDocument = false"
+              ><circle-close-icon title="Chiudi" />
+            </span>
+          </div>
+        </CCardHeader>
+        <CCardBody>
+          <CInput
+            label="Nome"
+            placeholder="Nome"
+            v-model="documentationLocal.name"
+          />
+          <CInput
+            label="Editore"
+            placeholder="Editore"
+            v-model="documentationLocal.publisher"
+          />
+          <div>
+            <label>Tipo Documento</label>
+          </div>
+          <v-select
+            label="name"
+            :options="documentationTypeList"
+            placeholder="Tipo documento"
+            v-model="documentationLocal.documentType"
+          ></v-select>
+          <CTextarea
+            label="Note"
+            placeholder="Note"
+            v-model="documentationLocal.notes"
+          />
+          <CInput
+            label="Fonti"
+            placeholder="Fonti"
+            v-model="documentationLocal.resource"
+          />
+        </CCardBody>
+
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          class="mr-2"
+          @click.prevent="handleSubmit"
+          >Salva</CButton
+        >
+        <CButton
+          shape="square"
+          size="sm"
+          color="light"
+          @click.prevent="viewNewDocument = false"
+          >Chiudi</CButton
+        >
+      </CCard>
+    </div>
+    <CCardBody>
       <div class="row">
         <div v-if="documentations.length === 0">
           <span>Nessuna documentazione associata</span>
@@ -72,39 +83,37 @@
         <div v-else>
           <p class="card-text">Elenco documenti disponibili:</p>
         </div>
-     
       </div>
-   
 
-    <div class="row">
-      <div
-        class="card col-3"
-        v-for="documentation of documentations"
-        :key="documentation.id"
-      >
-        <div class="card-header">
-          {{ documentation.name }}
-          <div class="card-header-actions">
-            <router-link
-              tag="a"
-              :to="{
-                name: 'DocumentationDetails',
-                params: { id: documentation.id },
-              }"
-            >
-              <view-icon />
-            </router-link>
-            <span class="icon-link" @click="modalOpen(documentation)"
-              ><delete-icon />
-            </span>
+      <div class="row">
+        <div
+          class="card col-3"
+          v-for="documentation of documentations"
+          :key="documentation.id"
+        >
+          <div class="card-header">
+            {{ documentation.name }}
+            <div class="card-header-actions">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'DocumentationDetails',
+                  params: { id: documentation.id },
+                }"
+              >
+                <view-icon />
+              </router-link>
+              <span class="icon-link" @click="modalOpen(documentation)"
+                ><delete-icon />
+              </span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ documentation.documentType }}</p>
           </div>
         </div>
-        <div class="card-body">
-          <p class="card-text">{{ documentation.documentType }}</p>
-        </div>
       </div>
-    </div>
-   </CCardBody>
+    </CCardBody>
     <CModal
       title="Warning!"
       :show.sync="warningModal"
@@ -166,7 +175,7 @@ export default {
       required: true,
       default: null,
     },
-     toolName: {
+    toolName: {
       type: String,
       required: true,
       default: null,

@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <CCard v-if="documentation" c>
+    <CCard v-if="documentation" >
       <CCardHeader>{{ documentation.name | dashEmpty }}</CCardHeader>
       <CCardBody>
         <div>
