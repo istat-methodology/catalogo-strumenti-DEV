@@ -1,5 +1,5 @@
 <template>
-  <div v-if="agentList">
+  <div>
     <div>
       <CCardHeader
         ><i>{{ this.toolName | dashEmpty }}</i> > Referenti
@@ -8,17 +8,9 @@
         <span v-if="stateform == FormState.EDIT">
           <p class="card-text">Elenco referenti associati:</p></span
         >
-
-        <span v-if="stateform == FormState.NEW_AGENT">
-          <p class="card-text">Nuovo referente:</p></span
-        >
       </div>
-      <div class="card" v-if="stateform == FormState.NEW_AGENT">
-        <div class="card-body">
-          <div>
-            <app-agent-add :goBackClose="true" @appClose="updateAgentList" />
-          </div>
-        </div>
+      <div v-if="stateform == FormState.NEW_AGENT">
+        <app-agent-add :goBackClose="true" @appClose="closeNewAgent" />
       </div>
 
       <div v-if="stateform == FormState.NEW">
@@ -43,45 +35,45 @@
           </div>
         </div>
 
-     
-      <div class="card col-12">
-        <div class="card-slot" v-if="agentList">
-          <label>Elenco Referenti</label>
-          <v-select
-            label="name"
-            :options="agentList"
-            @input="selectId($event)"
-          ></v-select>
-          <span class="help-block">Please select a referent.</span>
-          <span
-            class="icon-link float-right"
-            @click="stateform = FormState.NEW_AGENT"
-            ><add-icon />Nuovo referente</span
-          >
+        <div class="card col-12">
+          <div class="card-slot" v-if="agentList">
+            <label>Elenco Referenti</label>
+            <v-select
+              label="name"
+              :options="agentList"
+              @input="selectId($event)"
+            ></v-select>
+            <span class="help-block">Please select a referent.</span>
+            <span
+              class="icon-link float-right"
+              @click="stateform = FormState.NEW_AGENT"
+              ><add-icon />Nuovo referente</span
+            >
+          </div>
+          <div class="card-slot">
+            <CInput
+              label="Ruolo"
+              placeholder="Ruolo"
+              v-model="newLinkedAgent.role"
+            />
+          </div>
+          <div class="card-slot">
+            <CInput
+              label="Data"
+              placeholder="Data"
+              v-model="newLinkedAgent.referenceDate"
+            />
+          </div>
+          <div class="card-slot">
+            <CTextarea
+              label="Note"
+              placeholder="Note"
+              v-model="newLinkedAgent.notes"
+            />
+          </div>
         </div>
-        <div class="card-slot">
-          <CInput
-            label="Ruolo"
-            placeholder="Ruolo"
-            v-model="newLinkedAgent.role"
-          />
-        </div>
-        <div class="card-slot">
-          <CInput
-            label="Data"
-            placeholder="Data"
-            v-model="newLinkedAgent.referenceDate"
-          />
-        </div>
-        <div class="card-slot">
-          <CTextarea
-            label="Note"
-            placeholder="Note"
-            v-model="newLinkedAgent.notes"
-          />
-        </div>
-      </div> </div>
-      
+      </div>
+
       <div v-if="stateform == FormState.LIST">
         <div class="row justify-content-between">
           <div class="col-4">
@@ -249,15 +241,19 @@ export default {
     "app-agent-add": AgentAdd,
   },
   methods: {
+    closeNewAgent(saved) {
+      if (saved) this.updateAgentList();
+      this.stateform = this.FormState.NEW;
+    },
+
     updateAgentList: _.debounce(function () {
       this.$store.dispatch("agent/findAll");
-      this.stateform = this.FormState.LIST;
     }, 500),
     selectId(e) {
       this.selectedId = e.id;
     },
     getState(idx) {
-      return this.states[idx];
+      return !this.states[idx];
     },
     changeState(idx) {
       this.$set(this.states, idx, !this.states[idx]);
@@ -307,7 +303,7 @@ export default {
     loadDebounceLinkedAgentList: _.debounce((store, toolId, states, len) => {
       store
         .dispatch("linkedagent/findByCatalogTool", toolId)
-        .then(states = Array(len).fill(true));
+        .then((states = Array(len).fill(true)));
     }, 500),
 
     modalOpen(app) {

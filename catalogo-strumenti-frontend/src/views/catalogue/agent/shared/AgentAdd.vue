@@ -1,7 +1,32 @@
 <template>
   <!-- wait until service is loaded -->
   <div>
-    <div class="columns">
+     <div class="row justify-content-between">
+          <div class="col-4">Nuova Associazione > Nuovo referente</div>
+          <div class="col-4">
+            <span
+              class="icon-link"
+              @click.prevent="handleSubmit"
+              title="Salva"
+            >
+              <floppy-icon title="Salva" />
+            </span>
+
+            <span
+              class="icon-link"
+             @click.prevent="goBack(false)"
+              title="Chiudi"
+            >
+              <close-circle-icon title="Chiudi" />
+            </span>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div class="card-body">
+
+   
       <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
       <CInput
         label="Organizzazione"
@@ -22,22 +47,8 @@
           placeholder="Note"
           v-model="agentLocal.notes"
         />                
-      
-
-      <div class="card-footer">
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          >Aggiungi</CButton
-        >
-        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
-          >Indietro</CButton
-        >
-      </div>
-    </div>
+  
+    </div> </div>
   </div>
 </template>
 <script>
@@ -70,11 +81,11 @@ export default {
       this.$store
         .dispatch("agent/save", this.agentLocal)
         .then(this.$store.dispatch("agent/findAll"))
-        .then(this.goBack());
+        .then(this.goBack(true));
       /*   } */
     },
-    goBack() {
-      if (this.goBackClose) this.$emit("appClose", true);
+    goBack(saved) {
+      if (this.goBackClose) this.$emit("appClose", saved);
       else this.$router.push("/catalogue/referenti");
     },
     onChange(event) {
