@@ -1,28 +1,14 @@
 <template>
-  <div class="row" v-if="agentList">
+  <div v-if="agentList">
     <div>
       <CCardHeader
         ><i>{{ this.toolName | dashEmpty }}</i> > Referenti
       </CCardHeader>
-      <div class="card-header">
-        <span v-if="stateform == FormState.LIST">
-          Elenco referenti associati
-          <div class="card-header-actions">
-            <span
-              class="icon-link"
-              @click="stateform = FormState.NEW"
-              title="Aggiungi una nuova associazione"
-            >
-              <add-box-icon /> Nuova Associazione
-            </span>
-          </div>
-        </span>
+      <div class="card-text">
         <span v-if="stateform == FormState.EDIT">
           <p class="card-text">Elenco referenti associati:</p></span
         >
-        <span v-if="stateform == FormState.NEW">
-          <p class="card-text">Nuova associazione:</p></span
-        >
+
         <span v-if="stateform == FormState.NEW_AGENT">
           <p class="card-text">Nuovo referente:</p></span
         >
@@ -32,61 +18,86 @@
           <div>
             <app-agent-add :goBackClose="true" @appClose="updateAgentList" />
           </div>
-           </div>  </div>
+        </div>
+      </div>
 
       <div v-if="stateform == FormState.NEW">
-      
-          <div   class="card">
-            <div class="card-slot" v-if="agentList">
-              <label>Elenco Referenti</label>
-              <v-select
-                label="name"
-                :options="agentList"
-                @input="selectId($event)"
-              ></v-select>
-              <span class="help-block">Please select a referent.</span>
-              <span
-                class="icon-link float-right"
-                
-                   @click="stateform = FormState.NEW_AGENT"
-                ><add-icon />Nuovo referente</span
-              >
-            </div>
-            <div class="card-slot">
-              <CInput
-                label="Ruolo"
-                placeholder="Ruolo"
-                v-model="newLinkedAgent.role"
-              />
-            </div>
-            <div class="card-slot">
-              <CInput
-                label="Data"
-                placeholder="Data"
-                v-model="newLinkedAgent.referenceDate"
-              />
-            </div>
-            <div class="card-slot">
-              <CTextarea
-                label="Note"
-                placeholder="Note"
-                v-model="newLinkedAgent.notes"
-              />
-            </div>
-            <div class="card-footer">
-              <CButton
-                shape="square"
-                size="sm"
-                color="primary"
-                class="mr-2"
-                @click.prevent="handleSubmitNewAgent"
-                >Salva</CButton
-              >
-            </div>
+        <div class="row justify-content-between">
+          <div class="col-4">Nuova Associazione</div>
+          <div class="col-4">
+            <span
+              class="icon-link"
+              @click.prevent="handleSubmitNewAgent"
+              title="Salva"
+            >
+              <floppy-icon title="Salva" />
+            </span>
+
+            <span
+              class="icon-link"
+              @click.prevent="stateform = FormState.LIST"
+              title="Chiudi"
+            >
+              <close-circle-icon title="Chiudi" />
+            </span>
           </div>
         </div>
+
+     
+      <div class="card col-12">
+        <div class="card-slot" v-if="agentList">
+          <label>Elenco Referenti</label>
+          <v-select
+            label="name"
+            :options="agentList"
+            @input="selectId($event)"
+          ></v-select>
+          <span class="help-block">Please select a referent.</span>
+          <span
+            class="icon-link float-right"
+            @click="stateform = FormState.NEW_AGENT"
+            ><add-icon />Nuovo referente</span
+          >
+        </div>
+        <div class="card-slot">
+          <CInput
+            label="Ruolo"
+            placeholder="Ruolo"
+            v-model="newLinkedAgent.role"
+          />
+        </div>
+        <div class="card-slot">
+          <CInput
+            label="Data"
+            placeholder="Data"
+            v-model="newLinkedAgent.referenceDate"
+          />
+        </div>
+        <div class="card-slot">
+          <CTextarea
+            label="Note"
+            placeholder="Note"
+            v-model="newLinkedAgent.notes"
+          />
+        </div>
+      </div> </div>
       
       <div v-if="stateform == FormState.LIST">
+        <div class="row justify-content-between">
+          <div class="col-4">
+            <span class="card-text"> Elenco referenti associati</span>
+          </div>
+          <div class="col-4">
+            <span
+              class="icon-link"
+              @click="stateform = FormState.NEW"
+              title="Aggiungi una nuova associazione"
+            >
+              <add-box-icon /> Nuova Associazione
+            </span>
+          </div>
+        </div>
+
         <div class="columns">
           <div class="row">
             <div
@@ -95,7 +106,7 @@
               :key="linkedAgent.id"
             >
               <div class="card-header">
-                <strong>{{ linkedAgent.agentName }}</strong>
+                {{ linkedAgent.agentName }}
                 <div class="card-header-actions">
                   <span v-if="getState(index)">
                     <span class="icon-link" @click="changeState(index)"
@@ -257,7 +268,7 @@ export default {
       this.$store
         .dispatch("linkedagent/save", this.newLinkedAgent)
         .then(this.loadLinkedAgentList());
-          this.stateform = this.FormState.LIST;
+      this.stateform = this.FormState.LIST;
     },
     handleUpdateLinkedAgent(index, selectedUpdateLinkedAgent) {
       this.changeState(index);

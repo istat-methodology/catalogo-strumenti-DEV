@@ -11,7 +11,7 @@
     </CCardHeader>
 
     <div v-if="viewNewDocument" class="col-12">
-      <CCard class="col-12">
+    
         <CCardHeader
           >Nuovo Documento
           <div class="card-header-actions">
@@ -22,10 +22,11 @@
             <span
               class="icon-link float-right"
               @click.prevent="viewNewDocument = false"
-              ><circle-close-icon title="Chiudi" />
+              ><close-circle-icon title="Chiudi" />
             </span>
           </div>
         </CCardHeader>
+          <CCard class="col-12"> 
         <CCardBody>
           <CInput
             label="Nome"
@@ -57,22 +58,7 @@
             v-model="documentationLocal.resource"
           />
         </CCardBody>
-
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          >Salva</CButton
-        >
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="viewNewDocument = false"
-          >Chiudi</CButton
-        >
+         
       </CCard>
     </div>
     <CCardBody>
