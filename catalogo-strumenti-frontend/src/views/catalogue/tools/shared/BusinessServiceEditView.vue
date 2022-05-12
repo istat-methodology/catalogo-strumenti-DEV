@@ -1,58 +1,55 @@
 <template>
   <div>
     <div>
-     <CCardHeader>{{ this.toolName | dashEmpty }} >  Implementazioni
-     </CCardHeader>
-     
-        <div class="card-header"  v-if="stateform == FormState.LIST">
-        &nbsp;Elenco Implementazioni disponibili: 
-           <div class="card-header-actions">
-            <span
-              class="icon-link "
-              @click="stateform = FormState.NEW"
-              title="Aggiungi una nuova implementazione"
-            >
-              <add-box-icon /> Nuova Implementazione              
-            </span>
+      <CCardHeader
+        >{{ this.toolName | dashEmpty }} > Implementazioni
+      </CCardHeader>
+
+      <div class="card-header" v-if="stateform == FormState.LIST">
+        &nbsp;Elenco Implementazioni disponibili:
+        <div class="card-header-actions">
+          <span
+            class="icon-link "
+            @click="stateform = FormState.NEW"
+            title="Aggiungi una nuova implementazione"
+          >
+            <add-box-icon /> Nuova Implementazione
+          </span>
+        </div>
       </div>
-        </div>
 
-        <div class="card-header" v-if="stateform == FormState.NEW">
-          &nbsp;Nuova implementazione
-          <div class="card-header-actions">
-            <span>
-              <span
-                title="Salva"
-                class="icon-link "
-                @click.prevent="handleNewAppService"
-              >
-                <floppy-icon title="Salva" />&nbsp;Salva </span
-              >&nbsp;
-
-              <span class="icon-link  " @click="closeNew()">
-                <close-circle-icon title="Chiudi" />&nbsp;Chiudi
-              </span>
-            </span>
-          </div>
-        </div>
-        <div class="card-header" v-if="stateform == FormState.EDIT">
-        Modifica Implementazione
-          <div class="card-header-actions">
-            <span>
+      <div class="card-header" v-if="stateform == FormState.NEW">
+        &nbsp;Nuova implementazione
+        <div class="card-header-actions">
+          <span>
             <span
-              class="icon-link  "
-              @click.prevent="handleUpdateAppService()"
+              title="Salva"
+              class="icon-link "
+              @click.prevent="handleNewAppService"
             >
               <floppy-icon title="Salva" />&nbsp;Salva </span
             >&nbsp;
-           
-     
+
+            <span class="icon-link  " @click="closeNew()">
+              <close-circle-icon title="Chiudi" />&nbsp;Chiudi
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="card-header" v-if="stateform == FormState.EDIT">
+        Modifica Implementazione
+        <div class="card-header-actions">
+          <span>
+            <span class="icon-link  " @click.prevent="handleUpdateAppService()">
+              <floppy-icon title="Salva" />&nbsp;Salva </span
+            >&nbsp;
+
             <span class="icon-link  " @click="closeEdit()">
               <close-circle-icon title="Chiudi" />&nbsp;Chiudi
-            </span></span>
-          </div>
+            </span></span
+          >
         </div>
-  
+      </div>
 
       <div v-if="stateform == FormState.LIST">
         <div class="columns">
@@ -67,7 +64,7 @@
               :key="appService.id"
             >
               <div class="card-header">
-                 {{ appService.name }}
+                {{ appService.name }}
                 <div class="card-header-actions">
                   <span
                     class="icon-link "
@@ -75,13 +72,13 @@
                   >
                     <edit-icon title="Modifica" /> </span
                   >&nbsp;
-                  <span v-if="appService.stepInstances.length==0"
+                  <span
+                    v-if="appService.stepInstances.length == 0"
                     class="icon-link "
                     @click.prevent="modalOpen(appService)"
                   >
                     <delete-icon title="Cancella" />
                   </span>
-                
                 </div>
               </div>
               <div class="card-body">
@@ -121,11 +118,11 @@
               />
             </div>
             <div class="row">
-            <CTextarea
-              class="col-12"
-              label="Descrizione"
-              v-model="newAppService.descr"
-            ></CTextarea>
+              <CTextarea
+                class="col-12"
+                label="Descrizione"
+                v-model="newAppService.descr"
+              ></CTextarea>
             </div>
             <div class="row">
               <CInput
@@ -184,50 +181,45 @@
                 v-model="selectedUpdateAppService.descr"
               ></CTextarea>
             </div>
-              <div class="row">
-                <CInput
-                  class="col-6"
-                  label="Autore"
-                  placeholder="Autore"
-                  v-model="selectedUpdateAppService.author"
-                />
-                <CInput
-                  class="col-6"
-                  label="Contatto"
-                  placeholder="Contatto"
-                  v-model="selectedUpdateAppService.contact"
-                />
-              </div>
-              <div class="row">
-                <CInput
-                  class="col-6"
-                  label="File Sorgente"
-                  placeholder="File Sorgente"
-                  v-model="selectedUpdateAppService.sourcePath"
-                />
-                <CInput
-                  class="col-6"
-                  label="Licenza"
-                  placeholder="Licenza"
-                  v-model="selectedUpdateAppService.licence"
-                />
-               
+            <div class="row">
+              <CInput
+                class="col-6"
+                label="Autore"
+                placeholder="Autore"
+                v-model="selectedUpdateAppService.author"
+              />
+              <CInput
+                class="col-6"
+                label="Contatto"
+                placeholder="Contatto"
+                v-model="selectedUpdateAppService.contact"
+              />
             </div>
-       
-      </CCardBody>
-          </CCard> 
-   <app-functionality-table
-              v-if="businessService"
-              @reLoadData="reLoadBusinessService"
-              :appService="selectedUpdateAppService.id"
-              :statisticalMethodsList="statisticalMethodsList"
-              :stepInstances="
-                getStepInstancesList(selectedUpdateAppService.stepInstances)
-              "
-            ></app-functionality-table>
-              
-        
-  
+            <div class="row">
+              <CInput
+                class="col-6"
+                label="File Sorgente"
+                placeholder="File Sorgente"
+                v-model="selectedUpdateAppService.sourcePath"
+              />
+              <CInput
+                class="col-6"
+                label="Licenza"
+                placeholder="Licenza"
+                v-model="selectedUpdateAppService.licence"
+              />
+            </div>
+          </CCardBody>
+        </CCard>
+        <app-functionality-table
+          v-if="businessService"
+          @reLoadData="reLoadBusinessService"
+          :appService="selectedUpdateAppService.id"
+          :statisticalMethodsList="statisticalMethodsList"
+          :stepInstances="
+            getStepInstancesList(selectedUpdateAppService.stepInstances)
+          "
+        ></app-functionality-table>
       </div>
     </div>
     <CModal title="Warning!" :show.sync="warningModal">
@@ -258,26 +250,25 @@ import _ from "lodash";
 export default {
   name: "BusinessServiceEditView",
   components: {
-    "app-functionality-table": FunctionalityTable,
-    
+    "app-functionality-table": FunctionalityTable
   },
   props: {
     businessServiceID: {
       type: Number,
       required: true,
-      default: () => null,
+      default: () => null
     },
-     toolName: {
+    toolName: {
       type: String,
       required: true,
-      default: () => null,
-    },
+      default: () => null
+    }
   },
   computed: {
     ...mapGetters("businessService", {
-      businessService: "businessService",
+      businessService: "businessService"
     }),
-    ...mapGetters("methods", ["statisticalMethodsList"]),
+    ...mapGetters("methods", ["statisticalMethodsList"])
   },
   data() {
     return {
@@ -288,7 +279,7 @@ export default {
       FormState: {
         LIST: 0,
         EDIT: 1,
-        NEW: 2,
+        NEW: 2
       },
       stateform: 0,
       newAppService: {
@@ -299,26 +290,26 @@ export default {
         implementationLanguage: "",
         sourcePath: "",
         licence: "",
-        businessService: 0,
+        businessService: 0
       },
       fields: [
         {
           key: "functionality",
-          label: "Funzionalità",
+          label: "Funzionalità"
         },
         {
           key: "method",
-          label: "Metodo",
+          label: "Metodo"
         },
         {
           key: "statMethodName",
-          label: "Metodo Statistico",
+          label: "Metodo Statistico"
         },
         {
           key: "descr",
-          label: "Descrizione",
-        },
-      ],
+          label: "Descrizione"
+        }
+      ]
     };
   },
   methods: {
@@ -346,9 +337,9 @@ export default {
     modalClose() {
       this.warningModal = false;
     },
-    getStepInstancesList: function (stepInstances) {
+    getStepInstancesList: function(stepInstances) {
       if (stepInstances)
-        return stepInstances.map((stepInstance) => {
+        return stepInstances.map(stepInstance => {
           return {
             id: stepInstance.id,
             functionality: stepInstance.functionality,
@@ -356,14 +347,14 @@ export default {
             descr: stepInstance.descr,
             statMethod: {
               id: stepInstance.statMethod.id,
-              name: stepInstance.statMethod.name,
-            },
+              name: stepInstance.statMethod.name
+            }
           };
         });
       else return [];
     },
 
-    handleNewAppService: function () {
+    handleNewAppService: function() {
       this.newAppService.businessService = this.businessServiceID;
       this.$store
         .dispatch("appservice/save", this.newAppService)
@@ -371,38 +362,37 @@ export default {
 
       this.stateform = this.FormState.LIST;
     },
-    handleUpdateAppService: function () {
+    handleUpdateAppService: function() {
       this.businessService = null;
       this.selectedUpdateAppService.businessService = this.businessServiceID;
       this.$store
         .dispatch("appservice/update", this.selectedUpdateAppService)
         .then(this.reLoadBusinessService(this.selectedUpdateAppService.id));
     },
-    reLoadBusinessService: _.debounce(function (idAppService) {
+    reLoadBusinessService: _.debounce(function(idAppService) {
       this.selectedUpdateAppService = null;
       if (this.businessServiceID) {
         this.$store
           .dispatch("businessService/findById", this.businessServiceID)
           .then(() => {
-            this.selectedUpdateAppService =
-              this.businessService.appServices.find(
-                (x) => x.id === idAppService
-              );
+            this.selectedUpdateAppService = this.businessService.appServices.find(
+              x => x.id === idAppService
+            );
           });
       }
     }, 500),
-    loadBusinessService: _.debounce(function () {
+    loadBusinessService: _.debounce(function() {
       if (this.businessServiceID) {
         this.$store.dispatch(
           "businessService/findById",
           this.businessServiceID
         );
       }
-    }, 500),
+    }, 500)
   },
   created() {
     this.loadBusinessService();
-  },
+  }
 };
 </script>
 <style scoped>
