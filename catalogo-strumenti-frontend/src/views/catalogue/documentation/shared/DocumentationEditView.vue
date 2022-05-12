@@ -155,12 +155,12 @@ export default {
         publisher: "",
         documentType: "",
         resource: "",
-        tool: this.toolId,
-      },
+        tool: this.toolId
+      }
     };
   },
   computed: {
-    ...mapGetters("documentationType", ["documentationTypeList"]),
+    ...mapGetters("documentationType", ["documentationTypeList"])
   },
   emits: ["refreshTool"],
 
@@ -168,18 +168,18 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     toolId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     toolName: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     changeTool(value) {
@@ -190,8 +190,7 @@ export default {
     },
     handleSubmit() {
       this.documentationLocal.tool = this.toolId;
-      this.documentationLocal.documentType =
-        this.documentationLocal.documentType.id;
+      this.documentationLocal.documentType = this.documentationLocal.documentType.id;
       console.log(this.documentationLocal);
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
@@ -214,13 +213,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
