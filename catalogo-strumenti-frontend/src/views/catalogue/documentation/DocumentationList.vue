@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <h2>
+     <h2 class="pt-4">
         Elenco Documentazione
         <div class="card-header-actions" v-if="isAuthenticated">
           <router-link tag="a" :to="{ name: 'DocumentationAdd' }">
