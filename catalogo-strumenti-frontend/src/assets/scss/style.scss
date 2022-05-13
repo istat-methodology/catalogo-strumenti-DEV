@@ -352,6 +352,7 @@
                                         
                                         .card-header {
                                             font-weight: 600;
+                                            /*color:#3780bd*/
                                         }
                                         
                                         label {
@@ -394,13 +395,13 @@
                                         }
                                         
                                         .list-item {
-                                            border-left: 2px solid #aebad1;
+                                            border-left: 2px solid #3780bd;
                                             list-style: none;
                                         }
                                         
                                         .list-item:hover,
                                         .list-item-hover {
-                                            border-left: 2px solid #1a1a1af6;
+                                            border-left: 2px solid #321fdb;
                                             list-style: none;
                                         }
                                         
@@ -408,7 +409,7 @@
                                             display: block;
                                             padding: 0.5rem 1rem;
                                             font: var(--type-body-m);
-                                            color: gray;
+                                            color: #3780bd;
                                             font-weight: 600;
                                             text-decoration: none;
                                             cursor: pointer;
@@ -564,4 +565,11 @@
                                         
                                         h5 {
                                             color: #c32c2c
+                                        }
+                                        h1>span,h2>span,h3>span,h4>span,h5>span{
+                                            font-size:0.82em;                                            
+                                            vertical-align:baseline;
+                                        }
+                                        h1,h2,h3,h4,h5{
+                                            vertical-align:baseline;
                                         }

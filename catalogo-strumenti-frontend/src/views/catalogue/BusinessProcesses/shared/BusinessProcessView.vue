@@ -6,15 +6,13 @@
         <div v-if="businessProcesses.length === 0">
             <span><i><h5>Nessun Business Process associato</h5></i></span>
         </div>
-
         <div
           class="card col-12"
           v-for="businessProcess of businessProcesses"
           :key="businessProcess.id"
         >
-          <div class="card-header">
+          <div class="card-header"> 
             {{ businessProcess.name }}
-
             <div class="card-header-actions">
               <router-link
                 tag="a"

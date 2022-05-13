@@ -3,7 +3,7 @@
     <tile></tile>
   </div>
   <div class="col-12" v-else>
-    <h2>
+    <h2 class="pt-4">
       Elenco Strumenti
       <div class="card-header-actions">
         <router-link tag="a" :to="{ name: 'ToolAdd' }" v-if="isAuthenticated">

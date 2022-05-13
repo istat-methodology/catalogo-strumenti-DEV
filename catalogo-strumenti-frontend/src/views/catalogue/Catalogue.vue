@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-sm-6 col-md-4">
-      <h2>Strumenti Metodologici</h2>
+    <div class="col-sm-6 col-md-5">      
+      <h2 class="pt-5">Strumenti Metodologici</h2>
       <div class="card">
         <div class="card-body">
           In questa sezione puoi trovare la lista degli Strumenti Metodologici.
@@ -13,8 +13,9 @@
         </div>
       </div>
     </div>
+
     <div class="col-sm-6 col-md-4">
-      <h2>Processi</h2>
+      <h2 class="pt-5">Processi</h2>
       <div class="card">
         <div class="card-body">
           In questa sezione puoi trovare la lista dei processi.

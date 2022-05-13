@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Referenti associati</h2>
+    <h2><span>1.6)</span> Referenti associati</h2>
     <div class="columns">
       <div class="row">
         <div v-if="linkedAgents.length === 0">
@@ -12,7 +12,7 @@
           :key="linkedAgent.id"
         >
           <div class="card-header">
-            <strong>{{ linkedAgent.agentName }}</strong>
+            {{ linkedAgent.agentName }}
             <div class="card-header-actions">
               <router-link
                 tag="a"

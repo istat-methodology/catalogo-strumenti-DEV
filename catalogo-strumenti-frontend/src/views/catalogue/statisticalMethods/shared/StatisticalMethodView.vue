@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Metodi statistici</h2>
+    <h2><span>1.2)</span> Metodi statistici</h2>
     <div class="columns">
       <div class="row">
         <div v-if="statisticalMethods.length === 0">
@@ -12,7 +12,7 @@
           :key="statisticalMethod.id"
         >
           <div class="card-header">
-            <strong>{{ statisticalMethod.name }}</strong>
+            {{ statisticalMethod.name }}
             <div class="card-header-actions">
               <router-link
                 tag="a"

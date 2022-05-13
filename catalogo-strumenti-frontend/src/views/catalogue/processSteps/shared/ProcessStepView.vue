@@ -7,7 +7,7 @@
             <span><i><h5>Nessun Business Process associato</h5></i></span>
         </div>
         <div
-          class="card col-md-3"
+          class="card col-md-3 p-2"
           v-for="processStep of processSteps"
           :key="processStep.id"
         >

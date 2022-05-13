@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Documentazione</h2>
+    <h2><span>1.5)</span> Documentazione</h2>
     <div class="columns">
       <div class="row">
         <div v-if="documentations.length === 0">
@@ -13,7 +13,7 @@
           :key="documentation.id"
         >
           <div class="card-header">
-            <strong>{{ documentation.name }}</strong>
+            {{ documentation.name }}
             <div class="card-header-actions">
               <router-link
                 tag="a"

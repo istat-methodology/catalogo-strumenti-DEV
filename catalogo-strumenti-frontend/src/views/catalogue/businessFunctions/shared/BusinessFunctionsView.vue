@@ -1,20 +1,19 @@
 <template>
-  <div>
-    <h2>Processi</h2>
-    <!--div class="card w-100"-->
-      <div class="card-body">
+  <div>      
+        <h2><span>1.4)</span> Processi</h2>
+        
         <div class="columns">
           <div class="row">
             <div v-if="businessFunctions.length === 0">
-                <span><i><h5>Nessun processo associato</h5></i></span>
+                <span class="pl-2"><i><h5>Nessun processo associato</h5></i></span>
             </div>
             <div
-              class="card cols-3"
+              class="card col-md-3"
               v-for="businessFunction of businessFunctions"
               :key="businessFunction.id"
             >
               <div class="card-header">
-                <strong>{{ businessFunction.name }}</strong>
+                {{ businessFunction.name }}
                 <div class="card-header-actions">
                   <router-link
                     tag="a"
@@ -32,9 +31,7 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    <!--/div-->
+      </div>    
   </div>
 </template>
 <script>

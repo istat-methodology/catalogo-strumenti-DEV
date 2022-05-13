@@ -8,7 +8,7 @@
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
         <div class="p-2">
-          <h2 class="pt-4">
+          <h2 class="pt-4"><span>{{ index }})</span>
             {{ tool.name | dashEmpty
             }}<span class="float-right">
               <router-link
@@ -54,15 +54,15 @@
                 </div>
               </div>
               <div class="card col-md-auto p-2">
-                <span><strong>Ultima Modifica</strong></span>
-                <div class="card-slot  p-2">
-                  <span>{{ this.formatDate(tool.lastUpdate) | dashEmpty }}</span>
-                </div>
-              </div>
-              <div class="card col-md-auto p-2">
                 <span><strong>Requisiti</strong></span>
                 <div class="card-slot  p-2">
                   <span>{{ tool.requirements | dashEmpty }}</span>
+                </div>
+              </div>
+              <div class="card col-md-auto p-2">
+                <span><strong>Ultima Modifica</strong></span>
+                <div class="card-slot  p-2">
+                  <span>{{ this.formatDate(tool.lastUpdate) | dashEmpty }}</span>
                 </div>
               </div>
             </div>
@@ -75,8 +75,8 @@
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
-        <div class="p-2">
-          <h2>{{ tool.toolType.name | dashEmpty }}</h2>
+        <div class="p-2">          
+          <h2><span>1.1)</span> {{ tool.toolType.name | dashEmpty }}</h2>
           <div class="pl-2">
           <div v-if="tool.toolType.id == 3">
             <div class="columns">
@@ -332,6 +332,9 @@ export default {
   //components: { plusORminus },
   data() {
     return {
+      index:1,
+      subIndex:0,
+
       activeIndex: -1,
       fields: [
         {
