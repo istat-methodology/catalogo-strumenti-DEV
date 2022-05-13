@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="row">
         <div v-if="linkedAgents.length === 0">
-                <span><i><h5>Nessun referente associato></h5></i></span>
+                <span><i><h5>Nessun referente associato</h5></i></span>
         </div>  
         <div
           class="card col-md-3"
