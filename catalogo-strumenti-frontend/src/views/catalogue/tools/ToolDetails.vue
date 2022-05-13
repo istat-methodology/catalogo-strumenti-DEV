@@ -24,8 +24,7 @@
             </span>
           </h2>
         </div>
-
-        <!--fieldset v-if="tool" class="scheduler-border card"-->
+   
         <div class="p-2">
           <div class="columns">
             <div class="row">
@@ -70,8 +69,7 @@
               </div>
             </div>
           </div>
-        </div>
-        <!--/fieldset-->
+        </div>        
       </div>
       <div id="id-tooltype" />
       <div
@@ -79,8 +77,7 @@
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
         <h2>{{ tool.toolType.name | dashEmpty }}</h2>
-
-        <!--div class="scheduler-border card"-->
+        
         <div class="p-2">
           <div v-if="tool.toolType.id == 3">
             <div class="columns">
@@ -286,7 +283,7 @@
 
     <aside class="container-rigth col-2">
       <section class="menu">
-        <header><h2 class="menu-heading">Contenuto:</h2></header>
+        <header><h2 class="menu-heading"><b>Contenuto:</b></h2></header>
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
             <a class="item-link" href="#id-main">{{ tool.name | dashEmpty }}</a>
