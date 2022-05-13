@@ -7,8 +7,8 @@
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
-        <div>
-          <h2>
+        <div class="p-2">
+          <h2 class="pt-4">
             {{ tool.name | dashEmpty
             }}<span class="float-right">
               <router-link
@@ -23,9 +23,7 @@
               </router-link>
             </span>
           </h2>
-        </div>
-   
-        <div class="p-2">
+          <div class="pl-2">
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">
@@ -70,15 +68,16 @@
             </div>
           </div>
         </div>        
+        </div>        
       </div>
       <div id="id-tooltype" />
       <div
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
-        <h2>{{ tool.toolType.name | dashEmpty }}</h2>
-        
         <div class="p-2">
+          <h2>{{ tool.toolType.name | dashEmpty }}</h2>
+          <div class="pl-2">
           <div v-if="tool.toolType.id == 3">
             <div class="columns">
               <div class="row">
@@ -215,6 +214,7 @@
               </div>
             </div>           
           </div>
+        </div>
         </div>
       </div>
 
