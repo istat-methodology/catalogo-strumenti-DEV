@@ -1,51 +1,46 @@
 <template>
   <div>
-    <h2><span>2</span> Processi</h2>
-    <div v-if="businessProcesses">
-      <div
-        v-for="(businessProcess, index) of businessProcesses"
-        :key="businessProcess.id"
-      >
-        <div class="p-2">
-          <h4 ><span>2.{{index + 1}}</span> {{ businessProcess.name }}</h4>
-          <div class="columns">
-            <div class="row">
-              <div class="description-fields col-12">
-                <span v-if="businessProcess">{{ businessProcess.descr }}</span>
-              </div>
-              <div class="card col-md-auto">
-                <span><strong>Etichetta</strong></span>
-                <div class="card-slot">
-                  <span v-if="businessProcess">{{ businessProcess.label }}</span>
-                </div>
-              </div>
-     
-           
+    <!--  <h2>Elenco Bussiness Process</h2> -->
+    <div class="columns">
+      <div class="row">
+        <div v-if="businessProcesses.length === 0">
+            <span><i><h5>Nessun Business Process associato</h5></i></span>
+        </div>
+        <div
+          class="card col-12"
+          v-for="businessProcess of businessProcesses"
+          :key="businessProcess.id"
+        >
+          <div class="card-header"> 
+            {{ businessProcess.name }}
+            <div class="card-header-actions">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'BusinessProcessDetails',
+                  params: { id: businessProcess.id }
+                }"
+              >
+                <view-icon />
+              </router-link>
             </div>
           </div>
-
-    
+          <div class="card-body">
             <app-process-stepview
               :processSteps="businessProcess.processSteps"
             ></app-process-stepview>
-      
-         
+          </div>
         </div>
-        <!--/div-->
-        <!--/fieldset-->
       </div>
     </div>
- 
   </div>
-
-  <!--/div>
-  </div-->
 </template>
 <script>
 import ProcessStepView from "../../processSteps/shared/ProcessStepView";
 export default {
   name: "BusinessProcessView",
   components: {
+    // "app-business-process": BusinessProcess,
     "app-process-stepview": ProcessStepView
   },
   props: {
@@ -115,15 +110,5 @@ body {
     display: block;
     margin-bottom: 20px;
   }
-}
-fieldset.scheduler-border {
-  border: 1px solid #ddd !important;
-  padding: 0 1.4em 1.4em 1.4em !important;
-  margin: 0 0 1.5em 0 !important;
-}
-legend.scheduler-border {
-  width: inherit; /* Or auto */
-  padding: 0 10px; /* To give a bit of padding on the left and right */
-  border-bottom: none;
 }
 </style>
