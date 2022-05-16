@@ -4,13 +4,11 @@
     <div class="columns">
       <div class="row">
         <div v-if="tools.length === 0">
-            <span><i><h5>Nessun strumento metodologico utilizzato</h5></i></span>
+          <span
+            ><i><h5>Nessun strumento metodologico utilizzato</h5></i></span
+          >
         </div>
-        <div
-          class="card col-md-3"
-          v-for="tool of tools"
-          :key="tool.id"
-        >
+        <div class="card col-md-3" v-for="tool of tools" :key="tool.id">
           <div class="card-header">
             {{ tool.name }}
             <div class="card-header-actions">

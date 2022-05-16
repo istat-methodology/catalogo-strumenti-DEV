@@ -30,9 +30,9 @@ const actions = {
         console.log(err);
       });
   },
-  findToolsByBFunctions({ commit },  id) {
+  findToolsByBFunctions({ commit }, id) {
     return toolsOpenService
-      .findToolsByBFunctions( id)
+      .findToolsByBFunctions(id)
       .then(data => {
         commit("SET_TOOLSBYBFUNCTION", data);
       })
@@ -69,7 +69,7 @@ const actions = {
       .findById(id)
       .then(data => {
         //console.log(data);
-       commit("SET_TOOL", data);
+        commit("SET_TOOL", data);
         return data;
       })
       .catch(err => {

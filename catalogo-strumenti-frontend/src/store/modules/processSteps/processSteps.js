@@ -1,5 +1,5 @@
-import { businessProcessService } from "@/services";
-import { businessProcessOpenService } from "@/services";
+//import { processStepsService } from "@/services";
+import { processStepsOpenService } from "@/services";
 
 const state = {
   procStepList: [],
@@ -17,7 +17,7 @@ const mutations = {
 
 const actions = {
   findAll({ commit }) {
-    businessProcessOpenService.findAll().then(
+    processStepsOpenService.findAll().then(
       data => {
         commit("SET_PROCSTEPLIST", data);
       },
@@ -27,7 +27,7 @@ const actions = {
     );
   },
   save({ commit, dispatch }, payload) {
-    return businessProcessService
+    return processStepsOpenService
       .save(payload)
       .then(data => {
         //console.log(data);
@@ -41,7 +41,7 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return businessProcessOpenService
+    return processStepsOpenService
       .findById(id)
       .then(data => {
         //console.log(data);
@@ -52,7 +52,7 @@ const actions = {
       });
   },
   update({ commit, dispatch }, payload) {
-    return businessProcessService
+    return processStepsOpenService
       .update(payload)
       .then(data => {
         commit("SET_PROCSTEP", data);
@@ -64,18 +64,8 @@ const actions = {
         console.log(err);
       });
   },
-  filter({ commit }, payload) {
-    return businessProcessOpenService
-      .filter(payload)
-      .then(data => {
-        commit("SET_PROCSTEPLIST", data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
   delete({ dispatch }, id) {
-    return businessProcessService
+    return processStepsOpenService
       .delete(id)
       .then(() => {
         dispatch("findAll");

@@ -141,7 +141,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("processStep", ["processStep"])
+    ...mapGetters("procStep", ["procStep"])
   },
   emits: ["refreshTool"],
 
