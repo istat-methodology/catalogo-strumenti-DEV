@@ -88,15 +88,15 @@ const actions = {
 };
 
 const getters = {
-  bProcess: state => {
-    return state.bProcess;
+  procStep: state => {
+    return state.procStep;
   },
-  bProcessList: state => {
-    return state.bProcessList;
+  procStepList: state => {
+    return state.procStepList;
   }
 };
 
-export const bProcess = {
+export const procStep = {
   namespaced: true,
   state,
   mutations,
