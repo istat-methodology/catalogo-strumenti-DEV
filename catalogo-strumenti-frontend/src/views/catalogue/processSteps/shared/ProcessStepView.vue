@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><span>2</span> Passi del processo</h2>
+    <h2><span>2</span> Passi del processo: {{processName}}</h2>
     <div v-if="processSteps">
       <div
         v-for="(processStep, index) of processSteps"
@@ -149,6 +149,16 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    processName: {
+      type: String,
+      required: true,
+      default: () => ''
+    },
+     processIndex: {
+      type: Number,
+      required: true,
+      default: () => 1
     }
   }
 };
