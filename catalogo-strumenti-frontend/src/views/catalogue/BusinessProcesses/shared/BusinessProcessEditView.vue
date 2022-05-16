@@ -36,29 +36,34 @@
               v-model="bProcessLocal.name"
             />
             <CInput
-              label="Editore"
-              placeholder="Editore"
-              v-model="bProcessLocal.publisher"
+              label="Descrizione"
+              placeholder="Descrizione"
+              v-model="bProcessLocal.descr"
+            />
+            <CInput
+              label="Etichetta"
+              placeholder="Etichetta"
+              v-model="bProcessLocal.label"
+            />
+            <CInput
+              label="Codice Ordine"
+              placeholder="Codice Ordine"
+              v-model="bProcessLocal.orderCode"
+            />
+            <CInput
+              label="Genitore"
+              placeholder="Genitore"
+              v-model="bProcessLocal.parent"
             />
             <div>
-              <label>Istanza o modulo</label>
+              <label>Passi di Processo</label>
             </div>
             <v-select
               label="Process Step"
               :options="procStepList"
               placeholder="Process Step"
-              v-model="bProcessLocal.bProcessStepIstance"
+              v-model="bProcessLocal.processSteps"
             ></v-select>
-            <CInput
-              label="Note"
-              placeholder="Note"
-              v-model="bProcessLocal.notes"
-            />
-            <CInput
-              label="Fonti"
-              placeholder="Fonti"
-              v-model="bProcessLocal.resource"
-            />
           </CCardBody>
         </CCard>
       </div>
@@ -68,31 +73,27 @@
       </div> -->
     </div>
     <div class="row">
-      <div
-        class="card col-3"
-        v-for="bFunction of bFunctions"
-        :key="bFunction.id"
-      >
+      <div class="card col-3" v-for="bProcess of bProcesses" :key="bProcess.id">
         <div class="card-header">
-          <strong>{{ bFunction.name }}</strong>
+          <strong>{{ bProcess.name }}</strong>
           <div class="card-header-actions">
             <router-link
               tag="a"
               :to="{
-                name: 'DocumentationDetails',
-                params: { id: bFunction.id }
+                name: 'BProcessDetails',
+                params: { id: bProcess.id }
               }"
             >
               <view-icon />
             </router-link>
-            <span class="icon-link" @click="modalOpen(bFunction)"
+            <span class="icon-link" @click="modalOpen(bProcess)"
               ><delete-icon />
             </span>
           </div>
         </div>
-        <div class="card-body">
+        <!-- <div class="card-body">
           <p class="card-text">{{ bFuntion.documentType }}</p>
-        </div>
+        </div> -->
       </div>
     </div>
     <CModal
@@ -100,7 +101,7 @@
       :show.sync="warningModal"
       @close="
         () => {
-          this.$emit('refreshTool');
+          this.$emit('refreshBProcess');
         }
       "
     >
@@ -112,12 +113,12 @@
           shape="square"
           size="sm"
           color="primary"
-          @click="deleteDocumentation"
+          @click="deleteBProcess"
         >
           Delete
         </CButton>
       </template>
-      Elimina referente '{{ selectedDoc.name }}'?
+      Elimina Business Process '{{ selectedBProcess.name }}'?
     </CModal>
   </div>
 </template>
@@ -133,20 +134,21 @@ export default {
       warningModal: false,
       bProcessLocal: {
         name: "",
-        publisher: "",
-        documentType: "",
-        resource: "",
-        tool: this.toolId
+        descr: "",
+        label: "",
+        orderCode: "",
+        parent: "",
+        processSteps: []
       }
     };
   },
   computed: {
     ...mapGetters("procStep", ["procStepList"])
   },
-  emits: ["refreshTool"],
+  emits: ["refreshBProcess"],
 
   props: {
-    bFunctions: {
+    bProcesses: {
       type: Array,
       required: true,
       default: () => []
@@ -158,12 +160,12 @@ export default {
     }
   },
   methods: {
-    changeTool(value) {
+    changeBProcess(value) {
       this.documentationLocal.tool = value.id;
     },
-    changeDocumentType(value) {
+    /*  changeDocumentType(value) {
       this.documentationLocal.documentType = value.id;
-    },
+    }, */
     handleSubmit() {
       this.documentationLocal.tool = this.toolId;
       this.documentationLocal.documentType = this.documentationLocal.documentType.id;
