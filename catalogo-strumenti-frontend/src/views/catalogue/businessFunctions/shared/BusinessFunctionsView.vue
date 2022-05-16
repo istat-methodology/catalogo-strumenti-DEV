@@ -1,37 +1,39 @@
 <template>
-  <div>      
-        <h2><span>1.4)</span> Processi</h2>
-        
-        <div class="columns">
-          <div class="row">
-            <div v-if="businessFunctions.length === 0">
-                <span class="pl-2"><i><h5>Nessun processo associato</h5></i></span>
-            </div>
-            <div
-              class="card col-md-3"
-              v-for="businessFunction of businessFunctions"
-              :key="businessFunction.id"
-            >
-              <div class="card-header">
-                {{ businessFunction.name }}
-                <div class="card-header-actions">
-                  <router-link
-                    tag="a"
-                    :to="{
-                      name: 'BusinessFunctionsView',
-                      params: { id: businessFunction.id }
-                    }"
-                  >
-                    <view-icon />
-                  </router-link>
-                </div>
-              </div>
-              <div class="card-body">
-                <p class="card-text">{{ businessFunction.description }}</p>
-              </div>
+  <div>
+    <h2><span>1.4)</span> Processi</h2>
+
+    <div class="columns">
+      <div class="row">
+        <div v-if="businessFunctions.length === 0">
+          <span class="pl-2"
+            ><i><h5>Nessun processo associato</h5></i></span
+          >
+        </div>
+        <div
+          class="card col-md-3"
+          v-for="businessFunction of businessFunctions"
+          :key="businessFunction.id"
+        >
+          <div class="card-header">
+            {{ businessFunction.name }}
+            <div class="card-header-actions">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'BusinessFunctionsView',
+                  params: { id: businessFunction.id }
+                }"
+              >
+                <view-icon />
+              </router-link>
             </div>
           </div>
-      </div>    
+          <div class="card-body">
+            <p class="card-text">{{ businessFunction.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>

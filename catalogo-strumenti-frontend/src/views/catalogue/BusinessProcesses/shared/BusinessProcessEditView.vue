@@ -141,7 +141,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("documentationType", ["documentationTypeList"])
+    ...mapGetters("processStep", ["processStep"])
   },
   emits: ["refreshTool"],
 
