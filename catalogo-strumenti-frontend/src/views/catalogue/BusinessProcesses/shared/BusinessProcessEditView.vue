@@ -33,7 +33,7 @@
             <CInput
               label="Nome"
               placeholder="Nome"
-              v-model="b.ProcessLocal.name"
+              v-model="bProcessLocal.name"
             />
             <CInput
               label="Editore"
@@ -44,9 +44,9 @@
               <label>Istanza o modulo</label>
             </div>
             <v-select
-              label="Istanza o Modulo"
-              :options="bProcessStepIstances"
-              placeholder="Istanza o Modulo"
+              label="Process Step"
+              :options="procStepList"
+              placeholder="Process Step"
               v-model="bProcessLocal.bProcessStepIstance"
             ></v-select>
             <CInput
@@ -141,7 +141,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("procStep", ["procStep"])
+    ...mapGetters("procStep", ["procStepList"])
   },
   emits: ["refreshTool"],
 

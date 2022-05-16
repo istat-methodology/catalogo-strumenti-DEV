@@ -7,7 +7,9 @@
         :key="businessProcess.id"
       >
         <div class="p-2">
-          <h4 ><span>2.{{index + 1}}</span> {{ businessProcess.name }}</h4>
+          <h4>
+            <span>2.{{ index + 1 }}</span> {{ businessProcess.name }}
+          </h4>
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">
@@ -16,26 +18,22 @@
               <div class="card col-md-auto">
                 <span><strong>Etichetta</strong></span>
                 <div class="card-slot">
-                  <span v-if="businessProcess">{{ businessProcess.label }}</span>
+                  <span v-if="businessProcess">{{
+                    businessProcess.label
+                  }}</span>
                 </div>
               </div>
-     
-           
             </div>
           </div>
 
-    
-            <app-process-stepview
-              :processSteps="businessProcess.processSteps"
-            ></app-process-stepview>
-      
-         
+          <app-process-stepview
+            :processSteps="businessProcess.processSteps"
+          ></app-process-stepview>
         </div>
         <!--/div-->
         <!--/fieldset-->
       </div>
     </div>
- 
   </div>
 
   <!--/div>
