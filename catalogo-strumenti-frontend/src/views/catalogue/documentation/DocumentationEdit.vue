@@ -5,11 +5,19 @@
       <CCard v-if="documentation">
         <CCardHeader>Modifica Documentazione</CCardHeader>
         <CCardBody>
+            <div class="form-group">
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Nome"
             v-model="documentationLocal.name"
+              :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
           />
+              <span
+              class="help-block"
+              :class="{ show: $v.documentationLocal.name.$error }"
+              >Inserire nome della documentazione.</span
+            >
+            </div>
           <CInput
             label="Editore"
             placeholder="Editore"
@@ -60,7 +68,8 @@
           color="primary"
           class="mr-2"
           @click.prevent="handleSubmit"
-          >Update</CButton
+          :disabled="disabled"
+          >Salva</CButton
         >
         <CButton
           shape="square"
@@ -75,11 +84,12 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 export default {
   name: "DocumentationEdit",
   data() {
     return {
+      disabled: false,
       documentationLocal: {
         id: "",
         name: "",
@@ -87,23 +97,33 @@ export default {
         documentType: "",
         notes: "",
         resource: "",
-        tool: ""
-      }
+        tool: "",
+      },
     };
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
-    ...mapGetters("tools", ["toolscatalog"])
+    ...mapGetters("tools", ["toolscatalog"]),
   },
 
-  /* validations: {
-    dug: {
+  validations: {
+    documentationLocal: {
       name: {
-        required
-      }
-    }
-  }, */
+        required,
+      },
+      documentType: {
+        name: {
+          required,
+        },
+      },
+       tool: {
+        name: {
+          required,
+        },
+      },
+    },
+  },
   methods: {
     changeTool(value) {
       this.documentationLocal.tool = value.id;
@@ -112,14 +132,15 @@ export default {
       this.documentationLocal.documentType = value.id;
     },
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
+      this.$v.$touch(); //validate form data
+      if (!this.$v.$invalid) { 
+      this.disabled = true; //disable buttons
       this.$store
         .dispatch("documentation/update", this.documentationLocal)
         .then(() => {
           this.backToList();
         });
-      /*   } */
+        } 
     },
     setOldValues() {
       this.documentationLocal.id = this.documentation.id;
@@ -132,7 +153,7 @@ export default {
     },
     backToList() {
       this.$router.push("/catalogue/documentazione");
-    }
+    },
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
@@ -143,6 +164,6 @@ export default {
       });
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  }
+  },
 };
 </script>

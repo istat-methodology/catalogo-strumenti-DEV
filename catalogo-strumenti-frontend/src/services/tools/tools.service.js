@@ -47,6 +47,19 @@ class ToolsService extends AbstractService {
         console.log(error);
       });
   }
+
+  findToolsByBFunctions(id) {
+    return axiosCatalog  
+      .get(this.endpoint + "/business-functions/" + id)
+      .then(res => {
+        var data = res.data ? res.data : {};
+
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 }
 
 export const toolsService = new ToolsService("/catalog/tools");

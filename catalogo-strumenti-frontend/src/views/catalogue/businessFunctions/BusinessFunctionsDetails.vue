@@ -53,6 +53,21 @@
         </div>        
         </div>        
       </div>
+
+   <div id="id-tools" />
+      <div
+        
+        @mouseover="setActiveItemList('#id-link-tools', true)"
+        @mouseleave="setActiveItemList('#id-link-tools', false)"
+      >    <div class="p-2">
+           <app-tools-function
+            :tools="toolsByBfunction"
+          ></app-tools-function>
+        </div>
+      </div>
+
+
+
    <div id="id-bProcesses" />
       <div
       
@@ -66,16 +81,7 @@
         </div>
       </div>
 
-      <div id="id-tools" />
-      <div
-        
-        @mouseover="setActiveItemList('#id-link-tools', true)"
-        @mouseleave="setActiveItemList('#id-link-tools', false)"
-      >
-        <div class="p-2">
-         aaaaaaaaaaaaaaa
-        </div>
-      </div>
+   
 
     </div>
 
@@ -86,14 +92,14 @@
           <li class="list-item" id="id-link-main">
             <a class="item-link" href="#id-main">{{ bFunction.name | dashEmpty }}</a>
           </li>
+         <li class="list-item" id="id-link-tools">
+            <a class="item-link" href="#id-tools">Strumenti</a>
+          </li>
+
                <li class="list-item" id="id-link-bProcesses">
             <a class="item-link" href="#id-bProcesses">Processi</a>
           </li>
-               <li class="list-item" id="id-link-tools">
-            <a class="item-link" href="#id-tools">Strumenti</a>
-          </li>
-         
-         
+            
         </ul>
       </section>
     </aside>
@@ -104,12 +110,12 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import BusinessProcessView from "../businessProcesses/shared/BusinessProcessView";
-
+import ToolsView from "../tools/shared/ToolsView";
 export default {
   name: "BusinessFunctionsDetails",
   components: {
-
-    "app-business-processview": BusinessProcessView
+    "app-business-processview": BusinessProcessView,
+    "app-tools-function":ToolsView
   },
   data() {
     return {
@@ -122,6 +128,7 @@ export default {
   },
    computed: {
     ...mapGetters("bFunction", ["bFunction"]),
+    ...mapGetters("tools", ["toolsByBfunction"]),
     getBusinessProcesses: function() {
       return this.bFunction.businessProcesses.map(item => {
         return {
@@ -161,6 +168,7 @@ export default {
   created() {
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
     this.$store.dispatch("bFunction/findById", this.$route.params.id);
+     this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id);
   },
 };
 </script>
