@@ -31,15 +31,14 @@
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i>  > Strumento
                 <div class="card-header-actions">
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="primary"
                     class="mr-2"
                     @click.prevent="handleSubmit"
                     >Salva</CButton
-                  >
-                 
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
@@ -79,6 +78,19 @@
                   v-model="toolLocal.requirements"
                 />
               </CCardBody>
+
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
+
               </CCard>
             </div>
           </CTab>
@@ -91,7 +103,7 @@
               <CCardHeader>
                 {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -99,7 +111,7 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  <!--CButton
+                  <CButton
                     shape="square"
                     size="sm"
                     color="light"
@@ -140,13 +152,9 @@
                   v-model="toolLocal.technicalRequirements"
                 />
               </CCardBody>
-         </CCard>  
-         </div>
-            <div v-if="tool && tool.toolType.id == 2">
-              <CCardHeader>
-                <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
-                <div class="card-header-actions">
-                  <CButton
+              <CCardFooter>
+                
+                                <CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -154,7 +162,23 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
+                  </CCardFooter>
+
+         </CCard>  
+         </div>
+            <div v-if="tool && tool.toolType.id == 2">
+              <CCardHeader>
+                <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
+                <div class="card-header-actions">
                   <!--CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  <CButton
                     shape="square"
                     size="sm"
                     color="light"
@@ -201,13 +225,9 @@
                   v-model="toolLocal.technicalRequirements"
                 />
               </CCardBody>
-              </CCard>
-            </div>
-            <div v-if="tool && tool.toolType.id == 1">
-              <CCardHeader>
-               <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
-                <div class="card-header-actions">
-                  <CButton
+              <CCardFooter>
+                
+                                <CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -215,7 +235,23 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
+                  </CCardFooter>
+
+              </CCard>
+            </div>
+            <div v-if="tool && tool.toolType.id == 1">
+              <CCardHeader>
+               <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
+                <div class="card-header-actions">
                   <!--CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  <CButton
                     shape="square"
                     size="sm"
                     color="light"
@@ -248,6 +284,18 @@
                   v-model="toolLocal.restrictions"
                 />
               </CCardBody>
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
+
             </CCard>
             </div>
           </CTab>
@@ -260,14 +308,7 @@
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i>  > Metodi Statistici
                 <div class="card-header-actions">
-                  <CButton
-                    shape="square"
-                    size="sm"
-                    color="primary"
-                    class="mr-2"
-                    @click.prevent="handleSubmit"
-                    >Salva</CButton
-                  >
+
                   <!--CButton
                     shape="square"
                     size="sm"
@@ -288,7 +329,19 @@
                     :show-count="true"
                   />
                 </div>
+                
               </CCardBody>
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
               </CCard>
             </div>
           </CTab>
