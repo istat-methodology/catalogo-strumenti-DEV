@@ -3,8 +3,21 @@
   <div class="row">
     <div class="col-12">
       <div v-if="tool">
-       
+        <div>       
+          <h2 class="pt-2">{{tool.name}} 
+            <span class="float-right">     
 
+              <close-icon  @click.prevent="$router.back()" />
+
+              <!--CButton
+                    shape="square"
+                    size="sm"
+                    color="light"
+                    @click.prevent="$router.back()"
+                    >Indietro</CButton-->
+            </span>
+          </h2>
+        </div>
         <CTabs
           variant="pills"
           :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
@@ -26,13 +39,7 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  <CButton
-                    shape="square"
-                    size="sm"
-                    color="light"
-                    @click.prevent="$router.back()"
-                    >Indietro</CButton
-                  >
+                 
                 </div>
               </CCardHeader>
               <CCard>
@@ -92,13 +99,13 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
   <CCard>            <CCardBody>
@@ -147,13 +154,13 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
@@ -208,13 +215,13 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
@@ -261,13 +268,13 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
