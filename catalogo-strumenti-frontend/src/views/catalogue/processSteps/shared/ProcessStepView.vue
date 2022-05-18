@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><span>{{positionIndex}}</span> Passi del processo: {{ processName }}</h2>
+    <h5> Passi del processo: {{positionIndex}}. {{ processName }}</h5>
     <div v-if="processSteps">
       <div v-for="(processStep, index) of processSteps" :key="processStep.id">
         <div class="p-2">
@@ -20,9 +20,11 @@
               </div>
             </div>
           </div>
+     
           <div class="card-body">
             <!--div class="card-body"-->
             <!-- @start Condition to show filtrable table if results are more then 5 lines-->
+            <p>Process design</p>
             <div
               class="table-responsive"
               v-if="processStep.processDesigns.length > 20"

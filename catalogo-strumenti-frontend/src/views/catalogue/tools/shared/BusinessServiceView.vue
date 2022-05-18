@@ -159,8 +159,8 @@ export default {
           functionality: stepInstance.functionality,
           method: stepInstance.method,
           descr: stepInstance.descr,
-          statMethodName: stepInstance.statMethod.name,
-          statMethodId: stepInstance.statMethod.id
+          statMethodName: stepInstance.statMethod?stepInstance.statMethod.name:null,
+          statMethodId: stepInstance.statMethod?stepInstance.statMethod.id:null
         };
       });
     }

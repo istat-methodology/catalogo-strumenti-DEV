@@ -98,7 +98,7 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:60%;"
+          _style: "width:50%;"
         },
         {
           key: "label",
@@ -108,7 +108,7 @@ export default {
         {
           key: "gsbpm",
           label: "Gsbpm",
-          _style: "width:30%;"
+          _style: "width:40%;"
         },
         {
           key: "show_details",

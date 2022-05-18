@@ -1,100 +1,119 @@
 <template>
   <div>
-    <div class="row">
-      <span class="icon-link float-right" @click="$emit('refreshBProcess')"
-        ><success-icon title="Aggiungi un nuovo Business Process"
-      /></span>
-
-      <div>
-        <span v-if="!viewNewBProcess">Nuovo Processo</span>
-        <span
-          class="icon-link float-right"
-          @click="viewNewBProcess = !viewNewBProcess"
-          ><plus-icon
-            title="Aggiungi un nuovo d un referente"
-            v-if="!viewNewBProcess"/><undo-icon
-            title="Annulla"
-            v-if="viewNewBProcess"
-        /></span>
+    <div>
+      <CCardHeader
+        ><i>{{ this.bFunctionName | dashEmpty }}</i> > Processi
+      </CCardHeader>
+      <div class="card-text">
+        <span v-if="stateform == FormState.EDIT">
+          <p class="card-text">Elenco referenti associati:</p></span
+        >
+      </div>
+      <div v-if="stateform == FormState.NEW_AGENT">
+        <app-agent-add :goBackClose="true" @appClose="closeNewAgent" />
       </div>
 
-      <div v-if="viewNewBProcess" class="row">
-        <CCard>
-          <CCardHeader
-            >Nuovo Processo
-            <div class="card-header-actions">
-              <span @click="handleSubmit()">
-                <span class="icon-link"><success-icon /></span>
-                <span class="icon-link"><delete-icon /></span>
-              </span>
-            </div>
-          </CCardHeader>
-          <CCardBody>
-            <CInput
-              label="Nome"
-              placeholder="Nome"
-              v-model="bProcessLocal.name"
-            />
-            <CInput
-              label="Descrizione"
-              placeholder="Descrizione"
-              v-model="bProcessLocal.descr"
-            />
-            <CInput
-              label="Etichetta"
-              placeholder="Etichetta"
-              v-model="bProcessLocal.label"
-            />
-            <CInput
-              label="Codice Ordine"
-              placeholder="Codice Ordine"
-              v-model="bProcessLocal.orderCode"
-            />
-            <!--  <CInput
-              label="Genitore"
-              placeholder="Genitore"
-              v-model="bProcessLocal.parent"
-            />
-            <div>
-              <label>Process Step</label>
-            </div>
-            <v-select
-              label="name"
-              :options="procStepList"
-              placeholder="Process Step"
-              v-model="bProcessLocal.processStep"
-            ></v-select> -->
-          </CCardBody>
-        </CCard>
-      </div>
-
-      <!-- <div v-if="documentations.length === 0">
-        <span>Nessuna documentazione associata</span>
-      </div> -->
-    </div>
-    <div class="row">
-      <div class="card col-3" v-for="bProcess of bProcesses" :key="bProcess.id">
-        <div class="card-header">
-          <strong>{{ bProcess.name }}</strong>
-          <div class="card-header-actions">
-            <router-link
-              tag="a"
-              :to="{
-                name: 'BProcessDetails',
-                params: { id: bProcess.id }
-              }"
+      <div v-if="stateform == FormState.NEW">
+            
+         
+            <CCardHeader
+              >Nuovo Processo
+              <div class="card-header-actions">
+                
+                    <span
+                      class="icon-link"
+                      @click="handleSubmit()"
+                      ><floppy-icon title="Salva" /></span
+                    >&nbsp;
+                        <span
+              class="icon-link"
+              @click.prevent="stateform = FormState.LIST"
+              title="Chiudi"
             >
-              <view-icon />
-            </router-link>
-            <span class="icon-link" @click="modalOpen(bProcess)"
-              ><delete-icon />
+              <close-circle-icon title="Chiudi" />
+            </span>
+           
+              </div>
+            </CCardHeader>
+             <CCard>
+            <CCardBody>
+              <CInput
+                label="Nome*"
+                placeholder="Nome"
+                v-model="bProcessLocal.name"
+              />
+                <CTextarea
+                label="Descrizione"
+                placeholder="Descrizione"
+                v-model="bProcessLocal.descr"
+              />
+              <div class="row justify-content-between">
+              <CInput
+              class="col-4"
+                label="Etichetta"
+                placeholder="Etichetta"
+                v-model="bProcessLocal.label"
+              />
+              <CInput
+                label="Ordine"
+                type="number"
+                placeholder="Ordine"
+                v-model="bProcessLocal.orderCode"
+              />
+            </div>
+            </CCardBody>
+          </CCard>
+        
+
+      
+      </div>
+      <div v-if="stateform == FormState.LIST">
+        <div class="row justify-content-between">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <span
+              class="icon-link"
+              @click="stateform = FormState.NEW"
+              title="Aggiungi una nuova associazione"
+            >
+              <add-box-icon /> Nuovo processo
             </span>
           </div>
         </div>
-        <!-- <div class="card-body">
-          <p class="card-text">{{ bFuntion.documentType }}</p>
-        </div> -->
+        <div class="columns">
+          <div class="row">
+            <div class="card" v-for="bProcess of bProcesses" :key="bProcess.id">
+              <div class="card-header">
+               {{ bProcess.name }}
+                <div class="card-header-actions">
+                 <span>
+                    <span class="icon-link" @click="changeState(index)"
+                      ><edit-icon title="Edit" /></span
+                    >&nbsp;
+                    <span class="icon-link" @click="modalOpen(linkedAgent)"
+                      ><delete-icon title="Cancella"
+                    /></span>
+                  </span>
+                </div>
+              </div>
+              <div class="card-body">
+              <span v-if=" bProcess.processSteps && bProcess.processSteps.length>0">  <p class="card-text"> Passi:</p>
+
+<ol v-for="processStep of bProcess.processSteps" :key="processStep.id">
+  <li > {{ processStep.name }}</li>
+ 
+</ol>
+
+        
+              </span>
+              <span v-else>Non sono presenti passi</span>
+        </div> 
+            </div>
+          </div>
+        </div>
       </div>
+
+  
     </div>
     <CModal
       title="Warning!"
@@ -124,27 +143,32 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   name: "DocumentationView",
   data() {
     return {
-      viewAddBProcess: true,
-      viewNewBProcess: false,
       selectedBProcess: {},
+      states: [],
+      FormState: {
+        LIST: 0,
+        EDIT: 1,
+        NEW: 2,
+        ADD_PROCESS: 3,
+      },
+      stateform: 0,
       warningModal: false,
       bProcessLocal: {
         id: 0,
         name: "",
         descr: "",
         label: "",
-        orderCode: ""
-        /*  parent: "",
-        processStep: "" */
-      }
+        orderCode: "",
+      },
     };
   },
   computed: {
-    ...mapGetters("procStep", ["procStepList"])
+    ...mapGetters("procStep", ["procStepList"]),
   },
   emits: ["refreshBProcess"],
 
@@ -152,18 +176,18 @@ export default {
     bProcesses: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     processId: {
       type: Number,
       required: true,
-      default: null
+      default: null,
     },
     bFunctionName: {
       type: String,
       required: true,
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     changeBProcess(value) {
@@ -192,13 +216,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("procStep/findAll");
-  }
+  },
 };
 </script>
 <style scoped>

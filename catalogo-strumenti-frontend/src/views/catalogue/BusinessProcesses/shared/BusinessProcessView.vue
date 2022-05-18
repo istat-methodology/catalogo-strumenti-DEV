@@ -26,7 +26,7 @@
             </div>
           </div>
 
-          <app-process-stepview :positionIndex="positionIndex+'.'+index+1" :processName=" businessProcess.name"
+          <app-process-stepview :positionIndex="positionIndex+'.'+(index+1)" :processName=" businessProcess.name"
             :processSteps="businessProcess.processSteps"
           ></app-process-stepview>
         </div>
