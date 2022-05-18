@@ -37,10 +37,10 @@ public class BusinessProcess implements Serializable  {
 	private String label;
 
 	@Column(name = "ORDER_CODE")
-	private String orderCode;
+	private Integer orderCode;
 	
 	@Column(name = "PARENT")
-	private String parent;	
+	private Integer parent;	
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_link_function_process", joinColumns = {

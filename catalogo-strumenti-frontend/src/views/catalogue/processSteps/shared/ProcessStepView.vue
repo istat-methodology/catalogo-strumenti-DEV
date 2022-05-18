@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h2><span>2</span> Passi del processo: {{ processName }}</h2>
+    <h2><span>{{positionIndex}}</span> Passi del processo: {{ processName }}</h2>
     <div v-if="processSteps">
       <div v-for="(processStep, index) of processSteps" :key="processStep.id">
         <div class="p-2">
           <h4>
-            <span>2.{{ index + 1 }}</span> {{ processStep.name }}
+            <span>{{positionIndex}}.{{ index + 1 }}</span> {{ processStep.name }}
           </h4>
           <div class="columns">
             <div class="row">
@@ -146,10 +146,10 @@ export default {
       required: true,
       default: () => ""
     },
-    processIndex: {
-      type: Number,
+    positionIndex: {
+      type: String,
       required: true,
-      default: () => 1
+      default: () => ''
     }
   }
 };
