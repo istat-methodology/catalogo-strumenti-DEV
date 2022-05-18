@@ -1,4 +1,4 @@
-name: Upgrade Catalogo BE Service
+name: Restart API Gateway Service
 on:
   workflow_dispatch:
 
