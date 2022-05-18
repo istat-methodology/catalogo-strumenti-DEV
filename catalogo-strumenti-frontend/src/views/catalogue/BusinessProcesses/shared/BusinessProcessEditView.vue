@@ -56,10 +56,10 @@
               v-model="bProcessLocal.parent"
             />
             <div>
-              <label>Passi di Processo</label>
+              <label>Process Step</label>
             </div>
             <v-select
-              label="Process Step"
+              label="name"
               :options="procStepList"
               placeholder="Process Step"
               v-model="bProcessLocal.processStep"
@@ -153,8 +153,13 @@ export default {
       required: true,
       default: () => []
     },
-    proessId: {
+    processId: {
       type: Number,
+      required: true,
+      default: null
+    },
+    bFunctionName: {
+      type: String,
       required: true,
       default: null
     }

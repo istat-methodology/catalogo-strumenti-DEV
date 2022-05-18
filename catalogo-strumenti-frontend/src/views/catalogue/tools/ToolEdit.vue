@@ -3,11 +3,11 @@
   <div class="row">
     <div class="col-12">
       <div v-if="tool">
-        <div>       
-          <h2 class="pt-2">{{tool.name}} 
-            <span class="float-right">     
-
-              <close-icon  @click.prevent="$router.back()" />
+        <div>
+          <h2 class="pt-2">
+            {{ tool.name }}
+            <span class="float-right">
+              <close-icon @click.prevent="$router.back()" />
 
               <!--CButton
                     shape="square"
@@ -29,7 +29,7 @@
 
             <div v-if="tool">
               <CCardHeader
-                ><i>{{ tool.name | dashEmpty }}</i>  > Strumento
+                ><i>{{ tool.name | dashEmpty }}</i> > Strumento
                 <div class="card-header-actions">
                   <!--CButton
                     shape="square"
@@ -42,46 +42,45 @@
                 </div>
               </CCardHeader>
               <CCard>
-              <CCardBody>
-                <CInput
-                  label="Descrizione"
-                  placeholder="Descrizione"
-                  v-model="toolLocal.description"
-                />
-                <div class="form-group" role="group">
-                  <label for="app-tree">Fasi GSBPM</label>
+                <CCardBody>
+                  <CInput
+                    label="Descrizione"
+                    placeholder="Descrizione"
+                    v-model="toolLocal.description"
+                  />
+                  <div class="form-group" role="group">
+                    <label for="app-tree">Fasi GSBPM</label>
 
-                  <div id="app-tree" class="demo-tree">
-                    <treeselect
-                      v-model="gsbpmChecked"
-                      :multiple="true"
-                      :options="getGsbpmList"
-                      :disable-branch-nodes="true"
-                      :show-count="true"
-                    />
+                    <div id="app-tree" class="demo-tree">
+                      <treeselect
+                        v-model="gsbpmChecked"
+                        :multiple="true"
+                        :options="getGsbpmList"
+                        :disable-branch-nodes="true"
+                        :show-count="true"
+                      />
+                    </div>
                   </div>
-                </div>
-                <CInput
-                  label="Versione"
-                  placeholder="Versione"
-                  v-model="toolLocal.version"
-                />
-                <CInput
-                  label="Tags"
-                  placeholder="Tags"
-                  v-model="toolLocal.tags"
-                />
+                  <CInput
+                    label="Versione"
+                    placeholder="Versione"
+                    v-model="toolLocal.version"
+                  />
+                  <CInput
+                    label="Tags"
+                    placeholder="Tags"
+                    v-model="toolLocal.tags"
+                  />
 
-                <CInput
-                  label="Requisiti"
-                  placeholder="Requisiti"
-                  v-model="toolLocal.requirements"
-                />
-              </CCardBody>
+                  <CInput
+                    label="Requisiti"
+                    placeholder="Requisiti"
+                    v-model="toolLocal.requirements"
+                  />
+                </CCardBody>
 
-              <CCardFooter>
-                
-                                <CButton
+                <CCardFooter>
+                  <CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -89,8 +88,7 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  </CCardFooter>
-
+                </CCardFooter>
               </CCard>
             </div>
           </CTab>
@@ -120,41 +118,41 @@
                   -->
                 </div>
               </CCardHeader>
-  <CCard>            <CCardBody>
-                <CInput
-                  label="Codice"
-                  placeholder="Codice"
-                  v-model="toolLocal.code"
-                />
-                <CInput
-                  label="Download"
-                  placeholder="Download"
-                  v-model="toolLocal.download"
-                />
-                <CInput
-                  label="Flusso di lavoro"
-                  placeholder="Flusso di lavoro"
-                  v-model="toolLocal.workflow"
-                />
-                <CInput
-                  label="Linguaggio"
-                  placeholder="Linguaggio"
-                  v-model="toolLocal.language"
-                />
-                <CInput
-                  label="Dipendenze"
-                  placeholder="Dipendenze"
-                  v-model="toolLocal.depenencies"
-                />
-                <CInput
-                  label="Requisiti Tecnici"
-                  placeholder="Requisiti Tecnici"
-                  v-model="toolLocal.technicalRequirements"
-                />
-              </CCardBody>
-              <CCardFooter>
-                
-                                <CButton
+              <CCard>
+                <CCardBody>
+                  <CInput
+                    label="Codice"
+                    placeholder="Codice"
+                    v-model="toolLocal.code"
+                  />
+                  <CInput
+                    label="Download"
+                    placeholder="Download"
+                    v-model="toolLocal.download"
+                  />
+                  <CInput
+                    label="Flusso di lavoro"
+                    placeholder="Flusso di lavoro"
+                    v-model="toolLocal.workflow"
+                  />
+                  <CInput
+                    label="Linguaggio"
+                    placeholder="Linguaggio"
+                    v-model="toolLocal.language"
+                  />
+                  <CInput
+                    label="Dipendenze"
+                    placeholder="Dipendenze"
+                    v-model="toolLocal.depenencies"
+                  />
+                  <CInput
+                    label="Requisiti Tecnici"
+                    placeholder="Requisiti Tecnici"
+                    v-model="toolLocal.technicalRequirements"
+                  />
+                </CCardBody>
+                <CCardFooter>
+                  <CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -162,13 +160,13 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  </CCardFooter>
-
-         </CCard>  
-         </div>
+                </CCardFooter>
+              </CCard>
+            </div>
             <div v-if="tool && tool.toolType.id == 2">
               <CCardHeader>
-                <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
+                <i>{{ tool.name | dashEmpty }}</i> >
+                {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <!--CButton
                     shape="square"
@@ -188,46 +186,45 @@
                 </div>
               </CCardHeader>
               <CCard>
-              <CCardBody>
-                <CInput
-                  label="Download"
-                  placeholder="Download"
-                  v-model="toolLocal.download"
-                />
-                <CInput
-                  label="Licenza"
-                  placeholder="Licenza"
-                  v-model="toolLocal.licence"
-                />
-                <CInput
-                  label="Linguaggio"
-                  placeholder="Linguaggio"
-                  v-model="toolLocal.language"
-                />
-                <CInput
-                  label="Pacchetto"
-                  placeholder="Pacchetto"
-                  v-model="toolLocal.packageApplication"
-                />
-                <CInput
-                  label="Sistema Operativo"
-                  placeholder="Sistema Operativo"
-                  v-model="toolLocal.operativeSystem"
-                />
-                <CInput
-                  label="Verione"
-                  placeholder="Versione"
-                  v-model="toolLocal.version"
-                />
-                <CInput
-                  label="Requisiti Tecnici"
-                  placeholder="Requisiti Tecnici"
-                  v-model="toolLocal.technicalRequirements"
-                />
-              </CCardBody>
-              <CCardFooter>
-                
-                                <CButton
+                <CCardBody>
+                  <CInput
+                    label="Download"
+                    placeholder="Download"
+                    v-model="toolLocal.download"
+                  />
+                  <CInput
+                    label="Licenza"
+                    placeholder="Licenza"
+                    v-model="toolLocal.licence"
+                  />
+                  <CInput
+                    label="Linguaggio"
+                    placeholder="Linguaggio"
+                    v-model="toolLocal.language"
+                  />
+                  <CInput
+                    label="Pacchetto"
+                    placeholder="Pacchetto"
+                    v-model="toolLocal.packageApplication"
+                  />
+                  <CInput
+                    label="Sistema Operativo"
+                    placeholder="Sistema Operativo"
+                    v-model="toolLocal.operativeSystem"
+                  />
+                  <CInput
+                    label="Verione"
+                    placeholder="Versione"
+                    v-model="toolLocal.version"
+                  />
+                  <CInput
+                    label="Requisiti Tecnici"
+                    placeholder="Requisiti Tecnici"
+                    v-model="toolLocal.technicalRequirements"
+                  />
+                </CCardBody>
+                <CCardFooter>
+                  <CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -235,13 +232,13 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  </CCardFooter>
-
+                </CCardFooter>
               </CCard>
             </div>
             <div v-if="tool && tool.toolType.id == 1">
               <CCardHeader>
-               <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
+                <i>{{ tool.name | dashEmpty }}</i> >
+                {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
                   <!--CButton
                     shape="square"
@@ -261,32 +258,35 @@
                 </div>
               </CCardHeader>
               <CCard>
-              <CCardBody>
-                <CInput
-                  label="Protocollo"
-                  placeholder="Protocollo"
-                  v-model="toolLocal.protocol"
-                />
-                <CInput label="Url" placeholder="Url" v-model="toolLocal.url" />
-                <CInput
-                  label="Contributi"
-                  placeholder="Contributi"
-                  v-model="toolLocal.outcomes"
-                />
-                <CInput
-                  label="Dipendenze"
-                  placeholder="Dipendenze"
-                  v-model="toolLocal.serviceDependencies"
-                />
-                <CInput
-                  label="Restrizioni"
-                  placeholder="Retrizioni"
-                  v-model="toolLocal.restrictions"
-                />
-              </CCardBody>
-              <CCardFooter>
-                
-                                <CButton
+                <CCardBody>
+                  <CInput
+                    label="Protocollo"
+                    placeholder="Protocollo"
+                    v-model="toolLocal.protocol"
+                  />
+                  <CInput
+                    label="Url"
+                    placeholder="Url"
+                    v-model="toolLocal.url"
+                  />
+                  <CInput
+                    label="Contributi"
+                    placeholder="Contributi"
+                    v-model="toolLocal.outcomes"
+                  />
+                  <CInput
+                    label="Dipendenze"
+                    placeholder="Dipendenze"
+                    v-model="toolLocal.serviceDependencies"
+                  />
+                  <CInput
+                    label="Restrizioni"
+                    placeholder="Retrizioni"
+                    v-model="toolLocal.restrictions"
+                  />
+                </CCardBody>
+                <CCardFooter>
+                  <CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -294,9 +294,8 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  </CCardFooter>
-
-            </CCard>
+                </CCardFooter>
+              </CCard>
             </div>
           </CTab>
           <CTab>
@@ -306,9 +305,8 @@
 
             <div v-if="this.statisticalMethodsList">
               <CCardHeader
-                ><i>{{ tool.name | dashEmpty }}</i>  > Metodi Statistici
+                ><i>{{ tool.name | dashEmpty }}</i> > Metodi Statistici
                 <div class="card-header-actions">
-
                   <!--CButton
                     shape="square"
                     size="sm"
@@ -319,21 +317,19 @@
                 </div>
               </CCardHeader>
               <CCard>
-              <CCardBody>
-                <div id="app-tree1" class="demo-tree">
-                  <treeselect
-                    v-model="methodsChecked"
-                    :multiple="true"
-                    :options="getMethodsList"
-                    :disable-branch-nodes="true"
-                    :show-count="true"
-                  />
-                </div>
-                
-              </CCardBody>
-              <CCardFooter>
-                
-                                <CButton
+                <CCardBody>
+                  <div id="app-tree1" class="demo-tree">
+                    <treeselect
+                      v-model="methodsChecked"
+                      :multiple="true"
+                      :options="getMethodsList"
+                      :disable-branch-nodes="true"
+                      :show-count="true"
+                    />
+                  </div>
+                </CCardBody>
+                <CCardFooter>
+                  <CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -341,7 +337,7 @@
                     @click.prevent="handleSubmit"
                     >Salva</CButton
                   >
-                  </CCardFooter>
+                </CCardFooter>
               </CCard>
             </div>
           </CTab>
@@ -363,7 +359,10 @@
               <span>Referenti</span>
             </template>
 
-            <app-linkedAgents :toolId="tool.id" :toolName="this.tool.name"></app-linkedAgents>
+            <app-linkedAgents
+              :toolId="tool.id"
+              :toolName="this.tool.name"
+            ></app-linkedAgents>
           </CTab>
           <CTab>
             <template #title>
@@ -371,15 +370,13 @@
             </template>
 
             <div v-if="this.tool">
-          
-               
-                <app-edit-documentation    :toolName="this.tool.name"
-                  @refreshTool="handleSubmit"
-                  :documentations="getDocumentation"
-                  :toolId="this.tool.id"
-                >
-                </app-edit-documentation>
-          
+              <app-edit-documentation
+                :toolName="this.tool.name"
+                @refreshTool="handleSubmit"
+                :documentations="getDocumentation"
+                :toolId="this.tool.id"
+              >
+              </app-edit-documentation>
             </div>
           </CTab>
         </CTabs>

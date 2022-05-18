@@ -2,70 +2,100 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="bFunction">
-        <CCardHeader>Modifica Business Function</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Nome"
-            placeholder="Nome"
-            v-model="businessFunctionLocal.name"
-          />
-          <CInput
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="businessFunctionLocal.descr"
-          />
-          <CInput
-            label="Etichetta"
-            placeholder="Etichetta"
-            v-model="businessFunctionLocal.label"
-          />
-        </CCardBody>
-      </CCard>
-      <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          >Salva</CButton
-        >
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="backToList"
-          >Indietro</CButton
-        >
-      </CCardFooter>
-      <CCard v-if="this.bFunction">
-        <CCardHeader>Elenco Processi</CCardHeader>
-        <CCardBody>
-          <app-business-process
-            v-for="item in getBusinessProcesses"
-            :key="item.id"
-            :name="item.name"
-            :descr="item.descr"
-            :label="item.label"
-            :orderCode="item.orderCode"
-            :parent="item.parent"
-            :processSteps="item.processSteps"
-          >
-          </app-business-process>
-        </CCardBody>
-      </CCard>
+      <CTabs
+        variant="pills"
+        :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
+      >
+        <CTab>
+          <template #title>
+            <span>Business Function</span>
+          </template>
+
+          <CCard v-if="bFunction">
+            <CCardHeader>Modifica Business Function</CCardHeader>
+            <CCardBody>
+              <CInput
+                label="Nome"
+                placeholder="Nome"
+                v-model="businessFunctionLocal.name"
+              />
+              <CInput
+                label="Descrizione"
+                placeholder="Descrizione"
+                v-model="businessFunctionLocal.descr"
+              />
+              <CInput
+                label="Etichetta"
+                placeholder="Etichetta"
+                v-model="businessFunctionLocal.label"
+              />
+            </CCardBody>
+          </CCard>
+          <CCardFooter>
+            <CButton
+              shape="square"
+              size="sm"
+              color="primary"
+              class="mr-2"
+              @click.prevent="handleSubmit"
+              >Salva</CButton
+            >
+            <CButton
+              shape="square"
+              size="sm"
+              color="light"
+              @click.prevent="backToList"
+              >Indietro</CButton
+            >
+          </CCardFooter>
+        </CTab>
+        <CTab>
+          <template #title>
+            <span>Elenco Processi</span>
+          </template>
+          <CCard v-if="this.bFunction">
+            <CCardHeader>Elenco Processi</CCardHeader>
+            <CCardBody>
+              <div v-if="this.bFunction">
+                <app-business-process-edit
+                  :bFunctionName="this.bFunction.name"
+                  @refreshTool="handleSubmit"
+                  :bProcesses="getBusinessProcesses"
+                  :processId="this.bFunction.id"
+                >
+                </app-business-process-edit>
+              </div>
+            </CCardBody>
+
+            <!-- <CTab>
+          <template #title>
+            <span>Elenco Processi</span>
+          </template>
+
+          <div v-if="this.bFunction">
+            <app-business-process-edit
+              :bFunctionName="this.bFunction.name"
+              @refreshTool="handleSubmit"
+              :bProcesses="getBusinessProcesses"
+              :processId="this.bFunction.id"
+            >
+            </app-business-process-edit>
+          </div>
+        </CTab> -->
+          </CCard>
+        </CTab>
+      </CTabs>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import BusinessProcess from "../businessProcesses/shared/BusinessProcess";
+import BusinessProcessEditView from "../businessProcesses/shared/BusinessProcessEditView";
 /* import { required } from "vuelidate/lib/validators"; */
 export default {
   name: "BusinessFunctionsEdit",
   components: {
-    "app-business-process": BusinessProcess
+    "app-business-process-edit": BusinessProcessEditView
   },
   data() {
     return {

@@ -11,22 +11,21 @@
     </CCardHeader>
 
     <div v-if="viewNewDocument" class="col-12">
-    
-        <CCardHeader
-          >Nuovo Documento
-          <div class="card-header-actions">
-            <span class="icon-link float-right" @click.prevent="handleSubmit"
-              ><floppy-icon title="Salva" />
-            </span>
-            &nbsp;
-            <span
-              class="icon-link float-right"
-              @click.prevent="viewNewDocument = false"
-              ><close-circle-icon title="Chiudi" />
-            </span>
-          </div>
-        </CCardHeader>
-          <CCard class="col-12"> 
+      <CCardHeader
+        >Nuovo Documento
+        <div class="card-header-actions">
+          <span class="icon-link float-right" @click.prevent="handleSubmit"
+            ><floppy-icon title="Salva" />
+          </span>
+          &nbsp;
+          <span
+            class="icon-link float-right"
+            @click.prevent="viewNewDocument = false"
+            ><close-circle-icon title="Chiudi" />
+          </span>
+        </div>
+      </CCardHeader>
+      <CCard class="col-12">
         <CCardBody>
           <CInput
             label="Nome"
@@ -58,7 +57,6 @@
             v-model="documentationLocal.resource"
           />
         </CCardBody>
-         
       </CCard>
     </div>
     <CCardBody>
@@ -84,7 +82,7 @@
                 tag="a"
                 :to="{
                   name: 'DocumentationDetails',
-                  params: { id: documentation.id },
+                  params: { id: documentation.id }
                 }"
               >
                 <view-icon />
