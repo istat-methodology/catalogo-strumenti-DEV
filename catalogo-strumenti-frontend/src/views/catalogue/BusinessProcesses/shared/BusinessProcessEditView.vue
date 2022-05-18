@@ -62,7 +62,7 @@
               label="Process Step"
               :options="procStepList"
               placeholder="Process Step"
-              v-model="bProcessLocal.processSteps"
+              v-model="bProcessLocal.processStep"
             ></v-select>
           </CCardBody>
         </CCard>
@@ -138,7 +138,7 @@ export default {
         label: "",
         orderCode: "",
         parent: "",
-        processSteps: []
+        processStep: ""
       }
     };
   },
@@ -161,32 +161,27 @@ export default {
   },
   methods: {
     changeBProcess(value) {
-      this.documentationLocal.tool = value.id;
+      this.bProcessLocal.processStep = value.id;
     },
-    /*  changeDocumentType(value) {
-      this.documentationLocal.documentType = value.id;
-    }, */
     handleSubmit() {
-      this.documentationLocal.tool = this.toolId;
-      this.documentationLocal.documentType = this.documentationLocal.documentType.id;
-      console.log(this.documentationLocal);
+      console.log(this.bProcessLocal);
       this.$store
-        .dispatch("documentation/save", this.documentationLocal)
+        .dispatch("procStep/save", this.bProcessLocal)
         .then(this.$emit("refreshTool"));
-      this.viewNewDocument = false;
+      this.viewNewBProcess = false;
     },
     goBack() {
-      this.$router.push("/catalogue/documentazione");
+      this.$router.push("/catalogue/businessFunctions");
     },
     deleteDocumentation() {
       this.$store
-        .dispatch("documentation/delete", this.selectedDoc.id)
+        .dispatch("procStep/delete", this.selectedBProcess.id)
         .then(this.$emit("refreshTool"));
       this.warningModal = false;
     },
 
     modalOpen(app) {
-      this.selectedDoc = app;
+      this.selectedBProcess = app;
       this.warningModal = true;
     },
     modalClose() {
@@ -196,7 +191,7 @@ export default {
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
-    this.$store.dispatch("documentationType/findAll");
+    this.$store.dispatch("procStep/findAll");
   }
 };
 </script>
