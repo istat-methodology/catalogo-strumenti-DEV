@@ -12,6 +12,7 @@ public class CreateBusinessProcessRequest extends CreateBaseRequest  {
 
 	private String descr;		
 	private String label;	
-	private String orderCode;	
-	private String parent;	
+	private Integer orderCode;	
+	private Integer parent;	
+	private Integer businessFunction;	
 }

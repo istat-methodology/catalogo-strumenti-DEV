@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,7 +25,7 @@ public class BusinessProcess implements Serializable  {
 
 	
 	private static final long serialVersionUID = 267803872317420154L;
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Integer id;
 
@@ -37,10 +39,10 @@ public class BusinessProcess implements Serializable  {
 	private String label;
 
 	@Column(name = "ORDER_CODE")
-	private String orderCode;
+	private Integer orderCode;
 	
 	@Column(name = "PARENT")
-	private String parent;	
+	private Integer parent;	
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_link_function_process", joinColumns = {
