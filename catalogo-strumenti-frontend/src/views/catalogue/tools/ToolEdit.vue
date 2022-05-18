@@ -3,8 +3,21 @@
   <div class="row">
     <div class="col-12">
       <div v-if="tool">
-       
+        <div>       
+          <h2 class="pt-2">{{tool.name}} 
+            <span class="float-right">     
 
+              <close-icon  @click.prevent="$router.back()" />
+
+              <!--CButton
+                    shape="square"
+                    size="sm"
+                    color="light"
+                    @click.prevent="$router.back()"
+                    >Indietro</CButton-->
+            </span>
+          </h2>
+        </div>
         <CTabs
           variant="pills"
           :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
@@ -18,21 +31,14 @@
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i>  > Strumento
                 <div class="card-header-actions">
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="primary"
                     class="mr-2"
                     @click.prevent="handleSubmit"
                     >Salva</CButton
-                  >
-                  <CButton
-                    shape="square"
-                    size="sm"
-                    color="light"
-                    @click.prevent="$router.back()"
-                    >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
@@ -72,6 +78,19 @@
                   v-model="toolLocal.requirements"
                 />
               </CCardBody>
+
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
+
               </CCard>
             </div>
           </CTab>
@@ -84,7 +103,7 @@
               <CCardHeader>
                 {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -98,7 +117,7 @@
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
   <CCard>            <CCardBody>
@@ -133,13 +152,25 @@
                   v-model="toolLocal.technicalRequirements"
                 />
               </CCardBody>
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
+
          </CCard>  
          </div>
             <div v-if="tool && tool.toolType.id == 2">
               <CCardHeader>
                 <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -153,7 +184,7 @@
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
@@ -194,13 +225,25 @@
                   v-model="toolLocal.technicalRequirements"
                 />
               </CCardBody>
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
+
               </CCard>
             </div>
             <div v-if="tool && tool.toolType.id == 1">
               <CCardHeader>
                <i>{{ tool.name | dashEmpty }}</i>  > {{ tool.toolType.name | dashEmpty }}
                 <div class="card-header-actions">
-                  <CButton
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="primary"
@@ -214,7 +257,7 @@
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
@@ -241,6 +284,18 @@
                   v-model="toolLocal.restrictions"
                 />
               </CCardBody>
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
+
             </CCard>
             </div>
           </CTab>
@@ -253,21 +308,14 @@
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i>  > Metodi Statistici
                 <div class="card-header-actions">
-                  <CButton
-                    shape="square"
-                    size="sm"
-                    color="primary"
-                    class="mr-2"
-                    @click.prevent="handleSubmit"
-                    >Salva</CButton
-                  >
-                  <CButton
+
+                  <!--CButton
                     shape="square"
                     size="sm"
                     color="light"
                     @click.prevent="$router.back()"
                     >Indietro</CButton
-                  >
+                  -->
                 </div>
               </CCardHeader>
               <CCard>
@@ -281,7 +329,19 @@
                     :show-count="true"
                   />
                 </div>
+                
               </CCardBody>
+              <CCardFooter>
+                
+                                <CButton
+                    shape="square"
+                    size="sm"
+                    color="primary"
+                    class="mr-2"
+                    @click.prevent="handleSubmit"
+                    >Salva</CButton
+                  >
+                  </CCardFooter>
               </CCard>
             </div>
           </CTab>

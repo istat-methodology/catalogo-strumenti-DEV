@@ -12,8 +12,8 @@ const state = {
   isAgentList: false,
   isDocumentationList: false,
   isBusinessList: false,
-  isToolSession:false,
-  isBusinessSession:false
+  isToolSession: false,
+  isBusinessSession: false
 };
 
 const mutations = {
@@ -30,7 +30,7 @@ const mutations = {
   },
   SET_CONTEXT(state, context) {
     this.clearContext;
-   
+
     state.context = parseInt(context);
     switch (parseInt(context)) {
       case Context.Home:
@@ -65,7 +65,11 @@ const mutations = {
         state.isToolSession = false;
         state.isBusinessSession = true;
         break;
-     
+      case Context.BusinessDetail:
+
+        state.isBusinessSession = true;
+        break;
+
       default:
         break;
     }
@@ -81,7 +85,7 @@ const mutations = {
     state.isDocumentationList = false;
     state.isBusinessList = false;
     state.isToolSession = false;
-    state.isBusinessSession=false;
+    state.isBusinessSession = false;
   },
   set(state, [variable, value]) {
     state[variable] = value;

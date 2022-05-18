@@ -166,7 +166,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.ToolDetail);
+    this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
     this.$store.dispatch("bFunction/findById", this.$route.params.id);
      this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id);
   },
