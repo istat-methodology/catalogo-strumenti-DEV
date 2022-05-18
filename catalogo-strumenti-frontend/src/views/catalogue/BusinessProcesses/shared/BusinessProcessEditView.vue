@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <span class="icon-link float-right" @click="$emit('refreshTool')"
+      <span class="icon-link float-right" @click="$emit('refreshBProcess')"
         ><success-icon title="Aggiungi un nuovo Business Process"
       /></span>
 
@@ -50,7 +50,7 @@
               placeholder="Codice Ordine"
               v-model="bProcessLocal.orderCode"
             />
-            <CInput
+            <!--  <CInput
               label="Genitore"
               placeholder="Genitore"
               v-model="bProcessLocal.parent"
@@ -63,7 +63,7 @@
               :options="procStepList"
               placeholder="Process Step"
               v-model="bProcessLocal.processStep"
-            ></v-select>
+            ></v-select> -->
           </CCardBody>
         </CCard>
       </div>
@@ -133,12 +133,13 @@ export default {
       selectedBProcess: {},
       warningModal: false,
       bProcessLocal: {
+        id: 0,
         name: "",
         descr: "",
         label: "",
-        orderCode: "",
-        parent: "",
-        processStep: ""
+        orderCode: ""
+        /*  parent: "",
+        processStep: "" */
       }
     };
   },
@@ -172,16 +173,16 @@ export default {
       console.log(this.bProcessLocal);
       this.$store
         .dispatch("procStep/save", this.bProcessLocal)
-        .then(this.$emit("refreshTool"));
+        .then(this.$emit("refreshBProcess"));
       this.viewNewBProcess = false;
     },
     goBack() {
       this.$router.push("/catalogue/businessFunctions");
     },
-    deleteDocumentation() {
+    deleteBProcess() {
       this.$store
         .dispatch("procStep/delete", this.selectedBProcess.id)
-        .then(this.$emit("refreshTool"));
+        .then(this.$emit("refreshBProcess"));
       this.warningModal = false;
     },
 

@@ -59,7 +59,7 @@
               <div v-if="this.bFunction">
                 <app-business-process-edit
                   :bFunctionName="this.bFunction.name"
-                  @refreshTool="handleSubmit"
+                  @refreshBProcess="handleSubmit"
                   :bProcesses="getBusinessProcesses"
                   :processId="this.bFunction.id"
                 >
@@ -149,7 +149,7 @@ export default {
       this.businessFunctionLocal.name = this.bFunction.name;
       this.businessFunctionLocal.descr = this.bFunction.descr;
       this.businessFunctionLocal.label = this.bFunction.label;
-      this.businesFunctionLocal.businessProcesses = this.bFunction.businessProcesses;
+      this.businessFunctionLocal.businessProcesses = this.bFunction.businessProcesses;
     },
     backToList() {
       this.$router.push("/catalogue/businessfunctions");

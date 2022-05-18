@@ -1,4 +1,4 @@
-//import { processStepsService } from "@/services";
+import { processStepsService } from "@/services";
 import { processStepsOpenService } from "@/services";
 
 const state = {
@@ -27,7 +27,7 @@ const actions = {
     );
   },
   save({ commit, dispatch }, payload) {
-    return processStepsOpenService
+    return processStepsService
       .save(payload)
       .then(data => {
         //console.log(data);
@@ -52,7 +52,7 @@ const actions = {
       });
   },
   update({ commit, dispatch }, payload) {
-    return processStepsOpenService
+    return processStepsService
       .update(payload)
       .then(data => {
         commit("SET_PROCSTEP", data);
@@ -65,7 +65,7 @@ const actions = {
       });
   },
   delete({ dispatch }, id) {
-    return processStepsOpenService
+    return processStepsService
       .delete(id)
       .then(() => {
         dispatch("findAll");
