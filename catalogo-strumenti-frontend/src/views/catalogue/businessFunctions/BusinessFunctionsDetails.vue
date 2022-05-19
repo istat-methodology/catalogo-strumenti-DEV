@@ -77,7 +77,7 @@
         <div class="p-2">
           <app-business-processview :positionIndex="3"
             :businessProcesses="getBusinessProcesses"
-            @refreshBProcess="loadBFunction"
+            @refreshBProcess="handleSubmit"
           ></app-business-processview>
         </div>
       </div>

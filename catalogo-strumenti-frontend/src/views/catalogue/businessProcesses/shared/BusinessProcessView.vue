@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2><span>{{ positionIndex}}</span> Processi</h2>
+    <h2>
+      <span>{{ positionIndex }}</span> Processi
+    </h2>
     <div v-if="businessProcesses">
       <div
         v-for="(businessProcess, index) of businessProcesses"
@@ -8,7 +10,8 @@
       >
         <div class="p-2">
           <h4>
-            <span>{{ positionIndex}}.{{ index + 1 }}</span> {{ businessProcess.name }}
+            <span>{{ positionIndex }}.{{ index + 1 }}</span>
+            {{ businessProcess.name }}
           </h4>
           <div class="columns">
             <div class="row">
@@ -26,7 +29,9 @@
             </div>
           </div>
 
-          <app-process-stepview :positionIndex="positionIndex+'.'+(index+1)" :processName=" businessProcess.name"
+          <app-process-stepview
+            :positionIndex="positionIndex + '.' + (index + 1)"
+            :processName="businessProcess.name"
             :processSteps="businessProcess.processSteps"
           ></app-process-stepview>
         </div>
@@ -52,10 +57,10 @@ export default {
       required: true,
       default: () => []
     },
-      positionIndex: {
+    positionIndex: {
       type: String,
       required: true,
-      default: () => ''
+      default: () => ""
     }
   }
 };
