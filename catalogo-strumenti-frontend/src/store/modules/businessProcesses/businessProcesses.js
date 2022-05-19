@@ -8,7 +8,7 @@ const state = {
 
 const mutations = {
   SET_BPROCESSLIST(state, bProcessList) {
-    state.bFunctionList = bProcessList;
+    state.bProcessList = bProcessList;
   },
   SET_BPROCESS(state, bProcess) {
     state.bProcess = bProcess;

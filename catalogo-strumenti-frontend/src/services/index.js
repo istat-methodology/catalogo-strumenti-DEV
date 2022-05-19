@@ -14,3 +14,4 @@ export * from "./service/businessService.service";
 export * from "./appservice/appservice.service";
 export * from "./stepinstance/stepinstance.service";
 export * from "./processSteps/processSteps.service";
+export * from "./businessProcesses/businessProcesses.service";
