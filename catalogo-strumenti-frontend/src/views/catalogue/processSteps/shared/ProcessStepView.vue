@@ -1,11 +1,12 @@
 <template>
   <div>
-    <h5> Passi del processo: {{positionIndex}}. {{ processName }}</h5>
+    <h5>Passi del processo: {{ positionIndex }}. {{ processName }}</h5>
     <div v-if="processSteps">
       <div v-for="(processStep, index) of processSteps" :key="processStep.id">
         <div class="p-2">
           <h4>
-            <span>{{positionIndex}}.{{ index + 1 }}</span> {{ processStep.name }}
+            <span>{{ positionIndex }}.{{ index + 1 }}</span>
+            {{ processStep.name }}
           </h4>
           <div class="columns">
             <div class="row">
@@ -20,7 +21,7 @@
               </div>
             </div>
           </div>
-     
+
           <div class="card-body">
             <!--div class="card-body"-->
             <!-- @start Condition to show filtrable table if results are more then 5 lines-->
@@ -151,7 +152,7 @@ export default {
     positionIndex: {
       type: String,
       required: true,
-      default: () => ''
+      default: () => ""
     }
   }
 };

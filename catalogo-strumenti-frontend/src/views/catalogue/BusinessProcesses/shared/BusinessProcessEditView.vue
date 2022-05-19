@@ -189,8 +189,8 @@ export default {
       this.bProcessLocal.processStep = value.id;
     },
     handleSubmit() {
-      console.log(this.bProcessLocal);
       this.bProcessLocal.businessFunction = this.functionId;
+      console.log(this.bProcessLocal);
       this.$store
         .dispatch("procStep/save", this.bProcessLocal)
         .then(this.$emit("refreshBProcess"));
