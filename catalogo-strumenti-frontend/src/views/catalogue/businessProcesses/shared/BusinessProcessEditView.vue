@@ -136,10 +136,10 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+//import { mapGetters } from "vuex";
 
 export default {
-  name: "DocumentationView",
+  name: "BusinessProcessEditView",
   data() {
     return {
       selectedBProcess: {},
@@ -153,7 +153,6 @@ export default {
       stateform: 0,
       warningModal: false,
       bProcessLocal: {
-        id: 0,
         name: "",
         descr: "",
         label: "",
@@ -163,7 +162,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("procStep", ["procStepList"])
+    //...mapGetters("procStep", ["procStepList"])
   },
   emits: ["refreshBProcess"],
 
@@ -193,8 +192,8 @@ export default {
       console.log(this.bProcessLocal);
       this.$store
         .dispatch("bProcess/save", this.bProcessLocal)
-        .then(this.$emit("refreshBProcess"));
-      this.viewNewBProcess = false;
+        .then(this.$emit("refreshBProcess", this.functionId));
+      this.stateform = this.FormState.LIST;
     },
     goBack() {
       this.$router.push("/catalogue/businessFunctions");

@@ -69,10 +69,10 @@
           <div v-if="this.bFunction">
             <div v-if="this.bFunction">
               <app-business-process-edit
-                :bFunctionName="this.bFunction.name"
+                :bFunctionName="bFunction.name"
                 @refreshBProcess="loadBusinessFunction"
                 :bProcesses="getBusinessProcesses"
-                :functionId="this.bFunction.id"
+                :functionId="bFunction.id"
               >
               </app-business-process-edit>
             </div>
@@ -153,7 +153,7 @@ export default {
       this.$store
         .dispatch("bFunction/update", this.businessFunctionLocal)
         .then(() => {
-          this.loadBusinessFunction();
+          this.loadBusinessFunction(this.$route.params.id);
         });
       /*   } */
     },
@@ -173,19 +173,18 @@ export default {
     backToList() {
       this.$router.push("/catalogue/businessfunctions");
     },
-    loadBusinessFunction: _.debounce(function() {
-      this.$store
-        .dispatch("bFunction/findById", this.$route.params.id)
-        .then(() => {
-          this.setOldValues();
-          this.setCheckedNodesGsbpm();
-        });
+    loadBusinessFunction: _.debounce(function(idBFunction) {
+      this.$store.dispatch("bFunction/findById", idBFunction).then(() => {
+        this.setOldValues();
+        this.setCheckedNodesGsbpm();
+      });
     }, 500)
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
-    this.loadBusinessFunction();
+    this.loadBusinessFunction(this.$route.params.id);
     this.$store.dispatch("gsbpm/findAll");
+
     //this.$store.dispatch("tools/findAll");
     // this.$store.dispatch("bFunction/findAll");
   }
