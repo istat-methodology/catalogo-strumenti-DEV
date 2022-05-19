@@ -14,42 +14,36 @@
       </div>
 
       <div v-if="stateform == FormState.NEW">
-            
-         
-            <CCardHeader
-              >Nuovo Processo
-              <div class="card-header-actions">
-                
-                    <span
-                      class="icon-link"
-                      @click="handleSubmit()"
-                      ><floppy-icon title="Salva" /></span
-                    >&nbsp;
-                        <span
+        <CCardHeader
+          >Nuovo Processo
+          <div class="card-header-actions">
+            <span class="icon-link" @click="handleSubmit()"
+              ><floppy-icon title="Salva"/></span
+            >&nbsp;
+            <span
               class="icon-link"
               @click.prevent="stateform = FormState.LIST"
               title="Chiudi"
             >
               <close-circle-icon title="Chiudi" />
             </span>
-           
-              </div>
-            </CCardHeader>
-             <CCard>
-            <CCardBody>
+          </div>
+        </CCardHeader>
+        <CCard>
+          <CCardBody>
+            <CInput
+              label="Nome*"
+              placeholder="Nome"
+              v-model="bProcessLocal.name"
+            />
+            <CTextarea
+              label="Descrizione"
+              placeholder="Descrizione"
+              v-model="bProcessLocal.descr"
+            />
+            <div class="row justify-content-between">
               <CInput
-                label="Nome*"
-                placeholder="Nome"
-                v-model="bProcessLocal.name"
-              />
-                <CTextarea
-                label="Descrizione"
-                placeholder="Descrizione"
-                v-model="bProcessLocal.descr"
-              />
-              <div class="row justify-content-between">
-              <CInput
-              class="col-4"
+                class="col-4"
                 label="Etichetta"
                 placeholder="Etichetta"
                 v-model="bProcessLocal.label"
@@ -61,11 +55,8 @@
                 v-model="bProcessLocal.orderCode"
               />
             </div>
-            </CCardBody>
-          </CCard>
-        
-
-      
+          </CCardBody>
+        </CCard>
       </div>
       <div v-if="stateform == FormState.LIST">
         <div class="row justify-content-between">
@@ -84,11 +75,11 @@
           <div class="row">
             <div class="card" v-for="bProcess of bProcesses" :key="bProcess.id">
               <div class="card-header">
-               {{ bProcess.name }}
+                {{ bProcess.name }}
                 <div class="card-header-actions">
-                 <span>
+                  <span>
                     <span class="icon-link" @click="changeState(index)"
-                      ><edit-icon title="Edit" /></span
+                      ><edit-icon title="Edit"/></span
                     >&nbsp;
                     <span class="icon-link" @click="modalOpen(linkedAgent)"
                       ><delete-icon title="Cancella"
@@ -97,23 +88,26 @@
                 </div>
               </div>
               <div class="card-body">
-              <span v-if=" bProcess.processSteps && bProcess.processSteps.length>0">  <p class="card-text"> Passi:</p>
+                <span
+                  v-if="
+                    bProcess.processSteps && bProcess.processSteps.length > 0
+                  "
+                >
+                  <p class="card-text">Passi:</p>
 
-<ol v-for="processStep of bProcess.processSteps" :key="processStep.id">
-  <li > {{ processStep.name }}</li>
- 
-</ol>
-
-        
-              </span>
-              <span v-else>Non sono presenti passi</span>
-        </div> 
+                  <ol
+                    v-for="processStep of bProcess.processSteps"
+                    :key="processStep.id"
+                  >
+                    <li>{{ processStep.name }}</li>
+                  </ol>
+                </span>
+                <span v-else>Non sono presenti passi</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-  
     </div>
     <CModal
       title="Warning!"
@@ -154,7 +148,7 @@ export default {
         LIST: 0,
         EDIT: 1,
         NEW: 2,
-        ADD_PROCESS: 3,
+        ADD_PROCESS: 3
       },
       stateform: 0,
       warningModal: false,
@@ -164,11 +158,12 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-      },
+        functionId: ""
+      }
     };
   },
   computed: {
-    ...mapGetters("procStep", ["procStepList"]),
+    ...mapGetters("procStep", ["procStepList"])
   },
   emits: ["refreshBProcess"],
 
@@ -176,18 +171,18 @@ export default {
     bProcesses: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
-    processId: {
+    functionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     bFunctionName: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     changeBProcess(value) {
@@ -195,8 +190,9 @@ export default {
     },
     handleSubmit() {
       console.log(this.bProcessLocal);
+      this.bProcessLocal.functionId = this.functionId;
       this.$store
-        .dispatch("procStep/save", this.bProcessLocal)
+        .dispatch("procStep/addToBFunction", this.bProcessLocal)
         .then(this.$emit("refreshBProcess"));
       this.viewNewBProcess = false;
     },
@@ -216,13 +212,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("procStep/findAll");
-  },
+  }
 };
 </script>
 <style scoped>

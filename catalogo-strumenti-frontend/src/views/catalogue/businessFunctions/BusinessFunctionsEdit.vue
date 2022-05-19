@@ -72,7 +72,7 @@
                 :bFunctionName="this.bFunction.name"
                 @refreshBProcess="handleSubmit"
                 :bProcesses="getBusinessProcesses"
-                :processId="this.bFunction.id"
+                :functionId="this.bFunction.id"
               >
               </app-business-process-edit>
             </div>
@@ -92,7 +92,7 @@ export default {
   name: "BusinessFunctionsEdit",
   components: {
     Treeselect,
-    "app-business-process-edit": BusinessProcessEditView,
+    "app-business-process-edit": BusinessProcessEditView
   },
   data() {
     return {
@@ -101,30 +101,30 @@ export default {
         name: "",
         descr: "",
         label: "",
-        businessProcesses: [],
+        businessProcesses: []
       },
-      gsbpmChecked: [],
+      gsbpmChecked: []
     };
   },
   computed: {
     ...mapGetters("bFunction", ["bFunction"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
             };
-          }),
+          })
         };
       });
     },
-    getBusinessProcesses: function () {
-      return this.bFunction.businessProcesses.map((item) => {
+    getBusinessProcesses: function() {
+      return this.bFunction.businessProcesses.map(item => {
         return {
           id: item.id,
           name: item.name,
@@ -132,10 +132,10 @@ export default {
           label: item.label,
           orderCode: item.orderCode,
           parent: item.parent,
-          processSteps: item.processSteps,
+          processSteps: item.processSteps
         };
       });
-    },
+    }
   },
 
   /* validations: {
@@ -162,26 +162,25 @@ export default {
       this.businessFunctionLocal.name = this.bFunction.name;
       this.businessFunctionLocal.descr = this.bFunction.descr;
       this.businessFunctionLocal.label = this.bFunction.label;
-      this.businessFunctionLocal.businessProcesses =
-        this.bFunction.businessProcesses;
+      this.businessFunctionLocal.businessProcesses = this.bFunction.businessProcesses;
     },
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.bFunction.gsbpmProcesses.map((gsbpmProc) => {
+      this.bFunction.gsbpmProcesses.map(gsbpmProc => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
     backToList() {
       this.$router.push("/catalogue/businessfunctions");
     },
-    loadBusinessFunction: _.debounce(function () {
+    loadBusinessFunction: _.debounce(function() {
       this.$store
         .dispatch("bFunction/findById", this.$route.params.id)
         .then(() => {
           this.setOldValues();
           this.setCheckedNodesGsbpm();
         });
-    }, 500),
+    }, 500)
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
@@ -189,6 +188,6 @@ export default {
     this.$store.dispatch("gsbpm/findAll");
     //this.$store.dispatch("tools/findAll");
     // this.$store.dispatch("bFunction/findAll");
-  },
+  }
 };
 </script>
