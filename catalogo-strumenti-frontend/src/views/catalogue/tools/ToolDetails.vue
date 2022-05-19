@@ -8,7 +8,7 @@
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
         <div class="p-2">
-          <h2 class="pt-4"><span>{{ index }})</span>
+          <h2 class="pt-4">
             {{ tool.name | dashEmpty
             }}<span class="float-right">
               <router-link
@@ -76,7 +76,7 @@
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
         <div class="p-2">          
-          <h2><span>1.1)</span> {{ tool.toolType.name | dashEmpty }}</h2>
+          <h2><span>1.</span> {{ tool.toolType.name | dashEmpty }}</h2>
           <div class="pl-2">
           <div v-if="tool.toolType.id == 3">
             <div class="columns">

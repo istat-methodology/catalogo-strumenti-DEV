@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><span>1.4)</span> Processi</h2>
+    <h2><span>4.</span>Processi</h2>
 
     <div class="columns">
       <div class="row">

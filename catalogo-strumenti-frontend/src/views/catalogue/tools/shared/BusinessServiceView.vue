@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h2><span>1.3)</span> Implementazione</h2>
+    <h2><span>3.</span>Implementazione</h2>
     <div v-if="businessServiceService.appServices">
       <div
         v-for="(appService, index) of businessServiceService.appServices"
         :key="appService.id"
       >
         <div class="p-2">
-          <h4 ><span>1.3.{{index + 1}})</span> {{ appService.name }}</h4>
+          <h4 ><span>3.{{index + 1}}.</span>{{ appService.name }}</h4>
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">
@@ -159,8 +159,8 @@ export default {
           functionality: stepInstance.functionality,
           method: stepInstance.method,
           descr: stepInstance.descr,
-          statMethodName: stepInstance.statMethod?stepInstance.statMethod.name:null,
-          statMethodId: stepInstance.statMethod?stepInstance.statMethod.id:null
+          statMethodName: stepInstance.statMethod.name,
+          statMethodId: stepInstance.statMethod.id
         };
       });
     }

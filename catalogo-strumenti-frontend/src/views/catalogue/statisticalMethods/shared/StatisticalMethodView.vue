@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><span>1.2)</span> Metodi statistici</h2>
+    <h2><span>2.</span>Metodi statistici</h2>
     <div class="columns">
       <div class="row">
         <div v-if="statisticalMethods.length === 0">
