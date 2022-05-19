@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><span>1.6)</span> Referenti associati</h2>
+    <h2><span>6.</span>Referenti associati</h2>
     <div class="columns">
       <div class="row">
         <div v-if="linkedAgents.length === 0">
