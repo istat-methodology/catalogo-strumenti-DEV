@@ -192,7 +192,7 @@ export default {
       this.bProcessLocal.businessFunction = this.functionId;
       console.log(this.bProcessLocal);
       this.$store
-        .dispatch("procStep/save", this.bProcessLocal)
+        .dispatch("bProcess/save", this.bProcessLocal)
         .then(this.$emit("refreshBProcess"));
       this.viewNewBProcess = false;
     },
@@ -201,7 +201,7 @@ export default {
     },
     deleteBProcess() {
       this.$store
-        .dispatch("procStep/delete", this.selectedBProcess.id)
+        .dispatch("bProcess/delete", this.selectedBProcess.id)
         .then(this.$emit("refreshBProcess"));
       this.warningModal = false;
     },
@@ -217,7 +217,7 @@ export default {
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
-    this.$store.dispatch("procStep/findAll");
+    this.$store.dispatch("bProcess/findAll");
   }
 };
 </script>
