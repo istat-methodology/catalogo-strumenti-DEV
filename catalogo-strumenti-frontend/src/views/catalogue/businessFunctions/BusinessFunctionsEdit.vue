@@ -70,7 +70,7 @@
             <div v-if="this.bFunction">
               <app-business-process-edit
                 :bFunctionName="this.bFunction.name"
-                @refreshBProcess="handleSubmit"
+                @refreshBProcess="loadBusinessFunction"
                 :bProcesses="getBusinessProcesses"
                 :functionId="this.bFunction.id"
               >
