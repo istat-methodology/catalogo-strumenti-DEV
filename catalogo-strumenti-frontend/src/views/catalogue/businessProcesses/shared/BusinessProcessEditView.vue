@@ -174,7 +174,7 @@ export default {
       default: () => []
     },
     functionId: {
-      type: String,
+      type: Number,
       required: true,
       default: null
     },
