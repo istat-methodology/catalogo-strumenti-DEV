@@ -158,7 +158,7 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        functionId: ""
+        businessFunction: ""
       }
     };
   },
@@ -174,7 +174,7 @@ export default {
       default: () => []
     },
     functionId: {
-      type: Number,
+      type: String,
       required: true,
       default: null
     },
@@ -190,9 +190,9 @@ export default {
     },
     handleSubmit() {
       console.log(this.bProcessLocal);
-      this.bProcessLocal.functionId = this.functionId;
+      this.bProcessLocal.businessFunction = this.functionId;
       this.$store
-        .dispatch("procStep/addToBFunction", this.bProcessLocal)
+        .dispatch("procStep/save", this.bProcessLocal)
         .then(this.$emit("refreshBProcess"));
       this.viewNewBProcess = false;
     },

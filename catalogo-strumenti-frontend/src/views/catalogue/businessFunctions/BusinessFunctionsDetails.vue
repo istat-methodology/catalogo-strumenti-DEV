@@ -77,6 +77,7 @@
         <div class="p-2">
           <app-business-processview :positionIndex="3"
             :businessProcesses="getBusinessProcesses"
+            @refreshBProcess="loadBFunction"
           ></app-business-processview>
         </div>
       </div>
@@ -109,6 +110,7 @@
 
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import _ from "lodash";
 import BusinessProcessView from "../businessProcesses/shared/BusinessProcessView";
 import ToolsView from "../tools/shared/ToolsView";
 export default {
@@ -163,7 +165,10 @@ export default {
     formatDate(dt){
       dt = new Date(dt);
       return  dt.toLocaleDateString("it");
-    }
+    },
+    loadBFunction: _.debounce(function() {
+      this.$store.dispatch("bFuntion/findById", this.$route.params.id)
+    }, 500)
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
