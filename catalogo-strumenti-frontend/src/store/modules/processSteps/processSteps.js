@@ -64,6 +64,20 @@ const actions = {
         console.log(err);
       });
   },
+  addToBFunction(payload) {
+    return processStepsService
+      .addToBFunction(payload)
+      .then(data => {
+        /*  commit("SET_PROCSTEP", data); */
+        console.log(data);
+        /* dispatch("message/success", "Process Step aggiornato!", {
+          root: true
+        }); */
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   delete({ dispatch }, id) {
     return processStepsService
       .delete(id)

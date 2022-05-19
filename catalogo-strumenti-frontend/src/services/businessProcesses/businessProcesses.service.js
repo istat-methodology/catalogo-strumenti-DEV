@@ -18,6 +18,20 @@ class BusinessProcessService extends AbstractService {
       .catch(err => {
         throw err;
       });
+  },
+  addToBFunction(payload) {
+    //console.log(config);
+    console.log(payload);
+    return axiosCatalog
+      .put(this.endpoint, payload)
+      .then(res => {
+        var data = res.data ? res.data : {};
+        console.log(data);
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
   }
 }
 
