@@ -1,6 +1,9 @@
 <template>
   <div>
     <h2><span>6.</span>Referenti associati</h2>
+      <div class="description-fields col-12">
+            [Elenco referenti dello strumento]
+              </div>
     <div class="columns">
       <div class="row">
         <div v-if="linkedAgents.length === 0">

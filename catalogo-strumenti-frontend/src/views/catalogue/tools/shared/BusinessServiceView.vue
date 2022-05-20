@@ -7,23 +7,11 @@
         :key="appService.id"
       >
         <div class="p-2">
-          <h4 ><span>3.{{index + 1}}.</span>{{ appService.name }}</h4>
+          <h4 ><span>3.{{index + 1}} </span>{{ appService.name }}</h4>
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">
                 <span v-if="appService">{{ appService.descr }}</span>
-              </div>
-              <div class="card col-md-auto">
-                <span><strong>Autore</strong></span>
-                <div class="card-slot">
-                  <span v-if="appService">{{ appService.author }}</span>
-                </div>
-              </div>
-              <div class="card col-md-auto">
-                <span><strong>Contatto</strong></span>
-                <div class="card-slot">
-                  <span v-if="appService">{{ appService.contact }}</span>
-                </div>
               </div>
               <div class="card col-md-auto">
                 <span><strong>Linguaggio di implementazione</strong></span>
@@ -53,6 +41,7 @@
 
           <!--div class="card-body"-->
           <!-- @start Condition to show filtrable table if results are more then 5 lines-->
+         <h4 ><span>3.{{index + 1}}.1 </span>Funzionalità</h4>
           <div
             class="table-responsive"
             v-if="appService.stepInstances.length > 20"
@@ -77,8 +66,8 @@
           >
             <thead>
               <tr>
-                <th scope="col">Funzionalità</th>
-                <th scope="col">Metodo</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Funzione</th>
                 <th scope="col">Metodo Statistico</th>
                 <th scope="col">Descrizione</th>
               </tr>
@@ -108,7 +97,7 @@
     </div>
 
     <div v-else>
-      <h2>Funzionalità</h2>
+      
       <div class="card w-100">
         <div class="card-body">Nessuna funzionalità definita</div>
       </div>

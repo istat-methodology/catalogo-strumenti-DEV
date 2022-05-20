@@ -53,12 +53,7 @@
                   <span>{{ tool.tags | dashEmpty }}</span>
                 </div>
               </div>
-              <div class="card col-md-auto p-2">
-                <span><strong>Requisiti</strong></span>
-                <div class="card-slot  p-2">
-                  <span>{{ tool.requirements | dashEmpty }}</span>
-                </div>
-              </div>
+           
               <div class="card col-md-auto p-2">
                 <span><strong>Ultima Modifica</strong></span>
                 <div class="card-slot  p-2">
@@ -187,12 +182,7 @@
                     <span>{{ tool.url | dashEmpty }}</span>
                   </div>
                 </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Contributi</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.outcomes | dashEmpty }}</span>
-                  </div>
-                </div>
+            
                 <div class="card col-md-auto p-2">
                   <span><strong>Dipendenze</strong></span>
                   <div class="card-slot  p-2">
@@ -205,12 +195,7 @@
                     <span>{{ tool.restrictions | dashEmpty }}</span>
                   </div>
                 </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Funzione operativa</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.businessFunction | dashEmpty }}</span>
-                  </div>
-                </div>
+         
               </div>
             </div>           
           </div>
