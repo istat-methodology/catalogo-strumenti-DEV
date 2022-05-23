@@ -2,6 +2,7 @@ package it.istat.mec.catalog.dto;
 
 import java.io.Serializable;
 
+import it.istat.mec.catalog.domain.ProcessDesignDescription;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
@@ -13,7 +14,7 @@ public class ProcessDesignDto implements Serializable{
 	private Integer id;	
 	private String descr;
 	private String step;	
-	private Integer groupID;
+	private ProcessDesignDescription processDesignDescription;
  	private DesignTypeDto designType;
 	private InformationObjectDto informationObject;
 	

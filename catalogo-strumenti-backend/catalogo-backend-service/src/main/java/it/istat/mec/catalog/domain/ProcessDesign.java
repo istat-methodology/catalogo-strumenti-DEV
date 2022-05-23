@@ -26,12 +26,10 @@ public class ProcessDesign implements Serializable  {
 	@Column(name = "ID")
 	private Integer id;
  
-	@Column(name = "GROUP_ID")
-	private Integer groupID;
-
-	@Column(name = "DESC")
-	private String desc;
-
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "process_design_ID", nullable = false, insertable = false)
+	private ProcessDesignDescription processDesignDescription;
+ 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "STEP", nullable = false, insertable = false)
 	private ProcessStep step;	

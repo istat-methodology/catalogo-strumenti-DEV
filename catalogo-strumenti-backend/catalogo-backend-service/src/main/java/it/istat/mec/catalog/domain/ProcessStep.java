@@ -61,6 +61,6 @@ public class ProcessStep implements Serializable  {
             @JoinColumn(name = "PROCESS_STEP_INSTANCE_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
 	private List<StepInstance> stepInstances;
 	
-//	@OneToMany(mappedBy = "step", cascade = CascadeType.ALL)   
-//	private List<ProcessDesign> processDesigns;
+	@OneToMany(mappedBy = "step", cascade = CascadeType.ALL)   
+	private List<ProcessDesign> processDesigns;
 }
