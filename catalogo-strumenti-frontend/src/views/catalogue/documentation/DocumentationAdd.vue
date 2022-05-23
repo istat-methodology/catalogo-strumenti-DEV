@@ -9,7 +9,14 @@
             label="Nome"
             placeholder="Nome"
             v-model="documentationLocal.name"
+            :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
           />
+          <div
+            class="help-block"
+            :class="{ show: $v.documentationLocal.name.$error }"
+          >
+            Campo obbligatorio
+          </div>
           <CInput
             label="Editore"
             placeholder="Editore"
@@ -65,7 +72,7 @@
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 export default {
   name: "documentationAdd",
@@ -81,6 +88,13 @@ export default {
         tool: ""
       }
     };
+  },
+  validations: {
+    documentationLocal: {
+      name: {
+        required
+      }
+    }
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
@@ -109,8 +123,11 @@ export default {
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
-    this.$store.dispatch("tools/findAll");
-    this.$store.dispatch("documentationType/findAll");
+    this.$v.$touch(); //validate form data
+    if (!this.$v.documentationLocal.$invalid) {
+      this.$store.dispatch("tools/findAll");
+      this.$store.dispatch("documentationType/findAll");
+    }
   }
 };
 </script>
