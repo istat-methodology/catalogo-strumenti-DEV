@@ -23,6 +23,6 @@ public class GSBPMProcessDto extends BaseDto implements Serializable {
     @JsonIgnoreProperties("gsbpmProcessParent")
 	private List<GSBPMProcessDto> gsbpmSubProcesses = new ArrayList<>();
     
-    private List<BusinessFunctionDto> businessFunctions;
+ //   private List<BusinessFunctionDto> businessFunctions;
 
 }

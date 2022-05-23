@@ -46,7 +46,7 @@
             <!-- @end Condition to show filtrable table if results are more then 5 lines-->
             <table
               class="table table-hover"
-              v-if="appService && processStep.processDesigns.length < 20"
+              v-if="processStep && processStep.processDesigns.length < 20"
             >
               <thead>
                 <tr>
