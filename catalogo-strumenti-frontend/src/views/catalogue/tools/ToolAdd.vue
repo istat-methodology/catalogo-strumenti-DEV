@@ -5,11 +5,7 @@
       <CCard>
         <CCardHeader>Nuovo Tool</CCardHeader>
         <CCardBody>
-          <CInput
-            label="Nome"
-            placeholder="Name"
-            v-model="toolLocal.name"
-          />
+          <CInput label="Nome" placeholder="Name" v-model="toolLocal.name" />
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
@@ -21,7 +17,7 @@
             v-model="toolLocal.versione"
           />
           <CInput label="Tags" placeholder="Tags" v-model="toolLocal.tags" />
-  
+
           <CInput
             label="Requisiti"
             placeholder="Requisiti"
@@ -197,7 +193,7 @@ export default {
         version: "",
         toolType: "",
         service: "",
-      
+
         requirements: "",
         download: "",
         licence: "",

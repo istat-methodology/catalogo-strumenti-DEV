@@ -9,7 +9,14 @@
             label="Nome"
             placeholder="Nome"
             v-model="businessFunctionLocal.name"
+            :class="{ 'is-invalid': $v.businessFunctionLocal.name.$error }"
           />
+          <div
+            class="help-block"
+            :class="{ show: $v.businessFunctionLocal.name.$error }"
+          >
+            Campo obbligatorio
+          </div>
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
@@ -41,6 +48,7 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 export default {
   name: "businessFunctionsAdd",
@@ -55,15 +63,24 @@ export default {
       }
     };
   },
+  validations: {
+    businessFunctionLocal: {
+      name: {
+        required
+      }
+    }
+  },
   computed: {
     ...mapGetters("bFunction", ["bFunction"])
   },
   methods: {
     handleSubmit() {
-      this.$store
-        .dispatch("bFunction/save", this.businessFunctionLocal)
-        .then(this.$router.push("/catalogue/businessfunctions"));
-      /*   } */
+      this.$v.$touch(); //validate form data
+      if (!this.$v.dug.$invalid) {
+        this.$store
+          .dispatch("bFunction/save", this.businessFunctionLocal)
+          .then(this.$router.push("/catalogue/businessfunctions"));
+      }
     },
     goBack() {
       this.$router.push("/catalogue/businessfunctions");
