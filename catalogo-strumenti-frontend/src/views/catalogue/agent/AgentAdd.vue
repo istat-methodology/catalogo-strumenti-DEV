@@ -5,16 +5,21 @@
       <CCard>
         <CCardHeader>Nuovo Referente</CCardHeader>
         <CCardBody>
-          <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
           <CInput
-            label="Organizzazione"
-            placeholder="Organizzazione"
-            v-model="agentLocal.organization"
+            label="Nome"
+            placeholder="Nome"
+            v-model="agentLocal.name"
             :class="{ 'is-invalid': $v.agentLocal.name.$error }"
           />
           <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">
             Campo obbligatorio
           </div>
+          <CInput
+            label="Organizzazione"
+            placeholder="Organizzazione"
+            v-model="agentLocal.organization"
+          />
+
           <CInput
             label="Contatto"
             placeholder="Contatto"
@@ -73,6 +78,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      this.$v.$touch();
       if (!this.$v.agentLocal.$invalid) {
         this.$store
           .dispatch("agent/save", this.agentLocal)
