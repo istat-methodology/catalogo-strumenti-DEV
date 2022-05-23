@@ -26,7 +26,7 @@ public class ProcessDesignDescription implements Serializable  {
 	@Column(name = "ID")
 	private Integer id;
  
-	@Column(name = "DESC")
+	@Column(name = "DESCR")
 	private String descr;
  
 
