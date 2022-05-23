@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.istat.mec.catalog.dto.BusinessProcessDto;
+import it.istat.mec.catalog.dto.BusinessProcessMiniDto;
 import it.istat.mec.catalog.request.CreateBusinessProcessRequest;
 import it.istat.mec.catalog.service.BusinessProcessService;
 
@@ -23,7 +24,7 @@ public class BusinessProcessController {
 	private BusinessProcessService businessProcessService;
 	
 	@GetMapping("/open/businessprocesses")
-	public List<BusinessProcessDto> getAllBusinessProcesses() {
+	public List<BusinessProcessMiniDto> getAllBusinessProcesses() {
 
 		return businessProcessService.findAllBusinessProcesses();
 	}

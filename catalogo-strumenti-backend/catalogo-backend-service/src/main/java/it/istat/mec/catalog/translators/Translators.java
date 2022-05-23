@@ -34,6 +34,7 @@ import it.istat.mec.catalog.dto.AppServiceDto;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.BusinessFunctionMiniDto;
 import it.istat.mec.catalog.dto.BusinessProcessDto;
+import it.istat.mec.catalog.dto.BusinessProcessMiniDto;
 import it.istat.mec.catalog.dto.BusinessServiceDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
@@ -304,6 +305,10 @@ public class Translators {
 	
 	public static List<BusinessProcessDto> translateBP(List<BusinessProcess> list) {
 		return mapList(list, BusinessProcessDto.class);
+	}
+	
+	public static List<BusinessProcessMiniDto> translateBPMini(List<BusinessProcess> list) {
+		return mapList(list, BusinessProcessMiniDto.class);
 	}
 	
 	public static List<ProcessStepDto> translatePS(List<ProcessStep> list) {

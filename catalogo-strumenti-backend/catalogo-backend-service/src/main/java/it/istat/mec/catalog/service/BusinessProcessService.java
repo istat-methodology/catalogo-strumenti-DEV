@@ -14,6 +14,7 @@ import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.dto.BusinessProcessDto;
+import it.istat.mec.catalog.dto.BusinessProcessMiniDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateBusinessProcessRequest;
 import it.istat.mec.catalog.translators.Translators;
@@ -28,9 +29,9 @@ public class BusinessProcessService {
 	@Autowired
 	BusinessFunctionDao businessFunctionDao;
 
-	public List<BusinessProcessDto> findAllBusinessProcesses() {
+	public List<BusinessProcessMiniDto> findAllBusinessProcesses() {
 
-		return Translators.translateBP(businessProcessDao.findAll());
+		return Translators.translateBPMini(businessProcessDao.findAll());
 
 	}
 
