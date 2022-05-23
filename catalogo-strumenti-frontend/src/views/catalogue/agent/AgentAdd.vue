@@ -10,7 +10,11 @@
             label="Organizzazione"
             placeholder="Organizzazione"
             v-model="agentLocal.organization"
+            :class="{ 'is-invalid': $v.agentLocal.name.$error }"
           />
+          <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">
+            Campo obbligatorio
+          </div>
           <CInput
             label="Contatto"
             placeholder="Contatto"
@@ -42,7 +46,7 @@
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 //import { mapGetters } from "vuex";
 export default {
   name: "documentationlAdd",
@@ -60,19 +64,20 @@ export default {
   computed: {
     //...mapGetters("documentation", ["documentation"])
   },
-  /* validations: {
-    tool: {
+  validations: {
+    agentLocal: {
       name: {
         required
       }
     }
-  }, */
+  },
   methods: {
     handleSubmit() {
-      this.$store
-        .dispatch("agent/save", this.agentLocal)
-        .then(this.$router.push("/catalogue/referenti"));
-      /*   } */
+      if (!this.$v.agentLocal.$invalid) {
+        this.$store
+          .dispatch("agent/save", this.agentLocal)
+          .then(this.$router.push("/catalogue/referenti"));
+      }
     },
     goBack() {
       this.$router.push("/catalogue/referenti");
