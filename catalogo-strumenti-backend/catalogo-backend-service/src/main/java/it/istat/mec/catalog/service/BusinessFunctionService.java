@@ -63,8 +63,14 @@ public class BusinessFunctionService {
 	}
 
 	public BusinessFunctionDto newBusinessFunction(CreateBusinessFunctionRequest request) {
+		List<GsbpmProcess> gsbpmProcesses = new ArrayList<GsbpmProcess>();
 		BusinessFunction bs = new BusinessFunction();
 		bs = Translators.translate(request);
+		if(request.getGsbpmProcesses()!=null) {
+			for(int i=0; i<request.getGsbpmProcesses().length; i++)
+				gsbpmProcesses.add(new GsbpmProcess(request.getGsbpmProcesses()[i]));
+		}
+		bs.setGsbpmProcesses(gsbpmProcesses);
 		businessFunctionDao.save(bs);
 		return Translators.translate(bs);
 	}
@@ -80,11 +86,18 @@ public class BusinessFunctionService {
 
 		if (!businessFunctionDao.findById(request.getId()).isPresent())
 			throw new NoDataException("BusinessFunction not present");
-
+		List<GsbpmProcess> gsbpmProcesses = new ArrayList<GsbpmProcess>();
+	 
 		BusinessFunction bs = businessFunctionDao.findById(request.getId()).get();
 
 		bs = Translators.translateUpdate(request, bs);
-
+		
+		if(request.getGsbpmProcesses()!=null) {
+			for(int i=0; i<request.getGsbpmProcesses().length; i++)
+				gsbpmProcesses.add(new GsbpmProcess(request.getGsbpmProcesses()[i]));
+		}
+		
+		bs.setGsbpmProcesses(gsbpmProcesses);
 		businessFunctionDao.save(bs);
 
 		return Translators.translate(bs);

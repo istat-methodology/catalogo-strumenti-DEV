@@ -101,7 +101,8 @@ export default {
         name: "",
         descr: "",
         label: "",
-        businessProcesses: []
+        businessProcesses: [],
+        gsbpmProcesses:[]
       },
       gsbpmChecked: []
     };
@@ -148,6 +149,7 @@ export default {
 
   methods: {
     handleSubmit() {
+         this.businessFunctionLocal.gsbpmProcesses = this.gsbpmChecked;
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.dug.$invalid) { */
       this.$store

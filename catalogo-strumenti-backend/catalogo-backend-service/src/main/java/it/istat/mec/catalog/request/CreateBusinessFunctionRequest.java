@@ -13,4 +13,5 @@ public class CreateBusinessFunctionRequest extends CreateBaseRequest {
 	private String descr;		
 	private String label;	
 	private String active;	
+	private Integer[] gsbpmProcesses;
 }

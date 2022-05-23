@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2><span>4.</span>Processi</h2>
-
+  <div class="description-fields col-12">
+            [Processi in cui viene utilizzato lo strumento]
+              </div>
     <div class="columns">
       <div class="row">
         <div v-if="businessFunctions.length === 0">

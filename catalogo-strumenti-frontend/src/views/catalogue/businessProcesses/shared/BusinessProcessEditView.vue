@@ -9,8 +9,23 @@
           <p class="card-text">Elenco referenti associati:</p></span
         >
       </div>
-      <div v-if="stateform == FormState.NEW_AGENT">
-        <app-agent-add :goBackClose="true" @appClose="closeNewAgent" />
+      <div v-if="stateform == FormState.ADD_PROCESS">
+
+         <div class="card-slot" v-if="bProcessList">
+            <label>Elenco Processi esistente</label>
+            <v-select
+              label="name"
+              :options="bProcessList"
+              @input="selectId($event)"
+            ></v-select>
+            <span class="help-block">Seleziona un processo</span>
+            <span
+              class="icon-link float-right"
+              @click="stateform = FormState.NEW"
+              ><add-icon />Nuovo Processo</span
+            >
+          </div>
+ 
       </div>
 
       <div v-if="stateform == FormState.NEW">
@@ -64,8 +79,8 @@
           <div class="col-4">
             <span
               class="icon-link"
-              @click="stateform = FormState.NEW"
-              title="Aggiungi una nuova associazione"
+              @click="stateform = FormState.ADD_PROCESS"
+              title="Aggiungi un nuovo processo"
             >
               <add-box-icon /> Nuovo processo
             </span>
@@ -136,7 +151,7 @@
   </div>
 </template>
 <script>
-//import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "BusinessProcessEditView",
@@ -162,7 +177,7 @@ export default {
     };
   },
   computed: {
-    //...mapGetters("procStep", ["procStepList"])
+    ...mapGetters("bProcess", ["bProcessList"])
   },
   emits: ["refreshBProcess"],
 
@@ -173,7 +188,7 @@ export default {
       default: () => []
     },
     functionId: {
-      type: String,
+      type: Number,
       required: true,
       default: null
     },
