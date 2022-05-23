@@ -15,6 +15,7 @@ import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
+import it.istat.mec.catalog.dto.BusinessFunctionMiniDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
 import it.istat.mec.catalog.translators.Translators;
@@ -33,7 +34,7 @@ public class BusinessFunctionService {
 
 	}
 
-	public List<BusinessFunctionDto> findAllFunctionsByGsbpms(Integer[] gsbpmIds, String[] orderBy, String[] sort) {
+	public List<BusinessFunctionMiniDto> findAllFunctionsByGsbpms(Integer[] gsbpmIds, String[] orderBy, String[] sort) {
 
 		List<Order> orders = new ArrayList<Order>();
 		for (int i = 0; i < orderBy.length; i++) {
@@ -52,7 +53,7 @@ public class BusinessFunctionService {
 				gsbpmProcesses.add(new GsbpmProcess(gsbpmIds[i]));
 			}
 
-		return Translators.translateBusinessFunctions(
+		return Translators.translateBusinessFunctionsMini(
 				businessFunctionDao.findAllWithFilter(gsbpmProcesses, gsbpmProcesses.size(), sortQuery));
 	}
 

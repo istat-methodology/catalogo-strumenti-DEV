@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import it.istat.mec.catalog.dto.BusinessFunctionDto;
+import it.istat.mec.catalog.dto.BusinessFunctionMiniDto;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
 import it.istat.mec.catalog.service.BusinessFunctionService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class BusinessFunctionController {
 	
 
 	@GetMapping("/open/businessfunctions")
-	public List<BusinessFunctionDto> getAllBusinessFunctions(
+	public List<BusinessFunctionMiniDto> getAllBusinessFunctions(
 			@RequestParam(value = "gsbpmIds", required = false) Integer[] gsbpmIds,
 			@RequestParam(value = "orderBy", required = false, defaultValue = "id,name") String[] orderBy,
 			@RequestParam(value = "sort", required = false, defaultValue = "ASC,ASC") String[] sort) {
