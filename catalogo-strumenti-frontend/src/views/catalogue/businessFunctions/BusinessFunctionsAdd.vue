@@ -76,7 +76,7 @@ export default {
   methods: {
     handleSubmit() {
       this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) {
+      if (!this.$v.businessFunctionLocal.$invalid) {
         this.$store
           .dispatch("bFunction/save", this.businessFunctionLocal)
           .then(this.$router.push("/catalogue/businessfunctions"));

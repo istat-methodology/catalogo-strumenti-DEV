@@ -9,7 +9,14 @@
             label="Nome"
             placeholder="Name"
             v-model="statisticalMethodLocal.name"
+            :class="{ 'is-invalid': $v.statisticalMethodLocal.name.$error }"
           />
+          <div
+            class="help-block"
+            :class="{ show: $v.statisticalMethodLocal.name.$error }"
+          >
+            Campo obbligatorio
+          </div>
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
@@ -55,7 +62,7 @@
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 export default {
   name: "ToolAdd",
@@ -78,21 +85,23 @@ export default {
 
     ...mapGetters("tooltype", ["tooltypeList"])
   },
-  /* validations: {
-    tool: {
+  validations: {
+    statisticalMethodLocal: {
       name: {
         required
       }
     }
-  }, */
+  },
   methods: {
     handleSubmit() {
       /*  this.$v.$touch(); //validate form data
       if (!this.$v.tool.$invalid) {*/
-      this.$store
-        .dispatch("methods/save", this.statisticalMethodLocal)
-        .then(this.$router.push("/catalogue/metodi"));
-      /*   } */
+      this.$v.$touch();
+      if (!this.$v.statisticalMethodLocal.$invalid) {
+        this.$store
+          .dispatch("methods/save", this.statisticalMethodLocal)
+          .then(this.$router.push("/catalogue/metodi"));
+      }
     },
     goBack() {
       this.$router.push("/catalogue/metodi");
