@@ -109,10 +109,12 @@ export default {
       this.documentationLocal.documentType = value.id;
     },
     handleSubmit() {
-      this.$store
-        .dispatch("documentation/save", this.documentationLocal)
-        .then(this.$router.push("/catalogue/documentazione"));
-      /*   } */
+      this.$v.$touch(); //validate form data
+      if (!this.$v.documentationLocal.$invalid) {
+        this.$store
+          .dispatch("documentation/save", this.documentationLocal)
+          .then(this.$router.push("/catalogue/documentazione"));
+      }
     },
     goBack() {
       this.$router.push("/catalogue/documentazione");
@@ -123,11 +125,9 @@ export default {
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
-    this.$v.$touch(); //validate form data
-    if (!this.$v.documentationLocal.$invalid) {
-      this.$store.dispatch("tools/findAll");
-      this.$store.dispatch("documentationType/findAll");
-    }
+
+    this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("documentationType/findAll");
   }
 };
 </script>
