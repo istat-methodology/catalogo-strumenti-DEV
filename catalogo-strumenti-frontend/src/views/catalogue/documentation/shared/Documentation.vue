@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2><span>5.</span>Documentazione</h2>
-
+    <!-- <h2><span>5.</span>Documentazione</h2>
+ -->
     <div class="columns">
       <div class="description-fields col-12">
-        Documentazione
+        Documento
       </div>
       <div class="row">
         <div class="card col-md-3">
@@ -22,9 +22,12 @@
               </router-link>
             </div>
           </div>
-          <!-- <div class="card-body">
-            <p class="card-text">{{ documentation.documentType }}</p>
-          </div> -->
+          <div class="card-body">
+            <p class="card-text">
+              {{ documentation.documentType.name }},
+              {{ documentation.publisher }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
