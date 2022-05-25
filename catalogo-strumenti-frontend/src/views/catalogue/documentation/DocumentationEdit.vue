@@ -5,19 +5,19 @@
       <CCard v-if="documentation">
         <CCardHeader>Modifica Documentazione</CCardHeader>
         <CCardBody>
-            <div class="form-group">
-          <CInput
-            label="Nome*"
-            placeholder="Nome"
-            v-model="documentationLocal.name"
+          <div class="form-group">
+            <CInput
+              label="Nome*"
+              placeholder="Nome"
+              v-model="documentationLocal.name"
               :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
-          />
-              <span
+            />
+            <span
               class="help-block"
               :class="{ show: $v.documentationLocal.name.$error }"
               >Inserire nome della documentazione.</span
             >
-            </div>
+          </div>
           <CInput
             label="Editore"
             placeholder="Editore"
@@ -97,32 +97,32 @@ export default {
         documentType: "",
         notes: "",
         resource: "",
-        tool: "",
-      },
+        tool: ""
+      }
     };
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
-    ...mapGetters("tools", ["toolscatalog"]),
+    ...mapGetters("tools", ["toolscatalog"])
   },
 
   validations: {
     documentationLocal: {
       name: {
-        required,
+        required
       },
       documentType: {
         name: {
-          required,
-        },
+          required
+        }
       },
-       tool: {
+      tool: {
         name: {
-          required,
-        },
-      },
-    },
+          required
+        }
+      }
+    }
   },
   methods: {
     changeTool(value) {
@@ -133,14 +133,14 @@ export default {
     },
     handleSubmit() {
       this.$v.$touch(); //validate form data
-      if (!this.$v.$invalid) { 
-      this.disabled = true; //disable buttons
-      this.$store
-        .dispatch("documentation/update", this.documentationLocal)
-        .then(() => {
-          this.backToList();
-        });
-        } 
+      if (!this.$v.$invalid) {
+        this.disabled = true; //disable buttons
+        this.$store
+          .dispatch("documentation/update", this.documentationLocal)
+          .then(() => {
+            this.backToList();
+          });
+      }
     },
     setOldValues() {
       this.documentationLocal.id = this.documentation.id;
@@ -153,7 +153,7 @@ export default {
     },
     backToList() {
       this.$router.push("/catalogue/documentazione");
-    },
+    }
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
@@ -164,6 +164,6 @@ export default {
       });
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  },
+  }
 };
 </script>

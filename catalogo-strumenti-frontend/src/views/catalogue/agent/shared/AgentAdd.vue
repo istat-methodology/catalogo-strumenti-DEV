@@ -1,58 +1,51 @@
 <template>
   <!-- wait until service is loaded -->
   <div>
-     <div class="row justify-content-between">
-          <div class="col-4">Nuova Associazione > Nuovo referente</div>
-          <div class="col-4">
-            <span
-              class="icon-link"
-              @click.prevent="handleSubmit"
-              title="Salva"
-            >
-              <floppy-icon title="Salva" />
-            </span>
+    <div class="row justify-content-between">
+      <div class="col-4">Nuova Associazione > Nuovo referente</div>
+      <div class="col-4">
+        <span class="icon-link" @click.prevent="handleSubmit" title="Salva">
+          <floppy-icon title="Salva" />
+        </span>
 
-            <span
-              class="icon-link"
-             @click.prevent="goBack(false)"
-              title="Chiudi"
-            >
-              <close-circle-icon title="Chiudi" />
-            </span>
-          </div>
+        <span class="icon-link" @click.prevent="goBack(false)" title="Chiudi">
+          <close-circle-icon title="Chiudi" />
+        </span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <CInput
+          label="Nome"
+          placeholder="Nome"
+          v-model="agentLocal.name"
+          :class="{ 'is-invalid': $v.agentLocal.name.$error }"
+        />
+        <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">
+          Campo obbligatorio
         </div>
+        />
+        <CInput
+          label="Organizzazione"
+          placeholder="Organizzazione"
+          v-model="agentLocal.organization"
+        />
+        <CInput
+          label="Contatto"
+          placeholder="Contatto"
+          v-model="agentLocal.contact"
+        />
 
+        <!--CInput label="Note" placeholder="Note" v-model="agentLocal.notes" /-->
 
-        <div class="card">
-          <div class="card-body">
-
-   
-      <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
-      <CInput
-        label="Organizzazione"
-        placeholder="Organizzazione"
-        v-model="agentLocal.organization"
-      />
-      <CInput
-        label="Contatto"
-        placeholder="Contatto"
-        v-model="agentLocal.contact"
-      />
-
-      <!--CInput label="Note" placeholder="Note" v-model="agentLocal.notes" /-->
-      
-        
-        <CTextarea
-        label="Note"                   
-          placeholder="Note"
-          v-model="agentLocal.notes"
-        />                
-  
-    </div> </div>
+        <CTextarea label="Note" placeholder="Note" v-model="agentLocal.notes" />
+      </div>
+    </div>
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 //import { mapGetters } from "vuex";
 export default {
   name: "AgentAdd",
@@ -63,8 +56,8 @@ export default {
         name: "",
         organization: "",
         contact: "",
-        notes: "",
-      },
+        notes: ""
+      }
     };
   },
   emits: ["appClose"],
@@ -72,17 +65,25 @@ export default {
     goBackClose: {
       type: Boolean,
       required: false,
-      default: () => false,
-    },
+      default: () => false
+    }
   },
-
+  validations: {
+    businessFunctionLocal: {
+      name: {
+        required
+      }
+    }
+  },
   methods: {
     handleSubmit() {
-      this.$store
-        .dispatch("agent/save", this.agentLocal)
-        .then(this.$store.dispatch("agent/findAll"))
-        .then(this.goBack(true));
-      /*   } */
+      this.$v.$touch(); //validate form data
+      if (!this.$v.agentLocal.$invalid) {
+        this.$store
+          .dispatch("agent/save", this.agentLocal)
+          .then(this.$store.dispatch("agent/findAll"))
+          .then(this.goBack(true));
+      }
     },
     goBack(saved) {
       if (this.goBackClose) this.$emit("appClose", saved);
@@ -90,11 +91,11 @@ export default {
     },
     onChange(event) {
       this.tipologia = event.target.value;
-    },
+    }
   },
   created() {
     this.$store.dispatch("agent/findAll");
-  },
+  }
 };
 </script>
 
@@ -151,5 +152,3 @@ h2 {
   padding-top: 26px;
 }
 </style>
-
-
