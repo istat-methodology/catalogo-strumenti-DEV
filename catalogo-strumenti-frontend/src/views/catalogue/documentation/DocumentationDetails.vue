@@ -1,6 +1,6 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row" v-if="documentation">
+  <div class="row-12" v-if="documentation">
     <div class="col-9">
       <div id="id-main" />
       <div
@@ -32,7 +32,7 @@
         <header><h2 class="menu-heading"><b>Contenuto:</b></h2></header>
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
-            <a class="item-link" href="#id-main">contenuto centrale</a>
+            <a class="item-link" href="#id-main">Documento</a>
           </li>
      
         </ul>
