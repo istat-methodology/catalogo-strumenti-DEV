@@ -616,3 +616,5 @@ legend.scheduler-border {
 .max-col {
   max-width: 5%;
 }
+
+

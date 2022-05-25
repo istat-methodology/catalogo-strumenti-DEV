@@ -1,76 +1,116 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row">
-    <CCard v-if="documentation" >
-      <CCardHeader>{{ documentation.name | dashEmpty }}</CCardHeader>
-      <CCardBody>
-        <div>
-          <label>Editore:</label>
-          <span>{{ documentation.publisher | dashEmpty }}</span>
-        </div>
-        <div>
-          <label>Documento:</label>
-          <span>{{ documentation.documentType.name | dashEmpty }}</span>
-        </div>
-        <div>
-          <label>Note:</label>
-          <span>{{ documentation.notes | dashEmpty }}</span>
-        </div>
-        <div>
-          <label>Requisiti:</label>
-          <span>{{ documentation.resource | dashEmpty }}</span>
-        </div>
+  <div class="row" v-if="documentation">
+    <div class="col-9">
+      <div id="id-main" />
+      <div
+        @mouseover="setActiveItemList('#id-link-main', true)"
+        @mouseleave="setActiveItemList('#id-link-main', false)"
+      >
+        <div class="p-2">
+          <!-- <h2 class="pt-4">
+            contenuto centrale<span class="float-right">
+              
+            </span>
+           
+            
+          </h2> -->
+           <app-documentation
+            :documentation="documentation"
+            :id="documentation.id"
+          ></app-documentation>
+          <div class="pl-2">
+          <div class="columns">
+          </div>
+        </div>        
+        </div>        
+      </div>
+    </div>
 
-        <div>
-          <label>Strumento:</label>
-          <span >{{ documentation.tool.name | dashEmpty }}</span>
-          <router-link
-            tag="a" class="float-right"
-            :to="{ name: 'ToolDetails', params: { id: documentation.tool.id } }"
-          >
-            <view-icon />
-          </router-link>
-        </div>
-      </CCardBody>
-      <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="backToList"
-          >Indietro</CButton
-        >
-      </CCardFooter>
-    </CCard>
+    <aside class="container-rigth col-2">
+      <section class="menu">
+        <header><h2 class="menu-heading"><b>Contenuto:</b></h2></header>
+        <ul class="menu-list">
+          <li class="list-item" id="id-link-main">
+            <a class="item-link" href="#id-main">contenuto centrale</a>
+          </li>
+     
+        </ul>
+      </section>
+    </aside>
   </div>
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
+ 
+import Documentation from "../documentation/shared/Documentation";
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
+
 export default {
   name: "DocumentationDetails",
-  computed: {
-    ...mapGetters("documentation", ["documentation"])
+  //components: { plusORminus },
+   data() {
+    return {
+    };
+  },
+  computed: { 
+     ...mapGetters("documentation", ["documentation"]),
+  },
+  components: {
+    "app-documentation": Documentation
   },
   methods: {
-    backToList() {
-      this.$router.push("/catalogue/documentazione");
-    }
+  
   },
   created() {
     this.$store.dispatch("documentation/findById", this.$route.params.id);
-    //this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  }
+  },
 };
 </script>
+
 <style scoped>
-.card-header {
-  font-weight: 600;
-}
-label {
-  font-weight: bold;
+.icon-prop {
   display: inline;
-  padding: 15px;
+  padding-left: 6px;
 }
-</style>
+
+.list-group-item {
+  border: none !important;
+}
+* Clear floats after the columns */ .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  padding: 12px;
+  text-align: left;
+  background-color: #f1f1f1;
+  margin-left: 5px;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+fieldset.scheduler-border {
+  border: 1px solid #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+}
+legend.scheduler-border {
+  width: inherit; /* Or auto */
+  padding: 0 10px; /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+.max-col {
+  max-width: 5%;
+   }

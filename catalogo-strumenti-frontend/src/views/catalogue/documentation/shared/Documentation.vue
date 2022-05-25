@@ -4,20 +4,10 @@
 
     <div class="columns">
       <div class="description-fields col-12">
-        [Documentazione relativa allo strumento]
+        Documentazione
       </div>
       <div class="row">
-        <div v-if="documentations.length === 0">
-          <span
-            ><i><h5>Nessuna documentazione associata</h5></i></span
-          >
-        </div>
-
-        <div
-          class="card col-md-3"
-          v-for="documentation of documentations"
-          :key="documentation.id"
-        >
+        <div class="card col-md-3">
           <div class="card-header">
             {{ documentation.name }}
             <div class="card-header-actions">
@@ -25,16 +15,16 @@
                 tag="a"
                 :to="{
                   name: 'DocumentationDetails',
-                  params: { id: documentation.id }
+                  params: { id: id }
                 }"
               >
                 <view-icon />
               </router-link>
             </div>
           </div>
-          <div class="card-body">
+          <!-- <div class="card-body">
             <p class="card-text">{{ documentation.documentType }}</p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -42,10 +32,15 @@
 </template>
 <script>
 export default {
-  name: "DocumentationView",
+  name: "Documentation",
   props: {
-    documentations: {
-      type: Array,
+    documentation: {
+      type: Object,
+      required: true,
+      default: () => []
+    },
+    id: {
+      type: String,
       required: true,
       default: () => []
     }
