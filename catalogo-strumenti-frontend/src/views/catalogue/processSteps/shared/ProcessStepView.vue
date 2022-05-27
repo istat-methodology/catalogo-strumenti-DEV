@@ -27,64 +27,47 @@
             <!-- @start Condition to show filtrable table if results are more then 5 lines-->
             <p>Process design</p>
 
-             <div
-                  v-for="processDesign in getProcessDesignes(processStep.processDesigns)"
-                  :key="processDesign.idPD"
-                >
-  <div class="card-slot">
-                  <span>{{ processDesign.descrPD }}</span>
-                </div>
             <div
-              class="table-responsive"
-              v-if="processDesign.pds.length > 20"
+              v-for="processDesign in getProcessDesignes(
+                processStep.processDesigns
+              )"
+              :key="processDesign.idPD"
             >
-              <CDataTable
-                :items="processDesign.pds"
-                :fields="fields"
-                column-filter
-                table-filter
-                items-per-page-select
-                :items-per-page="5"
-                hover
-                sorter
-                pagination
+              <div class="card-slot">
+                <span>{{ processDesign.descrPD }}</span>
+              </div>
+
+              <table class="table table-hover table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">ioNome</th>
+                    <th scope="col">ioDescr</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template
+                    v-for="pd in getIOMapsProcessDesignes(processDesign.pds)"
+                  >
+                    <tr v-for="(item, index) in pd.pds" :key="item.type">
+                      <th scope="row" v-if="index == 0" :rowspan="[pd.pds.length]">
+                        {{ item.type }}
+                      </th>
+                      <td>{{ item.informationObjectName }}</td>
+                      <td>{{ item.informationObjectDescr }}</td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+              <h5
+                v-if="!processDesign.pds.length"
+                class="default-value card-body"
               >
-              </CDataTable>
+                Nessun dato disponibile
+              </h5>
             </div>
-            <!-- @end Condition to show filtrable table if results are more then 5 lines-->
-            <table
-              class="table table-hover"
-              v-if="processDesign.pds.length < 20"
-            >
-              <thead>
-                <tr>
-         
-                  <th scope="col">Tipo</th>
-                  <th scope="col">ioNome</th>
-                  <th scope="col">ioDescr</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="item in processDesign.pds"
-                  :key="item.id"
-                >
-      
-                  <td>{{ item.type }}</td>
-                  <td>{{ item.informationObjectName }}</td>
-                  <td>{{ item.informationObjectDescr }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <h5
-              v-if="!processDesign.pds.length"
-              class="default-value card-body"
-            >
-              Nessun dato disponibile
-            </h5>
           </div>
         </div>
-         </div>
         <!--/div-->
         <!--/fieldset-->
       </div>
@@ -124,25 +107,24 @@ export default {
   methods: {
     getProcessDesignes: function (processDesignes) {
       if (processDesignes) {
-        
-
         const list = processDesignes.map((pDesign) => {
           return {
             idPD: pDesign.processDesignDescription.id,
             descrPD: pDesign.processDesignDescription.descr,
           };
         });
-           console.log('list');
-        console.log(list);
+
         //const uniqueList = Array.from(new Set(list));
-        
-        const uniqueList = [... new Set(list.map(JSON.stringify))].map(JSON.parse)
-        
+
+        const uniqueList = [...new Set(list.map(JSON.stringify))].map(
+          JSON.parse
+        );
+
         const groups = uniqueList.map((c) => {
           return { idPD: c.idPD, descrPD: c.descrPD, pds: [] };
         });
-        console.log('uniqueList');
- console.log(uniqueList);
+        console.log("uniqueList");
+        console.log(uniqueList);
         processDesignes.forEach((pDesign) => {
           groups
             .find((g) => g.idPD === pDesign.processDesignDescription.id)
@@ -154,7 +136,38 @@ export default {
               informationObjectDescr: pDesign.informationObject.descr,
             });
         });
-console.log(groups);
+
+        return groups;
+      } else return [];
+    },
+    getIOMapsProcessDesignes: function (processDesignes) {
+      if (processDesignes) {
+        const list = processDesignes.map((pDesign) => {
+          return {
+            type: pDesign.type,
+          };
+        });
+
+        //const uniqueList = Array.from(new Set(list));
+
+        const uniqueList = [...new Set(list.map(JSON.stringify))].map(
+          JSON.parse
+        );
+
+        const groups = uniqueList.map((c) => {
+          return { type: c.type, pds: [] };
+        });
+
+        processDesignes.forEach((pDesign) => {
+          groups
+            .find((g) => g.type === pDesign.type)
+            .pds.push({
+              type: pDesign.type,
+              informationObjectName: pDesign.informationObjectName,
+              informationObjectDescr: pDesign.informationObjectDescr,
+            });
+        });
+
         return groups;
       } else return [];
     },

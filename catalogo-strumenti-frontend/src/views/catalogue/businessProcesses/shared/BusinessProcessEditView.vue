@@ -1,42 +1,59 @@
 <template>
   <div>
     <div>
-      <CCardHeader
-        ><i>{{ this.bFunctionName | dashEmpty }}</i> > Processi
-      </CCardHeader>
-      <div class="card-text">
-        <span v-if="stateform == FormState.EDIT">
-          <p class="card-text">Elenco referenti associati:</p></span
-        >
+      <div v-if="stateform == FormState.EDIT">
+        <CCardHeader
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> > Modifica Processo
+
+          <span
+            class="icon-link float-right"
+            @click.prevent="stateform = FormState.LIST"
+            title="Chiudi"
+          >
+            <close-icon title="Chiudi" />
+          </span>
+        </CCardHeader>
+
+        <div v-if="selectedEditProcess">
+          <app-business-process-edit :bProcess="selectedEditProcess">
+          </app-business-process-edit>
+        </div>
       </div>
       <div v-if="stateform == FormState.ADD_PROCESS">
+          <CCardHeader
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> > Aggiungi Processo
 
-         <div class="card-slot" v-if="bProcessList">
-            <label>Elenco Processi esistente</label>
-            <v-select
-              label="name"
-              :options="bProcessList"
-              @input="selectId($event)"
-            ></v-select>
-            <span class="help-block">Seleziona un processo</span>
-            <span
-              class="icon-link float-right"
-              @click="stateform = FormState.NEW"
-              ><add-icon />Nuovo Processo</span
-            >
-          </div>
- 
+          <span
+            class="icon-link float-right"
+            @click.prevent="stateform = FormState.LIST"
+            title="Chiudi"
+          >
+            <close-icon title="Chiudi" />
+          </span>
+        </CCardHeader>
+        <div class="card-slot" v-if="bProcessList">
+          <label>Elenco Processi esistente</label>
+          <v-select
+            label="name"
+            :options="bProcessList"
+            @input="selectId($event)"
+          ></v-select>
+          <span class="help-block">Seleziona un processo</span>
+          <span class="icon-link float-right" @click="stateform = FormState.NEW"
+            ><add-icon />Nuovo Processo</span
+          >
+        </div>
       </div>
 
       <div v-if="stateform == FormState.NEW">
         <CCardHeader
-          >Nuovo Processo
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> > Nuovo Processo
           <div class="card-header-actions">
-            <span class="icon-link" @click="handleSubmit()"
-              ><floppy-icon title="Salva"/></span
+            <span class="icon-link " @click="handleSubmit()"
+              ><floppy-icon title="Salva" /></span
             >&nbsp;
             <span
-              class="icon-link"
+              class="icon-link  "
               @click.prevent="stateform = FormState.LIST"
               title="Chiudi"
             >
@@ -74,18 +91,20 @@
         </CCard>
       </div>
       <div v-if="stateform == FormState.LIST">
-        <div class="row justify-content-between">
-          <div class="col-4"></div>
-          <div class="col-4">
-            <span
+        <CCardHeader
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> > Lista Processi
+           
+           <div class="card-header-actions">
+     <span
               class="icon-link"
               @click="stateform = FormState.ADD_PROCESS"
               title="Aggiungi un nuovo processo"
             >
               <add-box-icon /> Nuovo processo
             </span>
-          </div>
-        </div>
+           </div>
+       </CCardHeader>
+       
         <div class="columns">
           <div class="row">
             <div class="card" v-for="bProcess of bProcesses" :key="bProcess.id">
@@ -93,8 +112,10 @@
                 {{ bProcess.name }}
                 <div class="card-header-actions">
                   <span>
-                    <span class="icon-link" @click="changeState(index)"
-                      ><edit-icon title="Edit"/></span
+                    <span
+                      class="icon-link"
+                      @click="handleEditBProcess(bProcess)"
+                      ><edit-icon title="Edit" /></span
                     >&nbsp;
                     <span class="icon-link" @click="modalOpen(linkedAgent)"
                       ><delete-icon title="Cancella"
@@ -104,12 +125,9 @@
               </div>
               <div class="card-body">
                 <span
-                  v-if="
-                    bProcess.processSteps && bProcess.processSteps.length > 0
-                  "
+                  v-if="bProcess.processSteps && bProcess.processSteps.length > 0"
                 >
-                  <p class="card-text">Passi:</p>
-
+                  <strong>Passi:</strong>
                   <ol
                     v-for="processStep of bProcess.processSteps"
                     :key="processStep.id"
@@ -152,18 +170,22 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-
+import BusinessProcessEdit from "./BusinessProcessEdit";
 export default {
   name: "BusinessProcessEditView",
+  components: {
+    "app-business-process-edit": BusinessProcessEdit,
+  },
   data() {
     return {
       selectedBProcess: {},
+      selectedEditProcess: null,
       states: [],
       FormState: {
         LIST: 0,
         EDIT: 1,
         NEW: 2,
-        ADD_PROCESS: 3
+        ADD_PROCESS: 3,
       },
       stateform: 0,
       warningModal: false,
@@ -172,12 +194,12 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: ""
-      }
+        businessFunction: "",
+      },
     };
   },
   computed: {
-    ...mapGetters("bProcess", ["bProcessList"])
+    ...mapGetters("bProcess", ["bProcessList"]),
   },
   emits: ["refreshBProcess"],
 
@@ -185,18 +207,18 @@ export default {
     bProcesses: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     functionId: {
       type: Number,
       required: true,
-      default: null
+      default: null,
     },
     bFunctionName: {
       type: String,
       required: true,
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     changeBProcess(value) {
@@ -210,6 +232,11 @@ export default {
         .then(this.$emit("refreshBProcess", this.functionId));
       this.stateform = this.FormState.LIST;
     },
+    handleEditBProcess(process) {
+      this.selectedEditProcess = process;
+      this.stateform = this.FormState.EDIT;
+    },
+
     goBack() {
       this.$router.push("/catalogue/businessFunctions");
     },
@@ -226,13 +253,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("bProcess/findAll");
-  }
+  },
 };
 </script>
 <style scoped>

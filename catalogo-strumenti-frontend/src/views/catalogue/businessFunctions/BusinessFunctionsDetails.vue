@@ -75,7 +75,7 @@
         @mouseleave="setActiveItemList('#id-link-bProcesses', false)"
       >
         <div class="p-2">
-          <app-business-processview :positionIndex="'3'"
+          <app-business-processview 
             :businessProcesses="getBusinessProcesses"
           
           ></app-business-processview>

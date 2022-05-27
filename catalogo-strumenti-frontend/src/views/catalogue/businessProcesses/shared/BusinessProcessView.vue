@@ -10,7 +10,7 @@
       >
         <div class="p-2">
           <h4>
-            <span>{{ positionIndex }}.{{ index + 1 }}</span>
+            <span>{{ positionIndex }} {{ index + 1 }}</span>
             {{ businessProcess.name }}
           </h4>
           <div class="columns">
@@ -30,7 +30,7 @@
           </div>
 
           <app-process-stepview
-            :positionIndex="positionIndex + '.' + (index + 1)"
+            :positionIndex="  (index + 1)"
             :processName="businessProcess.name"
             :processSteps="businessProcess.processSteps"
           ></app-process-stepview>
