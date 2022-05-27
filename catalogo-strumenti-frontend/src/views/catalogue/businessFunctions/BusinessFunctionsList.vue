@@ -126,21 +126,7 @@ export default {
     ...mapGetters("bFunction", ["bFunctionList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
-    /* getBusinessList() {
-      return this.businessList.map(item => {
-        return Object.assign({}, item, {
-          id: item.id,
-          name: item.name == null ? "" : item.name,
-          descr: item.descr == null ? "" : item.descr,
-          label: item.label == null ? "" : item.label,
-          gsbpm: item.gsbpmProcesses
-            .map(gsbpmProcess => {
-              return gsbpmProcess.name;
-            })
-            .join(", ")
-        });
-      });
-    } */
+  
     getBusinessFunctionList: function() {
       if (this.bFunctionList) {
         return this.bFunctionList.map(business => {

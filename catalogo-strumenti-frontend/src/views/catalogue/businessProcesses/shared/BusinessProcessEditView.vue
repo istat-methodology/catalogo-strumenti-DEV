@@ -15,12 +15,32 @@
         </CCardHeader>
 
         <div v-if="selectedEditProcess">
-          <app-business-process-edit :bProcess="selectedEditProcess">
+          <app-business-process-edit :bProcess="selectedEditProcess" @enableEditStep="showEditStep">
           </app-business-process-edit>
         </div>
       </div>
+
+    <div v-if="stateform == FormState.STEP_EDIT">
+        <CCardHeader
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> > <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Modifica passo
+{{ this.selectedEditStep.name | dashEmpty }}
+          <span
+            class="icon-link float-right"
+            @click.prevent="stateform = FormState.LIST"
+            title="Chiudi"
+          >
+            <close-icon title="Chiudi" />
+          </span>
+        </CCardHeader>
+hh
+        <div v-if="selectedEditProcess">
+          <app-business-process-edit :bProcess="selectedEditProcess" @enableEditStep="showEditStep">
+          </app-business-process-edit>
+        </div>
+      </div>
+
       <div v-if="stateform == FormState.ADD_PROCESS">
-          <CCardHeader
+        <CCardHeader
           ><i>{{ this.bFunctionName | dashEmpty }}</i> > Aggiungi Processo
 
           <span
@@ -49,11 +69,11 @@
         <CCardHeader
           ><i>{{ this.bFunctionName | dashEmpty }}</i> > Nuovo Processo
           <div class="card-header-actions">
-            <span class="icon-link " @click="handleSubmit()"
+            <span class="icon-link" @click="handleSubmit()"
               ><floppy-icon title="Salva" /></span
             >&nbsp;
             <span
-              class="icon-link  "
+              class="icon-link"
               @click.prevent="stateform = FormState.LIST"
               title="Chiudi"
             >
@@ -93,18 +113,18 @@
       <div v-if="stateform == FormState.LIST">
         <CCardHeader
           ><i>{{ this.bFunctionName | dashEmpty }}</i> > Lista Processi
-           
-           <div class="card-header-actions">
-     <span
+
+          <div class="card-header-actions">
+            <span
               class="icon-link"
               @click="stateform = FormState.ADD_PROCESS"
               title="Aggiungi un nuovo processo"
             >
               <add-box-icon /> Nuovo processo
             </span>
-           </div>
-       </CCardHeader>
-       
+          </div>
+        </CCardHeader>
+
         <div class="columns">
           <div class="row">
             <div class="card" v-for="bProcess of bProcesses" :key="bProcess.id">
@@ -125,14 +145,18 @@
               </div>
               <div class="card-body">
                 <span
-                  v-if="bProcess.processSteps && bProcess.processSteps.length > 0"
+                  v-if="
+                    bProcess.processSteps && bProcess.processSteps.length > 0
+                  "
                 >
-                  <strong>Passi:</strong>
-                  <ol
-                    v-for="processStep of bProcess.processSteps"
-                    :key="processStep.id"
-                  >
-                    <li>{{ processStep.name }}</li>
+                  <ol>
+                    <strong>Passi:</strong>
+                    <li
+                      v-for="processStep of bProcess.processSteps"
+                      :key="processStep.id"
+                    >
+                      {{ processStep.name }}
+                    </li>
                   </ol>
                 </span>
                 <span v-else>Non sono presenti passi</span>
@@ -180,12 +204,14 @@ export default {
     return {
       selectedBProcess: {},
       selectedEditProcess: null,
+      selectedEditStep: null,
       states: [],
       FormState: {
         LIST: 0,
         EDIT: 1,
         NEW: 2,
         ADD_PROCESS: 3,
+        STEP_EDIT: 4,
       },
       stateform: 0,
       warningModal: false,
@@ -231,6 +257,10 @@ export default {
         .dispatch("bProcess/save", this.bProcessLocal)
         .then(this.$emit("refreshBProcess", this.functionId));
       this.stateform = this.FormState.LIST;
+    },
+    showEditStep (step) {
+      this.selectedEditStep = step;
+      this.stateform = this.FormState.STEP_EDIT;
     },
     handleEditBProcess(process) {
       this.selectedEditProcess = process;

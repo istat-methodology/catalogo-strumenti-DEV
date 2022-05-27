@@ -2,49 +2,61 @@
   <div>
     <div v-if="bProcessLocal">
       <div class="card">
-     
-       
         <div class="row">
-             <CInput class="col-6" label="Nome*" placeholder="Nome" v-model="bProcessLocal.name" />
+          <CInput
+            class="col-6"
+            label="Nome*"
+            placeholder="Nome"
+            v-model="bProcessLocal.name"
+          />
           <CInput
             class="col-4"
             label="Etichetta"
             placeholder="Etichetta"
             v-model="bProcessLocal.label"
           />
-          <CInput   class="col-2"
+          <CInput
+            class="col-2"
             label="Ordine"
             type="number"
             placeholder="Ordine"
             v-model="bProcessLocal.orderCode"
           />
         </div>
-         <CTextarea
+        <CTextarea
           label="Descrizione"
           placeholder="Descrizione"
           v-model="bProcessLocal.descr"
         />
- </div>
- 
-                <span
-                  v-if="
-                    bProcessLocal.processSteps && bProcessLocal.processSteps.length > 0
-                  "
-                >
-                   <strong>Passi:</strong>
-                  <ol
-                    v-for="processStep of bProcess.processSteps"
-                    :key="processStep.id"
-                  >
-                    <li>{{ processStep.name }}</li>
-                  </ol>
-                </span>
-                <span v-else>Non sono presenti passi</span>
-              </div>
+      </div>
 
+      <span
+        v-if="
+          bProcessLocal.processSteps && bProcessLocal.processSteps.length > 0
+        "
+      >
+        <strong>Passi:</strong>
 
-      
-  
+        <CCardBody>
+          <CDataTable
+            v-if="bProcessLocal"
+            :items="getProcessStepsList()"
+            :fields="fields"
+            :items-per-page="10"
+            hover
+            pagination
+            ><template #show_details="{ item }">
+              <td>
+                <span class="icon-link" @click="handleEditStep(item)"
+                  ><edit-icon title="Edit"
+                /></span>
+              </td>
+            </template>
+          </CDataTable>
+        </CCardBody>
+      </span>
+      <span v-else>Non sono presenti passi</span>
+    </div>
   </div>
 </template>
 <script>
@@ -52,6 +64,36 @@ export default {
   name: "BusinessProcessEditView",
   data() {
     return {
+      fields: [
+        {
+          key: "index",
+          label: "#",
+          _style: "width:1%;",
+        },
+        {
+          key: "name",
+          label: "Nome",
+          _style: "width:20%;",
+        },
+
+        {
+          key: "tool",
+          label: "Strumento",
+          _style: "width:40%;",
+        },
+        {
+          key: "stepInstances",
+          label: "Funzione",
+          _style: "width:40%;",
+        },
+        {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
+        },
+      ],
       bProcessLocal: {},
       states: [],
       FormState: {
@@ -65,7 +107,7 @@ export default {
     };
   },
   computed: {},
-  emits: ["refreshBProcess"],
+  emits: ["enableEditStep"],
 
   props: {
     bProcess: {
@@ -75,8 +117,37 @@ export default {
     },
   },
   methods: {
+    getProcessStepsList: function () {
+      if (this.bProcessLocal && this.bProcessLocal.processSteps) {
+        return this.bProcessLocal.processSteps.map((step, index) => {
+          return {
+            id: step.id,
+            index: index + 1,
+            name: step.name == null ? "" : step.name,
+            label: step.label == null ? "" : step.label,
+            tool: step.businessService == null ? "" : step.businessService.name,
+            stepInstances:
+              step.stepInstances == null
+                ? ""
+                : step.stepInstances
+                    .map((instance) => {
+                      return (
+                        instance.functionality + " (" + instance.method + ")"
+                      );
+                    })
+                    .join(", "),
+            processDesigns: step.processDesigns,
+          };
+        });
+      } else {
+        return [];
+      }
+    },
     handleSubmit() {
       this.stateform = this.FormState.LIST;
+    },
+    handleEditStep(step) {
+      this.$emit("enableEditStep", step);
     },
     goBack() {
       this.$router.push("/catalogue/businessFunctions");
