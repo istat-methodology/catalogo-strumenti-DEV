@@ -9,9 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import it.istat.mec.catalog.domain.Agent;
 import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.GsbpmProcess;
+import it.istat.mec.catalog.domain.StatisticalMethod;
 
 @Repository
 public interface ToolDao extends JpaRepository<CatalogTool, Integer> {
@@ -32,5 +34,13 @@ public interface ToolDao extends JpaRepository<CatalogTool, Integer> {
 
 	@Query("SELECT DISTINCT c FROM CatalogTool c JOIN c.businessService bs JOIN bs.processSteps ps JOIN ps.businessProcesses bp JOIN bp.businessFunctions bf WHERE bf = :businessFunction")	
 	List<CatalogTool> findToolsByBusinessFunctions(@Param("businessFunction")BusinessFunction businessFunction);
+	
 
+	@Query("select c from CatalogTool c join c.statisticalMethods sm WHERE sm = :statisticalMethod")	
+	List<CatalogTool> findToolsStatisticalMethod(@Param("statisticalMethod")StatisticalMethod statisticalMethod);
+	
+	@Query("select c from CatalogTool c join c.linkAgentsTools lat WHERE lat.agent = :agent")	
+	List<CatalogTool> findToolsByAgent(@Param("agent")Agent agent);
+	
+	
 }

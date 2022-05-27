@@ -1,19 +1,15 @@
 package it.istat.mec.catalog.service;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.AgentDao;
 import it.istat.mec.catalog.dao.BusinessServiceDao;
 import it.istat.mec.catalog.dao.DocumentationDao;
 import it.istat.mec.catalog.dao.GsbpmProcessDao;
+import it.istat.mec.catalog.dao.StatisticalMethodDao;
 import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.Agent;
 import it.istat.mec.catalog.domain.BusinessFunction;
@@ -23,11 +19,9 @@ import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.domain.StatisticalMethod;
-import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.exceptions.NoDataException;
-import it.istat.mec.catalog.exceptions.TechnicalException;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.translators.Translators;
 import org.springframework.data.domain.Sort;
@@ -46,6 +40,9 @@ public class ToolService {
 	DocumentationDao documentationDao;
 	@Autowired
 	GsbpmProcessDao gsbpmProcessDao;
+	
+	@Autowired
+	StatisticalMethodDao statisticalMethodDao;
 
 	public List<CatalogToolMiniListDTO> findAllTools(Integer[] type, Integer[] gsbpmIds, String[] orderBy, String[] sort) {
 	
@@ -68,7 +65,6 @@ public class ToolService {
 		for (int i = 0; i < type.length; i++) {
 			types.add(Integer.valueOf(type[i]));
 		}
-	  //return Translators.translate(toolDao.findAllWithFilter(types,types.size(), gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
 	 return Translators.translateMiniTools(toolDao.findAllWithFilter(types,types.size(), gsbpmProcesses,gsbpmProcesses.size(),sortQuery));
 	  
 	}
@@ -211,6 +207,16 @@ public class ToolService {
 
 	public List<CatalogToolMiniListDTO> findToolsByBusinessFunctions(Integer id) {
 	 	 return Translators.translateMiniTools(toolDao.findToolsByBusinessFunctions(new BusinessFunction(id)));
+		 
+	}
+	
+	public List<CatalogToolMiniListDTO> findToolsByStatisticalMethod(Integer id) {		
+	 	return Translators.translateMiniTools(toolDao.findToolsStatisticalMethod(new StatisticalMethod(id)));
+		 
+	}
+	
+	public List<CatalogToolMiniListDTO> findToolsByAgent(Integer id) {		
+	 	return Translators.translateMiniTools(toolDao.findToolsByAgent(new Agent(id)));
 		 
 	}
 }

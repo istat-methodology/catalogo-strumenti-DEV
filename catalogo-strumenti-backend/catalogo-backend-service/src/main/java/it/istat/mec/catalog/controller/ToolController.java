@@ -21,7 +21,6 @@
  * @version 1.0
  */
 package it.istat.mec.catalog.controller;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,8 +32,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import it.istat.mec.catalog.dto.BusinessFunctionDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.request.CreateToolRequest;
@@ -89,5 +86,17 @@ public class ToolController {
 	public List<CatalogToolMiniListDTO> findToolsByBusinessFunctions(@PathVariable("id") Integer id) {
 
 		return toolService.findToolsByBusinessFunctions(id);
+	} 
+	
+	@GetMapping("/open/tools/statistical-methods/{id}")
+	public List<CatalogToolMiniListDTO> findToolsByStatisticalMethod(@PathVariable("id") Integer id) {
+
+		return toolService.findToolsByStatisticalMethod(id);
+	} 
+	
+	@GetMapping("/open/tools/agents/{id}")
+	public List<CatalogToolMiniListDTO> findToolsByAgent(@PathVariable("id") Integer id) {
+
+		return toolService.findToolsByAgent(id);
 	} 
 }
