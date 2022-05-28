@@ -36,6 +36,9 @@
         "
       >
         <strong>Passi:</strong>
+        <span class="icon-link float-right" @click="handleNewStep()"
+          ><add-icon />Nuovo Passo</span
+        >
 
         <CCardBody>
           <CDataTable
@@ -61,7 +64,7 @@
 </template>
 <script>
 export default {
-  name: "BusinessProcessEditView",
+  name: "BusinessProcessEdit",
   data() {
     return {
       fields: [
@@ -96,18 +99,13 @@ export default {
       ],
       bProcessLocal: {},
       states: [],
-      FormState: {
-        LIST: 0,
-        EDIT: 1,
-        NEW: 2,
-        ADD_PROCESS: 3,
-      },
+      FormState: {},
       stateform: 0,
       warningModal: false,
     };
   },
   computed: {},
-  emits: ["enableEditStep"],
+  emits: ["enableEditStep", "enableNewStep"],
 
   props: {
     bProcess: {
@@ -148,6 +146,10 @@ export default {
     },
     handleEditStep(step) {
       this.$emit("enableEditStep", step);
+    },
+    handleNewStep() {
+     
+      this.$emit("enableNewStep");
     },
     goBack() {
       this.$router.push("/catalogue/businessFunctions");
