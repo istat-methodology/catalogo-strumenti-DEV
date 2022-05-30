@@ -9,7 +9,14 @@
             label="Nome"
             placeholder="Name"
             v-model="statisticalMethodLocal.name"
+            :class="{ 'is-invalid': $v.statisticalMethodLocal.name.$error }"
           />
+          <div
+            class="help-block"
+            :class="{ show: $v.statisticalMethodLocal.name.$error }"
+          >
+            Campo obbligatorio
+          </div>
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
@@ -99,7 +106,7 @@ import { mapGetters } from "vuex";
 //import { CDatePicker } from "@coreui/vue";
 import DatePick from "vue-date-pick";
 import "vue-date-pick/dist/vueDatePick.css";
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 export default {
   name: "ToolEdit",
   components: {
@@ -126,24 +133,23 @@ export default {
   computed: {
     ...mapGetters("methods", ["statisticalMethod"])
   },
-
-  /* validations: {
-    dug: {
+  validations: {
+    statisticalMethodLocal: {
       name: {
         required
       }
     }
-  }, */
+  },
   methods: {
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
-      this.$store
-        .dispatch("methods/update", this.statisticalMethodLocal)
-        .then(() => {
-          this.backToList();
-        });
-      /*   } */
+      this.$v.$touch();
+      if (!this.$v.statisticalMethodLocal.$invalid) {
+        this.$store
+          .dispatch("methods/update", this.statisticalMethodLocal)
+          .then(() => {
+            this.backToList();
+          });
+      }
     },
     setOldValues() {
       this.statisticalMethodLocal.id = this.statisticalMethod.id;
