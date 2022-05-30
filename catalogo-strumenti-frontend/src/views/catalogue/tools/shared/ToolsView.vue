@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>  Strumenti metodologi</h2>
+    <h2>Strumenti metodologi</h2>
     <div class="columns">
       <div class="row">
         <div v-if="tools.length === 0">

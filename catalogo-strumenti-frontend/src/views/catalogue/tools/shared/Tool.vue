@@ -2,18 +2,18 @@
   <div>
     <div class="columns">
       <div class="description-fields col-12">
-        Documento
+        Strumento Metodologio
       </div>
       <div class="row">
         <div class="card col-md-3">
           <div class="card-header">
-            {{ documentation.name }}
+            {{ tool.name }}
             <div class="card-header-actions">
               <router-link
                 tag="a"
                 :to="{
-                  name: 'DocumentationDetails',
-                  params: { id: docid }
+                  name: 'ToolDetails',
+                  params: { id: toolid }
                 }"
               >
                 <view-icon />
@@ -22,8 +22,8 @@
           </div>
           <div class="card-body">
             <p class="card-text">
-              {{ documentation.documentType.name }},
-              {{ documentation.publisher }}
+              {{ tool.description }},
+              {{ tool.tags }}
             </p>
           </div>
         </div>
@@ -33,14 +33,14 @@
 </template>
 <script>
 export default {
-  name: "Documentation",
+  name: "Tool",
   props: {
-    documentation: {
+    tool: {
       type: Object,
       required: true,
       default: () => []
     },
-    docid: {
+    toolid: {
       type: String,
       required: true,
       default: () => []

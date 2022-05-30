@@ -17,6 +17,31 @@
           </h2> -->
            <app-documentation
             :documentation="documentation"
+            :docid="documentation.id"
+          ></app-documentation>
+          <div class="pl-2">
+          <div class="columns">
+          </div>
+        </div>        
+        </div>        
+      </div>
+
+      
+      <div id="id-second" />
+      <div
+        @mouseover="setActiveItemList('#id-link-second', true)"
+        @mouseleave="setActiveItemList('#id-link-second', false)"
+      >
+        <div class="p-2">
+          <!-- <h2 class="pt-4">
+            contenuto centrale<span class="float-right">
+              
+            </span>
+           
+            
+          </h2> -->
+           <app-documentation
+            :documentation="documentation"
             :id="documentation.id"
           ></app-documentation>
           <div class="pl-2">
@@ -25,6 +50,8 @@
         </div>        
         </div>        
       </div>
+
+
     </div>
 
     <aside class="container-rigth col-2">
@@ -33,6 +60,7 @@
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
             <a class="item-link" href="#id-main">Documento</a>
+            <a class="item-link" href="#id-main">Strumento Metodologico</a>
           </li>
      
         </ul>
@@ -56,6 +84,7 @@ export default {
   },
   computed: { 
      ...mapGetters("documentation", ["documentation"]),
+     ...mapGetters("tools", ["tool"])
   },
   components: {
     "app-documentation": Documentation
