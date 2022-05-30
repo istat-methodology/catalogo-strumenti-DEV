@@ -2,7 +2,7 @@
   <div>
     <div class="columns">
       <div class="description-fields col-12">
-        Strumento Metodologio
+        Strumento Metodologico
       </div>
       <div class="row">
         <div class="card col-md-3">
