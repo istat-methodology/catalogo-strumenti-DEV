@@ -37,7 +37,7 @@
               return gsbpmProcess.code + " " + gsbpmProcess.name ;
 
             })
-            .join(", "), | dashEmpty }}
+            .join(", ") | dashEmpty }}
                 </div>
               </div>
 
