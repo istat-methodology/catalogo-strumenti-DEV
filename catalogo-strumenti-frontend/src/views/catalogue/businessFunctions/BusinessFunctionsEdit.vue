@@ -18,7 +18,14 @@
                 label="Nome"
                 placeholder="Nome"
                 v-model="businessFunctionLocal.name"
+                :class="{ 'is-invalid': $v.businessFunctionLocal.name.$error }"
               />
+              <div
+                class="help-block"
+                :class="{ show: $v.businessFunctionLocal.name.$error }"
+              >
+                Campo obbligatorio
+              </div>
               <CInput
                 label="Descrizione"
                 placeholder="Descrizione"
@@ -87,7 +94,7 @@ import { mapGetters } from "vuex";
 import _ from "lodash";
 import Treeselect from "@riophae/vue-treeselect";
 import BusinessProcessEditView from "../businessProcesses/shared/BusinessProcessEditView";
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 export default {
   name: "BusinessFunctionsEdit",
   components: {
@@ -102,7 +109,7 @@ export default {
         descr: "",
         label: "",
         businessProcesses: [],
-        gsbpmProcesses:[]
+        gsbpmProcesses: []
       },
       gsbpmChecked: []
     };
@@ -139,25 +146,25 @@ export default {
     }
   },
 
-  /* validations: {
-    dug: {
+  validations: {
+    businessFunctionLocal: {
       name: {
         required
       }
     }
-  }, */
+  },
 
   methods: {
     handleSubmit() {
-         this.businessFunctionLocal.gsbpmProcesses = this.gsbpmChecked;
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
-      this.$store
-        .dispatch("bFunction/update", this.businessFunctionLocal)
-        .then(() => {
-          this.loadBusinessFunction(this.$route.params.id);
-        });
-      /*   } */
+      this.businessFunctionLocal.gsbpmProcesses = this.gsbpmChecked;
+      this.$v.$touch(); //validate form data
+      if (!this.$v.businessFunctionLocal.$invalid) {
+        this.$store
+          .dispatch("bFunction/update", this.businessFunctionLocal)
+          .then(() => {
+            this.loadBusinessFunction(this.$route.params.id);
+          });
+      }
     },
     setOldValues() {
       this.businessFunctionLocal.id = this.bFunction.id;
