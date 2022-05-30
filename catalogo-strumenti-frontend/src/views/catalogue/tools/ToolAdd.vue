@@ -5,7 +5,15 @@
       <CCard>
         <CCardHeader>Nuovo Tool</CCardHeader>
         <CCardBody>
-          <CInput label="Nome" placeholder="Name" v-model="toolLocal.name" />
+          <CInput
+            label="Nome"
+            placeholder="Name"
+            v-model="toolLocal.name"
+            :class="{ 'is-invalid': $v.toolLocal.name.$error }"
+          />
+          <div class="help-block" :class="{ show: $v.toolLocal.name.$error }">
+            Campo obbligatorio
+          </div>
           <CInput
             label="Descrizione"
             placeholder="Descrizione"
@@ -177,7 +185,7 @@
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 export default {
   name: "ToolAdd",
@@ -226,21 +234,21 @@ export default {
 
     ...mapGetters("tooltype", ["tooltypeList"])
   },
-  /* validations: {
-    tool: {
+  validations: {
+    toolLocal: {
       name: {
         required
       }
     }
-  }, */
+  },
   methods: {
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.tool.$invalid) {*/
-      this.$store
-        .dispatch("tools/save", this.toolLocal)
-        .then(this.$router.push("/catalogue/tools"));
-      /*   } */
+      this.$v.$touch(); //validate form data
+      if (!this.$v.toolLocal.$invalid) {
+        this.$store
+          .dispatch("tools/save", this.toolLocal)
+          .then(this.$router.push("/catalogue/tools"));
+      }
     },
     goBack() {
       this.$router.push("/catalogue/tools");
