@@ -5,7 +5,15 @@
       <CCard v-if="agent">
         <CCardHeader>Modifica Metodo Statistico</CCardHeader>
         <CCardBody>
-          <CInput label="Nome" placeholder="Nome" v-model="agentLocal.name" />
+          <CInput
+            label="Nome"
+            placeholder="Nome"
+            v-model="agentLocal.name"
+            :class="{ 'is-invalid': $v.agentLocal.name.$error }"
+          />
+          <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">
+            Campo obbligatorio
+          </div>
           <CInput
             label="Organizzazione"
             placeholder="Organizzazione"
@@ -46,7 +54,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-/* import { required } from "vuelidate/lib/validators"; */
+import { required } from "vuelidate/lib/validators";
 export default {
   name: "DocumentationEdit",
   data() {
@@ -64,21 +72,21 @@ export default {
     ...mapGetters("agent", ["agent"])
   },
 
-  /* validations: {
-    dug: {
+  validations: {
+    agentLocal: {
       name: {
         required
       }
     }
-  }, */
+  },
   methods: {
     handleSubmit() {
-      /*  this.$v.$touch(); //validate form data
-      if (!this.$v.dug.$invalid) { */
-      this.$store.dispatch("agent/update", this.agentLocal).then(() => {
-        this.backToList();
-      });
-      /*   } */
+      this.$v.$touch();
+      if (!this.$v.agentLocal.$invalid) {
+        this.$store.dispatch("agent/update", this.agentLocal).then(() => {
+          this.backToList();
+        });
+      }
     },
     setOldValues() {
       this.agentLocal.id = this.agent.id;
