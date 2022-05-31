@@ -116,12 +116,12 @@ export default {
       if (this.documentationList) {
         return this.documentationList.map(item => {
           return {
-            id: item.id,
-            name: item.name,
-            publisher: item.publisher,
-            documentType: item.documentType.name,
-            notes: item.notes,
-            resource: item.resource
+            id: item.id, 
+            name: item.name == null ? "" : item.name,
+            publisher: item.publisher == null ? "" : item.publisher,
+            documentType: item.documentType.name == null ? "" : item.documentType.name,
+            notes: item.notes == null ? "" : item.notes,
+            resource: item.resource == null ? "" : item.resource,
           };
         });
       } else {
