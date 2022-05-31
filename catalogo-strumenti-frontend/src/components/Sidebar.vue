@@ -29,7 +29,7 @@
           tag="a"
           :to="{ name: 'ToolList' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isToolList }"
+          :class="{ 'c-active': isToolSession }"
         >
           <CIcon name="cil-baseball" class="c-sidebar-nav-icon" />Strumenti
           Metodologici
@@ -40,7 +40,7 @@
           tag="a"
           :to="{ name: 'BusinessFunctionsList' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isBusinessList }"
+          :class="{ 'c-active': isBusinessSession }"
         >
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
         </router-link>
@@ -116,7 +116,7 @@
             Checked checkbox
           </label>
         </div>
-      </li> -->
+      </li> --> <!-- 
       <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
@@ -130,7 +130,7 @@
         </div>
       </li>
 
-      <!-- <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
+     <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
           <tree
@@ -148,7 +148,7 @@
 <script>
 import { mapGetters } from "vuex";
 //import TreeView from "@grapoza/vue-tree";
-import LiquorTree from "liquor-tree";
+//import LiquorTree from "liquor-tree";
 
 // import the styles
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -158,7 +158,7 @@ export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-    tree: LiquorTree,
+   // tree: LiquorTree,
   },
   data() {
     return {

@@ -15,15 +15,20 @@
         </CCardHeader>
 
         <div v-if="selectedEditProcess">
-          <app-business-process-edit :bProcess="selectedEditProcess" @enableEditStep="showEditStep">
+          <app-business-process-edit
+            :bProcess="selectedEditProcess"
+            @enableEditStep="showEditStep"
+          >
           </app-business-process-edit>
         </div>
       </div>
 
-    <div v-if="stateform == FormState.STEP_EDIT">
+      <div v-if="stateform == FormState.STEP_EDIT">
         <CCardHeader
-          ><i>{{ this.bFunctionName | dashEmpty }}</i> > <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Modifica passo
-{{ this.selectedEditStep.name | dashEmpty }}
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> >
+          <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Modifica
+          passo
+
           <span
             class="icon-link float-right"
             @click.prevent="stateform = FormState.LIST"
@@ -32,10 +37,40 @@
             <close-icon title="Chiudi" />
           </span>
         </CCardHeader>
-hh
-        <div v-if="selectedEditProcess">
-          <app-business-process-edit :bProcess="selectedEditProcess" @enableEditStep="showEditStep">
-          </app-business-process-edit>
+
+        <div v-if="selectedEditStep">
+          <app-business-process-step-edit
+            :bPStep="selectedEditStep"
+            @enableEditStep="showEditStep"
+            @enableNewStep="showNewStep"
+          >
+          </app-business-process-step-edit>
+        </div>
+      </div>
+
+      <div v-if="stateform == FormState.STEP_NEW">
+
+      sds
+        <CCardHeader
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> >
+          <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Nuovo passo
+
+          <span
+            class="icon-link float-right"
+            @click.prevent="stateform = FormState.EDIT"
+            title="Chiudi"
+          >
+            <close-icon title="Chiudi" />
+          </span>
+        </CCardHeader>
+
+         <div v-if="selectedEditProcess">
+          <app-business-process-step-new
+          :bProcess="selectedEditProcess"
+            @enableEditStep="showEditStep"
+            @enableNewStep="showNewStep"
+          >
+          </app-business-process-step-new>
         </div>
       </div>
 
@@ -195,10 +230,14 @@ hh
 <script>
 import { mapGetters } from "vuex";
 import BusinessProcessEdit from "./BusinessProcessEdit";
+import ProcessStepEdit from "../../processSteps/shared/ProcessStepEdit";
+import ProcessStepNew from "../../processSteps/shared/ProcessStepNew";
 export default {
   name: "BusinessProcessEditView",
   components: {
     "app-business-process-edit": BusinessProcessEdit,
+    "app-business-process-step-edit": ProcessStepEdit,
+    "app-business-process-step-new": ProcessStepNew,
   },
   data() {
     return {
@@ -212,6 +251,7 @@ export default {
         NEW: 2,
         ADD_PROCESS: 3,
         STEP_EDIT: 4,
+        STEP_NEW: 5,
       },
       stateform: 0,
       warningModal: false,
@@ -258,9 +298,14 @@ export default {
         .then(this.$emit("refreshBProcess", this.functionId));
       this.stateform = this.FormState.LIST;
     },
-    showEditStep (step) {
+    showEditStep(step) {
       this.selectedEditStep = step;
       this.stateform = this.FormState.STEP_EDIT;
+    },
+    showNewStep() {
+      alert('pippo')
+      this.selectedEditStep = null;
+      this.stateform = this.FormState.STEP_NEW;
     },
     handleEditBProcess(process) {
       this.selectedEditProcess = process;
