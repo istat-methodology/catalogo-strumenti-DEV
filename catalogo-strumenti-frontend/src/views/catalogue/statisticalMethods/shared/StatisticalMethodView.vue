@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2><span>2.</span> Metodi statistici</h2>
-      <div class="description-box col-12">
+      <div class="description-fields col-12">
             Metodi statistici implementati nello strumento
               </div>
     <div class="columns">
