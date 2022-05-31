@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import it.istat.mec.catalog.domain.Agent;
 import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.CatalogTool;
+import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 
@@ -42,5 +43,7 @@ public interface ToolDao extends JpaRepository<CatalogTool, Integer> {
 	@Query("select c from CatalogTool c join c.linkAgentsTools lat WHERE lat.agent = :agent")	
 	List<CatalogTool> findToolsByAgent(@Param("agent")Agent agent);
 	
+	@Query("select c from CatalogTool c join c.documentations doc WHERE doc = :documentation")	
+	List<CatalogTool> findToolsByDocumentation(@Param("documentation")Documentation documentation);	
 	
 }
