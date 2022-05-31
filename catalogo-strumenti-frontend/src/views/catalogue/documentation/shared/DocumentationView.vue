@@ -3,7 +3,7 @@
     <h2><span>5.</span> Documentazione</h2>
 
     <div class="columns">
-      <div class="description-box col-12">
+      <div class="description-fields col-12">
         Elenco della Documentazione relativa allo strumento
       </div>
       <div class="row">

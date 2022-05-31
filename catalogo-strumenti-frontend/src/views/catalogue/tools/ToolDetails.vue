@@ -26,6 +26,7 @@
           <div class="pl-2">
           <div class="columns">
             <div class="row">
+              
               <div class="description-fields col-12">
                 {{ tool.description | dashEmpty }}
               </div>
