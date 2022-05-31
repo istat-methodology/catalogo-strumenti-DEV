@@ -6,7 +6,7 @@
         <CCardHeader>Nuova Business Function</CCardHeader>
         <CCardBody>
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Nome"
             v-model="businessFunctionLocal.name"
             :class="{ 'is-invalid': $v.businessFunctionLocal.name.$error }"

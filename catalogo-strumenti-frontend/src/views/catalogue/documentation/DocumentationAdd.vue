@@ -6,7 +6,7 @@
         <CCardHeader>Nuova Documentazione</CCardHeader>
         <CCardBody>
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Nome"
             v-model="documentationLocal.name"
             :class="{ 'is-invalid': $v.documentationLocal.name.$error }"

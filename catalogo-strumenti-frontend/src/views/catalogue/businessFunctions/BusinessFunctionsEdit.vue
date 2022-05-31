@@ -15,7 +15,7 @@
             <CCardHeader>Modifica Business Function</CCardHeader>
             <CCardBody>
               <CInput
-                label="Nome"
+                label="Nome*"
                 placeholder="Nome"
                 v-model="businessFunctionLocal.name"
               />
