@@ -540,7 +540,7 @@
                                             font-size: 24px;
                                             color: #3780bd;
                                             transition: color 0.5s;
-                                            padding-bottom: 15px;
+                                            padding-bottom: 8px;
                                         }
                                         
                                         h4 {
@@ -559,8 +559,12 @@
                                         .description-fields {
                                             padding-bottom: 20px;
                                             font-size: large;
-                                            font-weight: bold;
                                             color: #57abf5;
+                                        }
+                                        .description-box {
+                                            padding-bottom: 5px;
+                                            padding-top: 5px;
+                                           
                                         }
                                         
                                         h5 {

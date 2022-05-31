@@ -274,27 +274,27 @@
             <a class="item-link" href="#id-main">{{ tool.name | dashEmpty }}</a>
           </li>
           <li class="list-item" id="id-link-tooltype">
-            <a href="#id-tooltype" class="item-link">{{
+            <a href="#id-tooltype" class="item-link">1. {{
               tool.toolType.name | dashEmpty
             }}</a>
           </li>
           <li class="list-item" id="id-link-statistical-methods">
             <a href="#id-statistical-methods" class="item-link"
-              >Metodi Statistici</a
+              >2. Metodi Statistici</a
             >
           </li>
           <li class="list-item" id="id-link-functionalities">
-            <a href="#id-functionalities" class="item-link">Implementazione</a>
+            <a href="#id-functionalities" class="item-link">3. Implementazione</a>
           </li>
           <li class="list-item" id="id-link-process">
-            <a href="#id-process" class="item-link">Processi</a>
+            <a href="#id-process" class="item-link">4. Processi</a>
           </li>
 
           <li class="list-item" id="id-link-documentations">
-            <a href="#id-documentations" class="item-link">Documentazione</a>
+            <a href="#id-documentations" class="item-link">5. Documentazione</a>
           </li>
           <li class="list-item" id="id-link-link-agents-tools">
-            <a href="#id-agents-tools" class="item-link">Referenti</a>
+            <a href="#id-agents-tools" class="item-link">6. Referenti</a>
           </li>
         </ul>
       </section>

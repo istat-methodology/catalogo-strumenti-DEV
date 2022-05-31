@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2><span>6.</span>Referenti associati</h2>
-      <div class="description-fields col-12">
-            [Elenco referenti dello strumento]
+    <h2><span>6.</span> Referenti associati</h2>
+      <div class="description-box col-12">
+            Elenco dei referenti associati allo strumento metodologico
               </div>
     <div class="columns">
       <div class="row">
