@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard v-if="agent">
-        <CCardHeader>Modifica Metodo Statistico</CCardHeader>
+        <CCardHeader>Modifica Referente</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome*"
