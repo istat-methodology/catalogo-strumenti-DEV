@@ -107,7 +107,14 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       if (this.agentList) {
-        return this.agentList;
+        return this.agentList.map(agent => {
+          return {
+            id: agent.id,
+            name: agent.name == null ? "" : agent.name,
+            organization: agent.organization == null ? "" : agent.organization,
+            contact: agent.contact == null ? "" : agent.contact
+          };
+        });
       } else {
         return [];
       }

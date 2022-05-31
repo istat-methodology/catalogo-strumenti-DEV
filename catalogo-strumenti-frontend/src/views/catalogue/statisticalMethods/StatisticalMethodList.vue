@@ -113,7 +113,7 @@ export default {
           return {
             id: method.id,
             name: method.name == null ? "" : method.name,
-            description: method.description == null ? "" : method.description,
+            description: method.description == null ? "" : method.description
           };
         });
       } else {
