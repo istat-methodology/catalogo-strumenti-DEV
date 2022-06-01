@@ -1,6 +1,7 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -44,9 +47,18 @@ public class Documentation implements Serializable  {
 	@Column(name = "RESOURCE")
 	private String resource;
 	 
-	@ManyToOne
-    @JoinColumn(name = "TOOL")
-    private CatalogTool tool;
+	@ManyToMany
+    @JoinTable(name = "csm_link_documentation_tool", joinColumns = {
+            @JoinColumn(name = "csm_documentation_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "csm_methodological_tool_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+    private List<CatalogTool> catalogTools;
+	
+	@ManyToMany 
+    @JoinTable(name = "csm_link_documentation_method", joinColumns = {
+            @JoinColumn(name = "csm_documentation_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "csm_statistical_method_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+    private List<StatisticalMethod> statisticalMethods;
+	
 	 
 	public Documentation() {
 		

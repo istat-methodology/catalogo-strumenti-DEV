@@ -106,7 +106,7 @@ public class ToolService {
 		if(request.getDocumentations()!=null) {
 			for(int i=0; i<request.getDocumentations().length; i++) {				
 				Documentation doc = documentationDao.findById(request.getDocumentations()[i]).get();
-				doc.setTool(tool);
+				doc.getCatalogTools().add(tool);
 				documentations.add(doc);
 			}
 			
@@ -179,7 +179,7 @@ public class ToolService {
 		if(request.getDocumentations()!=null) {
 			for(int i=0; i<request.getDocumentations().length; i++) {				
 				Documentation doc = documentationDao.findById(request.getDocumentations()[i]).get();
-				doc.setTool(tool);
+				doc.getCatalogTools().add(tool);
 				documentations.add(doc);
 			}
 			

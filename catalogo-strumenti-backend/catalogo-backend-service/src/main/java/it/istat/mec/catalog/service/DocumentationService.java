@@ -37,7 +37,7 @@ public class DocumentationService {
 
 		if (request.getTool() == null || !toolDao.findById(request.getTool()).isPresent())
 			throw new NoDataException("Statistical Tool not present");
-		doc.setTool(toolDao.findById(request.getTool()).get());
+		doc.getCatalogTools().add(toolDao.findById(request.getTool()).get());
 
 		if (request.getDocumentType() != null)
 
@@ -66,11 +66,11 @@ public class DocumentationService {
 		Documentation doc = documentationDao.findById(request.getId()).get();
 
 		doc = Translators.translateUpdate(request, doc);
-		if (request.getTool() != null && (doc.getTool() == null || !request.getTool().equals(doc.getTool().getId()))) {
+		if (request.getTool() != null ) {
 
 			if (!toolDao.findById(request.getTool()).isPresent())
 				throw new NoDataException("Statistical Tool not present");
-			doc.setTool(toolDao.findById(request.getTool()).get());
+			doc.getCatalogTools().add(toolDao.findById(request.getTool()).get());
 		}
 
 		if (request.getDocumentType() != null && (doc.getDocumentType() == null
