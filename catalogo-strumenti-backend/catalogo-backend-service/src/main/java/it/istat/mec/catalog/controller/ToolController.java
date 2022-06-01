@@ -99,4 +99,10 @@ public class ToolController {
 
 		return toolService.findToolsByAgent(id);
 	} 
+	
+	@GetMapping("/open/tools/documentations/{id}")
+	public List<CatalogToolMiniListDTO> findToolsBydocumentation(@PathVariable("id") Integer id) {
+
+		return toolService.findToolsByDocumentation(id);
+	} 
 }

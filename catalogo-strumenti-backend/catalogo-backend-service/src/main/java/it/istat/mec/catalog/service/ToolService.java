@@ -219,4 +219,9 @@ public class ToolService {
 	 	return Translators.translateMiniTools(toolDao.findToolsByAgent(new Agent(id)));
 		 
 	}
+	
+	public List<CatalogToolMiniListDTO> findToolsByDocumentation(Integer id) {		
+	 	return Translators.translateMiniTools(toolDao.findToolsByDocumentation(new Documentation(id)));
+		 
+	}
 }
