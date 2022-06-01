@@ -6,7 +6,7 @@
         <CCardHeader>Nuovo Referente</CCardHeader>
         <CCardBody>
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Nome"
             v-model="agentLocal.name"
             :class="{ 'is-invalid': $v.agentLocal.name.$error }"

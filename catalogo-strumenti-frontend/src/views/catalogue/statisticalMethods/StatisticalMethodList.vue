@@ -109,11 +109,18 @@ export default {
     ...mapGetters("filter", ["params"]),
     computedItems() {
       if (this.statisticalMethodsList) {
-        return this.statisticalMethodsList;
+        return this.statisticalMethodsList.map(method => {
+          return {
+            id: method.id,
+            name: method.name == null ? "" : method.name,
+            description: method.description == null ? "" : method.description
+          };
+        });
       } else {
         return [];
       }
-    }
+    },
+
   },
 
   methods: {

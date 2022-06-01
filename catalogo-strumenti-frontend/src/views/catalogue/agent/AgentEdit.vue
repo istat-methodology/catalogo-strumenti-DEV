@@ -3,10 +3,10 @@
   <div class="row">
     <div class="col-12">
       <CCard v-if="agent">
-        <CCardHeader>Modifica Metodo Statistico</CCardHeader>
+        <CCardHeader>Modifica Referente</CCardHeader>
         <CCardBody>
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Nome"
             v-model="agentLocal.name"
             :class="{ 'is-invalid': $v.agentLocal.name.$error }"

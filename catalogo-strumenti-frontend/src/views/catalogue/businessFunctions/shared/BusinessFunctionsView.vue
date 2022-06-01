@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2><span>4.</span>Processi</h2>
+    <h2><span>4.</span> Processi</h2>
   <div class="description-fields col-12">
-            [Processi in cui viene utilizzato lo strumento]
+            Elenco dei processi in cui viene utilizzato lo strumento metologico
               </div>
     <div class="columns">
       <div class="row">

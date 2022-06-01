@@ -6,7 +6,7 @@
         <CCardHeader>Modifica Metodo Statistico</CCardHeader>
         <CCardBody>
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Name"
             v-model="statisticalMethodLocal.name"
             :class="{ 'is-invalid': $v.statisticalMethodLocal.name.$error }"

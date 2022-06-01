@@ -15,17 +15,17 @@
             <CCardHeader>Modifica Business Function</CCardHeader>
             <CCardBody>
               <CInput
-                label="Nome"
+                label="Nome*"
                 placeholder="Nome"
                 v-model="businessFunctionLocal.name"
                 :class="{ 'is-invalid': $v.businessFunctionLocal.name.$error }"
               />
               <div
-                class="help-block"
-                :class="{ show: $v.businessFunctionLocal.name.$error }"
-              >
-                Campo obbligatorio
-              </div>
+            class="help-block"
+            :class="{ show: $v.businessFunctionLocal.name.$error }"
+          >
+            Campo obbligatorio
+          </div>
               <CInput
                 label="Descrizione"
                 placeholder="Descrizione"
@@ -93,8 +93,9 @@
 import { mapGetters } from "vuex";
 import _ from "lodash";
 import Treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import BusinessProcessEditView from "../businessProcesses/shared/BusinessProcessEditView";
-import { required } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators"; 
 export default {
   name: "BusinessFunctionsEdit",
   components: {
@@ -109,10 +110,17 @@ export default {
         descr: "",
         label: "",
         businessProcesses: [],
-        gsbpmProcesses: []
+        gsbpmProcesses:[]
       },
       gsbpmChecked: []
     };
+  },
+   validations: {
+    businessFunctionLocal: {
+      name: {
+        required
+      }
+    }
   },
   computed: {
     ...mapGetters("bFunction", ["bFunction"]),
@@ -146,25 +154,25 @@ export default {
     }
   },
 
-  validations: {
-    businessFunctionLocal: {
+  /* validations: {
+    dug: {
       name: {
         required
       }
     }
-  },
+  }, */
 
   methods: {
     handleSubmit() {
-      this.businessFunctionLocal.gsbpmProcesses = this.gsbpmChecked;
+         this.businessFunctionLocal.gsbpmProcesses = this.gsbpmChecked;
       this.$v.$touch(); //validate form data
       if (!this.$v.businessFunctionLocal.$invalid) {
-        this.$store
-          .dispatch("bFunction/update", this.businessFunctionLocal)
-          .then(() => {
-            this.loadBusinessFunction(this.$route.params.id);
-          });
-      }
+      this.$store
+        .dispatch("bFunction/update", this.businessFunctionLocal)
+        .then(() => {
+          this.loadBusinessFunction(this.$route.params.id);
+        });
+      } 
     },
     setOldValues() {
       this.businessFunctionLocal.id = this.bFunction.id;
@@ -194,8 +202,7 @@ export default {
     this.loadBusinessFunction(this.$route.params.id);
     this.$store.dispatch("gsbpm/findAll");
 
-    //this.$store.dispatch("tools/findAll");
-    // this.$store.dispatch("bFunction/findAll");
+   
   }
 };
 </script>

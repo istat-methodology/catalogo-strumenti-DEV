@@ -1,13 +1,16 @@
 <template>
   <div>
-    <h2><span>3.</span>Implementazione</h2>
+    <h2><span>3.</span> Implementazione</h2>
+     <div class="description-fields col-12">
+            Elenco delle implementazioni dello strumento
+              </div>
     <div v-if="businessServiceService.appServices">
       <div
         v-for="(appService, index) of businessServiceService.appServices"
         :key="appService.id"
       >
         <div class="p-2">
-          <h4 ><span>3.{{index + 1}} </span>{{ appService.name }}</h4>
+          <h4 ><span>3.{{index + 1}}</span> {{ appService.name }}</h4>
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">

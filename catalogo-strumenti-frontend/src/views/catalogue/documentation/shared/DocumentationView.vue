@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2><span>5.</span>Documentazione</h2>
+    <h2><span>5.</span> Documentazione</h2>
 
     <div class="columns">
       <div class="description-fields col-12">
-        [Documentazione relativa allo strumento]
+        Elenco della Documentazione relativa allo strumento
       </div>
       <div class="row">
         <div v-if="documentations.length === 0">

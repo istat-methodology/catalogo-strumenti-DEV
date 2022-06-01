@@ -30,7 +30,6 @@ const mutations = {
   },
   SET_CONTEXT(state, context) {
     this.clearContext;
-
     state.context = parseInt(context);
     switch (parseInt(context)) {
       case Context.Home:
@@ -66,7 +65,6 @@ const mutations = {
         state.isBusinessSession = true;
         break;
       case Context.BusinessDetail:
-
         state.isBusinessSession = true;
         break;
 
