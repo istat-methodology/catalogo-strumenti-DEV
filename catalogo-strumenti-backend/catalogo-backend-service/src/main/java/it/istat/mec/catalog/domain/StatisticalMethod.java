@@ -68,6 +68,14 @@ public class StatisticalMethod  implements Serializable  {
             @JoinColumn(name = "METHOD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "TOOL", referencedColumnName = "ID", nullable = false)})
 	private List<CatalogTool> catalogTools;
+	
+	
+	@ManyToMany
+    @JoinTable(name = "csm_link_documentation_method", joinColumns = {
+            @JoinColumn(name = "csm_statistical_method_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "csm_documentation_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+    private List<Documentation> documentations;
+	
 	public StatisticalMethod() {
 		
 	}

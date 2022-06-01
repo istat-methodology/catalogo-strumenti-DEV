@@ -80,7 +80,11 @@ public class CatalogTool implements Serializable  {
 	@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)  
     private List<LinkAgentTool> linkAgentsTools;
 	
-	@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)    
+	//@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)  
+	@ManyToMany
+    @JoinTable(name = "csm_link_documentation_tool", joinColumns = {
+            @JoinColumn(name = "csm_methodological_tool_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "csm_documentation_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
     private List<Documentation> documentations;
 	
 	
