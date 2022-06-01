@@ -15,15 +15,20 @@
         </CCardHeader>
 
         <div v-if="selectedEditProcess">
-          <app-business-process-edit :bProcess="selectedEditProcess" @enableEditStep="showEditStep">
+          <app-business-process-edit
+            :bProcess="selectedEditProcess"
+            @enableEditStep="showEditStep"
+          >
           </app-business-process-edit>
         </div>
       </div>
 
-    <div v-if="stateform == FormState.STEP_EDIT">
+      <div v-if="stateform == FormState.STEP_EDIT">
         <CCardHeader
-          ><i>{{ this.bFunctionName | dashEmpty }}</i> > <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Modifica passo
-{{ this.selectedEditStep.name | dashEmpty }}
+          ><i>{{ this.bFunctionName | dashEmpty }}</i> >
+          <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Modifica
+          passo
+          {{ this.selectedEditStep.name | dashEmpty }}
           <span
             class="icon-link float-right"
             @click.prevent="stateform = FormState.LIST"
@@ -32,9 +37,12 @@
             <close-icon title="Chiudi" />
           </span>
         </CCardHeader>
-hh
+        hh
         <div v-if="selectedEditProcess">
-          <app-business-process-edit :bProcess="selectedEditProcess" @enableEditStep="showEditStep">
+          <app-business-process-edit
+            :bProcess="selectedEditProcess"
+            @enableEditStep="showEditStep"
+          >
           </app-business-process-edit>
         </div>
       </div>
@@ -70,7 +78,7 @@ hh
           ><i>{{ this.bFunctionName | dashEmpty }}</i> > Nuovo Processo
           <div class="card-header-actions">
             <span class="icon-link" @click="handleSubmit()"
-              ><floppy-icon title="Salva" /></span
+              ><floppy-icon title="Salva"/></span
             >&nbsp;
             <span
               class="icon-link"
@@ -135,7 +143,7 @@ hh
                     <span
                       class="icon-link"
                       @click="handleEditBProcess(bProcess)"
-                      ><edit-icon title="Edit" /></span
+                      ><edit-icon title="Edit"/></span
                     >&nbsp;
                     <span class="icon-link" @click="modalOpen(linkedAgent)"
                       ><delete-icon title="Cancella"
@@ -198,7 +206,7 @@ import BusinessProcessEdit from "./BusinessProcessEdit";
 export default {
   name: "BusinessProcessEditView",
   components: {
-    "app-business-process-edit": BusinessProcessEdit,
+    "app-business-process-edit": BusinessProcessEdit
   },
   data() {
     return {
@@ -211,7 +219,7 @@ export default {
         EDIT: 1,
         NEW: 2,
         ADD_PROCESS: 3,
-        STEP_EDIT: 4,
+        STEP_EDIT: 4
       },
       stateform: 0,
       warningModal: false,
@@ -220,12 +228,12 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
-      },
+        businessFunction: ""
+      }
     };
   },
   computed: {
-    ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("bProcess", ["bProcessList"])
   },
   emits: ["refreshBProcess"],
 
@@ -233,18 +241,18 @@ export default {
     bProcesses: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     functionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     bFunctionName: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     changeBProcess(value) {
@@ -258,7 +266,7 @@ export default {
         .then(this.$emit("refreshBProcess", this.functionId));
       this.stateform = this.FormState.LIST;
     },
-    showEditStep (step) {
+    showEditStep(step) {
       this.selectedEditStep = step;
       this.stateform = this.FormState.STEP_EDIT;
     },
@@ -283,13 +291,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("bProcess/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
