@@ -4,7 +4,7 @@ import { toolsOpenService } from "@/services";
 const state = {
   toolscatalog: [],
   toolsByBfunction: [],
-  toolByDocumentation: [],
+  toolsByDocumentation: [],
   tool: null
 };
 

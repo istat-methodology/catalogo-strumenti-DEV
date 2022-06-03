@@ -1,6 +1,6 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row-12" v-if="documentation">
+  <div class="row" v-if="documentation">
     <div class="col-9">
       <div id="id-main" />
       <div
@@ -150,4 +150,4 @@ legend.scheduler-border {
 }
 .max-col {
   max-width: 5%;
-  }
+}
