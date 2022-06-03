@@ -4,6 +4,7 @@ import { toolsOpenService } from "@/services";
 const state = {
   toolscatalog: [],
   toolsByBfunction: [],
+  toolByDocumentation: [],
   tool: null
 };
 
@@ -13,6 +14,9 @@ const mutations = {
   },
   SET_TOOLSBYBFUNCTION(state, toolsByBfunction) {
     state.toolsByBfunction = toolsByBfunction;
+  },
+  SET_TOOLSBYDOCUMENTATION(state, toolsByDoc) {
+    state.toolsByDocumentation = toolsByDoc;
   },
   SET_TOOL(state, tool) {
     state.tool = tool;
@@ -35,6 +39,16 @@ const actions = {
       .findToolsByBFunctions(id)
       .then(data => {
         commit("SET_TOOLSBYBFUNCTION", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  findToolsByDocumentation({ commit }, id) {
+    return toolsOpenService
+      .findToolsByDocumentation(id)
+      .then(data => {
+        commit("SET_TOOLSBYDOCUMENTATION", data);
       })
       .catch(err => {
         console.log(err);
@@ -110,6 +124,9 @@ const getters = {
   },
   toolsByBfunction: state => {
     return state.toolsByBfunction;
+  },
+  toolsByDocumentation: state => {
+    return state.toolsByDocumentation;
   },
   tool: state => {
     return state.tool;

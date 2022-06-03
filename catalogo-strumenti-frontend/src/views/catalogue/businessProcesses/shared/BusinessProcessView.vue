@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>
-       Processi
+      Processi
     </h2>
     <div v-if="businessProcesses">
       <div
@@ -10,7 +10,7 @@
       >
         <div class="p-2">
           <h4>
-            <span>  {{ index + 1 }}</span>
+            <span> {{ index + 1 }}</span>
             {{ businessProcess.name }}
           </h4>
           <div class="columns">
@@ -56,8 +56,7 @@ export default {
       type: Array,
       required: true,
       default: () => []
-    },
-     
+    }
   }
 };
 </script>

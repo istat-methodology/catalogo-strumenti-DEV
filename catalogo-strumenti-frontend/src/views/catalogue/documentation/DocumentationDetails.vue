@@ -40,10 +40,9 @@
            
             
           </h2> -->
-           <app-tool
-            :documentation="documentation"
-            :id="documentation.id"
-          ></app-tool>
+           <app-tools-view
+            :tools="toolsByDocumentation"
+          ></app-tools-view>
           <div class="pl-2">
           <div class="columns">
           </div>
@@ -60,7 +59,7 @@
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
             <a class="item-link" href="#id-main">Documento</a>
-            <a class="item-link" href="#id-second">Strumento Metodologico</a>
+            <a class="item-link" href="#id-second">Strumenti Metodologici</a>
           </li>
      
         </ul>
@@ -72,7 +71,7 @@
 /* import { required } from "vuelidate/lib/validators"; */
  
 import Documentation from "../documentation/shared/Documentation";
-import Tool from "../tools/shared/Tool";
+import ToolsView from "../tools/shared/ToolsView";
 
 
 import { mapGetters } from "vuex";
@@ -83,22 +82,26 @@ export default {
   //components: { plusORminus },
    data() {
     return {
+      activeIndex: -1
     };
   },
   computed: { 
      ...mapGetters("documentation", ["documentation"]),
-     ...mapGetters("tools", ["tool"])
+     ...mapGetters("tools", ["toolsByDocumentation"])
   },
   components: {
     "app-documentation": Documentation,
-    "app-tool": Tool
+    "app-tools-view": ToolsView
 
   },
   methods: {
   
   },
   created() {
-    this.$store.dispatch("documentation/findById", this.$route.params.id);
+    this.$store.dispatch("documentation/findById", this.$route.params.id).then(() => {
+         this.$store.dispatch("tools/findToolsByDocumentation", this.documentation.id);
+      });;
+    
   },
 };
 </script>
