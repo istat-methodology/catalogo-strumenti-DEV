@@ -1,62 +1,148 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row">
-    <div class="col-12">
-      <CCard v-if="statisticalMethod">
-        <CCardHeader>{{ statisticalMethod.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Descrizione:</label>
-            <span>{{ statisticalMethod.description | dashEmpty }}</span>
+  <div class="row" v-if="statisticalMethod">
+    <div class="col-9">
+      <div id="id-main" />
+      <div
+        @mouseover="setActiveItemList('#id-link-main', true)"
+        @mouseleave="setActiveItemList('#id-link-main', false)"
+      >
+        <div class="p-2">
+          <h2 class="pt-4">
+            {{ statisticalMethod.name | dashEmpty
+            }}<span class="float-right">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'MethodEdit',
+                  params: { id: statisticalMethod.id },
+                }"
+                class="icon-prop"
+              >
+                <edit-icon />
+              </router-link>
+            </span>
+          </h2>
+          <div class="pl-2">
+            <div class="columns">
+              <div class="row">
+                <div class="description-fields col-12">
+                  {{ statisticalMethod.description | dashEmpty }}
+                </div>
+
+                <div class="card col-md-auto p-2">
+                  <span><strong>Tags</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.tags | dashEmpty }}</span>
+                  </div>
+                </div>
+
+                         <div class="card col-md-auto p-2">
+                  <span><strong>Note</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.notes | dashEmpty }}</span>
+                  </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Requisiti</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{
+                      statisticalMethod.requirements | dashEmpty
+                    }}</span>
+                  </div>
+                </div>
+
+          
+
+                <div class="card col-md-auto p-2">
+                  <span><strong>Presupposti</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.assumption | dashEmpty }}</span>
+                  </div>
+                </div>
+
+                <div class="card col-md-auto p-2">
+                  <span><strong>Vincoli</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.constraints | dashEmpty }}</span>
+                  </div>
+                </div>
+
+                <div class="card col-md-auto p-2">
+                  <span><strong>Versione</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.version | dashEmpty }}</span>
+                  </div>
+                </div>
+
+                <div class="card col-md-auto p-2">
+                  <span><strong>Data di Pubblicazione</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.releaseDate | dashEmpty }}</span>
+                  </div>
+                </div>
+
+                <div class="card col-md-auto p-2">
+                  <span><strong>Standard Istat</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{
+                      statisticalMethod.standardIstat | dashEmpty
+                    }}</span>
+                  </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Ultima Modifica</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{
+                      this.formatDate(statisticalMethod.lastUpdate) | dashEmpty
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <label>Requisiti:</label>
-            <span>{{ statisticalMethod.requirements | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Presupposti:</label>
-            <span>{{ statisticalMethod.assumption | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Vincoli:</label>
-            <span>{{ statisticalMethod.constraints | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Note:</label>
-            <span>{{ statisticalMethod.notes | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Ultimo Aggiornamento:</label>
-            <span>{{ statisticalMethod.lastUpdate | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Tag:</label>
-            <span>{{ statisticalMethod.tags | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Versione:</label>
-            <span>{{ statisticalMethod.version | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Data di Pubblicazione:</label>
-            <span>{{ statisticalMethod.releaseDate | dashEmpty }}</span>
-          </div>
-          <div>
-            <label>Standard Istat:</label>
-            <span>{{ statisticalMethod.standardIstat | dashEmpty }}</span>
-          </div>
-        </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="$router.back()"
-            >Indietro</CButton
-          >
-        </CCardFooter>
-      </CCard>
+        </div>
+      </div>
+
+<div id="id-tools" />
+      <div
+        v-if="businessServiceService.processSteps"
+        @mouseover="setActiveItemList('#id-link-tools', true)"
+        @mouseleave="setActiveItemList('#id-link-tools', false)"
+      >
+        <div class="p-2">
+          <app-business-functions
+            :businessFunctions="bFunctionToolsList"
+          ></app-business-functions>
+        </div>
+      </div>
+
+      <div id="id-documentations" />
+      <div
+        @mouseover="setActiveItemList('#id-link-documentations', true)"
+        @mouseleave="setActiveItemList('#id-link-documentations', false)"
+      >
+        <div class="p-2">
+          <app-documentations
+            :documentations="getDocumentationList"
+          ></app-documentations>
+        </div>
+      </div>
+
+
     </div>
+    <aside class="container-rigth col-2">
+      <section class="menu">
+        <header>
+          <h2 class="menu-heading"><b>Contenuto:</b></h2>
+        </header>
+        <ul class="menu-list">
+          <li class="list-item" id="id-link-main">
+            <a class="item-link" href="#id-main">contenuto centrale</a>
+          </li>
+        </ul>
+      </section>
+    </aside>
   </div>
 </template>
 <script>
@@ -66,26 +152,76 @@ import { mapGetters } from "vuex";
 export default {
   name: "ToolDetails",
   computed: {
-    ...mapGetters("methods", ["statisticalMethod"])
+    ...mapGetters("methods", ["statisticalMethod"]),
   },
   methods: {
     backToList() {
       this.$router.push("/catalogue/metodi");
-    }
+    },
+     formatDate(dt) {
+      dt = new Date(dt);
+      return dt.toLocaleDateString("it");
+    },
+    setActiveItemList(selector, bool) {
+      document.querySelector(selector).className = bool
+        ? "list-item-hover"
+        : "list-item";
+    },
+       setActiveIndex(index) {
+      this.activeIndex !== index
+        ? (this.activeIndex = index)
+        : (this.activeIndex = -1);
+    },
   },
   created() {
     this.$store.dispatch("methods/findById", this.$route.params.id);
     //this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  }
+  },
 };
 </script>
+
 <style scoped>
-.card-header {
-  font-weight: 600;
-}
-label {
-  font-weight: bold;
+.icon-prop {
   display: inline;
-  padding: 15px;
+  padding-left: 6px;
 }
-</style>
+
+.list-group-item {
+  border: none !important;
+}
+* Clear floats after the columns */ .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  padding: 12px;
+  text-align: left;
+  background-color: #f1f1f1;
+  margin-left: 5px;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+fieldset.scheduler-border {
+  border: 1px solid #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+}
+legend.scheduler-border {
+  width: inherit; /* Or auto */
+  padding: 0 10px; /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+.max-col {
+  max-width: 5%;
+}

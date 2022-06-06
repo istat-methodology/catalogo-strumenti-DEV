@@ -1,575 +1,601 @@
-                                        // Import styles
-                                        @import "~@coreui/coreui/scss/coreui";
-                                        @import "vue-select/src/scss/vue-select.scss";
-                                        /* Layout */
-                                        
-                                        .c-header.c-header-fixed {
-                                            border: 0;
-                                            -webkit-box-shadow: 0 2px 2px 0 rgba(60, 75, 100, 0.14), 0 3px 1px -2px rgba(60, 75, 100, 0.12), 0 1px 5px 0 rgba(60, 75, 100, 0.2);
-                                            box-shadow: 0 2px 2px 0 rgba(60, 75, 100, 0.14), 0 3px 1px -2px rgba(60, 75, 100, 0.12), 0 1px 5px 0 rgba(60, 75, 100, 0.2);
-                                            -webkit-clip-path: inset(0 0 -1000px 0);
-                                            clip-path: inset(0 0 -1000px 0);
-                                        }
-                                        
-                                        .c-header .c-header-toggler-icon:focus {
-                                            outline: none;
-                                        }
-                                        
-                                        .header-link {
-                                            padding-left: 0.2rem;
-                                        }
-                                        
-                                        .c-app:not(.c-legacy-theme):not(.c-dark-theme) .card {
-                                            border: 0;
-                                            box-shadow: 0 1px 1px 0 rgba(60, 75, 100, .14), 0 2px 1px -1px rgba(60, 75, 100, .12), 0 1px 3px 0 rgba(60, 75, 100, .2);
-                                        }
-                                        
-                                        .c-app:not(.c-dark-theme) .btn:not([class*=ghost]):not([class*=link]):not([class*=outline]):not([class*=transparent]) {
-                                            border: 0;
-                                            box-shadow: 0 1px 1px 0 rgba(60, 75, 100, .14), 0 2px 1px -1px rgba(60, 75, 100, .12), 0 1px 3px 0 rgba(60, 75, 100, .2);
-                                        }
-                                        
-                                        .card-header:not(.content-center)>.c-icon:first-child {
-                                            margin-right: 0.1rem;
-                                            margin-top: 0.1rem;
-                                            vertical-align: top;
-                                            width: 1.2rem;
-                                            height: 1.2rem;
-                                            font-size: 1.2rem;
-                                        }
-                                        
-                                        button:focus {
-                                            outline: none;
-                                        }
-                                        
-                                        .c-icon:not(.c-icon-c-s):not(.c-icon-custom-size) {
-                                            height: 1.1rem!important;
-                                        }
-                                        
-                                        .icon-link {
-                                            color: #321fdb;
-                                        }
-                                        
-                                        .table th,
-                                        .table td {
-                                            padding: 0.45rem 0.65rem;
-                                            vertical-align: middle;
-                                        }
-                                        
-                                        .table thead th {
-                                            border-top: none;
-                                            border-bottom: none;
-                                        }
-                                        
-                                        .table-hover tbody tr:hover {
-                                            background-color: #f6f8fa;
-                                        }
-                                        
-                                        .table .no-data {
-                                            margin: 60px auto;
-                                            text-align: center;
-                                            font-size: 1.2rem;
-                                        }
-                                        
-                                        .section-link {
-                                            margin-top: 15px;
-                                        }
-                                        
-                                        .section-link a {
-                                            padding-right: 0.3rem;
-                                        }
-                                        
-                                        .section-link-disabled {
-                                            color: #ced2d8;
-                                        }
-                                        
-                                        .section-link-disabled>.theme--light.v-icon {
-                                            color: #ced2d8;
-                                        }
-                                        /* Colors */
-                                        
-                                        .color-primary {
-                                            color: #321fdb;
-                                        }
-                                        
-                                        .color-success {
-                                            color: #2eb85c;
-                                        }
-                                        
-                                        .color-danger {
-                                            color: #e55353;
-                                        }
-                                        
-                                        .color-warning {
-                                            color: #815c15;
-                                        }
-                                        /* Cards */
-                                        
-                                        .card-header-light-grey {
-                                            background-color: #f6f8fa;
-                                        }
-                                        
-                                        .card-header-primary {
-                                            background-color: #f1f8ff;
-                                        }
-                                        
-                                        .card-header-success {
-                                            background-color: #f0fff4;
-                                        }
-                                        
-                                        .card-no-border {
-                                            padding-top: 0rem;
-                                            scroll-padding-bottom: 0rem;
-                                            box-shadow: none !important;
-                                        }
-                                        
-                                        .card-no-border>.card-body {
-                                            padding-bottom: 0 !important;
-                                            padding-top: 0 !important;
-                                        }
-                                        
-                                        .card-header-actions {
-                                            margin-right: 0;
-                                        }
-                                        
-                                        .card-header-actions .material-design-icon>.material-design-icon__svg {
-                                            width: 1.2rem;
-                                            height: 1.2rem;
-                                            bottom: auto;
-                                        }
-                                        
-                                        .card-text {
-                                            padding-bottom: 0.7rem;
-                                            padding-top: 0.7rem;
-                                        }
-                                        
-                                        .card-text>div {
-                                            margin-bottom: 0.2rem;
-                                        }
-                                        
-                                        .card-text>label,
-                                        .card-text>div>label {
-                                            display: inline-block;
-                                            margin-bottom: 0;
-                                            font-size: 0.75rem;
-                                        }
-                                        
-                                        .card-text>div>span {
-                                            display: block;
-                                            width: 100%;
-                                            padding: 0rem;
-                                            font-size: 0.87rem;
-                                            font-weight: 600;
-                                            line-height: 1.5;
-                                            background-clip: padding-box;
-                                            border: 0;
-                                            border-color: #fff;
-                                            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-                                        }
-                                        /* Forms */
-                                        
-                                        .form-group {
-                                            margin-bottom: 0.2rem;
-                                        }
-                                        
-                                        .form-mandatory {
-                                            margin-top: 1.5rem;
-                                            margin-bottom: 0.5rem;
-                                            color: #321fdb;
-                                        }
-                                        
-                                        .form-control:disabled,
-                                        .form-control[readonly] {
-                                            background-color: #ebedef;
-                                            opacity: 1;
-                                            margin-bottom: 1rem;
-                                        }
-                                        /* Validation styles */
-                                        
-                                        .help-block {
-                                            visibility: hidden;
-                                            font-size: 80%;
-                                            color: #e55353;
-                                            font-style: italic;
-                                            margin-bottom: 0.4rem;
-                                        }
-                                        
-                                        .is-invalid>input,
-                                        .is-invalid>textarea {
-                                            padding-right: calc(1.5em + 0.75rem);
-                                            background-position: right calc(0.375em + 0.1875rem) center;
-                                        }
-                                        
-                                        .is-invalid>input,
-                                        .is-invalid>textarea {
-                                            border-color: #e55353;
-                                            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMicgaGVpZ2h0PScxMicgZmlsbD0nbm9uZScgc3Ryb2tlPScjZTU1MzUzJyB2aWV3Qm94PScwIDAgMTIgMTInPjxjaXJjbGUgY3g9JzYnIGN5PSc2JyByPSc0LjUnLz48cGF0aCBzdHJva2UtbGluZWpvaW49J3JvdW5kJyBkPSdNNS44IDMuNmguNEw2IDYuNXonLz48Y2lyY2xlIGN4PSc2JyBjeT0nOC4yJyByPScuNicgZmlsbD0nI2U1NTM1Mycgc3Ryb2tlPSdub25lJy8+PC9zdmc+);
-                                            background-repeat: no-repeat;
-                                            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-                                        }
-                                        
-                                        .show {
-                                            visibility: visible;
-                                        }
-                                        /* V-Select*/
-                                        
-                                        .vs__search::placeholder {
-                                            color: #768192;
-                                        }
-                                        
-                                        .vs__dropdown-toggle {
-                                            border: 1px solid #ced2d8;
-                                        }
-                                        
-                                        .vs__selected,
-                                        .vs__dropdown-option {
-                                            color: #768192;
-                                        }
-                                        
-                                        .vs__dropdown-option--highlight {
-                                            color: white;
-                                            background-color: #3399ff;
-                                        }
-                                        
-                                        .vs__selected-options {
-                                            padding: 2px 3px 2px 6px;
-                                        }
-                                        
-                                        .vs_actions {
-                                            padding: 3px 6px 0 3px;
-                                        }
-                                        
-                                        .vs__clear {
-                                            padding-bottom: 5px;
-                                        }
-                                        
-                                        .is-invalid>.vs__dropdown-toggle {
-                                            border-color: #e55353;
-                                        }
-                                        /* Spinner */
-                                        
-                                        .spinner>div {
-                                            background-color: #321fdb !important;
-                                        }
-                                        /* Global styles*/
-                                        
-                                        .icon-link {
-                                            color: #321fdb;
-                                        }
-                                        
-                                        .icon-link:hover {
-                                            cursor: pointer;
-                                        }
-                                        /* nav pills*/
-                                        
-                                        .nav-pills .nav-link.active,
-                                        .nav-pills .show>.nav-link {
-                                            border-left-width: 4px;
-                                            border-left-style: solid;
-                                            background-color: #f8f8f8;
-                                            border-bottom-right-radius: 2px;
-                                            border-top-right-radius: 2px;
-                                            border-left-color: #321fdb;
-                                            color: #321fdb;
-                                            border-radius: unset;
-                                            padding-left: 0.8rem;
-                                        }
-                                        /* fade-in */
-                                        
-                                        .fade-in {
-                                            animation: fadeIn ease 0.8s;
-                                            -webkit-animation: fadeIn ease 0.8s;
-                                            -moz-animation: fadeIn ease 0.8s;
-                                            -o-animation: fadeIn ease 0.8s;
-                                            -ms-animation: fadeIn ease 0.8s;
-                                        }
-                                        
-                                        @keyframes fadeIn {
-                                            0% {
-                                                opacity: 0;
-                                            }
-                                            100% {
-                                                opacity: 1;
-                                            }
-                                        }
-                                        
-                                        @-moz-keyframes fadeIn {
-                                            0% {
-                                                opacity: 0;
-                                            }
-                                            100% {
-                                                opacity: 1;
-                                            }
-                                        }
-                                        
-                                        @-webkit-keyframes fadeIn {
-                                            0% {
-                                                opacity: 0;
-                                            }
-                                            100% {
-                                                opacity: 1;
-                                            }
-                                        }
-                                        
-                                        @-o-keyframes fadeIn {
-                                            0% {
-                                                opacity: 0;
-                                            }
-                                            100% {
-                                                opacity: 1;
-                                            }
-                                        }
-                                        
-                                        @-ms-keyframes fadeIn {
-                                            0% {
-                                                opacity: 0;
-                                            }
-                                            100% {
-                                                opacity: 1;
-                                            }
-                                        }
-                                        
-                                        .vue-treeselect {
-                                            color: black;
-                                            margin-left: 5px;
-                                            margin-right: 5px;
-                                        }
-                                        
-                                        .tree-anchor {
-                                            color: #fff !important;
-                                        }
-                                        
-                                        .tree--small .tree-checkbox {
-                                            width: 18px !important;
-                                            height: 18px !important;
-                                        }
-                                        
-                                        .tree-node:hover {
-                                            color: #fff !important;
-                                            background: #321fdb !important;
-                                        }
-                                        /*     change css default      */
-                                        
-                                        .card-header {
-                                            font-weight: 600;
-                                            /*color:#3780bd*/
-                                        }
-                                        
-                                        label {
-                                            font-weight: bold;
-                                            display: inline;
-                                            padding: 15px;
-                                        }
-                                        
-                                        .container {
-                                            display: flex;
-                                        }
-                                        
-                                        .container-rigth {
-                                            position: -webkit-sticky;
-                                            position: sticky;
-                                            top: 110px;
-                                            display: -ms-flexbox;
-                                            display: flex;
-                                            -ms-flex: 0 1 306px;
-                                            flex: 0 1 306px;
-                                            height: 100%;
-                                            margin: 0 80px 0 0;
-                                            font-size: 12px;
-                                            line-height: 16px;
-                                        }
-                                        /******************************/
-                                        
-                                        .menu {
-                                            font-size: 1rem;
-                                            margin-bottom: 2rem;
-                                            padding: 0;
-                                            position: relative;
-                                        }
-                                        
-                                        .menu-heading {
-                                            font: var(--type-heading-h6);
-                                            letter-spacing: 1.5px;
-                                            margin: 0 0 1rem;
-                                            text-transform: uppercase;
-                                        }
-                                        
-                                        .list-item {
-                                            border-left: 2px solid #3780bd;
-                                            list-style: none;
-                                        }
-                                        
-                                        .list-item:hover,
-                                        .list-item-hover {
-                                            border-left: 2px solid #321fdb;
-                                            list-style: none;
-                                        }
-                                        
-                                        .item-link {
-                                            display: block;
-                                            padding: 0.5rem 1rem;
-                                            font: var(--type-body-m);
-                                            color: #3780bd;
-                                            font-weight: 600;
-                                            text-decoration: none;
-                                            cursor: pointer;
-                                        }
-                                        
-                                        ol,
-                                        ul {
-                                            list-style: none;
-                                            padding: 0;
-                                        }
-                                        
-                                        ul {
-                                            list-style-type: disc;
-                                        }
-                                        
-                                        a {
-                                            text-decoration: none;
-                                            color: gray;
-                                        }
-                                        
-                                        .card:hover,
-                                        .card-hover {
-                                            position: relative !important;
-                                            display: flex !important;
-                                            flex-direction: column !important;
-                                            min-width: 0 !important;
-                                            margin-bottom: 1.5rem !important;
-                                            word-wrap: break-word !important;
-                                            background-clip: border-box !important;
-                                            border-radius: 0.25rem !important;
-                                            background-color: #f2f9ff !important;
-                                            /* #f9f9f9 !important */
-                                            border: 1px solid #bbbbbb !important;
-                                            box-shadow: none !important;
-                                            transition: background-color 0.5s !important;
-                                        }
-                                        
-                                        .card {
-                                            position: relative !important;
-                                            display: flex !important;
-                                            flex-direction: column !important;
-                                            min-width: 0 !important;
-                                            margin-bottom: 1.5rem !important;
-                                            word-wrap: break-word !important;
-                                            background-clip: border-box !important;
-                                            border-radius: 0.25rem !important;
-                                            background-color: #f2f9ff!important;
-                                            /* #f9f9f9 !important */
-                                            border: 1px solid #bbbbbb !important;
-                                            box-shadow: none !important;
-                                            transition: background-color 0.5s !important;
-                                            margin-left: 5px !important;
-                                        }
-                                        
-                                        .border {
-                                            border: 2px solid rgb(197, 197, 197) !important;
-                                        }
-                                        
-                                        .no-border {
-                                            border: 0 !important;
-                                        }
-                                        
-                                        .center {
-                                            text-align: center;
-                                        }
-                                        
-                                        .bold {
-                                            font-weight: 700;
-                                        }
-                                        
-                                        .list-group,
-                                        .list-group-horizontal,
-                                        .list-group-item {
-                                            border-radius: 0 !important;
-                                            border: 0 !important;
-                                        }
-                                        
-                                        .list-group-active {
-                                            border-color: rgba(255, 255, 255) !important;
-                                            border: 1px dotted #d8dbe0 !important;
-                                        }
-                                        
-                                        .list-group-item {
-                                            border-color: rgba(255, 255, 255) !important;
-                                            border-bottom: 1px solid #d8dbe0 !important;
-                                            padding-top: 0.25em !important;
-                                            padding-bottom: 0.25em !important;
-                                            min-height: 3.5em !important;
-                                        }
-                                        
-                                        .list-group-active-item {
-                                            border: 0 !important;
-                                            padding-top: 1.25em !important;
-                                            padding-bottom: 1.25em !important;
-                                            min-height: 3.5em !important;
-                                        }
-                                        
-                                        .padding-description {
-                                            padding-bottom: 1.6em !important;
-                                        }
-                                        
-                                        h1 {
-                                            font-size: 38px;
-                                        }
-                                        
-                                        h1,
-                                        h2,
-                                        h3 {
-                                            font-weight: 600;
-                                            line-height: 1;
-                                            letter-spacing: -0.02em;
-                                        }
-                                        
-                                        h1 {
-                                            margin: 0;
-                                            font-size: 2em;
-                                            margin: 0.67em 0;
-                                            display: block;
-                                            font-size: 2em;
-                                            margin-block-start: 0.67em;
-                                            margin-block-end: 0.67em;
-                                            margin-inline-start: 0px;
-                                            margin-inline-end: 0px;
-                                            font-weight: bold;
-                                        }
-                                        
-                                        h2 {
-                                            font-size: 24px;
-                                            color: #3780bd;
-                                            transition: color 0.5s;
-                                            padding-bottom: 15px;
-                                        }
-                                        
-                                        h4 {
-                                            color: #cc7512ef;
-                                        }
-                                        
-                                        a {
-                                            display: block;
-                                            position: relative;
-                                        }
-                                        
-                                        .c-main {
-                                            padding-top: 0 !important;
-                                        }
-                                        
-                                        .description-fields {
-                                            padding-bottom: 20px;
-                                            font-size: large;
-                                            font-weight: bold;
-                                            color: #57abf5;
-                                        }
-                                        
-                                        h5 {
-                                            color: #c32c2c
-                                        }
-                                        h1>span,h2>span,h3>span,h4>span,h5>span{
-                                            font-size:0.82em;                                            
-                                            vertical-align:baseline;
-                                        }
-                                        h1,h2,h3,h4,h5{
-                                            vertical-align:baseline;
-                                        }
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+@import "vue-select/src/scss/vue-select.scss";
+/* Layout */
+
+.c-header.c-header-fixed {
+    border: 0;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(60, 75, 100, 0.14), 0 3px 1px -2px rgba(60, 75, 100, 0.12), 0 1px 5px 0 rgba(60, 75, 100, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(60, 75, 100, 0.14), 0 3px 1px -2px rgba(60, 75, 100, 0.12), 0 1px 5px 0 rgba(60, 75, 100, 0.2);
+    -webkit-clip-path: inset(0 0 -1000px 0);
+    clip-path: inset(0 0 -1000px 0);
+}
+
+.c-header .c-header-toggler-icon:focus {
+    outline: none;
+}
+
+.header-link {
+    padding-left: 0.2rem;
+}
+
+.c-app:not(.c-legacy-theme):not(.c-dark-theme) .card {
+    border: 0;
+    box-shadow: 0 1px 1px 0 rgba(60, 75, 100, .14), 0 2px 1px -1px rgba(60, 75, 100, .12), 0 1px 3px 0 rgba(60, 75, 100, .2);
+}
+
+.c-app:not(.c-dark-theme) .btn:not([class*=ghost]):not([class*=link]):not([class*=outline]):not([class*=transparent]) {
+    border: 0;
+    box-shadow: 0 1px 1px 0 rgba(60, 75, 100, .14), 0 2px 1px -1px rgba(60, 75, 100, .12), 0 1px 3px 0 rgba(60, 75, 100, .2);
+}
+
+.card-header:not(.content-center)>.c-icon:first-child {
+    margin-right: 0.1rem;
+    margin-top: 0.1rem;
+    vertical-align: top;
+    width: 1.2rem;
+    height: 1.2rem;
+    font-size: 1.2rem;
+}
+
+button:focus {
+    outline: none;
+}
+
+.c-icon:not(.c-icon-c-s):not(.c-icon-custom-size) {
+    height: 1.1rem !important;
+}
+
+.icon-link {
+    color: #321fdb;
+}
+
+.table th,
+.table td {
+    padding: 0.45rem 0.65rem;
+    vertical-align: middle;
+}
+
+.table thead th {
+    border-top: none;
+    border-bottom: none;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f6f8fa;
+}
+
+.table .no-data {
+    margin: 60px auto;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.section-link {
+    margin-top: 15px;
+}
+
+.section-link a {
+    padding-right: 0.3rem;
+}
+
+.section-link-disabled {
+    color: #ced2d8;
+}
+
+.section-link-disabled>.theme--light.v-icon {
+    color: #ced2d8;
+}
+
+/* Colors */
+
+.color-primary {
+    color: #321fdb;
+}
+
+.color-success {
+    color: #2eb85c;
+}
+
+.color-danger {
+    color: #e55353;
+}
+
+.color-warning {
+    color: #815c15;
+}
+
+/* Cards */
+
+.card-header-light-grey {
+    background-color: #f6f8fa;
+}
+
+.card-header-primary {
+    background-color: #f1f8ff;
+}
+
+.card-header-success {
+    background-color: #f0fff4;
+}
+
+.card-no-border {
+    padding-top: 0rem;
+    scroll-padding-bottom: 0rem;
+    box-shadow: none !important;
+}
+
+.card-no-border>.card-body {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+}
+
+.card-header-actions {
+    margin-right: 0;
+}
+
+.card-header-actions .material-design-icon>.material-design-icon__svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    bottom: auto;
+}
+
+.card-text {
+    padding-bottom: 0.7rem;
+    padding-top: 0.7rem;
+}
+
+.card-text>div {
+    margin-bottom: 0.2rem;
+}
+
+.card-text>label,
+.card-text>div>label {
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+}
+
+.card-text>div>span {
+    display: block;
+    width: 100%;
+    padding: 0rem;
+    font-size: 0.87rem;
+    font-weight: 600;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 0;
+    border-color: #fff;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Forms */
+
+.form-group {
+    margin-bottom: 0.2rem;
+}
+
+.form-mandatory {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #321fdb;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #ebedef;
+    opacity: 1;
+    margin-bottom: 1rem;
+}
+
+/* Validation styles */
+
+.help-block {
+    visibility: hidden;
+    font-size: 80%;
+    color: #e55353;
+    font-style: italic;
+    margin-bottom: 0.4rem;
+}
+
+.is-invalid>input,
+.is-invalid>textarea {
+    padding-right: calc(1.5em + 0.75rem);
+    background-position: right calc(0.375em + 0.1875rem) center;
+}
+
+.is-invalid>input,
+.is-invalid>textarea {
+    border-color: #e55353;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMicgaGVpZ2h0PScxMicgZmlsbD0nbm9uZScgc3Ryb2tlPScjZTU1MzUzJyB2aWV3Qm94PScwIDAgMTIgMTInPjxjaXJjbGUgY3g9JzYnIGN5PSc2JyByPSc0LjUnLz48cGF0aCBzdHJva2UtbGluZWpvaW49J3JvdW5kJyBkPSdNNS44IDMuNmguNEw2IDYuNXonLz48Y2lyY2xlIGN4PSc2JyBjeT0nOC4yJyByPScuNicgZmlsbD0nI2U1NTM1Mycgc3Ryb2tlPSdub25lJy8+PC9zdmc+);
+    background-repeat: no-repeat;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.show {
+    visibility: visible;
+}
+
+/* V-Select*/
+
+.vs__search::placeholder {
+    color: #768192;
+}
+
+.vs__dropdown-toggle {
+    border: 1px solid #ced2d8;
+}
+
+.vs__selected,
+.vs__dropdown-option {
+    color: #768192;
+}
+
+.vs__dropdown-option--highlight {
+    color: white;
+    background-color: #3399ff;
+}
+
+.vs__selected-options {
+    padding: 2px 3px 2px 6px;
+}
+
+.vs_actions {
+    padding: 3px 6px 0 3px;
+}
+
+.vs__clear {
+    padding-bottom: 5px;
+}
+
+.is-invalid>.vs__dropdown-toggle {
+    border-color: #e55353;
+}
+
+/* Spinner */
+
+.spinner>div {
+    background-color: #321fdb !important;
+}
+
+/* Global styles*/
+
+.icon-link {
+    color: #321fdb;
+}
+
+.icon-link:hover {
+    cursor: pointer;
+}
+
+/* nav pills*/
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    border-left-width: 4px;
+    border-left-style: solid;
+    background-color: #f8f8f8;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    border-left-color: #321fdb;
+    color: #321fdb;
+    border-radius: unset;
+    padding-left: 0.8rem;
+}
+
+/* fade-in */
+
+.fade-in {
+    animation: fadeIn ease 0.8s;
+    -webkit-animation: fadeIn ease 0.8s;
+    -moz-animation: fadeIn ease 0.8s;
+    -o-animation: fadeIn ease 0.8s;
+    -ms-animation: fadeIn ease 0.8s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.vue-treeselect {
+    color: black;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.tree-anchor {
+    color: #fff !important;
+}
+
+.tree--small .tree-checkbox {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.tree-node:hover {
+    color: #fff !important;
+    background: #321fdb !important;
+}
+
+/*     change css default      */
+
+.card-header {
+    font-weight: 600;
+    /*color:#3780bd*/
+}
+
+label {
+    font-weight: bold;
+    display: inline;
+    padding: 15px;
+}
+
+.container {
+    display: flex;
+}
+
+.container-rigth {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex: 0 1 306px;
+    flex: 0 1 306px;
+    height: 100%;
+    margin: 0 80px 0 0;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+/******************************/
+
+.menu {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    padding: 0;
+    position: relative;
+}
+
+.menu-heading {
+    font: var(--type-heading-h6);
+    letter-spacing: 1.5px;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+}
+
+.list-item {
+    border-left: 2px solid #3780bd;
+    list-style: none;
+}
+
+.list-item:hover,
+.list-item-hover {
+    border-left: 2px solid #321fdb;
+    list-style: none;
+}
+
+.item-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    font: var(--type-body-m);
+    color: #3780bd;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+ol,
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+a {
+    text-decoration: none;
+    color: gray;
+}
+
+.card:hover,
+.card-hover {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    margin-bottom: 1.5rem !important;
+    word-wrap: break-word !important;
+    background-clip: border-box !important;
+    border-radius: 0.25rem !important;
+    background-color: #f2f9ff !important;
+    /* #f9f9f9 !important */
+    border: 1px solid #bbbbbb !important;
+    box-shadow: none !important;
+    transition: background-color 0.5s !important;
+}
+
+.card {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    margin-bottom: 1.5rem !important;
+    word-wrap: break-word !important;
+    background-clip: border-box !important;
+    border-radius: 0.25rem !important;
+    background-color: #f2f9ff !important;
+    /* #f9f9f9 !important */
+    border: 1px solid #bbbbbb !important;
+    box-shadow: none !important;
+    transition: background-color 0.5s !important;
+    margin-left: 5px !important;
+}
+
+.border {
+    border: 2px solid rgb(197, 197, 197) !important;
+}
+
+.no-border {
+    border: 0 !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.list-group,
+.list-group-horizontal,
+.list-group-item {
+    border-radius: 0 !important;
+    border: 0 !important;
+}
+
+.list-group-active {
+    border-color: rgba(255, 255, 255) !important;
+    border: 1px dotted #d8dbe0 !important;
+}
+
+.list-group-item {
+    border-color: rgba(255, 255, 255) !important;
+    border-bottom: 1px solid #d8dbe0 !important;
+    padding-top: 0.25em !important;
+    padding-bottom: 0.25em !important;
+    min-height: 3.5em !important;
+}
+
+.list-group-active-item {
+    border: 0 !important;
+    padding-top: 1.25em !important;
+    padding-bottom: 1.25em !important;
+    min-height: 3.5em !important;
+}
+
+.padding-description {
+    padding-bottom: 1.6em !important;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2em;
+    margin: 0.67em 0;
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 24px;
+    color: #3780bd;
+    transition: color 0.5s;
+    padding-bottom: 15px;
+}
+
+h4 {
+    color: #cc7512ef;
+}
+
+a {
+    display: block;
+    position: relative;
+}
+
+.c-main {
+    padding-top: 0 !important;
+}
+
+.description-fields {
+    padding-bottom: 20px;
+    font-size: large;
+    font-weight: bold;
+    color: #57abf5;
+}
+
+h5 {
+    color: #c32c2c
+}
+
+h1>span,
+h2>span,
+h3>span,
+h4>span,
+h5>span {
+    font-size: 0.82em;
+    vertical-align: baseline;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    vertical-align: baseline;
+}
