@@ -1,4 +1,6 @@
 package it.istat.mec.catalog.service;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,11 +38,12 @@ public class StatisticalMethodService {
 	}
 	
 	
-	public StatisticalMethodDto newStatisticalMethod(CreateStatisticalMethodRequest request) {
+	public StatisticalMethodDto newStatisticalMethod(CreateStatisticalMethodRequest request) throws ParseException {
 		StatisticalMethod sm = new StatisticalMethod();
 		sm = Translators.translate(request);	
 		Date date = new Date(System.currentTimeMillis());		
 		sm.setLastUpdate(date);
+		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
 		statisticalMethodDao.save(sm);
 		return Translators.translate(sm);
 	}
@@ -52,7 +55,7 @@ public class StatisticalMethodService {
 		return Translators.translate(statisticalMethodDao.findById(id).get());
 	}
 	
-	public StatisticalMethodDto updateStatisticalMethod(CreateStatisticalMethodRequest request) {		
+	public StatisticalMethodDto updateStatisticalMethod(CreateStatisticalMethodRequest request) throws ParseException {		
 		
 		if (!statisticalMethodDao.findById(request.getId()).isPresent())
 			throw new NoDataException("Statistical Method not present");
@@ -62,6 +65,7 @@ public class StatisticalMethodService {
 		sm = Translators.translateUpdate(request, sm);
 		Date date = new Date(System.currentTimeMillis());		
 		sm.setLastUpdate(date);
+		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
 		statisticalMethodDao.save(sm);		
 		
 		return Translators.translate(sm);

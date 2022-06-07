@@ -1,4 +1,5 @@
 package it.istat.mec.catalog.controller;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,13 +43,13 @@ public class StatisticalMethodController {
 	}
 	*/
 	@PostMapping("/statisticalmethods")
-	public StatisticalMethodDto create(@RequestBody CreateStatisticalMethodRequest request) {
+	public StatisticalMethodDto create(@RequestBody CreateStatisticalMethodRequest request) throws ParseException {
 
 		return statisticalMethodService.newStatisticalMethod(request);
 	}
 	
 	@PutMapping(value = "/statisticalmethods/{id}")
-	public StatisticalMethodDto updateStatisticalMethod(@RequestBody CreateStatisticalMethodRequest request) {
+	public StatisticalMethodDto updateStatisticalMethod(@RequestBody CreateStatisticalMethodRequest request) throws ParseException {
 		
 		return statisticalMethodService.updateStatisticalMethod(request);
 	}
