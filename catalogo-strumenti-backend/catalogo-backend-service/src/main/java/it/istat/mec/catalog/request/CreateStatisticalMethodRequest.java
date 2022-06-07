@@ -1,6 +1,8 @@
 package it.istat.mec.catalog.request;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,9 @@ public class CreateStatisticalMethodRequest extends CreateBaseRequest{
 	private String assumptions;	
 	private String constraints;	
 	private String notes;	
-	private Date lastUpdate;	
 	private String tags;	
-	private String version;	
+	private String version;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date releaseDate;
 	private Integer standardIstat;
 }
