@@ -104,16 +104,16 @@
         </div>
       </div>
 
-<div id="id-tools" />
+   <div id="id-tools" />
       <div
-        v-if="businessServiceService.processSteps"
+        
         @mouseover="setActiveItemList('#id-link-tools', true)"
         @mouseleave="setActiveItemList('#id-link-tools', false)"
-      >
-        <div class="p-2">
-          <app-business-functions
-            :businessFunctions="bFunctionToolsList"
-          ></app-business-functions>
+      >    <div class="p-2">
+           <app-tools-function
+           :index="'1.'"
+            :tools="statisticalMethod.catalogTools"
+          ></app-tools-function>
         </div>
       </div>
 
@@ -124,6 +124,7 @@
       >
         <div class="p-2">
           <app-documentations
+           :index="'2.'"
             :documentations="getDocumentationList"
           ></app-documentations>
         </div>
@@ -138,25 +139,51 @@
         </header>
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
-            <a class="item-link" href="#id-main">contenuto centrale</a>
+            <a class="item-link" href="#id-main">Documentazione</a>
           </li>
+             <li class="list-item" id="id-link-tools">
+            <a href="#id-tools" class="item-link">1. Strumenti metodologici</a>
+          </li>
+          <li class="list-item" id="id-link-documentations">
+            <a href="#id-documentations" class="item-link"
+              >2. Documentazione</a
+            >
+              </li>
         </ul>
       </section>
     </aside>
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
+import ToolsView from "../tools/shared/ToolsView";
+import DocumentationView from "../documentation/shared/DocumentationView";
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
 export default {
-  name: "ToolDetails",
+  name: "MethodsDetails",
+    components: {
+    "app-documentations": DocumentationView,
+    "app-tools-function":ToolsView
+  },
   computed: {
     ...mapGetters("methods", ["statisticalMethod"]),
   },
   methods: {
     backToList() {
       this.$router.push("/catalogue/metodi");
+    },
+      
+    
+    getDocumentationList: function () {
+      return this.statisticalMethod.documentations.map((doc) => {
+        return {
+          id: doc.id,
+          name: doc.name,
+          publisher: doc.publisher,
+          documentType: doc.documentType.name,
+          resource: doc.resource,
+        };
+      });
     },
      formatDate(dt) {
       dt = new Date(dt);

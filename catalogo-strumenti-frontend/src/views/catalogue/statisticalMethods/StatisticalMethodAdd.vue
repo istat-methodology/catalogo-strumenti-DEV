@@ -17,7 +17,7 @@
           >
             Campo obbligatorio
           </div>
-          <CInput
+          <CTextarea
             label="Descrizione"
             placeholder="Descrizione"
             v-model="statisticalMethodLocal.description"

@@ -2,7 +2,7 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="statisticalMethod">
+      <CCard v-if="statisticalMethodLocal">
         <CCardHeader>Modifica Metodo Statistico</CCardHeader>
         <CCardBody>
           <CInput
@@ -17,7 +17,7 @@
           >
             Campo obbligatorio
           </div>
-          <CInput
+          <CTextarea
             label="Descrizione"
             placeholder="Descrizione"
             v-model="statisticalMethodLocal.description"
@@ -37,16 +37,12 @@
             placeholder="Vincoli"
             v-model="statisticalMethodLocal.constraints"
           />
-          <CInput
+          <CTextarea
             label="Note"
             placeholder="Note"
             v-model="statisticalMethodLocal.notes"
           />
-          <!-- <CInput
-            label="Ultimo Aggiornamento"
-            placeholder="Ultimo Aggiornamento"
-            v-model="statisticalMethodLocal.lastUpdate"
-          /> -->
+
           <CInput
             label="Tag"
             placeholder="Tag"
@@ -57,28 +53,24 @@
             placeholder="Versione"
             v-model="statisticalMethodLocal.version"
           />
+
           <label>Data di Pubblicazione</label>
           <div>
-            <date-pick
-              aria-label="Data di Pubblicazione"
-              v-model="statisticalMethodLocal.releaseDate"
-              :displayFormat="'DD/MM/YYYY'"
-            ></date-pick>
+            <date-picker
+              v-if="releaseDate"
+              v-model="releaseDate"
+              format="D/M/YYYY"
+              value-type="format"
+              placeholder="Seleziona una data"
+            ></date-picker>
           </div>
-          <!--  <CInput
-            label="Data di Pubblicazione"
-            placeholder="Data di Pubblicazione"
-            v-model="statisticalMethodLocal.releaseDate"
-          /> -->
-          <CInput
+
+          <CInputCheckbox
             label="Standard Istat"
             placeholder="Standard Istat"
-            v-model="statisticalMethodLocal.standardIstat"
+            
+            v-model="checkStandardIstat"
           />
-          <!-- <div>
-            <label>Ultimo Aggiornamento:</label>
-            <span>{{ statisticalMethodLocal.lastUpdate | dashEmpty }}</span>
-          </div> -->
         </CCardBody>
       </CCard>
       <CCardFooter>
@@ -88,7 +80,7 @@
           color="primary"
           class="mr-2"
           @click.prevent="handleSubmit"
-          >Update</CButton
+          >Salva</CButton
         >
         <CButton
           shape="square"
@@ -102,18 +94,19 @@
   </div>
 </template>
 <script>
+import _ from "lodash";
 import { mapGetters } from "vuex";
-//import { CDatePicker } from "@coreui/vue";
-import DatePick from "vue-date-pick";
-import "vue-date-pick/dist/vueDatePick.css";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
 import { required } from "vuelidate/lib/validators";
 export default {
   name: "ToolEdit",
   components: {
-    DatePick
+    DatePicker,
   },
   data() {
     return {
+      checkStandardIstat: false,
       statisticalMethodLocal: {
         id: "",
         name: "",
@@ -122,59 +115,81 @@ export default {
         assumptions: "",
         constraints: "",
         notes: "",
-        lastUpdate: "",
         tags: "",
         version: "",
         releaseDate: "",
-        standardIstat: ""
-      }
+        standardIstat: "",
+      },
     };
   },
   computed: {
-    ...mapGetters("methods", ["statisticalMethod"])
+    ...mapGetters("methods", ["statisticalMethod"]),
   },
   validations: {
     statisticalMethodLocal: {
       name: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     handleSubmit() {
+      this.statisticalMethodLocal.releaseDate = this.releaseDate;
+      this.statisticalMethodLocal.checkStandardIstat = this.checkStandardIstat
+        ? 1
+        : 0;
       this.$v.$touch();
+
       if (!this.$v.statisticalMethodLocal.$invalid) {
         this.$store
           .dispatch("methods/update", this.statisticalMethodLocal)
           .then(() => {
-            this.backToList();
+            this.loadMethod();
           });
       }
+    },
+    formatDate(dt) {
+      dt = new Date(dt);
+      return dt.toLocaleDateString("it");
     },
     setOldValues() {
       this.statisticalMethodLocal.id = this.statisticalMethod.id;
       this.statisticalMethodLocal.name = this.statisticalMethod.name;
-      this.statisticalMethodLocal.description = this.statisticalMethod.description;
-      this.statisticalMethodLocal.requirements = this.statisticalMethod.requirements;
-      this.statisticalMethodLocal.assumptions = this.statisticalMethod.assumptions;
-      this.statisticalMethodLocal.constraints = this.statisticalMethod.constraints;
+      this.statisticalMethodLocal.description =
+        this.statisticalMethod.description;
+      this.statisticalMethodLocal.requirements =
+        this.statisticalMethod.requirements;
+      this.statisticalMethodLocal.assumptions =
+        this.statisticalMethod.assumptions;
+      this.statisticalMethodLocal.constraints =
+        this.statisticalMethod.constraints;
       this.statisticalMethodLocal.notes = this.statisticalMethod.notes;
-      this.statisticalMethodLocal.lastUpdate = this.statisticalMethod.lastUpdate;
       this.statisticalMethodLocal.tags = this.statisticalMethod.tags;
       this.statisticalMethodLocal.version = this.statisticalMethod.version;
-      this.statisticalMethodLocal.releaseDate = this.statisticalMethod.releaseDate;
-      this.statisticalMethodLocal.standardIstat = this.statisticalMethod.standardIstat;
+      //  this.statisticalMethodLocal.releaseDate =  this.statisticalMethod.releaseDate;
+
+      this.statisticalMethodLocal.releaseDate = this.formatDate(
+        this.statisticalMethod.releaseDate
+      );
+      this.releaseDate = this.formatDate(this.statisticalMethod.releaseDate);
+      this.statisticalMethodLocal.standardIstat =
+        this.statisticalMethod.standardIstat;
+      this.checkStandardIstat = 1 == this.statisticalMethod.standardIstat;
     },
     backToList() {
       this.$router.push("/catalogue/metodi");
-    }
+    },
+    loadMethod: _.debounce(function () {
+      this.$store
+        .dispatch("methods/findById", this.$route.params.id)
+        .then(() => {
+          this.setOldValues();
+        });
+    }, 500),
   },
   created() {
-    //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
-    this.$store.dispatch("methods/findById", this.$route.params.id).then(() => {
-      this.setOldValues();
-    });
-  }
+    this.loadMethod();
+  },
 };
 </script>
 <style scoped>

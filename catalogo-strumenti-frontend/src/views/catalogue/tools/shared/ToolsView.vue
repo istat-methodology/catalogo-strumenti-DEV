@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Strumenti metodologi</h2>
+    <h2><span>{{ index }}</span> Strumenti metodologi</h2>
     <div class="columns">
       <div class="row">
         <div v-if="tools.length === 0">
@@ -39,6 +39,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+     index: {
+      type: String,
+      required: true,
+      default: () => ''
     }
   }
 };

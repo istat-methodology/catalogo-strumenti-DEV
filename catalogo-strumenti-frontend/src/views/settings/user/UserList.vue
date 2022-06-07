@@ -24,7 +24,7 @@
                   square
                   size="sm"
                   @click="userEdit(item.id)"
-                  >Update</CButton
+                  >Salva</CButton
                 >
               </td>
             </template>
