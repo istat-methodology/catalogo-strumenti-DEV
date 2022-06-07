@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
@@ -594,6 +595,12 @@ public class Translators {
 
 	public static StatisticalMethod translateUpdate(CreateStatisticalMethodRequest x, StatisticalMethod sm) {
 		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.addMappings(new PropertyMap<CreateStatisticalMethodRequest, StatisticalMethod>() {
+            @Override
+            protected void configure() {
+                skip(destination.getReleaseDate());
+            }
+        });
 		modelMapper.map(x, sm);
 		return sm;
 	}

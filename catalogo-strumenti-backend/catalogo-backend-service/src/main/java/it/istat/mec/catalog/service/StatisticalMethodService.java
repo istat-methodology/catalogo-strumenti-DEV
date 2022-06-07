@@ -43,7 +43,7 @@ public class StatisticalMethodService {
 		sm = Translators.translate(request);	
 		Date date = new Date(System.currentTimeMillis());		
 		sm.setLastUpdate(date);
-		sm.setReleaseDate( request.getReleaseDate());
+		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
 		statisticalMethodDao.save(sm);
 		return Translators.translate(sm);
 	}
@@ -66,7 +66,7 @@ public class StatisticalMethodService {
 		Date date = new Date(System.currentTimeMillis());		
 		sm.setLastUpdate(date);
 		System.out.println(request.getReleaseDate());
-		sm.setReleaseDate( request.getReleaseDate());
+		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
 		System.out.println(sm.getReleaseDate());
 		statisticalMethodDao.save(sm);		
 		
