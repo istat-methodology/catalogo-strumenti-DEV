@@ -483,6 +483,12 @@ public class Translators {
 	public static StatisticalMethod translate(CreateStatisticalMethodRequest x) {
 
 		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.addMappings(new PropertyMap<CreateStatisticalMethodRequest, StatisticalMethod>() {
+            @Override
+            protected void configure() {
+                skip(destination.getReleaseDate());
+            }
+        });
 		final StatisticalMethod sm = modelMapper.map(x, StatisticalMethod.class);
 		return sm;
 	}
