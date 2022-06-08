@@ -48,7 +48,7 @@
             placeholder="Fonti"
             v-model="documentationLocal.resource"
           />
-          <div>
+          <!-- <div>
             <label>Strumento Statistico</label>
           </div>
 
@@ -58,7 +58,7 @@
             placeholder="Strumento Statistico"
             v-model="documentation.tool.name"
             @input="changeTool"
-          ></v-select>
+          ></v-select> -->
         </CCardBody>
       </CCard>
       <CCardFooter>

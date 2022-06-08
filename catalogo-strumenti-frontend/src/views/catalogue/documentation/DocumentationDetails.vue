@@ -129,7 +129,11 @@ export default {
 
   },
   methods: {
-  
+     setActiveItemList(selector, bool) {
+      document.querySelector(selector).className = bool
+        ? "list-item-hover"
+        : "list-item";
+    },
   },
   created() {
     this.$store.dispatch("documentation/findById", this.$route.params.id).then(() => {

@@ -171,7 +171,7 @@ const routes = [
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/agent/dettaglio/:id",
+        path: "catalogue/referenti/dettaglio/:id",
         name: "AgentDetails",
         component: () => import("../views/catalogue/agent/AgentDetails"),
         meta: { authorize: [] }
