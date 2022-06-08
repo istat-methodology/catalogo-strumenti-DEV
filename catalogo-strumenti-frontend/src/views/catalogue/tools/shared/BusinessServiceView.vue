@@ -2,7 +2,7 @@
   <div>
     <h2><span>3.</span> Implementazione</h2>
      <div class="description-fields col-12">
-            Elenco delle implementazioni dello strumento
+            Elenco delle funzionalità dello strumento
               </div>
     <div v-if="businessServiceService.appServices">
       <div

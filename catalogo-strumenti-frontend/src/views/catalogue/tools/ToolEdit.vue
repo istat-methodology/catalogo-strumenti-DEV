@@ -9,12 +9,6 @@
             <span class="float-right">
               <close-icon @click.prevent="$router.back()" />
 
-              <!--CButton
-                    shape="square"
-                    size="sm"
-                    color="light"
-                    @click.prevent="$router.back()"
-                    >Indietro</CButton-->
             </span>
           </h2>
         </div>
@@ -30,16 +24,7 @@
             <div v-if="tool">
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i> > Strumento
-                <div class="card-header-actions">
-                  <!--CButton
-                    shape="square"
-                    size="sm"
-                    color="primary"
-                    class="mr-2"
-                    @click.prevent="handleSubmit"
-                    >Salva</CButton
-                  -->
-                </div>
+     
               </CCardHeader>
               <CCard>
                 <CCardBody>
@@ -100,23 +85,7 @@
             <div v-if="tool && tool.toolType.id == 3">
               <CCardHeader>
                 {{ tool.toolType.name | dashEmpty }}
-                <div class="card-header-actions">
-                  <!--CButton
-                    shape="square"
-                    size="sm"
-                    color="primary"
-                    class="mr-2"
-                    @click.prevent="handleSubmit"
-                    >Salva</CButton
-                  >
-                  <CButton
-                    shape="square"
-                    size="sm"
-                    color="light"
-                    @click.prevent="$router.back()"
-                    >Indietro</CButton
-                  -->
-                </div>
+            
               </CCardHeader>
               <CCard>
                 <CCardBody>
@@ -239,23 +208,7 @@
               <CCardHeader>
                 <i>{{ tool.name | dashEmpty }}</i> >
                 {{ tool.toolType.name | dashEmpty }}
-                <div class="card-header-actions">
-                  <!--CButton
-                    shape="square"
-                    size="sm"
-                    color="primary"
-                    class="mr-2"
-                    @click.prevent="handleSubmit"
-                    >Salva</CButton
-                  >
-                  <CButton
-                    shape="square"
-                    size="sm"
-                    color="light"
-                    @click.prevent="$router.back()"
-                    >Indietro</CButton
-                  -->
-                </div>
+ 
               </CCardHeader>
               <CCard>
                 <CCardBody>
@@ -306,15 +259,7 @@
             <div v-if="this.statisticalMethodsList">
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i> > Metodi Statistici
-                <div class="card-header-actions">
-                  <!--CButton
-                    shape="square"
-                    size="sm"
-                    color="light"
-                    @click.prevent="$router.back()"
-                    >Indietro</CButton
-                  -->
-                </div>
+               
               </CCardHeader>
               <CCard>
                 <CCardBody>

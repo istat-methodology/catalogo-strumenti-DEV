@@ -31,18 +31,18 @@
                 </div>
 
                 <div class="card col-md-auto p-2">
-                  <span><strong>Tags</strong></span>
+                  <span><strong>Fasi GSBPM</strong></span>
                   <div class="card-slot p-2">
-                    <span>{{ statisticalMethod.tags | dashEmpty }}</span>
+                    {{
+                      statisticalMethod.gsbpmProcesses
+                        .map((gsbpmProcess) => {
+                          return gsbpmProcess.code + " " + gsbpmProcess.name;
+                        })
+                        .join(", ") | dashEmpty
+                    }}
                   </div>
                 </div>
 
-                         <div class="card col-md-auto p-2">
-                  <span><strong>Note</strong></span>
-                  <div class="card-slot p-2">
-                    <span>{{ statisticalMethod.notes | dashEmpty }}</span>
-                  </div>
-                </div>
                 <div class="card col-md-auto p-2">
                   <span><strong>Requisiti</strong></span>
                   <div class="card-slot p-2">
@@ -51,8 +51,6 @@
                     }}</span>
                   </div>
                 </div>
-
-          
 
                 <div class="card col-md-auto p-2">
                   <span><strong>Presupposti</strong></span>
@@ -78,16 +76,29 @@
                 <div class="card col-md-auto p-2">
                   <span><strong>Data di Pubblicazione</strong></span>
                   <div class="card-slot p-2">
-                    <span>{{ statisticalMethod.releaseDate | dashEmpty }}</span>
+                    <span>{{
+                      this.formatDate(statisticalMethod.releaseDate) | dashEmpty
+                    }}</span>
+                  </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Tags</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.tags | dashEmpty }}</span>
                   </div>
                 </div>
 
                 <div class="card col-md-auto p-2">
+                  <span><strong>Note</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ statisticalMethod.notes | dashEmpty }}</span>
+                  </div>
+                </div>
+                <div class="card col-md-auto p-2">
                   <span><strong>Standard Istat</strong></span>
                   <div class="card-slot p-2">
-                    <span>{{
-                      statisticalMethod.standardIstat | dashEmpty
-                    }}</span>
+                    <span v-if="statisticalMethod.standardIstat && statisticalMethod.standardIstat==1">Sì</span>
+                     <span v-else>No</span>
                   </div>
                 </div>
                 <div class="card col-md-auto p-2">
@@ -104,14 +115,14 @@
         </div>
       </div>
 
-   <div id="id-tools" />
+      <div id="id-tools" />
       <div
-        
         @mouseover="setActiveItemList('#id-link-tools', true)"
         @mouseleave="setActiveItemList('#id-link-tools', false)"
-      >    <div class="p-2">
-           <app-tools-function
-           :index="'1.'"
+      >
+        <div class="p-2">
+          <app-tools-function
+            :index="'1.'"
             :tools="statisticalMethod.catalogTools"
           ></app-tools-function>
         </div>
@@ -124,13 +135,11 @@
       >
         <div class="p-2">
           <app-documentations
-           :index="'2.'"
+            :index="'2.'"
             :documentations="getDocumentationList"
           ></app-documentations>
         </div>
       </div>
-
-
     </div>
     <aside class="container-rigth col-2">
       <section class="menu">
@@ -141,14 +150,12 @@
           <li class="list-item" id="id-link-main">
             <a class="item-link" href="#id-main">Documentazione</a>
           </li>
-             <li class="list-item" id="id-link-tools">
+          <li class="list-item" id="id-link-tools">
             <a href="#id-tools" class="item-link">1. Strumenti metodologici</a>
           </li>
           <li class="list-item" id="id-link-documentations">
-            <a href="#id-documentations" class="item-link"
-              >2. Documentazione</a
-            >
-              </li>
+            <a href="#id-documentations" class="item-link">2. Documentazione</a>
+          </li>
         </ul>
       </section>
     </aside>
@@ -161,9 +168,9 @@ import { mapGetters } from "vuex";
 //import { Context } from "@/common";
 export default {
   name: "MethodsDetails",
-    components: {
+  components: {
     "app-documentations": DocumentationView,
-    "app-tools-function":ToolsView
+    "app-tools-function": ToolsView,
   },
   computed: {
     ...mapGetters("methods", ["statisticalMethod"]),
@@ -172,8 +179,7 @@ export default {
     backToList() {
       this.$router.push("/catalogue/metodi");
     },
-      
-    
+
     getDocumentationList: function () {
       return this.statisticalMethod.documentations.map((doc) => {
         return {
@@ -185,7 +191,7 @@ export default {
         };
       });
     },
-     formatDate(dt) {
+    formatDate(dt) {
       dt = new Date(dt);
       return dt.toLocaleDateString("it");
     },
@@ -194,7 +200,7 @@ export default {
         ? "list-item-hover"
         : "list-item";
     },
-       setActiveIndex(index) {
+    setActiveIndex(index) {
       this.activeIndex !== index
         ? (this.activeIndex = index)
         : (this.activeIndex = -1);
