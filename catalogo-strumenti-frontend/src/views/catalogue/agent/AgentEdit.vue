@@ -24,7 +24,7 @@
             placeholder="Contatto"
             v-model="agentLocal.contact"
           />
-          <CInput label="Note" placeholder="Note" v-model="agentLocal.notes" />
+          <CTextarea label="Note" placeholder="Note" v-model="agentLocal.notes" />
           <CInput
             label="Fonti"
             placeholder="Fonti"
@@ -39,7 +39,7 @@
           color="primary"
           class="mr-2"
           @click.prevent="handleSubmit"
-          >Update</CButton
+          >Salva</CButton
         >
         <CButton
           shape="square"

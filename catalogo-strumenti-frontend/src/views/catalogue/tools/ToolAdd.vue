@@ -171,7 +171,7 @@
           color="primary"
           class="mr-2"
           @click.prevent="handleSubmit"
-          >Update</CButton
+          >Salva</CButton
         >
         <CButton
           shape="square"

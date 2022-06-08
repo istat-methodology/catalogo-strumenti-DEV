@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><span>5.</span> Documentazione</h2>
+    <h2><span>{{ index }}</span> Documentazione</h2>
 
     <div class="columns">
       <div class="description-fields col-12">
@@ -48,6 +48,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+     index: {
+      type: String,
+      required: true,
+      default: () => ''
     }
   }
 };

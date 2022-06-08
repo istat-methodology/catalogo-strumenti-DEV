@@ -249,6 +249,7 @@
       >
         <div class="p-2">
           <app-documentations
+            :index="'5.'"
             :documentations="getDocumentationList"
           ></app-documentations>
         </div>
