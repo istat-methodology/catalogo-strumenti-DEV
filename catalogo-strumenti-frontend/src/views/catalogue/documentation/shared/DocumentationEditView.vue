@@ -1,16 +1,33 @@
 <template>
   <div>
     <CCardHeader
-      ><i>{{ this.toolName | dashEmpty }}</i> > Documentazione
+      ><i>{{ this.parentName | dashEmpty }}</i> > Documentazione
       <div v-if="!viewNewDocument" class="card-header-actions">
-        <span class="icon-link float-right" @click="viewNewDocument = true"
+        <span class="icon-link float-right" @click="stateform = FormState.ADD"
           ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Nuovo
           Documento</span
         >
       </div>
     </CCardHeader>
+    <div v-if="stateform == FormState.ADD"  class="col-12">
 
-    <div v-if="viewNewDocument" class="col-12">
+      <div class="card-slot" v-if="documentationList">
+            <label>Elenco Documenatazione disponibile</label>
+            <v-select
+              label="documente"
+              :options="getAllDocumentations"
+              @input="selectId($event)"
+            ></v-select>
+            <span class="help-block">Seleziona una documentazione</span>
+            <span
+              class="icon-link float-right"
+              @click="stateform = FormState.NEW_AGENT"
+              ><add-icon />Nuovo referente</span
+            >
+          </div>
+    </div>
+
+    <div v-if="stateform == FormState.NEW"  class="col-12">
       <CCardHeader
         >Nuovo Documento
         <div class="card-header-actions">
@@ -69,7 +86,21 @@
         </div>
       </div>
 
-      <div class="row">
+      <div  v-if="stateform == FormState.LIST" >
+       <div class="card-header">
+          &nbsp;Elenco Implementazioni disponibili:
+          <div class="card-header-actions">
+            <span
+              class="icon-link"
+              @click="stateform = FormState.NEW"
+              title="Aggiungi una nuova implementazione"
+            >
+              <add-box-icon /> Nuova Implementazione
+            </span>
+          </div>
+        </div>
+
+        <div class="row"  >
         <div
           class="card col-3"
           v-for="documentation of documentations"
@@ -82,7 +113,7 @@
                 tag="a"
                 :to="{
                   name: 'DocumentationDetails',
-                  params: { id: documentation.id }
+                  params: { id: documentation.id },
                 }"
               >
                 <view-icon />
@@ -96,7 +127,7 @@
             <p class="card-text">{{ documentation.documentType }}</p>
           </div>
         </div>
-      </div>
+      </div></div>
     </CCardBody>
     <CModal
       title="Warning!"
@@ -120,31 +151,51 @@
           Delete
         </CButton>
       </template>
-      Elimina referente '{{ selectedDoc.name }}'?
+      Elimina Documento '{{ selectedDoc.name }}'?
     </CModal>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "DocumentationView",
+  name: "DocumentationEditView",
   data() {
     return {
-      viewAddDocument: true,
-      viewNewDocument: false,
       selectedDoc: {},
       warningModal: false,
+      FormState: {
+        LIST: 0,
+        ADD: 1,
+        NEW: 2,
+      },
+      stateform: 0,
       documentationLocal: {
         name: "",
         publisher: "",
         documentType: "",
         resource: "",
-        tool: this.toolId
-      }
+        tool: this.toolId,
+        method: this.methodId,
+      },
     };
   },
   computed: {
-    ...mapGetters("documentationType", ["documentationTypeList"])
+    ...mapGetters("documentationType", ["documentationTypeList"]),
+    ...mapGetters("documentation", ["documentationList"]),
+
+    getAllDocumentations() {
+      if (this.documentationList) {
+        return this.documentationList.map((item) => {
+          return {
+            id: item.id,
+            text: item.name == null ? "" : item.name +" - "+ item.documentType.name == null ? "" : item.documentType.name,
+         
+          };
+        });
+      } else {
+        return [];
+      }
+    },
   },
   emits: ["refreshTool"],
 
@@ -152,18 +203,23 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     toolId: {
       type: Number,
-      required: true,
-      default: null
+      required: false,
+      default: null,
     },
-    toolName: {
+    methodId: {
+      type: Number,
+      required: false,
+      default: null,
+    },
+    parentName: {
       type: String,
       required: true,
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     changeTool(value) {
@@ -174,7 +230,8 @@ export default {
     },
     handleSubmit() {
       this.documentationLocal.tool = this.toolId;
-      this.documentationLocal.documentType = this.documentationLocal.documentType.id;
+      this.documentationLocal.documentType =
+        this.documentationLocal.documentType.id;
       console.log(this.documentationLocal);
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
@@ -197,13 +254,13 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  }
+  },
 };
 </script>
 <style scoped>

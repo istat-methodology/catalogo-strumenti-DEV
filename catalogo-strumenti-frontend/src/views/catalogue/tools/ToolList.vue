@@ -61,48 +61,9 @@ export default {
   name: "ToolList",
   data() {
     return {
-      /*
+     
       fields: [
-        {
-          key: "name",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-        {
-          key: "description",
-          label: "Descrizione",
-          _style: "width:20%;"
-        },
-        {
-          key: "standardIstat",
-          label: "Standard Istat",
-          _style: "width:10%;"
-        },
-        {
-          key: "tags",
-          label: "Tags",
-          _style: "width:30%;"
-        },
-        {
-          key: "version",
-          label: "Versione",
-          _style: "width:30%;"
-        },
-        {
-          key: "show_details",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false
-        }
-      ],
-      */
-      fields: [
-        /*  {
-          key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
-        }, */
+      
         {
           key: "name",
           label: "Nome",

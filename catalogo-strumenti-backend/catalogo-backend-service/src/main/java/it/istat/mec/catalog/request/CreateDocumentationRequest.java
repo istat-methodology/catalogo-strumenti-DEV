@@ -17,4 +17,5 @@ public class CreateDocumentationRequest  extends CreateBaseRequest  {
 	private String notes;	
 	private String resource;
     private Integer tool;
+    private Integer method;
 }

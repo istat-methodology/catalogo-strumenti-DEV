@@ -316,7 +316,7 @@
 
             <div v-if="this.tool">
               <app-edit-documentation
-                :toolName="this.tool.name"
+                :parentName="this.tool.name"
                 @refreshTool="handleSubmit"
                 :documentations="getDocumentation"
                 :toolId="this.tool.id"

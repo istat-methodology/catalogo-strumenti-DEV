@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import it.istat.mec.catalog.dao.DocumentationDao;
 import it.istat.mec.catalog.dao.DocumentationTypeDao;
+import it.istat.mec.catalog.dao.StatisticalMethodDao;
 import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.dto.DocumentationDto;
@@ -23,6 +24,8 @@ public class DocumentationService {
 	@Autowired
 	ToolDao toolDao;
 	@Autowired
+	StatisticalMethodDao statisticalMethodDao;
+	@Autowired
 	DocumentationTypeDao documentationTypeDao;
 
 	public List<DocumentationDto> findAllDocumentations() {
@@ -35,9 +38,7 @@ public class DocumentationService {
 		Documentation doc = new Documentation();
 		doc = Translators.translate(request);
 
-		if (request.getTool() == null || !toolDao.findById(request.getTool()).isPresent())
-			throw new NoDataException("Statistical Tool not present");
-		doc.getCatalogTools().add(toolDao.findById(request.getTool()).get());
+		
 
 		if (request.getDocumentType() != null)
 
@@ -47,7 +48,13 @@ public class DocumentationService {
 				throw new NoDataException("Documetation type not present");
 			doc.setDocumentType(documentationTypeDao.findById(request.getDocumentType()).get());
 		}
-		documentationDao.save(doc);
+		
+		if (request.getTool() != null && toolDao.findById(request.getTool()).isPresent())
+			doc.getCatalogTools().add(toolDao.findById(request.getTool()).get());
+		if (request.getMethod() != null && statisticalMethodDao.findById(request.getMethod()).isPresent())
+			doc.getStatisticalMethods().add(statisticalMethodDao.findById(request.getMethod()).get());
+		
+		doc=documentationDao.save(doc);
 		return Translators.translate(doc);
 	}
 

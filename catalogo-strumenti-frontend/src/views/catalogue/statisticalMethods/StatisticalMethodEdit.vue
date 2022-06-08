@@ -132,9 +132,9 @@
 
             <div v-if="this.statisticalMethod">
               <app-edit-documentation
-                :toolName="this.statisticalMethod.name"
+                :parentName="this.statisticalMethod.name"
                 @refreshTool="handleSubmit"
-                :documentations="statisticalMethod.documentations"
+                :documentations="getDocumentation"
                 :toolId="this.statisticalMethod.id"
               >
               </app-edit-documentation>
@@ -203,6 +203,19 @@ export default {
         });
       else return [];
     },
+      getDocumentation: function () {
+      if (this.statisticalMethod) {
+        return this.statisticalMethod.documentations.map((doc) => {
+          return {
+            id: doc.id,
+            name: doc.name,
+            publisher: doc.publisher,
+            documentType: doc.documentType.name,
+            resource: doc.resource,
+          };
+        });
+      } else return [];
+    },
   },
   validations: {
     statisticalMethodLocal: {
@@ -261,19 +274,7 @@ export default {
     backToList() {
       this.$router.push("/catalogue/metodi");
     },
-    getDocumentation: function () {
-      if (this.statisticalMethod) {
-        return this.statisticalMethod.documentations.map((doc) => {
-          return {
-            id: doc.id,
-            name: doc.name,
-            publisher: doc.publisher,
-            documentType: doc.documentType.name,
-            resource: doc.resource,
-          };
-        });
-      } else return [];
-    },
+  
     loadMethod: _.debounce(function () {
       this.$store
         .dispatch("methods/findById", this.$route.params.id)
