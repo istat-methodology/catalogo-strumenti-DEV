@@ -2,32 +2,43 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard v-if="agent">
-        <CCardHeader>{{ agent.name | dashEmpty }}</CCardHeader>
-        <CCardBody>
-          <div>
-            <label>Organizzazione:</label>
+      <div class="row" v-if="agent">
+         <div class="card col-md-auto p-2">
+          <span><strong>Nome</strong></span>
+          <div class="card-slot  p-2">
+            <span>{{ agent.name | dashEmpty }}</span>
+          </div>
+        </div>
+        <div class="card col-md-auto p-2">
+          <span><strong>Organizzazione</strong></span>
+          <div class="card-slot  p-2">
             <span>{{ agent.organization | dashEmpty }}</span>
           </div>
-          <div>
-            <label>Contatto:</label>
+        </div>
+
+        <div class="card col-md-auto p-2">
+          <span><strong>Contatto</strong></span>
+          <div class="card-slot  p-2">
             <span>{{ agent.contact | dashEmpty }}</span>
           </div>
-          <div>
-            <label>Note:</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card col-md-auto p-2">
+          <span><strong>Note</strong></span>
+          <div class="card-slot  p-2">
             <span>{{ agent.notes | dashEmpty }}</span>
           </div>
-        </CCardBody>
-        <CCardFooter>
-          <CButton
-            shape="square"
-            size="sm"
-            color="light"
-            @click.prevent="$router.back()"
-            >Indietro</CButton
-          >
-        </CCardFooter>
-      </CCard>
+        </div>
+      </div>
+
+      <CButton
+        shape="square"
+        size="sm"
+        color="light"
+        @click.prevent="$router.back()"
+        >Indietro</CButton
+      >
     </div>
   </div>
 </template>

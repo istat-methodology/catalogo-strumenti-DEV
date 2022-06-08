@@ -8,14 +8,28 @@
           @mouseleave="setActiveItemList('#id-link-main', false)"
         >
           <div class="p-2">
-         
+              <h2 class="pt-4">
+            {{ documentation.name  | dashEmpty
+            }}<span class="float-right">
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'DocumentationEdit',
+                  params: { id: documentation.id },
+                }"
+                class="icon-prop"
+              >
+                <edit-icon />
+              </router-link>
+            </span>
+          </h2>
               <div class="row">
-                <div class="card col-md-auto p-2">
+                <!-- <div class="card col-md-auto p-2">
                   <span><strong>Nome</strong></span>
                   <div class="card-slot  p-2">
                     <span>{{ documentation.name | dashEmpty }}</span>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="card col-md-auto p-2">
                   <span><strong>Editore</strong></span>
