@@ -92,8 +92,8 @@
                   <label>Data di Pubblicazione</label>
                   <div>
                     <date-picker
-                      v-if="releaseDate"
-                      v-model="releaseDate"
+                      v-if="statisticalMethodLocal"
+                      v-model="statisticalMethodLocal.releaseDate"
                       format="D/M/YYYY"
                       value-type="format"
                       placeholder="Seleziona una data"
@@ -120,17 +120,17 @@
               </CCard>
             </div>
           </CTab>
-                 <CTab>
+          <CTab>
             <template #title>
               <span>Documentazione</span>
             </template>
 
-            <div v-if="this.statisticalMethodLocal">
+            <div v-if="this.statisticalMethod">
               <app-edit-documentation
-                :toolName="this.statisticalMethodLocal.name"
+                :toolName="this.statisticalMethod.name"
                 @refreshTool="handleSubmit"
                 :documentations="getDocumentation"
-                :toolId="this.statisticalMethodLocal.id"
+                :toolId="this.statisticalMethod.id"
               >
               </app-edit-documentation>
             </div>
@@ -152,7 +152,7 @@ export default {
   name: "ToolEdit",
   components: {
     DatePicker,
-     Treeselect,
+    Treeselect,
     "app-edit-documentation": DocumentationEditView,
   },
   data() {
@@ -171,10 +171,15 @@ export default {
         releaseDate: "",
         standardIstat: "",
       },
+      gsbpmChecked: [],
+
+      documentationChecked: [],
     };
   },
   computed: {
     ...mapGetters("methods", ["statisticalMethod"]),
+    ...mapGetters("gsbpm", ["gsbpmList"]),
+    ...mapGetters("documentation", ["documentationList"]),
   },
   validations: {
     statisticalMethodLocal: {
@@ -185,7 +190,6 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.statisticalMethodLocal.releaseDate = this.releaseDate;
       this.statisticalMethodLocal.checkStandardIstat = this.checkStandardIstat
         ? 1
         : 0;
@@ -198,6 +202,27 @@ export default {
             this.loadMethod();
           });
       }
+    },
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
+        return {
+          // ...gsbpm,
+          id: "id-" + gsbpm.id,
+          label: gsbpm.code + " " + gsbpm.name,
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+            return {
+              id: gsbpmSubProcess.id,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+            };
+          }),
+        };
+      });
+    },
+    setCheckedNodesGsbpm() {
+      this.gsbpmChecked = [];
+      this.statisticalMethod.gsbpmProcesses.map(gsbpmProc => {
+        this.gsbpmChecked.push(gsbpmProc.id);
+      });
     },
     formatDate(dt) {
       dt = new Date(dt);
@@ -222,7 +247,7 @@ export default {
       this.statisticalMethodLocal.releaseDate = this.formatDate(
         this.statisticalMethod.releaseDate
       );
-      this.releaseDate = this.formatDate(this.statisticalMethod.releaseDate);
+
       this.statisticalMethodLocal.standardIstat =
         this.statisticalMethod.standardIstat;
       this.checkStandardIstat = 1 == this.statisticalMethod.standardIstat;
@@ -230,15 +255,15 @@ export default {
     backToList() {
       this.$router.push("/catalogue/metodi");
     },
-        getDocumentation: function() {
-      if (this.statisticalMethodLocal) {
-        return this.statisticalMethodLocal.documentations.map(doc => {
+    getDocumentation: function () {
+      if (this.statisticalMethod) {
+        return this.statisticalMethod.documentations.map((doc) => {
           return {
             id: doc.id,
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
-            resource: doc.resource
+            resource: doc.resource,
           };
         });
       } else return [];

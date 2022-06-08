@@ -29,7 +29,7 @@ public class StatisticalMethodDto extends BaseDto implements Serializable {
 	private String version;
 	private String standardIstat;
 	private List<BaseDescriptionDto> catalogTools;
-	private List<BaseDescriptionDto> documentations;
+	private List<DocumentationDto> documentations;
 	private List<GSBPMProcessMiniDto> gsbpmProcesses;
 
 }
