@@ -107,8 +107,8 @@ from
 ) ;
 
 -- process design
--- truncate csm_process_design;
-insert into csm_process_design (id, step, type, csm_information_object_id)
+-- truncate csm_link_process_design;
+insert into csm_link_process_design (id, step, type, csm_information_object_id)
 -- select distinct P.name as process, P.id as process_id, S.name step, S.id as step_id, C.name as object, C.descr, concat(P.id,S.id) as id, B.type
 select distinct  concat(P.id,S.id) as id, S.id,  B.type, C.id as obj_id 
 from csm_excel_objects B  join csm_information_object C on (B.name = C.name and B.descr = C.descr) 
@@ -128,11 +128,12 @@ O.name as object,
 O.descr as description, 
 D.type
 from 
-		 csm_process_design D  
+		 csm_link_process_design D  
     join csm_information_object O on (D.csm_information_object_id = O.id ) 
 	join csm_process_step S on (S.id = D.step)
     join csm_link_process_step L on (S.id = L.PROCESS_STEP_ID)
 	join csm_business_process P on (P.id = L.BUSINESS_PROCESS_ID)
+    join csm_business_service SS on (SS.id = O.csm_business_service_ID) and (SS.id = S.BUSINESS_SERVICE_ID)
 order by D.id, S.id;
 
 

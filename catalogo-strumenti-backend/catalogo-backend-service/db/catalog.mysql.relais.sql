@@ -82,9 +82,7 @@ INSERT INTO csm_app_service (ID, NAME, DESCR, IMPLEMENTATION_LANGUAGE, ENGINE,SO
 		(200,'Relais','R package implementing record linkage methods','R','RENJIN','relais/relais.R','','Istat','EUPL1.1','Luca Valentino (luvalent@istat.it)',200),
 		(250,'Relais Java','Java package implementing record linkage methods','JAVA','JAVA','it.istat.is2.catalogue.relais.service.RelaisService','','Istat','EUPL1.1','Luca Valentino (luvalent@istat.it)',200);
 	
- 
-
---
+ --
 -- TOC entry 4909 (class 0 OID 25158)
 -- Dependencies: 230
 -- Data for Name: csm_business_function; Type: TABLE DATA; Schema: is2; Owner: -
@@ -167,12 +165,11 @@ INSERT INTO csm_link_business_service_app_role VALUES (200, 30);
 -- Data for Name: csm_link_function_process; Type: TABLE DATA; Schema: is2; Owner: -
 --
 
-INSERT INTO csm_link_function_process VALUES (1, 1);
-INSERT INTO csm_link_function_process VALUES (1, 2);
-INSERT INTO csm_link_function_process VALUES (1, 3);
-INSERT INTO csm_link_function_process VALUES (1, 5);
+INSERT INTO csm_link_function_process VALUES (1, 1),(1, 2),(1, 3),(1, 5);
 
-
+INSERT INTO csm_link_function_process VALUES (1,70 ),(1,71 ),(1,72 ),(1,77 ),(1,78 );
+-- INSERT INTO csm_link_function_process VALUES (5,73 ),(2,170),(2,76 ),(2,178),(3,270);
+-- INSERT INTO csm_link_function_process VALUES (3,271),(3,272),(3,273),(3,274);
 --
 -- TOC entry 4933 (class 0 OID 25243)
 -- Dependencies: 254
@@ -351,8 +348,71 @@ INSERT INTO `CSM_Agent` (`ID`,`Name`,`Organization`) VALUES (20,'Luca Valente','
 INSERT INTO `CSM_link_Agent_tool` (`ID`,`agent`,`tool`,`role`,`notes`,`reference_date`) VALUES (5,50,200,'Developer','Note','2010-2020'),(6,20,200,'Referente','Note','2020 onwards');
     
 -- Sezione documentale esterna, link alle risorse di documentazione
-INSERT INTO CSM_Documentation (`ID`,`Name`,`Publisher`,`Document_type`,`Notes`,`Resource`,`tool`) VALUES 
-(40,'Relais','Istat',1,'Note','https://www.istat.it/it/files/2014/03/Relais3.1UserGuide.pdf',200);
+INSERT INTO CSM_Documentation (`ID`,`Name`,`Publisher`,`Document_type`,`Notes`,`Resource`) VALUES 
+(40,'Relais','Istat',1,'Note','https://www.istat.it/it/files/2014/03/Relais3.1UserGuide.pdf');
+
+INSERT INTO `CSM_link_Documentation_tool` VALUES (40,200);
+
+-- Sezione process design
+
+INSERT INTO `csm_information_object` (id, csm_app_role_ID, csm_business_service_ID, name, descr) VALUES 
+(501, 1,  200, 'MATCHING VARIABLES', 'MATCHING VARAIBLES'),
+(502, 2,  200, 'VARIABLES DATASET A', 'SELECTED VARIABLES IN DATASET A'),
+(503, 3,  200, 'VARIABLES DATASET B', 'SELECTED VARIABLES IN DATASET B'),
+(504, 4,  200, 'CONTINGENCY TABLE', 'CONTINGENCY TABLE'),
+(505, 5,  200, 'MU TABLE', 'MU TABLE'),
+(506, 6,  200, 'BLOCKING', 'SLICING DEL DATASET'),
+(507, 7,  200, 'MATCHING TABLE', 'MATCHING TABLE'),
+(508, 8,  200, 'THRESHOLD MATCHING', 'THRESHOLD MATCHING'),
+(509, 9,  200, 'THRESHOLD UNMATCHING', 'THRESHOLD UNMATCHING'),
+(510, 10, 200, 'POSSIBLE MATCHING TABLE', 'POSSIBLE MATCHING TABLE'),
+(513, 13, 200, 'RESIDUAL A', 'RESIDUAL DATASET  A'),
+(514, 14, 200, 'RESIDUAL B', 'RESIDUAL DATASET  B'),
+(515, 15, 200, 'DATA', 'DATA'),
+(516, 16, 200, 'RULESET', 'RULESET'),
+(517, 17, 200, 'MARGINAL PROBABILITIES', 'MARGINAL PROBABILITIES'),
+(518, 18, 200, 'BLOCKING A', 'SLICING DEL DATASET A'),
+(519, 19, 200, 'BLOCKING B', 'SLICING DEL DATASET B'),
+(520, 20, 200, 'REDUCTION METHOD', 'METHOD OF REDUCTION OF THE SEARCH SPACE'),
+(521, 21, 200, 'INDEXES MATCHED', 'INDEX ROWS MATCHED CONTENGENCY TABLE'),
+(522, 22, 200, 'MATCHING TABLE REDUCED', 'MATCHING TABLE WITH CONSTRAINT'),
+(523, 23, 200, 'QUALITY INDICATORS', 'QUALITY INDICATORS OF RESULTS'),
+(524, 24, 200, 'POSSIBLE MATCHING TABLE REDUCED', 'POSSIBLE MATCHING TABLE WITH CONSTRAINT'),
+(526, 26, 200, 'MARGINALS-VARNAMES', 'MARGINAL PROBABILITIES: VARIABLE NAMES'),
+(527, 27, 200, 'MARGINALS-COMPARISON', 'MARGINAL PROBABILITIES: VARIABLE NAMES'),
+(528, 28, 200, 'MARGINALS-MFREQ', 'MARGINAL PROBABILITIES: VARIABLE NAMES'),
+(529, 29, 200, 'MARGINALS-UFREQ', 'MARGINAL PROBABILITIES: VARIABLE NAMES'),
+(530, 30, 200, 'MATCH FREQUENCY IN SEARCH SPACE', 'MATCH FREQUENCY IN SEARCH SPACE');
+ 
+INSERT INTO `csm_process_design_description` (id, descr) VALUES
+(180011, 'probabilisticContingencyTable'),
+(180012, 'fellegisunter'),
+(180013, 'probabilisticResultTablesByIndex'),
+(180014, 'reducedResultTablesGreedy'),
+(180015, 'createResiduals'),
+(180020, 'deterministicResultTablesByIndex'),
+(180021, 'mufrommarginals');
+
+INSERT INTO `csm_process_design_description` (id, descr) VALUES
+(180022, 'mufrommarginals2');
+
+
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(180011,70,1,502),(180011,70,1,503),(180011,70,2,513),(180011,70,2,504),(180011,70,2,505); 
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(180012,71,1,502),(180012,71,1,503),(180012,71,2,513),(180012,71,2,504),(180012,71,2,505),(180012,71,1,510);
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(180013,72,1,502),(180013,72,1,503),(180013,72,1,513),(180013,72,2,504),(180013,72,2,505);
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(180014,77,1,502),(180014,77,1,503),(180014,77,1,513),(180014,77,2,504),(180014,77,2,505),(180014,77,1,510);
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(180020,78,1,502),(180020,78,1,504),(180020,78,2,507); 
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(180021,76,1,502),(180021,76,1,504),(180021,2,76,507);
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(180022,80,1,502),(180021,80,1,504),(180021,2,80,507),(180021,2,80,510); 
+ 
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

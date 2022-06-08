@@ -31,20 +31,23 @@ INSERT INTO csm_business_process (ID, NAME, DESCR, LABEL, PARENT, ORDER_CODE) VA
 
 -- truncate csm_link_function_process;
 INSERT INTO csm_link_function_process (BUSINESS_FUNCTION_ID, BUSINESS_PROCESS_ID) VALUES (10,80),(20,114),(30,112),(20,116);
+INSERT INTO csm_link_function_process (BUSINESS_FUNCTION_ID, BUSINESS_PROCESS_ID) VALUES (10,130),(20,110);
 
 -- PROCESS_STEP
 -- -- truncate csm_process_step;
-INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (100,'MLEST','This function performs the maximum likelihood estimates of the parameters of a contamination model by ECM algorithm and it provides the expected values of the true data for all units that were used for the estimation','MLEST',100);
-INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (150,'MLEST_STRATA','MLEST with stratification','MLEST_STRATA', 100);
-INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (200,'PREDY','On the basis of a set of contamination model parameters, and a set of observed data, it calculates the expected values of the corresponding real data. Missing values for the variables response as well as are allowed, but not for covariates','PREDY',100);
-INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (250,'PREDY_STRATA','PREDY with stratification','PREDY_STRATA',100);
-INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (300,'SELEDIT','This function performs Selective Editing. On the basis of a set of observed data and the corresponding predictions for the true data, it selects the units required for interactive editing','SELEDIT',100);
-INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (350,'SELEDIT_STRATA','SELEDIT with stratification','SELEDIT_STRATA',100);
+INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (100,'Model Estimates and prediction','This function performs the maximum likelihood estimates of the parameters of a contamination model by ECM algorithm and it provides the expected values of the true data for all units that were used for the estimation','Model Estimates and prediction',100);
+INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (150,'Model Estimates and prediction with strata','This function performs the maximum likelihood estimates of the parameters of a contamination model by ECM algorithm and it provides the expected values of the true data for all units that were used for the estimation','Model Estimates and prediction with strata', 100);
+INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (200,'Outlier prediction','On the basis of a set of contamination model parameters, and a set of observed data, it calculates the expected values of the corresponding real data. Missing values for the variables response as well as are allowed, but not for covariates','Outlier prediction',100);
+INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (250,'Outlier prediction with strata ','On the basis of a set of contamination model parameters, and a set of observed data, it calculates the expected values of the corresponding real data. Missing values for the variables response as well as are allowed, but not for covariates','Outlier prediction with strata',100);
+INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (300,'Selective Editing','This function performs Selective Editing. On the basis of a set of observed data and the corresponding predictions for the true data, it selects the units required for interactive editing','Selective Editing',100);
+INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (350,'Selective Editing with strata','This function performs Selective Editing. On the basis of a set of observed data and the corresponding predictions for the true data, it selects the units required for interactive editing','Selective Editing with strata',100);
 -- INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (400,'OUTL','Scelta Outlier',100);
 -- INSERT INTO csm_process_step (ID, NAME, DESCR, LABEL, BUSINESS_SERVICE_ID) VALUES (500,'MOD','Imposta Modello',100);
 
 -- -- truncate csm_link_process_step;
 INSERT INTO csm_link_process_step (BUSINESS_PROCESS_ID, PROCESS_STEP_ID) VALUES (110,100),(130,300);
+INSERT INTO csm_link_process_step (BUSINESS_PROCESS_ID, PROCESS_STEP_ID) VALUES (80,100),(80,300),(112,100),(114,200),(116,200);
+INSERT INTO csm_link_process_step (BUSINESS_PROCESS_ID, PROCESS_STEP_ID) VALUES (110,105),(130,350),(80,150),(80,350),(112,150),(114,250),(116,250);
 
 -- -- truncate csm_link_function_view_data_type;
 INSERT INTO csm_link_function_view_data_type (BUSINESS_FUNCTION_ID, VIEW_DATA_TYPE_ID) 	VALUES (20,1);
@@ -54,9 +57,9 @@ INSERT INTO csm_app_service (ID, NAME, DESCR, IMPLEMENTATION_LANGUAGE, ENGINE, S
 	VALUES (100,'SeleMix','Selemix is an R package to treat quantitative data, which aims to identify a set of units affected by errors which potentially influence the estimates of interest (selective editing)','R','RSERVE','selemix/csm_selemix.R','','Istat','EUPL1.1','Maria Teresa Buglielli (bugliell@istat.it)',100);
 -- STEP INSTANCES
 -- -- truncate csm_step_instance;
-INSERT INTO csm_step_instance (ID, METHOD, STATMETHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (1,'csm_mlest',100,'This function performs the maximum likelihood estimates of the parameters of a contamination model by ECM algorithm and it provides the expected values of the â€œtrueâ€� data for all units that were used for the estimation','MLEST',100);
-INSERT INTO csm_step_instance (ID, METHOD, STATMETHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (2,'csm_ypred',100,'On the basis of a set of contamination model parameters, and a set of observed data, it calculates the expected values of the corresponding real data. Missing values for the variables response as well as are allowed, but not for covariates','PREDY',100);
-INSERT INTO csm_step_instance (ID, METHOD, STATMETHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (3,'csm_seledit',100,'This function performs Selective Editing. On the basis of a set of observed data and the corresponding predictions for the true data, it selects the units required for interactive editing','SELEDIT',100);
+INSERT INTO csm_step_instance (ID, METHOD, STATMETHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (1,'csm_mlest',2,'This function performs the maximum likelihood estimates of the parameters of a contamination model by ECM algorithm and it provides the expected values of the â€œtrueâ€� data for all units that were used for the estimation','MLEST',100);
+INSERT INTO csm_step_instance (ID, METHOD, STATMETHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (2,'csm_ypred',2,'On the basis of a set of contamination model parameters, and a set of observed data, it calculates the expected values of the corresponding real data. Missing values for the variables response as well as are allowed, but not for covariates','PREDY',100);
+INSERT INTO csm_step_instance (ID, METHOD, STATMETHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (3,'csm_seledit',2,'This function performs Selective Editing. On the basis of a set of observed data and the corresponding predictions for the true data, it selects the units required for interactive editing','SELEDIT',100);
 -- INSERT INTO csm_step_instance (ID, METHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (4,'csm_strata_mlest','MLEST with stratification','MLEST_STRATA',100);
 -- INSERT INTO csm_step_instance (ID, METHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (5,'csm_strata_ypred','PREDY with stratification','PREDY_STRATA',100);
 -- INSERT INTO csm_step_instance (ID, METHOD, DESCR, FUNCTIONALITY, APP_SERVICE_ID) VALUES (6,'csm_strata_seledit','SELEDIT with stratification','SELEDIT_STRATA',100);
@@ -166,16 +169,32 @@ INSERT INTO `csm_link_method_tool` VALUES (100,100),(100,150);
 
  
 -- Sezione process design
-INSERT INTO `csm_information_object` (id, name, csm_app_role_ID, csm_business_service_ID) VALUES 
-(102,'TARGET',102,100),(103,'COVARIATA',103,100),(104,'PREDIZIONE',104,100),(105,'OUTLIER',105,100),(107,'ERRORI INFLUENTI',107,100),(109,'OUTPUT',109,100),(110,'STRATO',110,100),(112,'MODELLO',112,100);
-INSERT INTO `csm_process_design` (id, name, step, type, csm_information_object_id) VALUES
-(100,'MLEST',100,1,102),(100,'MLEST',100,1,103),(100,'MLEST',100,2,112),(100,'MLEST',100,2,104),(100,'MLEST',100,2,105), -- MLEST process design (object list)
-(150,'MLEST',150,1,102),(150,'MLEST',150,1,103),(150,'MLEST',150,2,112),(150,'MLEST',150,2,104),(150,'MLEST',150,2,105),(150,'MLEST',150,1,110),
-(200,'MLEST',200,1,102),(200,'MLEST',200,1,103),(200,'MLEST',200,1,112),(200,'MLEST',200,2,104),(200,'MLEST',200,2,105), -- YPRED process design (object list)
-(250,'MLEST',250,1,102),(250,'MLEST',250,1,103),(250,'MLEST',250,1,112),(250,'MLEST',250,2,104),(250,'MLEST',250,2,105),(250,'MLEST',250,1,110),
-(300,'MLEST',300,1,102),(300,'MLEST',300,1,104),(300,'MLEST',200,2,107), -- SELEDIT process design (object list)
-(350,'MLEST',350,1,102),(350,'MLEST',350,1,104),(350,'MLEST',250,2,107),(350,'MLEST',250,1,110);
+INSERT INTO `csm_information_object` (id, name, csm_app_role_ID, csm_business_service_ID, descr) VALUES 
+(402,'TARGET',101,100,'Matrix or data frame containing the response variablesmatrix or data frame containing the response variables'),
+(403,'COVARIATA',103,100,'Optional matrix or data frame containing the error free covariates'),
+(404,'PREDIZIONE',104,100,'Matrix of predicted values for Target variables'),
+(405,'OUTLIER',105,100,'An observation that lies an abnormal distance from other values in a random sample from a population'),
+(407,'ERRORI INFLUENTI',107,100,'Influential data consists of data points that influence (skew) an analysis in a signficant way'),
+(409,'OUTPUT',109,100,'Output Variable set'),
+(410,'STRATO',110,100,'Subset of the population which is being sampled'),
+(412,'MODELLO',112,100,'Multivariate Regression Model');
 
+
+INSERT INTO `csm_process_design_description` (id, descr) VALUES
+(110100,"Prediction and model estimation - Information Object list"),
+(120150,"Prediction and model estimation - Information Object list and strata"),
+(130200,"Outiler search - Information Object list"),
+(140250,"Outiler search - Information Object list with strata"),
+(150300,"Selective Editing - Information Object list"),
+(160350,"Selective Editing - Information Object list with strata");
+
+INSERT INTO `csm_process_design` (process_design_ID, step, type, csm_information_object_id) VALUES
+(110100,100,1,402),(110100,100,1,403),(110100,100,2,412),(110100,100,2,404),(110100,100,2,405), -- MLEST process design (object list)
+(120150,150,1,402),(120150,150,1,403),(120150,150,2,412),(120150,150,2,404),(120150,150,2,405),(120150,150,1,410),
+(130200,200,1,402),(130200,200,1,403),(130200,200,1,412),(130200,200,2,404),(130200,200,2,405), -- YPRED process design (object list)
+(140250,250,1,402),(140250,250,1,403),(140250,250,1,412),(140250,250,2,404),(140250,250,2,405),(140250,250,1,410),
+(150300,300,1,402),(150300,300,1,404),(150300,300,2,407), -- SELED process design (object list)
+(160350,350,1,402),(160350,350,1,404),(160350,350,2,407),(160350,350,1,410);
 
 -- Specializzazioni del software
 INSERT INTO `csm_statistical_service` VALUES (100,'http',NULL,NULL,NULL,NULL,'5.4','Selective Editing',NULL);
@@ -187,12 +206,12 @@ INSERT INTO `CSM_link_Agent_tool` (`ID`,`agent`,`tool`,`role`,`Notes`,`Reference
 (1,10,100,'Developer','Note','2010-2020'),(2,20,100,'Referent','Note','2020 onwards'),(3,30,150,'Developer','Note','2010-2020'),(4,20,150,'Referent','Note','2020 onwards');
     
 -- Sezione documentale esterna, link alle risorse di documentazione
-INSERT INTO `CSM_Documentation` (`ID`,`Name`,`Publisher`,`Document_type`,`Notes`,`Resource`,`tool`) VALUES 
-(10,'Selemix','Istat',1,'Note','https://rdrr.io/cran/SeleMix/',100),
-(20,'Selemix','Istat',2,'Note','https://cran.r-project.org/package=SeleMix',100);
+INSERT INTO `CSM_Documentation` (`ID`,`Name`,`Publisher`,`Document_type`,`Notes`,`Resource`) VALUES 
+(10,'Selemix','Istat',1,'Note','https://rdrr.io/cran/SeleMix/'),
+(20,'Selemix','Istat',2,'Note','https://cran.r-project.org/package=SeleMix');
 
-
-
+INSERT INTO `CSM_link_Documentation_tool` VALUES (10,100),(10,150),(20,100),(20,150);
+INSERT INTO `csm_link_documentation_method` VALUES (10,100),(20,100);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
