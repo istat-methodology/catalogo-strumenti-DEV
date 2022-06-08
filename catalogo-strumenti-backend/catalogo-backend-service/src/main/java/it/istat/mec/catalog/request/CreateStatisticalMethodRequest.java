@@ -18,4 +18,5 @@ public class CreateStatisticalMethodRequest extends CreateBaseRequest{
 	private String tags;	
  	private String releaseDate;
 	private Integer standardIstat;
+	private Integer[] gsbpmProcesses;
 }

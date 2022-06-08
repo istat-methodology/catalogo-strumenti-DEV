@@ -170,6 +170,7 @@ export default {
         version: "",
         releaseDate: "",
         standardIstat: "",
+        gsbpmProcesses:[],
       },
       gsbpmChecked: [],
 
@@ -180,30 +181,8 @@ export default {
     ...mapGetters("methods", ["statisticalMethod"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("documentation", ["documentationList"]),
-  },
-  validations: {
-    statisticalMethodLocal: {
-      name: {
-        required,
-      },
-    },
-  },
-  methods: {
-    handleSubmit() {
-      this.statisticalMethodLocal.checkStandardIstat = this.checkStandardIstat
-        ? 1
-        : 0;
-      this.$v.$touch();
-
-      if (!this.$v.statisticalMethodLocal.$invalid) {
-        this.$store
-          .dispatch("methods/update", this.statisticalMethodLocal)
-          .then(() => {
-            this.loadMethod();
-          });
-      }
-    },
-    getGsbpmList: function () {
+      getGsbpmList: function () {
+      if(this.gsbpmList)
       return this.gsbpmList.map((gsbpm) => {
         return {
           // ...gsbpm,
@@ -217,7 +196,33 @@ export default {
           }),
         };
       });
+      else return [];
     },
+  },
+  validations: {
+    statisticalMethodLocal: {
+      name: {
+        required,
+      },
+    },
+  },
+  methods: {
+    handleSubmit() {
+      this.statisticalMethodLocal.checkStandardIstat = this.checkStandardIstat
+        ? 1
+        : 0;
+         this.statisticalMethodLocal.gsbpmProcesses = this.gsbpmChecked;
+      this.$v.$touch();
+
+      if (!this.$v.statisticalMethodLocal.$invalid) {
+        this.$store
+          .dispatch("methods/update", this.statisticalMethodLocal)
+          .then(() => {
+            this.loadMethod();
+          });
+      }
+    },
+  
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
       this.statisticalMethod.gsbpmProcesses.map(gsbpmProc => {

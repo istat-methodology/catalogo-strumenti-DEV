@@ -4,11 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.istat.mec.catalog.dao.StatisticalMethodDao;
 import it.istat.mec.catalog.dao.ToolDao;
 import it.istat.mec.catalog.domain.CatalogTool;
+import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -37,13 +41,20 @@ public class StatisticalMethodService {
 		return null;
 	}
 	
-	
+	@Transactional
 	public StatisticalMethodDto newStatisticalMethod(CreateStatisticalMethodRequest request) throws ParseException {
 		StatisticalMethod sm = new StatisticalMethod();
 		sm = Translators.translate(request);	
 		Date date = new Date(System.currentTimeMillis());		
 		sm.setLastUpdate(date);
 		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
+		List<GsbpmProcess> gsbpmProcesses = new ArrayList<GsbpmProcess>();
+		if(request.getGsbpmProcesses()!=null) {
+			for(int i=0; i<request.getGsbpmProcesses().length; i++)
+				gsbpmProcesses.add(new GsbpmProcess(request.getGsbpmProcesses()[i]));
+		}
+		
+		sm.setGsbpmProcesses(gsbpmProcesses);
 		statisticalMethodDao.save(sm);
 		return Translators.translate(sm);
 	}
@@ -55,6 +66,7 @@ public class StatisticalMethodService {
 		return Translators.translate(statisticalMethodDao.findById(id).get());
 	}
 	
+	@Transactional
 	public StatisticalMethodDto updateStatisticalMethod(CreateStatisticalMethodRequest request) throws ParseException {		
 		
 		if (!statisticalMethodDao.findById(request.getId()).isPresent())
@@ -63,6 +75,16 @@ public class StatisticalMethodService {
 		StatisticalMethod sm = statisticalMethodDao.findById(request.getId()).get();	
 		
 		sm = Translators.translateUpdate(request, sm);
+		
+		List<GsbpmProcess> gsbpmProcesses = new ArrayList<GsbpmProcess>();
+		if(request.getGsbpmProcesses()!=null) {
+			for(int i=0; i<request.getGsbpmProcesses().length; i++)
+				gsbpmProcesses.add(new GsbpmProcess(request.getGsbpmProcesses()[i]));
+		}
+		
+		sm.setGsbpmProcesses(gsbpmProcesses);
+		
+		
 		Date date = new Date(System.currentTimeMillis());		
 		sm.setLastUpdate(date);
 		 
