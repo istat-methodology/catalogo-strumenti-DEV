@@ -3,53 +3,73 @@
   <div class="row" v-if="documentation">
     <div class="col-9">
       <div id="id-main" />
-      <div
-        @mouseover="setActiveItemList('#id-link-main', true)"
-        @mouseleave="setActiveItemList('#id-link-main', false)"
-      >
-        <div class="p-2">
-          <!-- <h2 class="pt-4">
-            contenuto centrale<span class="float-right">
+        <div
+          @mouseover="setActiveItemList('#id-link-main', true)"
+          @mouseleave="setActiveItemList('#id-link-main', false)"
+        >
+          <div class="p-2">
+         
+              <div class="row">
+                <div class="card col-md-auto p-2">
+                  <span><strong>Nome</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ documentation.name | dashEmpty }}</span>
+                  </div>
+                </div>
+
+                <div class="card col-md-auto p-2">
+                  <span><strong>Editore</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ documentation.publisher | dashEmpty }}</span>
+                  </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Tipo Documento</strong></span>
+
+                  <div class="card-slot  p-2">
+                    <span>{{ documentation.documentType.name | dashEmpty }}</span>
+                  </div>
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Fonte</strong></span>
+                  <div class="card-slot  p-2">
+                    <span>{{ documentation.resource | dashEmpty }}</span>
+                  </div>
+                </div>
+              </div>  
+                <div class="row">
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Note</strong></span>
+                    <div class="card-slot  p-2">
+                      <span>{{ documentation.notes | dashEmpty }}</span>
+                    </div>
+                  </div>
+                </div>
               
-            </span>
-           
-            
-          </h2> -->
-           <app-documentation
-            :documentation="documentation"
-            :docid="documentation.id"
-          ></app-documentation>
-          <div class="pl-2">
-          <div class="columns">
-          </div>
-        </div>        
+          <div>
         </div>        
       </div>
 
       
       <div id="id-second" />
-      <div
-        @mouseover="setActiveItemList('#id-link-second', true)"
-        @mouseleave="setActiveItemList('#id-link-second', false)"
-      >
-        <div class="p-2">
-          <!-- <h2 class="pt-4">
-            contenuto centrale<span class="float-right">
-              
-            </span>
-           
+        <div
+          @mouseover="setActiveItemList('#id-link-second', true)"
+          @mouseleave="setActiveItemList('#id-link-second', false)"
+        >
+          <div class="p-2">
+            <!-- <h2 class="pt-4">
+              contenuto centrale<span class="float-right">
+                
+              </span>
             
-          </h2> -->
-           <app-tools-view
-            :tools="toolsByDocumentation"
-          ></app-tools-view>
-          <div class="pl-2">
-          <div class="columns">
-          </div>
-        </div>        
-        </div>        
+              
+            </h2> -->
+            <app-tools-view
+              :tools="toolsByDocumentation"
+            ></app-tools-view>
+          </div>       
+        </div>
       </div>
-
 
     </div>
 
@@ -70,7 +90,7 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
  
-import Documentation from "../documentation/shared/Documentation";
+//import Documentation from "../documentation/shared/Documentation";
 import ToolsView from "../tools/shared/ToolsView";
 
 
@@ -90,7 +110,7 @@ export default {
      ...mapGetters("tools", ["toolsByDocumentation"])
   },
   components: {
-    "app-documentation": Documentation,
+   // "app-documentation": Documentation,
     "app-tools-view": ToolsView
 
   },
