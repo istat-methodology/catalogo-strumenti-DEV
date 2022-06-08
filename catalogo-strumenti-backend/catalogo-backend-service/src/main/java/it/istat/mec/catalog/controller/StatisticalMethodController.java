@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
+import it.istat.mec.catalog.dto.StatisticalMethodMiniDto;
 import it.istat.mec.catalog.request.CreateStatisticalMethodRequest;
 import it.istat.mec.catalog.service.StatisticalMethodService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class StatisticalMethodController {
 	private StatisticalMethodService statisticalMethodService;
 	
 	@GetMapping("/open/statisticalmethods")
-	public List<StatisticalMethodDto> getAllStatisticalMethods() {
+	public List<StatisticalMethodMiniDto> getAllStatisticalMethods() {
 
 		return statisticalMethodService.findAllStatisticalMethods();
 	}

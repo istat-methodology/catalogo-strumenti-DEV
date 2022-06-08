@@ -50,6 +50,7 @@ import it.istat.mec.catalog.dto.ProcessStepDto;
 import it.istat.mec.catalog.dto.ProcessStepInverseDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
+import it.istat.mec.catalog.dto.StatisticalMethodMiniDto;
 import it.istat.mec.catalog.dto.StatisticalServiceDto;
 import it.istat.mec.catalog.dto.StepInstanceDto;
 import it.istat.mec.catalog.dto.StepInstanceInverseDto;
@@ -347,6 +348,10 @@ public class Translators {
 	public static List<StatisticalMethodDto> translateSM(List<StatisticalMethod> list) {
 		return mapList(list, StatisticalMethodDto.class);
 	}
+	public static List<StatisticalMethodMiniDto> translateSMMini(List<StatisticalMethod> list) {
+		return mapList(list, StatisticalMethodMiniDto.class);
+	}
+
 
 	public static List<StatisticalServiceDto> translateSS(List<StatisticalService> list) {
 		return mapList(list, StatisticalServiceDto.class);

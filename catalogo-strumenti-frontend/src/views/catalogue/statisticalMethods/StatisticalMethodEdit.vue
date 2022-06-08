@@ -2,7 +2,7 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <div v-if="statisticalMethodLocal">
+      <div v-if="statisticalMethod">
         <div>
           <h2 class="pt-2">
             {{ statisticalMethodLocal.name }}
@@ -78,7 +78,7 @@
                     v-model="statisticalMethodLocal.notes"
                   />
 
-                  <CInput
+                  <CTextarea
                     label="Tag"
                     placeholder="Tag"
                     v-model="statisticalMethodLocal.tags"
@@ -99,12 +99,17 @@
                       placeholder="Seleziona una data"
                     ></date-picker>
                   </div>
-
-                  <CInputCheckbox
-                    label="Standard Istat"
-                    placeholder="Standard Istat"
-                    v-model="checkStandardIstat"
-                  />
+                  <div class="form-group">
+                    <label for="checkbox">Standard Istat</label>
+                    <input
+                      id="checkbox"
+                      type="checkbox"
+                      v-model="statisticalMethodLocal.standardIstat"
+                      true-value="1"
+                      false-value="0"
+                      aria-label="Standard Istat"
+                    />
+                  </div>
                 </CCardBody>
 
                 <CCardFooter>
@@ -129,7 +134,7 @@
               <app-edit-documentation
                 :toolName="this.statisticalMethod.name"
                 @refreshTool="handleSubmit"
-                :documentations="getDocumentation"
+                :documentations="statisticalMethod.documentations"
                 :toolId="this.statisticalMethod.id"
               >
               </app-edit-documentation>
@@ -169,8 +174,8 @@ export default {
         tags: "",
         version: "",
         releaseDate: "",
-        standardIstat: "",
-        gsbpmProcesses:[],
+        standardIstat: 0,
+        gsbpmProcesses: [],
       },
       gsbpmChecked: [],
 
@@ -181,21 +186,21 @@ export default {
     ...mapGetters("methods", ["statisticalMethod"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("documentation", ["documentationList"]),
-      getGsbpmList: function () {
-      if(this.gsbpmList)
-      return this.gsbpmList.map((gsbpm) => {
-        return {
-          // ...gsbpm,
-          id: "id-" + gsbpm.id,
-          label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
-            return {
-              id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
-            };
-          }),
-        };
-      });
+    getGsbpmList: function () {
+      if (this.gsbpmList)
+        return this.gsbpmList.map((gsbpm) => {
+          return {
+            // ...gsbpm,
+            id: "id-" + gsbpm.id,
+            label: gsbpm.code + " " + gsbpm.name,
+            children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+              return {
+                id: gsbpmSubProcess.id,
+                label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+              };
+            }),
+          };
+        });
       else return [];
     },
   },
@@ -208,10 +213,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.statisticalMethodLocal.checkStandardIstat = this.checkStandardIstat
-        ? 1
-        : 0;
-         this.statisticalMethodLocal.gsbpmProcesses = this.gsbpmChecked;
+      this.statisticalMethodLocal.gsbpmProcesses = this.gsbpmChecked;
       this.$v.$touch();
 
       if (!this.$v.statisticalMethodLocal.$invalid) {
@@ -222,10 +224,10 @@ export default {
           });
       }
     },
-  
+
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.statisticalMethod.gsbpmProcesses.map(gsbpmProc => {
+      this.statisticalMethod.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
@@ -255,7 +257,6 @@ export default {
 
       this.statisticalMethodLocal.standardIstat =
         this.statisticalMethod.standardIstat;
-      this.checkStandardIstat = 1 == this.statisticalMethod.standardIstat;
     },
     backToList() {
       this.$router.push("/catalogue/metodi");

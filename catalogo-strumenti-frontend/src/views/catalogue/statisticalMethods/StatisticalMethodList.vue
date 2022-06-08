@@ -83,12 +83,16 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:50%;"
+          _style: "width:40%;"
+        },{
+          key: "gsbpm",
+          label: "Fasi Gsbpm",
+          _style: "width:30%;"
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:49%;"
+          _style: "width:29%;"
         },
         {
           key: "show_details",
@@ -113,7 +117,12 @@ export default {
           return {
             id: method.id,
             name: method.name == null ? "" : method.name,
-            description: method.description == null ? "" : method.description
+            description: method.description == null ? "" : method.description,
+             gsbpm: method.gsbpmProcesses
+              .map(gsbpmProcess => {
+                return gsbpmProcess.code + " " + gsbpmProcess.name;
+              })
+              .join(", ")
           };
         });
       } else {

@@ -15,6 +15,7 @@ import it.istat.mec.catalog.domain.CatalogTool;
 import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
+import it.istat.mec.catalog.dto.StatisticalMethodMiniDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateStatisticalMethodRequest;
 import it.istat.mec.catalog.translators.Translators;
@@ -28,9 +29,9 @@ public class StatisticalMethodService {
 	ToolDao toolDao;
 
 
-	public List<StatisticalMethodDto> findAllStatisticalMethods() {
+	public List<StatisticalMethodMiniDto> findAllStatisticalMethods() {
 		
-		return Translators.translateSM(statisticalMethodDao.findAll());
+		return Translators.translateSMMini(statisticalMethodDao.findAll());
 
 	}
 	
@@ -55,7 +56,7 @@ public class StatisticalMethodService {
 		}
 		
 		sm.setGsbpmProcesses(gsbpmProcesses);
-		statisticalMethodDao.save(sm);
+		sm=statisticalMethodDao.save(sm);
 		return Translators.translate(sm);
 	}
 	
@@ -90,7 +91,7 @@ public class StatisticalMethodService {
 		 
 		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
 		 
-		statisticalMethodDao.save(sm);		
+		sm=statisticalMethodDao.save(sm);		
 		
 		return Translators.translate(sm);
 	}
