@@ -1,9 +1,24 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row">
+  <div class="row" v-if="agent">
     <div class="col-12">
-      <div class="row" v-if="agent">
-         <div class="card col-md-auto p-2">
+      <h2 class="pt-4">
+        {{ agent.name | dashEmpty
+        }}<span class="float-right">
+          <router-link
+            tag="a"
+            :to="{
+              name: 'AgentEdit',
+              params: { id: agent.id }
+            }"
+            class="icon-prop"
+          >
+            <edit-icon />
+          </router-link>
+        </span>
+      </h2>
+      <div class="row" >
+        <div class="card col-md-auto p-2">
           <span><strong>Nome</strong></span>
           <div class="card-slot  p-2">
             <span>{{ agent.name | dashEmpty }}</span>
