@@ -1,34 +1,36 @@
 <template>
   <div>
- 
     <div v-if="stateform == FormState.ADD" class="col-12">
-      
-    <CCardHeader
+      <CCardHeader
         >Seleziona un documento
         <div class="card-header-actions">
-          <span class="icon-link" @click.prevent="handleAddSubmit" :disabled="true"
-            ><floppy-icon title="Salva Associazione" />
-          </span>
-          &nbsp;    &nbsp;    &nbsp;
           <span
             class="icon-link"
-            @click.prevent="stateform = FormState.LIST"
+            @click.prevent="handleAddSubmit"
+            :disabled="true"
+            ><floppy-icon title="Salva Associazione" />
+          </span>
+          &nbsp; &nbsp; &nbsp;
+          <span class="icon-link" @click.prevent="stateform = FormState.LIST"
             ><close-circle-icon title="Torna alla lista" />
           </span>
         </div>
       </CCardHeader>
-       
-    
-        <div class="card-slot"  v-if="documentationList">
-          <v-select  :options="getAllDocumentations" label="name"  placeholder="Elenco documenti"     @input="selectId($event)"/>
-          <span class="help-block">Seleziona una documentazione</span>
-        </div>
-         <div class="card-slot">
-            <span class="icon-link float-right" @click="stateform = FormState.NEW"
-            ><add-icon />Crea Nuovo Documento</span
-          >
-       
-        </div>
+
+      <div class="card-slot" v-if="documentationList">
+        <v-select
+          :options="getAllDocumentations"
+          label="name"
+          placeholder="Elenco documenti"
+          @input="selectId($event)"
+        />
+        <span class="help-block">Seleziona una documentazione</span>
+      </div>
+      <div class="card-slot">
+        <span class="icon-link float-right" @click="stateform = FormState.NEW"
+          ><add-icon />Crea Nuovo Documento</span
+        >
+      </div>
     </div>
 
     <div v-if="stateform == FormState.NEW" class="col-12">
@@ -39,9 +41,7 @@
             ><floppy-icon title="Salva Nuovo documento" />
           </span>
           &nbsp; &nbsp; &nbsp;
-          <span
-            class="icon-link"
-            @click.prevent="stateform = FormState.LIST"
+          <span class="icon-link" @click.prevent="stateform = FormState.LIST"
             ><close-circle-icon title="Torna alla lista" />
           </span>
         </div>
@@ -127,7 +127,7 @@
       :show.sync="warningModal"
       @close="
         () => {
-          this.$emit('refreshTool');
+          this.$emit('updateParent');
         }
       "
     >
@@ -155,7 +155,7 @@ export default {
   data() {
     return {
       selectedDoc: {},
-      selectedDocId:null,
+      selectedDocId: null,
       warningModal: false,
       FormState: {
         LIST: 0,
@@ -182,12 +182,9 @@ export default {
           return {
             id: item.id,
             name:
-              (item.name == null
-                ? ""
-                : item.name) + " - " + (item.documentType.name == null
-                ? ""
-                : item.documentType.name),
-          
+              (item.name == null ? "" : item.name) +
+              " - " +
+              (item.documentType.name == null ? "" : item.documentType.name),
           };
         });
       } else {
@@ -195,7 +192,7 @@ export default {
       }
     },
   },
-  emits: ["refreshTool"],
+  emits: ["updateParent"],
 
   props: {
     documentations: {
@@ -227,35 +224,39 @@ export default {
     changeDocumentType(value) {
       this.documentationLocal.documentType = value.id;
     },
-     selectId(e) {
+    selectId(e) {
       this.selectedDocId = e.id;
     },
     handleAddSubmit() {
-
-      if(this.selectedDocId) {
-              if(this.toolId) {
-
-        
+      if (this.selectedDocId) {
+        if (this.toolId) {
+          this.$store
+            .dispatch(
+              "tools/addDocumentation",
+              this.toolId,
+              this.selectedDocId
+            )
+            .then(this.$emit("updateParent"));
+        }
+        if (this.methodId) {
+          this.$store
+            .dispatch(
+              "methods/addDocumentation",
+              this.toolId,
+              this.selectedDocId
+            )
+            .then(this.$emit("updateParent"));
+        }
       }
-
-      }
-      this.documentationLocal.tool = this.toolId;
-      this.documentationLocal.documentType =
-        this.documentationLocal.documentType.id;
-      console.log(this.documentationLocal);
-      this.$store
-        .dispatch("documentation/save", this.documentationLocal)
-        .then(this.$emit("refreshTool"));
-      this.viewNewDocument = false;
     },
-      handleNewSubmit() {
+    handleNewSubmit() {
       this.documentationLocal.tool = this.toolId;
       this.documentationLocal.documentType =
         this.documentationLocal.documentType.id;
       console.log(this.documentationLocal);
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
-        .then(this.$emit("refreshTool"));
+        .then(this.$emit("updateParent"));
       this.viewNewDocument = false;
     },
     goBack() {
@@ -264,7 +265,7 @@ export default {
     deleteDocumentation() {
       this.$store
         .dispatch("documentation/delete", this.selectedDoc.id)
-        .then(this.$emit("refreshTool"));
+        .then(this.$emit("updateParent"));
       this.warningModal = false;
     },
 

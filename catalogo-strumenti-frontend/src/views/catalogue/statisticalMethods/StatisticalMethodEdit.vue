@@ -133,7 +133,7 @@
             <div v-if="this.statisticalMethod">
               <app-edit-documentation
                 :parentName="this.statisticalMethod.name"
-                @refreshTool="handleSubmit"
+                @updateParent="handleSubmit"
                 :documentations="getDocumentation"
                 :toolId="this.statisticalMethod.id"
               >
