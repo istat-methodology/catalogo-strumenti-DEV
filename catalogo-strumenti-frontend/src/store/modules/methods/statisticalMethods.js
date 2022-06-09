@@ -74,6 +74,32 @@ const actions = {
         console.log(err);
       });
   },
+  addDocumentation({ commit, dispatch }, id,docID) {
+    return methodsService
+      .addDocumentation(id,docID)
+      .then(data => {
+        commit("SET_TOOL", data);
+        dispatch("message/success", "Strumento Metodologico aggiornato!", {
+          root: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  removeDocumentation({ commit, dispatch }, id,docID) {
+    return methodsService
+      .removeDocumentation(id,docID)
+      .then(data => {
+        commit("SET_TOOL", data);
+        dispatch("message/success", "Strumento Metodologico aggiornato!", {
+          root: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   delete({ dispatch }, id) {
     return methodsService
       .delete(id)

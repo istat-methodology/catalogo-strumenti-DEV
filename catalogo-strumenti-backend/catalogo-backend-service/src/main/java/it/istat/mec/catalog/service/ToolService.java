@@ -21,6 +21,7 @@ import it.istat.mec.catalog.domain.LinkAgentTool;
 import it.istat.mec.catalog.domain.StatisticalMethod;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
+import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.translators.Translators;
@@ -223,5 +224,33 @@ public class ToolService {
 	public List<CatalogToolMiniListDTO> findToolsByDocumentation(Integer id) {		
 	 	return Translators.translateMiniTools(toolDao.findToolsByDocumentation(new Documentation(id)));
 		 
+	}
+
+	public CatalogToolDTO addDocumentation(Integer id, Integer docID) {
+		
+		if (!toolDao.findById(id).isPresent())
+			throw new NoDataException("Tool not present");
+		CatalogTool tool = toolDao.findById(id).get();
+
+		if (!documentationDao.findById(docID).isPresent())
+			throw new NoDataException("Documentation not present");
+		Documentation doc = documentationDao.findById(docID).get();
+		tool.getDocumentations().add(doc);
+
+		tool = toolDao.save(tool);
+		return Translators.translate(tool);
+	}
+	
+	public CatalogToolDTO removeDocumentation(Integer id, Integer docID) {
+		
+		if (!toolDao.findById(id).isPresent())
+			throw new NoDataException("Tool not present");
+		CatalogTool tool = toolDao.findById(id).get();
+		if (!documentationDao.findById(docID).isPresent())
+			throw new NoDataException("Documentation not present");
+		Documentation doc = documentationDao.findById(docID).get();
+		tool.getDocumentations().remove(doc);
+		tool = toolDao.save(tool);
+		return Translators.translate(tool);
 	}
 }

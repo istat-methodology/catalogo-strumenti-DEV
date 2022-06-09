@@ -21,7 +21,7 @@ Funzionalità dell'implementazione
     <tr>
       <th></th>
       <th>Nome</th>
-      <th>Metodo</th>
+      <th>Funzione</th>
 <th>Metodo Statistico</th>
 <th>Descrizione</th>
 <th></th>

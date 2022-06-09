@@ -21,6 +21,7 @@
  * @version 1.0
  */
 package it.istat.mec.catalog.controller;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
+import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.request.CreateToolRequest;
 import it.istat.mec.catalog.service.ToolService;
 import lombok.extern.slf4j.Slf4j;
@@ -105,4 +107,16 @@ public class ToolController {
 
 		return toolService.findToolsByDocumentation(id);
 	} 
+	
+	@PutMapping(value = "/tools/{id}/documentation-add/{docID}")
+	public CatalogToolDTO addDocumentatione(@PathVariable("id") Integer id,@PathVariable("docID") Integer docID) throws ParseException {
+		
+		return toolService.addDocumentation(id,docID);
+	}
+	
+	@PutMapping(value = "/tools/{id}/documentation-remove/{docID}")
+	public CatalogToolDTO removeDocumentation(@PathVariable("id") Integer id,@PathVariable("docID") Integer docID) throws ParseException {
+		
+		return toolService.removeDocumentation(id,docID);
+	}
 }

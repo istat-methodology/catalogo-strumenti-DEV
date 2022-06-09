@@ -1,65 +1,55 @@
 <template>
   <div>
-
-    <div v-if="stateform == FormState.ADD"  class="col-12">
-    <div class="card-header">
-          &nbsp;Associa Documento
-          <div class="card-header-actions">
- <span class="icon-link float-right" @click="stateform = FormState.ADD"
-          ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Nuovo
-          Documento</span
-        >
-
-             <span class="icon-link float-right" @click="stateform = FormState.ADD"
-          ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Nuovo
-          Documento</span
-        >
-          </div>
+ 
+    <div v-if="stateform == FormState.ADD" class="col-12">
+      
+    <CCardHeader
+        >Seleziona un documento
+        <div class="card-header-actions">
+          <span class="icon-link" @click.prevent="handleAddSubmit" :disabled="true"
+            ><floppy-icon title="Salva Associazione" />
+          </span>
+          &nbsp;    &nbsp;    &nbsp;
+          <span
+            class="icon-link"
+            @click.prevent="stateform = FormState.LIST"
+            ><close-circle-icon title="Torna alla lista" />
+          </span>
         </div>
-
-      <div  v-if="documentationList">
-            <div class="card-slot">
-     
-            <span>Seleziona un documento</span>
-            
-
-            <v-select :options="getAllDocumentations" label="name" />
-            <v-select
-              label="documento"
-              :options="documentationList"
-             
-
-
-            ></v-select>
-            <span class="help-block">Seleziona una documentazione</span>
-            <span
-              class="icon-link float-right"
-              @click="stateform = FormState.NEW"
-              ><add-icon />Nuovo Documento</span
-            >
-          </div>
-          </div>
+      </CCardHeader>
+       
+    
+        <div class="card-slot"  v-if="documentationList">
+          <v-select  :options="getAllDocumentations" label="name"  placeholder="Elenco documenti"     @input="selectId($event)"/>
+          <span class="help-block">Seleziona una documentazione</span>
+        </div>
+         <div class="card-slot">
+            <span class="icon-link float-right" @click="stateform = FormState.NEW"
+            ><add-icon />Crea Nuovo Documento</span
+          >
+       
+        </div>
     </div>
 
-    <div v-if="stateform == FormState.NEW"  class="col-12">
+    <div v-if="stateform == FormState.NEW" class="col-12">
       <CCardHeader
         >Nuovo Documento
         <div class="card-header-actions">
-          <span class="icon-link float-right" @click.prevent="handleSubmit"
-            ><floppy-icon title="Salva" />
+          <span class="icon-link" @click.prevent="handleNewSubmit"
+            ><floppy-icon title="Salva Nuovo documento" />
           </span>
-          &nbsp;
+          &nbsp; &nbsp; &nbsp;
           <span
-            class="icon-link float-right"
+            class="icon-link"
             @click.prevent="stateform = FormState.LIST"
-            ><close-circle-icon title="Chiudi" />
+            ><close-circle-icon title="Torna alla lista" />
           </span>
         </div>
       </CCardHeader>
       <CCard class="col-12">
         <CCardBody>
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Nome"
             v-model="documentationLocal.name"
           />
@@ -90,49 +80,49 @@
         </CCardBody>
       </CCard>
     </div>
-  
 
-      <div  v-if="stateform == FormState.LIST" >
-       <div class="card-header">
-          &nbsp;Elenco Documnenti disponibili:
-          <div class="card-header-actions">
-             <span class="icon-link float-right" @click="stateform = FormState.ADD"
-          ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Aggiungi
-          Documento</span
-        >
-          </div>
+    <div v-if="stateform == FormState.LIST">
+      <div class="card-header">
+        &nbsp;Elenco Documnenti disponibili:
+        <div class="card-header-actions">
+          <span class="icon-link float-right" @click="stateform = FormState.ADD"
+            ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Aggiungi
+            Documento</span
+          >
         </div>
- <div class="columns">
-        <div class="row"  >
-        <div
-          class="card col-3"
-          v-for="documentation of documentations"
-          :key="documentation.id"
-        >
-          <div class="card-header">
-            {{ documentation.name }}
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'DocumentationDetails',
-                  params: { id: documentation.id },
-                }"
-              >
-                <view-icon />
-              </router-link>
-              <span class="icon-link" @click="modalOpen(documentation)"
-                ><delete-icon />
-              </span>
+      </div>
+      <div class="columns">
+        <div class="row">
+          <div
+            class="card col-3"
+            v-for="documentation of documentations"
+            :key="documentation.id"
+          >
+            <div class="card-header">
+              {{ documentation.name }}
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'DocumentationDetails',
+                    params: { id: documentation.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+                <span class="icon-link" @click="modalOpen(documentation)"
+                  ><delete-icon />
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{ documentation.documentType }}</p>
             </div>
           </div>
-          <div class="card-body">
-            <p class="card-text">{{ documentation.documentType }}</p>
-          </div>
         </div>
-        </div>
-      </div></div>
-      <CModal
+      </div>
+    </div>
+    <CModal
       title="Warning!"
       :show.sync="warningModal"
       @close="
@@ -165,6 +155,7 @@ export default {
   data() {
     return {
       selectedDoc: {},
+      selectedDocId:null,
       warningModal: false,
       FormState: {
         LIST: 0,
@@ -185,21 +176,24 @@ export default {
   computed: {
     ...mapGetters("documentationType", ["documentationTypeList"]),
     ...mapGetters("documentation", ["documentationList"]),
-  getAllDocumentations() {
+    getAllDocumentations() {
       if (this.documentationList) {
         return this.documentationList.map((item) => {
           return {
             id: item.id,
-            name: item.name 
-           // name: item.name == null ? "" : item.name +" - "+ item.documentType.name == null ? "" : item.documentType.name,
-         
+            name:
+              (item.name == null
+                ? ""
+                : item.name) + " - " + (item.documentType.name == null
+                ? ""
+                : item.documentType.name),
+          
           };
         });
       } else {
         return [];
       }
     },
-   
   },
   emits: ["refreshTool"],
 
@@ -229,11 +223,32 @@ export default {
     changeTool(value) {
       this.documentationLocal.tool = value.id;
     },
-   
+
     changeDocumentType(value) {
       this.documentationLocal.documentType = value.id;
     },
-    handleSubmit() {
+     selectId(e) {
+      this.selectedDocId = e.id;
+    },
+    handleAddSubmit() {
+
+      if(this.selectedDocId) {
+              if(this.toolId) {
+
+        
+      }
+
+      }
+      this.documentationLocal.tool = this.toolId;
+      this.documentationLocal.documentType =
+        this.documentationLocal.documentType.id;
+      console.log(this.documentationLocal);
+      this.$store
+        .dispatch("documentation/save", this.documentationLocal)
+        .then(this.$emit("refreshTool"));
+      this.viewNewDocument = false;
+    },
+      handleNewSubmit() {
       this.documentationLocal.tool = this.toolId;
       this.documentationLocal.documentType =
         this.documentationLocal.documentType.id;

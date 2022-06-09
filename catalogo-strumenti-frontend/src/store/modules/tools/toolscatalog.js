@@ -103,6 +103,32 @@ const actions = {
         console.log(err);
       });
   },
+  addDocumentation({ commit, dispatch }, id,docID) {
+    return toolsService
+      .addDocumentation(id,docID)
+      .then(data => {
+        commit("SET_TOOL", data);
+        dispatch("message/success", "Strumento Metodologico aggiornato!", {
+          root: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  removeDocumentation({ commit, dispatch }, id,docID) {
+    return toolsService
+      .removeDocumentation(id,docID)
+      .then(data => {
+        commit("SET_TOOL", data);
+        dispatch("message/success", "Strumento Metodologico aggiornato!", {
+          root: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   delete({ dispatch }, id) {
     return toolsService
       .delete(id)

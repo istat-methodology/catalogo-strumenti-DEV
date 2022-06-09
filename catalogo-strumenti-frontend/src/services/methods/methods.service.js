@@ -47,6 +47,30 @@ class MethodsService extends AbstractService {
         console.log(error);
       });
   }
+  addDocumentation(id,docID) {
+    return axiosCatalog
+      .put(this.endpoint + "/"+id+"/documentation-add/"+ docID)
+      .then(res => {
+        var data = res.data ? res.data : [];
+      
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+  removeDocumentation(id,docID) {
+    return axiosCatalog
+      .put(this.endpoint + "/"+id+"/documentation-remove/"+ docID)
+      .then(res => {
+        var data = res.data ? res.data : [];
+      
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 }
 
 export const methodsService = new MethodsService("/catalog/statisticalmethods");

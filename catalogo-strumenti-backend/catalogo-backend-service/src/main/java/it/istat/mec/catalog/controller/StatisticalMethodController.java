@@ -55,6 +55,19 @@ public class StatisticalMethodController {
 		return statisticalMethodService.updateStatisticalMethod(request);
 	}
 	
+	@PutMapping(value = "/statisticalmethods/{id}/documentation-add/{docID}")
+	public StatisticalMethodDto addStatisticalMethodDocumentatione(@PathVariable("id") Integer id,@PathVariable("docID") Integer docID) throws ParseException {
+		
+		return statisticalMethodService.addStatisticalMethodDocumentation(id,docID);
+	}
+	
+	@PutMapping(value = "/statisticalmethods/{id}/documentation-remove/{docID}")
+	public StatisticalMethodDto removeStatisticalMethodDocumentatione(@PathVariable("id") Integer id,@PathVariable("docID") Integer docID) throws ParseException {
+		
+		return statisticalMethodService.removeStatisticalMethodDocumentation(id,docID);
+	}
+	
+	
 	@DeleteMapping(value = "/statisticalmethods/{id}")
 	public StatisticalMethodDto deleteStatisticalMethod(@PathVariable("id") Integer id) {
 
