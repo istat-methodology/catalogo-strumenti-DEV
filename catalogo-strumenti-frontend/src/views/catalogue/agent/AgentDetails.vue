@@ -47,13 +47,13 @@
         </div>
       </div>
 
-      <CButton
+      <!-- <CButton
         shape="square"
         size="sm"
         color="light"
         @click.prevent="$router.back()"
         >Indietro</CButton
-      >
+      > -->
     </div>
   </div>
 </template>
