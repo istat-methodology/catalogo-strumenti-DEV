@@ -133,9 +133,9 @@
             <div v-if="this.statisticalMethod">
               <app-edit-documentation
                 :parentName="this.statisticalMethod.name"
-                @updateParent="handleSubmit"
+                @updateParent="loadMethod"
                 :documentations="getDocumentation"
-                :toolId="this.statisticalMethod.id"
+                :methodId="this.statisticalMethod.id"
               >
               </app-edit-documentation>
             </div>

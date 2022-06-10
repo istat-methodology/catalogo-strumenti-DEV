@@ -1,6 +1,7 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -61,10 +62,13 @@ public class Documentation implements Serializable  {
 	
 	 
 	public Documentation() {
-		
+		this.catalogTools=new ArrayList<CatalogTool>();
+		this.statisticalMethods=new ArrayList<StatisticalMethod>();
 	}
 	public Documentation(Integer id) {
 		super();
+		this.catalogTools=new ArrayList<CatalogTool>();
+		this.statisticalMethods=new ArrayList<StatisticalMethod>();
 		this.id = id;
 	}
 }

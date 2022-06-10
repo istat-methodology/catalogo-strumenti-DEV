@@ -1,82 +1,53 @@
 <template>
   <div>
     <div v-if="stateform == FormState.ADD" class="col-12">
-      <CCardHeader
-        >Seleziona un documento
+      <CCardHeader>Seleziona un documento
         <div class="card-header-actions">
-          <span
-            class="icon-link"
-            @click.prevent="handleAddSubmit"
-            :disabled="true"
-            ><floppy-icon title="Salva Associazione" />
+          <span class="icon-link" @click.prevent="handleAddSubmit" :disabled="true">
+            <floppy-icon title="Salva Associazione" />
           </span>
           &nbsp; &nbsp; &nbsp;
-          <span class="icon-link" @click.prevent="stateform = FormState.LIST"
-            ><close-circle-icon title="Torna alla lista" />
+          <span class="icon-link" @click.prevent="stateform = FormState.LIST">
+            <close-circle-icon title="Torna alla lista" />
           </span>
         </div>
       </CCardHeader>
 
       <div class="card-slot" v-if="documentationList">
-        <v-select
-          :options="getAllDocumentations"
-          label="name"
-          placeholder="Elenco documenti"
-          @input="selectId($event)"
-        />
+        <v-select :options="getAllDocumentations" label="name" placeholder="Elenco documenti"
+          @input="selectId($event)" />
         <span class="help-block">Seleziona una documentazione</span>
       </div>
       <div class="card-slot">
-        <span class="icon-link float-right" @click="stateform = FormState.NEW"
-          ><add-icon />Crea Nuovo Documento</span
-        >
+        <span class="icon-link float-right" @click="stateform = FormState.NEW">
+          <add-icon />Crea Nuovo Documento
+        </span>
       </div>
     </div>
 
     <div v-if="stateform == FormState.NEW" class="col-12">
-      <CCardHeader
-        >Nuovo Documento
+      <CCardHeader>Aggiungi Nuovo Documento
         <div class="card-header-actions">
-          <span class="icon-link" @click.prevent="handleNewSubmit"
-            ><floppy-icon title="Salva Nuovo documento" />
+          <span class="icon-link" @click.prevent="handleNewSubmit">
+            <floppy-icon title="Salva Nuovo documento" />
           </span>
           &nbsp; &nbsp; &nbsp;
-          <span class="icon-link" @click.prevent="stateform = FormState.LIST"
-            ><close-circle-icon title="Torna alla lista" />
+          <span class="icon-link" @click.prevent="stateform = FormState.LIST">
+            <close-circle-icon title="Torna alla lista" />
           </span>
         </div>
       </CCardHeader>
       <CCard class="col-12">
         <CCardBody>
-          <CInput
-            label="Nome*"
-            placeholder="Nome"
-            v-model="documentationLocal.name"
-          />
-          <CInput
-            label="Editore"
-            placeholder="Editore"
-            v-model="documentationLocal.publisher"
-          />
+          <CInput label="Nome*" placeholder="Nome" v-model="documentationLocal.name" />
+          <CInput label="Editore" placeholder="Editore" v-model="documentationLocal.publisher" />
           <div>
             <label>Tipo Documento</label>
           </div>
-          <v-select
-            label="name"
-            :options="documentationTypeList"
-            placeholder="Tipo documento"
-            v-model="documentationLocal.documentType"
-          ></v-select>
-          <CTextarea
-            label="Note"
-            placeholder="Note"
-            v-model="documentationLocal.notes"
-          />
-          <CInput
-            label="Fonti"
-            placeholder="Fonti"
-            v-model="documentationLocal.resource"
-          />
+          <v-select label="name" :options="documentationTypeList" placeholder="Tipo documento"
+            v-model="documentationLocal.documentType"></v-select>
+          <CTextarea label="Note" placeholder="Note" v-model="documentationLocal.notes" />
+          <CInput label="Fonti" placeholder="Fonti" v-model="documentationLocal.resource" />
         </CCardBody>
       </CCard>
     </div>
@@ -85,33 +56,26 @@
       <div class="card-header">
         &nbsp;Elenco Documnenti disponibili:
         <div class="card-header-actions">
-          <span class="icon-link float-right" @click="stateform = FormState.ADD"
-            ><add-icon title="Aggiungi un nuovo documento" />&nbsp;Aggiungi
-            Documento</span
-          >
+          <span class="icon-link float-right" @click="stateform = FormState.ADD">
+            <add-icon title="Aggiungi un nuovo documento" />&nbsp;Aggiungi
+            Documento
+          </span>
         </div>
       </div>
       <div class="columns">
         <div class="row">
-          <div
-            class="card col-3"
-            v-for="documentation of documentations"
-            :key="documentation.id"
-          >
+          <div class="card col-3" v-for="documentation of documentations" :key="documentation.id">
             <div class="card-header">
               {{ documentation.name }}
               <div class="card-header-actions">
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'DocumentationDetails',
-                    params: { id: documentation.id },
-                  }"
-                >
+                <router-link tag="a" :to="{
+                  name: 'DocumentationDetails',
+                  params: { id: documentation.id },
+                }">
                   <view-icon />
                 </router-link>
-                <span class="icon-link" @click="modalOpen(documentation)"
-                  ><delete-icon />
+                <span class="icon-link" @click="modalOpen(documentation)">
+                  <delete-icon />
                 </span>
               </div>
             </div>
@@ -122,25 +86,16 @@
         </div>
       </div>
     </div>
-    <CModal
-      title="Warning!"
-      :show.sync="warningModal"
-      @close="
-        () => {
-          this.$emit('updateParent');
-        }
-      "
-    >
+    <CModal title="Warning!" :show.sync="warningModal" @close="
+      () => {
+        this.$emit('updateParent');
+      }
+    ">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Close
         </CButton>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          @click="deleteDocumentation"
-        >
+        <CButton shape="square" size="sm" color="primary" @click="handleRemoveSubmit">
           Delete
         </CButton>
       </template>
@@ -229,13 +184,13 @@ export default {
     },
     handleAddSubmit() {
       console.log(this.selectedDocId)
-     let params={id:0,docID:0};
+      let params = { id: 0, docID: 0 };
 
       if (this.selectedDocId) {
         if (this.toolId) {
-           
-           params.id=this.toolId;
-           params.docID=this.selectedDocId;
+
+          params.id = this.toolId;
+          params.docID = this.selectedDocId;
           this.$store
             .dispatch(
               "tools/addDocumentation",
@@ -244,9 +199,9 @@ export default {
             .then(this.$emit("updateParent"));
         }
         if (this.methodId) {
-              
-           params.id=this.toolId;
-           params.docID=this.selectedDocId;
+
+          params.id = this.methodId;
+          params.docID = this.selectedDocId;
           this.$store
             .dispatch(
               "methods/addDocumentation",
@@ -258,9 +213,10 @@ export default {
     },
     handleNewSubmit() {
       this.documentationLocal.tool = this.toolId;
+      this.documentationLocal.method = this.methodId;
       this.documentationLocal.documentType =
         this.documentationLocal.documentType.id;
-      console.log(this.documentationLocal);
+
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
         .then(this.$emit("updateParent"));
@@ -273,9 +229,38 @@ export default {
       this.$store
         .dispatch("documentation/delete", this.selectedDoc.id)
         .then(this.$emit("updateParent"));
+
+    },
+    handleRemoveSubmit() {
+
+      let params = { id: 0, docID: 0 };
+
+      if (this.selectedDoc.id) {
+        if (this.toolId) {
+
+          params.id = this.toolId;
+          params.docID = this.selectedDoc.id;
+          this.$store
+            .dispatch(
+              "tools/removeDocumentation",
+              params
+            )
+            .then(this.$emit("updateParent"));
+        }
+        if (this.methodId) {
+
+          params.id = this.methodId;
+          params.docID = this.selectedDoc.id;
+          this.$store
+            .dispatch(
+              "methods/removeDocumentation",
+              params
+            )
+            .then(this.$emit("updateParent"));
+        }
+      }
       this.warningModal = false;
     },
-
     modalOpen(app) {
       this.selectedDoc = app;
       this.warningModal = true;
@@ -295,13 +280,16 @@ export default {
 h5 {
   margin-bottom: 0.1rem;
 }
+
 .card-border {
   border: 1px solid #d8dbe0 !important;
   box-shadow: none !important;
 }
+
 .bg-lighter {
   background-color: #f8f8f8 !important;
 }
+
 .material-design-icon {
   margin-bottom: 0.2rem;
 }
@@ -335,7 +323,8 @@ body {
 
 /* Style the counter cards */
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* this adds the "card" effect */
   padding: 12px;
   text-align: left;
   background-color: #f1f1f1;

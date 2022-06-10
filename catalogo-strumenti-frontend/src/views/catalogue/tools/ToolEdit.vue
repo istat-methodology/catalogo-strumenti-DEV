@@ -317,7 +317,7 @@
             <div v-if="this.tool">
               <app-edit-documentation
                 :parentName="this.tool.name"
-                @refreshTool="handleSubmit"
+                @refreshTool="loadTool"
                 :documentations="getDocumentation"
                 :toolId="this.tool.id"
               >
@@ -474,6 +474,9 @@ export default {
         this.loadTool();
       });
     },
+
+
+
 
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
