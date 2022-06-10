@@ -51,12 +51,6 @@
                   ><delete-icon
                 /></span>
               </td>
-
-              <!-- <td v-if="isAuthenticated">
-                <router-link tag="a" :to="{ name: 'ToolAdd' }">
-                  <delete-icon />
-                </router-link>
-              </td> -->
             </template>
           </CDataTable>
         </CCardBody>
