@@ -46,7 +46,7 @@
                   <edit-icon />
                 </router-link>
               </td>
-              <td>
+              <td  v-if="isAuthenticated">
                 <span class="icon-link" @click="modalOpen(item)"
                   ><delete-icon
                 /></span>

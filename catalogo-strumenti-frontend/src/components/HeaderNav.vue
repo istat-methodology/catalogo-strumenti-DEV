@@ -1,6 +1,6 @@
 <template>
   <div class="c-subheader-nav mfe-2">
-    <template v-if="isAdmin">
+    <template v-if="isAuthenticated">
       <span class="revisore">( Amministratore )</span>
 
       <!-- <span class="revisore-name pl-1 pr-2">

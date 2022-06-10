@@ -5,7 +5,7 @@
       <h2 class="pt-4">
         {{ agent.name | dashEmpty
         }}<span class="float-right">
-          <router-link v-if="isAdmin"
+          <router-link v-if="isAuthenticated"
             tag="a"
             :to="{
               name: 'AgentEdit',

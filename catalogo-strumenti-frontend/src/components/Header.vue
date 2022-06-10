@@ -19,7 +19,7 @@
         class="c-header-nav-items"
         placement="bottom"
         add-menu-classes="dropdown-menu-right pt-0"
-        v-if="isAdmin"
+        v-if="isAuthenticated"
       >
         <template #toggler>
           <CHeaderNavLink>
