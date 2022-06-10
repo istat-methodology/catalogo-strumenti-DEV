@@ -228,22 +228,29 @@ export default {
       this.selectedDocId = e.id;
     },
     handleAddSubmit() {
+      console.log(this.selectedDocId)
+     let params={id:0,docID:0};
+
       if (this.selectedDocId) {
         if (this.toolId) {
+           
+           params.id=this.toolId;
+           params.docID=this.selectedDocId;
           this.$store
             .dispatch(
               "tools/addDocumentation",
-              this.toolId,
-              this.selectedDocId
+              params
             )
             .then(this.$emit("updateParent"));
         }
         if (this.methodId) {
+              
+           params.id=this.toolId;
+           params.docID=this.selectedDocId;
           this.$store
             .dispatch(
               "methods/addDocumentation",
-              this.toolId,
-              this.selectedDocId
+              params
             )
             .then(this.$emit("updateParent"));
         }
