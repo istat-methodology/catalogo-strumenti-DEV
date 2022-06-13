@@ -35,7 +35,8 @@ export default {
   name: "HeaderNav",
   computed: {
     //...mapGetters("coreui", ["isHome"]),
-    ...mapGetters("auth", ["isAdmin"])
+    ...mapGetters("auth", ["isAdmin"]),
+    ...mapGetters("auth", ["isAuthenticated"])
     /*  ...mapGetters("address", ["assignedId", "assignedName"]) */
   }
 };

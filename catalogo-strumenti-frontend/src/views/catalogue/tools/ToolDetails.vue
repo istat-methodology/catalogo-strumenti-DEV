@@ -218,7 +218,7 @@
 
       <div id="id-functionalities" />
       <div
-        v-if="businessServiceService.processSteps"
+        v-if="businessServiceService"
         @mouseover="setActiveItemList('#id-link-functionalities', true)"
         @mouseleave="setActiveItemList('#id-link-functionalities', false)"
       >
@@ -231,7 +231,7 @@
 
       <div id="id-process" />
       <div
-        v-if="businessServiceService.processSteps"
+        v-if="bFunctionToolsList"
         @mouseover="setActiveItemList('#id-link-process', true)"
         @mouseleave="setActiveItemList('#id-link-process', false)"
       >
@@ -474,6 +474,7 @@ export default {
     ...mapGetters("businessService", {
       businessServiceService: "businessService",
     }),
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bFunction", ["bFunctionToolsList"]),
     getLinkedAgentList: function () {
       return this.tool.linkAgentsTools.map((agentTool) => {

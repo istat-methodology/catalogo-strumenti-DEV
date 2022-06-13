@@ -67,7 +67,8 @@ import HeaderNav from "./HeaderNav";
 export default {
   name: "Header",
   computed: {
-    ...mapGetters("auth", ["isAdmin", "isRevisor"])
+    ...mapGetters("auth", ["isAdmin", "isRevisor"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   components: {
     "app-header-dropdown-account": HeaderDropdownAccnt,

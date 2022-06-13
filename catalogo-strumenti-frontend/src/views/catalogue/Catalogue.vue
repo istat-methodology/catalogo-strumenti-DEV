@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-sm-6 col-md-5">      
+    <div class="col-sm-6 col-md-5">
       <h2 class="pt-5">Strumenti Metodologici</h2>
       <div class="card">
         <div class="card-body">
@@ -67,6 +67,6 @@ export default {
   name: "Catalogue",
   created() {
     this.$store.dispatch("coreui/setContext", Context.Home);
-  },
+  }
 };
 </script>

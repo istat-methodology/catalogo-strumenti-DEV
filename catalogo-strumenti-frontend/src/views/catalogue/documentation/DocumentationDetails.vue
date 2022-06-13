@@ -121,7 +121,8 @@ export default {
   },
   computed: { 
      ...mapGetters("documentation", ["documentation"]),
-     ...mapGetters("tools", ["toolsByDocumentation"])
+     ...mapGetters("tools", ["toolsByDocumentation"]),
+     ...mapGetters("auth", ["isAuthenticated"])
   },
   components: {
    // "app-documentation": Documentation,
@@ -133,6 +134,14 @@ export default {
       document.querySelector(selector).className = bool
         ? "list-item-hover"
         : "list-item";
+    },
+    setActiveCard(selector, bool) {
+      document.querySelector(selector).className = bool ? "card-hover" : "card";
+    },
+    setActiveIndex(index) {
+      this.activeIndex !== index
+        ? (this.activeIndex = index)
+        : (this.activeIndex = -1);
     },
   },
   created() {

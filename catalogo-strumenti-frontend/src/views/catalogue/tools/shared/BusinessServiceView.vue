@@ -1,16 +1,18 @@
 <template>
   <div>
     <h2><span>3.</span> Implementazione</h2>
-     <div class="description-fields col-12">
-            Elenco dei moduli dello strumento
-              </div>
+    <div class="description-fields col-12">
+      Elenco dei moduli dello strumento
+    </div>
     <div v-if="businessServiceService.appServices">
       <div
         v-for="(appService, index) of businessServiceService.appServices"
         :key="appService.id"
       >
         <div class="p-2">
-          <h4 ><span>3.{{index + 1}}</span> {{ appService.name }}</h4>
+          <h4>
+            <span>3.{{ index + 1 }}</span> {{ appService.name }}
+          </h4>
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">
@@ -44,7 +46,9 @@
 
           <!--div class="card-body"-->
           <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-         <h4 ><span>3.{{index + 1}}.1 </span>Funzionalità</h4>
+          <h4>
+            <span>3.{{ index + 1 }}.1 </span>Funzionalità
+          </h4>
           <div
             class="table-responsive"
             v-if="appService.stepInstances.length > 20"
@@ -100,7 +104,6 @@
     </div>
 
     <div v-else>
-      
       <div class="card w-100">
         <div class="card-body">Nessuna funzionalità definita</div>
       </div>
