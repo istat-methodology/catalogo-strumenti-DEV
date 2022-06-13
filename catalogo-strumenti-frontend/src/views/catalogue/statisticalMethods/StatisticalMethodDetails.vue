@@ -174,6 +174,7 @@ export default {
   },
   computed: {
     ...mapGetters("methods", ["statisticalMethod"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   methods: {
     backToList() {

@@ -5,7 +5,8 @@
       <h2 class="pt-4">
         {{ agent.name | dashEmpty
         }}<span class="float-right">
-          <router-link v-if="isAuthenticated"
+          <router-link
+            v-if="isAuthenticated"
             tag="a"
             :to="{
               name: 'AgentEdit',
@@ -17,7 +18,7 @@
           </router-link>
         </span>
       </h2>
-      <div class="row" >
+      <div class="row">
         <div class="card col-md-auto p-2">
           <span><strong>Nome</strong></span>
           <div class="card-slot  p-2">
@@ -64,7 +65,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "AgentDetails",
   computed: {
-    ...mapGetters("agent", ["agent"])
+    ...mapGetters("agent", ["agent"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   methods: {
     backToList() {

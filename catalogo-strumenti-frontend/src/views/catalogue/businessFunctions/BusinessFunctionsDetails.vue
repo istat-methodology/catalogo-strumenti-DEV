@@ -131,6 +131,7 @@ export default {
    computed: {
     ...mapGetters("bFunction", ["bFunction"]),
     ...mapGetters("tools", ["toolsByBfunction"]),
+    ...mapGetters("auth", ["isAuthenticated"]),
     getBusinessProcesses: function() {
       return this.bFunction.businessProcesses.map(item => {
         return {
