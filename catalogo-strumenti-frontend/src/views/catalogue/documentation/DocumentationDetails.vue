@@ -158,7 +158,13 @@ export default {
           "tools/findToolsByDocumentation",
           this.documentation.id
         );
+         this.$store.dispatch(
+          "methods/findMethodsByDocumentation",
+          this.documentation.id
+        );
       });
+
+ 
   },
 };
 </script>

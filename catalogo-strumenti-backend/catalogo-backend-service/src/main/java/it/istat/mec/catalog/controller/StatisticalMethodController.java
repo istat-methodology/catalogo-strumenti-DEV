@@ -39,7 +39,7 @@ public class StatisticalMethodController {
 
 	}
 	
-	@GetMapping("/open/tools/statisticalmethods/{id}")
+	@GetMapping("/open/statisticalmethods/documentations/{id}")
 	public List<StatisticalMethodMiniDto> findBydocumentation(@PathVariable("id") Integer id) {
 
 		return statisticalMethodService.findByDocumentation(id);
