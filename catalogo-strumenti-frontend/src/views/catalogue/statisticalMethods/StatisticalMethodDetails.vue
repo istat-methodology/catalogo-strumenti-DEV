@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="statisticalMethod">
-    <div class="col-9">
+    <div class="col-8">
       <div id="id-main" />
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
@@ -123,6 +123,7 @@
         <div class="p-2">
           <app-tools-function
             :index="'1.'"
+            :descriptionLabel="'Elenco degli strumenti che implementano il Metodo'"
             :tools="statisticalMethod.catalogTools"
           ></app-tools-function>
         </div>
@@ -136,12 +137,13 @@
         <div class="p-2">
           <app-documentations
             :index="'2.'"
-            :documentations="getDocumentationList"
+            :descriptionLabel="'Elenco della documentazione relativa al metodo'"
+            :documentations="getDocumentationList()"
           ></app-documentations>
         </div>
       </div>
     </div>
-    <aside class="container-rigth col-2">
+    <aside class="container-rigth col-3">
       <section class="menu">
         <header>
           <h2 class="menu-heading"><b>Contenuto:</b></h2>
@@ -182,6 +184,7 @@ export default {
     },
 
     getDocumentationList: function () {
+      if(this.statisticalMethod.documentations)
       return this.statisticalMethod.documentations.map((doc) => {
         return {
           id: doc.id,
@@ -191,6 +194,7 @@ export default {
           resource: doc.resource,
         };
       });
+      else return [];
     },
     formatDate(dt) {
       dt = new Date(dt);

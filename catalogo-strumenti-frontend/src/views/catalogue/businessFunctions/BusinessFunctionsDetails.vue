@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="bFunction">
-    <div class="col-9">
+    <div class="col-8">
       <div id="id-main" />
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
@@ -86,7 +86,7 @@
 
     </div>
 
-    <aside class="container-rigth col-2">
+    <aside class="container-rigth col-3">
       <section class="menu">
         <header><h2 class="menu-heading"><b>Contenuto:</b></h2></header>
         <ul class="menu-list">

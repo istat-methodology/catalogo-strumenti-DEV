@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="documentation">
-    <div class="col-9">
+    <div class="col-8">
       <div id="id-main" />
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
@@ -80,17 +80,17 @@
           @mouseleave="setActiveItemList('#id-link-methods', false)"
         >
           <div class="p-2">
-            <app-methods-view
+            <app-methods
               :indexLabel="''"
               :descriptionLabel="'Metodi statistici referenziati dal documento'"
               :statisticalMethods="methodsByDocumentation"
-            ></app-methods-view>
+            ></app-methods>
           </div>
         </div>
       </div>
     </div>
 
-    <aside class="container-rigth col-2">
+    <aside class="container-rigth col-3">
       <section class="menu">
         <header>
           <h2 class="menu-heading"><b>Contenuto:</b></h2>

@@ -4,7 +4,7 @@
 
     <div class="columns">
       <div class="description-fields col-12">
-        Elenco della Documentazione relativa allo strumento
+       {{ descriptionLabel }}
       </div>
       <div class="row">
         <div v-if="documentations.length === 0">
@@ -53,7 +53,12 @@ export default {
       type: String,
       required: true,
       default: () => ''
-    }
+    },
+    descriptionLabel: {
+      type: String,
+      required: true,
+      default: () => ''
+    },
   }
 };
 </script>

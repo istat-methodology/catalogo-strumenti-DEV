@@ -3,6 +3,9 @@
     <h2>
       <span>{{ index }}</span> Strumenti metodologici
     </h2>
+     <div class="description-fields col-12">
+      {{ descriptionLabel }}
+    </div>
     <div class="columns">
       <div class="row">
         <div v-if="tools.length === 0">
@@ -43,6 +46,12 @@ export default {
       default: () => []
     },
     index: {
+      type: String,
+      required: false,
+      default: () => ""
+    }
+    ,
+    descriptionLabel: {
       type: String,
       required: false,
       default: () => ""

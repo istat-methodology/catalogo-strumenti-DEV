@@ -23,11 +23,7 @@
             placeholder="Editore"
             v-model="documentationLocal.publisher"
           />
-          <!-- <CInput
-            label="Tipo Documento"
-            placeholder="Tipo Documento"
-            v-model="documentationLocal.documentType.name"
-          /> -->
+       
           <div>
             <label>Tipo Documento</label>
           </div>
@@ -38,7 +34,7 @@
             v-model="documentation.documentType.name"
             @input="changeDocumentType"
           ></v-select>
-          <CInput
+          <CTextarea
             label="Note"
             placeholder="Note"
             v-model="documentationLocal.notes"
@@ -48,17 +44,7 @@
             placeholder="Fonti"
             v-model="documentationLocal.resource"
           />
-          <!-- <div>
-            <label>Strumento Statistico</label>
-          </div>
-
-          <v-select
-            label="name"
-            :options="toolscatalog"
-            placeholder="Strumento Statistico"
-            v-model="documentation.tool.name"
-            @input="changeTool"
-          ></v-select> -->
+     
         </CCardBody>
       </CCard>
       <CCardFooter>
@@ -116,12 +102,7 @@ export default {
         name: {
           required
         }
-      },
-      tool: {
-        name: {
-          required
-        }
-      }
+      } 
     }
   },
   methods: {
@@ -149,7 +130,7 @@ export default {
       this.documentationLocal.documentType = this.documentation.documentType.id;
       this.documentationLocal.notes = this.documentation.notes;
       this.documentationLocal.resource = this.documentation.resource;
-      this.documentationLocal.tool = this.documentation.tool.id;
+    
     },
     backToList() {
       this.$router.push("/catalogue/documentazione");

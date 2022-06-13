@@ -54,7 +54,7 @@
 
     <div v-if="stateform == FormState.LIST">
       <div class="card-header">
-        &nbsp;Elenco Documnenti disponibili:
+        &nbsp;Elenco Documenti disponibili:
         <div class="card-header-actions">
           <span class="icon-link float-right" @click="stateform = FormState.ADD">
             <add-icon title="Aggiungi un nuovo documento" />&nbsp;Aggiungi
