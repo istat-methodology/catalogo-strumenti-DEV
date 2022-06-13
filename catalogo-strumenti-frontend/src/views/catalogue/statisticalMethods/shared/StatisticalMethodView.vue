@@ -1,15 +1,17 @@
 <template>
   <div>
-    <h2><span>2.</span> Metodi statistici</h2>
-      <div class="description-fields col-12">
-            Metodi statistici implementati nello strumento
-              </div>
+    <h2>
+      <span>{{ indexLabel }}</span> Metodi statistici
+    </h2>
+    <div class="description-fields col-12">
+      {{ descriptionLabel }}
+    </div>
     <div class="columns">
-        
       <div class="row">
-      
         <div v-if="statisticalMethods.length === 0">
-            <span><i><h5>Nessun metodo statitico associato</h5></i></span>
+          <span
+            ><i><h5>Nessun metodo statitico associato</h5></i></span
+          >
         </div>
         <div
           class="card col-md-3"
@@ -23,7 +25,7 @@
                 tag="a"
                 :to="{
                   name: 'StatisticalMethodView',
-                  params: { id: statisticalMethod.id }
+                  params: { id: statisticalMethod.id },
                 }"
               >
                 <view-icon />
@@ -45,9 +47,20 @@ export default {
     statisticalMethods: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+    indexLabel: {
+      type: String,
+      required: false,
+      default: () => "",
+    },
+
+    descriptionLabel: {
+      type: String,
+      required: true,
+      default: () => "",
+    },
+  },
 };
 </script>
 <style scoped>

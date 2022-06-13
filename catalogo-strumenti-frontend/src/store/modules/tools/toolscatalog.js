@@ -103,9 +103,9 @@ const actions = {
         console.log(err);
       });
   },
-  addDocumentation({ commit, dispatch }, id,docID) {
+  addDocumentation({ commit, dispatch },params) {
     return toolsService
-      .addDocumentation(id,docID)
+      .addDocumentation(params.id,params.docID)
       .then(data => {
         commit("SET_TOOL", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h5>Passi del processo: {{ positionIndex }}. {{ processName }}</h5>
+    <label>Passi del processo: {{ positionIndex }}. {{ processName }}</label>
     <div v-if="processSteps">
       <div v-for="(processStep, index) of processSteps" :key="processStep.id">
         <div class="p-2">
-          <h4>
+          <h5>
             <span>{{ positionIndex }}.{{ index + 1 }}</span>
             {{ processStep.name }}
-          </h4>
+          </h5>
           <div class="columns">
             <div class="row">
               <div class="description-fields col-12">

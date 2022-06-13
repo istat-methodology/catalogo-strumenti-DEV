@@ -3,7 +3,8 @@ import { methodsOpenService } from "@/services";
 
 const state = {
   statisticalMethodsList: [],
-  statisticalMethod: null
+  statisticalMethod: null,
+  methodsByDocumentation: [],
 };
 
 const mutations = {
@@ -12,7 +13,10 @@ const mutations = {
   },
   SET_METHOD(state, statisticalMethod) {
     state.statisticalMethod = statisticalMethod;
-  }
+  },
+  SET_METHODSBYDOCUMENTATION(state, methodsByDocumentation) {
+    state.methodsByDocumentation = methodsByDocumentation;
+  },
 };
 
 const actions = {
@@ -56,6 +60,16 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_METHOD", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  findMethodsByDocumentation({ commit }, id) {
+    return methodsOpenService
+      .findMethodsByDocumentation(id)
+      .then(data => {
+        commit("SET_METHODSBYDOCUMENTATION", data);
       })
       .catch(err => {
         console.log(err);
@@ -121,7 +135,10 @@ const getters = {
   },
   statisticalMethod: state => {
     return state.statisticalMethod;
-  }
+  },
+  methodsByDocumentation: state => {
+    return state.methodsByDocumentation;
+  },
 };
 
 export const methods = {

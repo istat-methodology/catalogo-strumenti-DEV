@@ -3,15 +3,16 @@
   <div class="row" v-if="documentation">
     <div class="col-9">
       <div id="id-main" />
-        <div
-          @mouseover="setActiveItemList('#id-link-main', true)"
-          @mouseleave="setActiveItemList('#id-link-main', false)"
-        >
-          <div class="p-2">
-              <h2 class="pt-4">
-            {{ documentation.name  | dashEmpty
+      <div
+        @mouseover="setActiveItemList('#id-link-main', true)"
+        @mouseleave="setActiveItemList('#id-link-main', false)"
+      >
+        <div class="p-2">
+          <h2 class="pt-4">
+            {{ documentation.name | dashEmpty
             }}<span class="float-right">
-              <router-link  v-if="isAuthenticated"
+              <router-link
+                v-if="isAuthenticated"
                 tag="a"
                 :to="{
                   name: 'DocumentationEdit',
@@ -23,79 +24,83 @@
               </router-link>
             </span>
           </h2>
-              <div class="row">
-                <!-- <div class="card col-md-auto p-2">
+          <div class="row">
+            <!-- <div class="card col-md-auto p-2">
                   <span><strong>Nome</strong></span>
                   <div class="card-slot  p-2">
                     <span>{{ documentation.name | dashEmpty }}</span>
                   </div>
                 </div> -->
 
-                <div class="card col-md-auto p-2">
-                  <span><strong>Editore</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ documentation.publisher | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Tipo Documento</strong></span>
+            <div class="card col-md-auto p-2">
+              <span><strong>Editore</strong></span>
+              <div class="card-slot p-2">
+                <span>{{ documentation.publisher | dashEmpty }}</span>
+              </div>
+            </div>
+            <div class="card col-md-auto p-2">
+              <span><strong>Tipo Documento</strong></span>
 
-                  <div class="card-slot  p-2">
-                    <span>{{ documentation.documentType.name | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Fonte</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ documentation.resource | dashEmpty }}</span>
-                  </div>
-                </div>
-              </div>  
-                <div class="row">
-                  <div class="card col-md-auto p-2">
-                    <span><strong>Note</strong></span>
-                    <div class="card-slot  p-2">
-                      <span>{{ documentation.notes | dashEmpty }}</span>
-                    </div>
-                  </div>
-                </div>
-              
-          <div>
-        </div>        
-      </div>
+              <div class="card-slot p-2">
+                <span>{{ documentation.documentType.name | dashEmpty }}</span>
+              </div>
+            </div>
+            <div class="card col-md-auto p-2">
+              <span><strong>Fonte</strong></span>
+              <div class="card-slot p-2">
+                <span>{{ documentation.resource | dashEmpty }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="card col-md-auto p-2">
+              <span><strong>Note</strong></span>
+              <div class="card-slot p-2">
+                <span>{{ documentation.notes | dashEmpty }}</span>
+              </div>
+            </div>
+          </div>
 
-      
-      <div id="id-second" />
+          <div></div>
+        </div>
+
+        <div id="id-second" />
         <div
           @mouseover="setActiveItemList('#id-link-second', true)"
           @mouseleave="setActiveItemList('#id-link-second', false)"
         >
           <div class="p-2">
-            <!-- <h2 class="pt-4">
-              contenuto centrale<span class="float-right">
-                
-              </span>
-            
-              
-            </h2> -->
-            <app-tools-view
-              :tools="toolsByDocumentation"
-            ></app-tools-view>
-          </div>       
+            <app-tools-view :tools="toolsByDocumentation"></app-tools-view>
+          </div>
+        </div>
+
+        <div id="id-methods" />
+        <div
+          @mouseover="setActiveItemList('#id-link-methods', true)"
+          @mouseleave="setActiveItemList('#id-link-methods', false)"
+        >
+          <div class="p-2">
+            <app-methods-view
+              :indexLabel="''"
+              :descriptionLabel="'Metodi statistici referenziati dal documento'"
+              :statisticalMethods="methodsByDocumentation"
+            ></app-methods-view>
+          </div>
         </div>
       </div>
-
     </div>
 
     <aside class="container-rigth col-2">
       <section class="menu">
-        <header><h2 class="menu-heading"><b>Contenuto:</b></h2></header>
+        <header>
+          <h2 class="menu-heading"><b>Contenuto:</b></h2>
+        </header>
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
             <a class="item-link" href="#id-main">Documento</a>
             <a class="item-link" href="#id-second">Strumenti Metodologici</a>
+            <a class="item-link" href="#id-methods">Metodi Statistici</a>
           </li>
-     
         </ul>
       </section>
     </aside>
@@ -103,10 +108,10 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
- 
+
 //import Documentation from "../documentation/shared/Documentation";
 import ToolsView from "../tools/shared/ToolsView";
-
+import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
 
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
@@ -114,23 +119,24 @@ import { mapGetters } from "vuex";
 export default {
   name: "DocumentationDetails",
   //components: { plusORminus },
-   data() {
+  data() {
     return {
-      activeIndex: -1
+      activeIndex: -1,
     };
   },
-  computed: { 
-     ...mapGetters("documentation", ["documentation"]),
-     ...mapGetters("tools", ["toolsByDocumentation"]),
-     ...mapGetters("auth", ["isAuthenticated"])
+  computed: {
+    ...mapGetters("documentation", ["documentation"]),
+    ...mapGetters("tools", ["toolsByDocumentation"]),
+    ...mapGetters("methods", ["methodsByDocumentation"]),
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   components: {
-   // "app-documentation": Documentation,
-    "app-tools-view": ToolsView
-
+    // "app-documentation": Documentation,
+    "app-tools-view": ToolsView,
+    "app-methods": StatisticalMethodView,
   },
   methods: {
-     setActiveItemList(selector, bool) {
+    setActiveItemList(selector, bool) {
       document.querySelector(selector).className = bool
         ? "list-item-hover"
         : "list-item";
@@ -145,10 +151,14 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("documentation/findById", this.$route.params.id).then(() => {
-         this.$store.dispatch("tools/findToolsByDocumentation", this.documentation.id);
-      });;
-    
+    this.$store
+      .dispatch("documentation/findById", this.$route.params.id)
+      .then(() => {
+        this.$store.dispatch(
+          "tools/findToolsByDocumentation",
+          this.documentation.id
+        );
+      });
   },
 };
 </script>

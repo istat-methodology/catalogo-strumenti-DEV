@@ -47,6 +47,18 @@ class MethodsService extends AbstractService {
         console.log(error);
       });
   }
+  findMethodsByDocumentation(id) {
+    return axiosCatalog
+      .get(this.endpoint + "/documentations/" + id)
+      .then(res => {
+        var data = res.data ? res.data : {};
+
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
   addDocumentation(id,docID) {
     return axiosCatalog
       .put(this.endpoint + "/"+id+"/documentation-add/"+ docID)

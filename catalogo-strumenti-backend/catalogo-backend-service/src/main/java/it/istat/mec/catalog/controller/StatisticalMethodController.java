@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.dto.StatisticalMethodMiniDto;
 import it.istat.mec.catalog.request.CreateStatisticalMethodRequest;
@@ -36,6 +38,14 @@ public class StatisticalMethodController {
 		return statisticalMethodService.findStatisticalMethodById(id);
 
 	}
+	
+	@GetMapping("/open/tools/statisticalmethods/{id}")
+	public List<StatisticalMethodMiniDto> findBydocumentation(@PathVariable("id") Integer id) {
+
+		return statisticalMethodService.findByDocumentation(id);
+	} 
+	
+	
 /*	
 	@GetMapping("/open/statisticalmethods/tools/{id}")
 	public List<StatisticalMethodDto> getByCatalogTool(@PathVariable("id") Integer id) {

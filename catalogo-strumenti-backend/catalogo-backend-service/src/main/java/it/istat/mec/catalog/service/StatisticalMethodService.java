@@ -138,4 +138,9 @@ public class StatisticalMethodService {
 
 	}
 
+	public List<StatisticalMethodMiniDto> findByDocumentation(Integer id) {
+		 
+		return Translators.translateSMMini(statisticalMethodDao.findByDocumentation(new Documentation(id)));
+	}
+
 }

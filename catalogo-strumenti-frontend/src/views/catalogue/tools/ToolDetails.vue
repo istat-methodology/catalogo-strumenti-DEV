@@ -11,7 +11,8 @@
           <h2 class="pt-4">
             {{ tool.name | dashEmpty
             }}<span class="float-right">
-              <router-link  v-if="isAuthenticated"
+              <router-link
+                v-if="isAuthenticated"
                 tag="a"
                 :to="{
                   name: 'ToolEdit',
@@ -24,183 +25,184 @@
             </span>
           </h2>
           <div class="pl-2">
-          <div class="columns">
-            <div class="row">
-              
-              <div class="description-fields col-12">
-                {{ tool.description | dashEmpty }}
-              </div>
-              <div class="card col-md-auto p-2">
-                <span><strong>Fasi GSBPM</strong></span>
-                <div class="card-slot  p-2">
-                  {{ tool.gsbpmProcesses
-            .map(gsbpmProcess => {
-              return gsbpmProcess.code + " " + gsbpmProcess.name ;
+            <div class="columns">
+              <div class="row">
+                <div class="description-fields col-12">
+                  {{ tool.description | dashEmpty }}
+                </div>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Fasi GSBPM</strong></span>
+                  <div class="card-slot p-2">
+                    {{
+                      tool.gsbpmProcesses
+                        .map((gsbpmProcess) => {
+                          return gsbpmProcess.code + " " + gsbpmProcess.name;
+                        })
+                        .join(", ") | dashEmpty
+                    }}
+                  </div>
+                </div>
 
-            })
-            .join(", ") | dashEmpty }}
+                <div class="card col-md-auto p-2">
+                  <span><strong>Versione</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ tool.version | dashEmpty }}</span>
+                  </div>
                 </div>
-              </div>
+                <div class="card col-md-5 p-2">
+                  <span><strong>Tags</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ tool.tags | dashEmpty }}</span>
+                  </div>
+                </div>
 
-              <div class="card col-md-auto p-2">
-                <span><strong>Versione</strong></span>
-                <div class="card-slot  p-2">
-                  <span>{{ tool.version | dashEmpty }}</span>
-                </div>
-              </div>
-              <div class="card col-md-5 p-2">
-                <span><strong>Tags</strong></span>
-                <div class="card-slot  p-2">
-                  <span>{{ tool.tags | dashEmpty }}</span>
-                </div>
-              </div>
-           
-              <div class="card col-md-auto p-2">
-                <span><strong>Ultima Modifica</strong></span>
-                <div class="card-slot  p-2">
-                  <span>{{ this.formatDate(tool.lastUpdate) | dashEmpty }}</span>
+                <div class="card col-md-auto p-2">
+                  <span><strong>Ultima Modifica</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{
+                      this.formatDate(tool.lastUpdate) | dashEmpty
+                    }}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>        
-        </div>        
+        </div>
       </div>
       <div id="id-tooltype" />
       <div
         @mouseover="setActiveItemList('#id-link-tooltype', true)"
         @mouseleave="setActiveItemList('#id-link-tooltype', false)"
       >
-        <div class="p-2">          
+        <div class="p-2">
           <h2><span>1.</span> {{ tool.toolType.name | dashEmpty }}</h2>
           <div class="pl-2">
-          <div v-if="tool.toolType.id == 3">
-            <div class="columns">
-              <div class="row">
-                <div class="card col-md-auto p-2">
-                  <span><strong>Codice</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.code | dashEmpty }}</span>
+            <div v-if="tool.toolType.id == 3">
+              <div class="columns">
+                <div class="row">
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Codice</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.code | dashEmpty }}</span>
+                    </div>
                   </div>
-                </div>
 
-                <div class="card col-md-auto p-2">
-                  <span><strong>Download</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.download | dashEmpty }}</span>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Download</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.download | dashEmpty }}</span>
+                    </div>
                   </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Flusso di lavoro</strong></span>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Flusso di lavoro</strong></span>
 
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.workflow | dashEmpty }}</span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.workflow | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Linguaggio</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.language | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Dipendenze</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.dependencies | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Prerequisiti</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.technicalRequirements | dashEmpty }}</span>
+                    </div>
                   </div>
                 </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Linguaggio</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.language | dashEmpty }}</span>
+              </div>
+            </div>
+
+            <div v-if="tool.toolType.id == 2">
+              <div class="columns">
+                <div class="row">
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Download</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.download | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>licenza</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.licence | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Linguaggio</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.language | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Pacchetto</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.packageApplication | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Sistema Operativo</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.operativeSystem | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Versione</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.version | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Prerequisiti</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.technicalRequirements | dashEmpty }}</span>
+                    </div>
                   </div>
                 </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Dipendenze</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.dependencies | dashEmpty }}</span>
+              </div>
+            </div>
+
+            <div v-if="tool.toolType.id == 1">
+              <div class="columns">
+                <div class="row">
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Protocollo</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.protocol | dashEmpty }}</span>
+                    </div>
                   </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Prerequisiti</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.technicalRequirements | dashEmpty }}</span>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Url</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.url | dashEmpty }}</span>
+                    </div>
+                  </div>
+
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Dipendenze</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.serviceDependencies | dashEmpty }}</span>
+                    </div>
+                  </div>
+                  <div class="card col-md-auto p-2">
+                    <span><strong>Restrizioni</strong></span>
+                    <div class="card-slot p-2">
+                      <span>{{ tool.restrictions | dashEmpty }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div v-if="tool.toolType.id == 2">
-            <div class="columns">
-              <div class="row">
-                <div class="card col-md-auto p-2">
-                  <span><strong>Download</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.download | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>licenza</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.licence | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Linguaggio</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.language | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Pacchetto</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.packageApplication | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Sistema Operativo</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.operativeSystem | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Versione</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.version | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Prerequisiti</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.technicalRequirements | dashEmpty }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div v-if="tool.toolType.id == 1">
-            <div class="columns">
-              <div class="row">
-                <div class="card col-md-auto p-2">
-                  <span><strong>Protocollo</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.protocol | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Url</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.url | dashEmpty }}</span>
-                  </div>
-                </div>
-            
-                <div class="card col-md-auto p-2">
-                  <span><strong>Dipendenze</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.serviceDependencies | dashEmpty }}</span>
-                  </div>
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Restrizioni</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ tool.restrictions | dashEmpty }}</span>
-                  </div>
-                </div>
-         
-              </div>
-            </div>           
-          </div>
-        </div>
         </div>
       </div>
 
@@ -211,6 +213,8 @@
       >
         <div class="p-2">
           <app-methods
+            :indexLabel="'2.'"
+            :descriptionLabel="'Metodi statistici implementati nello strumento'"
             :statisticalMethods="tool.statisticalMethods"
           ></app-methods>
         </div>
@@ -270,15 +274,17 @@
 
     <aside class="container-rigth col-2">
       <section class="menu">
-        <header><h2 class="menu-heading"><b>Contenuto:</b></h2></header>
+        <header>
+          <h2 class="menu-heading"><b>Contenuto:</b></h2>
+        </header>
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
             <a class="item-link" href="#id-main">{{ tool.name | dashEmpty }}</a>
           </li>
           <li class="list-item" id="id-link-tooltype">
-            <a href="#id-tooltype" class="item-link">1. {{
-              tool.toolType.name | dashEmpty
-            }}</a>
+            <a href="#id-tooltype" class="item-link"
+              >1. {{ tool.toolType.name | dashEmpty }}</a
+            >
           </li>
           <li class="list-item" id="id-link-statistical-methods">
             <a href="#id-statistical-methods" class="item-link"
@@ -286,7 +292,9 @@
             >
           </li>
           <li class="list-item" id="id-link-functionalities">
-            <a href="#id-functionalities" class="item-link">3. Implementazione</a>
+            <a href="#id-functionalities" class="item-link"
+              >3. Implementazione</a
+            >
           </li>
           <li class="list-item" id="id-link-process">
             <a href="#id-process" class="item-link">4. Processi</a>
@@ -319,8 +327,8 @@ export default {
   //components: { plusORminus },
   data() {
     return {
-      index:1,
-      subIndex:0,
+      index: 1,
+      subIndex: 0,
 
       activeIndex: -1,
       fields: [
@@ -549,10 +557,10 @@ export default {
     backToList() {
       this.$router.push("/catalogue/tools");
     },
-    formatDate(dt){
+    formatDate(dt) {
       dt = new Date(dt);
-      return  dt.toLocaleDateString("it");
-    }
+      return dt.toLocaleDateString("it");
+    },
   },
   created() {
     this.$store
@@ -619,5 +627,3 @@ legend.scheduler-border {
 .max-col {
   max-width: 5%;
 }
-
-
