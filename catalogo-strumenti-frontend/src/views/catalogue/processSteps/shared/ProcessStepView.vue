@@ -49,7 +49,7 @@
                   <template
                     v-for="pd in getIOMapsProcessDesignes(processDesign.pds)"
                   >
-                    <tr v-for="(item, index) in pd.pds" :key="item.type">
+                    <tr v-for="(item, index) in pd.pds" :key="item.type+index">
                       <th scope="row" v-if="index == 0" :rowspan="[pd.pds.length]">
                         {{ item.type }}
                       </th>

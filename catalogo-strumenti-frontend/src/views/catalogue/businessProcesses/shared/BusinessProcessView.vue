@@ -30,7 +30,7 @@
           </div>
 
           <app-process-stepview
-            :positionIndex="'(index + 1)'"
+            :positionIndex="(index + 1)+''"
             :processName="businessProcess.name"
             :processSteps="businessProcess.processSteps"
           ></app-process-stepview>
