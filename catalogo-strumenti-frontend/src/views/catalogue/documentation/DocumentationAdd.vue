@@ -5,68 +5,36 @@
       <CCard>
         <CCardHeader>Nuova Documentazione</CCardHeader>
         <CCardBody>
-          <CInput
-            label="Nome*"
-            placeholder="Nome"
-            v-model="documentationLocal.name"
-            :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
-          />
-          <div
-            class="help-block"
-            :class="{ show: $v.documentationLocal.name.$error }"
-          >
+          <CInput label="Nome*" placeholder="Nome" v-model="documentationLocal.name"
+            :class="{ 'is-invalid': $v.documentationLocal.name.$error }" />
+          <div class="help-block" :class="{ show: $v.documentationLocal.name.$error }">
             Campo obbligatorio
           </div>
-          <CInput
-            label="Editore"
-            placeholder="Editore"
-            v-model="documentationLocal.publisher"
-          />
+          <CInput label="Editore" placeholder="Editore" v-model="documentationLocal.publisher" />
           <div>
             <label>Tipo Documento</label>
           </div>
-          <v-select
-            label="name"
-            :options="documentationTypeList"
-            placeholder="Strumento Statistico"
-            v-model="documentationLocal.documentType.name"
-            @input="changeDocumentType"
-          ></v-select>
-          <CInput
-            label="Note"
-            placeholder="Note"
-            v-model="documentationLocal.notes"
-          />
-          <CInput
-            label="Fonti"
-            placeholder="Fonti"
-            v-model="documentationLocal.resource"
-          />
+          <v-select label="name" :options="documentationTypeList" placeholder="Strumento Statistico"
+            v-model="documentationLocal.documentType.name" @input="changeDocumentType"></v-select>
+          <CInput label="Note" placeholder="Note" v-model="documentationLocal.notes" />
+          <CInput label="Fonti" placeholder="Fonti" v-model="documentationLocal.resource" />
           <div>
             <label>Strumento Statistico</label>
           </div>
 
-          <v-select
-            label="name"
-            :options="toolscatalog"
-            placeholder="Strumento Statistico"
-            @input="changeTool"
-          ></v-select>
+          <v-select label="name" :options="toolscatalog" placeholder="Strumento Statistico" @input="changeTool">
+          </v-select>
+          <div>
+            <label>Metodo Statistico</label>
+          </div>
+          <v-select label="name" :options="statisticalMethodsList" placeholder="Metodo Statistico"
+            @input="changeMethod"></v-select>
         </CCardBody>
       </CCard>
 
       <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          >Aggiungi</CButton
-        >
-        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
-          >Indietro</CButton
-        >
+        <CButton shape="square" size="sm" color="primary" class="mr-2" @click.prevent="handleSubmit">Aggiungi</CButton>
+        <CButton shape="square" size="sm" color="light" @click.prevent="goBack">Indietro</CButton>
       </CCardFooter>
     </div>
   </div>
@@ -85,7 +53,8 @@ export default {
         documentType: "",
         notes: "",
         resource: "",
-        tool: ""
+        tool: "",
+        method: ""
       }
     };
   },
@@ -93,17 +62,24 @@ export default {
     documentationLocal: {
       name: {
         required
+      },
+      documentType: {
+        required
       }
     }
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
+    ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("tools", ["toolscatalog"])
   },
   methods: {
     changeTool(value) {
       this.documentationLocal.tool = value.id;
+    },
+    changeMethod(value) {
+      this.documentationLocal.method = value.id;
     },
     changeDocumentType(value) {
       this.documentationLocal.documentType = value.id;
@@ -127,6 +103,7 @@ export default {
     //this.$store.dispatch("documentation/findAll");
 
     this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentationType/findAll");
   }
 };
