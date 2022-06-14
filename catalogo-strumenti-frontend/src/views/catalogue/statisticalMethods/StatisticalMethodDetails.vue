@@ -150,7 +150,8 @@
         </header>
         <ul class="menu-list">
           <li class="list-item" id="id-link-main">
-            <a class="item-link" href="#id-main">Methodo Statistico</a>
+            <a class="item-link" href="#id-main">{{ statisticalMethod.name | dashEmpty
+            }}</a>
           </li>
           <li class="list-item" id="id-link-tools">
             <a href="#id-tools" class="item-link">1. Strumenti metodologici</a>
