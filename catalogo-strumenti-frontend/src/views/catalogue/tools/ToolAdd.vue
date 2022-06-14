@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12">
       <CCard>
-        <CCardHeader>Nuovo Tool</CCardHeader>
+        <CCardHeader>Nuovo Strumento metodologico</CCardHeader>
         <CCardBody>
           <CInput
             label="Nome"
@@ -38,9 +38,10 @@
         <CCardBody v-if="tooltypeList">
           <select @change="onChange($event)" v-model="toolLocal.toolType">
             <option
-              v-for="option in tooltypeList"
+              v-for="option  in tooltypeList"
               v-bind:value="option.id"
               :key="option.id"
+             
             >
               {{ option.name }}
             </option>
@@ -199,7 +200,7 @@ export default {
         standardIstat: "",
         tags: "",
         version: "",
-        toolType: "",
+        toolType: '',
         service: "",
 
         requirements: "",
@@ -229,8 +230,6 @@ export default {
     };
   },
   computed: {
-    /* ...mapGetters("auth", ["isReviewer", "isSupervisor"]), */
-    /* ...mapGetters("address", ["assignedId", "assignedName"]), */
 
     ...mapGetters("tooltype", ["tooltypeList"])
   },
@@ -259,6 +258,9 @@ export default {
   },
   created() {
     this.$store.dispatch("tooltype/findAll");
+     if(this.tooltypeList) {
+        this.toolLocal.toolType = this.tooltypeList[0].id
+    }
   }
 };
 </script>

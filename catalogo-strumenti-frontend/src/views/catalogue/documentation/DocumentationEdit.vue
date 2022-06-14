@@ -69,6 +69,7 @@
   </div>
 </template>
 <script>
+import _ from "lodash";
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
 export default {
@@ -99,10 +100,8 @@ export default {
         required
       },
       documentType: {
-        name: {
-          required
-        }
-      } 
+            required
+        } 
     }
   },
   methods: {
@@ -119,7 +118,7 @@ export default {
         this.$store
           .dispatch("documentation/update", this.documentationLocal)
           .then(() => {
-            this.backToList();
+            this.reloadMethod();
           });
       }
     },
@@ -134,7 +133,15 @@ export default {
     },
     backToList() {
       this.$router.push("/catalogue/documentazione");
-    }
+    },
+     
+    reloadMethod: _.debounce(function() {
+       this.$store
+      .dispatch("documentation/findById", this.documentationLocal.id)
+      .then(() => {
+        this.setOldValues();
+      });
+    }, 500)
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
