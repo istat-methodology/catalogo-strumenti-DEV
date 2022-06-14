@@ -123,7 +123,7 @@
         <div class="p-2">
           <app-tools-function
             :index="'1.'"
-            :descriptionLabel="'Elenco degli strumenti che implementano il Metodo'"
+            :descriptionLabel="'Elenco degli strumenti che implementano il metodo'"
             :tools="statisticalMethod.catalogTools"
           ></app-tools-function>
         </div>
