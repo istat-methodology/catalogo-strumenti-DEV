@@ -20,7 +20,7 @@
               <router-link
                 tag="a"
                 :to="{
-                  name: 'StatisticalMethodView',
+                  name: 'ToolDetails',
                   params: { id: tool.id }
                 }"
               >

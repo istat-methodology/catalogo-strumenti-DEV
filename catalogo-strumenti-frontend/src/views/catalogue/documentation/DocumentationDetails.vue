@@ -70,7 +70,9 @@
           @mouseleave="setActiveItemList('#id-link-second', false)"
         >
           <div class="p-2">
-            <app-tools-view :tools="toolsByDocumentation"></app-tools-view>
+            <app-tools-view :indexLabel="''"
+              :descriptionLabel="'Strumenti metodologici associati al documento'"
+               :tools="toolsByDocumentation"></app-tools-view>
           </div>
         </div>
 
@@ -82,7 +84,7 @@
           <div class="p-2">
             <app-methods
               :indexLabel="''"
-              :descriptionLabel="'Metodi statistici referenziati dal documento'"
+              :descriptionLabel="'Metodi statistici associati al documento'"
               :statisticalMethods="methodsByDocumentation"
             ></app-methods>
           </div>

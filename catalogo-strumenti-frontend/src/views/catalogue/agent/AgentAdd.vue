@@ -26,11 +26,7 @@
             v-model="agentLocal.contact"
           />
           <CTextarea label="Note" placeholder="Note" v-model="agentLocal.notes" />
-          <CInput
-            label="Fonti"
-            placeholder="Fonti"
-            v-model="agentLocal.resource"
-          />
+         
         </CCardBody>
       </CCard>
 

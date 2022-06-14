@@ -41,8 +41,8 @@
                 <thead>
                   <tr>
                     <th scope="col">Tipo</th>
-                    <th scope="col">ioNome</th>
-                    <th scope="col">ioDescr</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
                   </tr>
                 </thead>
                 <tbody>
