@@ -8,7 +8,6 @@
             {{ tool.name }}
             <span class="float-right">
               <close-icon @click.prevent="$router.back()" />
-
             </span>
           </h2>
         </div>
@@ -24,11 +23,10 @@
             <div v-if="tool">
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i> > Strumento
-     
               </CCardHeader>
               <CCard>
                 <CCardBody>
-                  <CInput
+                  <CTextArea
                     label="Descrizione"
                     placeholder="Descrizione"
                     v-model="toolLocal.description"
@@ -51,7 +49,7 @@
                     placeholder="Versione"
                     v-model="toolLocal.version"
                   />
-                  <CInput
+                  <CTextArea
                     label="Tags"
                     placeholder="Tags"
                     v-model="toolLocal.tags"
@@ -62,6 +60,28 @@
                     placeholder="Requisiti"
                     v-model="toolLocal.requirements"
                   />
+                  <label>Data di rilascio</label>
+                  <div>
+                    <date-picker
+                      v-if="toolLocal"
+                      v-model="toolLocal.releaseDate"
+                      format="D/M/YYYY"
+                      value-type="format"
+                      placeholder="Seleziona una data"
+                    ></date-picker>
+                  </div>
+                  <br />
+                  <div class="form-group">
+                    <label for="checkbox">Standard Istat &nbsp;</label>
+                    <input
+                      id="checkbox"
+                      type="checkbox"
+                      v-model="toolLocal.standardIstat"
+                      true-value="1"
+                      false-value="0"
+                      aria-label="Standard Istat"
+                    />
+                  </div>
                 </CCardBody>
 
                 <CCardFooter>
@@ -85,7 +105,6 @@
             <div v-if="tool && tool.toolType.id == 3">
               <CCardHeader>
                 {{ tool.toolType.name | dashEmpty }}
-            
               </CCardHeader>
               <CCard>
                 <CCardBody>
@@ -208,7 +227,6 @@
               <CCardHeader>
                 <i>{{ tool.name | dashEmpty }}</i> >
                 {{ tool.toolType.name | dashEmpty }}
- 
               </CCardHeader>
               <CCard>
                 <CCardBody>
@@ -259,7 +277,6 @@
             <div v-if="this.statisticalMethodsList">
               <CCardHeader
                 ><i>{{ tool.name | dashEmpty }}</i> > Metodi Statistici
-               
               </CCardHeader>
               <CCard>
                 <CCardBody>
@@ -334,6 +351,8 @@ import { mapGetters } from "vuex";
 import _ from "lodash";
 import { Context } from "@/common";
 import Treeselect from "@riophae/vue-treeselect";
+import "vue2-datepicker/index.css";
+import DatePicker from "vue2-datepicker";
 
 import DocumentationEditView from "../documentation/shared/DocumentationEditView";
 import LinkedAgentView from "../agent/shared/LinkedAgentEditView";
@@ -344,6 +363,7 @@ export default {
   name: "ToolEdit",
   components: {
     Treeselect,
+    DatePicker,
     "app-edit-documentation": DocumentationEditView,
     "app-edit-business-service": BusinessServiceEditView,
     "app-linkedAgents": LinkedAgentView
@@ -355,7 +375,7 @@ export default {
         releaseDate: "",
         description: "",
         name: "",
-        standardIstat: "",
+        standardIstat: 0,
         tags: "",
         version: "",
         toolType: "",
@@ -379,8 +399,6 @@ export default {
         outcomes: "",
         serviceDependencies: "",
         restrictions: "",
-        businessFunction: "",
-        processDesign: "",
         statisticalMethods: [],
         gsbpmProcesses: []
       },
@@ -474,9 +492,6 @@ export default {
         this.loadTool();
       });
     },
-
-
-
 
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];

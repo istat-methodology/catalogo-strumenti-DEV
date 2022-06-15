@@ -19,6 +19,19 @@
             placeholder="Descrizione"
             v-model="toolLocal.description"
           />
+          <div class="form-group" role="group">
+            <label for="app-tree">Fasi GSBPM</label>
+
+            <div id="app-tree" class="demo-tree">
+              <treeselect
+                v-model="gsbpmChecked"
+                :multiple="true"
+                :options="getGsbpmList"
+                :disable-branch-nodes="true"
+                :show-count="true"
+              />
+            </div>
+          </div>
           <CInput
             label="Versione"
             placeholder="Versione"
@@ -31,7 +44,7 @@
             placeholder="Requisiti"
             v-model="toolLocal.requirements"
           />
-          <label>Data di Pubblicazione</label>
+          <label>Data di Rilascio</label>
           <div>
             <date-picker
               v-if="toolLocal"
@@ -40,6 +53,18 @@
               value-type="format"
               placeholder="Seleziona una data"
             ></date-picker>
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="checkbox">Standard Istat &nbsp;</label>
+            <input
+              id="checkbox"
+              type="checkbox"
+              v-model="toolLocal.standardIstat"
+              true-value="1"
+              false-value="0"
+              aria-label="Standard Istat"
+            />
           </div>
         </CCardBody>
       </CCard>
@@ -197,11 +222,14 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
+import "vue2-datepicker/index.css";
 import DatePicker from "vue2-datepicker";
+import Treeselect from "@riophae/vue-treeselect";
 export default {
   name: "ToolAdd",
   components: {
-    DatePicker
+    DatePicker,
+    Treeselect
   },
   data() {
     return {
@@ -210,7 +238,6 @@ export default {
         releaseDate: null,
         description: "",
         name: "",
-        standardIstat: "",
         tags: "",
         version: "",
         toolType: "",
@@ -234,16 +261,32 @@ export default {
         outcomes: "",
         serviceDependencies: "",
         restrictions: "",
-        gsbpm: "",
-        /*  businessFunction: "", */
-        processDesign: ""
+        standardIstat: 0,
+        gsbpmProcesses: []
       },
+      gsbpmChecked: [],
       tipologia: 1,
       value: 0
     };
   },
   computed: {
-    ...mapGetters("tooltype", ["tooltypeList"])
+    ...mapGetters("tooltype", ["tooltypeList"]),
+    ...mapGetters("gsbpm", ["gsbpmList"]),
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
+        return {
+          // ...gsbpm,
+          id: "id-" + gsbpm.id,
+          label: gsbpm.code + " " + gsbpm.name,
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            return {
+              id: gsbpmSubProcess.id,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
+            };
+          })
+        };
+      });
+    }
   },
   validations: {
     toolLocal: {
@@ -270,7 +313,7 @@ export default {
   },
   created() {
     this.$store.dispatch("tooltype/findAll");
-    if (this.tooltypeList) {
+    if (this.tooltypeList && this.tooltypeList.length > 0) {
       this.toolLocal.toolType = this.tooltypeList[0].id;
     }
   }
