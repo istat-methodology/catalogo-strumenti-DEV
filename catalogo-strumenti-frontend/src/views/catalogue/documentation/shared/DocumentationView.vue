@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h2><span>{{ index }}</span> Documentazione</h2>
+    <h2>
+      <span>{{ index }}</span> Documentazione
+    </h2>
 
     <div class="columns">
       <div class="description-fields col-12">
-       {{ descriptionLabel }}
+        {{ descriptionLabel }}
       </div>
       <div class="row">
         <div v-if="documentations.length === 0">
@@ -49,16 +51,16 @@ export default {
       required: true,
       default: () => []
     },
-     index: {
+    index: {
       type: String,
       required: true,
-      default: () => ''
+      default: () => ""
     },
     descriptionLabel: {
       type: String,
       required: true,
-      default: () => ''
-    },
+      default: () => ""
+    }
   }
 };
 </script>
