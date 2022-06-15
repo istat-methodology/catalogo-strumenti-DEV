@@ -6,7 +6,7 @@
         <CCardHeader>Nuovo Strumento metodologico</CCardHeader>
         <CCardBody>
           <CInput
-            label="Nome"
+            label="Nome*"
             placeholder="Name"
             v-model="toolLocal.name"
             :class="{ 'is-invalid': $v.toolLocal.name.$error }"
@@ -38,10 +38,9 @@
         <CCardBody v-if="tooltypeList">
           <select @change="onChange($event)" v-model="toolLocal.toolType">
             <option
-              v-for="option  in tooltypeList"
+              v-for="option in tooltypeList"
               v-bind:value="option.id"
               :key="option.id"
-             
             >
               {{ option.name }}
             </option>
@@ -157,11 +156,11 @@
             placeholder="Retrizioni"
             v-model="toolLocal.restrictions"
           />
-          <CInput
+          <!-- <CInput
             label="Funzione"
             placeholder="Funzione"
             v-model="toolLocal.businessFunction"
-          />
+          /> -->
         </CCardBody>
       </CCard>
 
@@ -200,7 +199,7 @@ export default {
         standardIstat: "",
         tags: "",
         version: "",
-        toolType: '',
+        toolType: "",
         service: "",
 
         requirements: "",
@@ -230,7 +229,6 @@ export default {
     };
   },
   computed: {
-
     ...mapGetters("tooltype", ["tooltypeList"])
   },
   validations: {
@@ -258,8 +256,8 @@ export default {
   },
   created() {
     this.$store.dispatch("tooltype/findAll");
-     if(this.tooltypeList) {
-        this.toolLocal.toolType = this.tooltypeList[0].id
+    if (this.tooltypeList) {
+      this.toolLocal.toolType = this.tooltypeList[0].id;
     }
   }
 };
