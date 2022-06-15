@@ -193,6 +193,7 @@ export default {
     return {
       toolLocal: {
         id: "",
+        releaseDate: null,
         description: "",
         name: "",
         standardIstat: "",
