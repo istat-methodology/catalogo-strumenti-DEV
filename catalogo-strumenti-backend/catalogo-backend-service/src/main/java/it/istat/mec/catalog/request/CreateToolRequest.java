@@ -37,8 +37,7 @@ public class CreateToolRequest extends CreateBaseRequest {
 	private Integer[] statisticalMethods;
 	private CreateLinkAgentToolRequest[] linkAgents;	 
 	private Integer[] documentations;
-	private String businessFunction;	
-	private String processDesign;
+
 	
 
 }
