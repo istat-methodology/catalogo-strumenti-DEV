@@ -31,6 +31,16 @@
             placeholder="Requisiti"
             v-model="toolLocal.requirements"
           />
+          <label>Data di Pubblicazione</label>
+          <div>
+            <date-picker
+              v-if="toolLocal"
+              v-model="toolLocal.releaseDate"
+              format="D/M/YYYY"
+              value-type="format"
+              placeholder="Seleziona una data"
+            ></date-picker>
+          </div>
         </CCardBody>
       </CCard>
       <CCard>
@@ -187,8 +197,12 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
+import DatePicker from "vue2-datepicker";
 export default {
   name: "ToolAdd",
+  components: {
+    DatePicker
+  },
   data() {
     return {
       toolLocal: {

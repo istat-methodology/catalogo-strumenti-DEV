@@ -30,7 +30,7 @@
                     placeholder="Name"
                     v-model="statisticalMethodLocal.name"
                     :class="{
-                      'is-invalid': $v.statisticalMethodLocal.name.$error,
+                      'is-invalid': $v.statisticalMethodLocal.name.$error
                     }"
                   />
                   <div
@@ -158,7 +158,7 @@ export default {
   components: {
     DatePicker,
     Treeselect,
-    "app-edit-documentation": DocumentationEditView,
+    "app-edit-documentation": DocumentationEditView
   },
   data() {
     return {
@@ -175,54 +175,54 @@ export default {
         version: "",
         releaseDate: "",
         standardIstat: 0,
-        gsbpmProcesses: [],
+        gsbpmProcesses: []
       },
       gsbpmChecked: [],
 
-      documentationChecked: [],
+      documentationChecked: []
     };
   },
   computed: {
     ...mapGetters("methods", ["statisticalMethod"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("documentation", ["documentationList"]),
-    getGsbpmList: function () {
+    getGsbpmList: function() {
       if (this.gsbpmList)
-        return this.gsbpmList.map((gsbpm) => {
+        return this.gsbpmList.map(gsbpm => {
           return {
             // ...gsbpm,
             id: "id-" + gsbpm.id,
             label: gsbpm.code + " " + gsbpm.name,
-            children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+            children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
               return {
                 id: gsbpmSubProcess.id,
-                label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+                label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
               };
-            }),
+            })
           };
         });
       else return [];
     },
-      getDocumentation: function () {
+    getDocumentation: function() {
       if (this.statisticalMethod) {
-        return this.statisticalMethod.documentations.map((doc) => {
+        return this.statisticalMethod.documentations.map(doc => {
           return {
             id: doc.id,
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
-            resource: doc.resource,
+            resource: doc.resource
           };
         });
       } else return [];
-    },
+    }
   },
   validations: {
     statisticalMethodLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     handleSubmit() {
@@ -240,7 +240,7 @@ export default {
 
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.statisticalMethod.gsbpmProcesses.map((gsbpmProc) => {
+      this.statisticalMethod.gsbpmProcesses.map(gsbpmProc => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
@@ -251,14 +251,10 @@ export default {
     setOldValues() {
       this.statisticalMethodLocal.id = this.statisticalMethod.id;
       this.statisticalMethodLocal.name = this.statisticalMethod.name;
-      this.statisticalMethodLocal.description =
-        this.statisticalMethod.description;
-      this.statisticalMethodLocal.requirements =
-        this.statisticalMethod.requirements;
-      this.statisticalMethodLocal.assumptions =
-        this.statisticalMethod.assumptions;
-      this.statisticalMethodLocal.constraints =
-        this.statisticalMethod.constraints;
+      this.statisticalMethodLocal.description = this.statisticalMethod.description;
+      this.statisticalMethodLocal.requirements = this.statisticalMethod.requirements;
+      this.statisticalMethodLocal.assumptions = this.statisticalMethod.assumptions;
+      this.statisticalMethodLocal.constraints = this.statisticalMethod.constraints;
       this.statisticalMethodLocal.notes = this.statisticalMethod.notes;
       this.statisticalMethodLocal.tags = this.statisticalMethod.tags;
       this.statisticalMethodLocal.version = this.statisticalMethod.version;
@@ -268,24 +264,23 @@ export default {
         this.statisticalMethod.releaseDate
       );
 
-      this.statisticalMethodLocal.standardIstat =
-        this.statisticalMethod.standardIstat;
+      this.statisticalMethodLocal.standardIstat = this.statisticalMethod.standardIstat;
     },
     backToList() {
       this.$router.push("/catalogue/metodi");
     },
-  
-    loadMethod: _.debounce(function () {
+
+    loadMethod: _.debounce(function() {
       this.$store
         .dispatch("methods/findById", this.$route.params.id)
         .then(() => {
           this.setOldValues();
         });
-    }, 500),
+    }, 500)
   },
   created() {
     this.loadMethod();
-  },
+  }
 };
 </script>
 <style scoped>
