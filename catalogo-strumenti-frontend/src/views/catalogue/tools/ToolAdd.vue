@@ -221,7 +221,7 @@ export default {
         serviceDependencies: "",
         restrictions: "",
         gsbpm: "",
-        businessFunction: "",
+        /*  businessFunction: "", */
         processDesign: ""
       },
       tipologia: 1,
