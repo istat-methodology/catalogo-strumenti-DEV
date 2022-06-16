@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import it.istat.mec.catalog.constants.CatalogConst;
@@ -458,6 +459,8 @@ public class Translators {
 		}
 		
 		final ModelMapper modelMapper = new ModelMapper();
+		 modelMapper.getConfiguration()
+	        .setMatchingStrategy(MatchingStrategies.STRICT);
 		final CatalogTool tool = (CatalogTool) modelMapper.map(x, targetClass);
 		tool.setToolType(new ToolType(x.getToolType()));	
 	

@@ -14,7 +14,7 @@
           <div class="help-block" :class="{ show: $v.toolLocal.name.$error }">
             Campo obbligatorio
           </div>
-          <CInput
+          <CTextarea
             label="Descrizione"
             placeholder="Descrizione"
             v-model="toolLocal.description"
