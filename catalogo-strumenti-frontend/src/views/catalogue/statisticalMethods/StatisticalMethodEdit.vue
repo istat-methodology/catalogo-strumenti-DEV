@@ -94,7 +94,7 @@
                     <date-picker
                       v-if="statisticalMethodLocal"
                       v-model="statisticalMethodLocal.releaseDate"
-                      format="D/M/YYYY"
+                      format="D-M-YYYY"
                       value-type="format"
                       placeholder="Seleziona una data"
                     ></date-picker>
