@@ -255,6 +255,7 @@
           <app-documentations
             :index="'5.'"
             :documentations="getDocumentationList"
+            :descriptionLabel="Documentazione"
           ></app-documentations>
         </div>
       </div>

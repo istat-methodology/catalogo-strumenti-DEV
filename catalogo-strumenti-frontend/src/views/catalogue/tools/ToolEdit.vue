@@ -26,7 +26,7 @@
               </CCardHeader>
               <CCard>
                 <CCardBody>
-                  <CTextArea
+                  <CTextarea
                     label="Descrizione"
                     placeholder="Descrizione"
                     v-model="toolLocal.description"
@@ -49,7 +49,7 @@
                     placeholder="Versione"
                     v-model="toolLocal.version"
                   />
-                  <CTextArea
+                  <CTextarea
                     label="Tags"
                     placeholder="Tags"
                     v-model="toolLocal.tags"
