@@ -186,11 +186,7 @@
             placeholder="Dipendenze"
             v-model="toolLocal.serviceDependencies"
           />
-          <CInput
-            label="Restrizioni"
-            placeholder="Retrizioni"
-            v-model="toolLocal.restrictions"
-          />
+         
           <!-- <CInput
             label="Funzione"
             placeholder="Funzione"

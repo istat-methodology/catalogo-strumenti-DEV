@@ -14,7 +14,7 @@
           >
         </div>
         <div
-          class="card col-md-3"
+          class="card col-md-auto"
           v-for="statisticalMethod of statisticalMethods"
           :key="statisticalMethod.id"
         >
