@@ -24,7 +24,7 @@
 
             <div id="app-tree" class="demo-tree">
               <treeselect
-                v-model="gsbpmChecked"
+                v-model="toolLocal.gsbpmProcesses"
                 :multiple="true"
                 :options="getGsbpmList"
                 :disable-branch-nodes="true"
@@ -262,9 +262,12 @@ export default {
         serviceDependencies: "",
         restrictions: "",
         standardIstat: 0,
-        gsbpmProcesses: []
+        gsbpmProcesses: [],
+        statisticalMethods: [],
+        linkAgentsTools: [],
+        documentations: []
       },
-      gsbpmChecked: [],
+      //gsbpmChecked: [],
       tipologia: 1,
       value: 0
     };
