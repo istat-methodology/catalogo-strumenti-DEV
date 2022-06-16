@@ -169,6 +169,12 @@ button:focus {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.card {
+    padding: 5px !important;
+}
+.card-body {
+    padding: 1rem!important;
+  }
 /* Forms */
 
 .form-group {

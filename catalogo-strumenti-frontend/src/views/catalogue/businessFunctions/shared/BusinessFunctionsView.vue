@@ -22,7 +22,7 @@
               <router-link
                 tag="a"
                 :to="{
-                  name: 'BusinessFunctionsView',
+                  name: 'BusinessFunctionsDetails',
                   params: { id: businessFunction.id }
                 }"
               >
