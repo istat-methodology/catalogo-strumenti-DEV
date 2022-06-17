@@ -14,7 +14,7 @@ public class CatalogToolMiniListDTO implements Serializable {
 	private static final long serialVersionUID = -6905546979001300372L;
 	
 	private Integer id;	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")	
+ 
 	private Date releaseDate;	
 	private String description;		
 	private String name;	
@@ -22,7 +22,7 @@ public class CatalogToolMiniListDTO implements Serializable {
 	private String tags;	
 	private String version;
 	private ToolTypeDto toolType;	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")	
+ 
 	private String lastUpdate;
 	private String requirements;
 	private BusinessServiceMiniDto businessService;
