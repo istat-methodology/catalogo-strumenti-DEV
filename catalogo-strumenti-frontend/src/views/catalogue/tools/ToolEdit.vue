@@ -99,12 +99,12 @@
           </CTab>
           <CTab>
             <template #title>
-              <span>{{ tool.toolType.name | dashEmpty }}</span>
+              <span>{{ toolLocal.toolType.name | dashEmpty }}</span>
             </template>
 
-            <div v-if="tool && tool.toolType.id == 3">
+            <div v-if="toolLocal && toolLocal.toolType.id == 3">
               <CCardHeader>
-                {{ tool.toolType.name | dashEmpty }}
+                {{ toolLocal.toolType.name | dashEmpty }}
               </CCardHeader>
               <CCard>
                 <CCardBody>
