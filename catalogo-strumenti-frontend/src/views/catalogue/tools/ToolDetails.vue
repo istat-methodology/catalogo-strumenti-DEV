@@ -55,14 +55,14 @@
                     <span>{{ tool.tags | dashEmpty }}</span>
                   </div>
                 </div>
-                <!--div class="card col-md-auto p-2">
+                <div class="card col-md-auto p-2">
                   <span><strong>Data di rilascio</strong></span>
                   <div class="card-slot p-2">
                     <span>{{
                       this.formatDate(tool.releaseDate) | dashEmpty
                     }}</span>
                   </div>
-                </div-->
+                </div>
                 <div class="card col-md-auto p-2">
                   <span><strong>Ultima Modifica</strong></span>
                   <div class="card-slot p-2">

@@ -116,9 +116,9 @@ const actions = {
         console.log(err);
       });
   },
-  removeDocumentation({ commit, dispatch }, id,docID) {
+  removeDocumentation({ commit, dispatch }, params) {
     return toolsService
-      .removeDocumentation(id,docID)
+      .removeDocumentation(params.id,params.docID)
       .then(data => {
         commit("SET_TOOL", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {

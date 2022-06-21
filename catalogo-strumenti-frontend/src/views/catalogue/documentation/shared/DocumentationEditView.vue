@@ -197,6 +197,7 @@ export default {
               params
             )
             .then(this.$emit("updateParent"));
+               this.stateform = this.FormState.LIST;
         }
         if (this.methodId) {
 
@@ -208,6 +209,7 @@ export default {
               params
             )
             .then(this.$emit("updateParent"));
+            this.stateform = this.FormState.LIST;
         }
       }
     },

@@ -334,7 +334,7 @@
             <div v-if="this.tool">
               <app-edit-documentation
                 :parentName="this.tool.name"
-                @refreshTool="loadTool"
+                @updateParent="loadTool"
                 :documentations="getDocumentation"
                 :toolId="this.tool.id"
               >
@@ -512,10 +512,13 @@ export default {
         this.documentationChecked.push(doc.id);
       });
     },
-
+ formatDate(dt) {
+      dt = new Date(dt);
+      return dt.toLocaleDateString("it");
+    },
     setOldValues() {
       this.toolLocal.id = this.tool.id;
-      this.toolLocal.releaseDate = this.tool.releaseDate;
+      this.toolLocal.releaseDate = this.formatDate(this.tool.releaseDate);
       this.toolLocal.description = this.tool.description;
       this.toolLocal.name = this.tool.name;
       this.toolLocal.standardIstat = this.tool.standardIstat;
@@ -553,12 +556,14 @@ export default {
     },
     loadTool: _.debounce(function() {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
+        if(this.tool){
         this.setOldValues();
         this.setCheckedNodesGsbpm();
         this.setCheckedNodesMethods();
         this.setCheckedNodesDocumentation();
+        }
       });
-    }, 500)
+    }, 700)
   },
 
   created() {
