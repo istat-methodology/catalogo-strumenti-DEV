@@ -54,7 +54,7 @@ public class StatisticalMethodService {
 		sm = Translators.translate(request);
 		Date date = new Date(System.currentTimeMillis());
 		sm.setLastUpdate(date);
-		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
+	 
 		List<GsbpmProcess> gsbpmProcesses = new ArrayList<GsbpmProcess>();
 		if (request.getGsbpmProcesses() != null) {
 			for (int i = 0; i < request.getGsbpmProcesses().length; i++)
@@ -93,8 +93,7 @@ public class StatisticalMethodService {
 
 		Date date = new Date(System.currentTimeMillis());
 		sm.setLastUpdate(date);
-
-		sm.setReleaseDate(new SimpleDateFormat("dd/MM/yyyy").parse(request.getReleaseDate()));
+ 
 
 		sm = statisticalMethodDao.save(sm);
 

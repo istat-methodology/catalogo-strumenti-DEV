@@ -13,19 +13,19 @@
               <div class="description-fields col-12">
                 <span v-if="processStep">{{ processStep.descr }}</span>
               </div>
-              <div class="card col-md-auto">
+              <!--div class="card col-md-auto">
                 <span><strong>Etichetta</strong></span>
                 <div class="card-slot">
                   <span v-if="processStep">{{ processStep.label }}</span>
                 </div>
-              </div>
+              </div-->
             </div>
           </div>
 
           <div class="card-body">
             <!--div class="card-body"-->
             <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-            <p>Process design</p>
+    
 
             <div
               v-for="processDesign in getProcessDesignes(
