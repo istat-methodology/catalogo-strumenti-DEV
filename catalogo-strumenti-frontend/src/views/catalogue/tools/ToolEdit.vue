@@ -65,7 +65,7 @@
                     <date-picker
                       v-if="toolLocal"
                       v-model="toolLocal.releaseDate"
-                      format="D-M-YYYY"
+                      format="YYYY-MM-DD"
                       value-type="format"
                       placeholder="Seleziona una data"
                     ></date-picker>
