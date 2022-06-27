@@ -15,7 +15,7 @@ import it.istat.mec.users.request.CreateUserRoleRequest;
 import it.istat.mec.users.service.UserRolesService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserRolesController {
 	@Autowired
 	private UserRolesService userRolesService;
