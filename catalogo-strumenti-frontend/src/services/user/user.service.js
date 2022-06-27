@@ -63,5 +63,5 @@ class UserService extends AbstractService {
       });
   }
 }
-export const userService = new UserService("/users/users");
-export const userOpenService = new UserService("/users/open/users");
+export const userService = new UserService("/user/users");
+export const userOpenService = new UserService("/user/open/users");
