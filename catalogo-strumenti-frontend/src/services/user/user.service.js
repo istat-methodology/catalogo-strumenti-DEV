@@ -64,3 +64,4 @@ class UserService extends AbstractService {
   }
 }
 export const userService = new UserService("/users/users");
+export const userOpenService = new UserService("/users/open/users");

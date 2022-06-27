@@ -25,13 +25,13 @@ public class UsersController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/users")
+	@GetMapping("/open/users")
 	
 	public List<UsersDto> getAllUsers(@RequestParam(value = "role",required = false) String role) {
 		return userService.findAllUsers(role);
 	}
 
-	@GetMapping(value = "/users/{id}")
+	@GetMapping(value = "/open/users/{id}")
 	
 	public UsersDto getUser(@PathVariable("id") Integer id) {
 

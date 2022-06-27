@@ -20,3 +20,4 @@ class RoleService extends AbstractService {
   }
 }
 export const roleService = new RoleService("/users/roles");
+export const roleOpenService = new RoleService("/users/open/roles");

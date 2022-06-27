@@ -1,5 +1,7 @@
 import router from "@/router";
 import { userService } from "@/services";
+import { userOpenService } from "@/services";
+
 
 const state = {
   users: [],
@@ -17,7 +19,7 @@ const mutations = {
 
 const actions = {
   findAll({ commit }) {
-    userService.findAll().then(
+    userOpenService.findAll().then(
       data => {
         commit("SET_USERS", data);
         commit("SET_USER", null); //clear user
@@ -28,7 +30,7 @@ const actions = {
     );
   },
   findAllUsers({ commit }) {
-    userService.findAllUsers().then(
+    userOpenService.findAllUsers().then(
       data => {
         commit("SET_USERS", data);
       },
@@ -38,7 +40,7 @@ const actions = {
     );
   },
   findByRole({ commit }, role) {
-    userService.findByRole(role).then(
+    userOpenService.findByRole(role).then(
       data => {
         commit("SET_USERS", data);
       },
@@ -48,7 +50,7 @@ const actions = {
     );
   },
   findById({ commit }, id) {
-    userService.findById(id).then(
+    userOpenService.findById(id).then(
       data => {
         commit("SET_USER", data);
       },
