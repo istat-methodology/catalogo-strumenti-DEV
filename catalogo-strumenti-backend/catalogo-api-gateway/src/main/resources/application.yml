@@ -38,7 +38,7 @@ zuul:
       
     service_users:
       path: /api/users/**
-      url: http://localhost:8082/users
+      url: http://localhost:8082/user
  
 eureka:
   instance:
