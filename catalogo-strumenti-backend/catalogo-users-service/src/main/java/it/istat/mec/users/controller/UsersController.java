@@ -19,7 +19,7 @@ import it.istat.mec.users.service.UserService;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UsersController {
 
 	@Autowired
