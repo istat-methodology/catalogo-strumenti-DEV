@@ -308,7 +308,7 @@
           </li>
           <li class="list-item" id="id-link-functionalities">
             <a href="#id-functionalities" class="item-link"
-              >3. Implementazione</a
+              >3. Moduli implementati</a
             >
           </li>
           <li class="list-item" id="id-link-process">

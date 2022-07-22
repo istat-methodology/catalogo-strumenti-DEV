@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><span>3.</span> Implementazione</h2>
+    <h2><span>3.</span> Moduli implementati</h2>
     <div class="description-fields col-12">
       Elenco dei moduli dello strumento
     </div>

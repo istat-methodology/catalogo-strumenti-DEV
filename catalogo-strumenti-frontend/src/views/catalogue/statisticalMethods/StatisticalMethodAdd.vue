@@ -23,18 +23,18 @@
             v-model="statisticalMethodLocal.description"
           />
           <CInput
-            label="Requisiti"
-            placeholder="Requisiti"
+            label="Requisiti/Ipotesi"
+            placeholder="Requisiti/Ipotesi"
             v-model="statisticalMethodLocal.requirements"
           />
-          <CInput
+          <!-- <CInput
             label="Presupposti"
             placeholder="Presupposti"
             v-model="statisticalMethodLocal.assumptions"
-          />
+          /> -->
           <CInput
-            label="Vincoli"
-            placeholder="Vincoli"
+            label="Limitazioni/Vincoli"
+            placeholder="Limitazioni/Vincoli"
             v-model="statisticalMethodLocal.constraints"
           />
           <CInput

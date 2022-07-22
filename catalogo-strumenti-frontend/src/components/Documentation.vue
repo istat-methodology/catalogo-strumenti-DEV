@@ -13,7 +13,7 @@
           <span>{{ documentType | dashEmpty }}</span>
         </div>
         <div>
-          <label>Fonte:</label>
+          <label>Riferimenti:</label>
           <span>{{ resource | dashEmpty }}</span>
         </div>
         <div>

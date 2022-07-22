@@ -18,7 +18,7 @@
               <!-- appservices -->
               <div class="card w-100">
                 <header class="card-header">
-                  <h5>Implementazione</h5>
+                  <h5>Moduli implementati</h5>
                 </header>
                 <div class="card-body">
                   <div class="card card-border">

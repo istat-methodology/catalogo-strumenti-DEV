@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="card col-md-auto p-2">
-                  <span><strong>Requisiti</strong></span>
+                  <span><strong>Requisiti/Ipotesi</strong></span>
                   <div class="card-slot p-2">
                     <span>{{
                       statisticalMethod.requirements | dashEmpty
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="card col-md-auto p-2">
-                  <span><strong>Vincoli</strong></span>
+                  <span><strong>Limitazioni/Vincoli</strong></span>
                   <div class="card-slot p-2">
                     <span>{{ statisticalMethod.constraints | dashEmpty }}</span>
                   </div>
