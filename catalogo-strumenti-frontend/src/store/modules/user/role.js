@@ -1,5 +1,6 @@
 import router from "@/router";
 import { roleService } from "@/services";
+import { roleOpenService } from "@/services";
 
 const state = {
   roles: [],
@@ -17,7 +18,7 @@ const mutations = {
 
 const actions = {
   findAll({ commit }) {
-    roleService.findAll().then(
+    roleOpenService.findAll().then(
       data => {
         commit("SET_ROLES", data);
         commit("SET_ROLE", null); //clear user
@@ -28,7 +29,7 @@ const actions = {
     );
   },
   findById({ commit }, id) {
-    roleService.findById(id).then(
+    roleOpenService.findById(id).then(
       data => {
         commit("SET_ROLE", data);
       },

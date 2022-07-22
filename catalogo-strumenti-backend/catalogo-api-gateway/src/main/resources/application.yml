@@ -37,8 +37,8 @@ zuul:
       url: http://localhost:8081/catalog
       
     service_users:
-      path: /api/**/users/**
-      url: http://localhost:8082/users
+      path: /api/user/**
+      url: http://localhost:8082/user
  
 eureka:
   instance:

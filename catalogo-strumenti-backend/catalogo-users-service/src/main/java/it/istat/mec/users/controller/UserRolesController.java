@@ -15,18 +15,18 @@ import it.istat.mec.users.request.CreateUserRoleRequest;
 import it.istat.mec.users.service.UserRolesService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserRolesController {
 	@Autowired
 	private UserRolesService userRolesService;
 	
-	@GetMapping("/roles")
+	@GetMapping("/open/roles")
 	@ResponseBody
 	public List<UserRolesDto> getAllUserRoles() {
 		return userRolesService.findAllUserRoles();
 	}
 	
-	@GetMapping(value = "/roles/{id}")
+	@GetMapping(value = "/open/roles/{id}")
 	@ResponseBody
 	public UserRolesDto getUserRole(@PathVariable("id") Integer id) {
 
