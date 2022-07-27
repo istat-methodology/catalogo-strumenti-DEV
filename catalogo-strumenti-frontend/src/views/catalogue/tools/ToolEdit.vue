@@ -306,7 +306,7 @@
 
           <CTab>
             <template #title>
-              <span>Implementazioni</span>
+              <span>Moduli implementati</span>
             </template>
 
             <app-edit-business-service

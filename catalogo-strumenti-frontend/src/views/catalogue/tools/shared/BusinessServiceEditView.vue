@@ -2,7 +2,7 @@
   <div>
     <div>
       <CCardHeader
-        ><i>{{ this.toolName | dashEmpty }}</i> > Implementazioni
+        ><i>{{ this.toolName | dashEmpty }}</i> > Moduli implementati
       </CCardHeader>
 
       <div v-if="stateform == FormState.LIST">

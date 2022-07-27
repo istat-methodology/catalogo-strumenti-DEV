@@ -46,7 +46,7 @@
               </div>
             </div>
             <div class="card col-md-auto p-2">
-              <span><strong>Fonte</strong></span>
+              <span><strong>Riferimenti</strong></span>
               <div class="card-slot p-2">
                 <span>{{ documentation.resource | dashEmpty }}</span>
               </div>
