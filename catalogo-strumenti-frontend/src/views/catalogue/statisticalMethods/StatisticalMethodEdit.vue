@@ -62,7 +62,11 @@
                     placeholder="Requisiti/Ipotesi"
                     v-model="statisticalMethodLocal.requirements"
                   />
+<<<<<<< HEAD
                   <!-- <CInput
+=======
+                 <!--  <CInput
+>>>>>>> 95eee8fa4edecaf521facd8cd9f51e702d120d2b
                     label="Presupposti"
                     placeholder="Presupposti"
                     v-model="statisticalMethodLocal.assumptions"
