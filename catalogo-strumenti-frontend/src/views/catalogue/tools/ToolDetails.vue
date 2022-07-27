@@ -127,7 +127,7 @@
                     </div>
                   </div>
                   <div class="card col-md-auto p-2">
-                    <span><strong>Prerequisiti</strong></span>
+                    <span><strong>Requisiti tecnici</strong></span>
                     <div class="card-slot p-2">
                       <span>{{ tool.technicalRequirements | dashEmpty }}</span>
                     </div>
@@ -176,7 +176,7 @@
                     </div>
                   </div>
                   <div class="card col-md-auto p-2">
-                    <span><strong>Prerequisiti</strong></span>
+                    <span><strong>Requisiti tecnici</strong></span>
                     <div class="card-slot p-2">
                       <span>{{ tool.technicalRequirements | dashEmpty }}</span>
                     </div>

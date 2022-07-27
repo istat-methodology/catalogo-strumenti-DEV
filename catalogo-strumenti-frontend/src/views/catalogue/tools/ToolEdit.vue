@@ -26,6 +26,11 @@
               </CCardHeader>
               <CCard>
                 <CCardBody>
+                  <CInput
+                    label="Nome"
+                    placeholder="Nome"
+                    v-model="toolLocal.name"
+                  />
                   <CTextarea
                     label="Descrizione"
                     placeholder="Descrizione"
@@ -44,11 +49,11 @@
                       />
                     </div>
                   </div>
-                  <CInput
+                  <!-- <CInput
                     label="Versione"
                     placeholder="Versione"
                     v-model="toolLocal.version"
-                  />
+                  /> -->
                   <CTextarea
                     label="Tags"
                     placeholder="Tags"
@@ -56,8 +61,8 @@
                   />
 
                   <CInput
-                    label="Requisiti"
-                    placeholder="Requisiti"
+                    label="Requisiti per l’applicabilità dello strumento"
+                    placeholder="Requisiti per l’applicabilità dello strumento"
                     v-model="toolLocal.requirements"
                   />
                   <label>Data di rilascio</label>
