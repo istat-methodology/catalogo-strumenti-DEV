@@ -29,7 +29,6 @@
           />
         </CCardBody>
       </CCard>
-
       <CCardFooter>
         <CButton
           shape="square"

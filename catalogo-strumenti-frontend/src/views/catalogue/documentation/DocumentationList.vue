@@ -1,20 +1,23 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-     <h2 class="pt-4">
-        Elenco Documentazione
-        <div class="card-header-actions" v-if="isAuthenticated">
-          <router-link tag="a" :to="{ name: 'DocumentationAdd' }">
-            <button class="btn btn-primary" type="button">
-              <add-icon /> Nuovo
-            </button>
-          </router-link>
-        </div>
-      </h2>
-      <div class="card fade-in">
-        <!--  <CCard>
-          <CCardHeader>Elenco Strumenti</CCardHeader>
- -->
+  <div>
+    <div>
+      <CCardHeader class="mt-4 no-border">
+        <h2>
+          Documenti
+          <div class="card-header-actions" v-if="isAuthenticated">
+            <router-link tag="a" :to="{ name: 'DocumentationAdd' }">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                title="Nuovo documento"
+              >
+                <add-icon title="Nuovo documento" />
+              </button>
+            </router-link>
+          </div>
+        </h2>
+      </CCardHeader>
+      <CCard>
         <CCardBody>
           <CDataTable
             v-if="documentationList"
@@ -31,7 +34,7 @@
                   tag="a"
                   :to="{
                     name: 'DocumentationDetails',
-                    params: { id: item.id }
+                    params: { id: item.id },
                   }"
                 >
                   <view-icon />
@@ -53,7 +56,7 @@
             </template>
           </CDataTable>
         </CCardBody>
-      </div>
+      </CCard>
     </div>
     <CModal title="Warning!" :show.sync="warningModal">
       <template #footer>
@@ -85,28 +88,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:49%;"
+          _style: "width:49%;",
         },
         {
           key: "documentType",
-          label: "Documento",
-          _style: "width:30%;"
+          label: "Tipo documento",
+          _style: "width:30%;",
         },
         {
           key: "publisher",
           label: "Editore",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       selectedDocumentation: {},
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
@@ -114,12 +117,13 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       if (this.documentationList) {
-        return this.documentationList.map(item => {
+        return this.documentationList.map((item) => {
           return {
-            id: item.id, 
+            id: item.id,
             name: item.name == null ? "" : item.name,
             publisher: item.publisher == null ? "" : item.publisher,
-            documentType: item.documentType == null ? "" : item.documentType.name,
+            documentType:
+              item.documentType == null ? "" : item.documentType.name,
             notes: item.notes == null ? "" : item.notes,
             resource: item.resource == null ? "" : item.resource,
           };
@@ -127,7 +131,7 @@ export default {
       } else {
         return [];
       }
-    }
+    },
   },
 
   methods: {
@@ -144,7 +148,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.DocumentationList);
@@ -152,6 +156,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("documentation/findAll");
     // }
-  }
+  },
 };
 </script>

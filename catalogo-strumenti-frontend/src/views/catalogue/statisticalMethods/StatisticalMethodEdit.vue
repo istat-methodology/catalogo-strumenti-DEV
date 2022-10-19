@@ -3,13 +3,14 @@
   <div class="row">
     <div class="col-12">
       <div v-if="statisticalMethod">
-        <div>
-          <h2 class="pt-2">
-            {{ statisticalMethodLocal.name }}
-            <span class="float-right">
-              <close-icon @click.prevent="$router.back()" />
-            </span>
-          </h2>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-9">
+            <h1 class="pl-2 uppercase">
+              <h4>Modifica</h4>
+              {{ statisticalMethodLocal.name | dashEmpty }}
+            </h1>
+          </div>
         </div>
         <CTabs
           variant="pills"
@@ -20,17 +21,36 @@
               <span>Metodo Statistico</span>
             </template>
             <div>
-              <CCardHeader
-                ><i>{{ statisticalMethodLocal.name | dashEmpty }}</i> > Metodo
+              <CCardHeader class="no-border col-8">
+                <h2>
+                  Metodo Statistico
+                  <div class="card-header-actions">
+                    <button
+                      class="btn btn-outline-primary text-center"
+                      @click.prevent="handleSubmit"
+                      title="Aggiorna"
+                    >
+                      <floppy-icon title="Aggiorna" />
+                    </button>
+                    <button
+                      class="btn btn-outline-primary text-center"
+                      @click.prevent="$router.back()"
+                      title="Indietro"
+                    >
+                      <close-icon title="Indietro" />
+                    </button>
+                  </div>
+                </h2>
               </CCardHeader>
-              <CCard>
+
+              <CCard class="col-8">
                 <CCardBody>
                   <CInput
                     label="Nome*"
                     placeholder="Name"
                     v-model="statisticalMethodLocal.name"
                     :class="{
-                      'is-invalid': $v.statisticalMethodLocal.name.$error
+                      'is-invalid': $v.statisticalMethodLocal.name.$error,
                     }"
                   />
                   <div
@@ -94,13 +114,11 @@
                     <date-picker
                       v-if="statisticalMethodLocal"
                       v-model="statisticalMethodLocal.releaseDate"
-                      format="D-M-YYYY"
-                      value-type="format"
                       placeholder="Seleziona una data"
                     ></date-picker>
                   </div>
-                  <div class="form-group">
-                    <label for="checkbox">Standard Istat</label>
+                  <div class="form-group pt-2">
+                    <label for="checkbox">Standard Istat &nbsp;</label>
                     <input
                       id="checkbox"
                       type="checkbox"
@@ -111,17 +129,6 @@
                     />
                   </div>
                 </CCardBody>
-
-                <CCardFooter>
-                  <CButton
-                    shape="square"
-                    size="sm"
-                    color="primary"
-                    class="mr-2"
-                    @click.prevent="handleSubmit"
-                    >Salva</CButton
-                  >
-                </CCardFooter>
               </CCard>
             </div>
           </CTab>
@@ -158,7 +165,7 @@ export default {
   components: {
     DatePicker,
     Treeselect,
-    "app-edit-documentation": DocumentationEditView
+    "app-edit-documentation": DocumentationEditView,
   },
   data() {
     return {
@@ -175,54 +182,54 @@ export default {
         version: "",
         releaseDate: "",
         standardIstat: 0,
-        gsbpmProcesses: []
+        gsbpmProcesses: [],
       },
       gsbpmChecked: [],
 
-      documentationChecked: []
+      documentationChecked: [],
     };
   },
   computed: {
     ...mapGetters("methods", ["statisticalMethod"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("documentation", ["documentationList"]),
-    getGsbpmList: function() {
+    getGsbpmList: function () {
       if (this.gsbpmList)
-        return this.gsbpmList.map(gsbpm => {
+        return this.gsbpmList.map((gsbpm) => {
           return {
             // ...gsbpm,
             id: "id-" + gsbpm.id,
             label: gsbpm.code + " " + gsbpm.name,
-            children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
               return {
                 id: gsbpmSubProcess.id,
-                label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
+                label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
               };
-            })
+            }),
           };
         });
       else return [];
     },
-    getDocumentation: function() {
+    getDocumentation: function () {
       if (this.statisticalMethod) {
-        return this.statisticalMethod.documentations.map(doc => {
+        return this.statisticalMethod.documentations.map((doc) => {
           return {
             id: doc.id,
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
-            resource: doc.resource
+            resource: doc.resource,
           };
         });
       } else return [];
-    }
+    },
   },
   validations: {
     statisticalMethodLocal: {
       name: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     handleSubmit() {
@@ -240,47 +247,54 @@ export default {
 
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.statisticalMethod.gsbpmProcesses.map(gsbpmProc => {
+      this.statisticalMethod.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
     formatDate(dt) {
       dt = new Date(dt);
-      return dt.toLocaleDateString("it");
+      //return dt.toLocaleDateString("it");
+      return dt;
     },
     setOldValues() {
       this.statisticalMethodLocal.id = this.statisticalMethod.id;
       this.statisticalMethodLocal.name = this.statisticalMethod.name;
-      this.statisticalMethodLocal.description = this.statisticalMethod.description;
-      this.statisticalMethodLocal.requirements = this.statisticalMethod.requirements;
-      this.statisticalMethodLocal.assumptions = this.statisticalMethod.assumptions;
-      this.statisticalMethodLocal.constraints = this.statisticalMethod.constraints;
+      this.statisticalMethodLocal.description =
+        this.statisticalMethod.description;
+      this.statisticalMethodLocal.requirements =
+        this.statisticalMethod.requirements;
+      this.statisticalMethodLocal.assumptions =
+        this.statisticalMethod.assumptions;
+      this.statisticalMethodLocal.constraints =
+        this.statisticalMethod.constraints;
       this.statisticalMethodLocal.notes = this.statisticalMethod.notes;
       this.statisticalMethodLocal.tags = this.statisticalMethod.tags;
       this.statisticalMethodLocal.version = this.statisticalMethod.version;
-      //  this.statisticalMethodLocal.releaseDate =  this.statisticalMethod.releaseDate;
-
+      // this.statisticalMethodLocal.releaseDate =  this.statisticalMethod.releaseDate;
       this.statisticalMethodLocal.releaseDate = this.formatDate(
         this.statisticalMethod.releaseDate
       );
 
-      this.statisticalMethodLocal.standardIstat = this.statisticalMethod.standardIstat;
+      this.statisticalMethodLocal.standardIstat =
+        this.statisticalMethod.standardIstat;
     },
     backToList() {
       this.$router.push("/catalogue/metodi");
     },
 
-    loadMethod: _.debounce(function() {
+    loadMethod: _.debounce(function () {
       this.$store
         .dispatch("methods/findById", this.$route.params.id)
         .then(() => {
-          this.setOldValues();
+          if (this.statisticalMethod) {
+            this.setOldValues();
+          }
         });
-    }, 500)
+    }, 500),
   },
   created() {
     this.loadMethod();
-  }
+  },
 };
 </script>
 <style scoped>

@@ -1,9 +1,37 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <div class="col-12">
-      <CCard v-if="documentation">
-        <CCardHeader>Modifica Documentazione</CCardHeader>
+    <div v-if="documentation" class="col-12 pt-2">
+      <div class="row">
+        <div class="col-md-8">
+          <h1 class="pl-2 uppercase">
+            <h4>Modifica</h4>
+            {{ documentation.name | dashEmpty }}
+          </h1>
+        </div>
+      </div>
+      <CCardHeader class="no-border col-8">
+        <h2>
+          Documenti
+          <div class="card-header-actions">
+            <button
+              class="btn btn-outline-primary text-center"
+              @click.prevent="handleSubmit"
+              title="Aggiorna"
+            >
+              <floppy-icon title="Aggiorna" />
+            </button>
+            <button
+              class="btn btn-outline-primary text-center"
+              @click.prevent="$router.back()"
+              title="Indietro"
+            >
+              <close-icon title="Indietro" />
+            </button>
+          </div>
+        </h2>
+      </CCardHeader>
+      <CCard class="col-8">
         <CCardBody>
           <div class="form-group">
             <CInput
@@ -23,7 +51,7 @@
             placeholder="Editore"
             v-model="documentationLocal.publisher"
           />
-       
+
           <div>
             <label>Tipo Documento</label>
           </div>
@@ -44,27 +72,8 @@
             placeholder="Fonti"
             v-model="documentationLocal.resource"
           />
-     
         </CCardBody>
       </CCard>
-      <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          :disabled="disabled"
-          >Salva</CButton
-        >
-        <CButton
-          shape="square"
-          size="sm"
-          color="light"
-          @click.prevent="$router.back()"
-          >Indietro</CButton
-        >
-      </CCardFooter>
     </div>
   </div>
 </template>
@@ -84,25 +93,25 @@ export default {
         documentType: "",
         notes: "",
         resource: "",
-        tool: ""
-      }
+        tool: "",
+      },
     };
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
-    ...mapGetters("tools", ["toolscatalog"])
+    ...mapGetters("tools", ["toolscatalog"]),
   },
 
   validations: {
     documentationLocal: {
       name: {
-        required
+        required,
       },
       documentType: {
-            required
-        } 
-    }
+        required,
+      },
+    },
   },
   methods: {
     changeTool(value) {
@@ -129,19 +138,18 @@ export default {
       this.documentationLocal.documentType = this.documentation.documentType.id;
       this.documentationLocal.notes = this.documentation.notes;
       this.documentationLocal.resource = this.documentation.resource;
-    
     },
     backToList() {
       this.$router.push("/catalogue/documentazione");
     },
-     
-    reloadMethod: _.debounce(function() {
-       this.$store
-      .dispatch("documentation/findById", this.documentationLocal.id)
-      .then(() => {
-        this.setOldValues();
-      });
-    }, 500)
+
+    reloadMethod: _.debounce(function () {
+      this.$store
+        .dispatch("documentation/findById", this.documentationLocal.id)
+        .then(() => {
+          this.setOldValues();
+        });
+    }, 500),
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
@@ -152,6 +160,6 @@ export default {
       });
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  }
+  },
 };
 </script>
