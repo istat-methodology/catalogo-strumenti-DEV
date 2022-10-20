@@ -4,9 +4,12 @@
     <div class="col-12">
       <div class="row">
         <div class="col-8">
-          <CCardHeader class="mt-4 no-border">
+          <CCardHeader class="no-border p-0 pt-4 mt-4">
             <h2>
-              Nuovo Strumento metodologico
+              <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
+                <span class="mt-4 pr-1 text-primary">Nuovo</span>
+              </h4>
+              Strumento metodologico
               <div class="card-header-actions">
                 <button
                   class="btn btn-outline-primary text-center"

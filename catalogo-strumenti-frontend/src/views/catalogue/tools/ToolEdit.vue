@@ -11,7 +11,7 @@
                 <span>
                   <span class="p-0">{{ tool.name | dashEmpty }}</span>
                   <h5 class="bg-secondary p-0">
-                    <span class="pr-1">Modifica</span>
+                    <span class="pr-1 text-primary">Modifica</span>
                   </h5>
                 </span>
               </h1>
