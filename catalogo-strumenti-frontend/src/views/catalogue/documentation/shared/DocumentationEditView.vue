@@ -151,11 +151,11 @@
         Elimina Documento '{{ selectedDoc.name }}'?
       </CModal>
     </div>
-    <div v-if="stateform == FormState.NEW" class="col-8">
-      <CCardHeader class="mt-4 no-border">
+    <div v-if="stateform == FormState.NEW" class="col-12 p-0">
+      <CCardHeader class="mt-4 no-border p-0">
         <h2>
           Aggiungi nuovo documento
-          <div class="card-header-actions">
+          <div class="card-header-actions p-0 mr-1">
             <button
               class="btn btn-outline-primary text-center"
               @click.prevent="handleNewSubmit"
@@ -175,7 +175,7 @@
         </h2>
       </CCardHeader>
 
-      <CCard class="col-12">
+      <CCard class="col-12 p-0">        
         <CCardBody>
           <CInput
             label="Nome*"

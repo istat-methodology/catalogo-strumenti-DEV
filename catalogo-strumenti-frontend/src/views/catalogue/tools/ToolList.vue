@@ -79,6 +79,7 @@ export default {
           key: "tooltype",
           label: "Tipologia",
           _style: "width:20%;",
+         
         },
         {
           key: "gsbpm",
