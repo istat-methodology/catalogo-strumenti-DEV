@@ -15,7 +15,7 @@
       </div>
 
       <div v-if="stateform == FormState.NEW">
-        <CCardHeader class="col no-border">
+        <CCardHeader class="col-12 no-border p-0">
           <h2>
             Nuova Associazione
             <div class="card-header-actions">
@@ -79,11 +79,11 @@
       </div>
 
       <div v-if="stateform == FormState.LIST">
-        <CCardHeader class="col-8 no-border">
+        <CCardHeader class="no-border p-0 pr-1">
           <h2>
             Referenti
             <div class="card-header-actions">
-              <div class="col-8">
+              <div class="col-12 p-0 pr-1">
                 <button
                   class="icon-link btn btn-outline-primary"
                   @click="stateform = FormState.NEW"
@@ -95,6 +95,8 @@
             </div>
           </h2>
         </CCardHeader>
+        
+        
 
         <div class="columns">
           <div class="row">
@@ -103,7 +105,7 @@
               v-for="(linkedAgent, index) of getLinkedAgentList"
               :key="linkedAgent.id"
             >
-              <div class="card-header">
+              <div class="card-header no-border">
                 {{ linkedAgent.agentName }}
                 <div class="card-header-actions">
                   <span v-if="getState(index)">

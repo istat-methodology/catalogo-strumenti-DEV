@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CCardHeader class="mt-4 no-border col-10">
+    <CCardHeader class="col-12 no-border p-0">
       <h2 v-if="!showNewFunct">
         Funzionalità dell'implementazione
         <div class="card-header-actions">
@@ -33,7 +33,7 @@
         </div>
       </h2>
     </CCardHeader>
-    <CCard class="col-10"
+    <CCard class="col-12"
       ><CCardBody>
         <div v-if="showNewFunct || stepInstancesLocal.length > 0">
           <div v-if="showNewFunct">

@@ -5,13 +5,29 @@
       <div v-if="statisticalMethod">
         <div class="row">
           <div class="col-md-3"></div>
+          <div class="col-md-9 pl-4">
+            <div class="col-10 p-0">
+              <h1 class="uppercase text-right p-0 pt-2 text-info ">
+                <span>
+                  <span >{{ statisticalMethodLocal.name | dashEmpty }}</span>
+                  <h5 class="bg-secondary p-0"><span class="pr-2">Modifica</span></h5>
+                </span>                
+              </h1>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!--div class="row">
+          <div class="col-md-3"></div>
           <div class="col-md-9">
             <h1 class="pl-2 uppercase">
               <h4>Modifica</h4>
               {{ statisticalMethodLocal.name | dashEmpty }}
             </h1>
           </div>
-        </div>
+        </div-->
         <CTabs
           variant="pills"
           :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
@@ -21,7 +37,7 @@
               <span>Metodo Statistico</span>
             </template>
             <div>
-              <CCardHeader class="no-border col-8">
+              <CCardHeader class="col-10 no-border p-0 pr-1 mt-4 ">
                 <h2>
                   Metodo Statistico
                   <div class="card-header-actions">
@@ -43,7 +59,7 @@
                 </h2>
               </CCardHeader>
 
-              <CCard class="col-8">
+              <CCard class="col-10">
                 <CCardBody>
                   <CInput
                     label="Nome*"
@@ -143,6 +159,7 @@
                 @updateParent="loadMethod"
                 :documentations="getDocumentation"
                 :methodId="this.statisticalMethod.id"
+                class="col-10 p-0"
               >
               </app-edit-documentation>
             </div>

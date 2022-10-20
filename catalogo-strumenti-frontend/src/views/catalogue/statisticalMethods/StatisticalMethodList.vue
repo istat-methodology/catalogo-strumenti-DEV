@@ -1,9 +1,12 @@
 <template>
   <div>
-    <CCardHeader class="mt-4 no-border">
+    <CCardHeader class="no-border p-0 pt-4 mt-4">
       <h2>
+        <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
+          <span class="mt-4 pr-1 text-red">Elenco</span>
+        </h4>
         Metodi Statistici
-        <div class="card-header-actions" v-if="isAuthenticated">
+        <div class="card-header-actions mr-1" v-if="isAuthenticated">
           <router-link tag="a" :to="{ name: 'MethodAdd' }">
             <button
               class="btn btn-outline-primary"

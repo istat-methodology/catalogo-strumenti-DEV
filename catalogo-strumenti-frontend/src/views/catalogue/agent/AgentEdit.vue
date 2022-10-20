@@ -1,16 +1,19 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <div v-if="agent" class="col-12 pt-2">   
-      <div class="row">
-        <div class="col-md-8">
-          <h1 class="pl-2 uppercase">
-            <h4>Modifica</h4>
-            {{ agent.name | dashEmpty }}
-          </h1>
-        </div>
-      </div>   
-      <CCardHeader class="no-border col-8">
+    <div v-if="agent" class="col-12 pt-2">
+      <div class="col-8 p-0">
+        <h1 class="uppercase text-right p-0 text-info">
+          <span>
+            <span class="">{{ agent.name | dashEmpty }}</span>
+            <h5 class="bg-secondary p-0">
+              <span class="pr-1">Modifica</span>
+            </h5>
+          </span>
+        </h1>
+      </div>
+
+      <CCardHeader class="col-8 no-border p-0 pr-1">
         <h2>
           Referente
           <div class="card-header-actions">
@@ -31,7 +34,8 @@
           </div>
         </h2>
       </CCardHeader>
-      <CCard class="col-8">
+
+      <CCard class="col-8 pl-2 pr-2">
         <CCardBody>
           <CInput
             label="Nome*"

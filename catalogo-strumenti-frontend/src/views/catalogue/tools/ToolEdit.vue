@@ -5,129 +5,127 @@
       <div v-if="tool">
         <div class="row">
           <div class="col-md-3"></div>
-          <div class="col-md-9 pl-4">
-            <div class="col-12 bg-info p-0">
-              <h1 class="col-12 uppercase text-right p-0 pt-2 text-info">
-                <span class="pr-2">{{ tool.name | dashEmpty }}</span>
-                <h5 class="col-12 bg-light  p-0"><span class="pr-2">Modifica</span></h5>
+          <div class="col-md-9 p-0 pl-4">
+            <div class="col-12 p-0 pl-2">
+              <h1 class="uppercase text-right p-0 pt-2 text-info">
+                <span>
+                  <span class="p-0">{{ tool.name | dashEmpty }}</span>
+                  <h5 class="bg-secondary p-0">
+                    <span class="pr-1">Modifica</span>
+                  </h5>
+                </span>
               </h1>
             </div>
           </div>
         </div>
         <CTabs
           variant="pills"
-          :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
+          :vertical="{ navs: 'col-md-3', content: 'col-md-9 p-0 pl-4' }"
         >
           <CTab>
             <template #title>
               <span>Informazioni Generali</span>
             </template>
 
-            <div v-if="tool">
-              <div class="row">
-                <div class="col">
-                  <CCardHeader class="no-border">
-                    <h2>
-                      Informazioni Generali
-
-                      <div class="card-header-actions">
-                        <button
-                          class="btn btn-outline-primary text-center"
-                          @click.prevent="handleSubmit"
-                          title="Aggiorna"
-                        >
-                          <floppy-icon title="Aggiorna" />
-                        </button>
-                        <button
-                          class="btn btn-outline-primary text-center"
-                          @click.prevent="$router.back()"
-                          title="Indietro"
-                        >
-                          <close-icon title="Indietro" />
-                        </button>
-                      </div>
-                    </h2>
-                  </CCardHeader>
-                  <CCard>
-                    <CCardBody>
-                      <CInput
-                        label="Nome"
-                        placeholder="Nome"
-                        v-model="toolLocal.name"
+            <div v-if="tool" class="row p-0">
+              <div class="col-12 p-0">
+                <CCardHeader class="no-border p-0 pr-1 mt-4">
+                  <h2>
+                    Informazioni Generali
+                    <div class="card-header-actions">
+                      <button
+                        class="btn btn-outline-primary text-center"
+                        @click.prevent="handleSubmit"
+                        title="Aggiorna"
+                      >
+                        <floppy-icon title="Aggiorna" />
+                      </button>
+                      <button
+                        class="btn btn-outline-primary text-center"
+                        @click.prevent="$router.back()"
+                        title="Indietro"
+                      >
+                        <close-icon title="Indietro" />
+                      </button>
+                    </div>
+                  </h2>
+                </CCardHeader>
+              </div>
+              <CCard class="col-12 p-0">
+                <CCardBody>
+                  <CInput
+                    label="Nome"
+                    placeholder="Nome"
+                    v-model="toolLocal.name"
+                  />
+                  <CTextarea
+                    label="Descrizione"
+                    placeholder="Descrizione"
+                    v-model="toolLocal.description"
+                  />
+                  <div class="form-group" role="group">
+                    <label for="app-tree">Fasi GSBPM</label>
+                    <div id="app-tree" class="demo-tree">
+                      <treeselect
+                        v-model="gsbpmChecked"
+                        :multiple="true"
+                        :options="getGsbpmList"
+                        :disable-branch-nodes="true"
+                        :show-count="true"
                       />
-                      <CTextarea
-                        label="Descrizione"
-                        placeholder="Descrizione"
-                        v-model="toolLocal.description"
-                      />
-                      <div class="form-group" role="group">
-                        <label for="app-tree">Fasi GSBPM</label>
-                        <div id="app-tree" class="demo-tree">
-                          <treeselect
-                            v-model="gsbpmChecked"
-                            :multiple="true"
-                            :options="getGsbpmList"
-                            :disable-branch-nodes="true"
-                            :show-count="true"
-                          />
-                        </div>
-                      </div>
-                      <!-- 
+                    </div>
+                  </div>
+                  <!-- 
                         <CInput
                           label="Versione"
                           placeholder="Versione"
                            v-model="toolLocal.version"
                         /> 
                        -->
-                      <CTextarea
-                        label="Tags"
-                        placeholder="Tags"
-                        v-model="toolLocal.tags"
-                      />
-                      <CInput
-                        label="Requisiti per l’applicabilità dello strumento"
-                        placeholder="Requisiti per l’applicabilità dello strumento"
-                        v-model="toolLocal.requirements"
-                      />
-                      <label>Data di rilascio</label>
-                      <div>
-                        <date-picker
-                          v-if="toolLocal"
-                          v-model="toolLocal.releaseDate"
-                          placeholder="Seleziona una data"
-                        ></date-picker>
-                      </div>
-                      <br />
-                      <div class="form-group">
-                        <label for="checkbox">Standard Istat &nbsp;</label>
-                        <input
-                          id="checkbox"
-                          type="checkbox"
-                          v-model="toolLocal.standardIstat"
-                          true-value="1"
-                          false-value="0"
-                          aria-label="Standard Istat"
-                        />
-                      </div>
-                    </CCardBody>
-                  </CCard>
-                </div>
-              </div>
+                  <CTextarea
+                    label="Tags"
+                    placeholder="Tags"
+                    v-model="toolLocal.tags"
+                  />
+                  <CInput
+                    label="Requisiti per l’applicabilità dello strumento"
+                    placeholder="Requisiti per l’applicabilità dello strumento"
+                    v-model="toolLocal.requirements"
+                  />
+                  <label>Data di rilascio</label>
+                  <div>
+                    <date-picker
+                      v-if="toolLocal"
+                      v-model="toolLocal.releaseDate"
+                      placeholder="Seleziona una data"
+                    ></date-picker>
+                  </div>
+                  <br />
+                  <div class="form-group">
+                    <label for="checkbox">Standard Istat &nbsp;</label>
+                    <input
+                      id="checkbox"
+                      type="checkbox"
+                      v-model="toolLocal.standardIstat"
+                      true-value="1"
+                      false-value="0"
+                      aria-label="Standard Istat"
+                    />
+                  </div>
+                </CCardBody>
+              </CCard>
             </div>
           </CTab>
           <CTab>
             <!--
-
             statistical service, desktop application, procedure
-
-          -->
-
+            -->
             <template #title>
               <span>{{ toolLocal.toolType.name | dashEmpty }}</span>
             </template>
-            <div class="row">
-              <div class="col">
-                <CCardHeader class="no-border">
+            <div class="row p-0">
+              <div class="col-12 p-0">
+                <CCardHeader class="no-border p-0 pr-1 mt-4">
                   <h2>
                     {{ toolLocal.toolType.name | dashEmpty }}
                     <div class="card-header-actions">
@@ -253,53 +251,47 @@
           </CTab>
           <CTab>
             <!--
-
-            metodi statistici
-          
-          --->
-
+            metodi statistici          
+            --->
             <template #title>
               <span>Metodi Statistici</span>
             </template>
-
-            <div v-if="this.statisticalMethodsList">
-              <div class="row">
-                <div class="col">
-                  <CCardHeader class="no-border">
-                    <h2>
-                      Metodi Statistici
-                      <div class="card-header-actions">
-                        <button
-                          class="btn btn-outline-primary text-center"
-                          @click.prevent="handleSubmit"
-                          title="Aggiorna"
-                        >
-                          <floppy-icon title="Aggiorna" />
-                        </button>
-                        <button
-                          class="btn btn-outline-primary text-center"
-                          @click.prevent="$router.back()"
-                          title="Indietro"
-                        >
-                          <close-icon title="Indietro" />
-                        </button>
-                      </div>
-                    </h2>
-                  </CCardHeader>
-                  <CCard>
-                    <CCardBody>
-                      <div id="app-tree1" class="demo-tree">
-                        <treeselect
-                          v-model="methodsChecked"
-                          :multiple="true"
-                          :options="getMethodsList"
-                          :disable-branch-nodes="true"
-                          :show-count="true"
-                        />
-                      </div>
-                    </CCardBody>
-                  </CCard>
-                </div>
+            <div v-if="this.statisticalMethodsList" class="row p-0">
+              <div class="col-12 p-0">
+                <CCardHeader class="no-border p-0 pr-1 mt-4">
+                  <h2>
+                    Metodi Statistici
+                    <div class="card-header-actions">
+                      <button
+                        class="btn btn-outline-primary text-center"
+                        @click.prevent="handleSubmit"
+                        title="Aggiorna"
+                      >
+                        <floppy-icon title="Aggiorna" />
+                      </button>
+                      <button
+                        class="btn btn-outline-primary text-center"
+                        @click.prevent="$router.back()"
+                        title="Indietro"
+                      >
+                        <close-icon title="Indietro" />
+                      </button>
+                    </div>
+                  </h2>
+                </CCardHeader>
+                <CCard>
+                  <CCardBody>
+                    <div id="app-tree1" class="demo-tree">
+                      <treeselect
+                        v-model="methodsChecked"
+                        :multiple="true"
+                        :options="getMethodsList"
+                        :disable-branch-nodes="true"
+                        :show-count="true"
+                      />
+                    </div>
+                  </CCardBody>
+                </CCard>
               </div>
             </div>
           </CTab>
@@ -307,34 +299,45 @@
             <template #title>
               <span>Moduli implementati</span>
             </template>
-            <app-edit-business-service
-              v-if="this.tool.businessService"
-              :businessServiceID="this.tool.businessService.id"
-              :toolName="this.tool.name"
-            ></app-edit-business-service>
+            <div class="row p-0">
+              <div class="col-12 p-0">
+                <app-edit-business-service
+                  v-if="this.tool.businessService"
+                  :businessServiceID="this.tool.businessService.id"
+                  :toolName="this.tool.name"
+                ></app-edit-business-service>
+              </div>
+            </div>
           </CTab>
           <CTab>
             <template #title>
               <span>Referenti</span>
             </template>
-
-            <app-linkedAgents
-              :toolId="tool.id"
-              :toolName="this.tool.name"
-            ></app-linkedAgents>
+            <div class="row p-0">
+              <div class="col-12 p-0">
+                <app-linkedAgents
+                  :toolId="tool.id"
+                  :toolName="this.tool.name"
+                ></app-linkedAgents>
+              </div>
+            </div>
           </CTab>
           <CTab>
             <template #title>
               <span>Documentazione</span>
             </template>
             <div v-if="this.tool">
-              <app-edit-documentation
-                :parentName="this.tool.name"
-                @updateParent="loadTool"
-                :documentations="getDocumentation"
-                :toolId="this.tool.id"
-              >
-              </app-edit-documentation>
+              <div class="row p-0">
+                <div class="col-12 p-0">
+                  <app-edit-documentation
+                    :parentName="this.tool.name"
+                    @updateParent="loadTool"
+                    :documentations="getDocumentation"
+                    :toolId="this.tool.id"
+                  >
+                  </app-edit-documentation>
+                </div>
+              </div>
             </div>
           </CTab>
         </CTabs>

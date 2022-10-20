@@ -2,89 +2,96 @@
   <div>
     <div>
       <div v-if="stateform == FormState.LIST">
-        <CCardHeader class="mt-4 no-border col-8">
-          <h2>
-            Moduli implementati
-            <div class="card-header-actions">
-              <button
-                class="btn btn-outline-primary text-center"
-                @click="stateform = FormState.NEW"
-                title="Aggiungi una nuova implementazione"
-              >
-                <add-icon />
-              </button>
-              <button
-                class="btn btn-outline-primary text-center"
-                @click.prevent="$router.back()"
-                title="Indietro"
-              >
-                <close-icon title="Indietro" />
-              </button>
-            </div>
-          </h2>
-        </CCardHeader>
-        <CCardHeader class="col-4 no-border">
-          <h2>Elenco Implementazioni</h2>
-        </CCardHeader>
-        <CCard class="col-8">
-          <CCardBody>
-            <div v-if="this.businessService">
-              <table class="table no-border">
-                <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Descrizione</th>
-                  <th>Linguaggio</th>
-                  <th>Funzionalità</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="list-group-item-action no-border"
-                  v-for="appService of this.businessService.appServices"
-                  :key="appService.id"
+        
+          <CCardHeader class="col-12 no-border p-0 pr-1 mt-4">
+            <h2>
+              Moduli implementati
+              <div class="card-header-actions">
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click="stateform = FormState.NEW"
+                  title="Aggiungi una nuova implementazione"
                 >
-                  <td class="no-border">{{ appService.name }}</td>
-                  <td class="no-border">{{ appService.descr }}</td>
-                  <td class="no-border">{{ appService.implementationLanguage }}</td>
-                  <td class="no-border">{{ appService.stepInstances.length }}</td>
-                  <td class="float-right no-border">                   
-                      <span
-                        class="btn btn-rounded"
-                        href="#"
-                        role="button"
-                        @click.prevent="handleSelectedEdit(appService)"
-                        title="Modifica"
-                        ><edit-icon title="Modifica" />
-                      </span>
-                      <span
-                        class="btn btn-rounded"
-                        href="#"
-                        role="button"
-                        v-if="appService.stepInstances.length == 0"
-                        @click.prevent="modalOpen(appService)"
-                        title="Cancella"
-                      >
-                        <delete-icon title="Cancella" />
-                      </span>                   
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-            <div v-if="this.businessService.appServices.length == 0">
-              <table>
+                  <add-icon />
+                </button>
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="$router.back()"
+                  title="Indietro"
+                >
+                  <close-icon title="Indietro" />
+                </button>
+              </div>
+            </h2>
+          </CCardHeader>
+          <CCard class="col-12">
+            <CCardHeader class="no-border">Elenco Implementazioni</CCardHeader>
+            <CCardBody>
+              <div v-if="this.businessService">
+                <table class="table no-border">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Descrizione</th>
+                      <th>Linguaggio</th>
+                      <th>Funzionalità</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="list-group-item-action no-border"
+                      v-for="appService of this.businessService.appServices"
+                      :key="appService.id"
+                    >
+                      <td class="no-border">{{ appService.name }}</td>
+                      <td class="no-border">{{ appService.descr }}</td>
+                      <td class="no-border">
+                        {{ appService.implementationLanguage }}
+                      </td>
+                      <td class="no-border">
+                        {{ appService.stepInstances.length }}
+                      </td>
+                      <td class="float-right no-border">
+                        <span
+                          class="btn btn-rounded"
+                          href="#"
+                          role="button"
+                          @click.prevent="handleSelectedEdit(appService)"
+                          title="Modifica"
+                          ><edit-icon title="Modifica" />
+                        </span>
+                        <span
+                          class="btn btn-rounded"
+                          href="#"
+                          role="button"
+                          v-if="appService.stepInstances.length == 0"
+                          @click.prevent="modalOpen(appService)"
+                          title="Cancella"
+                        >
+                          <delete-icon title="Cancella" />
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div v-if="this.businessService.appServices.length == 0">
+                <table>
                   <tr>
-                    <td class="list-group-item no-border">Nessuna implementazione definita</td>
+                    <td class="list-group-item no-border">
+                      Nessuna implementazione definita
+                    </td>
                   </tr>
-              </table>
-            </div>
-          </CCardBody>
-        </CCard>
+                </table>
+              </div>
+            </CCardBody>
+          </CCard>
+        
       </div>
 
       <div v-if="stateform == FormState.NEW">
-        <CCardHeader class="mt-4 no-border col-10">
+        <CCardHeader class="col-12 no-border p-0 pr-1">
           <h2>
             Nuova implementazione
             <div class="card-header-actions">
@@ -104,7 +111,7 @@
             </div>
           </h2>
         </CCardHeader>
-        <CCard class="col-10">
+        <CCard class="col-12">
           <CCardBody>
             <div class="row">
               <CInput
@@ -161,7 +168,7 @@
       </div>
 
       <div v-if="stateform == FormState.EDIT && selectedUpdateAppService">
-        <CCardHeader class="mt-4 no-border col-10">
+        <CCardHeader class="col-12 p-0 no-border">
           <h2>
             Moduli Implementati
             <div class="card-header-actions">
@@ -183,7 +190,7 @@
           </h2>
         </CCardHeader>
 
-        <CCard class="col-10">
+        <CCard class="col-12">
           <CCardBody>
             <div class="row">
               <CInput

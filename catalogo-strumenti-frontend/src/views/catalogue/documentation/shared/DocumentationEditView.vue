@@ -3,24 +3,11 @@
     <div v-if="stateform == FormState.LIST">
       <div class="mt-4">
         <div class="row">
-          <CCardHeader class="col-6 no-border">
+          <CCardHeader class="col-12 no-border p-0 pl-1 pr-1">
             <h2>
               Documentazione
               <div class="card-header-actions">
-                <button
-                  class="btn btn-outline-primary text-center"
-                  @click.prevent="$router.back()"
-                  title="Indietro"
-                >
-                  <close-icon title="Indietro" />
-                </button>
-              </div>
-            </h2>
-          </CCardHeader>
-          <CCardHeader class="col-6 no-border">
-            <h2>
-              Elenco Documenti
-              <div class="card-header-actions">
+                <div class="col-12 p-0 pr-1">
                 <button
                   class="icon-link btn btn-outline-primary"
                   @click.prevent="handleAddSubmit"
@@ -31,34 +18,39 @@
                   />
                 </button>
                 <button
-                  class="btn btn-outline-primary"
-                  @click="stateform = FormState.NEW"
-                  title="Crea nuovo documento"
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="$router.back()"
+                  title="Indietro"
                 >
-                  <add-icon title="Crea nuovo documento" />
+                  <close-icon title="Indietro" />
                 </button>
+                </div>
               </div>
             </h2>
           </CCardHeader>
         </div>
-        <div class="row">
-          <CCard class="col-6 mr-4">
-            <CCardBody>
+        <CCard class="col-12 mr-4">
+          <div class="row">
+            <CCardBody class="col-8">
               <div v-if="this.documentations">
                 <table class="table no-border">
                   <thead>
-                    <th>Nome</th>
-                    <th>Tipo documento</th>
-                    <th></th>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Tipo documento</th>
+                      <th></th>
+                    </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="col-6">
                     <tr
                       class="list-group-item-action"
                       v-for="documentation of documentations"
                       :key="documentation.id"
                     >
                       <td class="no-border">{{ documentation.name }}</td>
-                      <td class="no-border">{{ documentation.documentType }}</td>
+                      <td class="no-border">
+                        {{ documentation.documentType }}
+                      </td>
                       <td class="float-right no-border">
                         <span class="btn btn-rounded" href="#" role="button">
                           <router-link
@@ -91,30 +83,48 @@
               <div v-if="this.documentations.length == 0">
                 <table>
                   <tr>
-                    <td class="list-group-item no-border">Nessun documento inserito</td>
+                    <td class="list-group-item-action no-border">
+                      Nessun documento inserito
+                    </td>
                   </tr>
                 </table>
               </div>
             </CCardBody>
-          </CCard>
-
-          <CCard class="col-5">
-            <CCardBody >
-              <div v-if="documentationList">
-                <div class="row">
-                  <div class="col-12">
-                    <v-select
-                      :options="getAllDocumentations"
-                      label="name"
-                      placeholder="Elenco documenti"
-                      @input="selectId($event)"
-                    />
-                  </div>
-                </div>
-              </div>
+            <CCardBody class="col-4">
+              <table class="table no-border">
+                <thead>
+                  <tr>
+                    <th>Elenco dei documenti disponibili da associare</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td class="no-border">
+                    <div v-if="documentationList">
+                      <v-select
+                        :options="getAllDocumentations"
+                        label="name"
+                        placeholder="Elenco documenti"
+                        @input="selectId($event)"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="no-border">
+                    <span
+                      class="btn btn-rounded float-right"
+                      @click="stateform = FormState.NEW"
+                      title="Crea nuovo documento"
+                    >
+                      <add-icon title="Crea nuovo documento" />Nuovo
+                      documento</span
+                    >
+                  </td>
+                </tr>
+              </table>
             </CCardBody>
-          </CCard>
-        </div>
+          </div>
+        </CCard>
       </div>
       <CModal
         title="Warning!"

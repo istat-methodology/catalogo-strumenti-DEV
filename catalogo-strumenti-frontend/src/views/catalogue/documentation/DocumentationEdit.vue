@@ -2,15 +2,17 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div v-if="documentation" class="col-12 pt-2">
-      <div class="row">
-        <div class="col-md-8">
-          <h1 class="pl-2 uppercase">
-            <h4>Modifica</h4>
-            {{ documentation.name | dashEmpty }}
-          </h1>
-        </div>
+      <div class="col-8 p-0">
+        <h1 class="uppercase text-right p-0 text-info">
+          <span>
+            <span class="">{{ documentation.name | dashEmpty }}</span>
+            <h5 class="bg-secondary p-0">
+              <span class="pr-1">Modifica</span>
+            </h5>
+          </span>
+        </h1>
       </div>
-      <CCardHeader class="no-border col-8">
+      <CCardHeader class="no-border col-8 p-0 pr-1">
         <h2>
           Documenti
           <div class="card-header-actions">
@@ -31,7 +33,7 @@
           </div>
         </h2>
       </CCardHeader>
-      <CCard class="col-8">
+      <CCard class="col-8 p-0 pl-1 pr-1">
         <CCardBody>
           <div class="form-group">
             <CInput
