@@ -1,93 +1,118 @@
 <template>
   <div>
     <div>
-      <CCardHeader
-        ><i>{{ this.toolName | dashEmpty }}</i> > Moduli implementati
-      </CCardHeader>
-
       <div v-if="stateform == FormState.LIST">
-        <div class="card-header">
-          &nbsp;Elenco Implementazioni disponibili:
-          <div class="card-header-actions">
-            <span
-              class="icon-link"
-              @click="stateform = FormState.NEW"
-              title="Aggiungi una nuova implementazione"
-            >
-              <add-box-icon /> Nuova Implementazione
-            </span>
-          </div>
-        </div>
-
-        <div class="columns">
-          <div class="row" v-if="this.businessService">
-            <div v-if="this.businessService.appServices.length == 0">
-              <span>Nessuna implementazione definita</span>
-            </div>
-
-            <div
-              class="card col-3"
-              v-for="appService of this.businessService.appServices"
-              :key="appService.id"
-            >
-              <div class="card-header">
-                {{ appService.name }}
-                <div class="card-header-actions">
-                  <span
-                    class="icon-link"
-                    @click.prevent="handleSelectedEdit(appService)"
-                  >
-                    <edit-icon title="Modifica" /> </span
-                  >&nbsp;
-                  <span
-                    v-if="appService.stepInstances.length == 0"
-                    class="icon-link"
-                    @click.prevent="modalOpen(appService)"
-                  >
-                    <delete-icon title="Cancella" />
-                  </span>
-                </div>
+        
+          <CCardHeader class="col-12 no-border p-0 pr-1 mt-4">
+            <h2>
+              Moduli implementati
+              <div class="card-header-actions">
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click="stateform = FormState.NEW"
+                  title="Aggiungi una nuova implementazione"
+                >
+                  <add-icon />
+                </button>
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="$router.back()"
+                  title="Indietro"
+                >
+                  <close-icon title="Indietro" />
+                </button>
               </div>
-              <div class="card-body">
-                <p>{{ appService.descr }}</p>
-                <p>
-                  <strong>Linguaggio:</strong>&nbsp;{{
-                    appService.implementationLanguage
-                  }}
-                </p>
-                <p>
-                  <strong>Funzionalità:</strong>&nbsp;{{
-                    appService.stepInstances.length
-                  }}
-                </p>
+            </h2>
+          </CCardHeader>
+          <CCard class="col-12">
+            <CCardHeader class="no-border">Elenco Implementazioni</CCardHeader>
+            <CCardBody>
+              <div v-if="this.businessService">
+                <table class="table no-border">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Descrizione</th>
+                      <th>Linguaggio</th>
+                      <th>Funzionalità</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="list-group-item-action no-border"
+                      v-for="appService of this.businessService.appServices"
+                      :key="appService.id"
+                    >
+                      <td class="no-border">{{ appService.name }}</td>
+                      <td class="no-border">{{ appService.descr }}</td>
+                      <td class="no-border">
+                        {{ appService.implementationLanguage }}
+                      </td>
+                      <td class="no-border">
+                        {{ appService.stepInstances.length }}
+                      </td>
+                      <td class="float-right no-border">
+                        <span
+                          class="btn btn-rounded"
+                          href="#"
+                          role="button"
+                          @click.prevent="handleSelectedEdit(appService)"
+                          title="Modifica"
+                          ><edit-icon title="Modifica" />
+                        </span>
+                        <span
+                          class="btn btn-rounded"
+                          href="#"
+                          role="button"
+                          v-if="appService.stepInstances.length == 0"
+                          @click.prevent="modalOpen(appService)"
+                          title="Cancella"
+                        >
+                          <delete-icon title="Cancella" />
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
-          </div>
-        </div>
+              <div v-if="this.businessService.appServices.length == 0">
+                <table>
+                  <tr>
+                    <td class="list-group-item no-border">
+                      Nessuna implementazione definita
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </CCardBody>
+          </CCard>
+        
       </div>
 
       <div v-if="stateform == FormState.NEW">
-        <div class="card-header">
-          &nbsp;Nuova implementazione
-          <div class="card-header-actions">
-            <span>
-              <span
+        <CCardHeader class="col-12 no-border p-0 pr-1">
+          <h2>
+            Nuova implementazione
+            <div class="card-header-actions">
+              <button
                 title="Salva"
-                class="icon-link"
+                class="btn btn-outline-primary text-center"
                 @click.prevent="handleNewAppService"
               >
-                <floppy-icon title="Salva" /> </span
-              >&nbsp;
-
-              <span class="icon-link" @click="closeNew()">
-                <close-circle-icon title="Chiudi" />
-              </span>
-            </span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-body">
+                <floppy-icon title="Salva" />
+              </button>
+              <button
+                class="btn btn-outline-primary text-center"
+                @click="closeNew()"
+              >
+                <close-icon title="Chiudi" />
+              </button>
+            </div>
+          </h2>
+        </CCardHeader>
+        <CCard class="col-12">
+          <CCardBody>
             <div class="row">
               <CInput
                 class="col-6"
@@ -97,7 +122,7 @@
                 required
               />
               <CInput
-                class="col-4"
+                class="col-6"
                 label="Linguaggio"
                 placeholder="Linguaggi"
                 v-model="newAppService.implementationLanguage"
@@ -138,26 +163,34 @@
                 v-model="newAppService.licence"
               />
             </div>
-          </div>
-        </div>
+          </CCardBody>
+        </CCard>
       </div>
 
       <div v-if="stateform == FormState.EDIT && selectedUpdateAppService">
-        <div class="card-header">
-          Modifica Implementazione
-          <div class="card-header-actions">
-            <span>
-              <span class="icon-link" @click.prevent="handleUpdateAppService()">
-                <floppy-icon title="Salva" />&nbsp;Salva </span
-              >&nbsp;
+        <CCardHeader class="col-12 p-0 no-border">
+          <h2>
+            Moduli Implementati
+            <div class="card-header-actions">
+              <button
+                class="btn btn-outline-primary text-center"
+                @click.prevent="handleUpdateAppService()"
+                title="Salva"
+              >
+                <floppy-icon />
+              </button>
+              <button
+                class="btn btn-outline-primary text-center"
+                @click="closeEdit()"
+                title="Chiudi"
+              >
+                <close-icon title="Chiudi" />
+              </button>
+            </div>
+          </h2>
+        </CCardHeader>
 
-              <span class="icon-link" @click="closeEdit()">
-                <close-circle-icon title="Chiudi" />&nbsp;Chiudi
-              </span></span
-            >
-          </div>
-        </div>
-        <CCard>
+        <CCard class="col-12">
           <CCardBody>
             <div class="row">
               <CInput
@@ -168,7 +201,7 @@
               />
 
               <CInput
-                class="col-4"
+                class="col-6"
                 label="Linguaggio"
                 placeholder="Note"
                 v-model="selectedUpdateAppService.implementationLanguage"
@@ -250,25 +283,25 @@ import _ from "lodash";
 export default {
   name: "BusinessServiceEditView",
   components: {
-    "app-functionality-table": FunctionalityTable
+    "app-functionality-table": FunctionalityTable,
   },
   props: {
     businessServiceID: {
       type: Number,
       required: true,
-      default: () => null
+      default: () => null,
     },
     toolName: {
       type: String,
       required: true,
-      default: () => null
-    }
+      default: () => null,
+    },
   },
   computed: {
     ...mapGetters("businessService", {
-      businessService: "businessService"
+      businessService: "businessService",
     }),
-    ...mapGetters("methods", ["statisticalMethodsList"])
+    ...mapGetters("methods", ["statisticalMethodsList"]),
   },
   data() {
     return {
@@ -279,7 +312,7 @@ export default {
       FormState: {
         LIST: 0,
         EDIT: 1,
-        NEW: 2
+        NEW: 2,
       },
       stateform: 0,
       newAppService: {
@@ -290,26 +323,26 @@ export default {
         implementationLanguage: "",
         sourcePath: "",
         licence: "",
-        businessService: 0
+        businessService: 0,
       },
       fields: [
         {
           key: "functionality",
-          label: "Funzionalità"
+          label: "Funzionalità",
         },
         {
           key: "method",
-          label: "Metodo"
+          label: "Metodo",
         },
         {
           key: "statMethodName",
-          label: "Metodo Statistico"
+          label: "Metodo Statistico",
         },
         {
           key: "descr",
-          label: "Descrizione"
-        }
-      ]
+          label: "Descrizione",
+        },
+      ],
     };
   },
   methods: {
@@ -337,9 +370,9 @@ export default {
     modalClose() {
       this.warningModal = false;
     },
-    getStepInstancesList: function(stepInstances) {
+    getStepInstancesList: function (stepInstances) {
       if (stepInstances)
-        return stepInstances.map(stepInstance => {
+        return stepInstances.map((stepInstance) => {
           return {
             id: stepInstance.id,
             functionality: stepInstance.functionality,
@@ -347,14 +380,14 @@ export default {
             descr: stepInstance.descr,
             statMethod: {
               id: stepInstance.statMethod.id,
-              name: stepInstance.statMethod.name
-            }
+              name: stepInstance.statMethod.name,
+            },
           };
         });
       else return [];
     },
 
-    handleNewAppService: function() {
+    handleNewAppService: function () {
       this.newAppService.businessService = this.businessServiceID;
       this.$store
         .dispatch("appservice/save", this.newAppService)
@@ -362,37 +395,38 @@ export default {
 
       this.stateform = this.FormState.LIST;
     },
-    handleUpdateAppService: function() {
+    handleUpdateAppService: function () {
       this.businessService = null;
       this.selectedUpdateAppService.businessService = this.businessServiceID;
       this.$store
         .dispatch("appservice/update", this.selectedUpdateAppService)
         .then(this.reLoadBusinessService(this.selectedUpdateAppService.id));
     },
-    reLoadBusinessService: _.debounce(function(idAppService) {
+    reLoadBusinessService: _.debounce(function (idAppService) {
       this.selectedUpdateAppService = null;
       if (this.businessServiceID) {
         this.$store
           .dispatch("businessService/findById", this.businessServiceID)
           .then(() => {
-            this.selectedUpdateAppService = this.businessService.appServices.find(
-              x => x.id === idAppService
-            );
+            this.selectedUpdateAppService =
+              this.businessService.appServices.find(
+                (x) => x.id === idAppService
+              );
           });
       }
     }, 500),
-    loadBusinessService: _.debounce(function() {
+    loadBusinessService: _.debounce(function () {
       if (this.businessServiceID) {
         this.$store.dispatch(
           "businessService/findById",
           this.businessServiceID
         );
       }
-    }, 500)
+    }, 500),
   },
   created() {
     this.loadBusinessService();
-  }
+  },
 };
 </script>
 <style scoped>
@@ -444,17 +478,10 @@ body {
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   /* this adds the "card" effect */
-
+  padding: 12px;
   text-align: left;
   background-color: #f1f1f1;
   margin-left: 5px;
-}
-
-.descriprion-functionalities {
-  padding-bottom: 20px;
-  font-size: large;
-  font-weight: bold;
-  color: #9d9d9d;
 }
 
 /* Responsive columns - one column layout (vertical) on small screens */

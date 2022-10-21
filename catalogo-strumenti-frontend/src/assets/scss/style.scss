@@ -172,9 +172,11 @@ button:focus {
 .card {
     padding: 5px !important;
 }
+
 .card-body {
-    padding: 1rem!important;
-  }
+    padding: 1rem !important;
+}
+
 /* Forms */
 
 .form-group {
@@ -461,12 +463,12 @@ a {
     margin-bottom: 1.5rem !important;
     word-wrap: break-word !important;
     background-clip: border-box !important;
-    border-radius: 0.25rem !important;
-    background-color: #f2f9ff !important;
-    /* #f9f9f9 !important */
-    border: 1px solid #bbbbbb !important;
+    border-radius: 0rem !important;
+    background-color: #f7faff !important;
+    border: 1px solid #f5f3f3 !important;    
     box-shadow: none !important;
-    transition: background-color 0.5s !important;
+    transition: none !important;
+    margin-left: 0px !important;
 }
 
 .card {
@@ -477,21 +479,24 @@ a {
     margin-bottom: 1.5rem !important;
     word-wrap: break-word !important;
     background-clip: border-box !important;
-    border-radius: 0.25rem !important;
-    background-color: #f2f9ff !important;
-    /* #f9f9f9 !important */
-    border: 1px solid #bbbbbb !important;
+    border-radius: 0rem !important;
+    background-color: #f7faff !important;
+    border: 1px solid #f5f3f3 !important;
+    
+    /*border-left:2px solid #3399ff !important;*/
     box-shadow: none !important;
-    transition: background-color 0.5s !important;
-    margin-left: 5px !important;
+    transition: none !important;
+    margin-left: 0.01rem !important;
 }
 
 .border {
-    border: 2px solid rgb(197, 197, 197) !important;
+    border: 2px solid #f5f3f3 !important;
+    
 }
 
 .no-border {
     border: 0 !important;
+   
 }
 
 .center {
@@ -502,6 +507,7 @@ a {
     font-weight: 700;
 }
 
+/*
 .list-group,
 .list-group-horizontal,
 .list-group-item {
@@ -528,7 +534,7 @@ a {
     padding-bottom: 1.25em !important;
     min-height: 3.5em !important;
 }
-
+*/
 .padding-description {
     padding-bottom: 1.6em !important;
 }
@@ -566,7 +572,7 @@ h2 {
 }
 
 h4 {
-    color: #cc7512ef;
+    color: #58a9eb;
 }
 
 a {
@@ -586,7 +592,7 @@ a {
 }
 
 h5 {
-    color: #c32c2c
+    color: #2a4981
 }
 
 h1>span,
@@ -604,4 +610,8 @@ h3,
 h4,
 h5 {
     vertical-align: baseline;
+}
+
+.uppercase {
+    text-transform: uppercase;
 }

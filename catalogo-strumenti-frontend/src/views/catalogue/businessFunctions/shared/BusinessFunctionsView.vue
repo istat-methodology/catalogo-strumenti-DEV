@@ -2,7 +2,7 @@
   <div>
     <h2><span>4.</span> Processi</h2>
   <div class="description-fields col-12">
-            Elenco dei processi in cui viene utilizzato lo strumento metologico
+            Elenco dei processi in cui viene utilizzato lo strumento metodologico
               </div>
     <div class="columns">
       <div class="row">

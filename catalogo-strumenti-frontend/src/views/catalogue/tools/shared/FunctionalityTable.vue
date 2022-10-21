@@ -1,98 +1,154 @@
 <template>
   <div>
- 
-  
-      
-           <CCardHeader> 
-Funzionalità dell'implementazione
- <div  class="card-header-actions">  
-      <span class="icon-link float-right" @click="showNewFunct = true" title="Aggiungi una nuova funzionalità">
-        <plus-icon title="Nuova funzionalità" />Nuova funzionalità
-      </span>
- </div>
-           </CCardHeader>
+    <CCardHeader class="col-12 no-border p-0">
+      <h2 v-if="!showNewFunct">
+        Funzionalità dell'implementazione
+        <div class="card-header-actions">
+          <button
+            class="btn btn-outline-primary text-center"
+            @click="showNewFunct = true"
+            title="Aggiungi una nuova funzionalità"
+          >
+            <plus-icon title="Nuova funzionalità" />
+          </button>
+        </div>
+      </h2>
+      <h2 v-if="showNewFunct">
+        Aggiungi una nuova funzionalità
+        <div class="card-header-actions">
+          <button
+            class="btn btn-outline-primary text-center"
+            @click.prevent="handleSubmitAdd"
+            title="Salva"
+          >
+            <floppy-icon title="Salva" />
+          </button>
+          <button
+            class="btn btn-outline-primary text-center"
+            @click.prevent="showNewFunct = false"
+            title="Chiudi"
+          >
+            <close-icon title="Chiudi" />
+          </button>
+        </div>
+      </h2>
+    </CCardHeader>
+    <CCard class="col-12"
+      ><CCardBody>
+        <div v-if="showNewFunct || stepInstancesLocal.length > 0">
+          <div v-if="showNewFunct">
+            <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="col-12"><span>*</span>Nome</div>
+                    <CInput
+                      class="col-12"
+                      placeholder="Nome"
+                      v-model="newStepInstance.functionality"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <div class="col-12">Funzione</div>
+                    <CInput
+                      class="col-12"
+                      placeholder="Metodo"
+                      v-model="newStepInstance.method"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <div class="col-12">Metodo Statistico</div>
+                    <v-select
+                      :options="getStatisticalMethodsOptions()"
+                      label="name"
+                      key="id"
+                      placeholder="Metodo Statistico"
+                      v-model="selectedStatMethod"
+                      class="col-12"
+                    ></v-select>
+                  </div>
+                </div>
+                <div>
+                  <div class="col-12">Descrizione</div>
+                  <CTextarea
+                    class="col-12"
+                    placeholder="Descrizione"
+                    v-model="newStepInstance.descr"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="!showNewFunct">
+          <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Funzione</th>
+            <th class="col-4">Metodo Statistico</th>
+            <th class="col-4">Descrizione</th>
+          </tr>
 
-          <CCard><CCardBody>
-          
- 
-   <div class="card-body">
-    <div class="row" v-if="showNewFunct || stepInstancesLocal.length > 0">
-    <table>
-    <tr>
-      <th></th>
-      <th>Nome</th>
-      <th>Funzione</th>
-<th>Metodo Statistico</th>
-<th>Descrizione</th>
-<th></th>
-<th></th>
-
-    </tr>
-   
-
-    <tr  v-if="showNewFunct">
-   <td> <span>*</span></td> 
-    
-     <td> <CInput placeholder="Nome" v-model="newStepInstance.functionality" /></td>   
-     <td> <CInput placeholder="Metodo" v-model="newStepInstance.method" /></td>
-    
-      <td>
-        <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
-          v-model="selectedStatMethod"></v-select>
-      </td>
-      <td>
-        <CTextarea placeholder="Descrizione" v-model="newStepInstance.descr" />
-      </td>
-      <td>
-        <span class="icon-link" @click.prevent="handleSubmitAdd">
-          <floppy-icon />&nbsp;
-        </span>
-      </td> <td>
-        <span class="icon-link" @click.prevent="showNewFunct = false">
-          <minus-icon />
-        </span>
-      </td>
-      </tr>
- 
-    <tr  v-for="(stepinstance, index) of stepInstancesLocal" :key="stepinstance.id">
-      <td>
-        {{ index + 1 }})
-      </td>
-      <td>
-        <CInput placeholder="Nome" v-model="stepinstance.functionality" />
-      </td>
-      <td>
-        <CInput placeholder="Metodo" v-model="stepinstance.method" />
-      </td>
-      <td>
-        <v-select :options="getStatisticalMethodsOptions()" label="name" key="id" placeholder="Metodo Statistico"
-          v-model="stepinstance.statMethod"   ></v-select>
-      </td>
-      <td>
-        <CTextarea placeholder="Descrizione" v-model="stepinstance.descr" />
-      </td>
-      <td>
-        <span class="icon-link" @click.prevent="handleSubmitUpdate(stepinstance)">
-          <floppy-icon title="Salva"/>&nbsp;
-        </span>
-      </td><td>
-        <span class="icon-link" @click.prevent="modalOpen(stepinstance)">
-          <delete-icon title="Cancella" />
-        </span>
-        </td>
-      </tr>
-    </table>
-</div></div>
-</CCardBody>
-          </CCard>
-
+          <tr
+            v-for="(stepinstance, index) of stepInstancesLocal"
+            :key="stepinstance.id"
+            class="mb-1"
+          >
+            <td>{{ index + 1 }})</td>
+            <td class="pr-1">
+              <CInput placeholder="Nome" v-model="stepinstance.functionality" />
+            </td>
+            <td class="pr-1">
+              <CInput placeholder="Metodo" v-model="stepinstance.method" />
+            </td>
+            <td class="pr-1 col-4">
+              <v-select
+                :options="getStatisticalMethodsOptions()"
+                label="name"
+                key="id"
+                placeholder="Metodo Statistico"
+                v-model="stepinstance.statMethod"
+                :components="{Deselect}"
+              ></v-select>
+            </td>
+            <td class="pr-1 col-4">
+              <CTextarea
+                placeholder="Descrizione"
+                v-model="stepinstance.descr"
+              />
+            </td>
+            <td>
+              <span
+                class="btn btn-rounded"
+                @click.prevent="handleSubmitUpdate(stepinstance)"
+              >
+                <floppy-icon title="Salva" />&nbsp;
+              </span>
+            </td>
+            <td>
+              <span
+                class="btn btn-rounded"
+                @click.prevent="modalOpen(stepinstance)"
+              >
+                <delete-icon title="Cancella" />
+              </span>
+            </td>
+          </tr>
+        </div>
+      </CCardBody>
+    </CCard>
 
     <CModal title="Warning!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
           Chiudi
         </CButton>
-        <CButton shape="square" size="sm" color="primary" @click="deleteStepInstance">
+        <CButton
+          shape="square"
+          size="sm"
+          color="primary"
+          @click="deleteStepInstance"
+        >
           Cancella
         </CButton>
       </template>
@@ -110,21 +166,26 @@ export default {
     appService: {
       type: Number,
       required: true,
-      default: () => null
+      default: () => null,
     },
     stepInstances: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     statisticalMethodsList: {
       type: Array,
       required: true,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
+      /*
+      Deselect: {
+        render: createElement => createElement('span', '❌'),
+      },
+      */
       showNewFunct: false,
       stepInstancesLocal: [],
       selectedStepInstance: {},
@@ -135,10 +196,8 @@ export default {
         method: "",
         statMethod: 0,
         functionality: "",
-        appService: this.appService
+        appService: this.appService,
       },
-
-     
     };
   },
   methods: {
@@ -157,46 +216,45 @@ export default {
     },
     getStatisticalMethodsOptions: function () {
       if (this.statisticalMethodsList)
-        return this.statisticalMethodsList.map(method => {
+        return this.statisticalMethodsList.map((method) => {
           return {
             id: method.id,
-            name: method.name
+            name: method.name,
           };
         });
       else return [];
     },
 
     handleSubmitUpdate(selStepInstance) {
-      let updateStepInstance= {
+      let updateStepInstance = {
         id: selStepInstance.id,
         descr: selStepInstance.descr,
         method: selStepInstance.method,
-        statMethod:selStepInstance.statMethod.id,
-        functionality:selStepInstance.functionality,
-        appService: this.appService
+        statMethod: selStepInstance.statMethod.id,
+        functionality: selStepInstance.functionality,
+        appService: this.appService,
       };
       this.$store
         .dispatch("stepinstance/update", updateStepInstance)
         .then(this.$emit("reLoadData", this.appService));
     },
     handleSubmitAdd() {
-      this.newStepInstance.statMethod=this.selectedStatMethod.id;
+      this.newStepInstance.statMethod = this.selectedStatMethod.id;
       this.$store
         .dispatch("stepinstance/save", this.newStepInstance)
         .then(this.$emit("reLoadData", this.appService));
       this.showNewFunct = false;
     },
-
   },
   created() {
-    this.stepInstancesLocal = this.stepInstances; 
-     this.stepInstancesLocal.statMethod =  this.stepInstances.map(method => {
-          return {
-            id: method.id,
-            name: method.name
-          };
-        });  
-  }
+    this.stepInstancesLocal = this.stepInstances;
+    this.stepInstancesLocal.statMethod = this.stepInstances.map((method) => {
+      return {
+        id: method.id,
+        name: method.name,
+      };
+    });
+  },
 };
 </script>
 

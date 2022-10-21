@@ -1,111 +1,221 @@
 <template>
   <div>
-    <div v-if="stateform == FormState.ADD" class="col-12">
-      <CCardHeader>Seleziona un documento
-        <div class="card-header-actions">
-          <span class="icon-link" @click.prevent="handleAddSubmit" :disabled="true">
-            <floppy-icon title="Salva Associazione" />
-          </span>
-          &nbsp; &nbsp; &nbsp;
-          <span class="icon-link" @click.prevent="stateform = FormState.LIST">
-            <close-circle-icon title="Torna alla lista" />
-          </span>
+    <div v-if="stateform == FormState.LIST">
+      <div class="mt-4">
+        <div class="row">
+          <CCardHeader class="col-12 no-border p-0 pl-1 pr-1">
+            <h2>
+              Documentazione
+              <div class="card-header-actions">
+                <div class="col-12 p-0 pr-1">
+                <button
+                  class="icon-link btn btn-outline-primary"
+                  @click.prevent="handleAddSubmit"
+                  title="Associa documento selezionato allo strunento metodologico"
+                >
+                  <floppy-icon
+                    title="Associa documento selezionato allo strunento metodologico"
+                  />
+                </button>
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="$router.back()"
+                  title="Indietro"
+                >
+                  <close-icon title="Indietro" />
+                </button>
+                </div>
+              </div>
+            </h2>
+          </CCardHeader>
         </div>
-      </CCardHeader>
-
-      <div class="card-slot" v-if="documentationList">
-        <v-select :options="getAllDocumentations" label="name" placeholder="Elenco documenti"
-          @input="selectId($event)" />
-        <span class="help-block">Seleziona una documentazione</span>
+        <CCard class="col-12 mr-4">
+          <div class="row">
+            <CCardBody class="col-8">
+              <div v-if="this.documentations">
+                <table class="table no-border">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Tipo documento</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody class="col-6">
+                    <tr
+                      class="list-group-item-action"
+                      v-for="documentation of documentations"
+                      :key="documentation.id"
+                    >
+                      <td class="no-border">{{ documentation.name }}</td>
+                      <td class="no-border">
+                        {{ documentation.documentType }}
+                      </td>
+                      <td class="float-right no-border">
+                        <span class="btn btn-rounded" href="#" role="button">
+                          <router-link
+                            tag="a"
+                            :to="{
+                              name: 'DocumentationDetails',
+                              params: { id: documentation.id },
+                            }"
+                            title="Visualizza dettagli documento"
+                          >
+                            <view-icon title="Visualizza dettagli documento" />
+                          </router-link>
+                        </span>
+                        <span
+                          class="btn btn-rounded"
+                          href="#"
+                          role="button"
+                          title="Cancella documento dallo strumento"
+                          @click="modalOpen(documentation)"
+                        >
+                          <delete-icon
+                            title="Cancella documento dallo strumento"
+                          />
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div v-if="this.documentations.length == 0">
+                <table>
+                  <tr>
+                    <td class="list-group-item-action no-border">
+                      Nessun documento inserito
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </CCardBody>
+            <CCardBody class="col-4">
+              <table class="table no-border">
+                <thead>
+                  <tr>
+                    <th>Elenco dei documenti disponibili da associare</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td class="no-border">
+                    <div v-if="documentationList">
+                      <v-select
+                        :options="getAllDocumentations"
+                        label="name"
+                        placeholder="Elenco documenti"
+                        @input="selectId($event)"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="no-border">
+                    <span
+                      class="btn btn-rounded float-right"
+                      @click="stateform = FormState.NEW"
+                      title="Crea nuovo documento"
+                    >
+                      <add-icon title="Crea nuovo documento" />Nuovo
+                      documento</span
+                    >
+                  </td>
+                </tr>
+              </table>
+            </CCardBody>
+          </div>
+        </CCard>
       </div>
-      <div class="card-slot">
-        <span class="icon-link float-right" @click="stateform = FormState.NEW">
-          <add-icon />Crea Nuovo Documento
-        </span>
-      </div>
+      <CModal
+        title="Warning!"
+        :show.sync="warningModal"
+        @close="
+          () => {
+            this.$emit('updateParent');
+          }
+        "
+      >
+        <template #footer>
+          <CButton shape="square" size="sm" color="light" @click="modalClose">
+            Close
+          </CButton>
+          <CButton
+            shape="square"
+            size="sm"
+            color="primary"
+            @click="handleRemoveSubmit"
+          >
+            Delete
+          </CButton>
+        </template>
+        Elimina Documento '{{ selectedDoc.name }}'?
+      </CModal>
     </div>
+    <div v-if="stateform == FormState.NEW" class="col-12 p-0">
+      <CCardHeader class="mt-4 no-border p-0">
+        <h2>
+          Aggiungi nuovo documento
+          <div class="card-header-actions p-0 mr-1">
+            <button
+              class="btn btn-outline-primary text-center"
+              @click.prevent="handleNewSubmit"
+              title="Aggiungi nuovo documento"
+            >
+              <floppy-icon title="Aggiungi nuovo documento" />
+            </button>
 
-    <div v-if="stateform == FormState.NEW" class="col-12">
-      <CCardHeader>Aggiungi Nuovo Documento
-        <div class="card-header-actions">
-          <span class="icon-link" @click.prevent="handleNewSubmit">
-            <floppy-icon title="Salva Nuovo documento" />
-          </span>
-          &nbsp; &nbsp; &nbsp;
-          <span class="icon-link" @click.prevent="stateform = FormState.LIST">
-            <close-circle-icon title="Torna alla lista" />
-          </span>
-        </div>
+            <button
+              class="btn btn-outline-primary text-center"
+              @click.prevent="stateform = FormState.LIST"
+              title="Indietro"
+            >
+              <close-icon title="Indietro" />
+            </button>
+          </div>
+        </h2>
       </CCardHeader>
-      <CCard class="col-12">
+
+      <CCard class="col-12 p-0">        
         <CCardBody>
-          <CInput label="Nome*" placeholder="Nome" v-model="documentationLocal.name" />
-          <CInput label="Editore" placeholder="Editore" v-model="documentationLocal.publisher" />
+          <CInput
+            label="Nome*"
+            placeholder="Nome"
+            v-model="documentationLocal.name"
+          />
+          <CInput
+            label="Editore"
+            placeholder="Editore"
+            v-model="documentationLocal.publisher"
+          />
           <div>
             <label>Tipo Documento</label>
           </div>
-          <v-select label="name" :options="documentationTypeList" placeholder="Tipo documento"
-            v-model="documentationLocal.documentType"></v-select>
-          <CTextarea label="Note" placeholder="Note" v-model="documentationLocal.notes" />
-          <CInput label="Fonti" placeholder="Fonti" v-model="documentationLocal.resource" />
+          <v-select
+            label="name"
+            :options="documentationTypeList"
+            placeholder="Tipo documento"
+            v-model="documentationLocal.documentType"
+          ></v-select>
+          <CTextarea
+            label="Note"
+            placeholder="Note"
+            v-model="documentationLocal.notes"
+          />
+          <CInput
+            label="Fonti"
+            placeholder="Fonti"
+            v-model="documentationLocal.resource"
+          />
         </CCardBody>
       </CCard>
     </div>
-
-    <div v-if="stateform == FormState.LIST">
-      <div class="card-header">
-        &nbsp;Elenco Documenti disponibili:
-        <div class="card-header-actions">
-          <span class="icon-link float-right" @click="stateform = FormState.ADD">
-            <add-icon title="Aggiungi un nuovo documento" />&nbsp;Aggiungi
-            Documento
-          </span>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="row">
-          <div class="card col-3" v-for="documentation of documentations" :key="documentation.id">
-            <div class="card-header">
-              {{ documentation.name }}
-              <div class="card-header-actions">
-                <router-link tag="a" :to="{
-                  name: 'DocumentationDetails',
-                  params: { id: documentation.id },
-                }">
-                  <view-icon />
-                </router-link>
-                <span class="icon-link" @click="modalOpen(documentation)">
-                  <delete-icon />
-                </span>
-              </div>
-            </div>
-            <div class="card-body">
-              <p class="card-text">{{ documentation.documentType }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <CModal title="Warning!" :show.sync="warningModal" @close="
-      () => {
-        this.$emit('updateParent');
-      }
-    ">
-      <template #footer>
-        <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
-        </CButton>
-        <CButton shape="square" size="sm" color="primary" @click="handleRemoveSubmit">
-          Delete
-        </CButton>
-      </template>
-      Elimina Documento '{{ selectedDoc.name }}'?
-    </CModal>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+//import AgentAdd from "../../agent/AgentAdd.vue";
 export default {
+  //components: { AgentAdd },
   name: "DocumentationEditView",
   data() {
     return {
@@ -183,33 +293,25 @@ export default {
       this.selectedDocId = e.id;
     },
     handleAddSubmit() {
-      console.log(this.selectedDocId)
+      console.log(this.selectedDocId);
       let params = { id: 0, docID: 0 };
 
       if (this.selectedDocId) {
         if (this.toolId) {
-
           params.id = this.toolId;
           params.docID = this.selectedDocId;
           this.$store
-            .dispatch(
-              "tools/addDocumentation",
-              params
-            )
+            .dispatch("tools/addDocumentation", params)
             .then(this.$emit("updateParent"));
-               this.stateform = this.FormState.LIST;
+          this.stateform = this.FormState.LIST;
         }
         if (this.methodId) {
-
           params.id = this.methodId;
           params.docID = this.selectedDocId;
           this.$store
-            .dispatch(
-              "methods/addDocumentation",
-              params
-            )
+            .dispatch("methods/addDocumentation", params)
             .then(this.$emit("updateParent"));
-            this.stateform = this.FormState.LIST;
+          this.stateform = this.FormState.LIST;
         }
       }
     },
@@ -231,33 +333,23 @@ export default {
       this.$store
         .dispatch("documentation/delete", this.selectedDoc.id)
         .then(this.$emit("updateParent"));
-
     },
     handleRemoveSubmit() {
-
       let params = { id: 0, docID: 0 };
 
       if (this.selectedDoc.id) {
         if (this.toolId) {
-
           params.id = this.toolId;
           params.docID = this.selectedDoc.id;
           this.$store
-            .dispatch(
-              "tools/removeDocumentation",
-              params
-            )
+            .dispatch("tools/removeDocumentation", params)
             .then(this.$emit("updateParent"));
         }
         if (this.methodId) {
-
           params.id = this.methodId;
           params.docID = this.selectedDoc.id;
           this.$store
-            .dispatch(
-              "methods/removeDocumentation",
-              params
-            )
+            .dispatch("methods/removeDocumentation", params)
             .then(this.$emit("updateParent"));
         }
       }
@@ -342,3 +434,6 @@ body {
   }
 }
 </style>
+
+
+

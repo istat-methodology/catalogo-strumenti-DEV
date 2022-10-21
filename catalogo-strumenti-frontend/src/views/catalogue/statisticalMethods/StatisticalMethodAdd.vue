@@ -2,62 +2,77 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard>
-        <CCardHeader>Nuovo Metodo Statistico</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Nome*"
-            placeholder="Name"
-            v-model="statisticalMethodLocal.name"
-            :class="{ 'is-invalid': $v.statisticalMethodLocal.name.$error }"
-          />
-          <div
-            class="help-block"
-            :class="{ show: $v.statisticalMethodLocal.name.$error }"
-          >
-            Campo obbligatorio
-          </div>
-          <CTextarea
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="statisticalMethodLocal.description"
-          />
-          <CInput
-            label="Requisiti/Ipotesi"
-            placeholder="Requisiti/Ipotesi"
-            v-model="statisticalMethodLocal.requirements"
-          />
-          <!-- <CInput
+      <div class="row">
+        <div class="col-8">
+          <CCardHeader class="no-border p-0 pt-4 mt-4">
+            <h2>
+              <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
+                <span class="mt-4 pr-1 text-primary">Nuovo</span>
+              </h4>
+              Metodo Statistico
+              <div class="card-header-actions">
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="handleSubmit"
+                  title="Salva nuovo metodo statistico"
+                >
+                  <floppy-icon title="Salva nuovo metodo statistico" />
+                </button>
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="$router.back()"
+                  title="Indietro"
+                >
+                  <close-icon title="Indietro" />
+                </button>
+              </div>
+            </h2>
+          </CCardHeader>
+          <CCard>
+            <CCardBody>
+              <CInput
+                label="Nome*"
+                placeholder="Name"
+                v-model="statisticalMethodLocal.name"
+                :class="{
+                  'is-invalid': $v.statisticalMethodLocal.name.$error,
+                }"
+              />
+              <div
+                class="help-block"
+                :class="{ show: $v.statisticalMethodLocal.name.$error }"
+              >
+                Campo obbligatorio
+              </div>
+              <CTextarea
+                label="Descrizione"
+                placeholder="Descrizione"
+                v-model="statisticalMethodLocal.description"
+              />
+              <CInput
+                label="Requisiti/Ipotesi"
+                placeholder="Requisiti/Ipotesi"
+                v-model="statisticalMethodLocal.requirements"
+              />
+              <!-- <CInput
             label="Presupposti"
             placeholder="Presupposti"
             v-model="statisticalMethodLocal.assumptions"
           /> -->
-          <CInput
-            label="Limitazioni/Vincoli"
-            placeholder="Limitazioni/Vincoli"
-            v-model="statisticalMethodLocal.constraints"
-          />
-          <CInput
-            label="Note"
-            placeholder="Note"
-            v-model="statisticalMethodLocal.notes"
-          />
-        </CCardBody>
-      </CCard>
-
-      <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          >Aggiungi</CButton
-        >
-        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
-          >Indietro</CButton
-        >
-      </CCardFooter>
+              <CInput
+                label="Limitazioni/Vincoli"
+                placeholder="Limitazioni/Vincoli"
+                v-model="statisticalMethodLocal.constraints"
+              />
+              <CInput
+                label="Note"
+                placeholder="Note"
+                v-model="statisticalMethodLocal.notes"
+              />
+            </CCardBody>
+          </CCard>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -75,22 +90,22 @@ export default {
         requirements: "",
         assumptions: "",
         constraints: "",
-        notes: ""
-      }
+        notes: "",
+      },
     };
   },
   computed: {
     /* ...mapGetters("auth", ["isReviewer", "isSupervisor"]), */
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
 
-    ...mapGetters("tooltype", ["tooltypeList"])
+    ...mapGetters("tooltype", ["tooltypeList"]),
   },
   validations: {
     statisticalMethodLocal: {
       name: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     handleSubmit() {
@@ -108,10 +123,11 @@ export default {
     },
     onChange(event) {
       this.tipologia = event.target.value;
-    }
+    },
   },
   created() {
     this.$store.dispatch("tooltype/findAll");
-  }
+  },
 };
 </script>
+

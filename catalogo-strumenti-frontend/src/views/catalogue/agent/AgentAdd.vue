@@ -2,47 +2,66 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard>
-        <CCardHeader>Nuovo Referente</CCardHeader>
-        <CCardBody>
-          <CInput
-            label="Nome*"
-            placeholder="Nome"
-            v-model="agentLocal.name"
-            :class="{ 'is-invalid': $v.agentLocal.name.$error }"
-          />
-          <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">
-            Campo obbligatorio
-          </div>
-          <CInput
-            label="Organizzazione"
-            placeholder="Organizzazione"
-            v-model="agentLocal.organization"
-          />
+      <div class="row">
+        <div class="col-8">
+          <CCardHeader class="no-border p-0 pt-4 mt-4">
+            <h2>
+              <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
+                <span class="mt-4 pr-1 text-primary">Nuovo</span>
+              </h4>
+              Referente
+              <div class="card-header-actions">
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="handleSubmit"
+                  title="Salva nuovo referente"
+                >
+                  <floppy-icon title="Salva nuovo referente" />
+                </button>
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="$router.back()"
+                  title="Indietro"
+                >
+                  <close-icon title="Indietro" />
+                </button>
+              </div>
+            </h2>
+          </CCardHeader>
+          <CCard>
+            <CCardBody>
+              <CInput
+                label="Nome*"
+                placeholder="Nome"
+                v-model="agentLocal.name"
+                :class="{ 'is-invalid': $v.agentLocal.name.$error }"
+              />
+              <div
+                class="help-block"
+                :class="{ show: $v.agentLocal.name.$error }"
+              >
+                Campo obbligatorio
+              </div>
+              <CInput
+                label="Organizzazione"
+                placeholder="Organizzazione"
+                v-model="agentLocal.organization"
+              />
 
-          <CInput
-            label="Contatto"
-            placeholder="Contatto"
-            v-model="agentLocal.contact"
-          />
-          <CTextarea label="Note" placeholder="Note" v-model="agentLocal.notes" />
-         
-        </CCardBody>
-      </CCard>
-
-      <CCardFooter>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          class="mr-2"
-          @click.prevent="handleSubmit"
-          >Aggiungi</CButton
-        >
-        <CButton shape="square" size="sm" color="light" @click.prevent="goBack"
-          >Indietro</CButton
-        >
-      </CCardFooter>
+              <CInput
+                label="Contatto"
+                placeholder="Contatto"
+                v-model="agentLocal.contact"
+              />
+              <CTextarea
+                label="Note"
+                placeholder="Note"
+                v-model="agentLocal.notes"
+              />
+            </CCardBody>
+          </CCard>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -58,8 +77,8 @@ export default {
         name: "",
         organization: "",
         contact: "",
-        notes: ""
-      }
+        notes: "",
+      },
     };
   },
   computed: {
@@ -68,9 +87,9 @@ export default {
   validations: {
     agentLocal: {
       name: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     handleSubmit() {
@@ -86,10 +105,10 @@ export default {
     },
     onChange(event) {
       this.tipologia = event.target.value;
-    }
+    },
   },
   created() {
     this.$store.dispatch("agent/findAll");
-  }
+  },
 };
 </script>

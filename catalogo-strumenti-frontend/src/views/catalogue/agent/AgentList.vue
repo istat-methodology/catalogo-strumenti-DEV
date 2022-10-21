@@ -1,58 +1,64 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-      <h2 class="pt-4">
-        Elenco Referenti
-        <div class="card-header-actions" v-if="isAuthenticated">
+  <div>
+    <CCardHeader class="no-border p-0 pt-4 mt-4">
+      <h2>
+        <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
+          <span class="mt-4 pr-1 text-primary">Elenco</span>
+        </h4>
+        Referenti
+        <div class="card-header-actions mr-1" v-if="isAuthenticated">
           <router-link tag="a" :to="{ name: 'AgentAdd' }">
-            <button class="btn btn-primary" type="button">
-              <add-icon /> Nuovo
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              title="Nuovo referente"
+            >
+              <add-icon title="Nuovo referente" />
             </button>
           </router-link>
         </div>
       </h2>
-      <div class="card fade-in">
-        <CCardBody>
-          <CDataTable
-            v-if="agentList"
-            :items="computedItems"
-            :fields="fields"
-            column-filter
-            :items-per-page="10"
-            sorter
-            hover
-            pagination
-            ><template #show_details="{ item }">
-              <td>
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'AgentDetails',
-                    params: { id: item.id },
-                  }"
-                >
-                  <view-icon />
-                </router-link>
-              </td>
-              <td v-if="isAuthenticated">
-                <router-link
-                  tag="a"
-                  :to="{ name: 'AgentEdit', params: { id: item.id } }"
-                >
-                  <edit-icon />
-                </router-link>
-              </td>
-              <td v-if="isAuthenticated">
-                <span class="icon-link" @click="modalOpen(item)"
-                  ><delete-icon
-                /></span>
-              </td>
-            </template>
-          </CDataTable>
-        </CCardBody>
-        <!--   </CCard> -->
-      </div>
-    </div>
+    </CCardHeader>
+    <CCard>
+      <CCardBody>
+        <CDataTable
+          v-if="agentList"
+          :items="computedItems"
+          :fields="fields"
+          column-filter
+          :items-per-page="10"
+          sorter
+          hover
+          pagination
+          ><template #show_details="{ item }">
+            <td>
+              <router-link
+                tag="a"
+                :to="{
+                  name: 'AgentDetails',
+                  params: { id: item.id },
+                }"
+              >
+                <view-icon />
+              </router-link>
+            </td>
+            <td v-if="isAuthenticated">
+              <router-link
+                tag="a"
+                :to="{ name: 'AgentEdit', params: { id: item.id } }"
+              >
+                <edit-icon />
+              </router-link>
+            </td>
+            <td v-if="isAuthenticated">
+              <span class="icon-link" @click="modalOpen(item)"
+                ><delete-icon
+              /></span>
+            </td>
+          </template>
+        </CDataTable>
+      </CCardBody>
+    </CCard>
     <CModal title="Warning!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
@@ -107,12 +113,12 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       if (this.agentList) {
-        return this.agentList.map(agent => {
+        return this.agentList.map((agent) => {
           return {
             id: agent.id,
             name: agent.name == null ? "" : agent.name,
             organization: agent.organization == null ? "" : agent.organization,
-            contact: agent.contact == null ? "" : agent.contact
+            contact: agent.contact == null ? "" : agent.contact,
           };
         });
       } else {

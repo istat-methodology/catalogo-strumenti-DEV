@@ -7,10 +7,13 @@
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
+        
         <div class="p-2">
           <h2 class="pt-4">
             {{ tool.name | dashEmpty
-            }}<span class="float-right">
+            }}
+            
+            <span class="float-right">
               <router-link
                 v-if="isAuthenticated"
                 tag="a"
@@ -23,6 +26,7 @@
                 <edit-icon />
               </router-link>
             </span>
+            
           </h2>
           <div class="pl-2">
             <div class="columns">

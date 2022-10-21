@@ -1,18 +1,21 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-      <h2 class="pt-4">
-        Elenco Processi
+  <div>
+    <div>
+      <h2 class="p-1 mt-4 pb-2">
+        Processi
         <div class="card-header-actions">
-          <router-link tag="a" :to="{ name: 'BusinessFunctionsAdd' }">
-            <add-icon />
-          </router-link>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            title="Nuovo processo"
+          >
+            <router-link tag="a" :to="{ name: 'BusinessFunctionsAdd' }">
+              <add-icon title="Nuovo processo" />
+            </router-link>
+          </button>
         </div>
       </h2>
       <div class="card fade-in">
-        <!--  <CCard>
-          <CCardHeader>Elenco Strumenti</CCardHeader>
- -->
         <CCardBody>
           <CDataTable
             v-if="bFunctionList"
@@ -29,7 +32,7 @@
                   tag="a"
                   :to="{
                     name: 'BusinessFunctionsDetails',
-                    params: { id: item.id }
+                    params: { id: item.id },
                   }"
                 >
                   <view-icon />
@@ -40,13 +43,13 @@
                   tag="a"
                   :to="{
                     name: 'BusinessFunctionsEdit',
-                    params: { id: item.id }
+                    params: { id: item.id },
                   }"
                 >
                   <edit-icon />
                 </router-link>
               </td>
-              <td  v-if="isAuthenticated">
+              <td v-if="isAuthenticated">
                 <span class="icon-link" @click="modalOpen(item)"
                   ><delete-icon
                 /></span>
@@ -54,7 +57,6 @@
             </template>
           </CDataTable>
         </CCardBody>
-        <!--   </CCard> -->
       </div>
     </div>
     <CModal title="Warning!" :show.sync="warningModal">
@@ -92,38 +94,38 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:50%;"
+          _style: "width:50%;",
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;"
+          _style: "width:10%;",
         },
         {
           key: "gsbpm",
           label: "Gsbpm",
-          _style: "width:40%;"
+          _style: "width:40%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       selectedBusiness: {},
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
     ...mapGetters("bFunction", ["bFunctionList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
-  
-    getBusinessFunctionList: function() {
+
+    getBusinessFunctionList: function () {
       if (this.bFunctionList) {
-        return this.bFunctionList.map(business => {
+        return this.bFunctionList.map((business) => {
           return {
             id: business.id,
             name: business.name == null ? "" : business.name,
@@ -133,16 +135,16 @@ export default {
               business.gsbpmProcesses == null
                 ? ""
                 : business.gsbpmProcesses
-                    .map(gsbpmProcess => {
+                    .map((gsbpmProcess) => {
                       return gsbpmProcess.code + " " + gsbpmProcess.name;
                     })
-                    .join(", ")
+                    .join(", "),
           };
         });
       } else {
         return [];
       }
-    }
+    },
   },
 
   methods: {
@@ -158,7 +160,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     this.$store
@@ -168,6 +170,6 @@ export default {
     this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
     //this.$store.dispatch("business/findAll");
     // }
-  }
+  },
 };
 </script>

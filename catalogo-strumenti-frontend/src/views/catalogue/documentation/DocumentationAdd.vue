@@ -2,40 +2,94 @@
   <!-- wait until service is loaded -->
   <div class="row">
     <div class="col-12">
-      <CCard>
-        <CCardHeader>Nuova Documentazione</CCardHeader>
-        <CCardBody>
-          <CInput label="Nome*" placeholder="Nome" v-model="documentationLocal.name"
-            :class="{ 'is-invalid': $v.documentationLocal.name.$error }" />
-          <div class="help-block" :class="{ show: $v.documentationLocal.name.$error }">
-            Campo obbligatorio
-          </div>
-          <CInput label="Editore" placeholder="Editore" v-model="documentationLocal.publisher" />
-          <div>
-            <label>Tipo Documento</label>
-          </div>
-          <v-select label="name" :options="documentationTypeList" placeholder="Strumento Statistico"
-            v-model="documentationLocal.documentType.name" @input="changeDocumentType"></v-select>
-          <CInput label="Note" placeholder="Note" v-model="documentationLocal.notes" />
-          <CInput label="Fonti" placeholder="Fonti" v-model="documentationLocal.resource" />
-          <div>
-            <label>Strumento Statistico</label>
-          </div>
-
-          <v-select label="name" :options="toolscatalog" placeholder="Strumento Statistico" @input="changeTool">
-          </v-select>
-          <div>
-            <label>Metodo Statistico</label>
-          </div>
-          <v-select label="name" :options="statisticalMethodsList" placeholder="Metodo Statistico"
-            @input="changeMethod"></v-select>
-        </CCardBody>
-      </CCard>
-
-      <CCardFooter>
-        <CButton shape="square" size="sm" color="primary" class="mr-2" @click.prevent="handleSubmit">Aggiungi</CButton>
-        <CButton shape="square" size="sm" color="light" @click.prevent="goBack">Indietro</CButton>
-      </CCardFooter>
+      <div class="row">
+        <div class="col-12">
+          <CCardHeader class="no-border p-0 pt-4 mt-4">
+            <h2>
+              <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
+                <span class="mt-4 pr-1 text-primary">Nuovo</span>
+              </h4>
+              Documento
+              <div class="card-header-actions">
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="handleSubmit"
+                  title="Salva nuovo documento"
+                >
+                  <floppy-icon title="Salva documento" />
+                </button>
+                <button
+                  class="btn btn-outline-primary text-center"
+                  @click.prevent="$router.back()"
+                  title="Indietro"
+                >
+                  <close-icon title="Indietro" />
+                </button>
+              </div>
+            </h2>
+          </CCardHeader>
+          <CCard>           
+            <CCardBody>
+              <CInput
+                label="Nome*"
+                placeholder="Nome"
+                v-model="documentationLocal.name"
+                :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
+              />
+              <div
+                class="help-block"
+                :class="{ show: $v.documentationLocal.name.$error }"
+              >
+                Campo obbligatorio
+              </div>
+              <CInput
+                label="Editore"
+                placeholder="Editore"
+                v-model="documentationLocal.publisher"
+              />
+              <div>
+                <label>Tipo Documento</label>
+              </div>
+              <v-select
+                label="name"
+                :options="documentationTypeList"
+                placeholder="Strumento Statistico"
+                v-model="documentationLocal.documentType.name"
+                @input="changeDocumentType"
+              ></v-select>
+              <CInput
+                label="Note"
+                placeholder="Note"
+                v-model="documentationLocal.notes"
+              />
+              <CInput
+                label="Fonti"
+                placeholder="Fonti"
+                v-model="documentationLocal.resource"
+              />
+              <div>
+                <label>Strumento Statistico</label>
+              </div>
+              <v-select
+                label="name"
+                :options="toolscatalog"
+                placeholder="Strumento Statistico"
+                @input="changeTool"
+              >
+              </v-select>
+              <div>
+                <label>Metodo Statistico</label>
+              </div>
+              <v-select
+                label="name"
+                :options="statisticalMethodsList"
+                placeholder="Metodo Statistico"
+                @input="changeMethod"
+              ></v-select>
+            </CCardBody>
+          </CCard>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,25 +108,25 @@ export default {
         notes: "",
         resource: "",
         tool: "",
-        method: ""
-      }
+        method: "",
+      },
     };
   },
   validations: {
     documentationLocal: {
       name: {
-        required
+        required,
       },
       documentType: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
-    ...mapGetters("tools", ["toolscatalog"])
+    ...mapGetters("tools", ["toolscatalog"]),
   },
   methods: {
     changeTool(value) {
@@ -94,7 +148,7 @@ export default {
     },
     goBack() {
       this.$router.push("/catalogue/documentazione");
-    }
+    },
     /* onChange(event) {
       this.tipologia = event.target.value;
     } */
@@ -105,6 +159,6 @@ export default {
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentationType/findAll");
-  }
+  },
 };
 </script>
