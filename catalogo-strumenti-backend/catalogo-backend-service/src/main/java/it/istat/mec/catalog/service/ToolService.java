@@ -198,12 +198,12 @@ public class ToolService {
 		
 		return Translators.translate(tool);
 	}
-	public CatalogToolDTO deleteTool(Integer id) {		
+	public Boolean deleteTool(Integer id) {		
 		if (!toolDao.findById(id).isPresent())
 			throw new NoDataException("Tool not present");
 			CatalogTool tool = toolDao.findById(id).get();
 			toolDao.delete(tool);
-			return Translators.translate(tool);		
+			return Boolean.TRUE;		
 	}
 
 	public List<CatalogToolMiniListDTO> findToolsByBusinessFunctions(Integer id) {
