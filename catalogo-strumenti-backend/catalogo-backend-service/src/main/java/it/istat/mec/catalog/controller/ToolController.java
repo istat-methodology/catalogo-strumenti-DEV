@@ -78,7 +78,7 @@ public class ToolController {
 	}
 	
 	@DeleteMapping(value = "/tools/{id}")
-	public CatalogToolDTO deleteTool(@PathVariable("id") Integer id) {
+	public Boolean deleteTool(@PathVariable("id") Integer id) {
 
 		return toolService.deleteTool(id);
 	}
