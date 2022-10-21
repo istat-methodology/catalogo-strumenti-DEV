@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div>
-    <CCardHeader class="col-8 no-border">
+    <CCardHeader class="col-12 no-border p-0 pr-1">
       <h2>
         Nuovo Referente
         <div class="card-header-actions">
@@ -23,7 +23,7 @@
       </h2>
     </CCardHeader>
 
-    <CCard  class="col-8">
+    <CCard  class="col-12">
       <CCardBody>
         <CInput
           label="Nome"

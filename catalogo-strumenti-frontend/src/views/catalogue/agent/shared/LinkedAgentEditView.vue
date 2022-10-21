@@ -15,7 +15,7 @@
       </div>
 
       <div v-if="stateform == FormState.NEW">
-        <CCardHeader class="col-12 no-border p-0">
+        <CCardHeader class="col-12 no-border p-0 pr-1">
           <h2>
             Nuova Associazione
             <div class="card-header-actions">
@@ -37,7 +37,7 @@
           </h2>
         </CCardHeader>
 
-        <CCard class="card col-8">
+        <CCard class="card col-12">
           <CCardBody>
             <div class="card-slot" v-if="agentList">
               <label>Elenco Referenti</label>

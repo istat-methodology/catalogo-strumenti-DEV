@@ -32,15 +32,20 @@
             <CCardBody v-if="tooltypeList">
               <div>
                 <h4 class="p-1">Seleziona la Tipologia</h4>
-              </div>
-              <v-select
-                class="pl-1"
-                label="name"
-                :options="tooltypeList"
-                placeholder="Tipologia"
-                v-model="tipologia"
-                @input="onChangeTipologia"
-              ></v-select>
+              </div>              
+
+              <select 
+                @change="onChangeToolType($event)"
+                v-model="toolLocal.toolType"
+              >
+                <option
+                  v-for="option in tooltypeList"
+                  v-bind:value="option.id"
+                  :key="option.id"
+                >
+                  {{ option.name }}
+                </option>
+              </select>
 
               <div class="row">
                 <div class="col-12">
@@ -100,8 +105,6 @@
                             <date-picker
                               v-if="toolLocal"
                               v-model="toolLocal.releaseDate"
-                              format="DD-M-YYYY"
-                              value-type="format"
                               placeholder="Seleziona una data"
                             ></date-picker>
                           </div>
@@ -280,10 +283,14 @@ export default {
         documentations: [],
       },
       //gsbpmChecked: [],
-      tipologia: {
-        id: 0,
+
+      /*tipologia: 0,      */
+      
+      tipologia: {        
+        id: 9,
         name: "Tipologia",
-      },
+      }
+      
     };
   },
   computed: {
@@ -326,6 +333,9 @@ export default {
     },
     onChangeTipologia(value) {
       this.tipologia.id = value.id;
+    },
+    onChangeToolType(event) {
+      this.tipologia.id = event.target.value;      
     },
   },
   created() {

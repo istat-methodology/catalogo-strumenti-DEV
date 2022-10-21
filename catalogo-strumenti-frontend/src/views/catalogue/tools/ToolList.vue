@@ -51,14 +51,25 @@
               </router-link>
             </td>
             <td v-if="isAuthenticated">
-              <router-link tag="a" :to="{ name: 'ToolAdd' }">
-                <delete-icon title="Elimina Strumento Metodologico" />
-              </router-link>
+              <span class="icon-link" @click="modalOpen(item)"
+                ><delete-icon title="Elimina Strumento Metodologico" />
+              </span>
             </td>
           </template>
         </CDataTable>
       </CCardBody>
     </CCard>
+    <CModal title="Warning!" :show.sync="warningModal">
+      <template #footer>
+        <CButton shape="square" size="sm" color="light" @click="modalClose">
+          Close
+        </CButton>
+        <CButton shape="square" size="sm" color="primary" @click="deleteTool">
+          Delete
+        </CButton>
+      </template>
+      Elimina Strumento '{{ selectedTool.name }}'?
+    </CModal>
   </div>
 </template>
 
@@ -79,7 +90,6 @@ export default {
           key: "tooltype",
           label: "Tipologia",
           _style: "width:20%;",
-         
         },
         {
           key: "gsbpm",
@@ -106,6 +116,8 @@ export default {
           filter: false,
         },
       ],
+      selectedTool: {},
+      warningModal: false,
     };
   },
   computed: {
@@ -133,6 +145,19 @@ export default {
       } else {
         return [];
       }
+    },
+  },
+  methods: {
+    modalOpen(app) {
+      this.selectedTool = app;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
+    },
+    deleteTool() {
+      this.$store.dispatch("tools/delete", this.selectedTool.id);
+      this.warningModal = false;
     },
   },
   created() {
