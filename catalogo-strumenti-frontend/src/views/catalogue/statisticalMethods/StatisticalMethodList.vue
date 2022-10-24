@@ -57,10 +57,10 @@
         </CDataTable>
       </CCardBody>
     </CCard>
-    <CModal title="Warning!" :show.sync="warningModal">
+    <CModal title="Attenzione!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
+          Chiudi
         </CButton>
         <CButton
           shape="square"
@@ -68,10 +68,10 @@
           color="primary"
           @click="deleteStatisticalMethod"
         >
-          Delete
+          Elimina
         </CButton>
       </template>
-      Elimina Metodo Statistico '{{ selectedStatisticalMethod.name }}'?
+        Sei sicuro di eliminare il Metodo Statistico '{{ selectedStatisticalMethod.name }}' selezionato?
     </CModal>
   </div>
 </template>

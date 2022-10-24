@@ -4,7 +4,16 @@
     <div class="col-12">
       <div class="row">
         <div class="col-8">
-          <CCardHeader class="no-border p-0 pt-4 mt-4">
+          <apptitle
+            title="Strumenti Metodologici"
+            buttonTitle=" Strumento Metodologico"
+            functionality="Nuovo"
+            :actions="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleSubmit"
+          />
+
+          <!--CCardHeader class="no-border p-0 pt-4 mt-4">
             <h2>
               <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
                 <span class="mt-4 pr-1 text-primary">Nuovo</span>
@@ -27,14 +36,14 @@
                 </button>
               </div>
             </h2>
-          </CCardHeader>
+          </CCardHeader-->
           <div>
             <CCardBody v-if="tooltypeList">
               <div>
                 <h4 class="p-1">Seleziona la Tipologia</h4>
-              </div>              
+              </div>
 
-              <select 
+              <select
                 @change="onChangeToolType($event)"
                 v-model="toolLocal.toolType"
               >
@@ -241,11 +250,13 @@ import { mapGetters } from "vuex";
 import "vue2-datepicker/index.css";
 import DatePicker from "vue2-datepicker";
 import Treeselect from "@riophae/vue-treeselect";
+import apptitle from "../../../components/AppTitle.vue";
 export default {
   name: "ToolAdd",
   components: {
     DatePicker,
     Treeselect,
+    apptitle
   },
   data() {
     return {
@@ -285,12 +296,11 @@ export default {
       //gsbpmChecked: [],
 
       /*tipologia: 0,      */
-      
-      tipologia: {        
+
+      tipologia: {
         id: 9,
         name: "Tipologia",
-      }
-      
+      },
     };
   },
   computed: {
@@ -335,7 +345,7 @@ export default {
       this.tipologia.id = value.id;
     },
     onChangeToolType(event) {
-      this.tipologia.id = event.target.value;      
+      this.tipologia.id = event.target.value;
     },
   },
   created() {

@@ -61,10 +61,10 @@
         </CCardBody>
       </CCard>
     </div>
-    <CModal title="Warning!" :show.sync="warningModal">
+    <CModal title="Attenzione!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
+          Chiudi
         </CButton>
         <CButton
           shape="square"
@@ -72,10 +72,10 @@
           color="primary"
           @click="deleteDocumentation"
         >
-          Delete
+          Elimina
         </CButton>
       </template>
-      Elimina documentazione '{{ selectedDocumentation.name }}'?
+      Sei sicuro di eliminare la documentazione '{{ selectedDocumentation.name }}' selezionata?
     </CModal>
   </div>
 </template>

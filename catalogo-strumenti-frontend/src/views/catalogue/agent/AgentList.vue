@@ -59,16 +59,16 @@
         </CDataTable>
       </CCardBody>
     </CCard>
-    <CModal title="Warning!" :show.sync="warningModal">
+    <CModal title="Attenzione!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
+          Chiudi
         </CButton>
         <CButton shape="square" size="sm" color="primary" @click="deleteAgent">
-          Delete
+          Elimina
         </CButton>
       </template>
-      Elimina referente '{{ selectedAgent.name }}'?
+      Sei sicuro di eliminare referente '{{ selectedAgent.name }} selezionato'?
     </CModal>
   </div>
 </template>

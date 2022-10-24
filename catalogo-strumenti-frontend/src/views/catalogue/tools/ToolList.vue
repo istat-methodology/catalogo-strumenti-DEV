@@ -3,25 +3,14 @@
     <tile></tile>
   </div>
   <div v-else>
-    <CCardHeader class="no-border p-0 pt-4 mt-4">
-      <h2>
-        <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
-          <span class="mt-4 pr-1 text-primary">Elenco</span>
-        </h4>
-        Strumenti Metodologici
-        <div class="card-header-actions mr-1">
-          <router-link tag="a" :to="{ name: 'ToolAdd' }" v-if="isAuthenticated">
-            <button
-              class="btn btn-outline-primary text-center"
-              type="button"
-              title="Nuovo strumento metodologico"
-            >
-              <add-icon title="Nuovo strumento metodologico" />
-            </button>
-          </router-link>
-        </div>
-      </h2>
-    </CCardHeader>
+    <apptitle
+      title="Strumenti Metodologici"
+      buttonTitle=" Strumento Metodologico"  
+      functionality="Elenco"
+      :actions="isAuthenticated"
+      :buttons="['nuovo']" 
+      @handleNew="handleNew"
+    />
     <CCard>
       <CCardBody>
         <CDataTable
@@ -59,16 +48,16 @@
         </CDataTable>
       </CCardBody>
     </CCard>
-    <CModal title="Warning!" :show.sync="warningModal">
+    <CModal title="Attenzione!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
+          Chiudi 
         </CButton>
         <CButton shape="square" size="sm" color="primary" @click="deleteTool">
-          Delete
+          Elimina
         </CButton>
       </template>
-      Elimina Strumento '{{ selectedTool.name }}'?
+      Sei sicuro di eliminare lo strumento '{{ selectedTool.name }} selezionato'?
     </CModal>
   </div>
 </template>
@@ -76,97 +65,107 @@
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import apptitle from "../../../components/AppTitle.vue";
 export default {
-  name: "ToolList",
-  data() {
-    return {
-      fields: [
-        {
-          key: "name",
-          label: "Nome",
-          _style: "width:20%;",
-        },
-        {
-          key: "tooltype",
-          label: "Tipologia",
-          _style: "width:20%;",
-        },
-        {
-          key: "gsbpm",
-          label: "Fasi Gsbpm",
-          _style: "width:30%;",
-        },
-        /*
-        {
-          key: "methods",
-          label: "Metodi",
-          _style: "width:30%;",
-        },
-        */
-        {
-          key: "description",
-          label: "Descrizione",
-          _style: "width:30%;",
-        },
-        {
-          key: "show_details",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false,
-        },
-      ],
-      selectedTool: {},
-      warningModal: false,
-    };
-  },
-  computed: {
-    ...mapGetters("coreui", ["isLoading"]),
-    ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("filter", ["params"]),
-    computedItems() {
-      if (this.toolscatalog) {
-        return this.toolscatalog.map((item) => {
-          return Object.assign({}, item, {
-            tooltype: item.toolType.name,
-            gsbpm: item.gsbpmProcesses
-              .map((gsbpmProcess) => {
-                return gsbpmProcess.code + " " + gsbpmProcess.name;
-              })
-              .join(", "),
-            methods: item.statisticalMethods
-              .map((method) => {
-                return method.name;
-              })
-              .join(", "),
-          });
-        });
-      } else {
-        return [];
-      }
+    name: "ToolList",
+    components: { apptitle },
+    data() {
+        return {
+            fields: [
+                {
+                    key: "name",
+                    label: "Nome",
+                    _style: "width:20%;",
+                },
+                {
+                    key: "tooltype",
+                    label: "Tipologia",
+                    _style: "width:20%;",
+                },
+                {
+                    key: "gsbpm",
+                    label: "Fasi Gsbpm",
+                    _style: "width:30%;",
+                },
+                /*
+                {
+                  key: "methods",
+                  label: "Metodi",
+                  _style: "width:30%;",
+                },
+                */
+                {
+                    key: "description",
+                    label: "Descrizione",
+                    _style: "width:30%;",
+                },
+                {
+                    key: "show_details",
+                    label: "",
+                    _style: "width:1%",
+                    sorter: false,
+                    filter: false,
+                },
+            ],
+            selectedTool: {},
+            warningModal: false
+           
+        };
+        
     },
-  },
-  methods: {
-    modalOpen(app) {
-      this.selectedTool = app;
-      this.warningModal = true;
+    computed: {
+        ...mapGetters("coreui", ["isLoading"]),
+        ...mapGetters("tools", ["toolscatalog"]),
+        ...mapGetters("auth", ["isAuthenticated"]),
+        ...mapGetters("filter", ["params"]),
+        computedItems() {
+            if (this.toolscatalog) {
+                return this.toolscatalog.map((item) => {
+                    return Object.assign({}, item, {
+                        tooltype: item.toolType.name,
+                        gsbpm: item.gsbpmProcesses
+                            .map((gsbpmProcess) => {
+                            return gsbpmProcess.code + " " + gsbpmProcess.name;
+                        })
+                            .join(", "),
+                        methods: item.statisticalMethods
+                            .map((method) => {
+                            return method.name;
+                        })
+                            .join(", "),
+                    });
+                });
+            }
+            else {
+                return [];
+            }
+        },
     },
-    modalClose() {
-      this.warningModal = false;
+    methods: {
+        modalOpen(app) {
+            this.selectedTool = app;
+            this.warningModal = true;
+        },
+        modalClose() {
+            this.warningModal = false;
+        },
+        deleteTool() {
+            this.$store.dispatch("tools/delete", this.selectedTool.id);
+            this.warningModal = false;
+        },
+        handleNew(){
+          this.$router.push({ name: 'ToolAdd' });
+          
+        }
     },
-    deleteTool() {
-      this.$store.dispatch("tools/delete", this.selectedTool.id);
-      this.warningModal = false;
-    },
-  },
-  created() {
-    this.$store.dispatch("coreui/setContext", Context.ToolList);
-    // if (this.params) {
-    this.$store.dispatch("tools/filter", this.params);
-    //this.$store.dispatch("tools/findAll");
-    // }
-  },
+    created() {
+        this.$store.dispatch("coreui/setContext", Context.ToolList);
+        // if (this.params) {
+        this.$store.dispatch("tools/filter", this.params);
+        //this.$store.dispatch("tools/findAll");
+        // }
+    }
+    
 };
 </script>
 <style>

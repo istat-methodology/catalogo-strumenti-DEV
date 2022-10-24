@@ -59,10 +59,10 @@
         </CCardBody>
       </div>
     </div>
-    <CModal title="Warning!" :show.sync="warningModal">
+    <CModal title="Atttenzione!" :show.sync="warningModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
+          Chiudu
         </CButton>
         <CButton
           shape="square"
@@ -70,10 +70,10 @@
           color="primary"
           @click="deleteBusiness"
         >
-          Delete
+          Elimina
         </CButton>
       </template>
-      Elimina Business Function '{{ selectedBusiness.name }}'?
+      Sei sicuro di eliminare Business Function '{{ selectedBusiness.name }}' selezionata?
     </CModal>
   </div>
 </template>
