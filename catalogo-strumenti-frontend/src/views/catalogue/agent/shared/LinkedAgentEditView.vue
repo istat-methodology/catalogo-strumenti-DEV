@@ -387,4 +387,8 @@ body {
     margin-bottom: 20px;
   }
 }
+.text-color-title {
+  color: #3780bd !important;
+  transition: color 0.5s !important;
+}
 </style>

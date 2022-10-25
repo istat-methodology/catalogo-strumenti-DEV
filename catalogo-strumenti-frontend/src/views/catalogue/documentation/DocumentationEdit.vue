@@ -3,36 +3,17 @@
   <div class="row">
     <div v-if="documentation" class="col-12 pt-2">
       <div class="col-8 p-0">
-        <h1 class="uppercase text-right p-0 text-info">
-          <span>
-            <span class="">{{ documentation.name | dashEmpty }}</span>
-            <h5 class="bg-secondary p-0">
-              <span class="pr-1">Modifica</span>
-            </h5>
-          </span>
-        </h1>
-      </div>
-      <CCardHeader class="no-border col-8 p-0 pr-1">
-        <h2>
-          Documenti
-          <div class="card-header-actions">
-            <button
-              class="btn btn-outline-primary text-center"
-              @click.prevent="handleSubmit"
-              title="Aggiorna"
-            >
-              <floppy-icon title="Aggiorna" />
-            </button>
-            <button
-              class="btn btn-outline-primary text-center"
-              @click.prevent="$router.back()"
-              title="Indietro"
-            >
-              <close-icon title="Indietro" />
-            </button>
-          </div>
-        </h2>
-      </CCardHeader>
+
+        <CTitle 
+            :maintitle="documentation.name"
+            title="Documento"
+            buttonTitle=" Documento"
+            functionality="Modifica"
+            :authenticated="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleSubmit"
+          />
+      </div>  
       <CCard class="col-8 p-0 pl-1 pr-1">
         <CCardBody>
           <div class="form-group">
@@ -83,8 +64,11 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
+import CTitle from "../../../components/CTitle.vue";
+
 export default {
   name: "DocumentationEdit",
+  components: { CTitle  },
   data() {
     return {
       disabled: false,

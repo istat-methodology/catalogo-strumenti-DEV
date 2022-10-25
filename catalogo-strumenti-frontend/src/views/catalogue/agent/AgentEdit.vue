@@ -3,38 +3,16 @@
   <div class="row">
     <div v-if="agent" class="col-12 pt-2">
       <div class="col-8 p-0">
-        <h1 class="uppercase text-right p-0 text-info">
-          <span>
-            <span class="">{{ agent.name | dashEmpty }}</span>
-            <h5 class="bg-secondary p-0">
-              <span class="pr-1">Modifica</span>
-            </h5>
-          </span>
-        </h1>
-      </div>
-
-      <CCardHeader class="col-8 no-border p-0 pr-1">
-        <h2>
-          Referente
-          <div class="card-header-actions">
-            <button
-              class="btn btn-outline-primary text-center"
-              @click.prevent="handleSubmit"
-              title="Aggiorna"
-            >
-              <floppy-icon title="Aggiorna" />
-            </button>
-            <button
-              class="btn btn-outline-primary text-center"
-              @click.prevent="$router.back()"
-              title="Indietro"
-            >
-              <close-icon title="Indietro" />
-            </button>
-          </div>
-        </h2>
-      </CCardHeader>
-
+      <CTitle 
+            :maintitle="agent.name"
+            title="Referente"
+            buttonTitle=" Referente"
+            functionality="Modifica"
+            :authenticated="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleSubmit"
+          />
+      </div>   
       <CCard class="col-8 pl-2 pr-2">
         <CCardBody>
           <CInput
@@ -69,8 +47,10 @@
 <script>
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
+import CTitle from "../../../components/CTitle.vue";
 export default {
-  name: "DocumentationEdit",
+  name: "AgentEdit",
+  components: { CTitle  },
   data() {
     return {
       agentLocal: {

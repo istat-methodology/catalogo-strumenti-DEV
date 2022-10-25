@@ -1,14 +1,25 @@
 <template>
   <div>
-    <CCardHeader class="no-border p-0 pt-4 mt-4">
-      <h2>
-        <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
-          <span class="mt-4 pr-1 text-primary"> {{ functionality }} </span>
-        </h4>
+    <CCardHeader class="no-border p-0 mt-4">
+      <h1 class="uppercase text-right p-0  text-info">
+        <span>
+          <span class="p-0">{{ maintitle }}</span>
+          <h4
+            class="bg-secondary p-0 text-right uppercase "
+          >
+            <span class="mt-4 pr-1 uppercase">
+              {{ functionality }}
+            </span>
+          </h4>
+        </span>
+      </h1>
+      <h2 class="text-info">
         {{ title }}
         <div class="card-header-actions pr-2">
           <div
-            class="btn-group" role="group" aria-label="Basic example"
+            class="btn-group"
+            role="group"
+            aria-label="Basic"
             v-for="item in buttons"
             :key="item"
           >
@@ -102,3 +113,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.text-color-title {
+  color: #0a83e6 !important;
+  transition: color 0.5s !important;
+}
+</style>

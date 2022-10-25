@@ -10,9 +10,9 @@
               <h1 class="uppercase text-right p-0 pt-2 text-info">
                 <span>
                   <span class="p-0">{{ tool.name | dashEmpty }}</span>
-                  <h5 class="bg-secondary p-0">
-                    <span class="pr-1 text-primary">Modifica</span>
-                  </h5>
+                  <h4 class="bg-secondary p-0">
+                    <span class="pr-1 text-color-title">Modifica</span>
+                  </h4>
                 </span>
               </h1>
             </div>
@@ -587,5 +587,9 @@ export default {
 <style scoped>
 .bg-info {
   background-color: #f7faff !important;
+}
+.text-color-title {
+  color: #3780bd !important;
+  transition: color 0.5s !important;
 }
 </style>
