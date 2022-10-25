@@ -1,24 +1,14 @@
 <template>
-  <div>
-    <CCardHeader class="no-border p-0 pt-4 mt-4">
-      <h2>
-        <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
-          <span class="mt-4 pr-1 text-primary">Elenco</span>
-        </h4>
-        Referenti
-        <div class="card-header-actions mr-1" v-if="isAuthenticated">
-          <router-link tag="a" :to="{ name: 'AgentAdd' }">
-            <button
-              class="btn btn-outline-primary"
-              type="button"
-              title="Nuovo referente"
-            >
-              <add-icon title="Nuovo referente" />
-            </button>
-          </router-link>
-        </div>
-      </h2>
-    </CCardHeader>
+  <div>    
+
+    <CTitle
+      title="Referenti"
+      buttonTitle=" Referente"  
+      functionality="Elenco"
+      :actions="isAuthenticated"
+      :buttons="['nuovo']" 
+      @handleNew="handleNew"
+    />    
     <CCard>
       <CCardBody>
         <CDataTable
@@ -51,7 +41,7 @@
               </router-link>
             </td>
             <td v-if="isAuthenticated">
-              <span class="icon-link" @click="modalOpen(item)"
+              <span class="icon-link" @click="openModal(item)"
                 ><delete-icon
               /></span>
             </td>
@@ -59,25 +49,23 @@
         </CDataTable>
       </CCardBody>
     </CCard>
-    <CModal title="Attenzione!" :show.sync="warningModal">
-      <template #footer>
-        <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Chiudi
-        </CButton>
-        <CButton shape="square" size="sm" color="primary" @click="deleteAgent">
-          Elimina
-        </CButton>
-      </template>
-      Sei sicuro di eliminare referente '{{ selectedAgent.name }} selezionato'?
-    </CModal>
+    <CModalDelete 
+      :message="getMessage()" 
+      :showModal="showModal"
+      @closeModal="closeModal"      
+      @handleDelete="handleDelete"
+    />    
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import CTitle from "../../../components/CTitle.vue";
+import CModalDelete from "../../../components/CModalDelete.vue";
 export default {
   name: "AgentList",
+  components: { CTitle, CModalDelete },
   data() {
     return {
       fields: [
@@ -105,7 +93,7 @@ export default {
         },
       ],
       selectedAgent: {},
-      warningModal: false,
+      showModal: false,
     };
   },
   computed: {
@@ -128,17 +116,24 @@ export default {
   },
 
   methods: {
-    deleteAgent() {
+    handleNew(){
+          this.$router.push({ name: 'AgentAdd' });
+    },
+    handleDelete() {
       this.$store.dispatch("agent/delete", this.selectedAgent.id);
-      this.warningModal = false;
+      this.showModal = false;
     },
-    modalOpen(app) {
+    openModal(app) {
       this.selectedAgent = app;
-      this.warningModal = true;
+      this.showModal = true;
     },
-    modalClose() {
-      this.warningModal = false;
+    closeModal() {
+      this.showModal = false;
     },
+    getMessage(){
+      return "Sei sicuro di eliminare il referente " + this.selectedAgent.name + " selezionato?"
+    }
+    
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.AgentList);

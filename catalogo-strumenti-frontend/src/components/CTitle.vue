@@ -13,7 +13,7 @@
         >
           <button
             v-if="item == 'nuovo' && actions == true"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-primary pl-2"
             @click.prevent="handleNew"
             :title="getTitle(item, buttonTitle)"
           >
@@ -22,7 +22,7 @@
 
           <button
             v-if="item == 'salva'"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-primary pl-2"
             @click.prevent="handleSubmit"
             :title="getTitle(item, buttonTitle)"
           >
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: "apptitle",
+  name: "CTitle",
   props: {
     functionality: {
       Type: String,

@@ -1,25 +1,14 @@
 <template>
   <div>
     <div>
-      <CCardHeader class="no-border p-0 pt-4 mt-4">
-      <h2>
-        <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
-          <span class="mt-4 pr-1 text-primary">Elenco</span>
-        </h4>
-          Documenti
-          <div class="card-header-actions mr-1" v-if="isAuthenticated">
-            <router-link tag="a" :to="{ name: 'DocumentationAdd' }">
-              <button
-                class="btn btn-outline-primary"
-                type="button"
-                title="Nuovo documento"
-              >
-                <add-icon title="Nuovo documento" />
-              </button>
-            </router-link>
-          </div>
-        </h2>
-      </CCardHeader>
+      <CTitle
+        title="Referenti"
+        buttonTitle=" Referente"
+        functionality="Elenco"
+        :actions="isAuthenticated"
+        :buttons="['nuovo']"
+        @handleNew="handleNew"
+      />
       <CCard>
         <CCardBody>
           <CDataTable
@@ -52,7 +41,7 @@
                 </router-link>
               </td>
               <td v-if="isAuthenticated">
-                <span class="icon-link" @click="modalOpen(item)"
+                <span class="icon-link" @click="openModal(item)"
                   ><delete-icon
                 /></span>
               </td>
@@ -61,30 +50,24 @@
         </CCardBody>
       </CCard>
     </div>
-    <CModal title="Attenzione!" :show.sync="warningModal">
-      <template #footer>
-        <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Chiudi
-        </CButton>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          @click="deleteDocumentation"
-        >
-          Elimina
-        </CButton>
-      </template>
-      Sei sicuro di eliminare la documentazione '{{ selectedDocumentation.name }}' selezionata?
-    </CModal>
+    <CModalDelete
+      :message="getMessage()"
+      :showModal="showModal"
+      @closeModal="closeModal"
+      @handleDelete="handleDelete"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import CTitle from "../../../components/CTitle.vue";
+import CModalDelete from "../../../components/CModalDelete.vue";
+
 export default {
   name: "documentationList",
+  components: { CTitle, CModalDelete },
   data() {
     return {
       fields: [
@@ -112,7 +95,7 @@ export default {
         },
       ],
       selectedDocumentation: {},
-      warningModal: false,
+      showModal: false,
     };
   },
   computed: {
@@ -138,19 +121,30 @@ export default {
   },
 
   methods: {
-    deleteDocumentation() {
+    handleNew() {
+      this.$router.push({ name: "DocumentationAdd" });
+    },
+
+    handleDelete() {
       this.$store.dispatch(
         "documentation/delete",
         this.selectedDocumentation.id
       );
-      this.warningModal = false;
+      this.showModal = false;
     },
-    modalOpen(app) {
+    openModal(app) {
       this.selectedDocumentation = app;
-      this.warningModal = true;
+      this.showModal = true;
     },
-    modalClose() {
-      this.warningModal = false;
+    closeModal() {
+      this.showModal = false;
+    },
+    getMessage() {
+      return (
+        "Sei sicuro di eliminare la documentazione " +
+        this.selectedDocumentation.name +
+        " selezionato?"
+      );
     },
   },
   created() {

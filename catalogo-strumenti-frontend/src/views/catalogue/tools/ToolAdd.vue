@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="row">
         <div class="col-8">
-          <apptitle
+          <CTitle
             title="Strumenti Metodologici"
             buttonTitle=" Strumento Metodologico"
             functionality="Nuovo"
@@ -12,31 +12,6 @@
             :buttons="['salva', 'indietro']"
             @handleSubmit="handleSubmit"
           />
-
-          <!--CCardHeader class="no-border p-0 pt-4 mt-4">
-            <h2>
-              <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
-                <span class="mt-4 pr-1 text-primary">Nuovo</span>
-              </h4>
-              Strumento metodologico
-              <div class="card-header-actions">
-                <button
-                  class="btn btn-outline-primary text-center"
-                  @click.prevent="handleSubmit"
-                  title="Salva nuovo strumento metodologico"
-                >
-                  <floppy-icon title="Salva nuovo strumento metodologico" />
-                </button>
-                <button
-                  class="btn btn-outline-primary text-center"
-                  @click.prevent="$router.back()"
-                  title="Indietro"
-                >
-                  <close-icon title="Indietro" />
-                </button>
-              </div>
-            </h2>
-          </CCardHeader-->
           <div>
             <CCardBody v-if="tooltypeList">
               <div>
@@ -250,13 +225,13 @@ import { mapGetters } from "vuex";
 import "vue2-datepicker/index.css";
 import DatePicker from "vue2-datepicker";
 import Treeselect from "@riophae/vue-treeselect";
-import apptitle from "../../../components/AppTitle.vue";
+import CTitle from "../../../components/CTitle.vue";
 export default {
   name: "ToolAdd",
   components: {
     DatePicker,
     Treeselect,
-    apptitle
+    CTitle
   },
   data() {
     return {
