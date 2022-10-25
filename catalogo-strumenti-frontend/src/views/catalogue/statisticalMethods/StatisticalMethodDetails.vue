@@ -1,28 +1,21 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="statisticalMethod">
-    <div class="col-8">
+    <div class="col-10">
       <div id="id-main" />
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
         <div class="p-2">
-          <h2 class="pt-4">
-            {{ statisticalMethod.name | dashEmpty
-            }}<span class="float-right">
-              <router-link v-if="isAuthenticated"
-                tag="a"
-                :to="{
-                  name: 'MethodEdit',
-                  params: { id: statisticalMethod.id },
-                }"
-                class="icon-prop"
-              >
-                <edit-icon />
-              </router-link>
-            </span>
-          </h2>
+          <CTitle 
+            :title="statisticalMethod.name"
+            :buttonTitle="statisticalMethod.name"
+            functionality="Dettaglio"
+            :authenticated="isAuthenticated"
+            :buttons="['modifica', 'indietro']"
+            @handleEdit="handleEdit(statisticalMethod)"
+          />
           <div class="pl-2">
             <div class="columns">
               <div class="row">
@@ -143,7 +136,7 @@
         </div>
       </div>
     </div>
-    <aside class="container-rigth col-3">
+    <!--aside class="container-rigth col-3">
       <section class="menu">
         <header>
           <h2 class="menu-heading"><b>Contenuto:</b></h2>
@@ -161,19 +154,21 @@
           </li>
         </ul>
       </section>
-    </aside>
+    </aside-->
   </div>
 </template>
 <script>
 import ToolsView from "../tools/shared/ToolsView";
 import DocumentationView from "../documentation/shared/DocumentationView";
 import { mapGetters } from "vuex";
+import CTitle from "../../../components/CTitle.vue";
 //import { Context } from "@/common";
 export default {
   name: "MethodsDetails",
   components: {
     "app-documentations": DocumentationView,
     "app-tools-function": ToolsView,
+    CTitle
   },
   computed: {
     ...mapGetters("methods", ["statisticalMethod"]),
@@ -211,6 +206,9 @@ export default {
         ? (this.activeIndex = index)
         : (this.activeIndex = -1);
     },
+    handleEdit(item) {      
+      this.$router.push({ name: 'MethodEdit', params: { id: item.id } });
+    }
   },
   created() {
     this.$store.dispatch("methods/findById", this.$route.params.id);

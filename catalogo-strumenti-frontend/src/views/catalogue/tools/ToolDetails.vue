@@ -1,33 +1,21 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="tool">
-    <div class="col-8">
+    <div class="col-10">
       <div id="id-main" />
       <div
         @mouseover="setActiveItemList('#id-link-main', true)"
         @mouseleave="setActiveItemList('#id-link-main', false)"
       >
-        
         <div class="p-2">
-          <h2 class="pt-4">
-            {{ tool.name | dashEmpty
-            }}
-            
-            <span class="float-right">
-              <router-link
-                v-if="isAuthenticated"
-                tag="a"
-                :to="{
-                  name: 'ToolEdit',
-                  params: { id: tool.id },
-                }"
-                class="icon-prop"
-              >
-                <edit-icon />
-              </router-link>
-            </span>
-            
-          </h2>
+          <CTitle 
+            :title="tool.name"
+            :buttonTitle="tool.name"
+            functionality="Dettaglio"
+            :authenticated="isAuthenticated"
+            :buttons="['modifica', 'indietro']"
+            @handleEdit="handleEdit(tool)"
+          />
           <div class="pl-2">
             <div class="columns">
               <div class="row">
@@ -291,8 +279,8 @@
       </div>
     </div>
 
-    <aside class="container-rigth col-3">
-      <section class="menu">
+    <!--aside class="container-rigth col-3 mt-4 pt-4">
+      <section class="menu mt-2">
         <header>
           <h2 class="menu-heading"><b>Contenuto:</b></h2>
         </header>
@@ -327,7 +315,7 @@
           </li>
         </ul>
       </section>
-    </aside>
+    </aside-->
   </div>
 </template>
 <script>
@@ -337,13 +325,20 @@ import BusinessFunctionsView from "../businessFunctions/shared/BusinessFunctions
 import DocumentationView from "../documentation/shared/DocumentationView";
 import LinkedAgentView from "../agent/shared/LinkedAgentView";
 import BusinessServiceView from "./shared/BusinessServiceView";
-
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-
+import CTitle from "../../../components/CTitle.vue"; 
+    
 export default {
   name: "ToolDetails",
-  //components: { plusORminus },
+  components: {
+    "app-documentations": DocumentationView,
+    "app-methods": StatisticalMethodView,
+    "app-linkedAgents": LinkedAgentView,
+    "app-business-service": BusinessServiceView,
+    "app-business-functions": BusinessFunctionsView,
+      CTitle 
+  },
   data() {
     return {
       index: 1,
@@ -547,13 +542,7 @@ export default {
       return this.activeIndex;
     },
   },
-  components: {
-    "app-documentations": DocumentationView,
-    "app-methods": StatisticalMethodView,
-    "app-linkedAgents": LinkedAgentView,
-    "app-business-service": BusinessServiceView,
-    "app-business-functions": BusinessFunctionsView,
-  },
+  
   methods: {
     /* handleSubmit() {
       this.$store.dispatch("tools/update", this.tool).then(() => {
@@ -579,6 +568,10 @@ export default {
     formatDate(dt) {
       dt = new Date(dt);
       return dt.toLocaleDateString("it");
+    },
+    handleEdit(item) {
+      //router.push({ name: 'user', params: { username } }) 
+      this.$router.push({ name: 'ToolEdit', params: { id: item.id } });
     },
   },
   created() {
@@ -624,7 +617,6 @@ export default {
   background-color: #f1f1f1;
   margin-left: 5px;
 }
-
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
   .column {
@@ -646,3 +638,4 @@ legend.scheduler-border {
 .max-col {
   max-width: 5%;
 }
+ 

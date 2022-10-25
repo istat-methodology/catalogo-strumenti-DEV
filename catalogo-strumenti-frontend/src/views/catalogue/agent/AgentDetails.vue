@@ -1,60 +1,46 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="agent">
-    <div class="col-12">
-      <h2 class="pt-4">
-        {{ agent.name | dashEmpty
-        }}<span class="float-right">
-          <router-link
-            v-if="isAuthenticated"
-            tag="a"
-            :to="{
-              name: 'AgentEdit',
-              params: { id: agent.id }
-            }"
-            class="icon-prop"
-          >
-            <edit-icon />
-          </router-link>
-        </span>
-      </h2>
-      <div class="row">
-        <div class="card col-md-auto p-2">
+    <div class="col-6">
+      <CTitle
+        :title="agent.name"
+        :buttonTitle="agent.name"
+        functionality="Dettaglio"
+        :authenticated="isAuthenticated"
+        :buttons="['modifica', 'indietro']"
+        @handleEdit="handleEdit(agent)"
+      />
+      <div class="row p-3">
+        <div class="card col p-4">
           <span><strong>Nome</strong></span>
-          <div class="card-slot  p-2">
+          <div class="card-slot p-2">
             <span>{{ agent.name | dashEmpty }}</span>
           </div>
         </div>
-        <div class="card col-md-auto p-2">
+      </div>
+
+      <div class="row p-3">
+        <div class="card col">
           <span><strong>Organizzazione</strong></span>
-          <div class="card-slot  p-2">
+          <div class="card-slot p-2">
             <span>{{ agent.organization | dashEmpty }}</span>
           </div>
         </div>
-
-        <div class="card col-md-auto p-2">
+        <div class="card col">
           <span><strong>Contatto</strong></span>
-          <div class="card-slot  p-2">
+          <div class="card-slot p-2">
             <span>{{ agent.contact | dashEmpty }}</span>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="card col-md-auto p-2">
+      <div class="row p-3">
+        <div class="card col">
           <span><strong>Note</strong></span>
-          <div class="card-slot  p-2">
+          <div class="card-slot p-2">
             <span>{{ agent.notes | dashEmpty }}</span>
           </div>
         </div>
       </div>
-
-      <!-- <CButton
-        shape="square"
-        size="sm"
-        color="light"
-        @click.prevent="$router.back()"
-        >Indietro</CButton
-      > -->
     </div>
   </div>
 </template>
@@ -62,21 +48,29 @@
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
+import CTitle from "../../../components/CTitle.vue";
+
 export default {
   name: "AgentDetails",
+  components: {
+    CTitle,
+  },
   computed: {
     ...mapGetters("agent", ["agent"]),
-    ...mapGetters("auth", ["isAuthenticated"])
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   methods: {
     backToList() {
       this.$router.push("/catalogue/referenti");
-    }
+    },
+    handleEdit(item) {
+      this.$router.push({ name: "AgentEdit", params: { id: item.id } });
+    },
   },
   created() {
     this.$store.dispatch("agent/findById", this.$route.params.id);
     //this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  }
+  },
 };
 </script>
 <style scoped>

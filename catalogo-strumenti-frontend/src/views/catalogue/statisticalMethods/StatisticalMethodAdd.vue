@@ -4,6 +4,15 @@
     <div class="col-12">
       <div class="row">
         <div class="col-8">
+          <CTitle
+            title="Metodo Statistico"
+            buttonTitle="Metodo Statistico"
+            functionality="Nuovo"
+            :actions="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleSubmit"
+          />
+
           <CCardHeader class="no-border p-0 pt-4 mt-4">
             <h2>
               <h4 class="bg-secondary p-0 mb-4 text-right uppercase">

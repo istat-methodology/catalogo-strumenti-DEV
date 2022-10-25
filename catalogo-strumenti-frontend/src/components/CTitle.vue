@@ -6,36 +6,46 @@
           <span class="mt-4 pr-1 text-primary"> {{ functionality }} </span>
         </h4>
         {{ title }}
-        <div
-          class="card-header-actions pr-2"
-          v-for="item in buttons"
-          :key="item"
-        >
-          <button
-            v-if="item == 'nuovo' && actions == true"
-            class="btn btn-outline-primary pl-2"
-            @click.prevent="handleNew"
-            :title="getTitle(item, buttonTitle)"
+        <div class="card-header-actions pr-2">
+          <div
+            class="btn-group" role="group" aria-label="Basic example"
+            v-for="item in buttons"
+            :key="item"
           >
-            <add-icon :title="getTitle(item, buttonTitle)" />
-          </button>
+            <button
+              v-if="item == 'nuovo' && authenticated == true"
+              class="btn btn-outline-primary"
+              @click.prevent="handleNew"
+              :title="getTitle(item, buttonTitle)"
+            >
+              <add-icon :title="getTitle(item, buttonTitle)" />
+            </button>
 
-          <button
-            v-if="item == 'salva'"
-            class="btn btn-outline-primary pl-2"
-            @click.prevent="handleSubmit"
-            :title="getTitle(item, buttonTitle)"
-          >
-            <floppy-icon :title="getTitle(item, buttonTitle)" />
-          </button>
-          <button
-            v-if="item == 'indietro'"
-            class="btn btn-outline-primary"
-            :title="item"
-            @click.prevent="$router.back()"
-          >
-            <close-icon :title="item" />
-          </button>
+            <button
+              v-if="item == 'salva'"
+              class="btn btn-outline-primary"
+              @click.prevent="handleSubmit"
+              :title="getTitle(item, buttonTitle)"
+            >
+              <floppy-icon :title="getTitle(item, buttonTitle)" />
+            </button>
+            <button
+              v-if="item == 'modifica'"
+              class="btn btn-outline-primary"
+              @click.prevent="handleEdit"
+              :title="getTitle(item, buttonTitle)"
+            >
+              <edit-icon :title="getTitle(item, buttonTitle)" />
+            </button>
+            <button
+              v-if="item == 'indietro'"
+              class="btn btn-outline-primary"
+              :title="item"
+              @click.prevent="$router.back()"
+            >
+              <close-icon :title="item" />
+            </button>
+          </div>
         </div>
       </h2>
     </CCardHeader>
@@ -71,7 +81,7 @@ export default {
       Type: Array,
       default: () => [],
     },
-    actions: {
+    authenticated: {
       Type: Boolean,
       default: () => false,
     },
@@ -83,30 +93,12 @@ export default {
     handleSubmit() {
       this.$emit("handleSubmit");
     },
+    handleEdit() {
+      this.$emit("handleEdit");
+    },
     handleNew() {
       this.$emit("handleNew");
     },
-
-    /*
-    getSubTitle(title) {
-      return title
-    },
-    getFunction(title) {
-      return title
-    },    
-    download(type) {
-      switch (type) {
-
-        case "json":
-        case "csv":
-        case "jpeg":
-        case "png":
-        case "pdf":
-        default:
-          break
-      }
-    }
-    */
   },
 };
 </script>

@@ -5,7 +5,7 @@
         title="Documenti"
         buttonTitle=" Documento"
         functionality="Elenco"
-        :actions="isAuthenticated"
+        :authenticated="isAuthenticated"
         :buttons="['nuovo']"
         @handleNew="handleNew"
       />

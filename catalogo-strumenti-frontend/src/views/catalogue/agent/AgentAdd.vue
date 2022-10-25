@@ -4,30 +4,14 @@
     <div class="col-12">
       <div class="row">
         <div class="col-8">
-          <CCardHeader class="no-border p-0 pt-4 mt-4">
-            <h2>
-              <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
-                <span class="mt-4 pr-1 text-primary">Nuovo</span>
-              </h4>
-              Referente
-              <div class="card-header-actions">
-                <button
-                  class="btn btn-outline-primary text-center"
-                  @click.prevent="handleSubmit"
-                  title="Salva nuovo referente"
-                >
-                  <floppy-icon title="Salva nuovo referente" />
-                </button>
-                <button
-                  class="btn btn-outline-primary text-center"
-                  @click.prevent="$router.back()"
-                  title="Indietro"
-                >
-                  <close-icon title="Indietro" />
-                </button>
-              </div>
-            </h2>
-          </CCardHeader>
+          <CTitle
+            title="Referente"
+            buttonTitle=" Referente"
+            functionality="Nuovo"
+            :authenticated="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleSubmit"
+          />
           <CCard>
             <CCardBody>
               <CInput
@@ -67,9 +51,13 @@
 </template>
 <script>
 import { required } from "vuelidate/lib/validators";
+import CTitle from "../../../components/CTitle.vue";
+
 //import { mapGetters } from "vuex";
 export default {
   name: "documentationlAdd",
+  components: { CTitle  },
+
   data() {
     return {
       agentLocal: {

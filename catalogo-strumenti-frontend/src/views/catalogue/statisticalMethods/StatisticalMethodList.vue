@@ -4,7 +4,7 @@
       title="Metodi Statistici"
       buttonTitle=" Metodo Statistico"
       functionality="Elenco"
-      :actions="isAuthenticated"
+      :authenticated="isAuthenticated"
       :buttons="['nuovo']"
       @handleNew="handleNew"
     />
@@ -42,7 +42,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 import CModalDelete from "../../../components/CModalDelete.vue";
 import CTableLink from "../../../components/CTableLink.vue";
 export default {

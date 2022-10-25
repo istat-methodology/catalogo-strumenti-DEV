@@ -7,7 +7,7 @@
       title="Strumenti Metodologici"
       buttonTitle=" Strumento Metodologico"
       functionality="Elenco"
-      :actions="isAuthenticated"
+      :authenticated="isAuthenticated"
       :buttons="['nuovo']"
       @handleNew="handleNew"
     />

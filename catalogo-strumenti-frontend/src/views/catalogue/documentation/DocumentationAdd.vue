@@ -3,8 +3,16 @@
   <div class="row">
     <div class="col-12">
       <div class="row">
-        <div class="col-12">
-          <CCardHeader class="no-border p-0 pt-4 mt-4">
+        <div class="col-8">
+          <CTitle
+            title="Documento"
+            buttonTitle=" Documento"
+            functionality="Nuovo"
+            :authenticated="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleSubmit"
+          />
+          <!--CCardHeader class="no-border p-0 pt-4 mt-4">
             <h2>
               <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
                 <span class="mt-4 pr-1 text-primary">Nuovo</span>
@@ -27,7 +35,7 @@
                 </button>
               </div>
             </h2>
-          </CCardHeader>
+          </CCardHeader-->
           <CCard>           
             <CCardBody>
               <CInput
@@ -96,8 +104,10 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
+import CTitle from "../../../components/CTitle.vue";
 export default {
   name: "documentationAdd",
+  components: { CTitle },
   data() {
     return {
       documentationLocal: {

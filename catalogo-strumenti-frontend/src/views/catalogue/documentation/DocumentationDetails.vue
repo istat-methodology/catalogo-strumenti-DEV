@@ -1,126 +1,87 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="documentation">
-    <div class="col-8">
-      <div id="id-main" />
-      <div
-        @mouseover="setActiveItemList('#id-link-main', true)"
-        @mouseleave="setActiveItemList('#id-link-main', false)"
-      >
-        <div class="p-2">
-          <h2 class="pt-4">
-            {{ documentation.name | dashEmpty
-            }}<span class="float-right">
-              <router-link
-                v-if="isAuthenticated"
-                tag="a"
-                :to="{
-                  name: 'DocumentationEdit',
-                  params: { id: documentation.id },
-                }"
-                class="icon-prop"
-              >
-                <edit-icon />
-              </router-link>
-            </span>
-          </h2>
-          <div class="row">
-            <!-- <div class="card col-md-auto p-2">
-                  <span><strong>Nome</strong></span>
-                  <div class="card-slot  p-2">
-                    <span>{{ documentation.name | dashEmpty }}</span>
-                  </div>
-                </div> -->
-
-            <div class="card col-md-auto p-2">
-              <span><strong>Editore</strong></span>
-              <div class="card-slot p-2">
-                <span>{{ documentation.publisher | dashEmpty }}</span>
-              </div>
-            </div>
-            <div class="card col-md-auto p-2">
-              <span><strong>Tipo Documento</strong></span>
-
-              <div class="card-slot p-2">
-                <span>{{ documentation.documentType.name | dashEmpty }}</span>
-              </div>
-            </div>
-            <div class="card col-md-auto p-2">
-              <span><strong>Riferimenti</strong></span>
-              <div class="card-slot p-2">
-                <span>{{ documentation.resource | dashEmpty }}</span>
-              </div>
+    <div class="col-8">      
+      <CTitle
+        :title="documentation.name"
+        :buttonTitle="documentation.name"
+        functionality="Dettaglio"
+        :authenticated="isAuthenticated"
+        :buttons="['modifica', 'indietro']"
+        @handleEdit="handleEdit(documentation)"
+      />
+      <div class="row">
+        <div class="col-12">
+          <div class="card col-md-auto p-4">
+            <span><strong>Editore</strong></span>
+            <div class="card-slot">
+              <span>{{ documentation.publisher | dashEmpty }}</span>
             </div>
           </div>
-          <div class="row">
-            <div class="card col-md-auto p-2">
-              <span><strong>Note</strong></span>
-              <div class="card-slot p-2">
-                <span>{{ documentation.notes | dashEmpty }}</span>
-              </div>
+          <div class="card col-md-auto p-4">
+            <span><strong>Tipo Documento</strong></span>
+
+            <div class="card-slot">
+              <span>{{ documentation.documentType.name | dashEmpty }}</span>
             </div>
           </div>
-
-          <div></div>
-        </div>
-
-        <div id="id-second" />
-        <div
-          @mouseover="setActiveItemList('#id-link-second', true)"
-          @mouseleave="setActiveItemList('#id-link-second', false)"
-        >
-          <div class="p-2">
-            <app-tools-view :indexLabel="''"
-              :descriptionLabel="'Strumenti metodologici associati al documento'"
-               :tools="toolsByDocumentation"></app-tools-view>
-          </div>
-        </div>
-
-        <div id="id-methods" />
-        <div
-          @mouseover="setActiveItemList('#id-link-methods', true)"
-          @mouseleave="setActiveItemList('#id-link-methods', false)"
-        >
-          <div class="p-2">
-            <app-methods
-              :indexLabel="''"
-              :descriptionLabel="'Metodi statistici associati al documento'"
-              :statisticalMethods="methodsByDocumentation"
-            ></app-methods>
+          <div class="card col-md-auto  p-4">
+            <span><strong>Riferimenti</strong></span>
+            <div class="card-slot">
+              <span>{{ documentation.resource | dashEmpty }}</span>
+            </div>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card col-md-auto  p-4">
+            <span><strong>Note</strong></span>
+            <div class="card-slot">
+              <span>{{ documentation.notes | dashEmpty }}</span>
+            </div>
+          </div>
+        </div>        
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <app-tools-view
+            :indexLabel="''"
+            :descriptionLabel="'Strumenti metodologici associati al documento'"
+            :tools="toolsByDocumentation"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <app-methods
+            :indexLabel="''"
+            :descriptionLabel="'Metodi statistici associati al documento'"
+            :statisticalMethods="methodsByDocumentation"
+          />
+        </div>
+      </div>
     </div>
-
-    <aside class="container-rigth col-3">
-      <section class="menu">
-        <header>
-          <h2 class="menu-heading"><b>Contenuto:</b></h2>
-        </header>
-        <ul class="menu-list">
-          <li class="list-item" id="id-link-main">
-            <a class="item-link" href="#id-main">Documento</a>
-            <a class="item-link" href="#id-second">Strumenti Metodologici</a>
-            <a class="item-link" href="#id-methods">Metodi Statistici</a>
-          </li>
-        </ul>
-      </section>
-    </aside>
   </div>
 </template>
 <script>
-/* import { required } from "vuelidate/lib/validators"; */
-
+// import { required } from "vuelidate/lib/validators";
 //import Documentation from "../documentation/shared/Documentation";
 import ToolsView from "../tools/shared/ToolsView";
 import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
 
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "DocumentationDetails",
-  //components: { plusORminus },
+  components: {
+    // "app-documentation": Documentation,
+    "app-tools-view": ToolsView,
+    "app-methods": StatisticalMethodView,
+    CTitle,
+  },
   data() {
     return {
       activeIndex: -1,
@@ -132,11 +93,7 @@ export default {
     ...mapGetters("methods", ["methodsByDocumentation"]),
     ...mapGetters("auth", ["isAuthenticated"]),
   },
-  components: {
-    // "app-documentation": Documentation,
-    "app-tools-view": ToolsView,
-    "app-methods": StatisticalMethodView,
-  },
+
   methods: {
     setActiveItemList(selector, bool) {
       document.querySelector(selector).className = bool
@@ -151,6 +108,10 @@ export default {
         ? (this.activeIndex = index)
         : (this.activeIndex = -1);
     },
+
+    handleEdit(item) {
+      this.$router.push({ name: "DocumentationEdit", params: { id: item.id } });
+    },
   },
   created() {
     this.$store
@@ -160,13 +121,11 @@ export default {
           "tools/findToolsByDocumentation",
           this.documentation.id
         );
-         this.$store.dispatch(
+        this.$store.dispatch(
           "methods/findMethodsByDocumentation",
           this.documentation.id
         );
       });
-
- 
   },
 };
 </script>

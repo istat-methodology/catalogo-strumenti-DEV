@@ -5,10 +5,10 @@
       <div class="row">
         <div class="col-8">
           <CTitle
-            title="Strumenti Metodologici"
+            title="Strumento Metodologico"
             buttonTitle=" Strumento Metodologico"
             functionality="Nuovo"
-            :actions="isAuthenticated"
+            :authenticated="isAuthenticated"
             :buttons="['salva', 'indietro']"
             @handleSubmit="handleSubmit"
           />

@@ -1,14 +1,13 @@
 <template>
-  <div>    
-
+  <div>
     <CTitle
       title="Referenti"
-      buttonTitle=" Referente"  
+      buttonTitle=" Referente"
       functionality="Elenco"
-      :actions="isAuthenticated"
-      :buttons="['nuovo']" 
+      :authenticated="isAuthenticated"
+      :buttons="['nuovo']"
       @handleNew="handleNew"
-    />    
+    />
     <CCard>
       <CCardBody>
         <CDataTable
@@ -22,48 +21,23 @@
           pagination
           ><template #show_details="{ item }">
             <CTableLink
-                :authenticated="isAuthenticated"
-                @handleView="handleView(item)"
-                @handleEdit="handleEdit(item)"
-                @handleDelete="handleOpenModalDelete(item)"
-              />
-            <!--td>
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'AgentDetails',
-                  params: { id: item.id },
-                }"
-              >
-                <view-icon />
-              </router-link>
-            </td>
-            <td v-if="isAuthenticated">
-              <router-link
-                tag="a"
-                :to="{ name: 'AgentEdit', params: { id: item.id } }"
-              >
-                <edit-icon />
-              </router-link>
-            </td>
-            <td v-if="isAuthenticated">
-              <span class="icon-link" @click="openModal(item)"
-                ><delete-icon
-              /></span>
-            </td-->
+              :authenticated="isAuthenticated"
+              @handleView="handleView(item)"
+              @handleEdit="handleEdit(item)"
+              @handleDelete="handleOpenModalDelete(item)"
+            />
           </template>
         </CDataTable>
       </CCardBody>
     </CCard>
-    <CModalDelete 
-      :message="getMessage()" 
+    <CModalDelete
+      :message="getMessage()"
       :showModal="showModal"
-      @closeModal="closeModal"      
+      @closeModal="closeModal"
       @handleDelete="handleDelete"
-    />    
+    />
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
@@ -123,18 +97,16 @@ export default {
   },
 
   methods: {
-    handleNew(){
-          this.$router.push({ name: 'AgentAdd' });
+    handleNew() {
+      this.$router.push({ name: "AgentAdd" });
     },
     handleView(item) {
-      //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "AgentDetails",
         params: { id: item.id },
       });
     },
     handleEdit(item) {
-      //router.push({ name: 'user', params: { username } })
       this.$router.push({ name: "AgentEdit", params: { id: item.id } });
     },
 
@@ -149,10 +121,13 @@ export default {
     closeModal() {
       this.showModal = false;
     },
-    getMessage(){
-      return "Sei sicuro di eliminare il referente " + this.selectedAgent.name + " selezionato?"
-    }
-    
+    getMessage() {
+      return (
+        "Sei sicuro di eliminare il referente " +
+        this.selectedAgent.name +
+        " selezionato?"
+      );
+    },
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.AgentList);
