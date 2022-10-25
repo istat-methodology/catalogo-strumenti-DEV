@@ -14,7 +14,7 @@
           >
             <button
               v-if="item == 'nuovo' && authenticated == true"
-              class="btn btn-outline-primary"
+              class="btn btn-outline-primary pl-2"
               @click.prevent="handleNew"
               :title="getTitle(item, buttonTitle)"
             >
@@ -23,7 +23,7 @@
 
             <button
               v-if="item == 'salva'"
-              class="btn btn-outline-primary"
+              class="btn btn-outline-primary pl-2"
               @click.prevent="handleSubmit"
               :title="getTitle(item, buttonTitle)"
             >
@@ -31,7 +31,7 @@
             </button>
             <button
               v-if="item == 'modifica'"
-              class="btn btn-outline-primary"
+              class="btn btn-outline-primary pl-2"
               @click.prevent="handleEdit"
               :title="getTitle(item, buttonTitle)"
             >
@@ -39,7 +39,7 @@
             </button>
             <button
               v-if="item == 'indietro'"
-              class="btn btn-outline-primary"
+              class="btn btn-outline-primary pl-2"
               :title="item"
               @click.prevent="$router.back()"
             >
