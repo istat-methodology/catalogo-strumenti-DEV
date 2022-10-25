@@ -2,8 +2,8 @@
   <div>
     <div>
       <CTitle
-        title="Referenti"
-        buttonTitle=" Referente"
+        title="Documenti"
+        buttonTitle=" Documento"
         functionality="Elenco"
         :actions="isAuthenticated"
         :buttons="['nuovo']"
@@ -21,30 +21,12 @@
             hover
             pagination
             ><template #show_details="{ item }">
-              <td>
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'DocumentationDetails',
-                    params: { id: item.id },
-                  }"
-                >
-                  <view-icon />
-                </router-link>
-              </td>
-              <td v-if="isAuthenticated">
-                <router-link
-                  tag="a"
-                  :to="{ name: 'DocumentationEdit', params: { id: item.id } }"
-                >
-                  <edit-icon />
-                </router-link>
-              </td>
-              <td v-if="isAuthenticated">
-                <span class="icon-link" @click="openModal(item)"
-                  ><delete-icon
-                /></span>
-              </td>
+              <CTableLink
+                :authenticated="isAuthenticated"
+                @handleView="handleView(item)"
+                @handleEdit="handleEdit(item)"
+                @handleDelete="handleOpenModalDelete(item)"
+              />
             </template>
           </CDataTable>
         </CCardBody>
@@ -64,10 +46,11 @@ import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import CTitle from "../../../components/CTitle.vue";
 import CModalDelete from "../../../components/CModalDelete.vue";
+import CTableLink from "../../../components/CTableLink.vue";
 
 export default {
   name: "documentationList",
-  components: { CTitle, CModalDelete },
+  components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
       fields: [
@@ -124,7 +107,17 @@ export default {
     handleNew() {
       this.$router.push({ name: "DocumentationAdd" });
     },
-
+    handleView(item) {
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({
+        name: "DocumentationDetails",
+        params: { id: item.id },
+      });
+    },
+    handleEdit(item) {
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({ name: "DocumentationEdit", params: { id: item.id } });
+    },
     handleDelete() {
       this.$store.dispatch(
         "documentation/delete",
@@ -132,7 +125,8 @@ export default {
       );
       this.showModal = false;
     },
-    openModal(app) {
+
+    handleOpenModalDelete(app) {
       this.selectedDocumentation = app;
       this.showModal = true;
     },

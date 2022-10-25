@@ -21,7 +21,13 @@
           hover
           pagination
           ><template #show_details="{ item }">
-            <td>
+            <CTableLink
+                :authenticated="isAuthenticated"
+                @handleView="handleView(item)"
+                @handleEdit="handleEdit(item)"
+                @handleDelete="handleOpenModalDelete(item)"
+              />
+            <!--td>
               <router-link
                 tag="a"
                 :to="{
@@ -44,7 +50,7 @@
               <span class="icon-link" @click="openModal(item)"
                 ><delete-icon
               /></span>
-            </td>
+            </td-->
           </template>
         </CDataTable>
       </CCardBody>
@@ -63,9 +69,10 @@ import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import CTitle from "../../../components/CTitle.vue";
 import CModalDelete from "../../../components/CModalDelete.vue";
+import CTableLink from "../../../components/CTableLink.vue";
 export default {
   name: "AgentList",
-  components: { CTitle, CModalDelete },
+  components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
       fields: [
@@ -119,11 +126,23 @@ export default {
     handleNew(){
           this.$router.push({ name: 'AgentAdd' });
     },
+    handleView(item) {
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({
+        name: "AgentDetails",
+        params: { id: item.id },
+      });
+    },
+    handleEdit(item) {
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({ name: "AgentEdit", params: { id: item.id } });
+    },
+
     handleDelete() {
       this.$store.dispatch("agent/delete", this.selectedAgent.id);
       this.showModal = false;
     },
-    openModal(app) {
+    handleOpenModalDelete(app) {
       this.selectedAgent = app;
       this.showModal = true;
     },

@@ -20,24 +20,12 @@
           hover
           pagination
           ><template #show_details="{ item }">
-            <td>
-              <router-link
-                tag="a"
-                :to="{ name: 'MethodDetails', params: { id: item.id } }"
-              >
-                <view-icon />
-              </router-link>
-            </td>
-            <td v-if="isAuthenticated">
-              <router-link tag="a" :to="{ name: 'c', params: { id: item.id } }">
-                <edit-icon />
-              </router-link>
-            </td>
-            <td v-if="isAuthenticated">
-              <span class="icon-link" @click="openModal(item)"
-                ><delete-icon
-              /></span>
-            </td>
+            <CTableLink
+              :authenticated="isAuthenticated"
+              @handleView="handleView(item)"
+              @handleEdit="handleEdit(item)"
+              @handleDelete="handleOpenModalDelete(item)"
+            />
           </template>
         </CDataTable>
       </CCardBody>
@@ -56,9 +44,10 @@ import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import CTitle from "../../../components/CTitle.vue";
 import CModalDelete from "../../../components/CModalDelete.vue";
+import CTableLink from "../../../components/CTableLink.vue";
 export default {
   name: "statisticalMethodsList",
-  components: { CTitle, CModalDelete },
+  components: { CTitle, CModalDelete,CTableLink },
   data() {
     return {
       fields: [
@@ -122,7 +111,16 @@ export default {
       this.$store.dispatch("methods/delete", this.selectedStatisticalMethod.id);
       this.showModal = false;
     },
-    openModal(app) {
+
+    handleView(item) {
+      //router.push({ name: 'user', params: { username } }) 
+      this.$router.push({ name: 'MethodDetails', params: { id: item.id }});
+    },
+    handleEdit(item) {
+      //router.push({ name: 'user', params: { username } }) 
+      this.$router.push({ name: 'MethodEdit', params: { id: item.id } });
+    },
+    handleOpenModalDelete(app) {
       this.selectedStatisticalMethod = app;
       this.showModal = true;
     },

@@ -23,27 +23,13 @@
           hover
           pagination
           ><template #show_details="{ item }">
-            <td>
-              <router-link
-                tag="a"
-                :to="{ name: 'ToolDetails', params: { id: item.id } }"
-              >
-                <view-icon title="Visualizza Strumento Metodologico" />
-              </router-link>
-            </td>
-            <td v-if="isAuthenticated">
-              <router-link
-                tag="a"
-                :to="{ name: 'ToolEdit', params: { id: item.id } }"
-              >
-                <edit-icon title="Modifica Strumento Metodologico" />
-              </router-link>
-            </td>
-            <td v-if="isAuthenticated">
-              <span class="icon-link" @click="openModal(item)"
-                ><delete-icon title="Elimina Strumento Metodologico" />
-              </span>
-            </td>
+            <CTableLink
+              :authenticated="isAuthenticated"
+              @handleView="handleView(item)"
+              @handleEdit="handleEdit(item)"
+              @handleDelete="handleOpenModalDelete(item)"
+            />
+
           </template>
         </CDataTable>
       </CCardBody>
@@ -62,9 +48,10 @@ import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import CTitle from "../../../components/CTitle.vue";
 import CModalDelete from "../../../components/CModalDelete.vue";
+import CTableLink from "../../../components/CTableLink.vue";
 export default {
   name: "ToolList",
-  components: { CTitle, CModalDelete },
+  components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
       fields: [
@@ -135,19 +122,27 @@ export default {
     },
   },
   methods: {
-    openModal(app) {
+    handleOpenModalDelete(app) {
       this.selectedTool = app;
       this.showModal = true;
+    },
+    handleNew() {
+      this.$router.push({ name: "ToolAdd" });
+    },
+    handleView(item) {
+      //router.push({ name: 'user', params: { username } }) 
+      this.$router.push({ name: 'ToolDetails', params: { id: item.id }});
+    },
+    handleEdit(item) {
+      //router.push({ name: 'user', params: { username } }) 
+      this.$router.push({ name: 'ToolEdit', params: { id: item.id } });
     },
     handleDelete() {
       this.$store.dispatch("tools/delete", this.selectedTool.id);
       this.showModal = false;
-    },
+    },    
     closeModal() {
       this.showModal = false;
-    },
-    handleNew() {
-      this.$router.push({ name: "ToolAdd" });
     },
     getMessage() {
       return (
