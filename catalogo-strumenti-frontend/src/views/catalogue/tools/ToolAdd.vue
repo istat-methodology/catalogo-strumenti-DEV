@@ -12,25 +12,6 @@
     <CCard>
       <CCardBody v-if="tooltypeList">
         <div class="row mt-2">
-          <div class="col-12">
-            <h4 class="p-1">Seleziona la Tipologia</h4>
-            <select
-              class="p-1 ml-1"
-              @change="onChangeToolType($event)"
-              v-model="toolLocal.toolType"
-            >
-              <option
-                v-for="option in tooltypeList"
-                v-bind:value="option.id"
-                :key="option.id"
-              >
-                {{ option.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row mt-2">
           <div class="col-6">
             <h4 class="mt-2 ml-1">Informazioni Generali</h4>
             <CCard class="p-1 ml-1">
@@ -106,101 +87,122 @@
           </div>
           <div class="col-6">
             <h4 class="mt-2 ml-1">{{ this.tipologia.name }}</h4>
-            <CCard>
-              <CCardBody v-if="tooltypeList">
-                <div v-if="this.tipologia.id == '3'">
-                  <!-- Procedura Software -->
-                  <CInput
-                    label="Codice"
-                    placeholder="Codice"
-                    v-model="toolLocal.code"
-                  />
-                  <CInput
-                    label="Download"
-                    placeholder="Download"
-                    v-model="toolLocal.download"
-                  />
-                  <CInput
-                    label="Flusso di lavoro"
-                    placeholder="Flusso di lavoro"
-                    v-model="toolLocal.workflow"
-                  />
-                  <CInput
-                    label="Linguaggio"
-                    placeholder="Linguaggio"
-                    v-model="toolLocal.language"
-                  />
-                  <CInput
-                    label="Dipendenze"
-                    placeholder="Dipendenze"
-                    v-model="toolLocal.depenencies"
-                  />
-                  <CInput
-                    label="Requisiti Tecnici"
-                    placeholder="Requisiti Tecnici"
-                    v-model="toolLocal.technicalRequirements"
-                  />
+            <CCard class="p-1 ml-1">
+              <CCardBody>
+                <div class="col-12 p-0">
+                  <label>Seleziona la Tipologia</label>
                 </div>
-                <div v-if="this.tipologia.id == '2'">
-                  <!--Applicazione Desktop -->
-                  <CInput
-                    label="Download"
-                    placeholder="Download"
-                    v-model="toolLocal.download"
-                  />
-                  <CInput
-                    label="Licenza"
-                    placeholder="Licenza"
-                    v-model="toolLocal.licence"
-                  />
-                  <CInput
-                    label="Linguaggio"
-                    placeholder="Linguaggio"
-                    v-model="toolLocal.language"
-                  />
-                  <CInput
-                    label="Pacchetto"
-                    placeholder="Pacchetto"
-                    v-model="toolLocal.packageApplication"
-                  />
-                  <CInput
-                    label="Sistema Operativo"
-                    placeholder="Sistema Operativo"
-                    v-model="toolLocal.operativeSystem"
-                  />
-                  <CInput
-                    label="Verione"
-                    placeholder="Versione"
-                    v-model="toolLocal.version"
-                  />
-                  <CInput
-                    label="Requisiti Tecnici"
-                    placeholder="Requisiti Tecnici"
-                    v-model="toolLocal.technicalRequirements"
-                  />
+                <div class="col-12 p-0">
+                  <select
+                    class="p-1 ml-0 col-12 form-control"
+                    @change="onChangeToolType($event)"
+                    v-model="toolLocal.toolType"
+                  >
+                    <option
+                      v-for="option in tooltypeList"
+                      v-bind:value="option.id"
+                      :key="option.id"
+                    >
+                      {{ option.name }}
+                    </option>
+                  </select>
                 </div>
-                <div v-if="this.tipologia.id == '1'">
-                  <!-- Servizio Statistico -->
-                  <CInput
-                    label="Potocollo"
-                    placeholder="Protocollo"
-                    v-model="toolLocal.protocol"
-                  />
-                  <CInput
-                    label="Url"
-                    placeholder="Url"
-                    v-model="toolLocal.url"
-                  />
-                  <CInput
-                    label="Contributi"
-                    placeholder="Contributi"
-                    v-model="toolLocal.outcomes"
-                  />
-                  <CInput
-                    label="Dipendenze"
-                    placeholder="Dipendenze"
-                    v-model="toolLocal.serviceDependencies"
-                  />
+
+                <div v-if="tooltypeList" class="mt-4 pt-2">
+                  <div v-if="this.tipologia.id == '3'">
+                    <!-- Procedura Software -->
+                    <CInput
+                      label="Codice"
+                      placeholder="Codice"
+                      v-model="toolLocal.code"
+                    />
+                    <CInput
+                      label="Download"
+                      placeholder="Download"
+                      v-model="toolLocal.download"
+                    />
+                    <CInput
+                      label="Flusso di lavoro"
+                      placeholder="Flusso di lavoro"
+                      v-model="toolLocal.workflow"
+                    />
+                    <CInput
+                      label="Linguaggio"
+                      placeholder="Linguaggio"
+                      v-model="toolLocal.language"
+                    />
+                    <CInput
+                      label="Dipendenze"
+                      placeholder="Dipendenze"
+                      v-model="toolLocal.depenencies"
+                    />
+                    <CInput
+                      label="Requisiti Tecnici"
+                      placeholder="Requisiti Tecnici"
+                      v-model="toolLocal.technicalRequirements"
+                    />
+                  </div>
+                  <div v-if="this.tipologia.id == '2'">
+                    <!--Applicazione Desktop -->
+                    <CInput
+                      label="Download"
+                      placeholder="Download"
+                      v-model="toolLocal.download"
+                    />
+                    <CInput
+                      label="Licenza"
+                      placeholder="Licenza"
+                      v-model="toolLocal.licence"
+                    />
+                    <CInput
+                      label="Linguaggio"
+                      placeholder="Linguaggio"
+                      v-model="toolLocal.language"
+                    />
+                    <CInput
+                      label="Pacchetto"
+                      placeholder="Pacchetto"
+                      v-model="toolLocal.packageApplication"
+                    />
+                    <CInput
+                      label="Sistema Operativo"
+                      placeholder="Sistema Operativo"
+                      v-model="toolLocal.operativeSystem"
+                    />
+                    <CInput
+                      label="Verione"
+                      placeholder="Versione"
+                      v-model="toolLocal.version"
+                    />
+                    <CInput
+                      label="Requisiti Tecnici"
+                      placeholder="Requisiti Tecnici"
+                      v-model="toolLocal.technicalRequirements"
+                    />
+                  </div>
+                  <div v-if="this.tipologia.id == '1'">
+                    <!-- Servizio Statistico -->
+                    <CInput
+                      label="Potocollo"
+                      placeholder="Protocollo"
+                      v-model="toolLocal.protocol"
+                    />
+                    <CInput
+                      label="Url"
+                      placeholder="Url"
+                      v-model="toolLocal.url"
+                    />
+                    <CInput
+                      label="Contributi"
+                      placeholder="Contributi"
+                      v-model="toolLocal.outcomes"
+                    />
+                    <CInput
+                      label="Dipendenze"
+                      placeholder="Dipendenze"
+                      v-model="toolLocal.serviceDependencies"
+                    />
+                  </div>
                 </div>
               </CCardBody>
             </CCard>
@@ -216,7 +218,7 @@ import { mapGetters } from "vuex";
 import "vue2-datepicker/index.css";
 import DatePicker from "vue2-datepicker";
 import Treeselect from "@riophae/vue-treeselect";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "ToolAdd",
   components: {

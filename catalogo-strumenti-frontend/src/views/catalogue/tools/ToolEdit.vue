@@ -81,7 +81,7 @@
                           placeholder="Versione"
                            v-model="toolLocal.version"
                         /> 
-                       -->
+                  -->
                   <CTextarea
                     label="Tags"
                     placeholder="Tags"
