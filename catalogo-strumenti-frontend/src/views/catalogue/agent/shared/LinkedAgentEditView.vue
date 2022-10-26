@@ -296,7 +296,6 @@ export default {
       this.selectedLinkedAgent = null;
       this.warningModal = false;
     },
-
     loadLinkedAgentList() {
       this.loadDebounceLinkedAgentList(
         this.$store,
@@ -304,16 +303,17 @@ export default {
         this.states,
         this.linkedAgentList.length
       );
-      /*   this.$store
+      /*   
+      this.$store
         .dispatch("linkedagent/findByCatalogTool", this.toolId)
-        .then((this.states = Array(this.linkedAgentList.length).fill(true)));*/
+        .then((this.states = Array(this.linkedAgentList.length).fill(true)));
+      */
     },
     loadDebounceLinkedAgentList: _.debounce((store, toolId, states, len) => {
       store
         .dispatch("linkedagent/findByCatalogTool", toolId)
         .then((states = Array(len).fill(true)));
     }, 500),
-
     modalOpen(app) {
       this.selectedLinkedAgent = app;
       this.warningModal = true;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <CCardHeader class="no-border p-0 mt-4">
-      <h1 class="uppercase text-right p-0  text-info">
+      <h1 class="uppercase text-right p-0 text-info">
         <span>
           <span class="p-0">{{ maintitle }}</span>
           <h4

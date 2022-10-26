@@ -29,7 +29,6 @@
               @handleEdit="handleEdit(item)"
               @handleDelete="handleOpenModalDelete(item)"
             />
-
           </template>
         </CDataTable>
       </CCardBody>
@@ -42,7 +41,6 @@
     />
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
@@ -130,17 +128,17 @@ export default {
       this.$router.push({ name: "ToolAdd" });
     },
     handleView(item) {
-      //router.push({ name: 'user', params: { username } }) 
-      this.$router.push({ name: 'ToolDetails', params: { id: item.id }});
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({ name: "ToolDetails", params: { id: item.id } });
     },
     handleEdit(item) {
-      //router.push({ name: 'user', params: { username } }) 
-      this.$router.push({ name: 'ToolEdit', params: { id: item.id } });
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({ name: "ToolEdit", params: { id: item.id } });
     },
     handleDelete() {
       this.$store.dispatch("tools/delete", this.selectedTool.id);
       this.showModal = false;
-    },    
+    },
     closeModal() {
       this.showModal = false;
     },
@@ -161,4 +159,3 @@ export default {
   },
 };
 </script>
-<style>
