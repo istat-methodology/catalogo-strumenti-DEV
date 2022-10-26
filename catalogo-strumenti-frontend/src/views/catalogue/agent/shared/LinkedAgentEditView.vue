@@ -16,18 +16,18 @@
 
       <div v-if="stateform == FormState.NEW">
         <CCardHeader class="col-12 no-border p-0 pr-1">
-          <h2>
+          <h2 class="text-info">
             Nuova Associazione
             <div class="card-header-actions">
               <button
-                class="icon-link btn btn-outline-primary"
+                class="btn btn-outline-info"
                 @click.prevent="handleSubmitNewAgent"
                 title="Associa referente"
               >
                 <floppy-icon title="Associa referente" />
               </button>
               <button
-                class="btn btn-outline-primary"
+                class="btn btn-outline-info"
                 @click.prevent="stateform = FormState.LIST"
                 title="Chiudi"
               >
@@ -80,12 +80,12 @@
 
       <div v-if="stateform == FormState.LIST">
         <CCardHeader class="no-border p-0 pr-1">
-          <h2>
+          <h2 class="text-info">
             Referenti
             <div class="card-header-actions">
               <div class="col-12 p-0 pr-1">
                 <button
-                  class="icon-link btn btn-outline-primary"
+                  class="btn btn-outline-info"
                   @click="stateform = FormState.NEW"
                   title="Aggiungi una nuova associazione"
                 >
@@ -110,20 +110,20 @@
                 <div class="card-header-actions">
                   <span v-if="getState(index)">
                     <span class="icon-link" @click="changeState(index)"
-                      ><edit-icon title="Edit" /></span
+                      ><edit-icon title="Edit" class="text-info"/></span
                     >&nbsp;
                     <span class="icon-link" @click="modalOpen(linkedAgent)"
-                      ><delete-icon title="Cancella"
+                      ><delete-icon title="Cancella" class="text-info"
                     /></span>
                   </span>
                   <span v-else>
                     <span
                       class="icon-link"
                       @click="handleUpdateLinkedAgent(index, linkedAgent)"
-                      ><floppy-icon title="Salva" /></span
+                      ><floppy-icon title="Salva" class="text-info"/></span
                     >&nbsp;
                     <span class="icon-link" @click="changeState(index)"
-                      ><close-circle-icon title="Chiudi"
+                      ><close-circle-icon title="Chiudi" class="text-info"
                     /></span>
                   </span>
                 </div>
@@ -181,7 +181,7 @@
         <CButton
           shape="square"
           size="sm"
-          color="primary"
+          color="info"
           @click="handleDeleteLinkedAgent"
         >
           Delete

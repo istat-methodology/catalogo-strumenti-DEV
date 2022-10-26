@@ -2,18 +2,18 @@
   <!-- wait until service is loaded -->
   <div>
     <CCardHeader class="col-12 no-border p-0 pr-1">
-      <h2>
+      <h2 class="text-info">
         Nuovo Referente
         <div class="card-header-actions">
           <button
-            class="icon-link btn btn-outline-primary"
+            class="btn btn-outline-info"
             @click.prevent="handleSubmit"
             title="Salva"
           >
             <floppy-icon title="Salva" />
           </button>
           <button
-            class="btn btn-outline-primary"
+            class="btn btn-outline-info"
             @click.prevent="goBack(false)"
             title="Chiudi"
           >
@@ -23,7 +23,7 @@
       </h2>
     </CCardHeader>
 
-    <CCard  class="col-12">
+    <CCard class="col-12">
       <CCardBody>
         <CInput
           label="Nome"
@@ -31,7 +31,9 @@
           v-model="agentLocal.name"
           :class="{ 'is-invalid': $v.agentLocal.name.$error }"
         />
-        <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">Campo obbligatorio</div>        
+        <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">
+          Campo obbligatorio
+        </div>
         <CInput
           label="Organizzazione"
           placeholder="Organizzazione"

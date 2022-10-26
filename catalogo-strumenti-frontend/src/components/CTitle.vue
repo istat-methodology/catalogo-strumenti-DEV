@@ -7,7 +7,7 @@
           <h4
             class="bg-secondary p-0 text-right uppercase "
           >
-            <span class="mt-4 pr-1 uppercase">
+            <span class="mt-4 pr-1 uppercase text-info">
               {{ functionality }}
             </span>
           </h4>
@@ -25,7 +25,7 @@
           >
             <button
               v-if="item == 'nuovo' && authenticated == true"
-              class="btn btn-outline-primary pl-2"
+              class="btn btn-outline-info pl-2"
               @click.prevent="handleNew"
               :title="getTitle(item, buttonTitle)"
             >
@@ -34,7 +34,7 @@
 
             <button
               v-if="item == 'salva'"
-              class="btn btn-outline-primary pl-2"
+              class="btn btn-outline-info pl-2"
               @click.prevent="handleSubmit"
               :title="getTitle(item, buttonTitle)"
             >
@@ -42,7 +42,7 @@
             </button>
             <button
               v-if="item == 'modifica'"
-              class="btn btn-outline-primary pl-2"
+              class="btn btn-outline-info pl-2"
               @click.prevent="handleEdit"
               :title="getTitle(item, buttonTitle)"
             >
@@ -50,7 +50,7 @@
             </button>
             <button
               v-if="item == 'indietro'"
-              class="btn btn-outline-primary pl-2"
+              class="btn btn-outline-info pl-2"
               :title="item"
               @click.prevent="$router.back()"
             >

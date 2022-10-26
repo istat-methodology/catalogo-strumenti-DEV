@@ -4,18 +4,18 @@
       <div v-if="stateform == FormState.LIST">
         
           <CCardHeader class="col-12 no-border p-0 pr-1 mt-4">
-            <h2>
+            <h2 class="text-info">
               Moduli implementati
               <div class="card-header-actions">
                 <button
-                  class="btn btn-outline-primary text-center"
+                  class="btn btn-outline-info text-center"
                   @click="stateform = FormState.NEW"
                   title="Aggiungi una nuova implementazione"
                 >
                   <add-icon />
                 </button>
                 <button
-                  class="btn btn-outline-primary text-center"
+                  class="btn btn-outline-info text-center"
                   @click.prevent="$router.back()"
                   title="Indietro"
                 >
@@ -92,18 +92,18 @@
 
       <div v-if="stateform == FormState.NEW">
         <CCardHeader class="col-12 no-border p-0 pr-1">
-          <h2>
+          <h2 class="text-info">
             Nuova implementazione
             <div class="card-header-actions">
               <button
                 title="Salva"
-                class="btn btn-outline-primary text-center"
+                class="btn btn-outline-info text-center"
                 @click.prevent="handleNewAppService"
               >
                 <floppy-icon title="Salva" />
               </button>
               <button
-                class="btn btn-outline-primary text-center"
+                class="btn btn-outline-info text-center"
                 @click="closeNew()"
               >
                 <close-icon title="Chiudi" />
@@ -169,18 +169,18 @@
 
       <div v-if="stateform == FormState.EDIT && selectedUpdateAppService">
         <CCardHeader class="col-12 p-0 no-border">
-          <h2>
+          <h2 class="text-info">
             Moduli Implementati
             <div class="card-header-actions">
               <button
-                class="btn btn-outline-primary text-center"
+                class="btn btn-outline-info text-center"
                 @click.prevent="handleUpdateAppService()"
                 title="Salva"
               >
                 <floppy-icon />
               </button>
               <button
-                class="btn btn-outline-primary text-center"
+                class="btn btn-outline-info text-center"
                 @click="closeEdit()"
                 title="Chiudi"
               >
@@ -263,7 +263,7 @@
         <CButton
           shape="square"
           size="sm"
-          color="primary"
+          color="info"
           @click="deleteAppService"
         >
           Delete

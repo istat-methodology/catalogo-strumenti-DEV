@@ -5,7 +5,7 @@
         <CButton shape="square" size="sm" color="light" @click="closeModal">
           Chiudi 
         </CButton>
-        <CButton shape="square" size="sm" color="primary" @click="handleDelete">
+        <CButton shape="square" size="sm" color="info" @click="handleDelete">
           Elimina
         </CButton>
       </template>

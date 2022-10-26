@@ -11,7 +11,7 @@
                 <span>
                   <span class="p-0">{{ tool.name | dashEmpty }}</span>
                   <h4 class="bg-secondary p-0">
-                    <span class="pr-1 text-color-title">Modifica</span>
+                    <span class="pr-1 text-info">Modifica</span>
                   </h4>
                 </span>
               </h1>
@@ -24,24 +24,24 @@
         >
           <CTab>
             <template #title>
-              <span>Informazioni Generali</span>
+              <span  class="text-info">Informazioni Generali</span>
             </template>
 
             <div v-if="tool" class="row p-0">
               <div class="col-12 p-0">
                 <CCardHeader class="no-border p-0 pr-1 mt-4">
-                  <h2>
+                  <h2 class="text-info">
                     Informazioni Generali
                     <div class="card-header-actions">
                       <button
-                        class="btn btn-outline-primary text-center"
+                        class="btn btn-outline-info text-center"
                         @click.prevent="handleSubmit"
                         title="Aggiorna"
                       >
                         <floppy-icon title="Aggiorna" />
                       </button>
                       <button
-                        class="btn btn-outline-primary text-center"
+                        class="btn btn-outline-info text-center"
                         @click.prevent="$router.back()"
                         title="Indietro"
                       >
@@ -121,23 +121,23 @@
             statistical service, desktop application, procedure
             -->
             <template #title>
-              <span>{{ toolLocal.toolType.name | dashEmpty }}</span>
+              <span class="text-info">{{ toolLocal.toolType.name | dashEmpty }}</span>
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
                 <CCardHeader class="no-border p-0 pr-1 mt-4">
-                  <h2>
+                  <h2 class="text-info">
                     {{ toolLocal.toolType.name | dashEmpty }}
                     <div class="card-header-actions">
                       <button
-                        class="btn btn-outline-primary text-center"
+                        class="btn btn-outline-info text-center"
                         @click.prevent="handleSubmit"
                         title="Aggiorna"
                       >
                         <floppy-icon title="Aggiorna" />
                       </button>
                       <button
-                        class="btn btn-outline-primary text-center"
+                        class="btn btn-outline-info text-center"
                         @click.prevent="$router.back()"
                         title="Indietro"
                       >
@@ -254,23 +254,23 @@
             metodi statistici          
             --->
             <template #title>
-              <span>Metodi Statistici</span>
+              <span  class="text-info">Metodi Statistici</span>
             </template>
             <div v-if="this.statisticalMethodsList" class="row p-0">
               <div class="col-12 p-0">
                 <CCardHeader class="no-border p-0 pr-1 mt-4">
-                  <h2>
+                  <h2 class="text-info">
                     Metodi Statistici
                     <div class="card-header-actions">
                       <button
-                        class="btn btn-outline-primary text-center"
+                        class="btn btn-outline-info text-center"
                         @click.prevent="handleSubmit"
                         title="Aggiorna"
                       >
                         <floppy-icon title="Aggiorna" />
                       </button>
                       <button
-                        class="btn btn-outline-primary text-center"
+                        class="btn btn-outline-info text-center"
                         @click.prevent="$router.back()"
                         title="Indietro"
                       >
@@ -297,7 +297,7 @@
           </CTab>
           <CTab>
             <template #title>
-              <span>Moduli implementati</span>
+              <span  class="text-info">Moduli implementati</span>
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
@@ -311,7 +311,7 @@
           </CTab>
           <CTab>
             <template #title>
-              <span>Referenti</span>
+              <span  class="text-info">Referenti</span>
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
@@ -324,7 +324,7 @@
           </CTab>
           <CTab>
             <template #title>
-              <span>Documentazione</span>
+              <span  class="text-info">Documentazione</span>
             </template>
             <div v-if="this.tool">
               <div class="row p-0">

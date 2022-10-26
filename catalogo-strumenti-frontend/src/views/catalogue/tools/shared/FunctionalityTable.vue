@@ -5,7 +5,7 @@
         Funzionalità dell'implementazione
         <div class="card-header-actions">
           <button
-            class="btn btn-outline-primary text-center"
+            class="btn btn-outline-info text-center"
             @click="showNewFunct = true"
             title="Aggiungi una nuova funzionalità"
           >
@@ -17,14 +17,14 @@
         Aggiungi una nuova funzionalità
         <div class="card-header-actions">
           <button
-            class="btn btn-outline-primary text-center"
+            class="btn btn-outline-info text-center"
             @click.prevent="handleSubmitAdd"
             title="Salva"
           >
             <floppy-icon title="Salva" />
           </button>
           <button
-            class="btn btn-outline-primary text-center"
+            class="btn btn-outline-info text-center"
             @click.prevent="showNewFunct = false"
             title="Chiudi"
           >

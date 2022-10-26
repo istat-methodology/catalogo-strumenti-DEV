@@ -5,7 +5,7 @@
         class="icon-link"
         @click="handleView(item)"
         title="Visualizza"
-        ><view-icon title="Visualizza" />
+        ><view-icon title="Visualizza" class="text-info"/>
       </span>
     </td>
     <td v-if="authenticated" title="Modifica">
@@ -13,12 +13,12 @@
         class="icon-link"
         @click="handleEdit"
         title="Modifica"
-        ><edit-icon title="Modifica" />
+        ><edit-icon title="Modifica" class="text-info"/>
       </span>
     </td>
     <td v-if="authenticated">
       <span class="icon-link" @click="handleDelete"
-        ><delete-icon title="Elimina" />
+        ><delete-icon title="Elimina" class="text-info"/>
       </span>
     </td>
   </div>

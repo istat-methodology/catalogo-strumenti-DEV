@@ -3,7 +3,6 @@
   <div class="row">
     <div v-if="documentation" class="col-12 pt-2">
       <div class="col-8 p-0">
-
         <CTitle 
             :maintitle="documentation.name"
             title="Documento"

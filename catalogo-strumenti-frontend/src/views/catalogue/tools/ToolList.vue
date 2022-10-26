@@ -15,6 +15,7 @@
       <CCardBody>
         <CDataTable
           v-if="toolscatalog"
+          
           :items="computedItems"
           :fields="fields"
           column-filter
@@ -127,12 +128,10 @@ export default {
     handleNew() {
       this.$router.push({ name: "ToolAdd" });
     },
-    handleView(item) {
-      //router.push({ name: 'user', params: { username } })
+    handleView(item) {      
       this.$router.push({ name: "ToolDetails", params: { id: item.id } });
     },
-    handleEdit(item) {
-      //router.push({ name: 'user', params: { username } })
+    handleEdit(item) {      
       this.$router.push({ name: "ToolEdit", params: { id: item.id } });
     },
     handleDelete() {

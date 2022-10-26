@@ -10,7 +10,7 @@
               <h1 class="uppercase text-right p-0 pt-2 text-info ">
                 <span>
                   <span >{{ statisticalMethodLocal.name | dashEmpty }}</span>
-                  <h5 class="bg-secondary p-0"><span class="pr-2">Modifica</span></h5>
+                  <h5 class="bg-secondary p-0"><span class="pr-2 text-info">Modifica</span></h5>
                 </span>                
               </h1>
             </div>
@@ -22,22 +22,22 @@
         >
           <CTab>
             <template #title>
-              <span>Metodo Statistico</span>
+              <span class="text-info">Metodo Statistico</span>
             </template>
             <div>
               <CCardHeader class="col-10 no-border p-0 pr-1 mt-4 ">
-                <h2>
+                <h2 class="text-info">
                   Metodo Statistico
                   <div class="card-header-actions">
                     <button
-                      class="btn btn-outline-primary text-center"
+                      class="btn btn-outline-info text-center"
                       @click.prevent="handleSubmit"
                       title="Aggiorna"
                     >
                       <floppy-icon title="Aggiorna" />
                     </button>
                     <button
-                      class="btn btn-outline-primary text-center"
+                      class="btn btn-outline-info text-center"
                       @click.prevent="$router.back()"
                       title="Indietro"
                     >
@@ -138,7 +138,7 @@
           </CTab>
           <CTab>
             <template #title>
-              <span>Documentazione</span>
+              <span class="text-info">Documentazione</span>
             </template>
 
             <div v-if="this.statisticalMethod">

@@ -1,14 +1,16 @@
 <template>
   <div>
     <h2><span>6.</span> Referenti associati</h2>
-      <div class="description-fields col-12">
-            Elenco dei referenti associati allo strumento metodologico
-              </div>
+    <div class="description-fields col-12">
+      Elenco dei referenti associati allo strumento metodologico
+    </div>
     <div class="columns">
       <div class="row">
         <div v-if="linkedAgents.length === 0">
-                <span><i><h5>Nessun referente associato</h5></i></span>
-        </div>  
+          <span
+            ><i><h5>Nessun referente associato</h5></i></span
+          >
+        </div>
         <div
           class="card col-md-3"
           v-for="linkedAgent of linkedAgents"
@@ -48,7 +50,7 @@
 
             <div class="card-slot">
               <span><strong>Note: </strong></span>
-              <span >{{ linkedAgent.notes }}</span>
+              <span>{{ linkedAgent.notes }}</span>
             </div>
           </div>
         </div>

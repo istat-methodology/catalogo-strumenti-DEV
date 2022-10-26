@@ -4,12 +4,12 @@
       <div class="mt-4">
         <div class="row">
           <CCardHeader class="col-12 no-border p-0 pl-1 pr-1">
-            <h2>
+            <h2 class="text-info">
               Documentazione
               <div class="card-header-actions">
                 <div class="col-12 p-0 pr-1">
                 <button
-                  class="icon-link btn btn-outline-primary"
+                  class="icon-link btn btn-outline-info"
                   @click.prevent="handleAddSubmit"
                   title="Associa documento selezionato allo strunento metodologico"
                 >
@@ -18,7 +18,7 @@
                   />
                 </button>
                 <button
-                  class="btn btn-outline-primary text-center"
+                  class="btn btn-outline-info text-center"
                   @click.prevent="$router.back()"
                   title="Indietro"
                 >
@@ -142,7 +142,7 @@
           <CButton
             shape="square"
             size="sm"
-            color="primary"
+            color="info"
             @click="handleRemoveSubmit"
           >
             Delete
@@ -157,7 +157,7 @@
           Aggiungi nuovo documento
           <div class="card-header-actions p-0 mr-1">
             <button
-              class="btn btn-outline-primary text-center"
+              class="btn btn-outline-info text-center"
               @click.prevent="handleNewSubmit"
               title="Aggiungi nuovo documento"
             >
@@ -165,7 +165,7 @@
             </button>
 
             <button
-              class="btn btn-outline-primary text-center"
+              class="btn btn-outline-info text-center"
               @click.prevent="stateform = FormState.LIST"
               title="Indietro"
             >
