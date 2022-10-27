@@ -8,8 +8,9 @@
       buttonTitle=" Strumento Metodologico"
       functionality="Elenco"
       :authenticated="isAuthenticated"
-      :buttons="['nuovo']"
+      :buttons="['aggiungi','indietro']"
       @handleNew="handleNew"
+      @handleBack="handleBack"
     />
     <CCard>
       <CCardBody>
@@ -94,9 +95,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("tools", ["toolscatalog"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
     computedItems() {
       if (this.toolscatalog) {
@@ -127,6 +128,9 @@ export default {
     },
     handleNew() {
       this.$router.push({ name: "ToolAdd" });
+    },
+    handleBack() {
+      this.$router.push({name:"Catalogue"});
     },
     handleView(item) {      
       this.$router.push({ name: "ToolDetails", params: { id: item.id } });

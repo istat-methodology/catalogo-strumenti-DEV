@@ -1,38 +1,27 @@
 <template>
   <div>
-    <CCardHeader class="col-12 no-border p-0">
-      <h2 v-if="!showNewFunct">
-        Funzionalità dell'implementazione
-        <div class="card-header-actions">
-          <button
-            class="btn btn-outline-info text-center"
-            @click="showNewFunct = true"
-            title="Aggiungi una nuova funzionalità"
-          >
-            <plus-icon title="Nuova funzionalità" />
-          </button>
-        </div>
-      </h2>
-      <h2 v-if="showNewFunct">
-        Aggiungi una nuova funzionalità
-        <div class="card-header-actions">
-          <button
-            class="btn btn-outline-info text-center"
-            @click.prevent="handleSubmitAdd"
-            title="Salva"
-          >
-            <floppy-icon title="Salva" />
-          </button>
-          <button
-            class="btn btn-outline-info text-center"
-            @click.prevent="showNewFunct = false"
-            title="Chiudi"
-          >
-            <close-icon title="Chiudi" />
-          </button>
-        </div>
-      </h2>
-    </CCardHeader>
+    <div class="col-12 p-0" v-if="!showNewFunct">
+      <CTitle
+        title=" Funzionalità dell'implementazione"
+        buttonTitle="  Funzionalità dell'implementazione"
+        functionality=""
+        :authenticated="isAuthenticated"
+        :buttons="['aggiungi']"
+        @handleNew="showNewFunct = true"
+      />
+    </div>
+    <div class="col-12 p-0" v-if="showNewFunct">
+      <CTitle
+        title=" Aggiungi una nuova funzionalità"
+        buttonTitle="  Aggiungi una nuova funzionalità"
+        functionality=""
+        :authenticated="isAuthenticated"
+        :buttons="['salva', 'indietro']"
+        @handleSubmit="handleSubmitAdd"
+        @handleBack="showNewFunct = false"
+      />
+    </div>
+
     <CCard class="col-12"
       ><CCardBody>
         <div v-if="showNewFunct || stepInstancesLocal.length > 0">
@@ -108,7 +97,7 @@
                 key="id"
                 placeholder="Metodo Statistico"
                 v-model="stepinstance.statMethod"
-                :components="{Deselect}"
+                :components="{ Deselect }"
               ></v-select>
             </td>
             <td class="pr-1 col-4">
@@ -158,9 +147,14 @@
 </template>
 
 <script>
+import CTitle from "@/components/CTitle.vue";
+import { mapGetters } from "vuex";
+
 export default {
   name: "FunctionalityTable",
-
+  components: {
+    CTitle,
+  },
   emits: ["reLoadData"],
   props: {
     appService: {
@@ -199,6 +193,9 @@ export default {
         appService: this.appService,
       },
     };
+  },
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   methods: {
     deleteStepInstance() {

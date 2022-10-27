@@ -8,6 +8,7 @@
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"
+      @handleBack="handleBack"
     />
     <CCard>
       <CCardBody>
@@ -102,8 +103,8 @@ export default {
           .then(this.$router.push("/catalogue/metodi"));
       }
     },
-    goBack() {
-      this.$router.push("/catalogue/metodi");
+    handleBack() {
+      this.$router.push({ name: "MethodList"});
     },
     onChange(event) {
       this.tipologia = event.target.value;

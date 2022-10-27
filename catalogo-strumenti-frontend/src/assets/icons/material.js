@@ -41,6 +41,7 @@ import UndoIcon from "icons/Undo.vue";
 import CloseIcon from "icons/Close.vue";
 import CloseCircleIcon from "icons/CloseCircle.vue";
 import Floppy from "icons/Floppy.vue";
+//import  AccountPlus from "icons/account-plus.vue ";
 
 Vue.component("chevron-right-icon", ChevronRightBoxIcon);
 Vue.component("home-icon", HomeIcon);
@@ -73,4 +74,4 @@ Vue.component("undo-icon", UndoIcon);
 Vue.component("close-icon", CloseIcon);
 Vue.component("close-circle-icon", CloseCircleIcon);
 Vue.component("floppy-icon", Floppy);
-
+//Vue.component("accountplus-icon", AccountPlus);

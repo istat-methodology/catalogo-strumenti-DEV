@@ -3,31 +3,17 @@
     <div v-if="stateform == FormState.LIST">
       <div class="mt-4">
         <div class="row">
-          <CCardHeader class="col-12 no-border p-0 pl-1 pr-1">
-            <h2 class="text-info">
-              Documentazione
-              <div class="card-header-actions">
-                <div class="col-12 p-0 pr-1">
-                <button
-                  class="icon-link btn btn-outline-info"
-                  @click.prevent="handleAddSubmit"
-                  title="Associa documento selezionato allo strunento metodologico"
-                >
-                  <floppy-icon
-                    title="Associa documento selezionato allo strunento metodologico"
-                  />
-                </button>
-                <button
-                  class="btn btn-outline-info text-center"
-                  @click.prevent="$router.back()"
-                  title="Indietro"
-                >
-                  <close-icon title="Indietro" />
-                </button>
-                </div>
-              </div>
-            </h2>
-          </CCardHeader>
+          <div class="col-12 p-0">
+            <CTitle
+              title="Documenti"
+              buttonTitle=" associazione documento"
+              functionality=""
+              :authenticated="isAuthenticated"
+              :buttons="['salva', 'indietro']"
+              @handleSubmit="handleAddSubmit"
+              @handleBack="handleBack"
+            />
+          </div>
         </div>
         <CCard class="col-12 mr-4">
           <div class="row">
@@ -152,30 +138,18 @@
       </CModal>
     </div>
     <div v-if="stateform == FormState.NEW" class="col-12 p-0">
-      <CCardHeader class="mt-4 no-border p-0">
-        <h2>
-          Aggiungi nuovo documento
-          <div class="card-header-actions p-0 mr-1">
-            <button
-              class="btn btn-outline-info text-center"
-              @click.prevent="handleNewSubmit"
-              title="Aggiungi nuovo documento"
-            >
-              <floppy-icon title="Aggiungi nuovo documento" />
-            </button>
-
-            <button
-              class="btn btn-outline-info text-center"
-              @click.prevent="stateform = FormState.LIST"
-              title="Indietro"
-            >
-              <close-icon title="Indietro" />
-            </button>
-          </div>
-        </h2>
-      </CCardHeader>
-
-      <CCard class="col-12 p-0">        
+      <div class="col-12 p-0">
+        <CTitle
+          title="Aggiungi nuovo documento"
+          buttonTitle=" nuovo documento"
+          functionality=""
+          :authenticated="isAuthenticated"
+          :buttons="['salva', 'indietro']"
+          @handleSubmit="handleNewSubmit"
+          @handleBack="stateform = FormState.LIST"
+        />
+      </div>
+      <CCard class="col-12 p-0">
         <CCardBody>
           <CInput
             label="Nome*"
@@ -214,8 +188,12 @@
 <script>
 import { mapGetters } from "vuex";
 //import AgentAdd from "../../agent/AgentAdd.vue";
+import CTitle from "@/components/CTitle.vue";
 export default {
-  //components: { AgentAdd },
+  components: {
+    /*AgentAdd*/
+    CTitle,
+  },
   name: "DocumentationEditView",
   data() {
     return {
@@ -239,6 +217,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
     ...mapGetters("documentation", ["documentationList"]),
     getAllDocumentations() {
@@ -326,8 +305,10 @@ export default {
         .then(this.$emit("updateParent"));
       this.viewNewDocument = false;
     },
-    goBack() {
-      this.$router.push("/catalogue/documentazione");
+
+    handleBack() {
+      this.$router.back();
+      //this.$router.push("/catalogue/documentazione");
     },
     deleteDocumentation() {
       this.$store

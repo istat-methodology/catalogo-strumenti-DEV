@@ -2,115 +2,95 @@
   <div>
     <div>
       <div v-if="stateform == FormState.LIST">
-        
-          <CCardHeader class="col-12 no-border p-0 pr-1 mt-4">
-            <h2 class="text-info">
-              Moduli implementati
-              <div class="card-header-actions">
-                <button
-                  class="btn btn-outline-info text-center"
-                  @click="stateform = FormState.NEW"
-                  title="Aggiungi una nuova implementazione"
-                >
-                  <add-icon />
-                </button>
-                <button
-                  class="btn btn-outline-info text-center"
-                  @click.prevent="$router.back()"
-                  title="Indietro"
-                >
-                  <close-icon title="Indietro" />
-                </button>
-              </div>
-            </h2>
-          </CCardHeader>
-          <CCard class="col-12">
-            <CCardHeader class="no-border">Elenco Implementazioni</CCardHeader>
-            <CCardBody>
-              <div v-if="this.businessService">
-                <table class="table no-border">
-                  <thead>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Descrizione</th>
-                      <th>Linguaggio</th>
-                      <th>Funzionalità</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      class="list-group-item-action no-border"
-                      v-for="appService of this.businessService.appServices"
-                      :key="appService.id"
-                    >
-                      <td class="no-border">{{ appService.name }}</td>
-                      <td class="no-border">{{ appService.descr }}</td>
-                      <td class="no-border">
-                        {{ appService.implementationLanguage }}
-                      </td>
-                      <td class="no-border">
-                        {{ appService.stepInstances.length }}
-                      </td>
-                      <td class="float-right no-border">
-                        <span
-                          class="btn btn-rounded"
-                          href="#"
-                          role="button"
-                          @click.prevent="handleSelectedEdit(appService)"
-                          title="Modifica"
-                          ><edit-icon title="Modifica" />
-                        </span>
-                        <span
-                          class="btn btn-rounded"
-                          href="#"
-                          role="button"
-                          v-if="appService.stepInstances.length == 0"
-                          @click.prevent="modalOpen(appService)"
-                          title="Cancella"
-                        >
-                          <delete-icon title="Cancella" />
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div v-if="this.businessService.appServices.length == 0">
-                <table>
+        <div class="col-12 p-0">
+          <CTitle
+            title="Moduli Implementati"
+            buttonTitle=" Moduli Implementati"
+            functionality=""
+            :authenticated="isAuthenticated"
+            :buttons="['aggiungi', 'indietro']"
+            @handleNew="stateform = FormState.NEW"
+            @handleBack="handleBack"
+          />
+        </div>
+
+        <CCard class="col-12">
+          <CCardHeader class="no-border">Elenco moduli implementati</CCardHeader>
+          <CCardBody>
+            <div v-if="this.businessService">
+              <table class="table no-border">
+                <thead>
                   <tr>
-                    <td class="list-group-item no-border">
-                      Nessuna implementazione definita
+                    <th>Nome</th>
+                    <th>Descrizione</th>
+                    <th>Linguaggio</th>
+                    <th>Funzionalità</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="list-group-item-action no-border"
+                    v-for="appService of this.businessService.appServices"
+                    :key="appService.id"
+                  >
+                    <td class="no-border">{{ appService.name }}</td>
+                    <td class="no-border">{{ appService.descr }}</td>
+                    <td class="no-border">
+                      {{ appService.implementationLanguage }}
+                    </td>
+                    <td class="no-border">
+                      {{ appService.stepInstances.length }}
+                    </td>
+                    <td class="float-right no-border">
+                      <span
+                        class="btn btn-rounded"
+                        href="#"
+                        role="button"
+                        @click.prevent="handleSelectedEdit(appService)"
+                        title="Modifica"
+                        ><edit-icon title="Modifica" />
+                      </span>
+                      <span
+                        class="btn btn-rounded"
+                        href="#"
+                        role="button"
+                        v-if="appService.stepInstances.length == 0"
+                        @click.prevent="modalOpen(appService)"
+                        title="Cancella"
+                      >
+                        <delete-icon title="Cancella" />
+                      </span>
                     </td>
                   </tr>
-                </table>
-              </div>
-            </CCardBody>
-          </CCard>
-        
+                </tbody>
+              </table>
+            </div>
+            <div v-if="this.businessService.appServices.length == 0">
+              <table>
+                <tr>
+                  <td class="list-group-item no-border">
+                    Nessun modulo implementato
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </CCardBody>
+        </CCard>
       </div>
 
       <div v-if="stateform == FormState.NEW">
-        <CCardHeader class="col-12 no-border p-0 pr-1">
-          <h2 class="text-info">
-            Nuova implementazione
-            <div class="card-header-actions">
-              <button
-                title="Salva"
-                class="btn btn-outline-info text-center"
-                @click.prevent="handleNewAppService"
-              >
-                <floppy-icon title="Salva" />
-              </button>
-              <button
-                class="btn btn-outline-info text-center"
-                @click="closeNew()"
-              >
-                <close-icon title="Chiudi" />
-              </button>
-            </div>
-          </h2>
-        </CCardHeader>
+        <div class="col-12 p-0">
+          <CTitle
+            title="Nuovo Modulo Implementato"
+            buttonTitle=" Nuova Modulo Implementato"
+            functionality=""
+            :authenticated="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleNewAppService"
+            @handleBack="closeNew"
+          />
+        </div>
         <CCard class="col-12">
           <CCardBody>
             <div class="row">
@@ -168,28 +148,17 @@
       </div>
 
       <div v-if="stateform == FormState.EDIT && selectedUpdateAppService">
-        <CCardHeader class="col-12 p-0 no-border">
-          <h2 class="text-info">
-            Moduli Implementati
-            <div class="card-header-actions">
-              <button
-                class="btn btn-outline-info text-center"
-                @click.prevent="handleUpdateAppService()"
-                title="Salva"
-              >
-                <floppy-icon />
-              </button>
-              <button
-                class="btn btn-outline-info text-center"
-                @click="closeEdit()"
-                title="Chiudi"
-              >
-                <close-icon title="Chiudi" />
-              </button>
-            </div>
-          </h2>
-        </CCardHeader>
-
+        <div class="col-12 p-0">
+          <CTitle
+            title=" Moduli Implementati"
+            buttonTitle="  Moduli Implementati"
+            functionality=""
+            :authenticated="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleUpdateAppService"
+            @handleBack="closeEdit"
+          />
+        </div>
         <CCard class="col-12">
           <CCardBody>
             <div class="row">
@@ -279,11 +248,13 @@
 import FunctionalityTable from "./FunctionalityTable.vue";
 import { mapGetters } from "vuex";
 import _ from "lodash";
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "BusinessServiceEditView",
   components: {
     "app-functionality-table": FunctionalityTable,
+    CTitle,
   },
   props: {
     businessServiceID: {
@@ -298,6 +269,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("businessService", {
       businessService: "businessService",
     }),
@@ -346,6 +318,9 @@ export default {
     };
   },
   methods: {
+    handleBack() {
+      this.$router.push({ name: "ToolList" });
+    },
     handleSelectedEdit(app) {
       this.selectedUpdateAppService = app;
       this.stateform = this.FormState.EDIT;

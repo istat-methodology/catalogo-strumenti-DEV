@@ -6,37 +6,21 @@
           <p class="card-text">Elenco referenti associati</p></span
         >
       </div>
-
       <div v-if="stateform == FormState.NEW_AGENT">
-        <app-agent-add 
-          :goBackClose="true" 
-          @appClose="closeNewAgent" 
-        />
+        <app-agent-add :goBackClose="true" @appClose="closeNewAgent" />
       </div>
-
       <div v-if="stateform == FormState.NEW">
-        <CCardHeader class="col-12 no-border p-0 pr-1">
-          <h2 class="text-info">
-            Nuova Associazione
-            <div class="card-header-actions">
-              <button
-                class="btn btn-outline-info"
-                @click.prevent="handleSubmitNewAgent"
-                title="Associa referente"
-              >
-                <floppy-icon title="Associa referente" />
-              </button>
-              <button
-                class="btn btn-outline-info"
-                @click.prevent="stateform = FormState.LIST"
-                title="Chiudi"
-              >
-                <close-icon title="Close" />
-              </button>
-            </div>
-          </h2>
-        </CCardHeader>
-
+        <div class="col-12 p-0">
+          <CTitle
+            title="Nuova Associazione Referente"
+            buttonTitle=" Nuova Associazione Referente"
+            functionality=""
+            :authenticated="isAuthenticated"
+            :buttons="['salva', 'indietro']"
+            @handleSubmit="handleSubmitNewAgent"
+            @handleBack="stateform = FormState.LIST"
+          />
+        </div>
         <CCard class="card col-12">
           <CCardBody>
             <div class="card-slot" v-if="agentList">
@@ -79,25 +63,17 @@
       </div>
 
       <div v-if="stateform == FormState.LIST">
-        <CCardHeader class="no-border p-0 pr-1">
-          <h2 class="text-info">
-            Referenti
-            <div class="card-header-actions">
-              <div class="col-12 p-0 pr-1">
-                <button
-                  class="btn btn-outline-info"
-                  @click="stateform = FormState.NEW"
-                  title="Aggiungi una nuova associazione"
-                >
-                  <add-icon title="Aggiungi una nuova associazione"/>
-                </button>
-              </div>
-            </div>
-          </h2>
-        </CCardHeader>
-        
-        
-
+        <div class="col-12 p-0">
+          <CTitle
+            title="Referenti"
+            buttonTitle=" Associazione Referente"
+            functionality=""
+            :authenticated="isAuthenticated"
+            :buttons="['aggiungi', 'indietro']"
+            @handleNew="stateform = FormState.NEW"
+            @handleBack="handleBack"
+          />
+        </div>
         <div class="columns">
           <div class="row">
             <div
@@ -110,7 +86,7 @@
                 <div class="card-header-actions">
                   <span v-if="getState(index)">
                     <span class="icon-link" @click="changeState(index)"
-                      ><edit-icon title="Edit" class="text-info"/></span
+                      ><edit-icon title="Edit" class="text-info" /></span
                     >&nbsp;
                     <span class="icon-link" @click="modalOpen(linkedAgent)"
                       ><delete-icon title="Cancella" class="text-info"
@@ -120,7 +96,7 @@
                     <span
                       class="icon-link"
                       @click="handleUpdateLinkedAgent(index, linkedAgent)"
-                      ><floppy-icon title="Salva" class="text-info"/></span
+                      ><floppy-icon title="Salva" class="text-info" /></span
                     >&nbsp;
                     <span class="icon-link" @click="changeState(index)"
                       ><close-circle-icon title="Chiudi" class="text-info"
@@ -145,7 +121,6 @@
                     v-model="linkedAgent.role"
                   />
                 </div>
-
                 <div class="card-slot">
                   <CInput
                     label="Data:"
@@ -154,7 +129,6 @@
                     v-model="linkedAgent.referenceDate"
                   />
                 </div>
-
                 <div class="card-slot">
                   <CTextarea
                     label="Note:"
@@ -195,7 +169,25 @@
 import { mapGetters } from "vuex";
 import AgentAdd from "./AgentAdd.vue";
 import _ from "lodash";
-export default {
+import CTitle from "@/components/CTitle.vue";
+export default {  
+  name: "LinkedAgentEditView",
+  props: {
+    toolId: {
+      type: Number,
+      required: true,
+      default: () => null,
+    },
+    toolName: {
+      type: String,
+      required: true,
+      default: null,
+    },
+  },
+  components: {
+    "app-agent-add": AgentAdd,
+    CTitle
+  },
   data() {
     return {
       editState: false,
@@ -223,6 +215,7 @@ export default {
   },
   emits: ["refreshTool"],
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("agent", ["agentList"]),
     ...mapGetters("linkedagent", ["linkedAgentList"]),
 
@@ -245,9 +238,6 @@ export default {
       else return [];
     },
   },
-  components: {
-    "app-agent-add": AgentAdd,
-  },
   methods: {
     closeNewAgent(saved) {
       if (saved) this.updateAgentList();
@@ -268,7 +258,6 @@ export default {
     },
     handleSubmitNewAgent() {
       this.newLinkedAgent.agent = this.selectedId;
-
       this.$store
         .dispatch("linkedagent/save", this.newLinkedAgent)
         .then(this.loadLinkedAgentList());
@@ -320,20 +309,6 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
-  },
-
-  name: "LinkedAgentEditView",
-  props: {
-    toolId: {
-      type: Number,
-      required: true,
-      default: () => null,
-    },
-    toolName: {
-      type: String,
-      required: true,
-      default: null,
     },
   },
   created() {

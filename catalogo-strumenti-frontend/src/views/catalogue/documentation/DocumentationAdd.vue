@@ -11,31 +11,8 @@
             :authenticated="isAuthenticated"
             :buttons="['salva', 'indietro']"
             @handleSubmit="handleSubmit"
+            @handleBack="handleBack"
           />
-          <!--CCardHeader class="no-border p-0 pt-4 mt-4">
-            <h2>
-              <h4 class="bg-secondary p-0 mb-4 text-right uppercase">
-                <span class="mt-4 pr-1 text-primary">Nuovo</span>
-              </h4>
-              Documento
-              <div class="card-header-actions">
-                <button
-                  class="btn btn-outline-primary text-center"
-                  @click.prevent="handleSubmit"
-                  title="Salva nuovo documento"
-                >
-                  <floppy-icon title="Salva documento" />
-                </button>
-                <button
-                  class="btn btn-outline-primary text-center"
-                  @click.prevent="$router.back()"
-                  title="Indietro"
-                >
-                  <close-icon title="Indietro" />
-                </button>
-              </div>
-            </h2>
-          </CCardHeader-->
           <CCard>           
             <CCardBody>
               <CInput
@@ -133,10 +110,11 @@ export default {
     },
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
-    ...mapGetters("tools", ["toolscatalog"]),
+    ...mapGetters("tools", ["toolscatalog"])
   },
   methods: {
     changeTool(value) {
@@ -156,8 +134,8 @@ export default {
           .then(this.$router.push("/catalogue/documentazione"));
       }
     },
-    goBack() {
-      this.$router.push("/catalogue/documentazione");
+    handleBack() {
+      this.$router.push({ name: "DocumentationList"});
     },
     /* onChange(event) {
       this.tipologia = event.target.value;

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <CCardHeader class="no-border p-0 mt-4">
-      <h1 class="uppercase text-right p-0 text-info">
+    <CCardHeader class="no-border p-0 mt-4" >
+      <h1 class="uppercase text-right p-0 text-info" v-if="functionality!=''">
         <span>
           <span class="p-0">{{ maintitle }}</span>
           <h4
@@ -24,7 +24,7 @@
             :key="item"
           >
             <button
-              v-if="item == 'nuovo' && authenticated == true"
+              v-if="item == 'aggiungi' && authenticated == true"
               class="btn btn-outline-info pl-2"
               @click.prevent="handleNew"
               :title="getTitle(item, buttonTitle)"
@@ -33,7 +33,7 @@
             </button>
 
             <button
-              v-if="item == 'salva'"
+              v-if="item == 'salva' && authenticated == true"
               class="btn btn-outline-info pl-2"
               @click.prevent="handleSubmit"
               :title="getTitle(item, buttonTitle)"
@@ -41,7 +41,7 @@
               <floppy-icon :title="getTitle(item, buttonTitle)" />
             </button>
             <button
-              v-if="item == 'modifica'"
+              v-if="item == 'modifica' && authenticated == true"
               class="btn btn-outline-info pl-2"
               @click.prevent="handleEdit"
               :title="getTitle(item, buttonTitle)"
@@ -50,10 +50,9 @@
             </button>
             <button
               v-if="item == 'indietro'"
-              class="btn btn-outline-info pl-2"
-              :title="item"
-              @click.prevent="$router.back()"
-            >
+              class="btn btn-outline-primary pl-2"              
+              @click.prevent="handleBack"              
+              :title="item"            >
               <close-icon :title="item" />
             </button>
           </div>
@@ -100,6 +99,9 @@ export default {
   methods: {
     getTitle(functionType, buttonTitle) {
       return functionType + " " + buttonTitle;
+    },
+    handleBack() {
+      this.$emit("handleBack");
     },
     handleSubmit() {
       this.$emit("handleSubmit");

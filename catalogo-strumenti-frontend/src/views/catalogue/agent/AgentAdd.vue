@@ -11,6 +11,7 @@
             :authenticated="isAuthenticated"
             :buttons="['salva', 'indietro']"
             @handleSubmit="handleSubmit"
+            @handleBack="handleBack"
           />
           <CCard>
             <CCardBody>
@@ -52,11 +53,12 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import CTitle from "../../../components/CTitle.vue";
+import { mapGetters } from "vuex";
 
 //import { mapGetters } from "vuex";
 export default {
   name: "documentationlAdd",
-  components: { CTitle  },
+  components: { CTitle },
 
   data() {
     return {
@@ -70,7 +72,7 @@ export default {
     };
   },
   computed: {
-    //...mapGetters("documentation", ["documentation"])
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   validations: {
     agentLocal: {
@@ -88,8 +90,8 @@ export default {
           .then(this.$router.push("/catalogue/referenti"));
       }
     },
-    goBack() {
-      this.$router.push("/catalogue/referenti");
+    handleBack() {
+      this.$router.push({ name: "AgentList" });
     },
     onChange(event) {
       this.tipologia = event.target.value;

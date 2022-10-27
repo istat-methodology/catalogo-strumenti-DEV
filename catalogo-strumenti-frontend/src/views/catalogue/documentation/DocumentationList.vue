@@ -6,8 +6,10 @@
         buttonTitle=" Documento"
         functionality="Elenco"
         :authenticated="isAuthenticated"
-        :buttons="['nuovo']"
+        :buttons="['aggiungi','indietro']"
         @handleNew="handleNew"
+        @handleBack="handleBack"
+
       />
       <CCard>
         <CCardBody>
@@ -106,6 +108,9 @@ export default {
   methods: {
     handleNew() {
       this.$router.push({ name: "DocumentationAdd" });
+    },
+    handleBack() {
+      this.$router.push({name:"Catalogue"});
     },
     handleView(item) {
       //router.push({ name: 'user', params: { username } })

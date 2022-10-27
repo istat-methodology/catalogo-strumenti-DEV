@@ -5,8 +5,9 @@
       buttonTitle=" Metodo Statistico"
       functionality="Elenco"
       :authenticated="isAuthenticated"
-      :buttons="['nuovo']"
+      :buttons="['aggiungi', 'indietro']"
       @handleNew="handleNew"
+      @handleBack="handleBack"
     />
     <CCard>
       <CCardBody>
@@ -47,7 +48,7 @@ import CModalDelete from "../../../components/CModalDelete.vue";
 import CTableLink from "../../../components/CTableLink.vue";
 export default {
   name: "statisticalMethodsList",
-  components: { CTitle, CModalDelete,CTableLink },
+  components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
       fields: [
@@ -79,9 +80,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("coreui", ["isMethodsList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
     computedItems() {
       if (this.statisticalMethodsList) {
@@ -107,18 +108,20 @@ export default {
     handleNew() {
       this.$router.push({ name: "MethodAdd" });
     },
+    handleBack() {
+      this.$router.push({ name: "Catalogue" });
+    },
     handleDelete() {
       this.$store.dispatch("methods/delete", this.selectedStatisticalMethod.id);
       this.showModal = false;
     },
-
     handleView(item) {
-      //router.push({ name: 'user', params: { username } }) 
-      this.$router.push({ name: 'MethodDetails', params: { id: item.id }});
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({ name: "MethodDetails", params: { id: item.id } });
     },
     handleEdit(item) {
-      //router.push({ name: 'user', params: { username } }) 
-      this.$router.push({ name: 'MethodEdit', params: { id: item.id } });
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({ name: "MethodEdit", params: { id: item.id } });
     },
     handleOpenModalDelete(app) {
       this.selectedStatisticalMethod = app;

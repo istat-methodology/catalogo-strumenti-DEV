@@ -11,6 +11,7 @@
             :authenticated="isAuthenticated"
             :buttons="['salva', 'indietro']"
             @handleSubmit="handleSubmit"
+            @handleBack="handleBack"
           />
       </div>  
       <CCard class="col-8 p-0 pl-1 pr-1">
@@ -83,9 +84,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
-    ...mapGetters("tools", ["toolscatalog"]),
+    ...mapGetters("tools", ["toolscatalog"])    
   },
 
   validations: {
@@ -124,7 +126,7 @@ export default {
       this.documentationLocal.notes = this.documentation.notes;
       this.documentationLocal.resource = this.documentation.resource;
     },
-    backToList() {
+    handleBack(){
       this.$router.push("/catalogue/documentazione");
     },
 

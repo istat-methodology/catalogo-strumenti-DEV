@@ -8,6 +8,7 @@
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"
+      @handleBack="handleBack"
     />
     <CCard>
       <CCardBody v-if="tooltypeList">
@@ -307,8 +308,8 @@ export default {
           .then(this.$router.push("/catalogue/tools"));
       }
     },
-    goBack() {
-      this.$router.push("/catalogue/tools");
+    handleBack() {
+      this.$router.push({name:"ToolList"});
     },
     onChangeTipologia(value) {
       this.tipologia.id = value.id;

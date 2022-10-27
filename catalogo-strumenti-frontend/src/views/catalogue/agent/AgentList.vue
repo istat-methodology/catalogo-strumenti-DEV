@@ -5,8 +5,9 @@
       buttonTitle=" Referente"
       functionality="Elenco"
       :authenticated="isAuthenticated"
-      :buttons="['nuovo']"
+      :buttons="['aggiungi', 'indietro']"
       @handleNew="handleNew"
+      @handleBack="handleBack"
     />
     <CCard>
       <CCardBody>
@@ -78,8 +79,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("agent", ["agentList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("agent", ["agentList"]),
     computedItems() {
       if (this.agentList) {
         return this.agentList.map((agent) => {
@@ -99,6 +100,9 @@ export default {
   methods: {
     handleNew() {
       this.$router.push({ name: "AgentAdd" });
+    },
+    handleBack() {
+      this.$router.push({ name: "Catalogue" });
     },
     handleView(item) {
       this.$router.push({

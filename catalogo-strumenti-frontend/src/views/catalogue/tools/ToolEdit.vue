@@ -24,32 +24,20 @@
         >
           <CTab>
             <template #title>
-              <span  class="text-info">Informazioni Generali</span>
+              <span class="text-info">Informazioni Generali</span>
             </template>
 
             <div v-if="tool" class="row p-0">
               <div class="col-12 p-0">
-                <CCardHeader class="no-border p-0 pr-1 mt-4">
-                  <h2 class="text-info">
-                    Informazioni Generali
-                    <div class="card-header-actions">
-                      <button
-                        class="btn btn-outline-info text-center"
-                        @click.prevent="handleSubmit"
-                        title="Aggiorna"
-                      >
-                        <floppy-icon title="Aggiorna" />
-                      </button>
-                      <button
-                        class="btn btn-outline-info text-center"
-                        @click.prevent="$router.back()"
-                        title="Indietro"
-                      >
-                        <close-icon title="Indietro" />
-                      </button>
-                    </div>
-                  </h2>
-                </CCardHeader>
+                <CTitle
+                  title="Informazioni Generali"
+                  buttonTitle=" Informazioni Generali"
+                  functionality=""
+                  :authenticated="isAuthenticated"
+                  :buttons="['salva', 'indietro']"
+                  @handleSubmit="handleSubmit"
+                  @handleBack="handleBack"
+                />
               </div>
               <CCard class="col-12 p-0">
                 <CCardBody>
@@ -121,132 +109,122 @@
             statistical service, desktop application, procedure
             -->
             <template #title>
-              <span class="text-info">{{ toolLocal.toolType.name | dashEmpty }}</span>
+              <span class="text-info">{{
+                toolLocal.toolType.name | dashEmpty
+              }}</span>
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
-                <CCardHeader class="no-border p-0 pr-1 mt-4">
-                  <h2 class="text-info">
-                    {{ toolLocal.toolType.name | dashEmpty }}
-                    <div class="card-header-actions">
-                      <button
-                        class="btn btn-outline-info text-center"
-                        @click.prevent="handleSubmit"
-                        title="Aggiorna"
-                      >
-                        <floppy-icon title="Aggiorna" />
-                      </button>
-                      <button
-                        class="btn btn-outline-info text-center"
-                        @click.prevent="$router.back()"
-                        title="Indietro"
-                      >
-                        <close-icon title="Indietro" />
-                      </button>
-                    </div>
-                  </h2>
-                </CCardHeader>
-                <CCard>
-                  <CCardBody>
-                    <div v-if="toolLocal && toolLocal.toolType.id == 3">
-                      <CInput
-                        label="Codice"
-                        placeholder="Codice"
-                        v-model="toolLocal.code"
-                      />
-                      <CInput
-                        label="Download"
-                        placeholder="Download"
-                        v-model="toolLocal.download"
-                      />
-                      <CInput
-                        label="Flusso di lavoro"
-                        placeholder="Flusso di lavoro"
-                        v-model="toolLocal.workflow"
-                      />
-                      <CInput
-                        label="Linguaggio"
-                        placeholder="Linguaggio"
-                        v-model="toolLocal.language"
-                      />
-                      <CInput
-                        label="Dipendenze"
-                        placeholder="Dipendenze"
-                        v-model="toolLocal.depenencies"
-                      />
-                      <CInput
-                        label="Requisiti Tecnici"
-                        placeholder="Requisiti Tecnici"
-                        v-model="toolLocal.technicalRequirements"
-                      />
-                    </div>
-                    <div v-if="tool && tool.toolType.id == 2">
-                      <CInput
-                        label="Download"
-                        placeholder="Download"
-                        v-model="toolLocal.download"
-                      />
-                      <CInput
-                        label="Licenza"
-                        placeholder="Licenza"
-                        v-model="toolLocal.licence"
-                      />
-                      <CInput
-                        label="Linguaggio"
-                        placeholder="Linguaggio"
-                        v-model="toolLocal.language"
-                      />
-                      <CInput
-                        label="Pacchetto"
-                        placeholder="Pacchetto"
-                        v-model="toolLocal.packageApplication"
-                      />
-                      <CInput
-                        label="Sistema Operativo"
-                        placeholder="Sistema Operativo"
-                        v-model="toolLocal.operativeSystem"
-                      />
-                      <CInput
-                        label="Verione"
-                        placeholder="Versione"
-                        v-model="toolLocal.version"
-                      />
-                      <CInput
-                        label="Requisiti Tecnici"
-                        placeholder="Requisiti Tecnici"
-                        v-model="toolLocal.technicalRequirements"
-                      />
-                    </div>
-                    <div v-if="tool && tool.toolType.id == 1">
-                      <CInput
-                        label="Protocollo"
-                        placeholder="Protocollo"
-                        v-model="toolLocal.protocol"
-                      />
-                      <CInput
-                        label="Url"
-                        placeholder="Url"
-                        v-model="toolLocal.url"
-                      />
-                      <CInput
-                        label="Contributi"
-                        placeholder="Contributi"
-                        v-model="toolLocal.outcomes"
-                      />
-                      <CInput
-                        label="Dipendenze"
-                        placeholder="Dipendenze"
-                        v-model="toolLocal.serviceDependencies"
-                      />
-                      <CInput
-                        label="Restrizioni"
-                        placeholder="Retrizioni"
-                        v-model="toolLocal.restrictions"
-                      />
-                    </div>
-                  </CCardBody>
-                </CCard>
+                <CTitle
+                  :title="toolLocal.toolType.name"
+                  :buttonTitle="toolLocal.toolType.name"
+                  functionality=""
+                  :authenticated="isAuthenticated"
+                  :buttons="['salva', 'indietro']"
+                  @handleSubmit="handleSubmit"
+                  @handleBack="handleBack"
+                />
               </div>
+              <CCard class="col-12 p-0">
+                <CCardBody>
+                  <div v-if="toolLocal && toolLocal.toolType.id == 3">
+                    <CInput
+                      label="Codice"
+                      placeholder="Codice"
+                      v-model="toolLocal.code"
+                    />
+                    <CInput
+                      label="Download"
+                      placeholder="Download"
+                      v-model="toolLocal.download"
+                    />
+                    <CInput
+                      label="Flusso di lavoro"
+                      placeholder="Flusso di lavoro"
+                      v-model="toolLocal.workflow"
+                    />
+                    <CInput
+                      label="Linguaggio"
+                      placeholder="Linguaggio"
+                      v-model="toolLocal.language"
+                    />
+                    <CInput
+                      label="Dipendenze"
+                      placeholder="Dipendenze"
+                      v-model="toolLocal.depenencies"
+                    />
+                    <CInput
+                      label="Requisiti Tecnici"
+                      placeholder="Requisiti Tecnici"
+                      v-model="toolLocal.technicalRequirements"
+                    />
+                  </div>
+                  <div v-if="tool && tool.toolType.id == 2">
+                    <CInput
+                      label="Download"
+                      placeholder="Download"
+                      v-model="toolLocal.download"
+                    />
+                    <CInput
+                      label="Licenza"
+                      placeholder="Licenza"
+                      v-model="toolLocal.licence"
+                    />
+                    <CInput
+                      label="Linguaggio"
+                      placeholder="Linguaggio"
+                      v-model="toolLocal.language"
+                    />
+                    <CInput
+                      label="Pacchetto"
+                      placeholder="Pacchetto"
+                      v-model="toolLocal.packageApplication"
+                    />
+                    <CInput
+                      label="Sistema Operativo"
+                      placeholder="Sistema Operativo"
+                      v-model="toolLocal.operativeSystem"
+                    />
+                    <CInput
+                      label="Verione"
+                      placeholder="Versione"
+                      v-model="toolLocal.version"
+                    />
+                    <CInput
+                      label="Requisiti Tecnici"
+                      placeholder="Requisiti Tecnici"
+                      v-model="toolLocal.technicalRequirements"
+                    />
+                  </div>
+                  <div v-if="tool && tool.toolType.id == 1">
+                    <CInput
+                      label="Protocollo"
+                      placeholder="Protocollo"
+                      v-model="toolLocal.protocol"
+                    />
+                    <CInput
+                      label="Url"
+                      placeholder="Url"
+                      v-model="toolLocal.url"
+                    />
+                    <CInput
+                      label="Contributi"
+                      placeholder="Contributi"
+                      v-model="toolLocal.outcomes"
+                    />
+                    <CInput
+                      label="Dipendenze"
+                      placeholder="Dipendenze"
+                      v-model="toolLocal.serviceDependencies"
+                    />
+                    <CInput
+                      label="Restrizioni"
+                      placeholder="Retrizioni"
+                      v-model="toolLocal.restrictions"
+                    />
+                  </div>
+                </CCardBody>
+              </CCard>
             </div>
           </CTab>
           <CTab>
@@ -254,32 +232,22 @@
             metodi statistici          
             --->
             <template #title>
-              <span  class="text-info">Metodi Statistici</span>
+              <span class="text-info">Metodi Statistici</span>
             </template>
             <div v-if="this.statisticalMethodsList" class="row p-0">
               <div class="col-12 p-0">
-                <CCardHeader class="no-border p-0 pr-1 mt-4">
-                  <h2 class="text-info">
-                    Metodi Statistici
-                    <div class="card-header-actions">
-                      <button
-                        class="btn btn-outline-info text-center"
-                        @click.prevent="handleSubmit"
-                        title="Aggiorna"
-                      >
-                        <floppy-icon title="Aggiorna" />
-                      </button>
-                      <button
-                        class="btn btn-outline-info text-center"
-                        @click.prevent="$router.back()"
-                        title="Indietro"
-                      >
-                        <close-icon title="Indietro" />
-                      </button>
-                    </div>
-                  </h2>
-                </CCardHeader>
-                <CCard>
+                <div class="col-12 p-0">
+                  <CTitle
+                    title="Metodi Statistici"
+                    buttonTitle=" Metodi Statistici"
+                    functionality=""
+                    :authenticated="isAuthenticated"
+                    :buttons="['salva', 'indietro']"
+                    @handleSubmit="handleSubmit"
+                    @handleBack="handleBack"
+                  />
+                </div>
+                <CCard class="col-12 p-0">
                   <CCardBody>
                     <div id="app-tree1" class="demo-tree">
                       <treeselect
@@ -297,7 +265,7 @@
           </CTab>
           <CTab>
             <template #title>
-              <span  class="text-info">Moduli implementati</span>
+              <span class="text-info">Moduli Implementati</span>
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
@@ -311,7 +279,7 @@
           </CTab>
           <CTab>
             <template #title>
-              <span  class="text-info">Referenti</span>
+              <span class="text-info">Referenti</span>
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
@@ -324,7 +292,7 @@
           </CTab>
           <CTab>
             <template #title>
-              <span  class="text-info">Documentazione</span>
+              <span class="text-info">Documenti</span>
             </template>
             <div v-if="this.tool">
               <div class="row p-0">
@@ -358,6 +326,7 @@ import LinkedAgentView from "../agent/shared/LinkedAgentEditView";
 import BusinessServiceEditView from "../tools/shared/BusinessServiceEditView";
 
 /* import { required } from "vuelidate/lib/validators"; */
+import CTitle from "../../../components/CTitle.vue";
 export default {
   name: "ToolEdit",
   components: {
@@ -366,6 +335,7 @@ export default {
     "app-edit-documentation": DocumentationEditView,
     "app-edit-business-service": BusinessServiceEditView,
     "app-linkedAgents": LinkedAgentView,
+    CTitle,
   },
   data() {
     return {
@@ -411,11 +381,11 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("tools", ["tool"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
-
     ...mapGetters("documentation", ["documentationList"]),
     getGsbpmList: function () {
       return this.gsbpmList.map((gsbpm) => {
@@ -491,7 +461,9 @@ export default {
         this.loadTool();
       });
     },
-
+    handleBack() {
+      this.$router.push({ name: "ToolList" });
+    },
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
       this.tool.gsbpmProcesses.map((gsbpmProc) => {
@@ -553,9 +525,7 @@ export default {
       this.toolLocal.statisticalMethods = this.tool.statisticalMethods;
       this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses;
     },
-    backToList() {
-      this.$router.push("/catalogue/tools");
-    },
+
     loadTool: _.debounce(function () {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
         if (this.tool) {
