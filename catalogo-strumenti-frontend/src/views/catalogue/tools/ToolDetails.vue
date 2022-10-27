@@ -9,6 +9,7 @@
         :authenticated="isAuthenticated"
         :buttons="['modifica', 'indietro']"
         @handleEdit="handleEdit(tool)"
+        @handleBack="handleBack"
       />
       <div>
         <div class="columns">
@@ -227,6 +228,7 @@
   </div>
 </template>
 <script>
+
 /* import { required } from "vuelidate/lib/validators"; */
 import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
 import BusinessFunctionsView from "../businessFunctions/shared/BusinessFunctionsView";
@@ -449,11 +451,6 @@ export default {
     },
   },
   methods: {
-    /* handleSubmit() {
-      this.$store.dispatch("tools/update", this.tool).then(() => {
-        this.backToList();
-      });
-    }, */
     setActiveItemList(selector, bool) {
       document.querySelector(selector).className = bool
         ? "list-item-hover"
@@ -467,8 +464,9 @@ export default {
         ? (this.activeIndex = index)
         : (this.activeIndex = -1);
     },
-    backToList() {
-      this.$router.push("/catalogue/tools");
+    handleBack() {
+      this.$router.push({ name : "ToolList" });
+
     },
     formatDate(dt) {
       dt = new Date(dt);

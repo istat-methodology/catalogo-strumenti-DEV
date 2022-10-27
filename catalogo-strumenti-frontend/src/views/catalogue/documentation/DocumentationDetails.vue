@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row" v-if="documentation">
-    <div class="col-8">      
+    <div class="col-8">
       <CTitle
         :title="documentation.name"
         :buttonTitle="documentation.name"
@@ -9,6 +9,7 @@
         :authenticated="isAuthenticated"
         :buttons="['modifica', 'indietro']"
         @handleEdit="handleEdit(documentation)"
+        @handleBack="handleBack"
       />
       <div class="row">
         <div class="col-12">
@@ -25,7 +26,7 @@
               <span>{{ documentation.documentType.name | dashEmpty }}</span>
             </div>
           </div>
-          <div class="card col-md-auto  p-4">
+          <div class="card col-md-auto p-4">
             <span><strong>Riferimenti</strong></span>
             <div class="card-slot">
               <span>{{ documentation.resource | dashEmpty }}</span>
@@ -34,17 +35,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12">
-          <div class="card col-md-auto  p-4">
+        <div class="col-12 pb-5">
+          <div class="card col-md-auto p-4">
             <span><strong>Note</strong></span>
             <div class="card-slot">
               <span>{{ documentation.notes | dashEmpty }}</span>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 pb-5">
           <app-tools-view
             :indexLabel="''"
             :descriptionLabel="'Strumenti metodologici associati al documento'"
@@ -53,7 +54,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 pb-5">
           <app-methods
             :indexLabel="''"
             :descriptionLabel="'Metodi statistici associati al documento'"
@@ -111,6 +112,10 @@ export default {
 
     handleEdit(item) {
       this.$router.push({ name: "DocumentationEdit", params: { id: item.id } });
+    },
+    handleBack() {
+      //this.$router.push("/catalogue/referenti");
+      this.$router.back();
     },
   },
   created() {

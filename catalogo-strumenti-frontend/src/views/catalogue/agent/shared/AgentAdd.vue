@@ -1,7 +1,7 @@
 <template>
   <!-- wait until service is loaded -->
   <div>
-    <CCardHeader class="col-12 no-border p-0 pr-1">
+    <!--CCardHeader class="col-12 no-border p-0 pr-1">
       <h2 class="text-info">
         Nuovo Referente
         <div class="card-header-actions">
@@ -21,9 +21,20 @@
           </button>
         </div>
       </h2>
-    </CCardHeader>
+    </CCardHeader-->
+    <div class="col-12 p-0">
+      <CTitle
+        title="Nuovo Referente"
+        buttonTitle=" Nuovo Referente"
+        functionality=""
+        :authenticated="isAuthenticated"
+        :buttons="['salva', 'indietro']"
+        @handleSubmit="handleSubmit"
+        @handleBack="goBack(false)"
+      />
+    </div>
 
-    <CCard class="col-12">
+    <CCard class="col-12 p-0">
       <CCardBody>
         <CInput
           label="Nome"
@@ -51,9 +62,11 @@
 </template>
 <script>
 import { required } from "vuelidate/lib/validators";
-//import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "AgentAdd",
+  components: { CTitle },
   data() {
     return {
       agentLocal: {
@@ -64,6 +77,9 @@ export default {
         notes: "",
       },
     };
+  },
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   emits: ["appClose"],
   props: {

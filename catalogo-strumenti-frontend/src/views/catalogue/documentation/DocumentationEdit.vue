@@ -127,9 +127,9 @@ export default {
       this.documentationLocal.resource = this.documentation.resource;
     },
     handleBack(){
-      this.$router.push("/catalogue/documentazione");
+      //this.$router.push("/catalogue/documentazione");
+      this.$router.back();
     },
-
     reloadMethod: _.debounce(function () {
       this.$store
         .dispatch("documentation/findById", this.documentationLocal.id)

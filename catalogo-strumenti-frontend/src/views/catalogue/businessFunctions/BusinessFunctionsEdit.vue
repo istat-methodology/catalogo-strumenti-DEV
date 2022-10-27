@@ -90,6 +90,7 @@
   </div>
 </template>
 <script>
+
 import { mapGetters } from "vuex";
 import _ from "lodash";
 import Treeselect from "@riophae/vue-treeselect";

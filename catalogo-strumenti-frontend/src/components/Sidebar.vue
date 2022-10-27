@@ -39,8 +39,9 @@
         <router-link
           tag="a"
           :to="{ name: 'BusinessFunctionsList' }"
-          class="c-sidebar-nav-link"
+          class="c-sidebar-nav-link c-sidebar-navlink"
           :class="{ 'c-active': isBusinessSession }"
+          
         >
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
         </router-link>

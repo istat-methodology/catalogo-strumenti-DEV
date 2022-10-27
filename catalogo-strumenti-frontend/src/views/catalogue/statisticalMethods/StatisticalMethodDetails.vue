@@ -2,11 +2,8 @@
   <!-- wait until service is loaded -->
   <div class="row" v-if="statisticalMethod">
     <div class="col-10">
-      <div id="id-main" />
-      <div
-        @mouseover="setActiveItemList('#id-link-main', true)"
-        @mouseleave="setActiveItemList('#id-link-main', false)"
-      >
+    
+      <div>
         <div class="p-2">
           <CTitle 
             :title="statisticalMethod.name"
@@ -15,6 +12,7 @@
             :authenticated="isAuthenticated"
             :buttons="['modifica', 'indietro']"
             @handleEdit="handleEdit(statisticalMethod)"
+            @handleBack="handleBack"
           />
           <div class="pl-2">
             <div class="columns">
@@ -106,13 +104,8 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div id="id-tools" />
-      <div
-        @mouseover="setActiveItemList('#id-link-tools', true)"
-        @mouseleave="setActiveItemList('#id-link-tools', false)"
-      >
+      </div>      
+      <div>
         <div class="p-2">
           <app-tools-function
             :index="'1.'"
@@ -120,13 +113,8 @@
             :tools="statisticalMethod.catalogTools"
           ></app-tools-function>
         </div>
-      </div>
-
-      <div id="id-documentations" />
-      <div
-        @mouseover="setActiveItemList('#id-link-documentations', true)"
-        @mouseleave="setActiveItemList('#id-link-documentations', false)"
-      >
+      </div>      
+      <div>
         <div class="p-2">
           <app-documentations
             :index="'2.'"
@@ -136,25 +124,6 @@
         </div>
       </div>
     </div>
-    <!--aside class="container-rigth col-3">
-      <section class="menu">
-        <header>
-          <h2 class="menu-heading"><b>Contenuto:</b></h2>
-        </header>
-        <ul class="menu-list">
-          <li class="list-item" id="id-link-main">
-            <a class="item-link" href="#id-main">{{ statisticalMethod.name | dashEmpty
-            }}</a>
-          </li>
-          <li class="list-item" id="id-link-tools">
-            <a href="#id-tools" class="item-link">1. Strumenti metodologici</a>
-          </li>
-          <li class="list-item" id="id-link-documentations">
-            <a href="#id-documentations" class="item-link">2. Documentazione</a>
-          </li>
-        </ul>
-      </section>
-    </aside-->
   </div>
 </template>
 <script>
@@ -175,8 +144,8 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"])
   },
   methods: {
-    backToList() {
-      this.$router.push("/catalogue/metodi");
+    handleBack() {
+      this.$router.back();
     },
 
     getDocumentationList: function () {

@@ -1,9 +1,9 @@
 <template>
   <!-- wait until service is loaded -->
   <div class="row">
-    <div class="col-12">
+    <div class="col-10">
       <div v-if="statisticalMethod">
-        <div class="row">
+        <!--div class="row">
           <div class="col-md-3"></div>
           <div class="col-md-9 pl-4">
             <div class="col-10 p-0">
@@ -15,39 +15,45 @@
               </h1>
             </div>
           </div>
+        </div-->
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-9 p-0 pl-4">
+            <div class="col-12 p-0 pl-2">
+              <h1 class="uppercase text-right p-0 pt-2 text-info">
+                <span>
+                  <span class="p-0">{{
+                    statisticalMethodLocal.name | dashEmpty
+                  }}</span>
+                  <h4 class="bg-secondary p-0">
+                    <span class="pr-1 text-info">Modifica</span>
+                  </h4>
+                </span>
+              </h1>
+            </div>
+          </div>
         </div>
         <CTabs
           variant="pills"
-          :vertical="{ navs: 'col-md-3', content: 'col-md-9' }"
+          :vertical="{ navs: 'col-md-3', content: 'col-md-9 p-0 pl-4' }"
         >
           <CTab>
             <template #title>
               <span class="text-info">Metodo Statistico</span>
             </template>
-            <div>
-              <CCardHeader class="col-10 no-border p-0 pr-1 mt-4 ">
-                <h2 class="text-info">
-                  Metodo Statistico
-                  <div class="card-header-actions">
-                    <button
-                      class="btn btn-outline-info text-center"
-                      @click.prevent="handleSubmit"
-                      title="Aggiorna"
-                    >
-                      <floppy-icon title="Aggiorna" />
-                    </button>
-                    <button
-                      class="btn btn-outline-info text-center"
-                      @click.prevent="$router.back()"
-                      title="Indietro"
-                    >
-                      <close-icon title="Indietro" />
-                    </button>
-                  </div>
-                </h2>
-              </CCardHeader>
-
-              <CCard class="col-10">
+            <div class="row p-0">
+              <div class="col-12 p-0">
+                <CTitle
+                  title="Metodo Statistico"
+                  buttonTitle=" Metodo Statistico"
+                  functionality=""
+                  :authenticated="isAuthenticated"
+                  :buttons="['salva', 'indietro']"
+                  @handleSubmit="handleSubmit"
+                  @handleBack="handleBack"
+                />
+              </div>
+              <CCard class="col-12 p-0">
                 <CCardBody>
                   <CInput
                     label="Nome*"
@@ -138,18 +144,20 @@
           </CTab>
           <CTab>
             <template #title>
-              <span class="text-info">Documentazione</span>
+              <span class="text-info">Documenti</span>
             </template>
-
             <div v-if="this.statisticalMethod">
-              <app-edit-documentation
-                :parentName="this.statisticalMethod.name"
-                @updateParent="loadMethod"
-                :documentations="getDocumentation"
-                :methodId="this.statisticalMethod.id"
-                class="col-10 p-0"
-              >
-              </app-edit-documentation>
+              <div class="row p-0">
+                <div class="col-12 p-0 pl-1 pr-1">
+                  <app-edit-documentation
+                    :parentName="this.statisticalMethod.name"
+                    @updateParent="loadMethod"
+                    :documentations="getDocumentation"
+                    :methodId="this.statisticalMethod.id"
+                  >
+                  </app-edit-documentation>
+                </div>
+              </div>
             </div>
           </CTab>
         </CTabs>
@@ -165,12 +173,14 @@ import DocumentationEditView from "../documentation/shared/DocumentationEditView
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import { required } from "vuelidate/lib/validators";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "ToolEdit",
   components: {
     DatePicker,
     Treeselect,
     "app-edit-documentation": DocumentationEditView,
+    CTitle,
   },
   data() {
     return {
@@ -195,6 +205,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("methods", ["statisticalMethod"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("documentation", ["documentationList"]),
@@ -283,8 +294,8 @@ export default {
       this.statisticalMethodLocal.standardIstat =
         this.statisticalMethod.standardIstat;
     },
-    backToList() {
-      this.$router.push("/catalogue/metodi");
+    handleBack() {
+      this.$router.back();
     },
 
     loadMethod: _.debounce(function () {

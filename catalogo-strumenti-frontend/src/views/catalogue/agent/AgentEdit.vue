@@ -91,8 +91,9 @@ export default {
       this.agentLocal.contact = this.agent.contact;
       this.agentLocal.notes = this.agent.notes;
     },
-    handleback() {
-      this.$router.push({ name: "AgentList" });
+    handleBack() {
+      //this.$router.push({ name: "AgentList" });
+      this.$router.back();
     },
   },
   created() {

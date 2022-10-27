@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="stateform == FormState.LIST">
-      <div class="mt-4">
+      <div class="">
         <div class="row">
           <div class="col-12 p-0">
             <CTitle
@@ -307,8 +307,7 @@ export default {
     },
 
     handleBack() {
-      this.$router.back();
-      //this.$router.push("/catalogue/documentazione");
+      this.$router.back();     
     },
     deleteDocumentation() {
       this.$store

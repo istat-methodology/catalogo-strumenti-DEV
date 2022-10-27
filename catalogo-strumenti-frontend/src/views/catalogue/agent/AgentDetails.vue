@@ -9,6 +9,7 @@
         :authenticated="isAuthenticated"
         :buttons="['modifica', 'indietro']"
         @handleEdit="handleEdit(agent)"
+        @handleBack="handleBack"
       />
       <div class="row p-3">
         <div class="card col p-4">
@@ -60,9 +61,11 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
   },
   methods: {
-    backToList() {
-      this.$router.push("/catalogue/referenti");
+    handleBack() {
+      //this.$router.push("/catalogue/referenti");
+      this.$router.back();
     },
+    
     handleEdit(item) {
       this.$router.push({ name: "AgentEdit", params: { id: item.id } });
     },

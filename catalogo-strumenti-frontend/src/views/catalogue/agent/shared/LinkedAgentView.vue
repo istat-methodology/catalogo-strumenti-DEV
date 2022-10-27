@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <h2><span>6.</span> Referenti associati</h2>
     <div class="description-fields col-12">
       Elenco dei referenti associati allo strumento metodologico
