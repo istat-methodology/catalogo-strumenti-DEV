@@ -611,7 +611,18 @@ h4,
 h5 {
     vertical-align: baseline;
 }
-
 .uppercase {
     text-transform: uppercase;
+}
+
+
+.page-item {
+
+    color: #242424 !important;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #39f !important;
+    border-color: #39f !important;
 }
