@@ -3,16 +3,17 @@
   <div class="row">
     <div v-if="agent" class="col-12 pt-2">
       <div class="col-8 p-0">
-      <CTitle 
-            :maintitle="agent.name"
-            title="Referente"
-            buttonTitle=" Referente"
-            functionality="Modifica"
-            :authenticated="isAuthenticated"
-            :buttons="['salva', 'indietro']"
-            @handleSubmit="handleSubmit"
-          />
-      </div>   
+        <CTitle
+          :maintitle="agent.name"
+          title="Referente"
+          buttonTitle=" Referente"
+          functionality="Modifica"
+          :authenticated="isAuthenticated"
+          :buttons="['salva', 'indietro']"
+          @handleSubmit="handleSubmit"
+          @handleBack="handleBack"
+        />
+      </div>
       <CCard class="col-8 pl-2 pr-2">
         <CCardBody>
           <CInput
@@ -47,10 +48,10 @@
 <script>
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "AgentEdit",
-  components: { CTitle  },
+  components: { CTitle },
   data() {
     return {
       agentLocal: {
@@ -63,6 +64,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("agent", ["agent"]),
   },
 
@@ -78,7 +80,7 @@ export default {
       this.$v.$touch();
       if (!this.$v.agentLocal.$invalid) {
         this.$store.dispatch("agent/update", this.agentLocal).then(() => {
-          this.backToList();
+          this.handleback();
         });
       }
     },
@@ -89,8 +91,8 @@ export default {
       this.agentLocal.contact = this.agent.contact;
       this.agentLocal.notes = this.agent.notes;
     },
-    backToList() {
-      this.$router.push("/catalogue/referenti");
+    handleback() {
+      this.$router.push({ name: "AgentList" });
     },
   },
   created() {

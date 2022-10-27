@@ -310,6 +310,9 @@ export default {
     modalClose() {
       this.warningModal = false;
     },
+    handleBack() {
+      this.$router.back();      
+    },
   },
   created() {
     this.loadLinkedAgentList();

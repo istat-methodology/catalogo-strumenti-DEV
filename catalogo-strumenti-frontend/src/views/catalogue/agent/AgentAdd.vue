@@ -52,7 +52,7 @@
 </template>
 <script>
 import { required } from "vuelidate/lib/validators";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 import { mapGetters } from "vuex";
 
 //import { mapGetters } from "vuex";
