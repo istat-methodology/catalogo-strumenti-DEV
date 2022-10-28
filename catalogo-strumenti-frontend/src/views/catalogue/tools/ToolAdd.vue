@@ -87,7 +87,7 @@
             </CCard>
           </div>
           <div class="col-6">
-            <h4 class="mt-2 ml-1">{{ this.tipologia.name }}</h4>
+            <h4 class="mt-2 ml-1">Tipologia</h4>
             <CCard class="p-1 ml-1">
               <CCardBody>
                 <div class="col-12 p-0">
@@ -97,7 +97,7 @@
                   <select
                     class="p-1 ml-0 col-12 form-control"
                     @change="onChangeToolType($event)"
-                    v-model="toolLocal.toolType"
+                    v-model="tipologia"
                   >
                     <option
                       v-for="option in tooltypeList"
@@ -110,7 +110,7 @@
                 </div>
 
                 <div v-if="tooltypeList" class="mt-4 pt-2">
-                  <div v-if="this.tipologia.id == '3'">
+                  <div v-if="this.tipologia == '3'">
                     <!-- Procedura Software -->
                     <CInput
                       label="Codice"
@@ -143,7 +143,7 @@
                       v-model="toolLocal.technicalRequirements"
                     />
                   </div>
-                  <div v-if="this.tipologia.id == '2'">
+                  <div v-if="this.tipologia == '2'">
                     <!--Applicazione Desktop -->
                     <CInput
                       label="Download"
@@ -181,7 +181,7 @@
                       v-model="toolLocal.technicalRequirements"
                     />
                   </div>
-                  <div v-if="this.tipologia.id == '1'">
+                  <div v-if="this.tipologia == '1'">
                     <!-- Servizio Statistico -->
                     <CInput
                       label="Potocollo"
@@ -263,13 +263,13 @@ export default {
         documentations: [],
       },
       //gsbpmChecked: [],
-
-      /*tipologia: 0,      */
-
+        tipologia: 0
+      /*
       tipologia: {
-        id: 9,
+        id: 0,
         name: "Tipologia",
       },
+      */
     };
   },
   computed: {
@@ -315,7 +315,7 @@ export default {
       this.tipologia.id = value.id;
     },
     onChangeToolType(event) {
-      this.tipologia.id = event.target.value;
+      this.tipologia = event.target.value;     
     },
   },
   created() {
