@@ -1,27 +1,6 @@
 <template>
   <!-- wait until service is loaded -->
   <div>
-    <!--CCardHeader class="col-12 no-border p-0 pr-1">
-      <h2 class="text-info">
-        Nuovo Referente
-        <div class="card-header-actions">
-          <button
-            class="btn btn-outline-info"
-            @click.prevent="handleSubmit"
-            title="Salva"
-          >
-            <floppy-icon title="Salva" />
-          </button>
-          <button
-            class="btn btn-outline-info"
-            @click.prevent="goBack(false)"
-            title="Chiudi"
-          >
-            <close-icon title="Chiudi" />
-          </button>
-        </div>
-      </h2>
-    </CCardHeader-->
     <div class="col-12 p-0">
       <CTitle
         title="Nuovo Referente"
@@ -33,7 +12,6 @@
         @handleBack="goBack(false)"
       />
     </div>
-
     <CCard class="col-12 p-0">
       <CCardBody>
         <CInput

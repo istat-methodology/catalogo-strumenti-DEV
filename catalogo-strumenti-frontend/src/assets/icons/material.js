@@ -42,6 +42,7 @@ import CloseIcon from "icons/Close.vue";
 import CloseCircleIcon from "icons/CloseCircle.vue";
 import Floppy from "icons/Floppy.vue";
 
+import  Account  from 'icons/Account.vue';
 import  AccountPlus  from 'icons/AccountPlus.vue';
 
 
@@ -77,4 +78,5 @@ Vue.component("close-icon", CloseIcon);
 Vue.component("close-circle-icon", CloseCircleIcon);
 Vue.component("floppy-icon", Floppy);
 
+Vue.component("account-icon", Account);
 Vue.component("account-plus-icon", AccountPlus);

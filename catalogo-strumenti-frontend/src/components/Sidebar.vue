@@ -64,7 +64,7 @@
           class="c-sidebar-nav-link"
           :class="{ 'c-active': isAgentList }"
         >
-          <CIcon name="cil-at" class="c-sidebar-nav-icon" />Referenti
+        <account-icon class="c-sidebar-nav-icon pl-3" />Referenti
         </router-link>
       </li>
       <li class="c-sidebar-nav-item" v-if="isToolSession">

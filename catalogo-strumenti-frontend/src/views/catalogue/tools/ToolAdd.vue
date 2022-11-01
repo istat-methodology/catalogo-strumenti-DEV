@@ -97,7 +97,8 @@
                   <select
                     class="p-1 ml-0 col-12 form-control"
                     @change="onChangeToolType($event)"
-                    v-model="tipologia"
+                    v-model="toolLocal.toolType"
+                    :label="toolLocal.name"
                   >
                     <option
                       v-for="option in tooltypeList"
@@ -108,7 +109,6 @@
                     </option>
                   </select>
                 </div>
-
                 <div v-if="tooltypeList" class="mt-4 pt-2">
                   <div v-if="this.tipologia == '3'">
                     <!-- Procedura Software -->
@@ -263,14 +263,15 @@ export default {
         documentations: [],
       },
       //gsbpmChecked: [],
-        tipologia: 0
+        tipologia: 1,
+        value:0
       /*
       tipologia: {
         id: 0,
         name: "Tipologia",
       },
       */
-    };
+     };
   },
   computed: {
     ...mapGetters("tooltype", ["tooltypeList"]),
