@@ -97,8 +97,7 @@
                   <select
                     class="p-1 ml-0 col-12 form-control"
                     @change="onChangeToolType($event)"
-                    v-model="toolLocal.toolType"
-                    :label="toolLocal.name"
+                    v-model="tooltypeSelected"
                   >
                     <option
                       v-for="option in tooltypeList"
@@ -110,7 +109,7 @@
                   </select>
                 </div>
                 <div v-if="tooltypeList" class="mt-4 pt-2">
-                  <div v-if="this.tipologia == '3'">
+                  <div v-if="this.tooltypeSelected == '3'">
                     <!-- Procedura Software -->
                     <CInput
                       label="Codice"
@@ -143,7 +142,7 @@
                       v-model="toolLocal.technicalRequirements"
                     />
                   </div>
-                  <div v-if="this.tipologia == '2'">
+                  <div v-if="this.tooltypeSelected == '2'">
                     <!--Applicazione Desktop -->
                     <CInput
                       label="Download"
@@ -181,7 +180,7 @@
                       v-model="toolLocal.technicalRequirements"
                     />
                   </div>
-                  <div v-if="this.tipologia == '1'">
+                  <div v-if="this.tooltypeSelected == '1'">
                     <!-- Servizio Statistico -->
                     <CInput
                       label="Potocollo"
@@ -204,6 +203,7 @@
                       v-model="toolLocal.serviceDependencies"
                     />
                   </div>
+                  <div v-if="this.tooltypeSelected == '0'"></div>
                 </div>
               </CCardBody>
             </CCard>
@@ -263,15 +263,9 @@ export default {
         documentations: [],
       },
       //gsbpmChecked: [],
-        tipologia: 1,
-        value:0
-      /*
-      tipologia: {
-        id: 0,
-        name: "Tipologia",
-      },
-      */
-     };
+      value: 0,
+      tooltypeSelected: 0,
+    };
   },
   computed: {
     ...mapGetters("tooltype", ["tooltypeList"]),
@@ -310,13 +304,11 @@ export default {
       }
     },
     handleBack() {
-      this.$router.push({name:"ToolList"});
-    },
-    onChangeTipologia(value) {
-      this.tipologia.id = value.id;
+      this.$router.push({ name: "ToolList" });
     },
     onChangeToolType(event) {
-      this.tipologia = event.target.value;     
+      this.tooltypeSelected = event.target.value;
+      this.toolLocal.toolType = event.target.value;
     },
   },
   created() {
