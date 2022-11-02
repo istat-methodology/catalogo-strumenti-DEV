@@ -3,8 +3,7 @@ module.exports = {
   devServer: {
     host: "0.0.0.0",
     port: 8071,
-    compress: true,
-    disableHostCheck: true
+    compress: true
   },
   configureWebpack: {
     resolve: {
