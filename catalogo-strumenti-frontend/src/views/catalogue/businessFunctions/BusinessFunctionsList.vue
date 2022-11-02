@@ -1,20 +1,15 @@
 <template>
   <div>
-    <div>
-      <h2 class="p-1 mt-4 pb-2">
-        Processi
-        <div class="card-header-actions">
-          <button
-            class="btn btn-outline-primary"
-            type="button"
-            title="Nuovo processo"
-          >
-            <router-link tag="a" :to="{ name: 'BusinessFunctionsAdd' }">
-              <add-icon title="Nuovo processo" />
-            </router-link>
-          </button>
-        </div>
-      </h2>
+    <div>  
+      <CTitle
+        title="Processi"
+        buttonTitle=" Processo"
+        functionality="Elenco"
+        :authenticated="isAuthenticated"
+        :buttons="['aggiungi', 'indietro']"
+        @handleNew="handleNew"
+        @handleBack="handleBack"
+      />
       <div class="card fade-in">
         <CCardBody>
           <CDataTable
@@ -27,62 +22,36 @@
             hover
             pagination
             ><template #show_details="{ item }">
-              <td>
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'BusinessFunctionsDetails',
-                    params: { id: item.id },
-                  }"
-                >
-                  <view-icon />
-                </router-link>
-              </td>
-              <td v-if="isAuthenticated">
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'BusinessFunctionsEdit',
-                    params: { id: item.id },
-                  }"
-                >
-                  <edit-icon />
-                </router-link>
-              </td>
-              <td v-if="isAuthenticated">
-                <span class="icon-link" @click="modalOpen(item)"
-                  ><delete-icon
-                /></span>
-              </td>
-            </template>
+            <CTableLink
+              :authenticated="isAuthenticated"
+              @handleView="handleView(item)"
+              @handleEdit="handleEdit(item)"
+              @handleDelete="handleOpenModalDelete(item)"
+            />
+          </template>
           </CDataTable>
         </CCardBody>
       </div>
     </div>
-    <CModal title="Atttenzione!" :show.sync="warningModal">
-      <template #footer>
-        <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Chiudu
-        </CButton>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          @click="deleteBusiness"
-        >
-          Elimina
-        </CButton>
-      </template>
-      Sei sicuro di eliminare Business Function '{{ selectedBusiness.name }}' selezionata?
-    </CModal>
+    <CModalDelete
+      :message="getMessage()"
+      :showModal="showModal"
+      @closeModal="closeModal"
+      @handleDelete="handleDelete"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import CTitle from "../../../components/CTitle.vue";
+import CModalDelete from "../../../components/CModalDelete.vue";
+import CTableLink from "../../../components/CTableLink.vue";
+
 export default {
   name: "BusinessFunctionsList",
+  components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
       fields: [
@@ -115,7 +84,7 @@ export default {
         },
       ],
       selectedBusiness: {},
-      warningModal: false,
+      showModal: false,
     };
   },
   computed: {
@@ -152,14 +121,41 @@ export default {
       this.$store
         .dispatch("bFunction/delete", this.selectedBusiness.id)
         .catch(() => {});
-      this.warningModal = false;
+      this.showModal = false;
     },
-    modalOpen(app) {
+    handleOpenModalDelete(app) {
       this.selectedBusiness = app;
-      this.warningModal = true;
+      this.showModal = true;
     },
-    modalClose() {
-      this.warningModal = false;
+    
+    handleNew() {
+      this.$router.push({ name: "BusinessFunctionsAdd" });
+    },
+    handleBack() {
+      this.$router.push({ name: "Catalogue" });
+    },
+    handleView(item) {
+      this.$router.push({ name: "BusinessFunctionsDetails", params: { id: item.id } });
+    },
+    handleEdit(item) {
+      this.$router.push({ name: "BusinessFunctionsEdit", params: { id: item.id } });
+    },
+    handleDelete() {
+      /**this.$store
+      .dispatch("bFunction/delete", this.selectedBusiness.id)
+      .catch(() => {});
+      */
+      this.showModal = false;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    getMessage() {
+      return (
+        "Sei sicuro di eliminare il processo: " +
+        this.selectedBusiness.name +
+        " selezionato?"
+      );
     },
   },
   created() {
