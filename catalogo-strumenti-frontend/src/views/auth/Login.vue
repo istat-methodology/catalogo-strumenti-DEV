@@ -4,10 +4,10 @@
       <CRow class="justify-content-center">
         <CCol col="7" md="7" xl="6">
           <div class="card-group">
-            <div class="card text-white bg-gradient-primary d-md-down-none">
+            <div class="card text-white bg-gradient-info d-md-down-none">
               <div class="card-body text-center">
                 <div class="mt-2">
-                  <h2>Tools-Catalog</h2>
+                  <h2 class="text-white">Tools-Catalog</h2>
                   <p style="margin-bottom:5rem">
                     Benvenuti nell'applicazione Tools-Catalog. <br />
                     Un catalogo di strumenti per la produzione Statistica.
@@ -26,7 +26,7 @@
             </div>
             <CCard class="mb-0">
               <CCardHeader align="center">
-                <h3 class="mt-3">Accedi a Catalogo-Strumenti Metodologici</h3>
+                <h3 class="mt-3 text-info">Accedi a Catalogo-Strumenti Metodologici</h3>
               </CCardHeader>
               <CCardBody class="mb-0 mt-3">
                 <CAlert color="danger" v-if="errorMsg" class="text-center">
@@ -70,7 +70,7 @@
                         :disabled="isLoading"
                         shape="square"
                         size="sm"
-                        color="primary"
+                        color="info"
                         @click.prevent="handleSubmit"
                         @keyup.enter="handleSubmit"
                         >Sign in</CButton
