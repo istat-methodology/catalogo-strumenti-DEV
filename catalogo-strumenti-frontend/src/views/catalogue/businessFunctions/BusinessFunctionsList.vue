@@ -2,15 +2,15 @@
   <div>
     <div>  
       <CTitle
-        title="Processi"
-        buttonTitle=" Processo"
+        title="Business Functions"
+        buttonTitle=" Business Functions"
         functionality="Elenco"
         :authenticated="isAuthenticated"
         :buttons="['aggiungi', 'indietro']"
         @handleNew="handleNew"
         @handleBack="handleBack"
       />
-      <div class="card fade-in">
+      <CCard>
         <CCardBody>
           <CDataTable
             v-if="bFunctionList"
@@ -31,7 +31,7 @@
           </template>
           </CDataTable>
         </CCardBody>
-      </div>
+      </CCard>
     </div>
     <CModalDelete
       :message="getMessage()"
@@ -41,13 +41,12 @@
     />
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-import CTitle from "../../../components/CTitle.vue";
-import CModalDelete from "../../../components/CModalDelete.vue";
-import CTableLink from "../../../components/CTableLink.vue";
+import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+import CTableLink from "@/components/CTableLink.vue";
 
 export default {
   name: "BusinessFunctionsList",
@@ -55,11 +54,11 @@ export default {
   data() {
     return {
       fields: [
-        /*  {
+        {
           key: "id",
           label: "Identificativo",
           _style: "width:10%;"
-        }, */
+        },
         {
           key: "name",
           label: "Nome",
@@ -160,7 +159,7 @@ export default {
   },
   created() {
     this.$store
-      .dispatch("coreui/setContext", Context.BusinessList)
+      .dispatch("coreui/setContext", Context.BusinessFunctionSession)
       .catch(() => {});
     // if (this.params) {
     this.$store.dispatch("bFunction/filter", this.params).catch(() => {});

@@ -53,10 +53,12 @@ export default new Vuex.Store({
     documentationType,
     procStep,
     bProcess,
-    /* applications,
+    /* 
+    applications,
     methods,
     procedures,
-    services, */
+    services, 
+    */
     auth,
     error,
     gsbpm,
@@ -64,16 +66,20 @@ export default new Vuex.Store({
     message,
     version,
     tooltype,
-    /*  address,
-    dug, */
+    /*
+    address,
+    dug, 
+    */
     user,
     filter,
-    /*  progress,
+    /*
+    progress,
     daily,
     pivot,
     version,
     elencoComuni,
-    massive, */
+    massive, 
+    */
     role
   }
 });

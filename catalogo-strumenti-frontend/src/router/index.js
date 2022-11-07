@@ -122,6 +122,8 @@ const routes = [
           import("../views/catalogue/documentation/DocumentationDetails"),
         meta: { authorize: [] }
       },
+
+      /*****************************************************************************/
       {
         path: "catalogue/businessfunctions",
         name: "BusinessFunctionsList",
@@ -152,6 +154,31 @@ const routes = [
           ),
         meta: { authorize: [] }
       },
+
+      /*****************************************************************************/
+      {
+        path: "catalogue/businessprocesses",
+        name: "BusinessProcessList",
+        component: () =>
+          import("../views/catalogue/businessProcesses/BusinessProcessList"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/businessprocesses/aggiungi",
+        name: "BusinessProcessAdd",
+        component: () =>
+          import("../views/catalogue/businessProcesses/BusinessProcessAdd"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/businessprocess/dettaglio/:id",
+        name: "BusinessProcessDetails",
+        component: () =>
+          import("../views/catalogue/businessProcesses/BusinessProcessDetails"),
+        meta: { authorize: [] }
+      },
+
+      /*****************************************************************************/
       {
         path: "catalogue/referenti",
         name: "AgentList",

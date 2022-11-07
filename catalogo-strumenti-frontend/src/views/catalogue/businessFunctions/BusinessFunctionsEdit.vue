@@ -5,7 +5,7 @@
       <div class="row p-0">
         <div class="col-md-3"></div>
         <div class="col-md-9 p-0 pl-4">
-          <div class="col-12 p-0 pl-2">
+          <div class="col-10 p-0 pl-2">
             <h1 class="uppercase text-right p-0 pt-2 text-info">
               <span>
                 <span class="p-0">{{ bFunction.name | dashEmpty }}</span>
@@ -23,11 +23,11 @@
       >
         <CTab>
           <template #title>
-            <span>Business Function</span>
+            <span>Informazioni Generali</span>
           </template>
           <div v-if="bFunction">
             <div class="row p-0">
-              <div class="col-12 p-0">
+              <div class="col-10 p-0">
                 <CTitle
                   title="Informazioni Generali"
                   buttonTitle=" Informazioni Generali"
@@ -37,49 +37,48 @@
                   @handleSubmit="handleSubmit"
                   @handleBack="handleBack"
                 />
-              </div>
-
-              <CCard class="col-12 p-0">
-                <CCardBody>
-                  <CInput
-                    label="Nome*"
-                    placeholder="Nome"
-                    v-model="businessFunctionLocal.name"
-                    :class="{
-                      'is-invalid': $v.businessFunctionLocal.name.$error,
-                    }"
-                  />
-                  <div
-                    class="help-block"
-                    :class="{ show: $v.businessFunctionLocal.name.$error }"
-                  >
-                    Campo obbligatorio
-                  </div>
-                  <CInput
-                    label="Descrizione"
-                    placeholder="Descrizione"
-                    v-model="businessFunctionLocal.descr"
-                  />
-                  <CInput
-                    label="Etichetta"
-                    placeholder="Etichetta"
-                    v-model="businessFunctionLocal.label"
-                  />
-                  <div class="form-group" role="group">
-                    <label for="app-tree">Fasi GSBPM</label>
-
-                    <div id="app-tree" class="demo-tree">
-                      <treeselect
-                        v-model="gsbpmChecked"
-                        :multiple="true"
-                        :options="getGsbpmList"
-                        :disable-branch-nodes="true"
-                        :show-count="true"
-                      />
+                <CCard>
+                  <CCardBody>
+                    <CInput
+                      label="Nome*"
+                      placeholder="Nome"
+                      v-model="businessFunctionLocal.name"
+                      :class="{
+                        'is-invalid': $v.businessFunctionLocal.name.$error,
+                      }"
+                    />
+                    <div
+                      class="help-block"
+                      :class="{ show: $v.businessFunctionLocal.name.$error }"
+                    >
+                      Campo obbligatorio
                     </div>
-                  </div>
-                </CCardBody>
-              </CCard>
+                    <CInput
+                      label="Descrizione"
+                      placeholder="Descrizione"
+                      v-model="businessFunctionLocal.descr"
+                    />
+                    <CInput
+                      label="Etichetta"
+                      placeholder="Etichetta"
+                      v-model="businessFunctionLocal.label"
+                    />
+                    <div class="form-group" role="group">
+                      <label for="app-tree">Fasi GSBPM</label>
+
+                      <div id="app-tree" class="demo-tree">
+                        <treeselect
+                          v-model="gsbpmChecked"
+                          :multiple="true"
+                          :options="getGsbpmList"
+                          :disable-branch-nodes="true"
+                          :show-count="true"
+                        />
+                      </div>
+                    </div>
+                  </CCardBody>
+                </CCard>
+              </div>
             </div>
           </div>
         </CTab>
@@ -88,15 +87,14 @@
             <span>Processi</span>
           </template>
           <div v-if="this.bFunction">
-            <div v-if="this.bFunction">
-              <app-business-process-edit
-                :bFunctionName="bFunction.name"
-                @refreshBProcess="loadBusinessFunction"
-                :bProcesses="getBusinessProcesses"
-                :functionId="bFunction.id"
-              >
-              </app-business-process-edit>
-            </div>
+            <app-business-process-edit
+              v-if="this.bFunction"
+              :bFunctionName="bFunction.name"
+              @refreshBProcess="loadBusinessFunction"
+              :bProcesses="getBusinessProcesses"
+              :functionId="bFunction.id"
+            >
+            </app-business-process-edit>
           </div>
         </CTab>
       </CTabs>

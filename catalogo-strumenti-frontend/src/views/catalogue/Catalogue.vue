@@ -15,10 +15,10 @@
     </div>
 
     <div class="col-sm-6 col-md-4">
-      <h2 class="pt-5 pl-1 text-info">Processi</h2>
+      <h2 class="pt-5 pl-1 text-info">Business Functions</h2>
       <div class="card">
         <div class="card-body">
-          In questa sezione puoi trovare la lista dei processi.
+          In questa sezione puoi trovare la lista delle Business Functions.
           <p class="section-link">
             <router-link tag="a" :to="{ name: 'BusinessFunctionsList' }">
               <span>Vai alla lista <chevron-right-icon /></span>
@@ -27,6 +27,20 @@
         </div>
       </div>
     </div>
+
+    <!--div class="col-sm-6 col-md-4">
+      <h2 class="pt-5 pl-1 text-info">Processi</h2>
+      <div class="card">
+        <div class="card-body">
+          In questa sezione puoi trovare la lista dei Processi.
+          <p class="section-link">
+            <router-link tag="a" :to="{ name: 'BusinessProcessList' }">
+              <span>Vai alla lista <chevron-right-icon /></span>
+            </router-link>
+          </p>
+        </div>
+      </div>
+    </div-->
   </div>
 
   <!--div class="col-4">
@@ -67,6 +81,6 @@ export default {
   name: "Catalogue",
   created() {
     this.$store.dispatch("coreui/setContext", Context.Home);
-  }
+  },
 };
 </script>

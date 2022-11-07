@@ -8,6 +8,7 @@
     <div v-if="stateform == FormState.NEW_AGENT">
       <app-agent-add :goBackClose="true" @appClose="closeNewAgent" />
     </div>
+    
     <div v-if="stateform == FormState.NEW">
       <div class="col-12 p-0">
         <CTitle

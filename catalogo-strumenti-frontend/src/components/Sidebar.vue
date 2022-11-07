@@ -35,18 +35,6 @@
           Metodologici
         </router-link>
       </li>
-      <li class="c-sidebar-nav-item" v-if="isHome || isBusinessSession">
-        <router-link
-          tag="a"
-          :to="{ name: 'BusinessFunctionsList' }"
-          class="c-sidebar-nav-link c-sidebar-navlink"
-          :class="{ 'c-active': isBusinessSession }"
-          
-        >
-          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
-        </router-link>
-      </li>
-
       <li class="c-sidebar-nav-item" v-if="isToolSession">
         <router-link
           tag="a"
@@ -77,6 +65,32 @@
           <CIcon name="cil-layers" class="c-sidebar-nav-icon" />Documenti
         </router-link>
       </li>
+
+      <li class="c-sidebar-nav-item" v-if="isHome || isBusinessFunctionSession">
+        <router-link
+          tag="a"
+          :to="{ name: 'BusinessFunctionsList' }"
+          class="c-sidebar-nav-link c-sidebar-navlink"
+          :class="{ 'c-active': isBusinessFunctionSession }"
+          
+        >
+          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Business Functions
+        </router-link>
+      </li>
+
+      <li class="c-sidebar-nav-item" v-if="isBusinessFunctionSession">
+        <router-link
+          tag="a"
+          :to="{ name: 'BusinessProcessList' }"
+          class="c-sidebar-nav-link c-sidebar-navlink"
+          :class="{ 'c-active': isBusinessProcessSession }"
+          
+        >
+          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
+        </router-link>
+      </li>
+
+
       <!-- <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
       </li>
@@ -250,6 +264,7 @@ export default {
           },
         },
       ],
+      
       treeOptions: {
         checkbox: true,
         propertyNames: {
@@ -302,7 +317,7 @@ export default {
           .dispatch("filter/setParams", this.payload)
           .then(this.$store.dispatch("tools/filter", this.params));
       }
-      if (this.isBusinessList == true) {
+      if (this.isBusinessFunctionList == true) {
         this.$store
           .dispatch("filter/setParams", this.payload)
           .then(this.$store.dispatch("business/filter", this.params));
@@ -329,7 +344,7 @@ export default {
             .dispatch("filter/setParams", this.payload)
             .then(this.$store.dispatch("tools/filter", this.params));
         }
-        if (this.isBusinessList == true) {
+        if (this.isBusinessFunctionList == true) {
           this.$store
             .dispatch("filter/setParams", this.payload)
             .then(this.$store.dispatch("business/filter", this.params));
@@ -338,7 +353,7 @@ export default {
         if (this.isToolList == true) {
           this.$store.dispatch("tools/filter", this.params);
         }
-        if (this.isBusinessList == true) {
+        if (this.isBusinessFunctionList == true) {
           this.$store.dispatch("business/filter", this.params);
         }
       }
@@ -371,15 +386,22 @@ export default {
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
 
     ...mapGetters("gsbpm", ["gsbpmList"]),
-    ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("filter", ["params"]),
-    ...mapGetters("coreui", ["isToolList"]),
+    ...mapGetters("tooltype", ["tooltypeList"]),
+
+    
+    ...mapGetters("coreui", ["isToolList"]),    
     ...mapGetters("coreui", ["isMethodsList"]),
-    ...mapGetters("coreui", ["isAgentList"]),
+    ...mapGetters("coreui", ["isAgentList"]),    
     ...mapGetters("coreui", ["isDocumentationList"]),
-    ...mapGetters("coreui", ["isBusinessList"]),
-    ...mapGetters("coreui", ["isBusinessSession"]),
     ...mapGetters("coreui", ["isToolSession"]),
+    ...mapGetters("coreui", ["isBusinessFunctionSession"]),
+    ...mapGetters("coreui", ["isBusinessFunctionList"]),
+
+    ...mapGetters("coreui", ["isBusinessProcessSession"]),
+    ...mapGetters("coreui", ["isProcessFunctionList"]),
+
+
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",

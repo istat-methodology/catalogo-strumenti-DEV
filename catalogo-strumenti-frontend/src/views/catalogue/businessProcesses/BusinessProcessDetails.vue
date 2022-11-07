@@ -1,60 +1,51 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row" v-if="bFunction">
+  <div class="row" v-if="bProcess">
     <div class="col-8">
       <div>
         <div class="p-2">
           <CTitle
-            :title="bFunction.name"
-            :buttonTitle="bFunction.name"
+            :title="bProcess.name"
+            :buttonTitle="bProcess.name"
             functionality="Dettaglio"
             :authenticated="isAuthenticated"
             :buttons="['modifica', 'indietro']"
-            @handleEdit="handleEdit(bFunction)"
+            @handleEdit="handleEdit(bProcess)"
             @handleBack="handleBack"
           />
           <div class="pl-2">
             <div class="columns">
+
               <div class="row">
+                
                 <div class="description-fields col-12">
-                  {{ bFunction.descr | dashEmpty }}
-                </div>
-                <div class="card col-md-auto p-2">
-                  <span><strong>Fasi GSBPM</strong></span>
-                  <div class="card-slot p-2">
-                    {{
-                      bFunction.gsbpmProcesses
-                        .map((gsbpmProcess) => {
-                          return gsbpmProcess.code + " " + gsbpmProcess.name;
-                        })
-                        .join(", ") | dashEmpty
-                    }}
-                  </div>
+                  {{ bProcess.name | dashEmpty }}
+                </div>            
+
+                <div class="description-fields col-12">
+                  {{ bProcess.descr | dashEmpty }}
                 </div>
 
                 <div class="card col-md-auto p-2">
                   <span><strong>Etichetta</strong></span>
                   <div class="card-slot p-2">
-                    <span>{{ bFunction.label | dashEmpty }}</span>
+                    <span>{{ bProcess.label | dashEmpty }}</span>
                   </div>
                 </div>
+                
+                <div class="card col-md-auto p-2">
+                  <span><strong>Ordine</strong></span>
+                  <div class="card-slot p-2">
+                    <span>{{ bProcess.orderCode | dashEmpty }}</span>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div>
-        <div class="p-2">
-          <app-tools-function :tools="toolsByBfunction"></app-tools-function>
-        </div>
-      </div>
-      <div>
-        <div class="p-2">
-          <app-business-processview
-            :businessProcesses="getBusinessProcesses"
-          ></app-business-processview>
-        </div>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -63,15 +54,11 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import _ from "lodash";
-import BusinessProcessView from "../businessProcesses/shared/BusinessProcessView";
-import ToolsView from "../tools/shared/ToolsView";
 import CTitle from "../../../components/CTitle.vue";
 export default {
-  name: "BusinessFunctionsDetails",
+  name: "BusinessProcessDetails",
   components: {
-    "app-business-processview": BusinessProcessView,
-    "app-tools-function": ToolsView,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -82,22 +69,27 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("bFunction", ["bFunction"]),
+    ...mapGetters("bProcess", ["bProcess"]),
     ...mapGetters("tools", ["toolsByBfunction"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    getBusinessProcesses: function () {
-      return this.bFunction.businessProcesses.map((item) => {
-        return {
-          id: item.id,
-          name: item.name,
-          descr: item.descr,
-          label: item.label,
-          orderCode: item.orderCode,
-          parent: item.parent,
-          processSteps: item.processSteps,
-        };
-      });
+
+    /*getBusinessProcessList: function () {
+      if (this.bProcessList) {
+        return this.bProcessList.map((business) => {
+          return {
+            id: business.id,
+            name: business.name == null ? "" : business.name,
+            descr: business.descr == null ? "" : business.descr,
+            label: business.label == null ? "" : business.label,
+            order: business.orderCode == null ? "" : business.orderCode,
+          };
+        });
+      } else {
+        return [];
+      }
     },
+    */
+
   },
   methods: {
     setActiveItemList(selector, bool) {
@@ -133,7 +125,7 @@ export default {
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
-    this.$store.dispatch("bFunction/findById", this.$route.params.id);
+    this.$store.dispatch("bProcess/findById", this.$route.params.id);
     this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id);
   },
 };

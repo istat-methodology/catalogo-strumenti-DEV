@@ -5,15 +5,22 @@ const state = {
   sidebarMinimize: false,
   context: "",
   isLoading: false,
+
   isHome: false,
-  isToolList: false,
+
   isToolEdit: false,
+
+  isToolList: false,
   isMethodsList: false,
   isAgentList: false,
   isDocumentationList: false,
-  isBusinessList: false,
+  isBusinessFunctionSessionList: false,
+  isBusinessProcessSessionList: false,
+
   isToolSession: false,
-  isBusinessSession: false
+  isBusinessFunctionSession: false,
+  isBusinessProcessSession: false
+
 };
 
 const mutations = {
@@ -31,25 +38,31 @@ const mutations = {
   SET_CONTEXT(state, context) {
     this.clearContext;
     state.context = parseInt(context);
+   
     switch (parseInt(context)) {
       case Context.Home:
         state.isHome = true;
         break;
+
       case Context.ToolList:
         state.isToolList = true;
         state.isToolSession = true;
+
         break;
       case Context.ToolDetail:
         state.isToolDetail = true;
         state.isToolSession = true;
+
         break;
       case Context.ToolEdit:
         state.isToolEdit = true;
         state.isToolSession = true;
+
         break;
       case Context.MethodList:
         state.isMethodsList = true;
         state.isToolSession = true;
+
         break;
       case Context.AgentList:
         state.isAgentList = true;
@@ -59,13 +72,28 @@ const mutations = {
         state.isDocumentationList = true;
         state.isToolSession = true;
         break;
-      case Context.BusinessList:
-        state.isBusinessList = true;
-        state.isToolSession = false;
-        state.isBusinessSession = true;
+
+
+      case Context.BusinessFunctionSession:
+        state.isBusinessFunctionList = true;
+        state.isBusinessFunctionSession = true;
         break;
-      case Context.BusinessDetail:
-        state.isBusinessSession = true;
+      case Context.BusinessFunctionList:
+        state.isBusinessFunctionList = true;
+        state.isBusinessFunctionSession = true;
+        break;        
+      case Context.BusinessFunctionDetail:
+        state.isBusinessFunctionDetails = true;
+        state.isBusinessFunctionSession = true;
+        break;
+
+      case Context.BusinessProcessList:
+        state.isBusinessProcessSession = true;
+        state.isBusinessProcessSessionList = true;
+        break;
+      case Context.BusinessProcessSession:
+        state.isBusinessProcessSession = true;
+        state.isBusinessFunctionSession = true;
         break;
 
       default:
@@ -81,9 +109,14 @@ const mutations = {
     state.isMethodsList = false;
     state.isAgentList = false;
     state.isDocumentationList = false;
-    state.isBusinessList = false;
+
+    state.isBusinessFunctionSessionList = false;
+    state.isBusinessProcessSessionList = false;
+
     state.isToolSession = false;
-    state.isBusinessSession = false;
+    state.isBusinessFunctionSession = false;
+    state.isBusinessProcessSession = false;
+
   },
   set(state, [variable, value]) {
     state[variable] = value;
@@ -143,14 +176,21 @@ const getters = {
   isDocumentationList: state => {
     return state.isDocumentationList;
   },
-  isBusinessList: state => {
-    return state.isBusinessList;
+  isBusinessFunctionSessionList: state => {
+    return state.isBusinessFunctionSessionList;
   },
   isToolSession: state => {
     return state.isToolSession;
   },
-  isBusinessSession: state => {
-    return state.isBusinessSession;
+  isBusinessFunctionSession: state => {
+    return state.isBusinessFunctionSession;
+  },
+
+  isBusinessProcessSessionList: state => {
+    return state.isBusinessProcessSessionList;
+  },
+  isBusinessProcessSession: state => {
+    return state.isBusinessProcessSession;
   }
 };
 

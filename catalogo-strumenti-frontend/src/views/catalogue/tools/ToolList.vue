@@ -8,7 +8,7 @@
       buttonTitle=" Strumento Metodologico"
       functionality="Elenco"
       :authenticated="isAuthenticated"
-      :buttons="['aggiungi','indietro']"
+      :buttons="['aggiungi', 'indietro']"
       @handleNew="handleNew"
       @handleBack="handleBack"
     />
@@ -16,7 +16,6 @@
       <CCardBody>
         <CDataTable
           v-if="toolscatalog"
-          
           :items="computedItems"
           :fields="fields"
           column-filter
@@ -71,12 +70,12 @@ export default {
           _style: "width:30%;",
         },
         /*
-                {
-                  key: "methods",
-                  label: "Metodi",
-                  _style: "width:30%;",
-                },
-                */
+        {
+          key: "methods",
+          label: "Metodi",
+          _style: "width:30%;",
+        },
+        */
         {
           key: "description",
           label: "Descrizione",
@@ -130,12 +129,12 @@ export default {
       this.$router.push({ name: "ToolAdd" });
     },
     handleBack() {
-      this.$router.push({name:"Catalogue"});
+      this.$router.push({ name: "Catalogue" });
     },
-    handleView(item) {      
+    handleView(item) {
       this.$router.push({ name: "ToolDetails", params: { id: item.id } });
     },
-    handleEdit(item) {      
+    handleEdit(item) {
       this.$router.push({ name: "ToolEdit", params: { id: item.id } });
     },
     handleDelete() {

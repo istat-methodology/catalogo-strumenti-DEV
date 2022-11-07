@@ -1,110 +1,67 @@
 <template>
   <div>
-    <div>
-      <h2 class="p-1 mt-4 pb-2">
-        Processi
-        <div class="card-header-actions">
-          <button
-            class="btn btn-outline-primary"
-            type="button"
-            title="Nuovo processo"
-          >
-            <router-link tag="a" :to="{ name: 'BusinessFunctionsAdd' }">
-              <add-icon  title="Nuovo processo"/>
-            </router-link>
-          </button>
-        </div>
-      </h2>
-      <div class="card fade-in">
-        <!--  <CCard>
-          <CCardHeader>Elenco Strumenti</CCardHeader>
- -->
-        <CCardBody>
-          <CDataTable
-            v-if="bFunctionList"
-            :items="getBusinessFunctionList"
-            :fields="fields"
-            column-filter
-            :items-per-page="10"
-            sorter
-            hover
-            pagination
-            ><template #show_details="{ item }">
-              <td>
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'BusinessFunctionsDetails',
-                    params: { id: item.id },
-                  }"
-                >
-                  <view-icon />
-                </router-link>
-              </td>
-              <td v-if="isAuthenticated">
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'BusinessFunctionsEdit',
-                    params: { id: item.id },
-                  }"
-                >
-                  <edit-icon />
-                </router-link>
-              </td>
-              <td>
-                <span class="icon-link" @click="modalOpen(item)"
-                  ><delete-icon
-                /></span>
-              </td>
-
-              <!-- <td v-if="isAuthenticated">
-                <router-link tag="a" :to="{ name: 'ToolAdd' }">
-                  <delete-icon />
-                </router-link>
-              </td> -->
-            </template>
-          </CDataTable>
-        </CCardBody>
-        <!--   </CCard> -->
-      </div>
-    </div>
-    <CModal title="Warning!" :show.sync="warningModal">
-      <template #footer>
-        <CButton shape="square" size="sm" color="light" @click="modalClose">
-          Close
-        </CButton>
-        <CButton
-          shape="square"
-          size="sm"
-          color="primary"
-          @click="deleteBusiness"
+    <CTitle
+      title="Processi"
+      buttonTitle=" Processo"
+      functionality="Elenco"
+      :authenticated="isAuthenticated"
+      :buttons="['aggiungi', 'indietro']"
+      @handleNew="handleNew"
+      @handleBack="handleBack"
+    />
+    <CCard>
+      <CCardBody>
+        <CDataTable
+          v-if="bProcessList"
+          :items="computedItems"
+          :fields="fields"
+          column-filter
+          :items-per-page="10"
+          sorter
+          hover
+          pagination
         >
-          Delete
-        </CButton>
-      </template>
-      Elimina Business Function '{{ selectedBusiness.name }}'?
-    </CModal>
+          <template #show_details="{ item }">
+            <CTableLink
+              :authenticated="isAuthenticated"
+              @handleView="handleView(item)"
+              @handleEdit="handleEdit(item)"
+              @handleDelete="handleOpenModalDelete(item)"
+            />
+          </template>
+        </CDataTable>
+      </CCardBody>
+    </CCard>
+    <CModalDelete
+      :message="getMessage()"
+      :showModal="showModal"
+      @closeModal="closeModal"
+      @handleDelete="handleDelete"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+import CTableLink from "@/components/CTableLink.vue";
 export default {
-  name: "BusinessFunctionsList",
+  name: "BusinessProcessList",
+  components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
       fields: [
-        /*  {
+        {
           key: "id",
           label: "Identificativo",
-          _style: "width:10%;"
-        }, */
+          _style: "width:10%;",
+        },
         {
           key: "name",
           label: "Nome",
-          _style: "width:60%;",
+          _style: "width:30%;",
         },
         {
           key: "label",
@@ -112,9 +69,14 @@ export default {
           _style: "width:10%;",
         },
         {
-          key: "gsbpm",
-          label: "Gsbpm",
+          key: "descr",
+          label: "Descrizione",
           _style: "width:30%;",
+        },
+        {
+          key: "order",
+          label: "Order",
+          _style: "width:10%;",
         },
         {
           key: "show_details",
@@ -125,73 +87,83 @@ export default {
         },
       ],
       selectedBusiness: {},
-      warningModal: false,
+      showModal: false,
     };
   },
   computed: {
-    ...mapGetters("bFunction", ["bFunctionList"]),
+    ...mapGetters("bProcess", ["bProcessList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
-    /* getBusinessList() {
-      return this.businessList.map(item => {
-        return Object.assign({}, item, {
-          id: item.id,
-          name: item.name == null ? "" : item.name,
-          descr: item.descr == null ? "" : item.descr,
-          label: item.label == null ? "" : item.label,
-          gsbpm: item.gsbpmProcesses
-            .map(gsbpmProcess => {
-              return gsbpmProcess.name;
-            })
-            .join(", ")
-        });
-      });
-    } */
-    getBusinessFunctionList: function () {
-      if (this.bFunctionList) {
-        return this.bFunctionList.map((business) => {
-          return {
-            id: business.id,
-            name: business.name == null ? "" : business.name,
-            descr: business.descr == null ? "" : business.descr,
-            label: business.label == null ? "" : business.label,
-            gsbpm:
-              business.gsbpmProcesses == null
-                ? ""
-                : business.gsbpmProcesses
-                    .map((gsbpmProcess) => {
-                      return gsbpmProcess.code + " " + gsbpmProcess.name;
-                    })
-                    .join(", "),
-          };
+   
+   
+    computedItems: function () {
+      if (this.bProcessList) {
+        return this.bProcessList.map((item) => {
+          return Object.assign({}, item, {
+            id: item.id,
+            name: item.name == null ? "" : item.name,
+            descr: item.descr == null ? "" : item.descr,
+            label: item.label == null ? "" : item.label,
+            order: item.orderCode == null ? "" : item.orderCode,
+          });
         });
       } else {
         return [];
       }
     },
+    
+
   },
 
   methods: {
-    deleteBusiness() {
+    handleDelete() {
       this.$store
-        .dispatch("bFunction/delete", this.selectedBusiness.id)
+        .dispatch("bProcess/delete", this.selectedBusiness.id)
         .catch(() => {});
-      this.warningModal = false;
+      this.showModal = false;
     },
-    modalOpen(app) {
+
+    handleNew() {
+      this.$router.push({ name: "BusinessProcessAdd" });
+    },
+    handleBack() {
+      this.$router.push({ name: "Catalogue" });
+    },
+    handleView(item) {
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({
+        name: "BusinessProcessDetails",
+        params: { id: item.id },
+      });
+    },
+    handleEdit(item) {
+      //router.push({ name: 'user', params: { username } })
+      this.$router.push({
+        name: "BusinessProcessEdit",
+        params: { id: item.id },
+      });
+    },
+    handleOpenModalDelete(app) {
       this.selectedBusiness = app;
-      this.warningModal = true;
+      this.showModal = true;
     },
-    modalClose() {
-      this.warningModal = false;
+    closeModal() {
+      this.showModal = false;
+    },
+    getMessage() {
+      return (
+        "Sei sicuro di eliminare il processo " +
+        this.selectedBusiness.name +
+        " selezionato?"
+      );
     },
   },
   created() {
     this.$store
-      .dispatch("coreui/setContext", Context.BusinessList)
+      .dispatch("coreui/setContext", Context.BusinessProcessSession)
       .catch(() => {});
     // if (this.params) {
-    this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
+    this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
     //this.$store.dispatch("business/findAll");
     // }
   },

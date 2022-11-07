@@ -1,12 +1,26 @@
 export const Context = {
   Home: 0,
-  ToolList: 1,
-  ToolDetail: 2,
-  MethodList: 3,
-  AgentList: 4,
-  DocumentationList: 5,
-  BusinessList: 6,
-  BusinessDetail: 7,
-  BusinessEdit: 8,
-  ToolEdit: 9
+  
+  AgentSession: 1,
+  AgentList: 10,
+  
+  ToolSession: 2,
+  ToolList: 20,  
+  ToolDetail: 21,
+  ToolEdit: 22,
+  MethodList: 23,
+  
+  DocumentationSession: 3,
+  DocumentationList: 30,
+  
+  
+  BusinessFunctionSession:4,
+  BusinessFunctionList: 40,
+  BusinessFunctionDetail: 41,
+  BusinessFunctionEdit: 42,
+
+
+  BusinessProcessSession: 5,
+  BusinessProcessList: 50,
+
 };
