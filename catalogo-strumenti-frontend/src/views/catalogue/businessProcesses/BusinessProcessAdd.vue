@@ -34,14 +34,14 @@
           </span>
         </CCardHeader>
 
-        <!--div v-if="selectedEditStep">
+        <div v-if="selectedEditStep">
           <app-business-process-step-edit
             :bPStep="selectedEditStep"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
           >
           </app-business-process-step-edit>
-        </div-->
+        </div>
       </div>
 
       <div v-if="stateform == FormState.STEP_NEW">
@@ -58,15 +58,14 @@
           </span>
         </CCardHeader>
 
-        <!--div v-if="selectedEditProcess">
+        <div v-if="selectedEditProcess">
           <app-business-process-step-new
             :bProcess="selectedEditProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
           >
           </app-business-process-step-new>
-        </div-->
-
+        </div>
       </div>
       <div>
         <CTitle
@@ -113,16 +112,16 @@
 <script>
 import { mapGetters } from "vuex";
 //import BusinessProcessEdit from "./BusinessProcessEdit";
-//import ProcessStepEdit from "../../processSteps/shared/ProcessStepEdit";
-//import ProcessStepNew from "../../processSteps/shared/ProcessStepNew";
+import ProcessStepEdit from "../processSteps/shared/ProcessStepEdit";
+import ProcessStepNew from "../processSteps/shared/ProcessStepNew";
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessProcessEditView",
 
   components: {
     //"app-business-process-edit": BusinessProcessEdit,
-    //"app-business-process-step-edit": ProcessStepEdit,
-    //"app-business-process-step-new": ProcessStepNew,
+    "app-business-process-step-edit": ProcessStepEdit,
+    "app-business-process-step-new": ProcessStepNew,
     CTitle,
   },
   data() {
@@ -132,6 +131,7 @@ export default {
       selectedEditProcess: null,
       selectedEditStep: null,
       states: [],
+      
       FormState: {
         LIST: 0,
         EDIT: 1,

@@ -24,7 +24,7 @@
           />
         </div>
         <CTextarea
-          label="Descrizione"
+          label="Descrizione.............."
           placeholder="Descrizione"
           v-model="bProcessLocal.descr"
         />
@@ -151,8 +151,8 @@ export default {
     handleNewStep() {
       this.$emit("enableNewStep");
     },
-    goBack() {
-      this.$router.push("/catalogue/businessFunctions");
+    handleBack() {
+      this.$router.back();
     },
     deleteBProcess() {
       this.warningModal = false;

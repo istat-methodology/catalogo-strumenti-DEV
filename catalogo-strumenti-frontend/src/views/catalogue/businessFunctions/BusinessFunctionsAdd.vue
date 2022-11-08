@@ -83,8 +83,10 @@ export default {
           .then(this.$router.push("/catalogue/businessfunctions"));
       }
     },
+    
     handleBack() {
       this.$router.push("/catalogue/businessfunctions");
+
     },
   },
   created() {

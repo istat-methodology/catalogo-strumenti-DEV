@@ -64,54 +64,23 @@ export default {
     return {
       index: 1,
       subIndex: 0,
-
       activeIndex: -1,
     };
   },
   computed: {
     ...mapGetters("bProcess", ["bProcess"]),
     ...mapGetters("tools", ["toolsByBfunction"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
-
-    /*getBusinessProcessList: function () {
-      if (this.bProcessList) {
-        return this.bProcessList.map((business) => {
-          return {
-            id: business.id,
-            name: business.name == null ? "" : business.name,
-            descr: business.descr == null ? "" : business.descr,
-            label: business.label == null ? "" : business.label,
-            order: business.orderCode == null ? "" : business.orderCode,
-          };
-        });
-      } else {
-        return [];
-      }
-    },
-    */
+    ...mapGetters("auth", ["isAuthenticated"]),   
 
   },
   methods: {
-    setActiveItemList(selector, bool) {
-      document.querySelector(selector).className = bool
-        ? "list-item-hover"
-        : "list-item";
-    },
-    setActiveCard(selector, bool) {
-      document.querySelector(selector).className = bool ? "card-hover" : "card";
-    },
-    setActiveIndex(index) {
-      this.activeIndex !== index
-        ? (this.activeIndex = index)
-        : (this.activeIndex = -1);
-    },
     handleBack() {
-      this.$router.push({ name : "BusinessFunctionsList" });
+      this.$router.back();
     },
     handleEdit(item) {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
-        name: "BusinessFunctionsEdit",
+        name: "BusinessProcessEdit",
         params: { id: item.id },
       });
     },
@@ -120,7 +89,7 @@ export default {
       return dt.toLocaleDateString("it");
     },
     loadBFunction: _.debounce(function () {
-      this.$store.dispatch("bFuntion/findById", this.$route.params.id);
+      this.$store.dispatch("bProcess/findById", this.$route.params.id);
     }, 500),
   },
   created() {
