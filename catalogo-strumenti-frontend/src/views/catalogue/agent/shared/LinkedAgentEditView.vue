@@ -8,7 +8,7 @@
     <div v-if="stateform == FormState.NEW_AGENT">
       <app-agent-add :goBackClose="true" @appClose="closeNewAgent" />
     </div>
-    
+
     <div v-if="stateform == FormState.NEW">
       <div class="col-12 p-0">
         <CTitle
@@ -73,9 +73,8 @@
         @handleBack="handleBack"
       />
       <div class="columns pl-1">
-        <div class="row" >
-          <div
-            class="card"
+        <div class="row">
+          <CCard
             v-for="(linkedAgent, index) of getLinkedAgentList"
             :key="linkedAgent.id"
           >
@@ -136,7 +135,16 @@
                 />
               </div>
             </div>
-          </div>
+          </CCard>
+          <CCard class="col-12">
+            <CCardBody>
+              <div v-if="getLinkedAgentList.length == 0">
+                <label class="p-3 text-info"
+                  ><h4>Nessuna associazione</h4>
+                </label>
+              </div>
+            </CCardBody>
+          </CCard>
         </div>
       </div>
       <CModal
