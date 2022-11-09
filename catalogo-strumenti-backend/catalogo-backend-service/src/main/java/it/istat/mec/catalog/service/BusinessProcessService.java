@@ -79,7 +79,8 @@ public class BusinessProcessService {
 			throw new NoDataException("BusinessProcess not present");
 		BusinessProcess bp = businessProcessDao.findById(id).get();
 		businessProcessDao.delete(bp);
-		return Translators.translate(bp);
+		//return Translators.translate(bp);
+		return Boolean.TRUE;
 	}
 
 	public BusinessProcessDto addStepToBusinessProcess(Integer id_process, Integer id_step) {
