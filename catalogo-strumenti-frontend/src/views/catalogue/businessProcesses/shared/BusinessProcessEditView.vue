@@ -64,20 +64,19 @@
           </div>
         </div>
       </div>
-
+      <!-- 
+        Nuovo Processo
+      -->
       <div v-if="stateform == FormState.ADD_PROCESS">
         <CTitle
           title="Aggiungi Processo"
-          buttonTitle="Aggiungi Processo"
+          buttonTitle=" Aggiungi Processo"
           functionality=""
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
           @handleBack="stateform = FormState.LIST"
         />
-        <!-- 
-        Nuovo Processo
-        -->
         <div class="card">
           <div class="card-slot" v-if="bProcessList">
             <label>Elenco Processi esistenti</label>
@@ -95,14 +94,13 @@
           </div>
         </div>
       </div>
-
       <div v-if="stateform == FormState.EDIT">
         <CTitle
           :title="selectedEditProcess.name"
           :buttonTitle="selectedEditProcess.name"
           functionality=""
           :authenticated="isAuthenticated"
-          :buttons="['indietro']"
+          :buttons="['salva','indietro']"
           @handleBack="stateform = FormState.LIST"
         />
 
@@ -301,7 +299,6 @@ export default {
     handleSubmit() {
       this.bProcessLocal.businessFunction = this.functionId;
       console.log(this.bProcessLocal);
-
       this.$store
         .dispatch("bProcess/save", this.bProcessLocal)
         .then(this.$emit("refreshBProcess", this.functionId));
@@ -334,12 +331,11 @@ export default {
     },
 
     deleteBProcess() {
-      alert("da rivedere!");
-      /*
+      alert("da rivedere! vuoi cancellare la l'id:  " + this.selectedBProcess.id);
       this.$store
         .dispatch("bProcess/delete", this.selectedBProcess.id)
         .then(this.$emit("refreshBProcess"));
-      */
+      
       this.warningModal = false;
     },
 
@@ -352,7 +348,6 @@ export default {
     },
   },
   created() {
-    //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("bProcess/findAll");
   },

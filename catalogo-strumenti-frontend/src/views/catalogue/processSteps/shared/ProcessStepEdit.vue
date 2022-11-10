@@ -1,6 +1,9 @@
 <template>
   <div> 
     <div v-if="bPStepLocal">
+
+
+      
       <div class="card">
         <div class="row">
           <CInput

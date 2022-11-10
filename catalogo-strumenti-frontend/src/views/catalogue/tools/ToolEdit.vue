@@ -406,7 +406,7 @@ export default {
           }),
         };
       });
-    },
+    },    
     getMethodsList: function () {
       return this.statisticalMethodsList.map((method) => {
         return {
@@ -415,6 +415,7 @@ export default {
         };
       });
     },
+    
     getDocumentationList: function () {
       return this.documentationList.map((doc) => {
         return {
@@ -423,9 +424,10 @@ export default {
         };
       });
     },
+    
     getLinkedAgentList: function () {
       if (this.tool)
-        return this.tool.linkAgentsTools.map((agentTool) => {
+        return this.linkAgentsTools.map((agentTool) => {
           return {
             id: agentTool.id,
             tooId: this.tool.id,
@@ -454,6 +456,7 @@ export default {
         });
       } else return [];
     },
+    
   },
 
   methods: {
@@ -461,13 +464,11 @@ export default {
       this.toolLocal.toolType = this.tool.toolType.id;
       this.toolLocal.statisticalMethods = this.methodsChecked;
       this.toolLocal.gsbpmProcesses = this.gsbpmChecked;
-
       this.$store.dispatch("tools/update", this.toolLocal).then(() => {
         this.loadTool();
       });
     },
-    handleBack() {
-      //this.$router.push({ name: "ToolList" });
+    handleBack() {      
       this.$router.back();
     },
     setCheckedNodesGsbpm() {

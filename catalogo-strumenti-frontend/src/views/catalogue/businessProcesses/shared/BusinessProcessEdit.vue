@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="bProcessLocal">
-      <div class="card">
+      <!--div class="card">
         <div class="row">
           <CInput
             class="col-6"
@@ -28,13 +28,52 @@
           placeholder="Descrizione"
           v-model="bProcessLocal.descr"
         />
-      </div>
+      </div-->
+      <CCard>
+          <CCardBody>
+            <CInput
+              label="Nome*"
+              placeholder="Nome"
+              v-model="bProcessLocal.name"
+            />
+            <CTextarea
+              label="Descrizione"
+              placeholder="Descrizione"
+              v-model="bProcessLocal.descr"
+            />
+            <div class="row justify-content-between">
+              <CInput
+                class="col-4"
+                label="Etichetta"
+                placeholder="Etichetta"
+                v-model="bProcessLocal.label"
+              />
+              <CInput
+                label="Ordine"
+                type="number"
+                placeholder="Ordine"
+                v-model="bProcessLocal.orderCode"
+              />
+            </div>
+          </CCardBody>
+        </CCard>
+
+
+      <CTitle
+            title="Passi"
+            buttonTitle=" Passo"
+            functionality=""
+            :authenticated="isAuthenticated"
+            :buttons="['aggiungi']"
+            @handleSubmit="handleNewStep"            
+          />
 
       <span
         v-if="
           bProcessLocal.processSteps && bProcessLocal.processSteps.length > 0
         "
       >
+
         <strong>Passi:</strong>
         <span class="icon-link float-right" @click="handleNewStep()"
           ><add-icon />Nuovo Passo</span
@@ -63,9 +102,14 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "BusinessProcessEdit",
+  components: {
+    CTitle
+  },
   data() {
     return {
       fields: [
@@ -105,7 +149,9 @@ export default {
       warningModal: false
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"])
+  },
   emits: ["enableEditStep", "enableNewStep"],
 
   props: {
