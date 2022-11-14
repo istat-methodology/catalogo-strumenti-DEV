@@ -40,7 +40,6 @@
     />
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
@@ -93,9 +92,7 @@ export default {
   computed: {
     ...mapGetters("bProcess", ["bProcessList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("filter", ["params"]),
-   
-   
+    ...mapGetters("filter", ["params"]),     
     computedItems: function () {
       if (this.bProcessList) {
         return this.bProcessList.map((item) => {
@@ -110,11 +107,8 @@ export default {
       } else {
         return [];
       }
-    },
-    
-
+    },   
   },
-
   methods: {
     handleDelete() {
       this.$store
