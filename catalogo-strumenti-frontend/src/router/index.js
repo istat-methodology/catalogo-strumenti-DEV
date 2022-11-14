@@ -154,7 +154,6 @@ const routes = [
           ),
         meta: { authorize: [] }
       },
-
       /*****************************************************************************/
       {
         path: "catalogue/businessprocesses",
@@ -184,7 +183,6 @@ const routes = [
           import("../views/catalogue/businessProcesses/BusinessProcessDetails"),
         meta: { authorize: [] }
       },
-
       /*****************************************************************************/
       {
         path: "catalogue/referenti",

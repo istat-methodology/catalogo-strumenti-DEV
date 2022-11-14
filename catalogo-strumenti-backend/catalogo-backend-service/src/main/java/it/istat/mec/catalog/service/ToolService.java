@@ -202,7 +202,8 @@ public class ToolService {
 		if (!toolDao.findById(id).isPresent())
 			throw new NoDataException("Tool not present");
 			CatalogTool tool = toolDao.findById(id).get();
-			return toolDao.delete(tool);
+			toolDao.delete(tool);
+			return Boolean.TRUE;		
 	}
 
 	public List<CatalogToolMiniListDTO> findToolsByBusinessFunctions(Integer id) {

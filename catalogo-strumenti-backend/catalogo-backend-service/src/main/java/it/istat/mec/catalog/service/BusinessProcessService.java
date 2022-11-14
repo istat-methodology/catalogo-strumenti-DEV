@@ -77,8 +77,10 @@ public class BusinessProcessService {
 	public Boolean deleteBusinessProcess(Integer id) {
 		if (!businessProcessDao.findById(id).isPresent())
 			throw new NoDataException("BusinessProcess not present");
-		BusinessProcess bp = businessProcessDao.findById(id).get();
-		return businessProcessDao.delete(bp);
+		BusinessProcess bp = businessProcessDao.findById(id).get();		
+		businessProcessDao.delete(bp);
+		return Boolean.TRUE;
+		//return Translators.translate(bp);		
 	}
 
 	public BusinessProcessDto addStepToBusinessProcess(Integer id_process, Integer id_step) {
