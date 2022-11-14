@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 public class BusinessProcessMiniDto extends BaseDto {
-	
 	private static final long serialVersionUID = 8416262083164963412L;
-	
-	
 	private String descr;		
 	private String label;	
 	private String orderCode;	
 	private String parent;	
 	private List<BaseDescriptionDto> processSteps;
+	private List<BaseDescriptionDto> businessFunctions;
 }
 
