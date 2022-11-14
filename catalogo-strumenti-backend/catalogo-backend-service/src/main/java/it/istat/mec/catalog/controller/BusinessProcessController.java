@@ -56,14 +56,15 @@ public class BusinessProcessController {
 	}
 	
 	@DeleteMapping(value = "/businessprocesses/{id}")
-	public BusinessProcessDto deleteBusinessProcess(@PathVariable("id") Integer id) {
+	public Boolean deleteBusinessProcess(@PathVariable("id") Integer id) {
 
 		return businessProcessService.deleteBusinessProcess(id);
 	}
 	
 	@DeleteMapping(value = "/businessprocesses/{id_process}/steps/{id_step}")
-	public Boolean deleteStepFromBusinessProcess(@PathVariable("id_process") Integer id_process, 
+	public BusinessProcessDto deleteStepFromBusinessProcess(@PathVariable("id_process") Integer id_process, 
 			@PathVariable("id_step") Integer id_step) {
+
 		return businessProcessService.deleteStepFromBusinessProcess(id_process, id_step);
 	}
  
