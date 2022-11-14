@@ -89,10 +89,10 @@
           <div v-if="this.bFunction">
             <app-business-process-edit
               v-if="this.bFunction"
+              :bFunctionId="bFunction.id"
               :bFunctionName="bFunction.name"
-              @refreshBProcess="loadBusinessFunction"
               :bProcesses="getBusinessProcesses"
-              :functionId="bFunction.id"
+              @refreshBProcess="loadBusinessFunction"
             >
             </app-business-process-edit>
           </div>

@@ -275,12 +275,8 @@ export default {
   emits: ["refreshBProcess"],
 
   props: {
-    bProcesses: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
-    functionId: {
+
+    bFunctionId: {
       type: Number,
       required: true,
       default: null,
@@ -290,6 +286,11 @@ export default {
       required: true,
       default: null,
     },
+    bProcesses: {
+      type: Array,
+      required: true,
+      default: () => [],
+    }
   },
   methods: {
     changeBProcess(value) {
@@ -297,11 +298,11 @@ export default {
       alert(this.bProcessLocal.processStep);
     },
     handleSubmit() {
-      this.bProcessLocal.businessFunction = this.functionId;
+      this.bProcessLocal.businessFunction = this.bFunctionId;
       console.log(this.bProcessLocal);
       this.$store
         .dispatch("bProcess/save", this.bProcessLocal)
-        .then(this.$emit("refreshBProcess", this.functionId));
+        .then(this.$emit("refreshBProcess", this.bFunctionId));
 
       this.stateform = this.FormState.LIST;
     },
@@ -331,12 +332,15 @@ export default {
     },
 
     deleteBProcess() {
-      alert("da rivedere! vuoi cancellare la l'id:  " + this.selectedBProcess.id);
+      alert("da rivedere! vuoi cancellare la l'id:  " + this.bFunctionId + " / " + this.selectedBProcess.id);
+      
+      /*
+      
       this.$store
         .dispatch("bProcess/delete", this.selectedBProcess.id)
-        .then(this.$emit("refreshBProcess"));
-      
+        .then(this.$emit("refreshBProcess"));      
       this.warningModal = false;
+      */
     },
 
     modalOpen(app) {

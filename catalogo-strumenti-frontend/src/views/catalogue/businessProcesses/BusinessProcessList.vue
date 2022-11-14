@@ -13,7 +13,7 @@
       <CCardBody>
         <CDataTable
           v-if="bProcessList"
-          :items="computedItems"
+          :items="bProcessList"
           :fields="fields"
           column-filter
           :items-per-page="10"
@@ -21,13 +21,29 @@
           hover
           pagination
         >
-          <template #show_details="{ item }">
+          <template #show_details="{ item, index }">
             <CTableLink
               :authenticated="isAuthenticated"
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
               @handleDelete="handleOpenModalDelete(item)"
+              @handleDetails="setActiveIndex(index)"
             />
+          </template>          
+          <template #details="{ item, index }">
+            <CCard v-if="index == isActiveIndex">
+              <label>Business Functions associate</label>
+              <ul class="list-item-group">
+                <li
+                  class="list-item"
+
+                  v-for="(fld) in item.businessFunctions"
+                :key="fld.name"
+                >
+                  {{ fld.name }}
+                </li>
+              </ul>
+            </CCard>
           </template>
         </CDataTable>
       </CCardBody>
@@ -41,6 +57,9 @@
   </div>
 </template>
 <script>
+
+// const [items, setItems] = useState(usersData)
+
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import CTitle from "@/components/CTitle.vue";
@@ -51,6 +70,7 @@ export default {
   components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
+      
       fields: [
         {
           key: "id",
@@ -73,7 +93,7 @@ export default {
           _style: "width:30%;",
         },
         {
-          key: "order",
+          key: "orderCode",
           label: "Order",
           _style: "width:10%;",
         },
@@ -85,14 +105,18 @@ export default {
           filter: false,
         },
       ],
+      details:[],
+      setDetails:[],
       selectedBusiness: {},
       showModal: false,
+      activeIndex:-1
+      
     };
   },
   computed: {
     ...mapGetters("bProcess", ["bProcessList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("filter", ["params"]),     
+    ...mapGetters("filter", ["params"]),
     computedItems: function () {
       if (this.bProcessList) {
         return this.bProcessList.map((item) => {
@@ -102,14 +126,24 @@ export default {
             descr: item.descr == null ? "" : item.descr,
             label: item.label == null ? "" : item.label,
             order: item.orderCode == null ? "" : item.orderCode,
+            businessFunctions:
+              item.businessFunctions == null ? "" : item.businessFunctions,
           });
         });
       } else {
         return [];
       }
-    },   
+    },
+	  isActiveIndex() {
+      return this.activeIndex;
+    },
   },
   methods: {
+    setActiveIndex(index) {
+      this.activeIndex !== index
+        ? (this.activeIndex = index)
+        : (this.activeIndex = -1);
+    },
     handleDelete() {
       this.$store
         .dispatch("bProcess/delete", this.selectedBusiness.id)
@@ -137,10 +171,16 @@ export default {
         params: { id: item.id },
       });
     },
+    handleDetails(item) {
+      console.log(item);
+      this.view = !this.view;
+    },
+
     handleOpenModalDelete(app) {
       this.selectedBusiness = app;
       this.showModal = true;
     },
+
     closeModal() {
       this.showModal = false;
     },

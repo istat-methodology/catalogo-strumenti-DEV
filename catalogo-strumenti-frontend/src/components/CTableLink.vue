@@ -21,6 +21,11 @@
         ><delete-icon title="Elimina" class="text-info"/>
       </span>
     </td>
+    <td v-if="authenticated">
+      <span class="icon-link" @click="handleDetails"
+        ><plus-icon title="visualizza" class="text-info"/>
+      </span>
+    </td>
   </div>
 </template>
 
@@ -46,6 +51,9 @@ export default {
     },
     handleDelete() {
       this.$emit("handleDelete");
+    },
+    handleDetails() {
+      this.$emit("handleDetails");
     },
   },
 };
