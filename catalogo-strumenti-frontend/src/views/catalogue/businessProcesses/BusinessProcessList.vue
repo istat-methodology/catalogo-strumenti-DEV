@@ -31,19 +31,12 @@
             />
           </template>          
           <template #details="{ item, index }">
-            <CCard v-if="index == isActiveIndex">
-              <label>Business Functions associate</label>
-              <ul class="list-item-group">
-                <li
-                  class="list-item"
-
-                  v-for="(fld) in item.businessFunctions"
-                :key="fld.name"
-                >
-                  {{ fld.name }}
-                </li>
-              </ul>
-            </CCard>
+            <CTableDetails                             
+              title="...processo collegato alle Business Functions"
+              :items="item.businessFunctions"
+              :index="index"
+              :activeIndex="isActiveIndex"
+            />
           </template>
         </CDataTable>
       </CCardBody>
@@ -65,9 +58,10 @@ import { Context } from "@/common";
 import CTitle from "@/components/CTitle.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 import CTableLink from "@/components/CTableLink.vue";
+import CTableDetails from "@/components/CTableDetails.vue";
 export default {
   name: "BusinessProcessList",
-  components: { CTitle, CModalDelete, CTableLink },
+  components: { CTitle, CModalDelete, CTableLink, CTableDetails },
   data() {
     return {
       

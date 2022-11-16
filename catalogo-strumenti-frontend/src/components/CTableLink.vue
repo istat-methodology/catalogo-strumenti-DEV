@@ -23,8 +23,7 @@
     </td>
     <td v-if="authenticated">
       <span class="icon-link" @click="handleDetails"
-        ><plus-icon title="visualizza" class="text-info"/>
-      </span>
+        >...</span>
     </td>
   </div>
 </template>
