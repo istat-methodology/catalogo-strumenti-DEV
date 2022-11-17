@@ -24,6 +24,8 @@
           <template #show_details="{ item, index }">
             <CTableLink
               :authenticated="isAuthenticated"
+              :showDetails="showDetails"
+              :isItem="isItem(item)"
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
               @handleDelete="handleOpenModalDelete(item)"
@@ -103,6 +105,7 @@ export default {
       setDetails:[],
       selectedBusiness: {},
       showModal: false,
+      showDetails: true,
       activeIndex:-1
       
     };
@@ -133,6 +136,9 @@ export default {
     },
   },
   methods: {
+    isItem(item){
+     return item.businessFunctions.length > 0 ? true : false;
+    },
     setActiveIndex(index) {
       this.activeIndex !== index
         ? (this.activeIndex = index)

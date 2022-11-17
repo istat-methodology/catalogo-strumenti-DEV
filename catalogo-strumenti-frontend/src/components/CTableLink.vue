@@ -16,12 +16,12 @@
         ><edit-icon title="Modifica" class="text-info"/>
       </span>
     </td>
-    <td v-if="authenticated">
+    <td v-if="authenticated && !isItem">
       <span class="icon-link" @click="handleDelete"
         ><delete-icon title="Elimina" class="text-info"/>
       </span>
     </td>
-    <td v-if="authenticated">
+    <td v-if="authenticated && showDetails && isItem">
       <span class="icon-link" @click="handleDetails"
         >...</span>
     </td>
@@ -37,6 +37,14 @@ export default {
       default: () => "",
     },
     authenticated: {
+      Type: Boolean,
+      default: () => false,
+    },
+    showDetails: {
+      Type: Boolean,
+      default: () => false,
+    },
+    isItem: {
       Type: Boolean,
       default: () => false,
     },
