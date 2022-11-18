@@ -45,21 +45,20 @@
       </div>
       <div>
         <div class="p-2">
-          <app-tools-function :tools="toolsByBfunction"></app-tools-function>
+          <app-tools-function :tools="toolsByBfunction" />
         </div>
       </div>
       <div>
         <div class="p-2">
           <app-business-processview
             :businessProcesses="getBusinessProcesses"
-          ></app-business-processview>
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import _ from "lodash";
@@ -114,7 +113,7 @@ export default {
         : (this.activeIndex = -1);
     },
     handleBack() {
-      this.$router.push({ name : "BusinessFunctionsList" });
+      this.$router.push({ name: "BusinessFunctionsList" });
     },
     handleEdit(item) {
       //router.push({ name: 'user', params: { username } })

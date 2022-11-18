@@ -1,9 +1,12 @@
 <template>
   <div>
     <h2><span>4.</span> Business Functions</h2>
-  <div class="description-fields col-12">
-            *Elenco delle Business Functions in cui viene utilizzato lo strumento metodologico*
-              </div>
+
+    <div class="description-fields col-12">
+      *Elenco delle Business Functions in cui viene utilizzato lo strumento
+      metodologico*
+    </div>
+    
     <div class="columns">
       <div class="row">
         <div v-if="businessFunctions.length === 0">
@@ -23,7 +26,7 @@
                 tag="a"
                 :to="{
                   name: 'BusinessFunctionsDetails',
-                  params: { id: businessFunction.id }
+                  params: { id: businessFunction.id },
                 }"
               >
                 <view-icon />
@@ -45,9 +48,9 @@ export default {
     businessFunctions: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 <style scoped>

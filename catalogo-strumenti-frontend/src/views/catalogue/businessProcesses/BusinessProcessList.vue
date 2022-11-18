@@ -25,7 +25,7 @@
             <CTableLink
               :authenticated="isAuthenticated"
               :showDetails="showDetails"
-              :isItem="isItem(item)"
+              :isItem="isItem(item)"              
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
               @handleDelete="handleOpenModalDelete(item)"
@@ -137,12 +137,14 @@ export default {
   },
   methods: {
     isItem(item){
-     return item.businessFunctions.length > 0 ? true : false;
+     return item.businessFunctions.length> 0 ? true : false
     },
     setActiveIndex(index) {
+      
       this.activeIndex !== index
         ? (this.activeIndex = index)
         : (this.activeIndex = -1);
+      
     },
     handleDelete() {
       this.$store

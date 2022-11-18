@@ -1,6 +1,6 @@
 <template>
   <div v-if="items.length > 0">
-    <div v-if="index == activeIndex">
+    <div v-if="isShow()">
       <label class="m-2 "><i>{{ title }}</i></label>
       <ul class="list-group list-group-horizontal-sm border p-3">
         <li class="list-item mr-2" v-for="item in  items" :key="item.name">         
@@ -30,9 +30,15 @@ export default {
     items: {
       Type: Array,
       default: () => [],
-    },
+    },    
   },
+  methods: {
+    isShow() {
+      return this.activeIndex == this.index ? true: false;      
+    },
+  }
 };
+
 </script>
 <style scoped>
 .list-item {
@@ -40,6 +46,6 @@ export default {
     list-style: none !important;
     border-radius: 5px !important;
     padding: 10px !important;
-    font-size: small;
+    font-size: smaller;
   }
 </style>
