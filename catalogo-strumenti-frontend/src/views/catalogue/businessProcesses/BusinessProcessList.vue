@@ -22,22 +22,22 @@
           pagination
         >
           <template #show_details="{ item, index }">
-            <CTableLink
+            <CTableLink            
               :authenticated="isAuthenticated"
               :showDetails="showDetails"
-              :isItem="isItem(item)"              
+              :isItem="isItem(item)"             
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
               @handleDelete="handleOpenModalDelete(item)"
-              @handleDetails="setActiveIndex(index)"
+              @handleDetails="handleDetails(index)"
             />
           </template>          
           <template #details="{ item, index }">
             <CTableDetails                             
               title="...processo collegato alle Business Functions"
               :items="item.businessFunctions"
-              :index="index"
-              :activeIndex="isActiveIndex"
+              :activeIndex="activeIndex"            
+              :index="index"              
             />
           </template>
         </CDataTable>
@@ -52,9 +52,7 @@
   </div>
 </template>
 <script>
-
 // const [items, setItems] = useState(usersData)
-
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import CTitle from "@/components/CTitle.vue";
@@ -65,8 +63,7 @@ export default {
   name: "BusinessProcessList",
   components: { CTitle, CModalDelete, CTableLink, CTableDetails },
   data() {
-    return {
-      
+    return {      
       fields: [
         {
           key: "id",
@@ -107,7 +104,6 @@ export default {
       showModal: false,
       showDetails: true,
       activeIndex:-1
-      
     };
   },
   computed: {
@@ -130,29 +126,23 @@ export default {
       } else {
         return [];
       }
-    },
-	  isActiveIndex() {
-      return this.activeIndex;
-    },
+    }
   },
   methods: {
     isItem(item){
      return item.businessFunctions.length> 0 ? true : false
-    },
-    setActiveIndex(index) {
-      
+    },    
+    handleDetails(index) {      
       this.activeIndex !== index
         ? (this.activeIndex = index)
-        : (this.activeIndex = -1);
-      
-    },
+        : (this.activeIndex = -1);      
+    },    
     handleDelete() {
       this.$store
         .dispatch("bProcess/delete", this.selectedBusiness.id)
         .catch(() => {});
       this.showModal = false;
     },
-
     handleNew() {
       this.$router.push({ name: "BusinessProcessAdd" });
     },
@@ -173,16 +163,10 @@ export default {
         params: { id: item.id },
       });
     },
-    handleDetails(item) {
-      console.log(item);
-      this.view = !this.view;
-    },
-
     handleOpenModalDelete(app) {
       this.selectedBusiness = app;
       this.showModal = true;
     },
-
     closeModal() {
       this.showModal = false;
     },

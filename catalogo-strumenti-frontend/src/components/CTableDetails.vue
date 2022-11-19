@@ -18,7 +18,7 @@ export default {
     index: {
       Type: String,
       default: () => -1,
-    },
+    },    
     activeIndex: {
       Type: String,
       default: () => -1,
@@ -32,10 +32,11 @@ export default {
       default: () => [],
     },    
   },
+  
   methods: {
     isShow() {
       return this.activeIndex == this.index ? true: false;      
-    },
+    }
   }
 };
 
