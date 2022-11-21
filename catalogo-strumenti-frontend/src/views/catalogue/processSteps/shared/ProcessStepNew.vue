@@ -28,12 +28,7 @@
           placeholder="Descrizione"
           v-model="bPStepLocal.descr"
         />
-
-  
-
-
-      </div>
- 
+      </div> 
     </div>
   </div>
 </template>

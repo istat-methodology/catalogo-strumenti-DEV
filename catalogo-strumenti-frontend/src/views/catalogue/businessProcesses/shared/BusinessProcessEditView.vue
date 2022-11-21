@@ -114,7 +114,18 @@
       </div>
 
       <div v-if="stateform == FormState.STEP_EDIT">
-        <CCardHeader
+        <CTitle
+          :title="selectedEditProcess.name"
+          :buttonTitle="selectedEditProcess.name"
+          functionality=""
+          :authenticated="isAuthenticated"
+          :buttons="['salva','indietro']"
+          @handleBack="stateform = FormState.LIST"
+        />
+
+
+
+        <!--CCardHeader
           ><i>{{ this.bFunctionName | dashEmpty }}</i> >
           <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Modifica
           passo
@@ -125,7 +136,7 @@
           >
             <close-icon title="Chiudi" />
           </span>
-        </CCardHeader>
+        </CCardHeader-->
 
         <div v-if="selectedEditStep">
           <app-business-process-step-edit
@@ -138,7 +149,16 @@
       </div>
 
       <div v-if="stateform == FormState.STEP_NEW">
-        <CCardHeader
+
+        <CTitle
+          :title="selectedEditProcess.name"
+          :buttonTitle="selectedEditProcess.name"
+          functionality=""
+          :authenticated="isAuthenticated"
+          :buttons="['salva','indietro']"
+          @handleBack="stateform = FormState.LIST"
+        />
+        <!--CCardHeader
           ><i>{{ this.bFunctionName | dashEmpty }}</i> >
           <i>{{ this.selectedEditProcess.name | dashEmpty }}</i> > Nuovo passo
 
@@ -149,7 +169,7 @@
           >
             <close-icon title="Chiudi" />
           </span>
-        </CCardHeader>
+        </CCardHeader-->
 
         <div v-if="selectedEditProcess">
           <app-business-process-step-new

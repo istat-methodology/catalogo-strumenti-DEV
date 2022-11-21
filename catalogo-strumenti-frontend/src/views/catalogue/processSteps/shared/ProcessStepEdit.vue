@@ -1,9 +1,6 @@
 <template>
   <div> 
-    <div v-if="bPStepLocal">
-
-
-      
+    <div v-if="bPStepLocal">      
       <div class="card">
         <div class="row">
           <CInput
@@ -31,12 +28,9 @@
           placeholder="Descrizione"
           v-model="bPStepLocal.descr"
         />
-
- 
-            label="Strumento metodologico"
-              {{bPStepLocal.tool}}
-      
-         {{bPStepLocal}}  
+            <label>Strumento metodologico</label>
+            {{bPStepLocal.tool}}      
+            {{bPStepLocal}}  
         
 
 
