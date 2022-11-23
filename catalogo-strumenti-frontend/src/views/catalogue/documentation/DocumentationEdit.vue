@@ -3,17 +3,17 @@
   <div class="row">
     <div v-if="documentation" class="col-12 pt-2">
       <div class="col-8 p-0">
-        <CTitle 
-            :maintitle="documentation.name"
-            title="Documento"
-            buttonTitle=" Documento"
-            functionality="Modifica"
-            :authenticated="isAuthenticated"
-            :buttons="['salva', 'indietro']"
-            @handleSubmit="handleSubmit"
-            @handleBack="handleBack"
-          />
-      </div>  
+        <CTitle
+          :maintitle="documentation.name"
+          title="Documento"
+          buttonTitle=" Documento"
+          functionality="Modifica"
+          :authenticated="isAuthenticated"
+          :buttons="['salva', 'indietro']"
+          @handleSubmit="handleSubmit"
+          @handleBack="handleBack"
+        />
+      </div>
       <CCard class="col-8 p-0 pl-1 pr-1">
         <CCardBody>
           <div class="form-group">
@@ -64,11 +64,11 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "DocumentationEdit",
-  components: { CTitle  },
+  components: { CTitle },
   data() {
     return {
       disabled: false,
@@ -79,26 +79,26 @@ export default {
         documentType: "",
         notes: "",
         resource: "",
-        tool: "",
-      },
+        tool: ""
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("documentationType", ["documentationTypeList"]),
-    ...mapGetters("tools", ["toolscatalog"])    
+    ...mapGetters("tools", ["toolscatalog"])
   },
 
   validations: {
     documentationLocal: {
       name: {
-        required,
+        required
       },
       documentType: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     changeTool(value) {
@@ -126,17 +126,17 @@ export default {
       this.documentationLocal.notes = this.documentation.notes;
       this.documentationLocal.resource = this.documentation.resource;
     },
-    handleBack(){
+    handleBack() {
       //this.$router.push("/catalogue/documentazione");
       this.$router.back();
     },
-    reloadMethod: _.debounce(function () {
+    reloadMethod: _.debounce(function() {
       this.$store
         .dispatch("documentation/findById", this.documentationLocal.id)
         .then(() => {
           this.setOldValues();
         });
-    }, 500),
+    }, 500)
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
@@ -147,6 +147,6 @@ export default {
       });
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  },
+  }
 };
 </script>

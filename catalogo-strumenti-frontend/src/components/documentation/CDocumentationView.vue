@@ -44,7 +44,7 @@
 </template>
 <script>
 export default {
-  name: "DocumentationView",
+  name: "CDocumentationView",
   props: {
     documentations: {
       type: Array,

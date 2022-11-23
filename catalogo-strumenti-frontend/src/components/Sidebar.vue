@@ -4,7 +4,7 @@
     :minimize="minimize"
     :show="show"
     @update:show="
-      (value) => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
+      value => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
     "
   >
     <CSidebarBrand class="d-md-down-none" to="/">
@@ -52,7 +52,7 @@
           class="c-sidebar-nav-link"
           :class="{ 'c-active': isAgentList }"
         >
-        <account-icon class="c-sidebar-nav-icon pl-3" />Referenti
+          <account-icon class="c-sidebar-nav-icon pl-3" />Referenti
         </router-link>
       </li>
       <li class="c-sidebar-nav-item" v-if="isToolSession">
@@ -72,9 +72,9 @@
           :to="{ name: 'BusinessFunctionsList' }"
           class="c-sidebar-nav-link c-sidebar-navlink"
           :class="{ 'c-active': isBusinessFunctionSession }"
-          
         >
-          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Business Functions
+          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Business
+          Functions
         </router-link>
       </li>
 
@@ -84,12 +84,10 @@
           :to="{ name: 'BusinessProcessList' }"
           class="c-sidebar-nav-link c-sidebar-navlink"
           :class="{ 'c-active': isBusinessProcessSession }"
-          
         >
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
         </router-link>
       </li>
-
 
       <!-- <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
@@ -131,7 +129,8 @@
             Checked checkbox
           </label>
         </div>
-      </li> --> <!-- 
+      </li> -->
+      <!-- 
       <li class="c-sidebar-nav-title" v-if="isToolList">Tipo Strumento</li>
       <li class="c-sidebar-nav-item" v-if="isToolList">
         <div id="app-tree" class="demo-tree">
@@ -173,7 +172,7 @@ export default {
   name: "Sidebar",
   // mixins: [progressMixin],
   components: {
-   // tree: LiquorTree,
+    // tree: LiquorTree,
   },
   data() {
     return {
@@ -190,9 +189,9 @@ export default {
               text: "Using jQuery to Work with the DOM Tree",
               children: [
                 { text: "Loading jQuery on Your HTML Page" },
-                { text: "Replacing the Heading Text Using jQuery" },
-              ],
-            },
+                { text: "Replacing the Heading Text Using jQuery" }
+              ]
+            }
           ],
           state: {
             selected: false,
@@ -206,8 +205,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         },
         {
           id: "inputs-radio-2",
@@ -224,8 +223,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         },
         {
           id: "inputs-checkbox-2",
@@ -242,8 +241,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         },
         {
           id: "inputs-checkbox-3",
@@ -260,26 +259,26 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
-        },
+            dropable: true
+          }
+        }
       ],
-      
+
       treeOptions: {
         checkbox: true,
         propertyNames: {
           text: "text",
-          children: "children",
-        },
+          children: "children"
+        }
       },
       modelDefaults: {
         expanderTitle: "Expand this node",
         customizations: {
           classes: {
             treeViewNodeSelfExpander: "action-button",
-            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right",
-          },
-        },
+            treeViewNodeSelfExpandedIndicator: "fas fa-chevron-right"
+          }
+        }
       },
       checkedNodesGsbpm: [],
       checkedNodesType: [],
@@ -287,9 +286,9 @@ export default {
       payload: [
         {
           gsbpm: null,
-          type: null,
-        },
-      ],
+          type: null
+        }
+      ]
     };
   },
   methods: {
@@ -374,7 +373,7 @@ export default {
       this.payload.gsbpm = gsbpm;
       this.payload.type = type;
       //this.$store.dispatch("tools/filter", this.payload);
-    },
+    }
     /* getGsbpmList() {
       let rbNodes = this.$refs.treeInputs.getCheckedRadioButtons();
       let cbNodes = this.$refs.treeInputs.getCheckedCheckboxes();
@@ -389,10 +388,9 @@ export default {
     ...mapGetters("filter", ["params"]),
     ...mapGetters("tooltype", ["tooltypeList"]),
 
-    
-    ...mapGetters("coreui", ["isToolList"]),    
+    ...mapGetters("coreui", ["isToolList"]),
     ...mapGetters("coreui", ["isMethodsList"]),
-    ...mapGetters("coreui", ["isAgentList"]),    
+    ...mapGetters("coreui", ["isAgentList"]),
     ...mapGetters("coreui", ["isDocumentationList"]),
     ...mapGetters("coreui", ["isToolSession"]),
     ...mapGetters("coreui", ["isBusinessFunctionSession"]),
@@ -401,23 +399,22 @@ export default {
     ...mapGetters("coreui", ["isBusinessProcessSession"]),
     ...mapGetters("coreui", ["isProcessFunctionList"]),
 
-
     ...mapGetters("coreui", {
       show: "sidebarShow",
       minimize: "sidebarMinimize",
-      isHome: "isHome",
+      isHome: "isHome"
     }),
 
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
             };
           }),
 
@@ -433,8 +430,8 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         };
       });
     },
@@ -452,8 +449,8 @@ export default {
         };
       });
     } */
-    getTooltypeList: function () {
-      return this.tooltypeList.map((tool) => {
+    getTooltypeList: function() {
+      return this.tooltypeList.map(tool => {
         return {
           // ...gsbpm,
           id: tool.id,
@@ -470,16 +467,16 @@ export default {
             editable: true,
             dragging: false,
             draggable: true,
-            dropable: true,
-          },
+            dropable: true
+          }
         };
       });
-    },
+    }
   },
   created() {
     this.$store.dispatch("gsbpm/findAll");
     this.$store.dispatch("tooltype/findAll");
-  },
+  }
 };
 </script>
 

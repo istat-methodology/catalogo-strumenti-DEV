@@ -110,7 +110,6 @@
   </div>
 </template>
 <script>
-
 import { mapGetters } from "vuex";
 //import BusinessProcessEdit from "./BusinessProcessEdit";
 import ProcessStepEdit from "../processSteps/shared/ProcessStepEdit";
@@ -123,7 +122,7 @@ export default {
     //"app-business-process-edit": BusinessProcessEdit,
     "app-business-process-step-edit": ProcessStepEdit,
     "app-business-process-step-new": ProcessStepNew,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -132,14 +131,14 @@ export default {
       selectedEditProcess: null,
       selectedEditStep: null,
       states: [],
-      
+
       FormState: {
         LIST: 0,
         EDIT: 1,
         NEW: 2,
         ADD_PROCESS: 3,
         STEP_EDIT: 4,
-        STEP_NEW: 5,
+        STEP_NEW: 5
       },
       stateform: 0,
       warningModal: false,
@@ -149,13 +148,13 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
-      },
+        businessFunction: ""
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("bProcess", ["bProcessList"])
   },
   emits: ["refreshBProcess"],
 
@@ -163,18 +162,18 @@ export default {
     bProcesses: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     functionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     bFunctionName: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     changeBProcess(value) {
@@ -205,13 +204,13 @@ export default {
     },
     handleBack() {
       this.$router.push({ name: "BusinessProcessList" });
-    },
+    }
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("bProcess/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
@@ -274,4 +273,3 @@ body {
   }
 }
 </style>
-

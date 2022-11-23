@@ -24,7 +24,7 @@
               <div class="card-slot p-2">
                 {{
                   tool.gsbpmProcesses
-                    .map((gsbpmProcess) => {
+                    .map(gsbpmProcess => {
                       return gsbpmProcess.code + " " + gsbpmProcess.name;
                     })
                     .join(", ") | dashEmpty
@@ -200,22 +200,22 @@
       </div>
 
       <div class="p-2">
-        <app-methods
+        <CStatisticalMethodView
           :indexLabel="'2.'"
           :descriptionLabel="'Metodi statistici implementati nello strumento'"
           :statisticalMethods="tool.statisticalMethods"
         />
       </div>
       <div v-if="businessServiceService" class="p-2">
-        <app-business-service
+        <CBusinessServiceView
           :businessServiceService="businessServiceService"
         />
       </div>
       <div v-if="bFunctionToolsList" class="p-2">
-        <app-business-functions :businessFunctions="bFunctionToolsList" />
+        <CBusinessFunctionsView :businessFunctions="bFunctionToolsList" />
       </div>
       <div class="p-2">
-        <app-documentations
+        <CDocumentationView
           :index="'5.'"
           :documentations="getDocumentationList"
           :descriptionLabel="'Documentazione'"
@@ -228,26 +228,28 @@
   </div>
 </template>
 <script>
-
 /* import { required } from "vuelidate/lib/validators"; */
-import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
-import BusinessFunctionsView from "../businessFunctions/shared/BusinessFunctionsView";
-import DocumentationView from "../documentation/shared/DocumentationView";
-import LinkedAgentView from "../agent/shared/LinkedAgentView";
-import BusinessServiceView from "./shared/BusinessServiceView";
+
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-import CTitle from "../../../components/CTitle.vue";
+import CStatisticalMethodView from "@/components/statisticalMethod/CStatisticalMethodView.vue";
+import CBusinessFunctionsView from "@/components/businessFunctions/CBusinessFunctionsView.vue";
+import CDocumentationView from "@/components/documentation/CDocumentationView.vue";
+import CBusinessServiceView from "@/components/businessService/CBusinessServiceView.vue";
+
+import LinkedAgentView from "../agent/shared/LinkedAgentView";
+
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "ToolDetails",
   components: {
-    "app-documentations": DocumentationView,
-    "app-methods": StatisticalMethodView,
+    CDocumentationView,
+    CStatisticalMethodView,
+    CBusinessServiceView,
+    CBusinessFunctionsView,
     "app-linkedAgents": LinkedAgentView,
-    "app-business-service": BusinessServiceView,
-    "app-business-functions": BusinessFunctionsView,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -259,157 +261,157 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:80%;",
+          _style: "width:80%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       fieldsAgent: [
         {
           key: "agentName",
           label: "Nome",
-          _style: "width:60%;",
+          _style: "width:60%;"
         },
         {
           key: "agentRole",
           label: "Ruolo",
-          _style: "width:39%;",
+          _style: "width:39%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       fieldsGsbpm: [
         {
           key: "label",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "code",
           label: "Codice",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "active",
           label: "Attivo",
-          _style: "width:20%;",
-        },
+          _style: "width:20%;"
+        }
       ],
       fieldsDocumentation: [
         {
           key: "name",
           label: "Nome",
-          _style: "width:90%;",
+          _style: "width:90%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       fieldsFunctions: [
         {
           key: "name",
-          label: "name",
+          label: "name"
         },
         {
           key: "descr",
-          label: "descr",
+          label: "descr"
         },
         {
           key: "processDesigns",
-          label: "processDesigns",
+          label: "processDesigns"
         },
         {
           key: "stepInstances",
-          label: "stepInstances",
+          label: "stepInstances"
         },
         {
           key: "substep",
-          label: "substep",
-        },
+          label: "substep"
+        }
       ],
       processDesigns: [
         {
           key: "id",
-          label: "id",
+          label: "id"
         },
         {
           key: "name",
-          label: "name",
+          label: "name"
         },
         {
           key: "descr",
-          label: "descr",
+          label: "descr"
         },
         {
           key: "step",
-          label: "step",
+          label: "step"
         },
         {
           key: "designType",
-          label: "designType",
+          label: "designType"
         },
         {
           key: "informationObject",
-          label: "informationObject",
-        },
+          label: "informationObject"
+        }
       ],
       designType: [
         {
           key: "id",
-          label: "id",
+          label: "id"
         },
         {
           key: "type",
-          label: "type",
-        },
+          label: "type"
+        }
       ],
       informationObject: [
         {
           key: "businessService",
-          label: "businessService",
+          label: "businessService"
         },
         {
           key: "csmAppRoleId",
-          label: "csmAppRoleId",
+          label: "csmAppRoleId"
         },
         {
           key: "name",
-          label: "name",
+          label: "name"
         },
         {
           key: "descr",
-          label: "descr",
+          label: "descr"
         },
         {
           key: "processDesign",
-          label: "processDesign",
-        },
-      ],
+          label: "processDesign"
+        }
+      ]
     };
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
     ...mapGetters("businessService", {
-      businessServiceService: "businessService",
+      businessServiceService: "businessService"
     }),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bFunction", ["bFunctionToolsList"]),
-    getLinkedAgentList: function () {
-      return this.tool.linkAgentsTools.map((agentTool) => {
+    getLinkedAgentList: function() {
+      return this.tool.linkAgentsTools.map(agentTool => {
         return {
           id: agentTool.id,
           agentId: agentTool.agent.id,
@@ -419,36 +421,36 @@ export default {
           agentNotes: agentTool.agent.notes,
           agentRole: agentTool.role,
           notes: agentTool.notes,
-          referenceDate: agentTool.referenceDate,
+          referenceDate: agentTool.referenceDate
         };
       });
     },
-    getGsbpmList: function () {
-      return this.tool.gsbpmProcesses.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.tool.gsbpmProcesses.map(gsbpm => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
           code: gsbpm.code,
           label: gsbpm.name,
-          active: gsbpm.active,
+          active: gsbpm.active
         };
       });
     },
 
-    getDocumentationList: function () {
-      return this.tool.documentations.map((doc) => {
+    getDocumentationList: function() {
+      return this.tool.documentations.map(doc => {
         return {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
           documentType: doc.documentType.name,
-          resource: doc.resource,
+          resource: doc.resource
         };
       });
     },
     isActiveIndex() {
       return this.activeIndex;
-    },
+    }
   },
   methods: {
     setActiveItemList(selector, bool) {
@@ -465,8 +467,7 @@ export default {
         : (this.activeIndex = -1);
     },
     handleBack() {
-      this.$router.push({ name : "ToolList" });
-
+      this.$router.push({ name: "ToolList" });
     },
     formatDate(dt) {
       dt = new Date(dt);
@@ -475,29 +476,27 @@ export default {
     handleEdit(item) {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({ name: "ToolEdit", params: { id: item.id } });
-    },
+    }
   },
   created() {
-    this.$store
-      .dispatch("tools/findById", this.$route.params.id)
-      .then((tool) => {
-        if (tool && tool.businessService) {
-          this.$store.dispatch(
-            "businessService/findById",
-            tool.businessService.id
-          );
-          this.$store.dispatch(
-            "bFunction/findBFunctionsByBService",
-            tool.businessService.id
-          );
-        }
-      });
+    this.$store.dispatch("tools/findById", this.$route.params.id).then(tool => {
+      if (tool && tool.businessService) {
+        this.$store.dispatch(
+          "businessService/findById",
+          tool.businessService.id
+        );
+        this.$store.dispatch(
+          "bFunction/findBFunctionsByBService",
+          tool.businessService.id
+        );
+      }
+    });
     this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  },
+  }
 };
 </script>
 
-<style scoped>
+<style>
 .icon-prop {
   display: inline;
   padding-left: 6px;
@@ -541,3 +540,4 @@ legend.scheduler-border {
 .max-col {
   max-width: 5%;
 }
+</style>

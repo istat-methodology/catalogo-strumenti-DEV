@@ -16,14 +16,13 @@ const mutations = {
 };
 
 const actions = {
- 
   save({ commit, dispatch }, payload) {
     return linkedAgentService
       .save(payload)
       .then(data => {
         //console.log(data);
         commit("SET_LINKEDAGENT", data);
-        
+
         dispatch("message/success", "Associazione salvata!", {
           root: true
         });
@@ -43,13 +42,13 @@ const actions = {
         console.log(err);
       });
   },
-   
+
   update({ commit, dispatch }, payload) {
     return linkedAgentService
       .update(payload)
       .then(data => {
         commit("SET_LINKEDAGENT", data);
-        
+
         dispatch("message/success", "Associazione aggiornata!", {
           root: true
         });
@@ -62,7 +61,6 @@ const actions = {
     return linkedAgentService
       .delete(id)
       .then(() => {
-        
         dispatch("message/success", "Associazione eliminata!", {
           root: true
         });
@@ -71,7 +69,6 @@ const actions = {
         console.log(err);
       });
   }
-
 };
 
 const getters = {

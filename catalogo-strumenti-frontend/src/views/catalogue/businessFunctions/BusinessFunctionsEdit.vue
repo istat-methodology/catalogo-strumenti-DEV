@@ -44,7 +44,7 @@
                       placeholder="Nome"
                       v-model="businessFunctionLocal.name"
                       :class="{
-                        'is-invalid': $v.businessFunctionLocal.name.$error,
+                        'is-invalid': $v.businessFunctionLocal.name.$error
                       }"
                     />
                     <div
@@ -114,7 +114,7 @@ export default {
   components: {
     Treeselect,
     CBusinessProcessList,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -124,38 +124,38 @@ export default {
         descr: "",
         label: "",
         businessProcesses: [],
-        gsbpmProcesses: [],
+        gsbpmProcesses: []
       },
-      gsbpmChecked: [],
+      gsbpmChecked: []
     };
   },
   validations: {
     businessFunctionLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bFunction", ["bFunction"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
             };
-          }),
+          })
         };
       });
     },
-    getBusinessProcesses: function () {
-      return this.bFunction.businessProcesses.map((item) => {
+    getBusinessProcesses: function() {
+      return this.bFunction.businessProcesses.map(item => {
         return {
           id: item.id,
           name: item.name,
@@ -163,10 +163,10 @@ export default {
           label: item.label,
           orderCode: item.orderCode,
           parent: item.parent,
-          processSteps: item.processSteps,
+          processSteps: item.processSteps
         };
       });
-    },
+    }
   },
 
   /* validations: {
@@ -194,29 +194,28 @@ export default {
       this.businessFunctionLocal.name = this.bFunction.name;
       this.businessFunctionLocal.descr = this.bFunction.descr;
       this.businessFunctionLocal.label = this.bFunction.label;
-      this.businessFunctionLocal.businessProcesses =
-        this.bFunction.businessProcesses;
+      this.businessFunctionLocal.businessProcesses = this.bFunction.businessProcesses;
     },
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.bFunction.gsbpmProcesses.map((gsbpmProc) => {
+      this.bFunction.gsbpmProcesses.map(gsbpmProc => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
     handleBack() {
       this.$router.back();
     },
-    loadBusinessFunction: _.debounce(function (idBFunction) {
+    loadBusinessFunction: _.debounce(function(idBFunction) {
       this.$store.dispatch("bFunction/findById", idBFunction).then(() => {
         this.setOldValues();
         this.setCheckedNodesGsbpm();
       });
-    }, 500),
+    }, 500)
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
     this.loadBusinessFunction(this.$route.params.id);
     this.$store.dispatch("gsbpm/findAll");
-  },
+  }
 };
 </script>

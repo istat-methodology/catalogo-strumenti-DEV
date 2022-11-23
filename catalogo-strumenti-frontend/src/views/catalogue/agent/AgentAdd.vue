@@ -67,19 +67,19 @@ export default {
         name: "",
         organization: "",
         contact: "",
-        notes: "",
-      },
+        notes: ""
+      }
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   validations: {
     agentLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     handleSubmit() {
@@ -95,10 +95,10 @@ export default {
     },
     onChange(event) {
       this.tipologia = event.target.value;
-    },
+    }
   },
   created() {
     this.$store.dispatch("agent/findAll");
-  },
+  }
 };
 </script>

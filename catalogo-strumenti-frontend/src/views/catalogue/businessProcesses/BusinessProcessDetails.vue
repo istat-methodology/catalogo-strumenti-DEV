@@ -15,12 +15,10 @@
           />
           <div class="pl-2">
             <div class="columns">
-
               <div class="row">
-                
                 <div class="description-fields col-12">
                   {{ bProcess.name | dashEmpty }}
-                </div>            
+                </div>
 
                 <div class="description-fields col-12">
                   {{ bProcess.descr | dashEmpty }}
@@ -32,25 +30,22 @@
                     <span>{{ bProcess.label | dashEmpty }}</span>
                   </div>
                 </div>
-                
+
                 <div class="card col-md-auto p-2">
                   <span><strong>Ordine</strong></span>
                   <div class="card-slot p-2">
                     <span>{{ bProcess.orderCode | dashEmpty }}</span>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
 <script>
-
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import _ from "lodash";
@@ -64,14 +59,13 @@ export default {
     return {
       index: 1,
       subIndex: 0,
-      activeIndex: -1,
+      activeIndex: -1
     };
   },
   computed: {
     ...mapGetters("bProcess", ["bProcess"]),
     ...mapGetters("tools", ["toolsByBfunction"]),
-    ...mapGetters("auth", ["isAuthenticated"]),   
-
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   methods: {
     handleBack() {
@@ -81,26 +75,26 @@ export default {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "BusinessProcessEdit",
-        params: { id: item.id },
+        params: { id: item.id }
       });
     },
     formatDate(dt) {
       dt = new Date(dt);
       return dt.toLocaleDateString("it");
     },
-    loadBFunction: _.debounce(function () {
+    loadBFunction: _.debounce(function() {
       this.$store.dispatch("bProcess/findById", this.$route.params.id);
-    }, 500),
+    }, 500)
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
     this.$store.dispatch("bProcess/findById", this.$route.params.id);
     this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id);
-  },
+  }
 };
 </script>
 
-<style scoped>
+<style>
 .icon-prop {
   display: inline;
   padding-left: 6px;
@@ -145,3 +139,4 @@ legend.scheduler-border {
 .max-col {
   max-width: 5%;
 }
+</style>

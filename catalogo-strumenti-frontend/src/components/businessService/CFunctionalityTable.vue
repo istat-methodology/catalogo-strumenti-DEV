@@ -151,27 +151,27 @@ import CTitle from "@/components/CTitle.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "FunctionalityTable",
+  name: "CFunctionalityTable",
   components: {
-    CTitle,
+    CTitle
   },
   emits: ["reLoadData"],
   props: {
     appService: {
       type: Number,
       required: true,
-      default: () => null,
+      default: () => null
     },
     stepInstances: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     statisticalMethodsList: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   data() {
     return {
@@ -190,12 +190,12 @@ export default {
         method: "",
         statMethod: 0,
         functionality: "",
-        appService: this.appService,
-      },
+        appService: this.appService
+      }
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   methods: {
     deleteStepInstance() {
@@ -211,12 +211,12 @@ export default {
     modalClose() {
       this.warningModal = false;
     },
-    getStatisticalMethodsOptions: function () {
+    getStatisticalMethodsOptions: function() {
       if (this.statisticalMethodsList)
-        return this.statisticalMethodsList.map((method) => {
+        return this.statisticalMethodsList.map(method => {
           return {
             id: method.id,
-            name: method.name,
+            name: method.name
           };
         });
       else return [];
@@ -229,7 +229,7 @@ export default {
         method: selStepInstance.method,
         statMethod: selStepInstance.statMethod.id,
         functionality: selStepInstance.functionality,
-        appService: this.appService,
+        appService: this.appService
       };
       this.$store
         .dispatch("stepinstance/update", updateStepInstance)
@@ -241,17 +241,17 @@ export default {
         .dispatch("stepinstance/save", this.newStepInstance)
         .then(this.$emit("reLoadData", this.appService));
       this.showNewFunct = false;
-    },
+    }
   },
   created() {
     this.stepInstancesLocal = this.stepInstances;
-    this.stepInstancesLocal.statMethod = this.stepInstances.map((method) => {
+    this.stepInstancesLocal.statMethod = this.stepInstances.map(method => {
       return {
         id: method.id,
-        name: method.name,
+        name: method.name
       };
     });
-  },
+  }
 };
 </script>
 

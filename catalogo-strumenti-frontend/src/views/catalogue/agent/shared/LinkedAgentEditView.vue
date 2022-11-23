@@ -83,7 +83,7 @@
               <div class="card-header-actions">
                 <span v-if="getState(index)">
                   <span class="icon-link" @click="changeState(index)"
-                    ><edit-icon title="Edit" class="text-info" /></span
+                    ><edit-icon title="Edit" class="text-info"/></span
                   >&nbsp;
                   <span class="icon-link" @click="modalOpen(linkedAgent)"
                     ><delete-icon title="Cancella" class="text-info"
@@ -93,7 +93,7 @@
                   <span
                     class="icon-link"
                     @click="handleUpdateLinkedAgent(index, linkedAgent)"
-                    ><floppy-icon title="Salva" class="text-info" /></span
+                    ><floppy-icon title="Salva" class="text-info"/></span
                   >&nbsp;
                   <span class="icon-link" @click="changeState(index)"
                     ><close-circle-icon title="Chiudi" class="text-info"
@@ -181,17 +181,17 @@ export default {
     toolId: {
       type: Number,
       required: true,
-      default: () => null,
+      default: () => null
     },
     toolName: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   components: {
     "app-agent-add": AgentAdd,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -204,7 +204,7 @@ export default {
         LIST: 0,
         EDIT: 1,
         NEW: 2,
-        NEW_AGENT: 3,
+        NEW_AGENT: 3
       },
       stateform: 0,
       warningModal: false,
@@ -214,8 +214,8 @@ export default {
         tool: this.toolId,
         role: "",
         notes: "",
-        referenceDate: "",
-      },
+        referenceDate: ""
+      }
     };
   },
   emits: ["refreshTool"],
@@ -224,9 +224,9 @@ export default {
     ...mapGetters("agent", ["agentList"]),
     ...mapGetters("linkedagent", ["linkedAgentList"]),
 
-    getLinkedAgentList: function () {
+    getLinkedAgentList: function() {
       if (this.linkedAgentList)
-        return this.linkedAgentList.map((agentTool) => {
+        return this.linkedAgentList.map(agentTool => {
           return {
             id: agentTool.id,
             tooId: this.toolId,
@@ -237,18 +237,18 @@ export default {
             agentNotes: agentTool.agent.notes,
             role: agentTool.role,
             notes: agentTool.notes,
-            referenceDate: agentTool.referenceDate,
+            referenceDate: agentTool.referenceDate
           };
         });
       else return [];
-    },
+    }
   },
   methods: {
     closeNewAgent(saved) {
       if (saved) this.updateAgentList();
       this.stateform = this.FormState.NEW;
     },
-    updateAgentList: _.debounce(function () {
+    updateAgentList: _.debounce(function() {
       this.$store.dispatch("agent/findAll");
     }, 500),
 
@@ -275,7 +275,7 @@ export default {
         tool: this.toolId,
         role: selectedUpdateLinkedAgent.role,
         notes: selectedUpdateLinkedAgent.notes,
-        referenceDate: selectedUpdateLinkedAgent.referenceDate,
+        referenceDate: selectedUpdateLinkedAgent.referenceDate
       };
       this.$store
         .dispatch("linkedagent/update", updateLinkedAgent)
@@ -315,11 +315,11 @@ export default {
     },
     handleBack() {
       this.$router.back();
-    },
+    }
   },
   created() {
     this.loadLinkedAgentList();
-  },
+  }
 };
 </script>
 

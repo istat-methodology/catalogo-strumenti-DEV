@@ -59,20 +59,20 @@ export default {
         name: "",
         descr: "",
         label: "",
-        businessProcesses: [],
-      },
+        businessProcesses: []
+      }
     };
   },
   validations: {
     businessFunctionLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bFunction", ["bFunction"]),
+    ...mapGetters("bFunction", ["bFunction"])
   },
   methods: {
     handleSubmit() {
@@ -83,14 +83,13 @@ export default {
           .then(this.$router.push("/catalogue/businessfunctions"));
       }
     },
-    
+
     handleBack() {
       this.$router.push("/catalogue/businessfunctions");
-
-    },
+    }
   },
   created() {
     this.$store.dispatch("bFunction/findAll");
-  },
+  }
 };
 </script>

@@ -52,27 +52,27 @@ export default {
         name: "",
         organization: "",
         contact: "",
-        notes: "",
-      },
+        notes: ""
+      }
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   emits: ["appClose"],
   props: {
     goBackClose: {
       type: Boolean,
       required: false,
-      default: () => false,
-    },
+      default: () => false
+    }
   },
   validations: {
     agentLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     handleSubmit() {
@@ -90,11 +90,10 @@ export default {
     },
     onChange(event) {
       this.tipologia = event.target.value;
-    },
+    }
   },
   created() {
     this.$store.dispatch("agent/findAll");
-  },
+  }
 };
 </script>
-

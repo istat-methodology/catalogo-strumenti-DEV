@@ -6,7 +6,7 @@
       *Elenco delle Business Functions in cui viene utilizzato lo strumento
       metodologico*
     </div>
-    
+
     <div class="columns">
       <div class="row">
         <div v-if="businessFunctions.length === 0">
@@ -26,7 +26,7 @@
                 tag="a"
                 :to="{
                   name: 'BusinessFunctionsDetails',
-                  params: { id: businessFunction.id },
+                  params: { id: businessFunction.id }
                 }"
               >
                 <view-icon />
@@ -43,14 +43,14 @@
 </template>
 <script>
 export default {
-  name: "BusinessFunctionsView",
+  name: "CBusinessFunctionsView",
   props: {
     businessFunctions: {
       type: Array,
       required: true,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 <style scoped>

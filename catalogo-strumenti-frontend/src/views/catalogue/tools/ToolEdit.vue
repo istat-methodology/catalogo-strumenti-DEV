@@ -272,7 +272,7 @@
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
-                <app-edit-business-service
+                <CBusinessServiceEditView
                   v-if="this.tool.businessService"
                   :businessServiceID="this.tool.businessService.id"
                   :toolName="this.tool.name"
@@ -302,7 +302,7 @@
             <div v-if="this.tool">
               <div class="row p-0">
                 <div class="col-12 p-0">
-                  <app-edit-documentation
+                  <CDocumentationEditView
                     :parentName="this.tool.name"
                     @updateParent="loadTool"
                     :documentations="getDocumentation"
@@ -318,29 +318,27 @@
   </div>
 </template>
 <script>
-
 import { mapGetters } from "vuex";
-import _ from "lodash";
 import { Context } from "@/common";
-import Treeselect from "@riophae/vue-treeselect";
-import "vue2-datepicker/index.css";
-import DatePicker from "vue2-datepicker";
-
-import DocumentationEditView from "../documentation/shared/DocumentationEditView";
-import LinkedAgentEditView from "../agent/shared/LinkedAgentEditView";
-import BusinessServiceEditView from "../tools/shared/BusinessServiceEditView";
-
 /* import { required } from "vuelidate/lib/validators"; */
+import _ from "lodash";
+import Treeselect from "@riophae/vue-treeselect";
+import DatePicker from "vue2-datepicker";
+import CDocumentationEditView from "@/components/documentation/CDocumentationEditView.vue";
+import CBusinessServiceEditView from "@/components/businessService/CBusinessServiceEditView.vue";
+import LinkedAgentEditView from "../agent/shared/LinkedAgentEditView";
+
 import CTitle from "@/components/CTitle.vue";
+import "vue2-datepicker/index.css";
 export default {
   name: "ToolEdit",
   components: {
     Treeselect,
     DatePicker,
-    "app-edit-documentation": DocumentationEditView,
-    "app-edit-business-service": BusinessServiceEditView,
+    CDocumentationEditView,
+    CBusinessServiceEditView,
     "app-linkedAgents": LinkedAgentEditView,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -374,7 +372,7 @@ export default {
         serviceDependencies: "",
         restrictions: "",
         statisticalMethods: [],
-        gsbpmProcesses: [],
+        gsbpmProcesses: []
       },
       linkedToolList: [],
       gsbpmChecked: [],
@@ -382,7 +380,7 @@ export default {
       agentChecked: [],
       documentationChecked: [],
 
-      elenco: [],
+      elenco: []
     };
   },
   computed: {
@@ -392,42 +390,42 @@ export default {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
             };
-          }),
+          })
         };
       });
-    },    
-    getMethodsList: function () {
-      return this.statisticalMethodsList.map((method) => {
+    },
+    getMethodsList: function() {
+      return this.statisticalMethodsList.map(method => {
         return {
           id: method.id,
-          label: method.name,
+          label: method.name
         };
       });
     },
-    
-    getDocumentationList: function () {
-      return this.documentationList.map((doc) => {
+
+    getDocumentationList: function() {
+      return this.documentationList.map(doc => {
         return {
           id: doc.id,
-          label: doc.name,
+          label: doc.name
         };
       });
     },
-    
-    getLinkedAgentList: function () {
+
+    getLinkedAgentList: function() {
       if (this.tool)
-        return this.linkAgentsTools.map((agentTool) => {
+        return this.linkAgentsTools.map(agentTool => {
           return {
             id: agentTool.id,
             tooId: this.tool.id,
@@ -438,25 +436,24 @@ export default {
             agentNotes: agentTool.agent.notes,
             role: agentTool.role,
             notes: agentTool.notes,
-            referenceDate: agentTool.referenceDate,
+            referenceDate: agentTool.referenceDate
           };
         });
       else return [];
     },
-    getDocumentation: function () {
+    getDocumentation: function() {
       if (this.tool) {
-        return this.tool.documentations.map((doc) => {
+        return this.tool.documentations.map(doc => {
           return {
             id: doc.id,
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
-            resource: doc.resource,
+            resource: doc.resource
           };
         });
       } else return [];
-    },
-    
+    }
   },
 
   methods: {
@@ -468,25 +465,25 @@ export default {
         this.loadTool();
       });
     },
-    handleBack() {      
+    handleBack() {
       this.$router.back();
     },
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.tool.gsbpmProcesses.map((gsbpmProc) => {
+      this.tool.gsbpmProcesses.map(gsbpmProc => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
 
     setCheckedNodesMethods() {
       this.methodsChecked = [];
-      this.tool.statisticalMethods.map((method) => {
+      this.tool.statisticalMethods.map(method => {
         this.methodsChecked.push(method.id);
       });
     },
     setCheckedNodesDocumentation() {
       this.documentationChecked = [];
-      this.tool.documentations.map((doc) => {
+      this.tool.documentations.map(doc => {
         this.documentationChecked.push(doc.id);
       });
     },
@@ -533,7 +530,7 @@ export default {
       this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses;
     },
 
-    loadTool: _.debounce(function () {
+    loadTool: _.debounce(function() {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
         if (this.tool) {
           this.setOldValues();
@@ -542,7 +539,7 @@ export default {
           this.setCheckedNodesDocumentation();
         }
       });
-    }, 700),
+    }, 700)
   },
 
   created() {
@@ -556,10 +553,9 @@ export default {
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("agent/findAll");
-  },
+  }
 };
 </script>
-
 
 <style scoped>
 .bg-info {

@@ -1,9 +1,9 @@
 <template>
   <div>
-  <CModal title="Attenzione!" :show.sync="showModal" >
+    <CModal title="Attenzione!" :show.sync="showModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="closeModal">
-          Chiudi 
+          Chiudi
         </CButton>
         <CButton shape="square" size="sm" color="info" @click="handleDelete">
           Elimina
@@ -20,12 +20,12 @@ export default {
   props: {
     message: {
       Type: String,
-      default: () => "",
+      default: () => ""
     },
     showModal: {
       Type: Boolean,
-      default: () => false,
-    },
+      default: () => false
+    }
   },
   methods: {
     handleDelete() {
@@ -34,11 +34,12 @@ export default {
     closeModal() {
       //this.modalShow = false;
       this.$emit("closeModal");
-    },
-    
-  },
+    }
+  }
 };
 </script>
 <style>
-  .close {display: none !important;}
+.close {
+  display: none !important;
+}
 </style>

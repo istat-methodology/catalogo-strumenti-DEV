@@ -6,10 +6,9 @@
         buttonTitle=" Documento"
         functionality="Elenco"
         :authenticated="isAuthenticated"
-        :buttons="['aggiungi','indietro']"
+        :buttons="['aggiungi', 'indietro']"
         @handleNew="handleNew"
         @handleBack="handleBack"
-
       />
       <CCard>
         <CCardBody>
@@ -46,9 +45,9 @@
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-import CTitle from "../../../components/CTitle.vue";
-import CModalDelete from "../../../components/CModalDelete.vue";
-import CTableLink from "../../../components/CTableLink.vue";
+import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+import CTableLink from "@/components/CTableLink.vue";
 
 export default {
   name: "documentationList",
@@ -59,28 +58,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:49%;",
+          _style: "width:49%;"
         },
         {
           key: "documentType",
           label: "Tipo documento",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "publisher",
           label: "Editore",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedDocumentation: {},
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
@@ -88,7 +87,7 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       if (this.documentationList) {
-        return this.documentationList.map((item) => {
+        return this.documentationList.map(item => {
           return {
             id: item.id,
             name: item.name == null ? "" : item.name,
@@ -96,13 +95,13 @@ export default {
             documentType:
               item.documentType == null ? "" : item.documentType.name,
             notes: item.notes == null ? "" : item.notes,
-            resource: item.resource == null ? "" : item.resource,
+            resource: item.resource == null ? "" : item.resource
           };
         });
       } else {
         return [];
       }
-    },
+    }
   },
 
   methods: {
@@ -110,13 +109,13 @@ export default {
       this.$router.push({ name: "DocumentationAdd" });
     },
     handleBack() {
-      this.$router.push({name:"Catalogue"});
+      this.$router.push({ name: "Catalogue" });
     },
     handleView(item) {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "DocumentationDetails",
-        params: { id: item.id },
+        params: { id: item.id }
       });
     },
     handleEdit(item) {
@@ -144,7 +143,7 @@ export default {
         this.selectedDocumentation.name +
         " selezionato?"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.DocumentationList);
@@ -152,6 +151,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("documentation/findAll");
     // }
-  },
+  }
 };
 </script>

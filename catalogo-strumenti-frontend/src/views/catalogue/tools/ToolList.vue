@@ -57,17 +57,17 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "tooltype",
           label: "Tipologia",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "gsbpm",
           label: "Fasi Gsbpm",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         /*
         {
@@ -79,18 +79,18 @@ export default {
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedTool: {},
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
@@ -100,25 +100,25 @@ export default {
     ...mapGetters("filter", ["params"]),
     computedItems() {
       if (this.toolscatalog) {
-        return this.toolscatalog.map((item) => {
+        return this.toolscatalog.map(item => {
           return Object.assign({}, item, {
             tooltype: item.toolType.name,
             gsbpm: item.gsbpmProcesses
-              .map((gsbpmProcess) => {
+              .map(gsbpmProcess => {
                 return gsbpmProcess.code + " " + gsbpmProcess.name;
               })
               .join(", "),
             methods: item.statisticalMethods
-              .map((method) => {
+              .map(method => {
                 return method.name;
               })
-              .join(", "),
+              .join(", ")
           });
         });
       } else {
         return [];
       }
-    },
+    }
   },
   methods: {
     handleOpenModalDelete(app) {
@@ -150,7 +150,7 @@ export default {
         this.selectedTool.name +
         " selezionato?"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.ToolList);
@@ -158,6 +158,6 @@ export default {
     this.$store.dispatch("tools/filter", this.params);
     //this.$store.dispatch("tools/findAll");
     // }
-  },
+  }
 };
 </script>

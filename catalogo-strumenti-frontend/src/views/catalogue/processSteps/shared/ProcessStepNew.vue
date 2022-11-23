@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <div v-if="bPStepLocal">
       <div class="card">
         <div class="row">
@@ -28,7 +28,7 @@
           placeholder="Descrizione"
           v-model="bPStepLocal.descr"
         />
-      </div> 
+      </div>
     </div>
   </div>
 </template>
@@ -37,8 +37,8 @@ export default {
   name: "ProcessStepNew",
   data() {
     return {
-       bPStepLocal: {},
-      warningModal: false,
+      bPStepLocal: {},
+      warningModal: false
     };
   },
   computed: {},
@@ -48,11 +48,10 @@ export default {
     bProcess: {
       type: Object,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-   
     handleSubmit() {
       this.stateform = this.FormState.LIST;
     },
@@ -72,16 +71,14 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
-  created() {
-   
-  },
+  created() {}
 };
 </script>
 <style scoped>
 h5 {
-  margin-bottom: 0.1rem; 
+  margin-bottom: 0.1rem;
 }
 .card-border {
   border: 1px solid #d8dbe0 !important;

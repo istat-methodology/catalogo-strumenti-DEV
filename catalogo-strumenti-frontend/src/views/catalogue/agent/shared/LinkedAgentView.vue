@@ -24,7 +24,7 @@
                   tag="a"
                   :to="{
                     name: 'AgentDetails',
-                    params: { id: linkedAgent.agentId },
+                    params: { id: linkedAgent.agentId }
                   }"
                 >
                   <view-icon />
@@ -67,9 +67,9 @@ export default {
     linkedAgents: {
       type: Array,
       required: true,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 <style scoped>

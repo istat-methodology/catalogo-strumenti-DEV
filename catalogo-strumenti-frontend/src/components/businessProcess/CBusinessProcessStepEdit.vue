@@ -1,6 +1,6 @@
 <template>
-  <div> 
-    <div v-if="bPStepLocal">      
+  <div>
+    <div v-if="bPStepLocal">
       <div class="card">
         <div class="row">
           <CInput
@@ -28,9 +28,9 @@
           placeholder="Descrizione"
           v-model="bPStepLocal.descr"
         />
-            <label>Strumento metodologico</label>
-            {{bPStepLocal.tool}}      
-            {{bPStepLocal}}  
+        <label>Strumento metodologico</label>
+        {{ bPStepLocal.tool }}
+        {{ bPStepLocal }}
       </div>
       <span
         v-if="
@@ -70,39 +70,37 @@ export default {
         {
           key: "index",
           label: "#",
-          _style: "width:1%;",
+          _style: "width:1%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
 
         {
           key: "tool",
           label: "Strumento",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "stepInstances",
           label: "Funzione",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       bPStepLocal: {},
       states: [],
-      FormState: {
-       
-      },
+      FormState: {},
       stateform: 0,
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {},
@@ -111,11 +109,11 @@ export default {
     bPStep: {
       type: Object,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessDesignsList: function () {
+    getProcessDesignsList: function() {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns) {
         return this.bPStepLocal.processDesigns.map((step, index) => {
           return {
@@ -128,34 +126,34 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map((instance) => {
+                    .map(instance => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns,
+            processDesigns: step.processDesigns
           };
         });
       } else {
         return [];
       }
-    },    
+    },
     handleEditStep(step) {
       this.$emit("enableEditStep", step);
     },
-    handleBack() {     
-      this.$emit("handeleBack"); 
+    handleBack() {
+      this.$emit("handeleBack");
     }
   },
   created() {
     this.bPStepLocal = this.bPStep;
-  },
+  }
 };
 </script>
 <style scoped>
 h5 {
-  margin-bottom: 0.1rem; 
+  margin-bottom: 0.1rem;
 }
 .card-border {
   border: 1px solid #d8dbe0 !important;

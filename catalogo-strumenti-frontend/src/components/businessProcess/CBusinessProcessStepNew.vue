@@ -1,35 +1,33 @@
 <template>
   <div>
-    
-      <div class="card">
-        <div class="row">
-          <CInput
-            class="col-6"
-            label="Nome*"
-            placeholder="Nome"
-            v-model="bPStepLocal.name"
-          />
-          <CInput
-            class="col-4"
-            label="Etichetta"
-            placeholder="Etichetta"
-            v-model="bPStepLocal.label"
-          />
-          <CInput
-            class="col-2"
-            label="Ordine"
-            type="number"
-            placeholder="Ordine"
-            v-model="bPStepLocal.orderCode"
-          />
-        </div>
-        <CTextarea
-          label="Descrizione"
-          placeholder="Descrizione"
-          v-model="bPStepLocal.descr"
+    <div class="card">
+      <div class="row">
+        <CInput
+          class="col-6"
+          label="Nome*"
+          placeholder="Nome"
+          v-model="bPStepLocal.name"
+        />
+        <CInput
+          class="col-4"
+          label="Etichetta"
+          placeholder="Etichetta"
+          v-model="bPStepLocal.label"
+        />
+        <CInput
+          class="col-2"
+          label="Ordine"
+          type="number"
+          placeholder="Ordine"
+          v-model="bPStepLocal.orderCode"
         />
       </div>
-  
+      <CTextarea
+        label="Descrizione"
+        placeholder="Descrizione"
+        v-model="bPStepLocal.descr"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -37,7 +35,7 @@ export default {
   name: "CBusinessProcessStepNew",
   data() {
     return {
-      bPStepLocal: {},    
+      bPStepLocal: {}
     };
   },
   computed: {},
@@ -47,19 +45,18 @@ export default {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleNewStep(step) {
-
       this.$emit("enableNewStep", step);
     },
-    handleBack() {     
-      this.$emit("handeleBack"); 
+    handleBack() {
+      this.$emit("handeleBack");
     }
   },
-  created() {},
+  created() {}
 };
 </script>
 <style scoped>

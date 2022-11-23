@@ -1,11 +1,19 @@
 <template>
   <div>
+    <h2>
+      <span>{{ index }}</span> Strumenti metodologici
+    </h2>
+    <div class="description-fields col-12">
+      {{ descriptionLabel }}
+    </div>
     <div class="columns">
-      <div class="description-fields col-12">
-        Strumento Metodologico
-      </div>
       <div class="row">
-        <div class="card col-md-3">
+        <div v-if="tools.length === 0">
+          <span
+            ><i><h5>Nessun strumento metodologico utilizzato</h5></i></span
+          >
+        </div>
+        <div class="card col-md-3" v-for="tool of tools" :key="tool.id">
           <div class="card-header">
             {{ tool.name }}
             <div class="card-header-actions">
@@ -13,7 +21,7 @@
                 tag="a"
                 :to="{
                   name: 'ToolDetails',
-                  params: { id: toolid }
+                  params: { id: tool.id }
                 }"
               >
                 <view-icon />
@@ -21,10 +29,7 @@
             </div>
           </div>
           <div class="card-body">
-            <p class="card-text">
-              {{ tool.description }},
-              {{ tool.tags }}
-            </p>
+            <p class="card-text">{{ tool.description }}</p>
           </div>
         </div>
       </div>
@@ -33,17 +38,22 @@
 </template>
 <script>
 export default {
-  name: "Tool",
+  name: "CToolsView",
   props: {
-    tool: {
-      type: Object,
+    tools: {
+      type: Array,
       required: true,
       default: () => []
     },
-    toolid: {
+    index: {
       type: String,
-      required: true,
-      default: () => []
+      required: false,
+      default: () => ""
+    },
+    descriptionLabel: {
+      type: String,
+      required: false,
+      default: () => ""
     }
   }
 };

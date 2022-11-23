@@ -24,7 +24,7 @@ class LinkedAgentService extends AbstractService {
       .get(this.endpoint + "/tool/" + id)
       .then(res => {
         var data = res.data ? res.data : {};
-        
+
         return data;
       })
       .catch(err => {
@@ -33,6 +33,9 @@ class LinkedAgentService extends AbstractService {
   }
 }
 
-export const linkedAgentService = new LinkedAgentService("/catalog/linkagenttools");
-export const linkedAgentOpenService = new LinkedAgentService("/catalog/open/linkagenttools");
- 
+export const linkedAgentService = new LinkedAgentService(
+  "/catalog/linkagenttools"
+);
+export const linkedAgentOpenService = new LinkedAgentService(
+  "/catalog/open/linkagenttools"
+);

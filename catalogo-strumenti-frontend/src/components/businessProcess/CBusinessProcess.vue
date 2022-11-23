@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <li>
       {{ name | dashEmpty }}
     </li>

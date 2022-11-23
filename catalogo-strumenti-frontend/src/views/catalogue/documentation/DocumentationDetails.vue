@@ -46,18 +46,18 @@
       </div>
       <div class="row">
         <div class="col-12 pb-5">
-          <app-tools-view
-            :indexLabel="''"
-            :descriptionLabel="'Strumenti metodologici associati al documento'"
+          <CToolsView
+            indexLabel=""
+            descriptionLabel="Strumenti metodologici associati al documento"
             :tools="toolsByDocumentation"
           />
         </div>
       </div>
       <div class="row">
         <div class="col-12 pb-5">
-          <app-methods
-            :indexLabel="''"
-            :descriptionLabel="'Metodi statistici associati al documento'"
+          <CStatisticalMethodView
+            indexLabel=""
+            descriptionLabel="Metodi statistici associati al documento"
             :statisticalMethods="methodsByDocumentation"
           />
         </div>
@@ -68,8 +68,8 @@
 <script>
 // import { required } from "vuelidate/lib/validators";
 //import Documentation from "../documentation/shared/Documentation";
-import ToolsView from "../tools/shared/ToolsView";
-import StatisticalMethodView from "../statisticalMethods/shared/StatisticalMethodView";
+import CToolsView from "@/components/tools/CToolsView.vue";
+import CStatisticalMethodView from "@/components/statisticalMethod/CStatisticalMethodView.vue";
 
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
@@ -79,20 +79,20 @@ export default {
   name: "DocumentationDetails",
   components: {
     // "app-documentation": Documentation,
-    "app-tools-view": ToolsView,
-    "app-methods": StatisticalMethodView,
-    CTitle,
+    CToolsView,
+    CStatisticalMethodView,
+    CTitle
   },
   data() {
     return {
-      activeIndex: -1,
+      activeIndex: -1
     };
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
     ...mapGetters("tools", ["toolsByDocumentation"]),
     ...mapGetters("methods", ["methodsByDocumentation"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
 
   methods: {
@@ -116,7 +116,7 @@ export default {
     handleBack() {
       //this.$router.push("/catalogue/referenti");
       this.$router.back();
-    },
+    }
   },
   created() {
     this.$store
@@ -131,11 +131,10 @@ export default {
           this.documentation.id
         );
       });
-  },
+  }
 };
 </script>
-
-<style scoped>
+<style>
 .icon-prop {
   display: inline;
   padding-left: 6px;
@@ -180,3 +179,4 @@ legend.scheduler-border {
 .max-col {
   max-width: 5%;
 }
+</style>

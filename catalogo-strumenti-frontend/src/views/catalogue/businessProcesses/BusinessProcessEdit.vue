@@ -50,7 +50,7 @@
             functionality=""
             :authenticated="isAuthenticated"
             :buttons="['aggiungi']"
-            @handleSubmit="handleNewStep"            
+            @handleSubmit="handleNewStep"
           />
           <CCard>
             <CCardBody>
@@ -87,7 +87,7 @@ import CTitle from "@/components/CTitle.vue";
 
 export default {
   components: {
-    CTitle,
+    CTitle
   },
   name: "BusinessProcessEdit",
   data() {
@@ -96,43 +96,42 @@ export default {
         {
           key: "index",
           label: "#",
-          _style: "width:1%;",
+          _style: "width:1%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
 
         {
           key: "tool",
           label: "Strumento",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "stepInstances",
           label: "Funzione",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
 
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcess"]),
-    
+    ...mapGetters("bProcess", ["bProcess"])
   },
   methods: {
-    getProcessStepsList: function () {
+    getProcessStepsList: function() {
       if (this.bProcess && this.bProcess.processSteps) {
         return this.bProcess.processSteps.map((step, index) => {
           return {
@@ -145,13 +144,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map((instance) => {
+                    .map(instance => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns,
+            processDesigns: step.processDesigns
           };
         });
       } else {
@@ -181,12 +180,11 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     this.$store.dispatch("bProcess/findById", this.$route.params.id);
-   
-  },
+  }
 };
 </script>
 <style scoped>

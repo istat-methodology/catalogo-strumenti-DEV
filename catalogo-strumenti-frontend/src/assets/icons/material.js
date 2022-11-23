@@ -42,9 +42,8 @@ import CloseIcon from "icons/Close.vue";
 import CloseCircleIcon from "icons/CloseCircle.vue";
 import Floppy from "icons/Floppy.vue";
 
-import  Account  from 'icons/Account.vue';
-import  AccountPlus  from 'icons/AccountPlus.vue';
-
+import Account from "icons/Account.vue";
+import AccountPlus from "icons/AccountPlus.vue";
 
 Vue.component("chevron-right-icon", ChevronRightBoxIcon);
 Vue.component("home-icon", HomeIcon);

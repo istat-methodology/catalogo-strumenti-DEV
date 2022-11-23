@@ -27,11 +27,11 @@
             </div>
           </div>
 
-          <app-process-stepview
+          <CBusinessProcessStepView
             :positionIndex="index + 1 + ''"
             :processName="businessProcess.name"
             :processSteps="businessProcess.processSteps"
-          ></app-process-stepview>
+          />
         </div>
         <!--/div-->
         <!--/fieldset-->
@@ -43,19 +43,19 @@
   </div-->
 </template>
 <script>
-import CBusineeProcessStepView from "@../../processSteps/shared/ProcessStepView";
+import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView";
 export default {
-  name: "BusinessProcessView",
+  name: "CBusinessProcessView",
   components: {
-    CProcessStepView,
+    CBusinessProcessStepView
   },
   props: {
     businessProcesses: {
       type: Array,
       required: true,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 <style scoped>

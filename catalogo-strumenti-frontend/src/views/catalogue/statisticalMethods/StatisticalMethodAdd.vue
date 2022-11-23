@@ -17,7 +17,7 @@
           placeholder="Name"
           v-model="statisticalMethodLocal.name"
           :class="{
-            'is-invalid': $v.statisticalMethodLocal.name.$error,
+            'is-invalid': $v.statisticalMethodLocal.name.$error
           }"
         />
         <div
@@ -63,7 +63,7 @@ import CTitle from "../../../components/CTitle.vue";
 export default {
   name: "ToolAdd",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -74,8 +74,8 @@ export default {
         requirements: "",
         assumptions: "",
         constraints: "",
-        notes: "",
-      },
+        notes: ""
+      }
     };
   },
   computed: {
@@ -83,14 +83,14 @@ export default {
     /* ...mapGetters("address", ["assignedId", "assignedName"]), */
 
     ...mapGetters("tooltype", ["tooltypeList"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   validations: {
     statisticalMethodLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     handleSubmit() {
@@ -104,15 +104,14 @@ export default {
       }
     },
     handleBack() {
-      this.$router.push({ name: "MethodList"});
+      this.$router.push({ name: "MethodList" });
     },
     onChange(event) {
       this.tipologia = event.target.value;
-    },
+    }
   },
   created() {
     this.$store.dispatch("tooltype/findAll");
-  },
+  }
 };
 </script>
-

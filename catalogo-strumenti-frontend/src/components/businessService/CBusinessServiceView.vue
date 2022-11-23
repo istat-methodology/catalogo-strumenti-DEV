@@ -115,7 +115,7 @@
 </template>
 <script>
 export default {
-  name: "BusinessServiceView",
+  name: "CBusinessServiceView",
   props: {
     businessServiceService: {
       type: Object,

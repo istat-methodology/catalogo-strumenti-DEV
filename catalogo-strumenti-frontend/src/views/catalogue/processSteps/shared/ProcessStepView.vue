@@ -25,7 +25,6 @@
           <div class="card-body">
             <!--div class="card-body"-->
             <!-- @start Condition to show filtrable table if results are more then 5 lines-->
-    
 
             <div
               v-for="processDesign in getProcessDesignes(
@@ -49,8 +48,15 @@
                   <template
                     v-for="pd in getIOMapsProcessDesignes(processDesign.pds)"
                   >
-                    <tr v-for="(item, index) in pd.pds" :key="item.type+index">
-                      <th scope="row" v-if="index == 0" :rowspan="[pd.pds.length]">
+                    <tr
+                      v-for="(item, index) in pd.pds"
+                      :key="item.type + index"
+                    >
+                      <th
+                        scope="row"
+                        v-if="index == 0"
+                        :rowspan="[pd.pds.length]"
+                      >
                         {{ item.type }}
                       </th>
                       <td>{{ item.informationObjectName }}</td>
@@ -87,30 +93,30 @@ export default {
       fields: [
         {
           key: "id",
-          label: "id",
+          label: "id"
         },
         {
           key: "type",
-          label: "Tipo",
+          label: "Tipo"
         },
         {
           key: "informationObjectName",
-          label: "ioNome",
+          label: "ioNome"
         },
         {
           key: "informationObjectDescr",
-          label: "ioDescrizione",
-        },
-      ],
+          label: "ioDescrizione"
+        }
+      ]
     };
   },
   methods: {
-    getProcessDesignes: function (processDesignes) {
+    getProcessDesignes: function(processDesignes) {
       if (processDesignes) {
-        const list = processDesignes.map((pDesign) => {
+        const list = processDesignes.map(pDesign => {
           return {
             idPD: pDesign.processDesignDescription.id,
-            descrPD: pDesign.processDesignDescription.descr,
+            descrPD: pDesign.processDesignDescription.descr
           };
         });
 
@@ -120,31 +126,31 @@ export default {
           JSON.parse
         );
 
-        const groups = uniqueList.map((c) => {
+        const groups = uniqueList.map(c => {
           return { idPD: c.idPD, descrPD: c.descrPD, pds: [] };
         });
         console.log("uniqueList");
         console.log(uniqueList);
-        processDesignes.forEach((pDesign) => {
+        processDesignes.forEach(pDesign => {
           groups
-            .find((g) => g.idPD === pDesign.processDesignDescription.id)
+            .find(g => g.idPD === pDesign.processDesignDescription.id)
             .pds.push({
               id: pDesign.id,
               descr: pDesign.descr,
               type: pDesign.designType.type,
               informationObjectName: pDesign.informationObject.name,
-              informationObjectDescr: pDesign.informationObject.descr,
+              informationObjectDescr: pDesign.informationObject.descr
             });
         });
 
         return groups;
       } else return [];
     },
-    getIOMapsProcessDesignes: function (processDesignes) {
+    getIOMapsProcessDesignes: function(processDesignes) {
       if (processDesignes) {
-        const list = processDesignes.map((pDesign) => {
+        const list = processDesignes.map(pDesign => {
           return {
-            type: pDesign.type,
+            type: pDesign.type
           };
         });
 
@@ -154,41 +160,41 @@ export default {
           JSON.parse
         );
 
-        const groups = uniqueList.map((c) => {
+        const groups = uniqueList.map(c => {
           return { type: c.type, pds: [] };
         });
 
-        processDesignes.forEach((pDesign) => {
+        processDesignes.forEach(pDesign => {
           groups
-            .find((g) => g.type === pDesign.type)
+            .find(g => g.type === pDesign.type)
             .pds.push({
               type: pDesign.type,
               informationObjectName: pDesign.informationObjectName,
-              informationObjectDescr: pDesign.informationObjectDescr,
+              informationObjectDescr: pDesign.informationObjectDescr
             });
         });
 
         return groups;
       } else return [];
-    },
+    }
   },
   props: {
     processSteps: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     processName: {
       type: String,
       required: true,
-      default: () => "",
+      default: () => ""
     },
     positionIndex: {
       type: String,
       required: true,
-      default: () => "",
-    },
-  },
+      default: () => ""
+    }
+  }
 };
 </script>
 <style scoped>

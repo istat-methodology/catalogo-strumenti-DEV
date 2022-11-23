@@ -15,7 +15,9 @@
         </div>
 
         <CCard class="col-12">
-          <CCardHeader class="no-border">Elenco moduli implementati</CCardHeader>
+          <CCardHeader class="no-border"
+            >Elenco moduli implementati</CCardHeader
+          >
           <CCardBody>
             <div v-if="this.businessService">
               <table class="table no-border">
@@ -213,7 +215,7 @@
             </div>
           </CCardBody>
         </CCard>
-        <app-functionality-table
+        <CFunctionalityTable
           v-if="businessService"
           @reLoadData="reLoadBusinessService"
           :appService="selectedUpdateAppService.id"
@@ -221,7 +223,7 @@
           :stepInstances="
             getStepInstancesList(selectedUpdateAppService.stepInstances)
           "
-        ></app-functionality-table>
+        />
       </div>
     </div>
     <CModal title="Warning!" :show.sync="warningModal">
@@ -245,35 +247,35 @@
   </div-->
 </template>
 <script>
-import FunctionalityTable from "./FunctionalityTable.vue";
 import { mapGetters } from "vuex";
 import _ from "lodash";
+import CFunctionalityTable from "@/components/businessService/CFunctionalityTable.vue";
 import CTitle from "@/components/CTitle.vue";
 
 export default {
-  name: "BusinessServiceEditView",
+  name: "CBusinessServiceEditView",
   components: {
-    "app-functionality-table": FunctionalityTable,
-    CTitle,
+    CFunctionalityTable,
+    CTitle
   },
   props: {
     businessServiceID: {
       type: Number,
       required: true,
-      default: () => null,
+      default: () => null
     },
     toolName: {
       type: String,
       required: true,
-      default: () => null,
-    },
+      default: () => null
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("businessService", {
-      businessService: "businessService",
+      businessService: "businessService"
     }),
-    ...mapGetters("methods", ["statisticalMethodsList"]),
+    ...mapGetters("methods", ["statisticalMethodsList"])
   },
   data() {
     return {
@@ -284,7 +286,7 @@ export default {
       FormState: {
         LIST: 0,
         EDIT: 1,
-        NEW: 2,
+        NEW: 2
       },
       stateform: 0,
       newAppService: {
@@ -295,26 +297,26 @@ export default {
         implementationLanguage: "",
         sourcePath: "",
         licence: "",
-        businessService: 0,
+        businessService: 0
       },
       fields: [
         {
           key: "functionality",
-          label: "Funzionalità",
+          label: "Funzionalità"
         },
         {
           key: "method",
-          label: "Metodo",
+          label: "Metodo"
         },
         {
           key: "statMethodName",
-          label: "Metodo Statistico",
+          label: "Metodo Statistico"
         },
         {
           key: "descr",
-          label: "Descrizione",
-        },
-      ],
+          label: "Descrizione"
+        }
+      ]
     };
   },
   methods: {
@@ -345,9 +347,9 @@ export default {
     modalClose() {
       this.warningModal = false;
     },
-    getStepInstancesList: function (stepInstances) {
+    getStepInstancesList: function(stepInstances) {
       if (stepInstances)
-        return stepInstances.map((stepInstance) => {
+        return stepInstances.map(stepInstance => {
           return {
             id: stepInstance.id,
             functionality: stepInstance.functionality,
@@ -355,14 +357,14 @@ export default {
             descr: stepInstance.descr,
             statMethod: {
               id: stepInstance.statMethod.id,
-              name: stepInstance.statMethod.name,
-            },
+              name: stepInstance.statMethod.name
+            }
           };
         });
       else return [];
     },
 
-    handleNewAppService: function () {
+    handleNewAppService: function() {
       this.newAppService.businessService = this.businessServiceID;
       this.$store
         .dispatch("appservice/save", this.newAppService)
@@ -370,38 +372,37 @@ export default {
 
       this.stateform = this.FormState.LIST;
     },
-    handleUpdateAppService: function () {
+    handleUpdateAppService: function() {
       this.businessService = null;
       this.selectedUpdateAppService.businessService = this.businessServiceID;
       this.$store
         .dispatch("appservice/update", this.selectedUpdateAppService)
         .then(this.reLoadBusinessService(this.selectedUpdateAppService.id));
     },
-    reLoadBusinessService: _.debounce(function (idAppService) {
+    reLoadBusinessService: _.debounce(function(idAppService) {
       this.selectedUpdateAppService = null;
       if (this.businessServiceID) {
         this.$store
           .dispatch("businessService/findById", this.businessServiceID)
           .then(() => {
-            this.selectedUpdateAppService =
-              this.businessService.appServices.find(
-                (x) => x.id === idAppService
-              );
+            this.selectedUpdateAppService = this.businessService.appServices.find(
+              x => x.id === idAppService
+            );
           });
       }
     }, 500),
-    loadBusinessService: _.debounce(function () {
+    loadBusinessService: _.debounce(function() {
       if (this.businessServiceID) {
         this.$store.dispatch(
           "businessService/findById",
           this.businessServiceID
         );
       }
-    }, 500),
+    }, 500)
   },
   created() {
     this.loadBusinessService();
-  },
+  }
 };
 </script>
 <style scoped>

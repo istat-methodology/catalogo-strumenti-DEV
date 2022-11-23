@@ -59,21 +59,21 @@ export default {
         name: "",
         organization: "",
         contact: "",
-        notes: "",
-      },
+        notes: ""
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("agent", ["agent"]),
+    ...mapGetters("agent", ["agent"])
   },
 
   validations: {
     agentLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     handleSubmit() {
@@ -94,13 +94,13 @@ export default {
     handleBack() {
       //this.$router.push({ name: "AgentList" });
       this.$router.back();
-    },
+    }
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
     this.$store.dispatch("agent/findById", this.$route.params.id).then(() => {
       this.setOldValues();
     });
-  },
+  }
 };
 </script>

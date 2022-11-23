@@ -2,10 +2,9 @@
   <!-- wait until service is loaded -->
   <div class="row" v-if="statisticalMethod">
     <div class="col-10">
-    
       <div>
         <div class="p-2">
-          <CTitle 
+          <CTitle
             :title="statisticalMethod.name"
             :buttonTitle="statisticalMethod.name"
             functionality="Dettaglio"
@@ -26,7 +25,7 @@
                   <div class="card-slot p-2">
                     {{
                       statisticalMethod.gsbpmProcesses
-                        .map((gsbpmProcess) => {
+                        .map(gsbpmProcess => {
                           return gsbpmProcess.code + " " + gsbpmProcess.name;
                         })
                         .join(", ") | dashEmpty
@@ -88,8 +87,14 @@
                 <div class="card col-md-auto p-2">
                   <span><strong>Standard Istat</strong></span>
                   <div class="card-slot p-2">
-                    <span v-if="statisticalMethod.standardIstat && statisticalMethod.standardIstat==1">Sì</span>
-                     <span v-else>No</span>
+                    <span
+                      v-if="
+                        statisticalMethod.standardIstat &&
+                          statisticalMethod.standardIstat == 1
+                      "
+                      >Sì</span
+                    >
+                    <span v-else>No</span>
                   </div>
                 </div>
                 <div class="card col-md-auto p-2">
@@ -104,39 +109,39 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
       <div>
         <div class="p-2">
-          <app-tools-function
-            :index="'1.'"
-            :descriptionLabel="'Elenco degli strumenti che implementano il metodo'"
+          <CToolsView
+            index="1."
+            descriptionLabel="Elenco degli strumenti che implementano il metodo"
             :tools="statisticalMethod.catalogTools"
-          ></app-tools-function>
+          />
         </div>
-      </div>      
+      </div>
       <div>
         <div class="p-2">
-          <app-documentations
-            :index="'2.'"
-            :descriptionLabel="'Elenco della documentazione relativa al metodo'"
+          <CDocumentationView
+            index="2."
+            descriptionLabel="Elenco della documentazione relativa al metodo"
             :documentations="getDocumentationList()"
-          ></app-documentations>
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import ToolsView from "../tools/shared/ToolsView";
-import DocumentationView from "../documentation/shared/DocumentationView";
 import { mapGetters } from "vuex";
-import CTitle from "../../../components/CTitle.vue";
+import CToolsView from "@/components/tools/CToolsView";
+import CDocumentationView from "@/components/documentation/CDocumentationView.vue";
+import CTitle from "@/components/CTitle.vue";
 //import { Context } from "@/common";
 export default {
   name: "MethodsDetails",
   components: {
-    "app-documentations": DocumentationView,
-    "app-tools-function": ToolsView,
+    CDocumentationView,
+    CToolsView,
     CTitle
   },
   computed: {
@@ -148,17 +153,17 @@ export default {
       this.$router.back();
     },
 
-    getDocumentationList: function () {
-      if(this.statisticalMethod.documentations)
-      return this.statisticalMethod.documentations.map((doc) => {
-        return {
-          id: doc.id,
-          name: doc.name,
-          publisher: doc.publisher,
-          documentType: doc.documentType.name,
-          resource: doc.resource,
-        };
-      });
+    getDocumentationList: function() {
+      if (this.statisticalMethod.documentations)
+        return this.statisticalMethod.documentations.map(doc => {
+          return {
+            id: doc.id,
+            name: doc.name,
+            publisher: doc.publisher,
+            documentType: doc.documentType.name,
+            resource: doc.resource
+          };
+        });
       else return [];
     },
     formatDate(dt) {
@@ -175,18 +180,17 @@ export default {
         ? (this.activeIndex = index)
         : (this.activeIndex = -1);
     },
-    handleEdit(item) {      
-      this.$router.push({ name: 'MethodEdit', params: { id: item.id } });
+    handleEdit(item) {
+      this.$router.push({ name: "MethodEdit", params: { id: item.id } });
     }
   },
   created() {
     this.$store.dispatch("methods/findById", this.$route.params.id);
     //this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  },
+  }
 };
 </script>
-
-<style scoped>
+<style>
 .icon-prop {
   display: inline;
   padding-left: 6px;
@@ -231,3 +235,4 @@ legend.scheduler-border {
 .max-col {
   max-width: 5%;
 }
+</style>

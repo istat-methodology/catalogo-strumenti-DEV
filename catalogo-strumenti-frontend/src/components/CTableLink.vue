@@ -27,19 +27,19 @@ export default {
   props: {
     message: {
       Type: String,
-      default: () => "",
+      default: () => ""
     },
     authenticated: {
       Type: Boolean,
-      default: () => false,
+      default: () => false
     },
     showDetails: {
       Type: Boolean,
-      default: () => false,
+      default: () => false
     },
     isItem: {
       Type: Boolean,
-      default: () => false,
+      default: () => false
     }
   },
   methods: {
@@ -51,10 +51,10 @@ export default {
     },
     handleDelete() {
       this.$emit("handleDelete");
-    },    
-    handleDetails() {                    
-      this.$emit('handleDetails');        
-    }      
+    },
+    handleDetails() {
+      this.$emit("handleDetails");
+    }
   }
 };
 </script>

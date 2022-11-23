@@ -30,7 +30,7 @@
                         <span
                           class="icon-link"
                           @click="handleEditBProcess(bProcess)"
-                          ><edit-icon title="Edit" /></span
+                          ><edit-icon title="Edit"/></span
                         >&nbsp;
                         <span
                           class="icon-link"
@@ -44,7 +44,7 @@
                     <span
                       v-if="
                         bProcess.processSteps &&
-                        bProcess.processSteps.length > 0
+                          bProcess.processSteps.length > 0
                       "
                     >
                       <ol>
@@ -211,7 +211,6 @@ import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessE
 import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
 import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
 import CModalDelete from "@/components/CModalDelete.vue";
-
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessList",
@@ -220,7 +219,7 @@ export default {
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -235,7 +234,7 @@ export default {
         NEW: 2,
         ADD_PROCESS: 3,
         STEP_EDIT: 4,
-        STEP_NEW: 5,
+        STEP_NEW: 5
       },
       stateform: 0,
       warningModal: false,
@@ -245,14 +244,14 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("bProcess", ["bProcessList"])
   },
   emits: ["refreshBProcess"],
 
@@ -260,18 +259,18 @@ export default {
     bFunctionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     bFunctionName: {
       type: String,
       required: true,
-      default: null,
+      default: null
     },
     bProcesses: {
       type: Array,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     changeBProcess(value) {
@@ -344,11 +343,11 @@ export default {
         this.selectedBProcess.id +
         "]"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("bProcess/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
@@ -411,4 +410,3 @@ body {
   }
 }
 </style>
-

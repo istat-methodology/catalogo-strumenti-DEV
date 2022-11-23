@@ -1,19 +1,31 @@
 <template>
   <div>
+    <h2>
+      <span>{{ indexLabel }}</span> Metodi statistici
+    </h2>
+    <div class="description-fields col-12">
+      {{ descriptionLabel }}
+    </div>
     <div class="columns">
-      <div class="description-fields col-12">
-        Documento
-      </div>
       <div class="row">
-        <div class="card col-md-3">
+        <div v-if="statisticalMethods.length === 0">
+          <span
+            ><i><h5>Nessun metodo statitico associato</h5></i></span
+          >
+        </div>
+        <div
+          class="card col-md-auto"
+          v-for="statisticalMethod of statisticalMethods"
+          :key="statisticalMethod.id"
+        >
           <div class="card-header">
-            {{ documentation.name }}
+            {{ statisticalMethod.name }}
             <div class="card-header-actions">
               <router-link
                 tag="a"
                 :to="{
-                  name: 'DocumentationDetails',
-                  params: { id: docid }
+                  name: 'MethodDetails',
+                  params: { id: statisticalMethod.id }
                 }"
               >
                 <view-icon />
@@ -21,10 +33,7 @@
             </div>
           </div>
           <div class="card-body">
-            <p class="card-text">
-              {{ documentation.documentType.name }},
-              {{ documentation.publisher }}
-            </p>
+            <p class="card-text">{{ statisticalMethod.description }}</p>
           </div>
         </div>
       </div>
@@ -33,17 +42,23 @@
 </template>
 <script>
 export default {
-  name: "Documentation",
+  name: "CStatisticalMethodView",
   props: {
-    documentation: {
-      type: Object,
+    statisticalMethods: {
+      type: Array,
       required: true,
       default: () => []
     },
-    docid: {
+    indexLabel: {
+      type: String,
+      required: false,
+      default: () => ""
+    },
+
+    descriptionLabel: {
       type: String,
       required: true,
-      default: () => []
+      default: () => ""
     }
   }
 };

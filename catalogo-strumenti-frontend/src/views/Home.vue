@@ -51,6 +51,6 @@ export default {
   opacity: 0;
 }
 .c-app {
-    background-color: #ffffff !important;
+  background-color: #ffffff !important;
 }
 </style>

@@ -54,26 +54,26 @@ import CTitle from "../../../components/CTitle.vue";
 export default {
   name: "AgentDetails",
   components: {
-    CTitle,
+    CTitle
   },
   computed: {
     ...mapGetters("agent", ["agent"]),
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   methods: {
     handleBack() {
       //this.$router.push("/catalogue/referenti");
       this.$router.back();
     },
-    
+
     handleEdit(item) {
       this.$router.push({ name: "AgentEdit", params: { id: item.id } });
-    },
+    }
   },
   created() {
     this.$store.dispatch("agent/findById", this.$route.params.id);
     //this.$store.dispatch("coreui/setContext", Context.ToolDetail);
-  },
+  }
 };
 </script>
 <style scoped>

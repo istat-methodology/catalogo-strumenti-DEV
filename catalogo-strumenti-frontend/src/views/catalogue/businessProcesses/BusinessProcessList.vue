@@ -22,22 +22,22 @@
           pagination
         >
           <template #show_details="{ item, index }">
-            <CTableLink            
+            <CTableLink
               :authenticated="isAuthenticated"
               :showDetails="showDetails"
-              :isItem="isItem(item)"             
+              :isItem="isItem(item)"
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
               @handleDelete="handleOpenModalDelete(item)"
               @handleDetails="handleDetails(index)"
             />
-          </template>          
+          </template>
           <template #details="{ item, index }">
-            <CTableDetails                             
+            <CTableDetails
               title="...processo collegato alle Business Functions"
               :items="item.businessFunctions"
-              :activeIndex="activeIndex"            
-              :index="index"              
+              :activeIndex="activeIndex"
+              :index="index"
             />
           </template>
         </CDataTable>
@@ -63,56 +63,56 @@ export default {
   name: "BusinessProcessList",
   components: { CTitle, CModalDelete, CTableLink, CTableDetails },
   data() {
-    return {      
+    return {
       fields: [
         {
           key: "id",
           label: "Identificativo",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "orderCode",
           label: "Order",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
-      details:[],
-      setDetails:[],
+      details: [],
+      setDetails: [],
       selectedBusiness: {},
       showModal: false,
       showDetails: true,
-      activeIndex:-1
+      activeIndex: -1
     };
   },
   computed: {
     ...mapGetters("bProcess", ["bProcessList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
-    computedItems: function () {
+    computedItems: function() {
       if (this.bProcessList) {
-        return this.bProcessList.map((item) => {
+        return this.bProcessList.map(item => {
           return Object.assign({}, item, {
             id: item.id,
             name: item.name == null ? "" : item.name,
@@ -120,7 +120,7 @@ export default {
             label: item.label == null ? "" : item.label,
             order: item.orderCode == null ? "" : item.orderCode,
             businessFunctions:
-              item.businessFunctions == null ? "" : item.businessFunctions,
+              item.businessFunctions == null ? "" : item.businessFunctions
           });
         });
       } else {
@@ -129,14 +129,14 @@ export default {
     }
   },
   methods: {
-    isItem(item){
-     return item.businessFunctions.length> 0 ? true : false
-    },    
-    handleDetails(index) {      
+    isItem(item) {
+      return item.businessFunctions.length > 0 ? true : false;
+    },
+    handleDetails(index) {
       this.activeIndex !== index
         ? (this.activeIndex = index)
-        : (this.activeIndex = -1);      
-    },    
+        : (this.activeIndex = -1);
+    },
     handleDelete() {
       this.$store
         .dispatch("bProcess/delete", this.selectedBusiness.id)
@@ -153,14 +153,14 @@ export default {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "BusinessProcessDetails",
-        params: { id: item.id },
+        params: { id: item.id }
       });
     },
     handleEdit(item) {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "BusinessProcessEdit",
-        params: { id: item.id },
+        params: { id: item.id }
       });
     },
     handleOpenModalDelete(app) {
@@ -176,7 +176,7 @@ export default {
         this.selectedBusiness.name +
         " selezionato?"
       );
-    },
+    }
   },
   created() {
     this.$store
@@ -186,6 +186,6 @@ export default {
     this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
     //this.$store.dispatch("business/findAll");
     // }
-  },
+  }
 };
 </script>

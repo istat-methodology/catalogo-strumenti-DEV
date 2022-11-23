@@ -19,7 +19,6 @@ class BusinessServiceService extends AbstractService {
         throw err;
       });
   }
-  
 }
 export const businessServiceService = new BusinessServiceService(
   "/catalog/businessservices"

@@ -72,24 +72,24 @@ class ToolsService extends AbstractService {
         throw err;
       });
   }
-  addDocumentation(id,docID) {
+  addDocumentation(id, docID) {
     return axiosCatalog
-      .put(this.endpoint + "/"+id+"/documentation-add/"+ docID)
+      .put(this.endpoint + "/" + id + "/documentation-add/" + docID)
       .then(res => {
         var data = res.data ? res.data : [];
-      
+
         return data;
       })
       .catch(err => {
         throw err;
       });
   }
-  removeDocumentation(id,docID) {
+  removeDocumentation(id, docID) {
     return axiosCatalog
-      .put(this.endpoint + "/"+id+"/documentation-remove/"+ docID)
+      .put(this.endpoint + "/" + id + "/documentation-remove/" + docID)
       .then(res => {
         var data = res.data ? res.data : [];
-      
+
         return data;
       })
       .catch(err => {

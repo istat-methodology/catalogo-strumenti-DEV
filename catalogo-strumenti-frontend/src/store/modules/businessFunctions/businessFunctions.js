@@ -100,22 +100,24 @@ const actions = {
         console.log(err);
       });
   },
-  
+
   removeBProcessFromBFunction({ commit, dispatch }, params) {
     return businessService
-      .removeBProcessFromBFunction(params.fID,params.pID)
+      .removeBProcessFromBFunction(params.fID, params.pID)
       .then(data => {
         commit("SET_BFUNCTIONLIST", data);
-        dispatch("message/success", "Processo rimosso dalla Business Function!", {
-          root: true
-        });
+        dispatch(
+          "message/success",
+          "Processo rimosso dalla Business Function!",
+          {
+            root: true
+          }
+        );
       })
       .catch(err => {
         console.log(err);
       });
   }
-  
-
 };
 
 const getters = {

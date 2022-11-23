@@ -2,7 +2,6 @@ import router from "@/router";
 import { userService } from "@/services";
 import { userOpenService } from "@/services";
 
-
 const state = {
   users: [],
   user: null

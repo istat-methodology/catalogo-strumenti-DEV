@@ -43,7 +43,7 @@
                             tag="a"
                             :to="{
                               name: 'DocumentationDetails',
-                              params: { id: documentation.id },
+                              params: { id: documentation.id }
                             }"
                             title="Visualizza dettagli documento"
                           >
@@ -192,9 +192,9 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   components: {
     /*AgentAdd*/
-    CTitle,
+    CTitle
   },
-  name: "DocumentationEditView",
+  name: "CDocumentationEditView",
   data() {
     return {
       selectedDoc: {},
@@ -203,7 +203,7 @@ export default {
       FormState: {
         LIST: 0,
         ADD: 1,
-        NEW: 2,
+        NEW: 2
       },
       stateform: 0,
       documentationLocal: {
@@ -212,8 +212,8 @@ export default {
         documentType: "",
         resource: "",
         tool: this.toolId,
-        method: this.methodId,
-      },
+        method: this.methodId
+      }
     };
   },
   computed: {
@@ -222,19 +222,19 @@ export default {
     ...mapGetters("documentation", ["documentationList"]),
     getAllDocumentations() {
       if (this.documentationList) {
-        return this.documentationList.map((item) => {
+        return this.documentationList.map(item => {
           return {
             id: item.id,
             name:
               (item.name == null ? "" : item.name) +
               " - " +
-              (item.documentType.name == null ? "" : item.documentType.name),
+              (item.documentType.name == null ? "" : item.documentType.name)
           };
         });
       } else {
         return [];
       }
-    },
+    }
   },
   emits: ["updateParent"],
 
@@ -242,23 +242,23 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     toolId: {
       type: Number,
       required: false,
-      default: null,
+      default: null
     },
     methodId: {
       type: Number,
       required: false,
-      default: null,
+      default: null
     },
     parentName: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     changeTool(value) {
@@ -297,8 +297,7 @@ export default {
     handleNewSubmit() {
       this.documentationLocal.tool = this.toolId;
       this.documentationLocal.method = this.methodId;
-      this.documentationLocal.documentType =
-        this.documentationLocal.documentType.id;
+      this.documentationLocal.documentType = this.documentationLocal.documentType.id;
 
       this.$store
         .dispatch("documentation/save", this.documentationLocal)
@@ -307,7 +306,7 @@ export default {
     },
 
     handleBack() {
-      this.$router.back();     
+      this.$router.back();
     },
     deleteDocumentation() {
       this.$store
@@ -341,13 +340,12 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     this.$store.dispatch("documentation/findAll");
-    //this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
@@ -414,6 +412,3 @@ body {
   }
 }
 </style>
-
-
-

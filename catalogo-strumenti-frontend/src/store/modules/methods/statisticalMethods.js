@@ -4,7 +4,7 @@ import { methodsOpenService } from "@/services";
 const state = {
   statisticalMethodsList: [],
   statisticalMethod: null,
-  methodsByDocumentation: [],
+  methodsByDocumentation: []
 };
 
 const mutations = {
@@ -16,7 +16,7 @@ const mutations = {
   },
   SET_METHODSBYDOCUMENTATION(state, methodsByDocumentation) {
     state.methodsByDocumentation = methodsByDocumentation;
-  },
+  }
 };
 
 const actions = {
@@ -90,7 +90,7 @@ const actions = {
   },
   addDocumentation({ commit, dispatch }, params) {
     return methodsService
-      .addDocumentation(params.id,params.docID)
+      .addDocumentation(params.id, params.docID)
       .then(data => {
         commit("SET_TOOL", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {
@@ -103,7 +103,7 @@ const actions = {
   },
   removeDocumentation({ commit, dispatch }, params) {
     return methodsService
-      .removeDocumentation(params.id,params.docID)
+      .removeDocumentation(params.id, params.docID)
       .then(data => {
         commit("SET_TOOL", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {
@@ -138,7 +138,7 @@ const getters = {
   },
   methodsByDocumentation: state => {
     return state.methodsByDocumentation;
-  },
+  }
 };
 
 export const methods = {

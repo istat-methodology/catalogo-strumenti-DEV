@@ -20,6 +20,10 @@ class StepInstanceService extends AbstractService {
       });
   }
 }
-export const stepInstanceService = new StepInstanceService("/catalog/stepinstances");
+export const stepInstanceService = new StepInstanceService(
+  "/catalog/stepinstances"
+);
 
-export const stepInstanceOpenService = new StepInstanceService("/catalog/open/stepinstances");
+export const stepInstanceOpenService = new StepInstanceService(
+  "/catalog/open/stepinstances"
+);

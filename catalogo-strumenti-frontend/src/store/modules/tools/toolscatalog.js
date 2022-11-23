@@ -103,9 +103,9 @@ const actions = {
         console.log(err);
       });
   },
-  addDocumentation({ commit, dispatch },params) {
+  addDocumentation({ commit, dispatch }, params) {
     return toolsService
-      .addDocumentation(params.id,params.docID)
+      .addDocumentation(params.id, params.docID)
       .then(data => {
         commit("SET_TOOL", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {
@@ -118,7 +118,7 @@ const actions = {
   },
   removeDocumentation({ commit, dispatch }, params) {
     return toolsService
-      .removeDocumentation(params.id,params.docID)
+      .removeDocumentation(params.id, params.docID)
       .then(data => {
         commit("SET_TOOL", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {

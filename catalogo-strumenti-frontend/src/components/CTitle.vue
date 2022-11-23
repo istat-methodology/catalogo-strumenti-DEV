@@ -1,12 +1,10 @@
 <template>
   <div>
-    <CCardHeader class="no-border p-0 mt-4" >
-      <h1 class="uppercase text-right p-0 text-info" v-if="functionality!=''">
+    <CCardHeader class="no-border p-0 mt-4">
+      <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">
         <span>
           <span class="p-0">{{ maintitle }}</span>
-          <h4
-            class="bg-secondary p-0 text-right uppercase "
-          >
+          <h4 class="bg-secondary p-0 text-right uppercase ">
             <span class="mt-4 pr-1 uppercase text-info">
               {{ functionality }}
             </span>
@@ -50,9 +48,10 @@
             </button>
             <button
               v-if="item == 'indietro'"
-              class="btn btn-outline-primary pl-2"              
-              @click.prevent="handleBack"              
-              :title="item"            >
+              class="btn btn-outline-primary pl-2"
+              @click.prevent="handleBack"
+              :title="item"
+            >
               <close-icon :title="item" />
             </button>
           </div>
@@ -68,33 +67,33 @@ export default {
   props: {
     functionality: {
       Type: String,
-      default: () => "",
+      default: () => ""
     },
     maintitle: {
       Type: String,
-      default: () => "",
+      default: () => ""
     },
 
     title: {
       Type: String,
-      default: () => "",
+      default: () => ""
     },
     subtitle: {
       Type: String,
-      default: () => "",
+      default: () => ""
     },
     buttonTitle: {
       Type: String,
-      default: () => "",
+      default: () => ""
     },
     buttons: {
       Type: Array,
-      default: () => [],
+      default: () => []
     },
     authenticated: {
       Type: Boolean,
-      default: () => false,
-    },
+      default: () => false
+    }
   },
   methods: {
     getTitle(functionType, buttonTitle) {
@@ -111,8 +110,8 @@ export default {
     },
     handleNew() {
       this.$emit("handleNew");
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

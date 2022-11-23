@@ -54,28 +54,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "contact",
           label: "Contatto",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "organization",
           label: "Organizzazione",
-          _style: "width:60%;",
+          _style: "width:60%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedAgent: {},
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
@@ -83,18 +83,18 @@ export default {
     ...mapGetters("agent", ["agentList"]),
     computedItems() {
       if (this.agentList) {
-        return this.agentList.map((agent) => {
+        return this.agentList.map(agent => {
           return {
             id: agent.id,
             name: agent.name == null ? "" : agent.name,
             organization: agent.organization == null ? "" : agent.organization,
-            contact: agent.contact == null ? "" : agent.contact,
+            contact: agent.contact == null ? "" : agent.contact
           };
         });
       } else {
         return [];
       }
-    },
+    }
   },
 
   methods: {
@@ -107,7 +107,7 @@ export default {
     handleView(item) {
       this.$router.push({
         name: "AgentDetails",
-        params: { id: item.id },
+        params: { id: item.id }
       });
     },
     handleEdit(item) {
@@ -131,7 +131,7 @@ export default {
         this.selectedAgent.name +
         " selezionato?"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.AgentList);
@@ -139,6 +139,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("agent/findAll");
     // }
-  },
+  }
 };
 </script>

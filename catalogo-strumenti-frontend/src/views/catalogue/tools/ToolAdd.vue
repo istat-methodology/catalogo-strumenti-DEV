@@ -225,7 +225,7 @@ export default {
   components: {
     DatePicker,
     Treeselect,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -260,39 +260,39 @@ export default {
         gsbpmProcesses: [],
         statisticalMethods: [],
         linkAgentsTools: [],
-        documentations: [],
+        documentations: []
       },
       //gsbpmChecked: [],
       value: 0,
-      tooltypeSelected: 0,
+      tooltypeSelected: 0
     };
   },
   computed: {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
             };
-          }),
+          })
         };
       });
-    },
+    }
   },
   validations: {
     toolLocal: {
       name: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     handleSubmit() {
@@ -309,13 +309,13 @@ export default {
     onChangeToolType(event) {
       this.tooltypeSelected = event.target.value;
       this.toolLocal.toolType = event.target.value;
-    },
+    }
   },
   created() {
     this.$store.dispatch("tooltype/findAll");
     if (this.tooltypeList && this.tooltypeList.length > 0) {
       this.toolLocal.toolType = this.tooltypeList[0].id;
     }
-  },
+  }
 };
 </script>

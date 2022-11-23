@@ -13,7 +13,7 @@
             @handleSubmit="handleSubmit"
             @handleBack="handleBack"
           />
-          <CCard>           
+          <CCard>
             <CCardBody>
               <CInput
                 label="Nome*"
@@ -81,7 +81,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "documentationAdd",
   components: { CTitle },
@@ -95,19 +95,19 @@ export default {
         notes: "",
         resource: "",
         tool: "",
-        method: "",
-      },
+        method: ""
+      }
     };
   },
   validations: {
     documentationLocal: {
       name: {
-        required,
+        required
       },
       documentType: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -135,8 +135,8 @@ export default {
       }
     },
     handleBack() {
-      this.$router.push({ name: "DocumentationList"});
-    },
+      this.$router.push({ name: "DocumentationList" });
+    }
     /* onChange(event) {
       this.tipologia = event.target.value;
     } */
@@ -147,6 +147,6 @@ export default {
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentationType/findAll");
-  },
+  }
 };
 </script>

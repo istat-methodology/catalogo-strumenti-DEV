@@ -55,28 +55,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "gsbpm",
           label: "Fasi Gsbpm",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:29%;",
+          _style: "width:29%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedStatisticalMethod: {},
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
@@ -86,22 +86,22 @@ export default {
     ...mapGetters("filter", ["params"]),
     computedItems() {
       if (this.statisticalMethodsList) {
-        return this.statisticalMethodsList.map((method) => {
+        return this.statisticalMethodsList.map(method => {
           return {
             id: method.id,
             name: method.name == null ? "" : method.name,
             description: method.description == null ? "" : method.description,
             gsbpm: method.gsbpmProcesses
-              .map((gsbpmProcess) => {
+              .map(gsbpmProcess => {
                 return gsbpmProcess.code + " " + gsbpmProcess.name;
               })
-              .join(", "),
+              .join(", ")
           };
         });
       } else {
         return [];
       }
-    },
+    }
   },
 
   methods: {
@@ -136,7 +136,7 @@ export default {
         this.selectedStatisticalMethod.name +
         " selezionato?"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.MethodList);
@@ -144,6 +144,6 @@ export default {
     // this.$store.dispatch("tools/filter", this.params);
     this.$store.dispatch("methods/findAll");
     // }
-  },
+  }
 };
 </script>
