@@ -87,14 +87,13 @@
             <span>Processi</span>
           </template>
           <div v-if="this.bFunction">
-            <app-business-process-edit
+            <CBusinessProcessList
               v-if="this.bFunction"
               :bFunctionId="bFunction.id"
               :bFunctionName="bFunction.name"
               :bProcesses="getBusinessProcesses"
               @refreshBProcess="loadBusinessFunction"
-            >
-            </app-business-process-edit>
+            />
           </div>
         </CTab>
       </CTabs>
@@ -103,17 +102,18 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import _ from "lodash";
-import Treeselect from "@riophae/vue-treeselect";
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-import BusinessProcessEditView from "../businessProcesses/shared/BusinessProcessEditView";
 import { required } from "vuelidate/lib/validators";
+import _ from "lodash";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import Treeselect from "@riophae/vue-treeselect";
+import CBusinessProcessList from "@/components/businessProcess/CBusinessProcessList";
+
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessFunctionsEdit",
   components: {
     Treeselect,
-    "app-business-process-edit": BusinessProcessEditView,
+    CBusinessProcessList,
     CTitle,
   },
   data() {
@@ -159,7 +159,7 @@ export default {
         return {
           id: item.id,
           name: item.name,
-          desr: item.desr,
+          descr: item.descr,
           label: item.label,
           orderCode: item.orderCode,
           parent: item.parent,
