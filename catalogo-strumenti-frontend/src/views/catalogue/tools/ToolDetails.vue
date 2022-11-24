@@ -222,7 +222,7 @@
         />
       </div>
       <div class="p-2">
-        <app-linkedAgents :linkedAgents="getLinkedAgentList" />
+        <CAgentView :linkedAgents="getLinkedAgentList" />
       </div>
     </div>
   </div>
@@ -236,9 +236,7 @@ import CStatisticalMethodView from "@/components/statisticalMethod/CStatisticalM
 import CBusinessFunctionsView from "@/components/businessFunctions/CBusinessFunctionsView.vue";
 import CDocumentationView from "@/components/documentation/CDocumentationView.vue";
 import CBusinessServiceView from "@/components/businessService/CBusinessServiceView.vue";
-
-import LinkedAgentView from "../agent/shared/LinkedAgentView";
-
+import CAgentView from "@/components/agent/CAgentView.vue";
 import CTitle from "@/components/CTitle.vue";
 
 export default {
@@ -248,7 +246,7 @@ export default {
     CStatisticalMethodView,
     CBusinessServiceView,
     CBusinessFunctionsView,
-    "app-linkedAgents": LinkedAgentView,
+    CAgentView,
     CTitle
   },
   data() {

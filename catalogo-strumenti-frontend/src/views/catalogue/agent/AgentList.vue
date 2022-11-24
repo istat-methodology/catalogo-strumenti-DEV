@@ -42,9 +42,9 @@
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-import CTitle from "../../../components/CTitle.vue";
-import CModalDelete from "../../../components/CModalDelete.vue";
-import CTableLink from "../../../components/CTableLink.vue";
+import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+import CTableLink from "@/components/CTableLink.vue";
 export default {
   name: "AgentList",
   components: { CTitle, CModalDelete, CTableLink },

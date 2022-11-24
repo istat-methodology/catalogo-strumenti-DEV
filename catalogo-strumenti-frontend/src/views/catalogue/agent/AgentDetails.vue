@@ -49,7 +49,7 @@
 /* import { required } from "vuelidate/lib/validators"; */
 import { mapGetters } from "vuex";
 //import { Context } from "@/common";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "AgentDetails",

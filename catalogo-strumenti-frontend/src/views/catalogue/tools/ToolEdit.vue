@@ -287,10 +287,7 @@
             </template>
             <div class="row p-0">
               <div class="col-12 p-0">
-                <app-linkedAgents
-                  :toolId="tool.id"
-                  :toolName="this.tool.name"
-                />
+                <CAgentEditView :toolId="tool.id" :toolName="this.tool.name" />
               </div>
             </div>
           </CTab>
@@ -326,7 +323,7 @@ import Treeselect from "@riophae/vue-treeselect";
 import DatePicker from "vue2-datepicker";
 import CDocumentationEditView from "@/components/documentation/CDocumentationEditView.vue";
 import CBusinessServiceEditView from "@/components/businessService/CBusinessServiceEditView.vue";
-import LinkedAgentEditView from "../agent/shared/LinkedAgentEditView";
+import CAgentEditView from "@/components/agent/CAgentEditView.vue";
 
 import CTitle from "@/components/CTitle.vue";
 import "vue2-datepicker/index.css";
@@ -337,7 +334,7 @@ export default {
     DatePicker,
     CDocumentationEditView,
     CBusinessServiceEditView,
-    "app-linkedAgents": LinkedAgentEditView,
+    CAgentEditView,
     CTitle
   },
   data() {

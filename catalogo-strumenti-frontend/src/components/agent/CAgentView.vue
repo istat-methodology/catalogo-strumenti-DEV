@@ -62,7 +62,7 @@
 </template>
 <script>
 export default {
-  name: "LinkedAgentView",
+  name: "CAgentView",
   props: {
     linkedAgents: {
       type: Array,

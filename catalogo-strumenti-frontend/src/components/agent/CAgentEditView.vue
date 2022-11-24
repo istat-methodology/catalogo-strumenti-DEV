@@ -6,7 +6,7 @@
         >
       </div-->
     <div v-if="stateform == FormState.NEW_AGENT">
-      <app-agent-add :goBackClose="true" @appClose="closeNewAgent" />
+      <CAgentAdd :goBackClose="true" @appClose="closeNewAgent" />
     </div>
 
     <div v-if="stateform == FormState.NEW">
@@ -172,11 +172,11 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import AgentAdd from "./AgentAdd.vue";
 import _ from "lodash";
+import CAgentAdd from "@/components/agent/CAgentAdd.vue";
 import CTitle from "@/components/CTitle.vue";
 export default {
-  name: "LinkedAgentEditView",
+  name: "CAgentEditView",
   props: {
     toolId: {
       type: Number,
@@ -190,7 +190,7 @@ export default {
     }
   },
   components: {
-    "app-agent-add": AgentAdd,
+    CAgentAdd,
     CTitle
   },
   data() {

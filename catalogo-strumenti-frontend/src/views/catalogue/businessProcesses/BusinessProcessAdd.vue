@@ -59,12 +59,11 @@
         </CCardHeader>
 
         <div v-if="selectedEditProcess">
-          <app-business-process-step-new
+          <CBusinessProcessStepNew
             :bProcess="selectedEditProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
-          >
-          </app-business-process-step-new>
+          />
         </div>
       </div>
       <div>
@@ -112,16 +111,14 @@
 <script>
 import { mapGetters } from "vuex";
 //import BusinessProcessEdit from "./BusinessProcessEdit";
-import ProcessStepEdit from "../processSteps/shared/ProcessStepEdit";
-import ProcessStepNew from "../processSteps/shared/ProcessStepNew";
+//import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit.vue";
+import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessProcessEditView",
-
   components: {
-    //"app-business-process-edit": BusinessProcessEdit,
-    "app-business-process-step-edit": ProcessStepEdit,
-    "app-business-process-step-new": ProcessStepNew,
+    //CBusinessProcessStepEdit,
+    CBusinessProcessStepNew,
     CTitle
   },
   data() {
