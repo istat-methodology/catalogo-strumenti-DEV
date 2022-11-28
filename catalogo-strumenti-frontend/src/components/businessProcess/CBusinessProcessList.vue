@@ -323,9 +323,8 @@ export default {
       params.fID = this.bFunctionId;
       params.pID = this.selectedBProcess.id;
       this.$store
-        .dispatch("bFunction/removeBProcessFromBFunction", params)
-        .then(this.$emit("refreshBProcess"));
-      this.$emit("refreshBProcess");
+        .dispatch("bFunction/removeBProcess", params)
+        .then(this.$emit("refreshBProcess", this.bFunctionId));
       this.showModal = false;
     },
 

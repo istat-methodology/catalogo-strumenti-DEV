@@ -158,7 +158,9 @@ export default {
       }
     },
     handleSubmit() {
-      //this.stateform = this.FormState.LIST;
+        this.$store.dispatch("bProcess/update", this.bProcess);
+      
+      
     },
     handleEditStep(step) {
       console.log(step);

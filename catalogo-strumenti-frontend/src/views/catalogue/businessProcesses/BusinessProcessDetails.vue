@@ -49,7 +49,7 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import _ from "lodash";
-import CTitle from "../../../components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessProcessDetails",
   components: {

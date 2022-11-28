@@ -3,17 +3,13 @@
     <div v-if="bProcessLocal">
       <CCard>
         <CCardBody>
-          <CInput
-            label="Nome*"
-            placeholder="Nome"
-            v-model="bProcessLocal.name"
-          />
-          <CTextarea
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="bProcessLocal.descr"
-          />
-          <div class="row justify-content-between">
+          <div class="row">
+            <CInput
+              class="col-6"
+              label="Nome*"
+              placeholder="Nome"
+              v-model="bProcessLocal.name"
+            />
             <CInput
               class="col-4"
               label="Etichetta"
@@ -21,10 +17,20 @@
               v-model="bProcessLocal.label"
             />
             <CInput
+              class="col-2"
               label="Ordine"
               type="number"
               placeholder="Ordine"
               v-model="bProcessLocal.orderCode"
+            />
+          </div>
+
+          <div class="row mt-4">
+            <CTextarea
+              class="col-12"
+              label="Descrizione"
+              placeholder="Descrizione"
+              v-model="bProcessLocal.descr"
             />
           </div>
         </CCardBody>
@@ -42,7 +48,7 @@
           <span
             v-if="
               bProcessLocal.processSteps &&
-                bProcessLocal.processSteps.length > 0
+              bProcessLocal.processSteps.length > 0
             "
           >
             <CDataTable
@@ -74,7 +80,7 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessEdit",
   components: {
-    CTitle
+    CTitle,
   },
   data() {
     return {
@@ -82,41 +88,41 @@ export default {
         {
           key: "index",
           label: "#",
-          _style: "width:1%;"
+          _style: "width:1%;",
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
 
         {
           key: "tool",
           label: "Strumento",
-          _style: "width:40%;"
+          _style: "width:40%;",
         },
         {
           key: "stepInstances",
           label: "Funzione",
-          _style: "width:40%;"
+          _style: "width:40%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       bProcessLocal: {},
       states: [],
       FormState: {},
       stateform: 0,
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"])
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   emits: ["enableEditStep", "enableNewStep"],
 
@@ -124,11 +130,11 @@ export default {
     bProcess: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
-    getProcessStepsList: function() {
+    getProcessStepsList: function () {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
         return this.bProcessLocal.processSteps.map((step, index) => {
           return {
@@ -141,13 +147,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map(instance => {
+                    .map((instance) => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns
+            processDesigns: step.processDesigns,
           };
         });
       } else {
@@ -163,11 +169,11 @@ export default {
     handleBack() {
       //this.stateform = this.FormState.LIST;
       this.$router.back();
-    }
+    },
   },
   created() {
     this.bProcessLocal = this.bProcess;
-  }
+  },
 };
 </script>
 <style scoped>

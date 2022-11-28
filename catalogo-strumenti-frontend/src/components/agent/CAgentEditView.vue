@@ -224,7 +224,6 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("agent", ["agentList"]),
     ...mapGetters("linkedagent", ["linkedAgentList"]),
-
     getLinkedAgentList: function () {
       if (this.linkedAgentList)
         return this.linkedAgentList.map((agentTool) => {

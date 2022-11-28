@@ -60,12 +60,11 @@ class BusinessFunctionsService extends AbstractService {
       });
   }
 
-  removeBProcessFromBFunction(fID, pID) {
+  removeBProcess(fID, pID) {
     return axiosCatalog
-      .put(this.endpoint + "/" + fID + "/processes/" + pID)
+      .delete(this.endpoint + "/" + fID + "/processes/" + pID)
       .then(res => {
         var data = res.data ? res.data : [];
-
         return data;
       })
       .catch(err => {

@@ -300,10 +300,10 @@
               <div class="row p-0">
                 <div class="col-12 p-0">
                   <CDocumentationEditView
-                    :parentName="this.tool.name"
-                    @updateParent="loadTool"
+                    :parentName="this.tool.name"                    
                     :documentations="getDocumentation"
                     :toolId="this.tool.id"
+                    @updateParent="loadTool"
                   />
                 </div>
               </div>
@@ -376,7 +376,6 @@ export default {
       methodsChecked: [],
       agentChecked: [],
       documentationChecked: [],
-
       elenco: []
     };
   },
@@ -410,7 +409,6 @@ export default {
         };
       });
     },
-
     getDocumentationList: function() {
       return this.documentationList.map(doc => {
         return {
@@ -419,7 +417,6 @@ export default {
         };
       });
     },
-
     getLinkedAgentList: function() {
       if (this.tool)
         return this.linkAgentsTools.map(agentTool => {

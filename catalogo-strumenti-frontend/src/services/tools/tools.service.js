@@ -89,7 +89,6 @@ class ToolsService extends AbstractService {
       .put(this.endpoint + "/" + id + "/documentation-remove/" + docID)
       .then(res => {
         var data = res.data ? res.data : [];
-
         return data;
       })
       .catch(err => {

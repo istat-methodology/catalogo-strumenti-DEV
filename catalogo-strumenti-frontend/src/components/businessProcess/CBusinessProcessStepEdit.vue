@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div v-if="bPStepLocal">
-      <div class="card">
+  <div v-if="bPStepLocal">
+    <CCard>
+      <CCardBody>
         <div class="row">
           <CInput
             class="col-6"
@@ -23,42 +23,49 @@
             v-model="bPStepLocal.orderCode"
           />
         </div>
-        <CTextarea
-          label="Descrizione"
-          placeholder="Descrizione"
-          v-model="bPStepLocal.descr"
-        />
-        <label>Strumento metodologico</label>
-        {{ bPStepLocal.tool }}
-        {{ bPStepLocal }}
-      </div>
-      <span
-        v-if="
-          bPStepLocal.processDesigns && bPStepLocal.processDesigns.length > 0
-        "
-      >
-        <strong>processDesigns:</strong>
+        <div class="row mt-4">
+          <CTextarea
+            class="col-12"
+            label="Descrizione"
+            placeholder="Descrizione"
+            v-model="bPStepLocal.descr"
+          />
+        </div>
 
-        <CCardBody>
-          <CDataTable
-            v-if="bPStepLocal"
-            :items="bPStepLocal.processDesigns"
-            :fields="fields1"
-            :items-per-page="10"
-            hover
-            pagination
-            ><template #show_details="{ item }">
-              <td>
-                <span class="icon-link" @click="handleEditStep(item)"
-                  ><edit-icon title="Edit"
-                /></span>
-              </td>
-            </template>
-          </CDataTable>
-        </CCardBody>
-      </span>
-      <span v-else>Non sono presenti passi</span>
-    </div>
+        <div class="row mt-4">
+          <label class="col-12 mt-4">Strumento metodologico</label>
+          <div class="col-12">
+            <label>bPStepLocal.tool </label><span >{{ bPStepLocal.tool }}</span>
+          </div>
+          <label class="col-12 mt-4">bPStepLocal</label>
+          <div class="col-12">{{ bPStepLocal }}</div>
+
+          <label class="col-12 mt-4">processDesigns:</label>
+
+          <span
+            v-if="bPStepLocal.processDesigns.length > 0
+            "
+          >
+            <CDataTable
+              class="col-12"
+              v-if="bPStepLocal"
+              :items="bPStepLocal.processDesigns"              
+              :items-per-page="10"
+              hover
+              pagination
+              ><template #show_details="{ item }">
+                <td>
+                  <span class="icon-link" @click="handleEditStep(item)"
+                    ><edit-icon title="Edit"
+                  /></span>
+                </td>
+              </template>
+            </CDataTable>
+          </span>
+          <span v-else>Non sono presenti process desigp</span>
+        </div>
+      </CCardBody>
+    </CCard>
   </div>
 </template>
 <script>
@@ -70,37 +77,37 @@ export default {
         {
           key: "index",
           label: "#",
-          _style: "width:1%;"
+          _style: "width:1%;",
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
 
         {
           key: "tool",
           label: "Strumento",
-          _style: "width:40%;"
+          _style: "width:40%;",
         },
         {
           key: "stepInstances",
           label: "Funzione",
-          _style: "width:40%;"
+          _style: "width:40%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       bPStepLocal: {},
       states: [],
       FormState: {},
       stateform: 0,
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {},
@@ -109,11 +116,11 @@ export default {
     bPStep: {
       type: Object,
       required: true,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   methods: {
-    getProcessDesignsList: function() {
+    getProcessDesignsList: function () {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns) {
         return this.bPStepLocal.processDesigns.map((step, index) => {
           return {
@@ -126,13 +133,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map(instance => {
+                    .map((instance) => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns
+            processDesigns: step.processDesigns,
           };
         });
       } else {
@@ -144,11 +151,11 @@ export default {
     },
     handleBack() {
       this.$emit("handeleBack");
-    }
+    },
   },
   created() {
     this.bPStepLocal = this.bPStep;
-  }
+  },
 };
 </script>
 <style scoped>
