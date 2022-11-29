@@ -12,7 +12,15 @@
             @handleSubmit="handleSubmit"
             @handleBack="handleBack"
           />
-          <CCard>
+          <!--div v-if="selectedEditProcess"-->
+          <CBusinessProcessEdit
+            :bProcess="bProcess"
+            @enableEditStep="showEditStep"
+            @enableNewStep="showNewStep"
+          />
+        <!--/div-->
+
+          <!--CCard>
             <div class="row p-3">
               <CInput
                 class="col-6"
@@ -75,7 +83,7 @@
               </span>
               <span v-else>Non sono presenti passi</span>
             </CCardBody>
-          </CCard>
+          </CCard-->
         </div>
       </div>
     </div>
@@ -84,15 +92,17 @@
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
+import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
 
 export default {
   components: {
-    CTitle
+    CTitle,
+    CBusinessProcessEdit
   },
   name: "BusinessProcessEdit",
   data() {
     return {
-      fields: [
+      /*fields: [
         {
           key: "index",
           label: "#",
@@ -122,6 +132,7 @@ export default {
           filter: false
         }
       ],
+      */
 
       warningModal: false
     };
@@ -131,7 +142,7 @@ export default {
     ...mapGetters("bProcess", ["bProcess"])
   },
   methods: {
-    getProcessStepsList: function() {
+    /*getProcessStepsList: function() {
       if (this.bProcess && this.bProcess.processSteps) {
         return this.bProcess.processSteps.map((step, index) => {
           return {
@@ -157,10 +168,9 @@ export default {
         return [];
       }
     },
+    */
     handleSubmit() {
         this.$store.dispatch("bProcess/update", this.bProcess);
-      
-      
     },
     handleEditStep(step) {
       console.log(step);

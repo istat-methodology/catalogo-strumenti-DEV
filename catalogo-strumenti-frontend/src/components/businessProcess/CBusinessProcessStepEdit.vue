@@ -17,39 +17,29 @@
           />
           <CInput
             class="col-2"
-            label="Ordine"
-            type="number"
-            placeholder="Ordine"
-            v-model="bPStepLocal.orderCode"
+            label="Index"
+            placeholder="Index"
+            v-model="bPStepLocal.index"
           />
         </div>
         <div class="row mt-4">
           <CTextarea
             class="col-12"
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="bPStepLocal.descr"
+            label="Funzione"
+            placeholder="Funzione"
+            v-model="bPStepLocal.stepInstances"
           />
         </div>
 
         <div class="row mt-4">
-          <label class="col-12 mt-4">Strumento metodologico</label>
-          <div class="col-12">
-            <label>bPStepLocal.tool </label><span >{{ bPStepLocal.tool }}</span>
-          </div>
-          <label class="col-12 mt-4">bPStepLocal</label>
-          <div class="col-12">{{ bPStepLocal }}</div>
-
           <label class="col-12 mt-4">processDesigns:</label>
 
-          <span
-            v-if="bPStepLocal.processDesigns.length > 0
-            "
-          >
+          <span v-if="bPStepLocal.processDesigns.length > 0">
             <CDataTable
               class="col-12"
               v-if="bPStepLocal"
-              :items="bPStepLocal.processDesigns"              
+              :items="getProcessDesignsList()"
+              :fields="fields"
               :items-per-page="10"
               hover
               pagination
@@ -80,20 +70,55 @@ export default {
           _style: "width:1%;",
         },
         {
-          key: "name",
-          label: "Nome",
+          key: "id",
+          label: "id",
           _style: "width:20%;",
         },
 
         {
-          key: "tool",
-          label: "Strumento",
+          key: "descr",
+          label: "descrizione",
           _style: "width:40%;",
         },
         {
-          key: "stepInstances",
-          label: "Funzione",
-          _style: "width:40%;",
+          key: "id_processDesignDescription",
+          label: "ID Process Designs",
+          _style: "width:20%;",
+        },
+        {
+          key: "description_processDesignDescription",
+          label: "Description Process Designs",
+          _style: "width:20%;",
+        },
+        {
+          key: "id_designType",
+          label: "ID Design Type ",
+          _style: "width:20%;",
+        },
+        {
+          key: "type_designType",
+          label: "type Design Type",
+          _style: "width:20%;",
+        },
+        {
+          key: "id_informationObject",
+          label: "id informationObject",
+          _style: "width:20%;",
+        },
+        {
+          key: "name_informationObject",
+          label: "name informationObject",
+          _style: "width:20%;",
+        },
+        {
+          key: "description_informationObject",
+          label: "description informationObject",
+          _style: "width:20%;",
+        },
+        {
+          key: "csmAppRoleId_informationObject",
+          label: "csmAppRoleId informationObject",
+          _style: "width:20%;",
         },
         {
           key: "show_details",
@@ -121,26 +146,23 @@ export default {
   },
   methods: {
     getProcessDesignsList: function () {
-      if (this.bPStepLocal && this.bPStepLocal.processDesigns) {
+      if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
         return this.bPStepLocal.processDesigns.map((step, index) => {
           return {
-            id: step.id,
             index: index + 1,
-            name: step.name == null ? "" : step.name,
-            label: step.label == null ? "" : step.label,
-            tool: step.businessService == null ? "" : step.businessService.name,
-            stepInstances:
-              step.stepInstances == null
-                ? ""
-                : step.stepInstances
-                    .map((instance) => {
-                      return (
-                        instance.functionality + " (" + instance.method + ")"
-                      );
-                    })
-                    .join(", "),
-            processDesigns: step.processDesigns,
-          };
+            id: step.id,
+            descr: step.descr,
+            id_processDesignDescription: step.processDesignDescription.id,
+            description_processDesignDescription: step.processDesignDescription.descr,
+            id_designType: step.designType.id,
+            type_designType: step.designType.type,
+
+            id_informationObject: step.informationObject.id,
+            name_informationObject: step.informationObject.name,
+            description_informationObject: step.informationObject.descr,
+            csmAppRoleId_informationObject: step.informationObject.csmAppRoleId,
+            
+          }
         });
       } else {
         return [];

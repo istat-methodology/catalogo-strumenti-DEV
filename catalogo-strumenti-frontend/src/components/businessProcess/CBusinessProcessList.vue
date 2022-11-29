@@ -206,6 +206,7 @@
   </div>
 </template>
 <script>
+
 import { mapGetters } from "vuex";
 import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
 import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
