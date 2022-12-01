@@ -21,7 +21,7 @@
 <script>
 import CTitle from "@/components/CTitle.vue";
 export default {
-  name: "CBusinessProcessDesignNew",
+  name: "CBusinessProcessDesignEdit",
   components: {
     CTitle
   },
