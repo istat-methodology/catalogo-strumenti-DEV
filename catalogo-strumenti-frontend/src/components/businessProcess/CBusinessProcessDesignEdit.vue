@@ -2,7 +2,7 @@
   <div>
     <CTitle
         :title="'Edit Process Design di '+ bProcessStep.name"
-        buttonTitle=" nuovo process design "
+        buttonTitle = " nuovo process design "
         functionality=""
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
