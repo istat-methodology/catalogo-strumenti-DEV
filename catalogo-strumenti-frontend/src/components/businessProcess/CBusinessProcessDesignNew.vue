@@ -1,47 +1,114 @@
 <template>
   <div>
     <CTitle
-        :title="'New Process Design di '+ bProcessStep.name"
-        buttonTitle=" nuovo process design "
-        functionality=""
-        :authenticated="isAuthenticated"
-        :buttons="['salva', 'indietro']"
-        @handleSubmit="handleSubmit"
-        @handleBack="handleBack"
-      />
-      <CCard>
-        <CCardBody>
+      :title="'New Process Design di ' + bProcessStep.name"
+      buttonTitle=" nuovo process design "
+      functionality=""
+      :authenticated="isAuthenticated"
+      :buttons="['salva', 'indietro']"
+      @handleSubmit="handleSubmit"
+      @handleBack="handleBack"
+    />
+    <CCard>
+      <CCardBody>
+        <div class="row mt-4">
+          <label class="col-12 pl-2">Process Design</label>
           <div class="row">
             <CInput
               class="col-6"
-              label="Nome*"
-              placeholder="Nome"
-              v-model="bProcessDesignLocal.name"
+              label="index"
+              placeholder="index"
+              v-model="bProcessDesignLocal.processDesigns_index"
             />
+            <CInput
+              class="col-6"
+              label="id"
+              placeholder="id"
+              v-model="bProcessDesignLocal.processDesigns_id"
+            />
+            <CTextarea
+              class="col-12"
+              label="description"
+              placeholder="processDesigns_descr"
+              v-model="bProcessDesignLocal.processDesigns_descr"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <label class="col-12 pl-2">Process Design Description</label>
+          <div class="row">
+            <CInput
+              class="col-6"
+              label="id"
+              placeholder="id"
+              v-model="bProcessDesignLocal.processDesignDescription_id"
+            />
+            <CTextarea
+              class="col-12"
+              label="description"
+              placeholder="description"
+              v-model="bProcessDesignLocal.processDesignDescription_description"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <label class="col-12 pl-2">Design Type</label>
+          <div class="row">
             <CInput
               class="col-4"
-              label="Etichetta"
-              placeholder="Etichetta"
-              v-model="bProcessDesignLocal.label"
-            />
-            <CInput
-              class="col-2"
               label="Index"
               placeholder="index"
               v-model="bProcessDesignLocal.index"
             />
-          </div>
-          <div class="row mt-4">
-            <CTextarea
-              class="col-12"
-              label="Descrizione"
-              placeholder="Descrizione"
-              v-model="bProcessDesignLocal.descr"
+            <CInput
+              class="col-4"
+              label="id"
+              placeholder="id"
+              v-model="bProcessDesignLocal.designType_id"
+            />
+            <CInput
+              class="col-4"
+              label="designType_type"
+              placeholder="designType_type"
+              v-model="bProcessDesignLocal.designType_type"
             />
           </div>
-        </CCardBody>
-      </CCard>
+        </div>
 
+        <div class="row mt-4">
+          <label class="col-12 pl-2">information Object</label>
+          <div class="row">
+            <CInput
+              class="col-3"
+              label="csmAppRoleId"
+              placeholder="csmAppRoleId"
+              v-model="bProcessDesignLocal.informationObject_csmAppRoleId"
+            />
+            <CInput
+              class="col-2"
+              label="id"
+              placeholder="id"
+              v-model="bProcessDesignLocal.informationObject_id"
+            />
+            <CInput
+              class="col-7"
+              label="name"
+              placeholder="name"
+              v-model="bProcessDesignLocal.informationObject_name"
+            />
+
+            <CTextarea
+              class="col-12 mt-2"
+              label="description"
+              placeholder="description"
+              v-model="bProcessDesignLocal.informationObject_description"
+            />
+          </div>
+        </div>
+      </CCardBody>
+    </CCard>
   </div>
 </template>
 <script>
@@ -50,14 +117,14 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignNew",
   components: {
-    CTitle
+    CTitle,
   },
   data() {
-    return {    
-      bProcessDesignLocal:{}
+    return {
+      bProcessDesignLocal: {},
     };
   },
-  computed: { 
+  computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
   },
   //emits: ["enableNewProcessDesign"],
@@ -82,8 +149,7 @@ export default {
       this.$emit("enableBack");
     },
   },
-  created() {
-      },
+  created() {},
 };
 </script>
 <style scoped>
