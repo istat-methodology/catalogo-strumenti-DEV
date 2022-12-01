@@ -44,7 +44,7 @@
 
       <!--label class="col-12 mt-4">processDesigns:</label-->
       <CTitle
-        title="Process Design" 
+        title="Process Design"
         buttonTitle=" nuovo Process Design "
         functionality=""
         :authenticated="isAuthenticated"
@@ -65,9 +65,7 @@
                 pagination
                 ><template #show_details="{ item }">
                   <td>
-                    <span
-                      class="icon-link"
-                      @click="showEditProcessDesign(item)"
+                    <span class="icon-link" @click="showEditProcessDesign(item)"
                       ><edit-icon title="Edit"
                     /></span>
                   </td>
@@ -85,8 +83,8 @@
     <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
       <CBusinessProcessDesignNew
         :bProcessStep="bPStepLocal"
-        :bProcessDesign="selectedEditProcessDesign"
-        @enableNewProcessDesign="handleNewProcessDesign"
+        :bProcessDesign="selectedProcessDesign"
+        @enableNewProcessDesign="handleSubmitNewProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -96,14 +94,12 @@
     <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
       <CBusinessProcessDesignEdit
         :bProcessStep="bPStepLocal"
-        :bProcessDesign="selectedEditProcessDesign"
-        @enableEditProcessDesign="handleNewProcessDesign"
+        :bProcessDesign="selectedProcessDesign"
+        @enableEditProcessDesign="handleSubmitEditProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
-
   </div>
-  
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -200,7 +196,7 @@ export default {
         },
       ],
       bPStepLocal: {},
-      selectedEditProcessDesign: {},
+      selectedProcessDesign: {},
       states: [],
 
       FormState: {
@@ -216,7 +212,7 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
   },
-  emits: ["enableEditStep", "enableBack"],
+  emits: ["enableBack", "enableEditDesignProcess", "enableNewDesignProcess"],
   props: {
     bPStep: {
       type: Object,
@@ -255,12 +251,24 @@ export default {
       }
     },
     showEditProcessDesign(processDesign) {
-      this.selectedEditProcessDesign = processDesign;
+      this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
     showNewProcessDesign() {
-      this.selectedEditProcessDesign = null;
+      this.selectedProcessDesign ={};
       this.stateform = this.FormState.PROCESS_DESIGN_NEW;
+    },
+    handleSubmitNewProcessDesign() {
+      
+      console.log("non attiva");
+      alert("non attiva");
+    
+    },
+    handleSubmitEditProcessDesign() {
+      
+      console.log("non attiva");
+      alert("non attiva");
+    
     },
     enableBack() {
       this.$emit("enableBack");

@@ -2,23 +2,50 @@
   <div>
     <CTitle
         :title="'New Process Design di '+ bProcessStep.name"
-        buttonTitle=" process design "
+        buttonTitle=" nuovo process design "
         functionality=""
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
+        @handleSubmit="handleSubmit"
         @handleBack="handleBack"
       />
-    <div class="card">
-      <div class="row">
-        <div>funzione non attiva</div>
-        <div>funzione non attiva</div>
-        <div>funzione non attiva</div>
-        <div>funzione non attiva</div>
-      </div>
-    </div>
+      <CCard>
+        <CCardBody>
+          <div class="row">
+            <CInput
+              class="col-6"
+              label="Nome*"
+              placeholder="Nome"
+              v-model="bProcessDesignLocal.name"
+            />
+            <CInput
+              class="col-4"
+              label="Etichetta"
+              placeholder="Etichetta"
+              v-model="bProcessDesignLocal.label"
+            />
+            <CInput
+              class="col-2"
+              label="Index"
+              placeholder="index"
+              v-model="bProcessDesignLocal.index"
+            />
+          </div>
+          <div class="row mt-4">
+            <CTextarea
+              class="col-12"
+              label="Descrizione"
+              placeholder="Descrizione"
+              v-model="bProcessDesignLocal.descr"
+            />
+          </div>
+        </CCardBody>
+      </CCard>
+
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignNew",
@@ -26,13 +53,14 @@ export default {
     CTitle
   },
   data() {
-    return {
-      bPStepLocal: {},
+    return {    
+      bProcessDesignLocal:{}
     };
   },
-  computed: {},
-  emits: ["enableEditProcessDesign"],
-
+  computed: { 
+    ...mapGetters("auth", ["isAuthenticated"]),
+  },
+  //emits: ["enableNewProcessDesign"],
   props: {
     bProcessStep: {
       type: Object,
@@ -46,14 +74,16 @@ export default {
     },
   },
   methods: {
-    handleNewProcessDesign(processDesign) {
-      this.$emit("enableEditProcessDesign", processDesign);
+    handleSubmit() {
+      this.bProcessDesign = this.bProcessDesignLocal;
+      this.$emit("enableNewProcessDesign", this.bProcessDesign);
     },
     handleBack() {
       this.$emit("enableBack");
     },
   },
-  created() {},
+  created() {
+      },
 };
 </script>
 <style scoped>

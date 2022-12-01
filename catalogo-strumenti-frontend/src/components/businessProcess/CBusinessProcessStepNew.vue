@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "CBusinessProcessStepNew",
   data() {
@@ -38,7 +39,9 @@ export default {
       bPStepLocal: {}
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
+  },
   emits: ["enableEditStep"],
 
   props: {

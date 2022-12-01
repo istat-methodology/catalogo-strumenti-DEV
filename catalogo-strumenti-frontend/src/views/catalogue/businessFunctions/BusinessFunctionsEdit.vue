@@ -8,7 +8,7 @@
           <div class="col-10 p-0 pl-2">
             <h1 class="uppercase text-right p-0 pt-2 text-info">
               <span>
-                <span class="p-0">{{ bFunction.name | dashEmpty }}</span>
+                <span class="p-0">{{ bFunction.name }}</span>
                 <h4 class="bg-secondary p-0">
                   <span class="pr-1 text-info">Modifica</span>
                 </h4>
@@ -88,7 +88,6 @@
           </template>
           <div v-if="this.bFunction">
             <CBusinessProcessList
-              v-if="this.bFunction"
               :bFunctionId="bFunction.id"
               :bFunctionName="bFunction.name"
               :bProcesses="getBusinessProcesses"
@@ -168,14 +167,6 @@ export default {
       });
     }
   },
-
-  /* validations: {
-    dug: {
-      name: {
-        required
-      }
-    }
-  }, */
 
   methods: {
     handleSubmit() {

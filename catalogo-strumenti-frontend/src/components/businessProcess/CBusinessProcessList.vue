@@ -187,6 +187,7 @@
         <CBusinessProcessStepNew
           :bPStep="selectedEditStep"
           @enableNewStep="showNewStep"
+          @enableBack="stateform = FormState.EDIT"
         />
         <!--/div-->
       </div>  
