@@ -24,7 +24,6 @@
               v-model="bProcessLocal.orderCode"
             />
           </div>
-
           <div class="row mt-4">
             <CTextarea
               class="col-12"
@@ -35,6 +34,7 @@
           </div>
         </CCardBody>
       </CCard>
+
       <CTitle
         title="Passi"
         buttonTitle=" Passo"
@@ -75,12 +75,14 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+//import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
 import CTitle from "@/components/CTitle.vue";
-
 export default {
-  name: "CBusinessProcessEdit",
+  name: "CBusinessProcessStepEdit",
   components: {
+  //  CBusinessProcessDesignNew,
     CTitle,
+ // CModalDelete
   },
   data() {
     return {
@@ -97,15 +99,23 @@ export default {
         },
 
         {
-          key: "tool",
-          label: "Strumento",
+          key: "label",
+          label: "etichetta",
           _style: "width:40%;",
         },
+
+        {
+          key: "description",
+          label: "Descrizione",
+          _style: "width:40%;",
+        },
+        /*
         {
           key: "stepInstances",
           label: "Funzione",
           _style: "width:40%;",
         },
+        */
         {
           key: "show_details",
           label: "",
@@ -142,7 +152,8 @@ export default {
             index: index + 1,
             name: step.name == null ? "" : step.name,
             label: step.label == null ? "" : step.label,
-            tool: step.businessService == null ? "" : step.businessService.name,
+            description:step.descr == null ? "" : step.descr,
+            //tool: step.businessService == null ? "" : step.businessService.name,
             stepInstances:
               step.stepInstances == null
                 ? ""
@@ -168,6 +179,7 @@ export default {
     },
     handleBack() {
       //this.stateform = this.FormState.LIST;
+      //this.stateform = FormState.EDIT
       this.$router.back();
     },
   },

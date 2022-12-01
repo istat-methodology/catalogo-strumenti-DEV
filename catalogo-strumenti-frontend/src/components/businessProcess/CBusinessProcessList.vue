@@ -13,7 +13,7 @@
               functionality=""
               :authenticated="isAuthenticated"
               :buttons="['aggiungi', 'indietro']"
-              @handleNew="stateform = FormState.ADD_PROCESS"
+              @handleNew="stateform = FormState.ADD"
               @handleBack="handleBack"
             />
             <div class="columns">
@@ -53,7 +53,7 @@
                           v-for="processStep of bProcess.processSteps"
                           :key="processStep.id"
                         >
-                          {{ processStep.name }}
+                          {{ processStep.name }} 
                         </li>
                       </ol>
                     </span>
@@ -68,7 +68,7 @@
       <!-- 
         Aggiungi Processo dalla lista
       -->
-      <div v-if="stateform == FormState.ADD_PROCESS">
+      <div v-if="stateform == FormState.ADD">
         <CTitle
           title="Aggiungi Processo"
           buttonTitle=" Aggiungi Processo"
@@ -106,7 +106,7 @@
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.LIST"
+          @handleBack="stateform = FormState.ADD"
         />
         <CCard>
           <CCardBody>
@@ -162,18 +162,12 @@
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
-        <CTitle
-          :title="selectedEditStep.name"
-          :buttonTitle="' passo ' + selectedEditStep.name"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleBack="stateform = FormState.EDIT"
-        />
+
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
             :bPStep="selectedEditStep"
             @enableEditStep="showEditStep"
+            @enableBack="stateform = FormState.EDIT"
           />
         </div>
       </div>
@@ -195,7 +189,7 @@
           @enableNewStep="showNewStep"
         />
         <!--/div-->
-      </div>
+      </div>  
     </div>
     <CModalDelete
       :message="getMessage()"
@@ -228,14 +222,15 @@ export default {
       selectedBProcessId: null,
       selectedEditProcess: null,
       selectedEditStep: null,
+      selectedEditProcessDesign: null,
       states: [],
       FormState: {
         LIST: 0,
         EDIT: 1,
         NEW: 2,
-        ADD_PROCESS: 3,
+        ADD: 3,
         STEP_EDIT: 4,
-        STEP_NEW: 5
+        STEP_NEW: 5,
       },
       stateform: 0,
       warningModal: false,
@@ -280,7 +275,7 @@ export default {
     },
     handleSubmit() {
       this.bProcessLocal.businessFunction = this.bFunctionId;
-      if (this.stateform == this.FormState.ADD_PROCESS) {
+      if (this.stateform == this.FormState.ADD) {
         this.$store
           .dispatch("bProcess/save", this.bProcessLocal)
           .then(this.$emit("refreshBProcess", this.bFunctionId));
