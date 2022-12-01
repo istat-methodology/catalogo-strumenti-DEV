@@ -28,22 +28,22 @@ processDesigns_index
         -->
       <CCardBody>
         <div class="row mt-4">
-          <label class="col-12">Process Design</label>
+          <label class="col-12 pl-2">Process Design</label>
           <div class="row">
             <CInput
-              class="col-2"
+              class="col-6"
               label="index"
               placeholder="index"
               v-model="bProcessDesignLocal.processDesigns_index"
             />
             <CInput
-              class="col-2"
+              class="col-6"
               label="id"
               placeholder="id"
               v-model="bProcessDesignLocal.processDesigns_id"
             />
-            <CInput
-              class="col-8"
+            <CTextarea
+              class="col-12"
               label="description"
               placeholder="processDesigns_descr"
               v-model="bProcessDesignLocal.processDesigns_descr"
@@ -52,16 +52,34 @@ processDesigns_index
         </div>
 
         <div class="row mt-4">
-          <label class="col-12">Design Type</label>
+          <label class="col-12 pl-2">Process Design Description</label>
           <div class="row">
             <CInput
-              class="col-2"
+              class="col-6"
+              label="id"
+              placeholder="id"
+              v-model="bProcessDesignLocal.processDesignDescription_id"
+            />
+            <CTextarea
+              class="col-12"
+              label="description"
+              placeholder="description"
+              v-model="bProcessDesignLocal.processDesignDescription_description"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <label class="col-12 pl-2">Design Type</label>
+          <div class="row">
+            <CInput
+              class="col-4"
               label="Index"
               placeholder="index"
               v-model="bProcessDesignLocal.index"
             />
             <CInput
-              class="col-2"
+              class="col-4"
               label="id"
               placeholder="id"
               v-model="bProcessDesignLocal.designType_id"
@@ -74,8 +92,9 @@ processDesigns_index
             />
           </div>
         </div>
+
         <div class="row mt-4">
-          <label class="col-12">information Object</label>
+          <label class="col-12 pl-2">information Object</label>
           <div class="row">
             <CInput
               class="col-3"
@@ -95,29 +114,12 @@ processDesigns_index
               placeholder="name"
               v-model="bProcessDesignLocal.informationObject_name"
             />
-          </div>
-          <CTextarea
-            class="col-12 mt-2"
-            label="description"
-            placeholder="description"
-            v-model="bProcessDesignLocal.informationObject_description"
-          />
-        </div>
 
-        <div class="row mt-4">
-          <label class="col-12">Process Design Description</label>
-          <div class="row">
-            <CInput
-              class="col-2"
-              label="id"
-              placeholder="id"
-              v-model="bProcessDesignLocal.processDesignDescription_id"
-            />
-            <CInput
-              class="col-10"
+            <CTextarea
+              class="col-12 mt-2"
               label="description"
               placeholder="description"
-              v-model="bProcessDesignLocal.processDesignDescription_description"
+              v-model="bProcessDesignLocal.informationObject_description"
             />
           </div>
         </div>
