@@ -24,6 +24,9 @@ public class DesignType implements Serializable  {
 	@Column(name = "TYPE")
 	private String type;
 	
+	@Column(name = "PARENT")
+	private Integer parent;	
+	
 	public DesignType() {		
 	}
 	public DesignType(Integer id) {

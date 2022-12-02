@@ -12,5 +12,6 @@ public class DesignTypeDto implements Serializable  {
 	
 	private Integer id;	
 	private String type;	
+	private Integer parent;
 	 
 }
