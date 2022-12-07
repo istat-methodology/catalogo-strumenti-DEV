@@ -18,6 +18,7 @@ import it.istat.mec.catalog.domain.BusinessFunction;
 import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.CatalogTool;
+import it.istat.mec.catalog.domain.DesignType;
 import it.istat.mec.catalog.domain.DesktopApplication;
 import it.istat.mec.catalog.domain.Documentation;
 import it.istat.mec.catalog.domain.DocumentationType;
@@ -40,6 +41,7 @@ import it.istat.mec.catalog.dto.BusinessProcessMiniDto;
 import it.istat.mec.catalog.dto.BusinessServiceDto;
 import it.istat.mec.catalog.dto.CatalogToolDTO;
 import it.istat.mec.catalog.dto.CatalogToolMiniListDTO;
+import it.istat.mec.catalog.dto.DesignTypeDto;
 import it.istat.mec.catalog.dto.DesktopApplicationDto;
 import it.istat.mec.catalog.dto.DocumentationDto;
 import it.istat.mec.catalog.dto.DocumentationTypeDto;
@@ -61,6 +63,7 @@ import it.istat.mec.catalog.request.CreateAppServiceRequest;
 import it.istat.mec.catalog.request.CreateBusinessFunctionRequest;
 import it.istat.mec.catalog.request.CreateBusinessProcessRequest;
 import it.istat.mec.catalog.request.CreateBusinessServiceRequest;
+import it.istat.mec.catalog.request.CreateDesignTypetRequest;
 import it.istat.mec.catalog.request.CreateDesktopApplicationRequest;
 import it.istat.mec.catalog.request.CreateDocumentationRequest;
 import it.istat.mec.catalog.request.CreateInformationObjectRequest;
@@ -84,6 +87,13 @@ public class Translators {
 
 		final ModelMapper modelMapper = new ModelMapper();
 		final GSBPMProcessDto dTO = modelMapper.map(x, GSBPMProcessDto.class);
+		return dTO;
+	}
+	
+	public static DesignTypeDto translate(DesignType x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final DesignTypeDto dTO = modelMapper.map(x, DesignTypeDto.class);
 		return dTO;
 	}
 	
@@ -294,6 +304,10 @@ public class Translators {
 		return mapList(list, AgentDto.class);
 	}
 	
+	public static List<DesignTypeDto> translateDesignTypeList(List<DesignType> list) {
+		return mapList(list, DesignTypeDto.class);
+	}
+	
 	public static List<LinkAgentToolDto> translateLinkAgentToolList(List<LinkAgentTool> list) {
 		return mapList(list, LinkAgentToolDto.class);
 	}
@@ -381,6 +395,13 @@ public class Translators {
 		final ModelMapper modelMapper = new ModelMapper();
 		final Agent agent = modelMapper.map(x, Agent.class);
 		return agent;
+	}
+	
+	public static DesignType translate(CreateDesignTypetRequest x) {
+
+		final ModelMapper modelMapper = new ModelMapper();
+		final DesignType designType = modelMapper.map(x, DesignType.class);
+		return designType;
 	}
 	
 	public static AppService translate(CreateAppServiceRequest x) {
@@ -570,6 +591,13 @@ public class Translators {
 		modelMapper.map(x, agent);
 
 		return agent;
+	}
+	
+	public static DesignType translateUpdate(CreateDesignTypetRequest x, DesignType designType) {
+		final ModelMapper modelMapper = new ModelMapper();
+		modelMapper.map(x, designType);
+
+		return designType;
 	}
 	
 	public static AppService translateUpdate(CreateAppServiceRequest x, AppService appService) {
