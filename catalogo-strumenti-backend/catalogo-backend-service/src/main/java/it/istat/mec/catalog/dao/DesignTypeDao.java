@@ -16,7 +16,11 @@ public interface DesignTypeDao extends JpaRepository<DesignType, Integer> {
 	
 	@Query("SELECT dt FROM DesignType AS dt "
 			+ " where 1=1 AND ((dt.parent is NULL) OR (dt.parent = 0)) " )	
-	List<DesignType> findDesignTypesByParent();
+	List<DesignType> findParentsDesignTypes();
+	
+	@Query("SELECT dt FROM DesignType AS dt "
+			+ " where 1=1 AND ((dt.parent = :parent)) " )	
+	List<DesignType> findDesignTypesByParent(Integer parent);
 	
 	Optional<DesignType> findById(Integer integer);
 

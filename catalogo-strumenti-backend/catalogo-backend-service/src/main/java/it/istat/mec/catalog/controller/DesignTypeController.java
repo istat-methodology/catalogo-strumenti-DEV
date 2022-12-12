@@ -21,23 +21,17 @@ public class DesignTypeController {
 	@Autowired
 	private DesignTypeService designTypeService;
 	
+	
 	@GetMapping("/open/design-types")
-	public List<DesignTypeDto> getAllDesignTypes() {
+	public List<DesignTypeDto> getParentsDesignTypes() {
 
-		return designTypeService.findAllDesignType();
+		return designTypeService.findParentsDesignTypes();
 	}
+	
 	@GetMapping("/open/design-types-by-parent")
-	public List<DesignTypeDto> getAllDesignTypesByParent() {
+	public List<DesignTypeDto> getDesignTypesByParent(Integer parent) {
 
-		return designTypeService.findDesignTypeByParent();
-	}
-	
-	
-	@GetMapping(value = "/open/design-types/{id}")
-	public DesignTypeDto getDesignType(@PathVariable("id") Integer id) {
-
-		return designTypeService.findDesignTypeById(id);
-
+		return designTypeService.findDesignTypesByParent(parent);
 	}
 	
 	@PostMapping("/design-types")
