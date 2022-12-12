@@ -32,6 +32,13 @@ public class DesignTypeController {
 	public List<DesignTypeDto> getDesignTypesByParent(Integer parent) {
 
 		return designTypeService.findDesignTypesByParent(parent);
+	}	
+	
+	@GetMapping(value = "/open/design-types/{id}")
+	public DesignTypeDto getDesignType(@PathVariable("id") Integer id) {
+
+		return designTypeService.findDesignTypeById(id);
+
 	}
 	
 	@PostMapping("/design-types")
