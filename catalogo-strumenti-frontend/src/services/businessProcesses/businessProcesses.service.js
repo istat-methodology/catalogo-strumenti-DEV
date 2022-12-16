@@ -52,7 +52,6 @@ class BusinessProcessService extends AbstractService {
       .get(this.endpoint + "/business-service/" + id)
       .then(res => {
         var data = res.data ? res.data : {};
-
         return data;
       })
       .catch(err => {

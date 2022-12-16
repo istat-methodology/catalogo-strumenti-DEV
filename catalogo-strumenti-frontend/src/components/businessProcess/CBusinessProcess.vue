@@ -29,17 +29,6 @@ export default {
     orderCode: String,
     parent: String,
     processSteps: []
-  }
-  /*  methods: {
-    changeAgent(value) {
-      this.linkedAgentLocal.agent.id = value.id;
-    }
-  },
-  computed: {
-    ...mapGetters("agent", ["agentList"])
-  },
-  created() {
-    this.$store.dispatch("agent/findAll");
-  } */
+  }  
 };
 </script>

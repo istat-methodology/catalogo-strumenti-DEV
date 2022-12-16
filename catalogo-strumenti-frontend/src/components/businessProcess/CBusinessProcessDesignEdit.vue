@@ -10,33 +10,28 @@
       @handleBack="handleBack"
     />
     <!--
-          designType_id
-          designType_type
-
-          informationObject_csmAppRoleId
-          informationObject_description
-          informationObject_id
-          informationObject_name
-
-          processDesignDescription_description
-          processDesignDescription_id
-          processDesigns_descr
-          processDesigns_id
-          processDesigns_index
-        -->
-
-    <!--CCard>
-      <CCardBody-->
+      processDesigns_descr
+      processDesigns_id
+      processDesigns_index
+      designType_id
+      designType_type
+      informationObject_csmAppRoleId
+      informationObject_description
+      informationObject_id
+      informationObject_name
+      processDesignDescription_description
+      processDesignDescription_id      
+    -->
     <Label>Process Design</Label>
     <CCard>
       <CCardBody>
         <div class="row">
-          <CInput
+          <!--CInput
             class="col-2"
             label="index"
             placeholder="index"
             v-model="bProcessDesignLocal.processDesigns_index"
-          />
+          /-->
           <CInput
             class="col-2"
             label="id"
@@ -44,7 +39,7 @@
             v-model="bProcessDesignLocal.processDesigns_id"
           />
           <CTextarea
-            class="col-8"
+            class="col-10"
             label="description"
             placeholder="processDesigns_descr"
             v-model="bProcessDesignLocal.processDesigns_descr"
@@ -56,19 +51,19 @@
     <CCard>
       <CCardBody>
         <div class="row">
-        <CInput
-          class="col-2"
-          label="id"
-          placeholder="id"
-          v-model="bProcessDesignLocal.processDesignDescription_id"
-        />
-        <CTextarea
-          class="col-10"
-          label="description"
-          placeholder="description"
-          v-model="bProcessDesignLocal.processDesignDescription_description"
-        />
-      </div>
+          <CInput
+            class="col-2"
+            label="id"
+            placeholder="id"
+            v-model="bProcessDesignLocal.processDesignDescription_id"
+          />
+          <CTextarea
+            class="col-10"
+            label="description"
+            placeholder="description"
+            v-model="bProcessDesignLocal.processDesignDescription_description"
+          />
+        </div>
       </CCardBody>
     </CCard>
     <Label>Design Type</Label>
@@ -77,41 +72,30 @@
         <div class="row">
           <CInput
             class="col-2"
-            label="Index"
-            placeholder="index"
-            v-model="bProcessDesignLocal.index"
-          />
-          <CInput
-            class="col-2"
             label="id"
             placeholder="id"
             v-model="bProcessDesignLocal.designType_id"
           />
-          <!--CCInput
-            class="col-8"
-            label="type"
-            placeholder="type"
-            v-model="bProcessDesignLocal.designType_type"
-          /-->
-
-          <div class="form-group col-4" role="group">
-            <label class="col-12">type</label>
+          <div class="form-group col-5" role="group">
+            <label class="col-12">Dati I/O</label>
             <v-select
               label="type"
               class="col-12 p-0"
-              :options="bProcessDesignLocal.designType_type"
+              :options="designtypeList"
               placeholder="type"
               v-model="bProcessDesignLocal.designType_type"
+              @input="changeProcessDesignType"
+            
             ></v-select>
           </div>
-          <div class="form-group col-4" role="group">
-            <label class="col-12">subtype</label>
+          <div class="form-group col-5" role="group">
+            <label class="col-12">Tipo I/O</label>
             <v-select
               label="type"
               class="col-12 p-0"
-              :options="bProcessDesignLocal.designType_type"
+              :options="designtypebyparentList"
               placeholder="type"
-              v-model="bProcessDesignLocal.designType_type"
+              v-model="designTypeSelected"
             ></v-select>
           </div>
         </div>
@@ -123,12 +107,6 @@
         <div class="row">
           <CInput
             class="col-2"
-            label="csmAppRoleId"
-            placeholder="csmAppRoleId"
-            v-model="bProcessDesignLocal.informationObject_csmAppRoleId"
-          />
-          <CInput
-            class="col-2"
             label="id"
             placeholder="id"
             v-model="bProcessDesignLocal.informationObject_id"
@@ -138,6 +116,12 @@
             label="name"
             placeholder="name"
             v-model="bProcessDesignLocal.informationObject_name"
+          />
+          <CInput
+            class="col-2"
+            label="csmAppRoleId"
+            placeholder="csmAppRoleId"
+            v-model="bProcessDesignLocal.informationObject_csmAppRoleId"
           />
           <CTextarea
             class="col-12"
@@ -163,10 +147,13 @@ export default {
   data() {
     return {
       bProcessDesignLocal: {},
+      designTypeSelected: { type: "" },      
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypesbyparent", ["designtypebyparentList"])        
   },
   //emits: ["enableEditProcessDesign"],
   props: {
@@ -189,9 +176,15 @@ export default {
     handleBack() {
       this.$emit("enableBack");
     },
+    changeProcessDesignType(value) {      
+      this.bProcessDesignLocal.designType_id = value.id;
+      this.$store.dispatch("designtypesbyparent/findByParent", this.bProcessDesignLocal.designType_id);
+    },
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
+    this.$store.dispatch("designtypes/findAll");   
+    this.$store.dispatch("designtypesbyparent/findByParent", this.bProcessDesignLocal.designType_id);
   },
 };
 </script>
@@ -209,34 +202,28 @@ h5 {
 .material-design-icon {
   margin-bottom: 0.2rem;
 }
-
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
 /* Float four columns side by side */
 .column {
   float: left;
   width: 25%;
   padding: 0 10px;
 }
-
 /* Remove extra left and right margins, due to padding in columns */
 .row {
   margin: 0 -5px;
 }
-
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
 /* Style the counter cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
@@ -245,7 +232,6 @@ body {
   background-color: #f1f1f1;
   margin-left: 5px;
 }
-
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
   .column {
@@ -255,3 +241,4 @@ body {
   }
 }
 </style>
+

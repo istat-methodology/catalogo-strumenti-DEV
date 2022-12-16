@@ -41,7 +41,7 @@ const actions = {
       .then(data => {
         //console.log(data);
         commit("SET_GSBPM", data);
-        dispatch("message/success", "Gbpm salvato!", {
+        dispatch("message/success", "Gsbpm salvato!", {
           root: true
         });
       })
