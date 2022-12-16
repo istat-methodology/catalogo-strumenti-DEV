@@ -152,8 +152,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
-    ...mapGetters("designtypesbyparent", ["designtypebyparentList"])        
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])        
   },
   //emits: ["enableEditProcessDesign"],
   props: {
@@ -178,13 +177,13 @@ export default {
     },
     changeProcessDesignType(value) {      
       this.bProcessDesignLocal.designType_id = value.id;
-      this.$store.dispatch("designtypesbyparent/findByParent", this.bProcessDesignLocal.designType_id);
+      this.$store.dispatch("designtypes/findByParent", this.bProcessDesignLocal.designType_id);
     },
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
     this.$store.dispatch("designtypes/findAll");   
-    this.$store.dispatch("designtypesbyparent/findByParent", this.bProcessDesignLocal.designType_id);
+    this.$store.dispatch("designtypes/findByParent", this.bProcessDesignLocal.designType_id);
   },
 };
 </script>

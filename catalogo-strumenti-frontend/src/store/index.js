@@ -30,7 +30,6 @@ import { businessService } from "./modules/service/businessService";
 import { procStep } from "./modules/processSteps/processSteps";
 import { bProcess } from "./modules/businessProcesses/businessProcesses";
 import { designtypes } from "./modules/designType/designType";
-import { designtypesbyparent } from "./modules/designTypeByParent/designTypeByParent";
 
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
@@ -56,7 +55,6 @@ export default new Vuex.Store({
     procStep,
     bProcess,
     designtypes,
-    designtypesbyparent,
 
     /* 
     applications,
