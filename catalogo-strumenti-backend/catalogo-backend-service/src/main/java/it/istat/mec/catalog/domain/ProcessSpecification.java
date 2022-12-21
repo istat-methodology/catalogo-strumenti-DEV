@@ -18,17 +18,26 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "CSM_PROCESS_DESIGN_DESCRIPTION")
-public class ProcessDesignDescription implements Serializable  {
+@Table(name = "CSM_PROCESS_SPECIFICATION")
+public class ProcessSpecification implements Serializable  {
 
 	private static final long serialVersionUID = 4182189367596411863L;
 	@Id  @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Integer id;
  
-	@Column(name = "DESCR")
-	private String descr;
- 
-
-     
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "process_design_ID", nullable = false, insertable = false)
+	private ProcessDesign processDesign;
+ 	
+	@ManyToOne
+    @JoinColumn(name = "TYPE", nullable = false, insertable = false)
+ 	private DesignType designType;
+		
+	@ManyToOne
+    @JoinColumn(name = "CSM_INFORMATION_OBJECT_ID", nullable = false, insertable = false)
+	private InformationObject informationObject;
+	
+	
+	
 }

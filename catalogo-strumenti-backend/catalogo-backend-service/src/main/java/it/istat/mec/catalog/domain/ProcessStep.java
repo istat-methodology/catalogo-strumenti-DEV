@@ -1,8 +1,6 @@
 package it.istat.mec.catalog.domain;
-
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -63,4 +61,13 @@ public class ProcessStep implements Serializable  {
 	
 	@OneToMany(mappedBy = "step", cascade = CascadeType.ALL)   
 	private List<ProcessDesign> processDesigns;
+	
+	public ProcessStep() {
+		super();
+	}
+	
+	public ProcessStep(Integer id) {
+		super();
+		this.id = id;
+	}
 }

@@ -32,7 +32,15 @@ public class BusinessService implements Serializable  {
 	
 	@Column(name = "DESCR")
 	private String descr;
+	
+	//@Column(name = "TOOL")
+	//private Integer tool;
+	
  
+	@OneToMany(mappedBy = "businessService", cascade = CascadeType.ALL)  
+    private List<CatalogTool> tools;
+
+	
 	@OneToMany(mappedBy = "businessService", cascade = CascadeType.ALL)  
     private List<ProcessStep> processSteps;
 	

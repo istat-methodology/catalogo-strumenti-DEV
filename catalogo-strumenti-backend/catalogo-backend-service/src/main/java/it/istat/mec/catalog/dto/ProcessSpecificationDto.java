@@ -6,12 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-public class ProcessDesignDescriptionDto implements Serializable{
+public class ProcessSpecificationDto implements Serializable{
 
 	
-	private static final long serialVersionUID = 104391729981711595L;
+	private static final long serialVersionUID = 204395729981711595L;
 	private Integer id;	
-	private ProcessDesignDto processDesign;
+	private ProcessDesignDescriptionDto processDesignDescription;
  	private DesignTypeDto designType;
 	private InformationObjectDto informationObject;
+	
 }
