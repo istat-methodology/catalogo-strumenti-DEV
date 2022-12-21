@@ -1,42 +1,94 @@
 <template>
   <div>
-    <div class="card">
-      <div class="row">
-        <CInput
-          class="col-6"
-          label="Nome*"
-          placeholder="Nome"
-          v-model="bPStepLocal.name"
-        />
-        <CInput
-          class="col-4"
-          label="Etichetta"
-          placeholder="Etichetta"
-          v-model="bPStepLocal.label"
-        />
-        <CInput
-          class="col-2"
-          label="Ordine"
-          type="number"
-          placeholder="Ordine"
-          v-model="bPStepLocal.orderCode"
-        />
-      </div>
-      <CTextarea
-        label="Descrizione"
-        placeholder="Descrizione"
-        v-model="bPStepLocal.descr"
-      />
-    </div>
+    <CTitle
+      title="Nuovo Passo"
+      buttonTitle=" nuovo passo"
+      functionality=""
+      :authenticated="isAuthenticated"
+      :buttons="['salva', 'indietro']"
+      @handleSubmit="handleSubmit"
+      @handleBack="enableBack"
+    />
+    <CCard>
+      <CCardBody>
+        <div class="row">
+          <CInput
+            class="col-6"
+            label="Nome*"
+            placeholder="Nome"
+            v-model="bPStepLocal.name"
+          />
+          <CInput
+            class="col-4"
+            label="Etichetta"
+            placeholder="Etichetta"
+            v-model="bPStepLocal.label"
+          />
+          <CInput
+            class="col-2"
+            label="Ordine"
+            type="number"
+            placeholder="Ordine"
+            v-model="bPStepLocal.orderCode"
+          />
+        </div>
+        <div class="row">
+          <CTextarea
+          class="col-12"
+            label="Descrizione"
+            placeholder="Descrizione"
+            v-model="bPStepLocal.descr"
+          />
+        </div>
+      </CCardBody>
+    </CCard>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessStepNew",
+  components: {
+    CTitle,
+  },
   data() {
     return {
-      bPStepLocal: {}
+      bPStepLocalToSave: {
+        index: "",
+        name: "",
+        label: "",
+        description: "",
+      },
+      bPStepLocal: {
+        index: "",
+        name: "",
+        label: "",
+        description: "",
+        processDesign: [
+          {
+            id: "",
+            description: "",
+            name: "",
+            label: "",
+            processDesignDescription: {
+              id: "",
+              descr: "",
+            },
+            designType: {
+              id: "",
+              type: "",
+              parent: "",
+            },
+            informationObject: {
+              id: "",
+              name: "",
+              descr: "",
+              csmAppRoleId: "",
+            },
+          },
+        ],
+      },
     };
   },
   computed: {
@@ -48,18 +100,26 @@ export default {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
-    handleNewStep(step) {
-      this.$emit("enableNewStep", step);
+    handleSubmit() {
+      //alert("funzione di update process step non attiva!");
+      //console.log("funzione di update process step non attiva!");
+      this.bPStepLocalToSave.id = this.bPStepLocal.id;
+      this.bPStepLocalToSave.index = this.bPStepLocal.index;
+      this.bPStepLocalToSave.name = this.bPStepLocal.name;
+      this.bPStepLocalToSave.label = this.bPStepLocal.label;
+      this.bPStepLocalToSave.description = this.bPStepLocal.description;
+
+      this.$store.dispatch("procStep/save", this.bPStepLocalToSave); //.then(() => {  alert(this.bPStepLocal())});
     },
-    handleBack() {
-      this.$emit("handeleBack");
-    }
+    enableBack() {
+      this.$emit("enableBack");
+    },
   },
-  created() {}
+  created() {},
 };
 </script>
 <style scoped>

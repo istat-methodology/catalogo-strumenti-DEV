@@ -20,9 +20,8 @@ class ProcessStepsService extends AbstractService {
       });
   }
 }
-
 export const processStepsService = new ProcessStepsService(
-  "/catalog/process-steps"
+  "/catalog/process-steps"  
 );
 export const processStepsOpenService = new ProcessStepsService(
   "/catalog/open/process-steps"

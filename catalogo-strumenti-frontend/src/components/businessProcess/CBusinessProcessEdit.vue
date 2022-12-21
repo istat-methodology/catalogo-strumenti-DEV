@@ -30,6 +30,7 @@
               label="Descrizione"
               placeholder="Descrizione"
               v-model="bProcessLocal.descr"
+              
             />
           </div>
         </CCardBody>
@@ -80,7 +81,7 @@ import { mapGetters } from "vuex";
 //import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
 import CTitle from "@/components/CTitle.vue";
 export default {
-  name: "CBusinessProcessStepEdit",
+  name: "CBusinessProcessEdit",
   components: {
   //  CBusinessProcessDesignNew,
     CTitle,
@@ -93,19 +94,17 @@ export default {
           key: "index",
           label: "#",
           _style: "width:1%;",
-        },
+        },        
         {
           key: "name",
           label: "Nome",
           _style: "width:20%;",
         },
-
         {
           key: "label",
           label: "etichetta",
           _style: "width:40%;",
         },
-
         {
           key: "description",
           label: "Descrizione",
@@ -180,8 +179,6 @@ export default {
       this.$emit("enableNewStep");
     },
     handleBack() {
-      //this.stateform = this.FormState.LIST;
-      //this.stateform = FormState.EDIT
       this.$router.back();
     },
   },

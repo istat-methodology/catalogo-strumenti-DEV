@@ -175,14 +175,14 @@
         Nuovo Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_NEW">
-        <CTitle
+        <!--CTitle
           :title="selectedEditProcess.name"
           :buttonTitle="' nuovo passo ' + selectedEditProcess.name"
           functionality=""
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleBack="stateform = FormState.EDIT"
-        />
+        /-->
         <!--div v-if="selectedEditProcess"-->
         <CBusinessProcessStepNew
           :bPStep="selectedEditStep"
@@ -301,10 +301,11 @@ export default {
       this.stateform = this.FormState.STEP_EDIT;
     },
     showNewStep() {
+    
       this.selectedEditStep = null;
       this.stateform = this.FormState.STEP_NEW;
     },
-    handleEditBProcess(process) {
+    handleEditBProcess(process) {      
       this.selectedEditProcess = process;
       this.stateform = this.FormState.EDIT;
     },

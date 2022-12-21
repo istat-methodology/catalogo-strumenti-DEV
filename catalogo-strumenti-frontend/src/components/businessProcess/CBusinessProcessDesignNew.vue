@@ -68,9 +68,10 @@
             <v-select
               label="type"
               class="col-12 p-0"
-              :options="bProcessDesignLocal.designType_type"
+              :options="designtypeList"
               placeholder="type"
               v-model="bProcessDesignLocal.designType_type"
+              @input="changeProcessDesignType"
             ></v-select>
           </div>
           <div class="form-group col-5" role="group">
@@ -78,9 +79,9 @@
             <v-select
               label="type"
               class="col-12 p-0"
-              :options="bProcessDesignLocal.designType_type"
+              :options="designtypebyparentList"
               placeholder="type"
-              v-model="bProcessDesignLocal.designType_type"
+              v-model="designTypeSelected"
             ></v-select>
           </div>
         </div>
@@ -129,12 +130,48 @@ export default {
   },
   data() {
     return {
-      bProcessDesignLocal: {},
+      bProcessDesignLocal: {
+        processDesigns_id: "",
+        processDesigns_descr: "",
+
+        processDesignDescription_id: "",
+        processDesignDescription_description: "",
+
+        designType_id: "",
+        designType_type: "",
+
+        informationObject_id: "",
+        informationObject_name: "",
+        informationObject_description: "",
+        informationObject_csmAppRoleId: "",
+      },
+      bProcessDesignLocal_2: {
+        id: "",
+        description: "",
+        name: "",
+        label: "",
+        processDesignDescription: {
+          id: "",
+          descr: "",
+        },
+        designType: {
+          id: "",
+          type: "",
+          parent: "",
+        },
+        informationObject: {
+          id: "",
+          name: "",
+          descr: "",
+          csmAppRoleId: "",
+        },
+      },
+      designTypeSelected: { type: "" },
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    //...mapGetters("designtype", ["designtypeList"])
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
   },
   //emits: ["enableNewProcessDesign"],
   props: {
@@ -157,9 +194,20 @@ export default {
     handleBack() {
       this.$emit("enableBack");
     },
+    changeProcessDesignType(value) {
+      this.bProcessDesignLocal.designType_id = value.id;
+      this.$store.dispatch(
+        "designtypes/findByParent",
+        this.bProcessDesignLocal.designType_id
+      );
+    },
   },
   created() {
-    //this.$store.dispatch("designtype/findAll");
+    this.$store.dispatch("designtypes/findAll");
+    this.$store.dispatch(
+      "designtypes/findByParent",
+      this.bProcessDesignLocal.designType_id
+    );
   },
 };
 </script>

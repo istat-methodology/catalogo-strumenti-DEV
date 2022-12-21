@@ -1,7 +1,13 @@
 <template>
   <div>
     <CTitle
-      :title="'Edit Process Design di ' + bProcessStep.name"
+      :title="
+        'Edit Process Design di ' +
+        bProcessStep.name +
+        ' (' +        
+                bProcessDesignLocal.processDesigns_id +
+        ')'
+      "
       buttonTitle=" nuovo process design "
       functionality=""
       :authenticated="isAuthenticated"
@@ -10,11 +16,14 @@
       @handleBack="handleBack"
     />
     <!--
+      
+      //processDesigns_index
+      processDesigns_id      
       processDesigns_descr
-      processDesigns_id
-      processDesigns_index
+      
       designType_id
       designType_type
+      
       informationObject_csmAppRoleId
       informationObject_description
       informationObject_id
@@ -85,7 +94,6 @@
               placeholder="type"
               v-model="bProcessDesignLocal.designType_type"
               @input="changeProcessDesignType"
-            
             ></v-select>
           </div>
           <div class="form-group col-5" role="group">
@@ -146,13 +154,48 @@ export default {
   },
   data() {
     return {
-      bProcessDesignLocal: {},
-      designTypeSelected: { type: "" },      
+      bProcessDesignLocal: {
+        processDesigns_id: "",
+        processDesigns_descr: "",
+
+        processDesignDescription_id: "",
+        processDesignDescription_description: "",
+
+        designType_id: "",
+        designType_type: "",
+
+        informationObject_id: "",
+        informationObject_name: "",
+        informationObject_description: "",
+        informationObject_csmAppRoleId: "",
+      },
+      bProcessDesignLocal_2: {
+        id: "",
+        description: "",
+        name: "",
+        label: "",
+        processDesignDescription: {
+          id: "",
+          descr: "",
+        },
+        designType: {
+          id: "",
+          type: "",
+          parent: "",
+        },
+        informationObject: {
+          id: "",
+          name: "",
+          descr: "",
+          csmAppRoleId: "",
+        },
+      },
+      designTypeSelected: { type: "" },
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])        
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
   },
   //emits: ["enableEditProcessDesign"],
   props: {
@@ -175,15 +218,17 @@ export default {
     handleBack() {
       this.$emit("enableBack");
     },
-    changeProcessDesignType(value) {      
+    changeProcessDesignType(value) {
       this.bProcessDesignLocal.designType_id = value.id;
-      this.$store.dispatch("designtypes/findByParent", this.bProcessDesignLocal.designType_id);
+      this.$store.dispatch(
+        "designtypes/findByParent",
+        this.bProcessDesignLocal.designType_id
+      );
     },
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
-    this.$store.dispatch("designtypes/findAll");   
-    this.$store.dispatch("designtypes/findByParent", this.bProcessDesignLocal.designType_id);
+    this.$store.dispatch("designtypes/findAll");
   },
 };
 </script>
