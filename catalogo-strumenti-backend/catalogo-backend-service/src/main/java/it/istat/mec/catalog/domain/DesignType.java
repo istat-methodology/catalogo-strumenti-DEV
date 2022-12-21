@@ -1,10 +1,13 @@
 package it.istat.mec.catalog.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -32,4 +35,7 @@ public class DesignType implements Serializable  {
 	public DesignType(Integer id) {
 		this.id=id;
 	}
+	
+	@OneToMany(mappedBy = "designType", cascade = CascadeType.ALL)   
+	private List<ProcessSpecification> processSpecification;
 }

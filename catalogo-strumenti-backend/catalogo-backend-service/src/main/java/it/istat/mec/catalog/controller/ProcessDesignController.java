@@ -28,9 +28,9 @@ public class ProcessDesignController {
 	}
 	
 	@GetMapping("/open/process-designes/process-step/{id_step}")
-	public List<ProcessDesignDto> geProcessDesignesByProcessStep(@PathVariable("id_step") Integer id_step) {
+	public List<ProcessDesignDto> getProcessDesignesByProcessStep(@PathVariable("id_step") Integer id_step) {
 
-		return processDesignService.findProcessDesignesByStep(id_step);
+		return processDesignService.findProcessDesignsByStep(id_step);
 	}	
 	
 	

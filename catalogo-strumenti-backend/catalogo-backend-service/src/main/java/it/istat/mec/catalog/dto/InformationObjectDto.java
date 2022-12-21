@@ -13,7 +13,7 @@ public class InformationObjectDto extends BaseDto implements Serializable  {
 	
 	private String descr;
 	private String csmAppRoleId;
-	//private BusinessServiceMiniDto businessService;
+	private BusinessServiceMiniDto businessService;
 	
 
 }

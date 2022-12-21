@@ -17,4 +17,7 @@ public class BusinessServiceDto implements Serializable {
 	
 	private List<ProcessStepDto> processSteps;
 	private List<AppServiceDto> appServices;
+	private List<CatalogToolMiniDto> catalogToolMiniDto;
+	
+	//sistemare il mapping del dto nel get by id
 }

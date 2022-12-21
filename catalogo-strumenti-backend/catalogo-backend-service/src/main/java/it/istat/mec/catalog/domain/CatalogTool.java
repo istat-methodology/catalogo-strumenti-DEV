@@ -63,11 +63,13 @@ public class CatalogTool implements Serializable  {
  	private ToolType toolType;
 	
 	
-    
+    // reverted by paolinux 22/12/19
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "SERVICE", nullable = false, updatable = false)
 	private BusinessService businessService;
-
+    //@OneToMany(mappedBy = "tool", cascade = CascadeType.ALL)  
+    //private List<BusinessService> services;
+    
 	@Column(name = "LAST_UPDATE")
 	private Date lastUpdate;
 	
@@ -110,4 +112,5 @@ public class CatalogTool implements Serializable  {
 		super();
 		this.id = id;
 	}
+	
 }
