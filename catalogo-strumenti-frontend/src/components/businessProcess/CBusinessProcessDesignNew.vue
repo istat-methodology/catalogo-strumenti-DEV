@@ -9,103 +9,111 @@
       @handleSubmit="handleSubmit"
       @handleBack="handleBack"
     />
+    <Label>Process Design</Label>
     <CCard>
       <CCardBody>
-        <div class="row mt-4">
-          <label class="col-12 pl-2">Process Design</label>
-          <div class="row">
-            <CInput
-              class="col-6"
-              label="index"
-              placeholder="index"
-              v-model="bProcessDesignLocal.processDesigns_index"
-            />
-            <CInput
-              class="col-6"
-              label="id"
-              placeholder="id"
-              v-model="bProcessDesignLocal.processDesigns_id"
-            />
-            <CTextarea
-              class="col-12"
-              label="description"
-              placeholder="processDesigns_descr"
-              v-model="bProcessDesignLocal.processDesigns_descr"
-            />
-          </div>
+        <div class="row">
+          <!--CInput
+            class="col-2"
+            label="index"
+            placeholder="index"
+            v-model="bProcessDesignLocal.processDesigns_index"
+          /-->
+          <CInput
+            class="col-2"
+            label="id"
+            placeholder="id"
+            v-model="bProcessDesignLocal.processDesigns_id"
+          />
+          <CTextarea
+            class="col-10"
+            label="description"
+            placeholder="processDesigns_descr"
+            v-model="bProcessDesignLocal.processDesigns_descr"
+          />
         </div>
-
-        <div class="row mt-4">
-          <label class="col-12 pl-2">Process Design Description</label>
-          <div class="row">
-            <CInput
-              class="col-6"
-              label="id"
-              placeholder="id"
-              v-model="bProcessDesignLocal.processDesignDescription_id"
-            />
-            <CTextarea
-              class="col-12"
-              label="description"
-              placeholder="description"
-              v-model="bProcessDesignLocal.processDesignDescription_description"
-            />
-          </div>
+      </CCardBody>
+    </CCard>
+    <Label>Process Design Description</Label>
+    <CCard>
+      <CCardBody>
+        <div class="row">
+          <CInput
+            class="col-2"
+            label="id"
+            placeholder="id"
+            v-model="bProcessDesignLocal.processDesignDescription_id"
+          />
+          <CTextarea
+            class="col-10"
+            label="description"
+            placeholder="description"
+            v-model="bProcessDesignLocal.processDesignDescription_description"
+          />
         </div>
-
-        <div class="row mt-4">
-          <label class="col-12 pl-2">Design Type</label>
-          <div class="row">
-            <CInput
-              class="col-4"
-              label="Index"
-              placeholder="index"
-              v-model="bProcessDesignLocal.index"
-            />
-            <CInput
-              class="col-4"
-              label="id"
-              placeholder="id"
-              v-model="bProcessDesignLocal.designType_id"
-            />
-            <CInput
-              class="col-4"
-              label="designType_type"
-              placeholder="designType_type"
+      </CCardBody>
+    </CCard>
+    <Label>Design Type</Label>
+    <CCard>
+      <CCardBody>
+        <div class="row">
+          <CInput
+            class="col-2"
+            label="id"
+            placeholder="id"
+            v-model="bProcessDesignLocal.designType_id"
+          />
+          <div class="form-group col-5" role="group">
+            <label class="col-12">Dati I/O</label>
+            <v-select
+              label="type"
+              class="col-12 p-0"
+              :options="bProcessDesignLocal.designType_type"
+              placeholder="type"
               v-model="bProcessDesignLocal.designType_type"
-            />
+            ></v-select>
+          </div>
+          <div class="form-group col-5" role="group">
+            <label class="col-12">Tipo I/O</label>
+            <v-select
+              label="type"
+              class="col-12 p-0"
+              :options="bProcessDesignLocal.designType_type"
+              placeholder="type"
+              v-model="bProcessDesignLocal.designType_type"
+            ></v-select>
           </div>
         </div>
-
-        <div class="row mt-4">
-          <label class="col-12 pl-2">information Object</label>
-          <div class="row">
-            <CInput
-              class="col-3"
-              label="csmAppRoleId"
-              placeholder="csmAppRoleId"
-              v-model="bProcessDesignLocal.informationObject_csmAppRoleId"
-            />
-            <CInput
-              class="col-2"
-              label="id"
-              placeholder="id"
-              v-model="bProcessDesignLocal.informationObject_id"
-            />
-            <CInput
-              class="col-7"
-              label="name"
-              placeholder="name"
-              v-model="bProcessDesignLocal.informationObject_name"
-            />
-
-            <CTextarea
-              class="col-12 mt-2"
-              label="description"
-              placeholder="description"
-              v-model="bProcessDesignLocal.informationObject_description"
-            />
-          </div>
+      </CCardBody>
+    </CCard>
+    <Label>information Object</Label>
+    <CCard>
+      <CCardBody>
+        <div class="row">
+          <CInput
+            class="col-2"
+            label="id"
+            placeholder="id"
+            v-model="bProcessDesignLocal.informationObject_id"
+          />
+          <CInput
+            class="col-8"
+            label="name"
+            placeholder="name"
+            v-model="bProcessDesignLocal.informationObject_name"
+          />
+          <CInput
+            class="col-2"
+            label="csmAppRoleId"
+            placeholder="csmAppRoleId"
+            v-model="bProcessDesignLocal.informationObject_csmAppRoleId"
+          />
+          <CTextarea
+            class="col-12"
+            label="description"
+            placeholder="description"
+            v-model="bProcessDesignLocal.informationObject_description"
+          />
         </div>
       </CCardBody>
     </CCard>
@@ -126,6 +134,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
+    //...mapGetters("designtype", ["designtypeList"])
   },
   //emits: ["enableNewProcessDesign"],
   props: {
@@ -149,7 +158,9 @@ export default {
       this.$emit("enableBack");
     },
   },
-  created() {},
+  created() {
+    //this.$store.dispatch("designtype/findAll");
+  },
 };
 </script>
 <style scoped>

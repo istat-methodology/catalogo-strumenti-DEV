@@ -300,7 +300,7 @@
               <div class="row p-0">
                 <div class="col-12 p-0">
                   <CDocumentationEditView
-                    :parentName="this.tool.name"                    
+                    :parentName="this.tool.name"
                     :documentations="getDocumentation"
                     :toolId="this.tool.id"
                     @updateParent="loadTool"
@@ -335,7 +335,7 @@ export default {
     CDocumentationEditView,
     CBusinessServiceEditView,
     CAgentEditView,
-    CTitle
+    CTitle,
   },
   data() {
     return {
@@ -369,14 +369,14 @@ export default {
         serviceDependencies: "",
         restrictions: "",
         statisticalMethods: [],
-        gsbpmProcesses: []
+        gsbpmProcesses: [],
       },
       linkedToolList: [],
       gsbpmChecked: [],
       methodsChecked: [],
       agentChecked: [],
       documentationChecked: [],
-      elenco: []
+      elenco: [],
     };
   },
   computed: {
@@ -386,40 +386,40 @@ export default {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("methods", ["statisticalMethodsList"]),
     ...mapGetters("documentation", ["documentationList"]),
-    getGsbpmList: function() {
-      return this.gsbpmList.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
             };
-          })
+          }),
         };
       });
     },
-    getMethodsList: function() {
-      return this.statisticalMethodsList.map(method => {
+    getMethodsList: function () {
+      return this.statisticalMethodsList.map((method) => {
         return {
           id: method.id,
-          label: method.name
+          label: method.name,
         };
       });
     },
-    getDocumentationList: function() {
-      return this.documentationList.map(doc => {
+    getDocumentationList: function () {
+      return this.documentationList.map((doc) => {
         return {
           id: doc.id,
-          label: doc.name
+          label: doc.name,
         };
       });
     },
-    getLinkedAgentList: function() {
+    getLinkedAgentList: function () {
       if (this.tool)
-        return this.linkAgentsTools.map(agentTool => {
+        return this.linkAgentsTools.map((agentTool) => {
           return {
             id: agentTool.id,
             tooId: this.tool.id,
@@ -430,24 +430,24 @@ export default {
             agentNotes: agentTool.agent.notes,
             role: agentTool.role,
             notes: agentTool.notes,
-            referenceDate: agentTool.referenceDate
+            referenceDate: agentTool.referenceDate,
           };
         });
       else return [];
     },
-    getDocumentation: function() {
+    getDocumentation: function () {
       if (this.tool) {
-        return this.tool.documentations.map(doc => {
+        return this.tool.documentations.map((doc) => {
           return {
             id: doc.id,
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
-            resource: doc.resource
+            resource: doc.resource,
           };
         });
       } else return [];
-    }
+    },
   },
 
   methods: {
@@ -464,20 +464,20 @@ export default {
     },
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.tool.gsbpmProcesses.map(gsbpmProc => {
+      this.tool.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
 
     setCheckedNodesMethods() {
       this.methodsChecked = [];
-      this.tool.statisticalMethods.map(method => {
+      this.tool.statisticalMethods.map((method) => {
         this.methodsChecked.push(method.id);
       });
     },
     setCheckedNodesDocumentation() {
       this.documentationChecked = [];
-      this.tool.documentations.map(doc => {
+      this.tool.documentations.map((doc) => {
         this.documentationChecked.push(doc.id);
       });
     },
@@ -524,7 +524,7 @@ export default {
       this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses;
     },
 
-    loadTool: _.debounce(function() {
+    loadTool: _.debounce(function () {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
         if (this.tool) {
           this.setOldValues();
@@ -533,7 +533,7 @@ export default {
           this.setCheckedNodesDocumentation();
         }
       });
-    }, 700)
+    }, 700),
   },
 
   created() {
@@ -547,7 +547,7 @@ export default {
     this.$store.dispatch("methods/findAll");
     this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("agent/findAll");
-  }
+  },
 };
 </script>
 

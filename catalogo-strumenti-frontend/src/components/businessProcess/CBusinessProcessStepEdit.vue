@@ -124,13 +124,15 @@ export default {
           label: "#",
           _style: "width:1%;",
         },
-        /*
+        
         {
           key: "processDesigns_id",
           label: "id",
-          _style: "width:20%;",
+          _style: "width:2%;",
         },
-        
+
+
+        /*
 
         {
           key: "processDesigns_descr",
@@ -146,7 +148,12 @@ export default {
         */
         {
           key: "designType_type",
-          label: "Design Type Type ",
+          label: "Tipo Dati I/O",
+          _style: "width:20%;",
+        },
+        {
+          key: "designType_type",
+          label: "Sotto Tipo Dati I/O",
           _style: "width:20%;",
         },
 

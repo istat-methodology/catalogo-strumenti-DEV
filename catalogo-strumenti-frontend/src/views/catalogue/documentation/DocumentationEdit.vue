@@ -147,6 +147,7 @@ export default {
       });
     this.$store.dispatch("tools/findAll");
     this.$store.dispatch("documentationType/findAll");
+    
   }
 };
 </script>

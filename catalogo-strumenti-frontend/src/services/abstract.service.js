@@ -5,7 +5,6 @@ export default class AbstractService {
   constructor(endpoint) {
     this.endpoint = endpoint;
   }
-
   findAll() {
     return axiosCatalog
       .get(this.endpoint + "/")
@@ -18,7 +17,6 @@ export default class AbstractService {
         throw err;
       });
   }
-
   findById(id) {
     return axiosCatalog
       .get(this.endpoint + "/" + id)
@@ -31,7 +29,6 @@ export default class AbstractService {
         throw err;
       });
   }
-
   save(formData) {
     return axiosCatalog
       .post(this.endpoint, formData, config)
@@ -44,7 +41,6 @@ export default class AbstractService {
         throw err;
       });
   }
-
   update(formData) {
     return axiosCatalog
       .put(this.endpoint + "/" + formData.id, formData, config)
@@ -57,7 +53,6 @@ export default class AbstractService {
         throw err;
       });
   }
-
   delete(id) {
     return axiosCatalog
       .delete(this.endpoint + "/" + id)
