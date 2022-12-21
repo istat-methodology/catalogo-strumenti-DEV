@@ -7,6 +7,7 @@
         functionality=""
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
+        @handleSubmit="handleSubmit"
         @handleBack="enableBack"
       />
       <CCard>
@@ -53,6 +54,40 @@
       />
       <CCard>
         <CCardBody>
+          <div
+            v-for="(item, index) in getProcessDesignDescriptionList()"
+            :key="index"
+          >
+            <div v-if="index < 1">
+              <!--CInput
+                class="col-2"
+                label="ID"
+                placeholder="ID"
+                v-model="item.processDesignDescription_id"
+
+                /-->
+              <div class="row mt-4">
+                <label class="pl-4"
+                  ><h3>
+                    {{ item.processDesignDescription_description }}
+                  </h3></label
+                >
+                <!--CTextarea
+                  class="col-12"
+                  label="Descrizione"
+                  placeholder="Descrizione"
+                  v-model="item.processDesignDescription_description"
+                  disabled
+                /-->
+              </div>
+            </div>
+          </div>
+          <!--/CCardBody>
+      </CCard-->
+
+          <!--CCard>
+        <CCardBody-->
+
           <div class="row mt-4">
             <span v-if="bPStepLocal.processDesigns.length > 0">
               <CDataTable
@@ -118,50 +153,51 @@ export default {
   },
   data() {
     return {
+      processDesignDescription: [
+        {
+          key: "processDesignDescription_id",
+        },
+        {
+          key: "processDesignDescription_description",
+        },
+      ],
       fields: [
+        /*
         {
           key: "processDesigns_index",
           label: "#",
           _style: "width:1%;",
         },
-        
+        */
         {
           key: "processDesigns_id",
           label: "id",
           _style: "width:2%;",
         },
 
-
-        /*
-
+        /* sempre null
         {
           key: "processDesigns_descr",
           label: "descrizione",
           _style: "width:40%;",
         },
-        /*
+        */
+
+        /* si ripete quindi va estratto e visualizzato una sola volta
         {
           key: "processDesignDescription_id",
           label: "Process Designs Description ID",
           _style: "width:20%;",
         },
         */
-        {
-          key: "designType_type",
-          label: "Tipo Dati I/O",
-          _style: "width:20%;",
-        },
-        {
-          key: "designType_type",
-          label: "Sotto Tipo Dati I/O",
-          _style: "width:20%;",
-        },
-
+        /*
         {
           key: "processDesignDescription_description",
           label: "Process Designs Description Description",
           _style: "width:20%;",
         },
+        */
+
         /*
         {
           key: "designType_id",
@@ -169,7 +205,16 @@ export default {
           _style: "width:20%;",
         },
         */
-
+        {
+          key: "designType_type",
+          label: "Dati I/O",
+          _style: "width:20%;",
+        },
+        {
+          key: "designType_type",
+          label: "Tipo I/O",
+          _style: "width:20%;",
+        },
         /*
         {
           key: "informationObject_id",
@@ -202,7 +247,43 @@ export default {
           filter: false,
         },
       ],
-      bPStepLocal: {},
+      bPStepLocalToSave: {
+        index: "",
+        name: "",
+        label: "",
+        description: "",
+      },
+
+      bPStepLocal: {
+        index: "",
+        name: "",
+        label: "",
+        description: "",
+        processDesign: [
+          {
+            id: "",
+            description: "",
+            name: "",
+            label: "",
+            processDesignDescription: {
+              id: "",
+              descr: "",
+            },
+            designType: {
+              id: "",
+              type: "",
+              parent: "",
+            },
+            informationObject: {
+              id: "",
+              name: "",
+              descr: "",
+              csmAppRoleId: "",
+            },
+          },
+        ],
+      },
+
       selectedProcessDesign: {},
       states: [],
 
@@ -230,10 +311,11 @@ export default {
   methods: {
     getProcessDesignsList: function () {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
-        return this.bPStepLocal.processDesigns.map((step, index) => {
+        //return this.bPStepLocal.processDesigns.map((step, index) => {
+        return this.bPStepLocal.processDesigns.map((step) => {
           return {
             /* process design */
-            processDesigns_index: index + 1,
+            //processDesigns_index: index + 1,
             processDesigns_id: step.id,
             processDesigns_descr: step.descr,
 
@@ -245,6 +327,7 @@ export default {
             /* design type */
             designType_id: step.designType.id,
             designType_type: step.designType.type,
+            designType_typeByParameter: step.designType.type,
 
             /* information Object */
             informationObject_id: step.informationObject.id,
@@ -257,32 +340,62 @@ export default {
         return [];
       }
     },
+    getProcessDesignDescriptionList: function () {
+      if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
+        return this.bPStepLocal.processDesigns.map((step) => {
+          return {
+            /* process design description */
+            processDesignDescription_id: step.processDesignDescription.id,
+            processDesignDescription_description:
+              step.processDesignDescription.descr,
+          };
+        });
+      } else {
+        return [];
+      }
+    },
     showEditProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
     showNewProcessDesign() {
-      this.selectedProcessDesign ={};
+      this.selectedProcessDesign = {};
       this.stateform = this.FormState.PROCESS_DESIGN_NEW;
     },
     handleSubmitNewProcessDesign() {
-      
-      console.log("non attiva");
-      alert("non attiva");
-    
+      console.log("funzione di insert non attiva!");
+      alert("funzione di insert non attiva!");
+      /*this.$store.dispatch(".../update", this.Local).then(() => {
+        this.load();
+      });
+      */
     },
     handleSubmitEditProcessDesign() {
-      
-      console.log("non attiva");
-      alert("non attiva");
-    
-    },
+      console.log("funzione di update non attiva!");
+      alert("funzione di update non attiva!");
+      /*this.$store.dispatch(".../update", this.Local).then(() => {
+        this.load();
+      });
+      */
+    },    
     enableBack() {
       this.$emit("enableBack");
+    },
+    handleSubmit() {
+      //alert("funzione di update process step non attiva!");
+      //console.log("funzione di update process step non attiva!");
+      this.bPStepLocalToSave.id = this.bPStepLocal.id;
+      this.bPStepLocalToSave.index = this.bPStepLocal.index;
+      this.bPStepLocalToSave.name = this.bPStepLocal.name;
+      this.bPStepLocalToSave.label = this.bPStepLocal.label;
+      this.bPStepLocalToSave.description = this.bPStepLocal.description;
+
+      this.$store.dispatch("procStep/update", this.bPStepLocalToSave); //.then(() => {  alert(this.bPStepLocal())});
     },
   },
   created() {
     this.bPStepLocal = this.bPStep;
+    this.getProcessDesignDescriptionList();
   },
 };
 </script>
