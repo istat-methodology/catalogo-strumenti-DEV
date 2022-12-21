@@ -1,7 +1,11 @@
 package it.istat.mec.catalog.service;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.istat.mec.catalog.dao.BusinessServiceDao;
 import it.istat.mec.catalog.dao.ProcessStepDao;
 import it.istat.mec.catalog.dao.StepInstanceDao;
 import it.istat.mec.catalog.domain.BusinessService;
@@ -20,6 +24,8 @@ public class ProcessStepService {
 	ProcessStepDao processStepDao;
 	@Autowired
 	StepInstanceDao stepInstanceDao;
+	@Autowired
+	BusinessServiceDao businessServiceDao;
 
 	public List<ProcessStepDto> findAllProcessSteps() {
 		
@@ -48,6 +54,16 @@ public class ProcessStepService {
 		
 		ProcessStep ps = processStepDao.findById(request.getId()).get();	
 		
+		// paolinux 21-12-2022 sistemazione eccezione nell'update della foreign key (prendo il servizio associato alla nuova id se esistente e lo piazzo nella ps)
+		Optional<BusinessService> bs = businessServiceDao.findById(request.getBusinessServiceId());
+		
+		if (!bs.isPresent()) {
+			// se invece non esiste o è null, inserisco il servizio base for dummy 
+			bs = businessServiceDao.findById(999);
+			request.setBusinessServiceId(999);
+		}
+		
+		ps.setBusinessService(bs.get());
 		ps = Translators.translateUpdate(request, ps);
 		
 		processStepDao.save(ps);		
