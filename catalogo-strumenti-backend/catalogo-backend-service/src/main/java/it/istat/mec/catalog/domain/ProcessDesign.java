@@ -39,5 +39,8 @@ public class ProcessDesign implements Serializable  {
 	@OneToMany(mappedBy = "processDesign", cascade = CascadeType.ALL)   
 	private List<ProcessSpecification> processSpecification;
  
-     
+	public ProcessDesign(Integer id) {
+		super();
+		this.id = id;
+	} 
 }

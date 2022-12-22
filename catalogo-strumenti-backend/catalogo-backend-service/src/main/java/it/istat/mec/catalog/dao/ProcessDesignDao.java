@@ -20,9 +20,6 @@ public interface ProcessDesignDao extends JpaRepository<ProcessDesign, Integer> 
 	@Query("SELECT DISTINCT pd FROM ProcessDesign pd WHERE pd.step = :idStep")	
 	public List<ProcessDesign> findByStep(@Param("idStep") ProcessStep idStep);
 	
-	//public List<ProcessDesign> findByStep(Optional<ProcessStep> processStep);
-	
-	//List<ProcessDesign> findByStep(ProcessStep processStep);
 	List<ProcessDesign> findByStep(Integer id_step);
 
 	public void save(Optional<ProcessDesign> processDesign);
