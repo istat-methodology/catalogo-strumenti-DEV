@@ -20,7 +20,7 @@
           :class="{ 'c-active': isHome }"
         >
           <CIcon name="cil-home" class="c-sidebar-nav-icon" />Home
-          <span class="badge badge-primary">ver. 1.0</span>
+          <span class="badge badge-primary p-0 pt-2 pl-2 pr-2"><h6>V. 1.0</h6></span>
         </router-link>
       </li>
 
