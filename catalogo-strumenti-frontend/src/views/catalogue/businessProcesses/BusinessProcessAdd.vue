@@ -78,30 +78,35 @@
         />
         <CCard>
           <CCardBody>
+            <div class="row">
             <CInput
+              class="col-6"
               label="Nome*"
               placeholder="Nome"
               v-model="bProcessLocal.name"
             />
+            <CInput
+              class="col-4"
+              label="Etichetta"
+              placeholder="Etichetta"
+              v-model="bProcessLocal.label"
+            />
+            <CInput
+              class="col-2"
+              label="Ordine"
+              type="number"
+              placeholder="Ordine"
+              v-model="bProcessLocal.orderCode"
+            />
+          </div>
+          <div class="row mt-4">
             <CTextarea
+              class="col-12"
               label="Descrizione"
               placeholder="Descrizione"
-              v-model="bProcessLocal.descr"
+              v-model="bProcessLocal.descr"              
             />
-            <div class="row justify-content-between">
-              <CInput
-                class="col-4"
-                label="Etichetta"
-                placeholder="Etichetta"
-                v-model="bProcessLocal.label"
-              />
-              <CInput
-                label="Ordine"
-                type="number"
-                placeholder="Ordine"
-                v-model="bProcessLocal.orderCode"
-              />
-            </div>
+          </div>
           </CCardBody>
         </CCard>
       </div>

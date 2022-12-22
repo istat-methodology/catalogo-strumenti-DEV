@@ -29,14 +29,13 @@
               class="col-12"
               label="Descrizione"
               placeholder="Descrizione"
-              v-model="bProcessLocal.descr"
-              
+              v-model="bProcessLocal.descr"              
             />
           </div>
         </CCardBody>
       </CCard>
 
-      <CTitle
+      <!--CTitle
         title="Passi"
         buttonTitle=" Passo"
         functionality=""
@@ -70,7 +69,7 @@
           </span>
           <span v-else>Non sono presenti passi</span>
         </CCardBody>
-      </CCard>
+      </CCard-->
     </div>
 
 
@@ -79,12 +78,12 @@
 <script>
 import { mapGetters } from "vuex";
 //import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
-import CTitle from "@/components/CTitle.vue";
+//import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessEdit",
   components: {
   //  CBusinessProcessDesignNew,
-    CTitle,
+  //  CTitle,
  // CModalDelete
   },
   data() {

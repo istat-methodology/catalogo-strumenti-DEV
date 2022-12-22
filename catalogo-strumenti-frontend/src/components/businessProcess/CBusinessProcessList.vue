@@ -40,7 +40,7 @@
                       </span>
                     </div>
                   </div>
-                  <div class="card-body">
+                  <!--div class="card-body">
                     <span
                       v-if="
                         bProcess.processSteps &&
@@ -58,7 +58,7 @@
                       </ol>
                     </span>
                     <span v-else>Non sono presenti passi</span>
-                  </div>
+                  </div-->
                 </div>
               </div>
             </div>
@@ -110,30 +110,35 @@
         />
         <CCard>
           <CCardBody>
+            <div class="row">
             <CInput
+              class="col-6"
               label="Nome*"
               placeholder="Nome"
               v-model="bProcessLocal.name"
             />
+            <CInput
+              class="col-4"
+              label="Etichetta"
+              placeholder="Etichetta"
+              v-model="bProcessLocal.label"
+            />
+            <CInput
+              class="col-2"
+              label="Ordine"
+              type="number"
+              placeholder="Ordine"
+              v-model="bProcessLocal.orderCode"
+            />
+          </div>
+          <div class="row mt-4">
             <CTextarea
+              class="col-12"
               label="Descrizione"
               placeholder="Descrizione"
-              v-model="bProcessLocal.descr"
+              v-model="bProcessLocal.descr"              
             />
-            <div class="row justify-content-between">
-              <CInput
-                class="col-4"
-                label="Etichetta"
-                placeholder="Etichetta"
-                v-model="bProcessLocal.label"
-              />
-              <CInput
-                label="Ordine"
-                type="number"
-                placeholder="Ordine"
-                v-model="bProcessLocal.orderCode"
-              />
-            </div>
+          </div>
           </CCardBody>
         </CCard>
       </div>
@@ -162,7 +167,6 @@
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
-
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
             :bPStep="selectedEditStep"
@@ -170,19 +174,11 @@
             @enableBack="stateform = FormState.EDIT"
           />
         </div>
-      </div>
+      </div>      
       <!-- 
         Nuovo Passo del Processo
       -->
-      <div v-if="stateform == FormState.STEP_NEW">
-        <!--CTitle
-          :title="selectedEditProcess.name"
-          :buttonTitle="' nuovo passo ' + selectedEditProcess.name"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleBack="stateform = FormState.EDIT"
-        /-->
+      <div v-if="stateform == FormState.STEP_NEW">      
         <!--div v-if="selectedEditProcess"-->
         <CBusinessProcessStepNew
           :bPStep="selectedEditStep"
@@ -365,30 +361,25 @@ h5 {
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
 /* Float four columns side by side */
 .column {
   float: left;
   width: 25%;
   padding: 0 10px;
 }
-
 /* Remove extra left and right margins, due to padding in columns */
 .row {
   margin: 0 -5px;
 }
-
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
 /* Style the counter cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
@@ -397,7 +388,6 @@ body {
   background-color: #f1f1f1;
   margin-left: 5px;
 }
-
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
   .column {
