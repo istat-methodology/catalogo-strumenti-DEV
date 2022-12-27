@@ -1,7 +1,7 @@
 security:
   secret-key: is2-secretkey
 server:
-  port: 8080
+  port: 9080
 spring:
   application:
     name: catalog-api-gateway
@@ -34,7 +34,7 @@ zuul:
   routes:
     service_catalogue:
       path: /api/catalog/**
-      url: http://localhost:8081/catalog
+      url: http://localhost:9081/catalog
       
     service_users:
       path: /api/user/**

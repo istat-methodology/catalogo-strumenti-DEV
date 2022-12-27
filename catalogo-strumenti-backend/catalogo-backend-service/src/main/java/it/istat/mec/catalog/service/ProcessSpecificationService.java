@@ -2,7 +2,10 @@ package it.istat.mec.catalog.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.istat.mec.catalog.dao.ProcessDesignDao;
 import it.istat.mec.catalog.dao.ProcessSpecificationDao;
+import it.istat.mec.catalog.domain.ProcessDesign;
 import it.istat.mec.catalog.domain.ProcessSpecification;
 import it.istat.mec.catalog.dto.ProcessSpecificationDto;
 import it.istat.mec.catalog.exceptions.NoDataException;
@@ -14,6 +17,8 @@ public class ProcessSpecificationService {
 
 	@Autowired
 	ProcessSpecificationDao processSpecificationDao;
+	@Autowired
+	ProcessDesignDao processDesignDao;
 	
 
 	public List<ProcessSpecificationDto> findAllProcessSpecification() {
@@ -31,8 +36,17 @@ public class ProcessSpecificationService {
 	
 	public List<ProcessSpecificationDto> findProcessSpecificationByDesign(Integer idDesign) {
 
-		if (!processSpecificationDao.findByProcessDesign(idDesign).isEmpty())
-			throw new NoDataException("ProcessSpecification not present");
+		//if (!processSpecificationDao.findByProcessDesign(idDesign).isEmpty())
+		//	throw new NoDataException("ProcessSpecification not present");
+		//return Translators.translatePDS(processSpecificationDao.findByProcessDesign(idDesign));
+		return Translators.translatePDS(processSpecificationDao.findByProcessDesign(new ProcessDesign(idDesign)));
+	}
+	
+	public List<ProcessSpecificationDto> findProcessSpecificationByDesign(ProcessDesign idDesign) {
+
+		//if (!processSpecificationDao.findByProcessDesign(idDesign).isEmpty())
+		//	throw new NoDataException("ProcessSpecification not present");
+		//return Translators.translatePDS(processSpecificationDao.findByProcessDesign(idDesign));
 		return Translators.translatePDS(processSpecificationDao.findByProcessDesign(idDesign));
 	}
 	

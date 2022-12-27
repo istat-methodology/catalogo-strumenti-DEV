@@ -50,9 +50,12 @@ import it.istat.mec.catalog.dto.GSBPMProcessDto;
 import it.istat.mec.catalog.dto.InformationObjectDto;
 import it.istat.mec.catalog.dto.LinkAgentToolDto;
 import it.istat.mec.catalog.dto.ProcessDesignDto;
+import it.istat.mec.catalog.dto.ProcessDesignMiniDto;
 import it.istat.mec.catalog.dto.ProcessSpecificationDto;
+import it.istat.mec.catalog.dto.ProcessSpecificationMiniDto;
 import it.istat.mec.catalog.dto.ProcessStepDto;
 import it.istat.mec.catalog.dto.ProcessStepInverseDto;
+import it.istat.mec.catalog.dto.ProcessStepMiniDto;
 import it.istat.mec.catalog.dto.SoftwareProcedureDto;
 import it.istat.mec.catalog.dto.StatisticalMethodDto;
 import it.istat.mec.catalog.dto.StatisticalMethodMiniDto;
@@ -342,12 +345,24 @@ public class Translators {
 		return mapList(list, ProcessStepDto.class);
 	}
 	
+	public static List<ProcessStepMiniDto> translatePSMini(List<ProcessStep> list) {
+		return mapList(list, ProcessStepMiniDto.class);
+	}
+	
 	public static List<ProcessDesignDto> translatePD(List<ProcessDesign> list) {
 		return mapList(list, ProcessDesignDto.class);
 	}
 	
+	public static List<ProcessDesignMiniDto> translatePDMini(List<ProcessDesign> list) {
+		return mapList(list, ProcessDesignMiniDto.class);
+	}
+	
 	public static List<ProcessSpecificationDto> translatePDS(List<ProcessSpecification> list) {
 		return mapList(list, ProcessSpecificationDto.class);
+	}
+	
+	public static List<ProcessSpecificationMiniDto> translatePDSMini(List<ProcessSpecification> list) {
+		return mapList(list, ProcessSpecificationMiniDto.class);
 	}
 	
 	public static List<ProcessStepInverseDto> translateProcessStepInverse(List<ProcessStep> list) {
