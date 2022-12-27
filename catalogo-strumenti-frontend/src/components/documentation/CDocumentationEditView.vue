@@ -43,7 +43,7 @@
                             tag="a"
                             :to="{
                               name: 'DocumentationDetails',
-                              params: { id: documentation.id }
+                              params: { id: documentation.id },
                             }"
                             title="Visualizza dettagli documento"
                           >
@@ -155,7 +155,15 @@
             label="Nome*"
             placeholder="Nome"
             v-model="documentationLocal.name"
+            :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
           />
+          <div
+            class="help-block"
+            :class="{ show: $v.documentationLocal.name.$error }"
+          >
+            Campo obbligatorio
+          </div>
+
           <CInput
             label="Editore"
             placeholder="Editore"
@@ -169,7 +177,14 @@
             :options="documentationTypeList"
             placeholder="Tipo documento"
             v-model="documentationLocal.documentType"
+            :class="{ 'is-invalid': $v.documentationLocal.documentType.$error }"
           ></v-select>
+          <div
+            class="help-block"
+            :class="{ show: $v.documentationLocal.documentType.$error }"
+          >
+            Campo obbligatorio
+          </div>
           <CTextarea
             label="Note"
             placeholder="Note"
@@ -186,13 +201,14 @@
   </div>
 </template>
 <script>
+import { required } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 //import AgentAdd from "../../agent/AgentAdd.vue";
 import CTitle from "@/components/CTitle.vue";
 export default {
   components: {
     /*AgentAdd*/
-    CTitle
+    CTitle,
   },
   name: "CDocumentationEditView",
   data() {
@@ -203,17 +219,17 @@ export default {
       FormState: {
         LIST: 0,
         ADD: 1,
-        NEW: 2
+        NEW: 2,
       },
       stateform: 0,
       documentationLocal: {
         name: "",
         publisher: "",
-        documentType: "",
+        documentType:"",
         resource: "",
         tool: this.toolId,
-        method: this.methodId
-      }
+        method: this.methodId,
+      },
     };
   },
   computed: {
@@ -222,19 +238,29 @@ export default {
     ...mapGetters("documentation", ["documentationList"]),
     getAllDocumentations() {
       if (this.documentationList) {
-        return this.documentationList.map(item => {
+        return this.documentationList.map((item) => {
           return {
             id: item.id,
             name:
               (item.name == null ? "" : item.name) +
               " - " +
-              (item.documentType.name == null ? "" : item.documentType.name)
+              (item.documentType.name == null ? "" : item.documentType.name),
           };
         });
       } else {
         return [];
       }
-    }
+    },
+  },
+  validations: {
+    documentationLocal: {
+      name: {
+        required,
+      },
+      documentType: {
+        required,
+      },
+    },
   },
   emits: ["updateParent"],
 
@@ -242,23 +268,23 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     toolId: {
       type: Number,
       required: false,
-      default: null
+      default: null,
     },
     methodId: {
       type: Number,
       required: false,
-      default: null
+      default: null,
     },
     parentName: {
       type: String,
       required: true,
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     changeTool(value) {
@@ -272,37 +298,46 @@ export default {
       this.selectedDocId = e.id;
     },
     handleAddSubmit() {
-      console.log(this.selectedDocId);
-      let params = { id: 0, docID: 0 };
+      this.$v.$touch();
+      if (!this.$v.documentationLocal.$invalid) {
+        console.log(this.selectedDocId);
+        let params = { id: 0, docID: 0 };
 
-      if (this.selectedDocId) {
-        if (this.toolId) {
-          params.id = this.toolId;
-          params.docID = this.selectedDocId;
-          this.$store
-            .dispatch("tools/addDocumentation", params)
-            .then(this.$emit("updateParent"));
-          this.stateform = this.FormState.LIST;
-        }
-        if (this.methodId) {
-          params.id = this.methodId;
-          params.docID = this.selectedDocId;
-          this.$store
-            .dispatch("methods/addDocumentation", params)
-            .then(this.$emit("updateParent"));
-          this.stateform = this.FormState.LIST;
+        if (this.selectedDocId) {
+          if (this.toolId) {
+            params.id = this.toolId;
+            params.docID = this.selectedDocId;
+            this.$store
+              .dispatch("tools/addDocumentation", params)
+              .then(this.$emit("updateParent"));
+            this.stateform = this.FormState.LIST;
+          }
+
+          if (this.methodId) {
+            params.id = this.methodId;
+            params.docID = this.selectedDocId;
+            this.$store
+              .dispatch("methods/addDocumentation", params)
+              .then(this.$emit("updateParent"));
+            this.stateform = this.FormState.LIST;
+          }
         }
       }
     },
     handleNewSubmit() {
-      this.documentationLocal.tool = this.toolId;
-      this.documentationLocal.method = this.methodId;
-      this.documentationLocal.documentType = this.documentationLocal.documentType.id;
+      this.$v.$touch();
+      if (!this.$v.documentationLocal.$invalid) {
+        this.documentationLocal.tool = this.toolId;
+        this.documentationLocal.method = this.methodId;
+        this.documentationLocal.documentType =
+          this.documentationLocal.documentType.id;
 
-      this.$store
-        .dispatch("documentation/save", this.documentationLocal)
-        .then(this.$emit("updateParent"));
-      this.viewNewDocument = false;
+        this.$store
+          .dispatch("documentation/save", this.documentationLocal)
+          .then(this.$emit("updateParent"));
+        this.stateform = this.FormState.LIST;
+        //this.viewNewDocument = false;
+      }
     },
 
     handleBack() {
@@ -340,12 +375,12 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     this.$store.dispatch("documentation/findAll");
     this.$store.dispatch("documentationType/findAll");
-  }
+  },
 };
 </script>
 <style scoped>

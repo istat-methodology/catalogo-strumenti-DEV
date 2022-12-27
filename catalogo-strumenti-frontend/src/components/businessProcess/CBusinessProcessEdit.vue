@@ -144,6 +144,7 @@ export default {
     },
   },
   methods: {
+    /*
     getProcessStepsList: function () {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
         return this.bProcessLocal.processSteps.map((step, index) => {
@@ -171,6 +172,7 @@ export default {
         return [];
       }
     },
+    */
     handleEditStep(step) {
       this.$emit("enableEditStep", step);
     },
