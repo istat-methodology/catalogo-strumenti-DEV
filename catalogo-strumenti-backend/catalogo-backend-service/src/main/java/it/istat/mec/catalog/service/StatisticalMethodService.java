@@ -100,12 +100,12 @@ public class StatisticalMethodService {
 		return Translators.translate(sm);
 	}
 
-	public StatisticalMethodDto deleteStatisticalMethod(Integer id) {
+	public Boolean deleteStatisticalMethod(Integer id) {
 		if (!statisticalMethodDao.findById(id).isPresent())
 			throw new NoDataException("Statistical Method not present");
 		StatisticalMethod sm = statisticalMethodDao.findById(id).get();
 		statisticalMethodDao.delete(sm);
-		return Translators.translate(sm);
+		return Boolean.TRUE;
 	}
 
 	public StatisticalMethodDto addStatisticalMethodDocumentation(Integer id, Integer docID) {
