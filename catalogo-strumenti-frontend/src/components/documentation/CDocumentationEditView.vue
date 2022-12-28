@@ -170,7 +170,7 @@
             v-model="documentationLocal.publisher"
           />
           <div>
-            <label>Tipo Documento</label>
+            <label>Tipo Documento*</label>
           </div>
           <v-select
             label="name"
