@@ -16,3 +16,4 @@ public class AgentDto implements Serializable {
 	private String contact;	
 	private String notes;	
 }
+
