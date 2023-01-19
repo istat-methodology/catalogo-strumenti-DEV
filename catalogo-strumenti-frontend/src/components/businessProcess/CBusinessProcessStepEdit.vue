@@ -14,6 +14,13 @@
         <CCardBody>
           <div class="row">
             <CInput
+              class="col-1"
+              label="id"
+              placeholder="id"
+              v-model="bPStepLocal.id"
+              disabled
+            />
+            <CInput
               class="col-6"
               label="Nome*"
               placeholder="Nome"
@@ -26,7 +33,7 @@
               v-model="bPStepLocal.label"
             />
             <CInput
-              class="col-2"
+              class="col-1"
               label="Index"
               placeholder="Index"
               v-model="bPStepLocal.index"
@@ -90,11 +97,11 @@
 
           <div class="row mt-4">
             <span v-if="bPStepLocal.processDesigns.length > 0">
+              <div>{{ getProcessDesignsList() }}</div>
               <CDataTable
                 class="col-12"
                 v-if="bPStepLocal"
                 :items="getProcessDesignsList()"
-                :fields="fields"
                 :items-per-page="10"
                 hover
                 pagination
@@ -312,29 +319,57 @@ export default {
     getProcessDesignsList: function () {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
         //return this.bPStepLocal.processDesigns.map((step, index) => {
-        return this.bPStepLocal.processDesigns.map((step) => {
+
+        return this.bPStepLocal.processDesigns.map((processDesign, index) => {
+          console.log(processDesign);
+          console.log(index);
           return {
-            /* process design */
-            //processDesigns_index: index + 1,
-            processDesigns_id: step.id,
-            processDesigns_descr: step.descr,
+            /*
+              "processDesign": { 
+                "id": 180011, "descr": "probabilisticContingencyTable", 
+                "step": 
+                  { "id": 70, "name": "Contingency Table", "descr": "Calculate contingency table", "label": "CONTINGENCY_TABLE", 
+                    "businessService": { "id": 200, "name": "Relais", "descr": "Record Linkage at Istat" },
+                    "substep": null, 
+                    "stepInstances": 
+                      [{ 
+                      "id": 11, "method": "probabilisticContingencyTable", 
+                      "statMethod": { "id": 200, "name": "Fellegi Sunter" }, 
+                      "descr": "This function calculates the contingency Table", "functionality": "ContingencyTable", "appServiceId": "250" 
+                      }
+                      ] 
+                  }, 
+                "processSpecification": null 
+              }           
+            */
 
-            /* process design description */
-            processDesignDescription_id: step.processDesignDescription.id,
-            processDesignDescription_description:
-              step.processDesignDescription.descr,
-
-            /* design type */
-            designType_id: step.designType.id,
-            designType_type: step.designType.type,
-            designType_typeByParameter: step.designType.type,
-
-            /* information Object */
-            informationObject_id: step.informationObject.id,
-            informationObject_name: step.informationObject.name,
-            informationObject_description: step.informationObject.descr,
-            informationObject_csmAppRoleId: step.informationObject.csmAppRoleId,
+            processDesignId: processDesign.id,
+            processDesignDescription: processDesign.descr,
+            StepId: processDesign.step.id,
+            StepName: processDesign.step.name,
+            StepDescription: processDesign.step.descr,
+            StepLabel: processDesign.step.label,
+            /*
+            StepbusinessServiceId: processDesign.step.businessService.id,
+            StepbusinessServiceName: processDesign.step.businessService.name,
+            StepbusinessServiceDescription:
+              processDesign.step.businessService.descr,
+            StepSubstep: processDesign.step.substep,
+            StepInstancesId: processDesign.step.stepInstances.id,
+            StepInstancesMethod: processDesign.step.stepInstances.method,
+            StepInstancesDescription: processDesign.step.stepInstances.descr,
+            StepInstancesFunctionality:
+              processDesign.step.stepInstances.functionality,
+            StepInstancesAppServiceId:
+              processDesign.step.stepInstances.appServiceId,
+            //StepInstancesStatMethodId:
+            //  processDesign.step.stepInstances.statMethod.id,
+            //StepInstancesStatMethodName:
+            //  processDesign.step.stepInstances.statMethod.name,
+            */
+            processDesignSpecification: processDesign.processSpecification,
           };
+
         });
       } else {
         return [];
@@ -342,12 +377,13 @@ export default {
     },
     getProcessDesignDescriptionList: function () {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
-        return this.bPStepLocal.processDesigns.map((step) => {
+        return this.bPStepLocal.processDesigns.map((processDesign) => {
+          console.log(processDesign);
           return {
-            /* process design description */
-            processDesignDescription_id: step.processDesignDescription.id,
-            processDesignDescription_description:
-              step.processDesignDescription.descr,
+            processDesign: processDesign,
+
+            //processDesignDescription_id: step.processDesignDescription.id,
+            //processDesignDescription_description: step.processDesignDescription.descr,
           };
         });
       } else {
@@ -377,7 +413,7 @@ export default {
         this.load();
       });
       */
-    },    
+    },
     enableBack() {
       this.$emit("enableBack");
     },

@@ -40,7 +40,7 @@
                       </span>
                     </div>
                   </div>
-                  <!--div class="card-body">
+                  <div class="card-body">
                     <span
                       v-if="
                         bProcess.processSteps &&
@@ -58,7 +58,7 @@
                       </ol>
                     </span>
                     <span v-else>Non sono presenti passi</span>
-                  </div-->
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,7 +162,7 @@
             @enableNewStep="showNewStep"
           />
         </div>
-      </div>
+      </div>      
       <!-- 
         Modifica Passo del Processo
       -->

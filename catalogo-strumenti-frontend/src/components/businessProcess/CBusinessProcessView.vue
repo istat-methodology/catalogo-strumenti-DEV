@@ -16,14 +16,14 @@
               <div class="description-fields col-12">
                 <span v-if="businessProcess">{{ businessProcess.descr }}</span>
               </div>
-              <!--div class="card col-md-auto">
+              <div class="card col-md-auto">
                 <span><strong>Etichetta</strong></span>
                 <div class="card-slot">
                   <span v-if="businessProcess">{{
                     businessProcess.label
                   }}</span>
                 </div>
-              </div-->
+              </div>
             </div>
           </div>
 

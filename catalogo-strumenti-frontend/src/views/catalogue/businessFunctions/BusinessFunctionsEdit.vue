@@ -3,8 +3,8 @@
   <div class="row">
     <div class="col-12">
       <div class="row p-0">
-        <div class="col-md-3"></div>
-        <div class="col-md-9 p-0 pl-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-10 p-0 pl-4">
           <div class="col-10 p-0 pl-2">
             <h1 class="uppercase text-right p-0 pt-2 text-info">
               <span>
@@ -19,7 +19,7 @@
       </div>
       <CTabs
         variant="pills"
-        :vertical="{ navs: 'col-md-3', content: 'col-md-9 p-0 pl-4' }"
+        :vertical="{ navs: 'col-md-2', content: 'col-md-10 p-0 pl-4' }"
       >
         <CTab>
           <template #title>

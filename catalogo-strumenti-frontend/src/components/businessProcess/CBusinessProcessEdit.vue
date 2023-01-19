@@ -35,7 +35,7 @@
         </CCardBody>
       </CCard>
 
-      <!--CTitle
+      <CTitle
         title="Passi"
         buttonTitle=" Passo"
         functionality=""
@@ -69,22 +69,20 @@
           </span>
           <span v-else>Non sono presenti passi</span>
         </CCardBody>
-      </CCard-->
+      </CCard>
     </div>
-
-
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 //import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
-//import CTitle from "@/components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessEdit",
   components: {
-  //  CBusinessProcessDesignNew,
-  //  CTitle,
- // CModalDelete
+    //CBusinessProcessDesignNew,
+    CTitle,
+    //CModalDelete
   },
   data() {
     return {
@@ -144,7 +142,7 @@ export default {
     },
   },
   methods: {
-    /*
+    
     getProcessStepsList: function () {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
         return this.bProcessLocal.processSteps.map((step, index) => {
@@ -172,7 +170,7 @@ export default {
         return [];
       }
     },
-    */
+    
     handleEditStep(step) {
       this.$emit("enableEditStep", step);
     },
