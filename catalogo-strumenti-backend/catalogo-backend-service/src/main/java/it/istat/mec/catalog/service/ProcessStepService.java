@@ -71,12 +71,13 @@ public class ProcessStepService {
 		return Translators.translate(ps);
 	}
 	
-	public ProcessStepDto deleteProcessStep(Integer id) {		
+	public Boolean deleteProcessStep(Integer id) {		
 		if (!processStepDao.findById(id).isPresent())
 			throw new NoDataException("ProcessStep not present");
 			ProcessStep ps = processStepDao.findById(id).get();
 			processStepDao.delete(ps);
-			return Translators.translate(ps);		
+			return Boolean.TRUE;
+			//return Translators.translate(ps);		
 	}
 	
 	public ProcessStepDto addStepInstanceToProcessStep(Integer id_process_step, Integer id_step_instance) {

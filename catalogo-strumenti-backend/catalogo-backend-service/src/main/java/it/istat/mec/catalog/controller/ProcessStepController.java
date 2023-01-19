@@ -62,7 +62,7 @@ public class ProcessStepController {
 	}
 	
 	@DeleteMapping(value = "/process-steps/{id}")
-	public ProcessStepDto deleteProcessStep(@PathVariable("id") Integer id) {
+	public Boolean deleteProcessStep(@PathVariable("id") Integer id) {
 
 		return processStepService.deleteProcessStep(id);
 	}

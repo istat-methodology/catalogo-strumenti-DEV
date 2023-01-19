@@ -13,7 +13,9 @@ import it.istat.mec.catalog.domain.ProcessStep;
 public interface ProcessStepDao extends JpaRepository<ProcessStep, Integer> {
 	
 	List<ProcessStep> findByBusinessService(BusinessService businessService);
-
+	
+	List<ProcessStep> findByBusinessService(Integer businessService);
+	
 	public void save(Optional<ProcessStep> processStep);
 
 	public void delete(ProcessStep processStep);
