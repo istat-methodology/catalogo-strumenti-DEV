@@ -40,6 +40,7 @@ public class ProcessSpecificationService {
 		//	throw new NoDataException("ProcessSpecification not present");
 		//return Translators.translatePDS(processSpecificationDao.findByProcessDesign(idDesign));
 		return Translators.translatePDS(processSpecificationDao.findByProcessDesign(new ProcessDesign(idDesign)));
+		
 	}
 	
 	public List<ProcessSpecificationDto> findProcessSpecificationByDesign(ProcessDesign idDesign) {

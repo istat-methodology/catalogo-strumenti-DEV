@@ -1,17 +1,13 @@
 package it.istat.mec.catalog.domain;
-
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,8 +22,8 @@ public class ProcessSpecification implements Serializable  {
 	@Column(name = "ID")
 	private Integer id;
  
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "PROCESS_DESIGN_ID", nullable = false, insertable = false)
+    @ManyToOne
+    @JoinColumn(name = "PROCESS_DESIGN_ID", nullable = true, insertable = false)
 	private ProcessDesign processDesign;
  	
 	@ManyToOne
@@ -38,11 +34,9 @@ public class ProcessSpecification implements Serializable  {
     @JoinColumn(name = "CSM_INFORMATION_OBJECT_ID", nullable = false, insertable = false)
 	private InformationObject informationObject;
 	
-	public ProcessSpecification() {
-		super();
+	public ProcessSpecification() {		
 	}
-	public ProcessSpecification(Integer id) {
-		super();
+	public ProcessSpecification(Integer id) {		
 		this.id=id;	
 	}
 	
