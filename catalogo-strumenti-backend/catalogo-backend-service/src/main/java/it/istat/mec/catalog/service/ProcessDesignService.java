@@ -23,7 +23,7 @@ public class ProcessDesignService {
 	ProcessStepDao ProcessStepDao;
 	
 
-	public List<ProcessDesignDto> findAllPrcessDesignes() {
+	public List<ProcessDesignDto> findAllProcessDesignes() {
 		
 		return Translators.translatePD(processDesignDao.findAll());
 

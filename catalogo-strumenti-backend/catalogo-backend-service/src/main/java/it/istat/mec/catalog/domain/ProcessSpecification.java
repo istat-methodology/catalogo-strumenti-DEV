@@ -26,7 +26,7 @@ public class ProcessSpecification implements Serializable  {
 	@Column(name = "ID")
 	private Integer id;
  
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "PROCESS_DESIGN_ID", nullable = false, insertable = false)
 	private ProcessDesign processDesign;
  	
@@ -38,6 +38,12 @@ public class ProcessSpecification implements Serializable  {
     @JoinColumn(name = "CSM_INFORMATION_OBJECT_ID", nullable = false, insertable = false)
 	private InformationObject informationObject;
 	
-	public ProcessSpecification() {}
+	public ProcessSpecification() {
+		super();
+	}
+	public ProcessSpecification(Integer id) {
+		super();
+		this.id=id;	
+	}
 	
 }
