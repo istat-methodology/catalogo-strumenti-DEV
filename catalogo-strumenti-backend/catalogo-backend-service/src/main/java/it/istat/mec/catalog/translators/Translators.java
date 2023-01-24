@@ -2,6 +2,7 @@ package it.istat.mec.catalog.translators;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -223,6 +224,12 @@ public class Translators {
 		final StepInstanceDto siDto = modelMapper.map(x, StepInstanceDto.class);
 		return siDto;
 	}	
+	
+	public static ProcessDesignDto translatePD(ProcessDesign processDesign) {		
+		final ModelMapper modelMapper = new ModelMapper();
+		final ProcessDesignDto pdDto = modelMapper.map(processDesign, ProcessDesignDto.class);
+		return pdDto;
+	}
 
 	/*public static DesktopApplicationDto translate(DesktopApplication x) {
 
@@ -351,7 +358,7 @@ public class Translators {
 	
 	public static List<ProcessDesignDto> translatePD(List<ProcessDesign> list) {
 		return mapList(list, ProcessDesignDto.class);
-	}
+	}	
 	
 	public static List<ProcessDesignMiniDto> translatePDMini(List<ProcessDesign> list) {
 		return mapList(list, ProcessDesignMiniDto.class);

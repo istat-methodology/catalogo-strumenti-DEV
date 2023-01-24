@@ -43,6 +43,13 @@ public class ProcessDesignService {
 	//return Translators.translatePD(processDesignDao.findByStep((new ProcessStep(id_step))));
 	return Translators.translatePD(processDesignDao.findByStep(new ProcessStep(id_step)));
 }
+	public ProcessDesignDto findProcessDesignsById(Integer id_design) {
+//		if (!processDesignDao.findById(id_design).isEmpty())
+//		throw new NoDataException("ProcessDesign not present");	
+	
+
+	return Translators.translatePD(processDesignDao.findById(id_design).get());
+}
 	public List<ProcessDesignDto> findProcessDesignsByStep(ProcessStep step) {
 //		if (!processDesignDao.findByStep(id_step).isEmpty())
 //		throw new NoDataException("ProcessDesignes not present");	

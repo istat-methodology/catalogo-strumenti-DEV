@@ -33,6 +33,12 @@ public class ProcessDesignController {
 		return processDesignService.findProcessDesignsByStep(id_step);
 	}	
 	
+	@GetMapping("/open/process-designes/{id}")
+	public ProcessDesignDto getProcessDesignesById(@PathVariable("id") Integer id) {
+
+		return processDesignService.findProcessDesignsById(id);
+	}	
+	
 	
 	@PostMapping("/process-designes")
 	public ProcessDesignDto create(@RequestBody CreateProcessDesignRequest request) {

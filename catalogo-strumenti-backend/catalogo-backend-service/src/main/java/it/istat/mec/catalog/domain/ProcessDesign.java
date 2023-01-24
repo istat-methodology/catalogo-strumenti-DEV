@@ -34,7 +34,9 @@ public class ProcessDesign implements Serializable  {
 	@JoinColumn(name = "STEP", nullable = false, insertable = false)
 	private ProcessStep step;
 	
-	public ProcessDesign() {}
+	public ProcessDesign() {
+		super();
+	}
 	 
 	@OneToMany(mappedBy = "processDesign", cascade = CascadeType.ALL)   
 	private List<ProcessSpecification> processSpecification;
