@@ -23,15 +23,15 @@ public class ProcessSpecification implements Serializable  {
 	private Integer id;
  
     @ManyToOne
-    @JoinColumn(name = "PROCESS_DESIGN_ID", nullable = true, insertable = false)
+    @JoinColumn(name = "PROCESS_DESIGN_ID", nullable = true, insertable = true)
 	private ProcessDesign processDesign;
  	
 	@ManyToOne
-    @JoinColumn(name = "TYPE", nullable = false, insertable = false)
+    @JoinColumn(name = "TYPE", nullable = false, insertable = true)
  	private DesignType designType;
 		
 	@ManyToOne
-    @JoinColumn(name = "CSM_INFORMATION_OBJECT_ID", nullable = false, insertable = false)
+    @JoinColumn(name = "CSM_INFORMATION_OBJECT_ID", nullable = false, insertable = true)
 	private InformationObject informationObject;
 	
 	public ProcessSpecification() {		
