@@ -42,7 +42,7 @@ public class ProcessStep implements Serializable  {
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	// Paolinux 2022/12/21: set to nullable
-    @JoinColumn(name = "BUSINESS_SERVICE_ID", nullable = true, insertable = false)
+    @JoinColumn(name = "BUSINESS_SERVICE_ID", nullable = true, insertable = true)
 	private BusinessService businessService;
 	
 	@Column(name = "SUBSTEP", nullable = true, insertable = false)
