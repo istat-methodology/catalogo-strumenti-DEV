@@ -31,7 +31,8 @@ public class ProcessDesignService {
 	
 	public ProcessDesignDto newProcessDesign(CreateProcessDesignRequest request) {
 		ProcessDesign pd = new ProcessDesign();
-		pd = Translators.translate(request);		
+		pd = Translators.translate(request);	
+		pd.setStep(ProcessStepDao.findById(request.getStep()).get());
 		processDesignDao.save(pd);
 		return Translators.translate(pd);
 	}
@@ -63,10 +64,11 @@ public class ProcessDesignService {
 		if (!processDesignDao.findById(request.getId()).isPresent())
 			throw new NoDataException("ProcessDesign not present");
 		
+		
 		ProcessDesign pd = processDesignDao.findById(request.getId()).get();	
 		
 		pd = Translators.translateUpdate(request, pd);
-		
+		pd.setStep(ProcessStepDao.findById(request.getStep()).get());
 		processDesignDao.save(pd);		
 		
 		return Translators.translate(pd);
