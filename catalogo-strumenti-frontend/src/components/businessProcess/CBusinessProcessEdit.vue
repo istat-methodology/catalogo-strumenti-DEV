@@ -73,7 +73,9 @@
     </div>
   </div>
 </template>
+
 <script>
+
 import { mapGetters } from "vuex";
 //import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
 import CTitle from "@/components/CTitle.vue";

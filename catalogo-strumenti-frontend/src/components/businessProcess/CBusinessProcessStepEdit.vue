@@ -61,60 +61,41 @@
       />
       <CCard>
         <CCardBody>
-          <div
-            v-for="(item, index) in getProcessDesignDescriptionList()"
-            :key="index"
-          >
-            <div v-if="index < 1">
-              <!--CInput
-                class="col-2"
-                label="ID"
-                placeholder="ID"
-                v-model="item.processDesignDescription_id"
-
-                /-->
-              <div class="row mt-4">
-                <label class="pl-4"
-                  ><h3>
-                    {{ item.processDesignDescription_description }}
-                  </h3></label
-                >
-                <!--CTextarea
-                  class="col-12"
-                  label="Descrizione"
-                  placeholder="Descrizione"
-                  v-model="item.processDesignDescription_description"
-                  disabled
-                /-->
-              </div>
-            </div>
-          </div>
-          <!--/CCardBody>
-      </CCard-->
-
-          <!--CCard>
-        <CCardBody-->
-
           <div class="row mt-4">
+            <!--div>
+              {{ getProcessDesignsList() }}
+            </div-->
             <span v-if="bPStepLocal.processDesigns.length > 0">
-              <div>{{ getProcessDesignsList() }}</div>
               <CDataTable
                 class="col-12"
                 v-if="bPStepLocal"
                 :items="getProcessDesignsList()"
                 :items-per-page="10"
+                :fields="fields"
                 hover
                 pagination
                 ><template #show_details="{ item }">
                   <td>
-                    <span class="icon-link" @click="showEditProcessDesign(item)"
-                      ><edit-icon title="Edit"
-                    /></span>
+                    <CDataTable
+                      class="col-12"
+                      v-if="bPStepLocal"
+                      :items="getDesignSpecificationList(item)"
+                      :items-per-page="10"
+                      :fields="fieldsDesignSpecification"
+                      hover
+                      pagination
+                    ></CDataTable>
                   </td>
+                  <CTableLink
+                    :authenticated="isAuthenticated"
+                    @handleView="handleView(item)"
+                    @handleEdit="handleEdit(item)"
+                    @handleDelete="handleOpenModalDelete(item)"
+                  />
                 </template>
               </CDataTable>
             </span>
-            <span v-else>Non sono presenti process desigp</span>
+            <span v-else>Non sono presenti process design</span>
           </div>
         </CCardBody>
       </CCard>
@@ -147,105 +128,76 @@
 import { mapGetters } from "vuex";
 import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
 import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
+import CTableLink from "@/components/CTableLink.vue";
 //import CModalDelete from "@/components/CModalDelete.vue";
-
 import CTitle from "@/components/CTitle.vue";
+
 export default {
   name: "CBusinessProcessStepEdit",
   components: {
     CBusinessProcessDesignNew,
     CBusinessProcessDesignEdit,
+    CTableLink,
     //  CModalDelete,
     CTitle,
   },
+
   data() {
     return {
-      processDesignDescription: [
+      /*
+      columns: [
         {
-          key: "processDesignDescription_id",
+          key: "name",
+          _style: { width: "50%" },
         },
         {
-          key: "processDesignDescription_description",
+          key: "role",
+          _style: { width: "50%" },
+          filter: (values, onChange) => {
+            const unique = [...new Set(values)].sort();
+            return (
+              <CMultiSelect
+                size="sm"
+                onChange={(selected) => {
+                  const _selected = selected.map((element) => {
+                    return element.value;
+                  });
+                  onChange((item) => {
+                    return Array.isArray(_selected) && _selected.length
+                      ? _selected.includes(item.toLowerCase())
+                      : true;
+                  });
+                }}
+                options={unique.map((element) => {
+                  return {
+                    value: element.toLowerCase(),
+                    text: element,
+                  };
+                })}
+              />
+            );
+          },
+          sorter: false,
         },
       ],
+      */
+
       fields: [
-        /*
         {
-          key: "processDesigns_index",
+          key: "nr",
           label: "#",
           _style: "width:1%;",
         },
-        */
         {
-          key: "processDesigns_id",
+          key: "processDesignId",
           label: "id",
           _style: "width:2%;",
         },
-
-        /* sempre null
         {
-          key: "processDesigns_descr",
-          label: "descrizione",
-          _style: "width:40%;",
-        },
-        */
-
-        /* si ripete quindi va estratto e visualizzato una sola volta
-        {
-          key: "processDesignDescription_id",
-          label: "Process Designs Description ID",
-          _style: "width:20%;",
-        },
-        */
-        /*
-        {
-          key: "processDesignDescription_description",
-          label: "Process Designs Description Description",
-          _style: "width:20%;",
-        },
-        */
-
-        /*
-        {
-          key: "designType_id",
-          label: "Design Type ID ",
-          _style: "width:20%;",
-        },
-        */
-        {
-          key: "designType_type",
-          label: "Dati I/O",
-          _style: "width:20%;",
-        },
-        {
-          key: "designType_type",
-          label: "Tipo I/O",
-          _style: "width:20%;",
-        },
-        /*
-        {
-          key: "informationObject_id",
-          label: "informationObject ID",
-          _style: "width:20%;",
-        },
-        */
-        {
-          key: "informationObject_name",
-          label: "Information Object Name",
-          _style: "width:20%;",
-        },
-        {
-          key: "informationObject_description",
-          label: " information Object Description",
-          _style: "width:20%;",
-        },
-        /*
-        {
-          key: "informationObject_csmAppRoleId",
-          label: "information Object csmAppRoleId",
-          _style: "width:20%;",
-        },
-        */
+          key: "processDesignDescription",
+          label: "Descrizione",
+          _style: "width:4%;",
+        },      
         {
           key: "show_details",
           label: "",
@@ -253,6 +205,41 @@ export default {
           sorter: false,
           filter: false,
         },
+      ],
+      fieldsDesignSpecification: [
+        {
+          key: "processSpecificationId",
+          label: "ID ",
+          _style: "width:2%;",
+        },
+        {
+          key: "designTypeParent",
+          label: "Parent Tipo I/O",
+          _style: "width:10;",
+        },
+
+        {
+          key: "designTypeType",
+          label: "Dati I/O",
+          _style: "width:auto;",
+        },
+        {
+          key: "informationObjectId",
+          label: "informationObject ID",
+          _style: "width:auto;",
+        },
+        {
+          key: "informationObjectName",
+          label: "Information Object Name",
+          _style: "width:auto;",
+        },
+        /*
+        {
+          key: "informationObjectDescription",
+          label: " information Object Description",
+          _style: "width:20%;",
+        },
+        */
       ],
       bPStepLocalToSave: {
         index: "",
@@ -272,20 +259,20 @@ export default {
             description: "",
             name: "",
             label: "",
-            processDesignDescription: {
+            processSpecification: {
               id: "",
               descr: "",
-            },
-            designType: {
-              id: "",
-              type: "",
-              parent: "",
-            },
-            informationObject: {
-              id: "",
-              name: "",
-              descr: "",
-              csmAppRoleId: "",
+              designType: {
+                id: "",
+                type: "",
+                parent: "",
+              },
+              informationObject: {
+                id: "",
+                name: "",
+                descr: "",
+                csmAppRoleId: "",
+              },
             },
           },
         ],
@@ -318,77 +305,33 @@ export default {
   methods: {
     getProcessDesignsList: function () {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
-        //return this.bPStepLocal.processDesigns.map((step, index) => {
-
         return this.bPStepLocal.processDesigns.map((processDesign, index) => {
-          console.log(processDesign);
-          console.log(index);
           return {
-            /*
-              "processDesign": { 
-                "id": 180011, "descr": "probabilisticContingencyTable", 
-                "step": 
-                  { "id": 70, "name": "Contingency Table", "descr": "Calculate contingency table", "label": "CONTINGENCY_TABLE", 
-                    "businessService": { "id": 200, "name": "Relais", "descr": "Record Linkage at Istat" },
-                    "substep": null, 
-                    "stepInstances": 
-                      [{ 
-                      "id": 11, "method": "probabilisticContingencyTable", 
-                      "statMethod": { "id": 200, "name": "Fellegi Sunter" }, 
-                      "descr": "This function calculates the contingency Table", "functionality": "ContingencyTable", "appServiceId": "250" 
-                      }
-                      ] 
-                  }, 
-                "processSpecification": null 
-              }           
-            */
-
+            nr: index + 1,
             processDesignId: processDesign.id,
             processDesignDescription: processDesign.descr,
-            StepId: processDesign.step.id,
-            StepName: processDesign.step.name,
-            StepDescription: processDesign.step.descr,
-            StepLabel: processDesign.step.label,
-            /*
-            StepbusinessServiceId: processDesign.step.businessService.id,
-            StepbusinessServiceName: processDesign.step.businessService.name,
-            StepbusinessServiceDescription:
-              processDesign.step.businessService.descr,
-            StepSubstep: processDesign.step.substep,
-            StepInstancesId: processDesign.step.stepInstances.id,
-            StepInstancesMethod: processDesign.step.stepInstances.method,
-            StepInstancesDescription: processDesign.step.stepInstances.descr,
-            StepInstancesFunctionality:
-              processDesign.step.stepInstances.functionality,
-            StepInstancesAppServiceId:
-              processDesign.step.stepInstances.appServiceId,
-            //StepInstancesStatMethodId:
-            //  processDesign.step.stepInstances.statMethod.id,
-            //StepInstancesStatMethodName:
-            //  processDesign.step.stepInstances.statMethod.name,
-            */
-            processDesignSpecification: processDesign.processSpecification,
+            processSpecification:processDesign.processSpecification
           };
-
         });
       } else {
         return [];
       }
     },
-    getProcessDesignDescriptionList: function () {
-      if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
-        return this.bPStepLocal.processDesigns.map((processDesign) => {
-          console.log(processDesign);
+    getDesignSpecificationList: function (processDesign) {
+      return processDesign.processSpecification.map(
+        (processSpecification, index) => {
           return {
-            processDesign: processDesign,
-
-            //processDesignDescription_id: step.processDesignDescription.id,
-            //processDesignDescription_description: step.processDesignDescription.descr,
+            nr: index + 1,
+            processSpecificationId: processSpecification.id,
+            designTypeParent: processSpecification.designType.parent,
+            designTypeType: processSpecification.designType.type,
+            informationObjectId: processSpecification.informationObject.id,
+            informationObjectName: processSpecification.informationObject.name,
+            informationObjectDescription:
+              processSpecification.informationObject.descr
           };
-        });
-      } else {
-        return [];
-      }
+        }
+      );
     },
     showEditProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
@@ -425,13 +368,27 @@ export default {
       this.bPStepLocalToSave.name = this.bPStepLocal.name;
       this.bPStepLocalToSave.label = this.bPStepLocal.label;
       this.bPStepLocalToSave.description = this.bPStepLocal.description;
-
       this.$store.dispatch("procStep/update", this.bPStepLocalToSave); //.then(() => {  alert(this.bPStepLocal())});
+    },
+    handleView(item) {
+      console.log(item);
+      alert("funzione di update process step non attiva!");
+      //this.$router.push({ name: "xxxDetails", params: { id: item.id } });
+    },
+    handleEdit(item) {
+      console.log(item);
+      alert("funzione di update process step non attiva!");
+      //this.$router.push({ name: "xxxEdit", params: { id: item.id } });
+    },
+    handleDelete(item) {
+      console.log(item);
+      alert("funzione di update process step non attiva!");
+      //this.$store.dispatch("xxx/delete", this.selectedTool.id);
+      //this.showModal = false;
     },
   },
   created() {
     this.bPStepLocal = this.bPStep;
-    this.getProcessDesignDescriptionList();
   },
 };
 </script>

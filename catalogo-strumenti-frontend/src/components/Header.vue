@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 
+import { mapGetters } from "vuex";
 import HeaderDropdownAccnt from "./HeaderDropdownAccnt";
 import BreadCrumb from "./BreadCrumb";
 import HeaderNav from "./HeaderNav";

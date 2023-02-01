@@ -3,87 +3,44 @@
     <div class="col-8">
       <div>
         <div class="p-0">
-          <CTitle
-            :title="bProcess.name"
-            :buttonTitle="bProcess.name"
-            functionality=""
-            :authenticated="isAuthenticated"
-            :buttons="['salva', 'indietro']"
-            @handleSubmit="handleSubmit"
-            @handleBack="handleBack"
-          />
-          <!--div v-if="selectedEditProcess"-->
-          <CBusinessProcessEdit
-            :bProcess="bProcess"
-            @enableEditStep="showEditStep"
-            @enableNewStep="showNewStep"
-          />
-        <!--/div-->
-
-          <!--CCard>
-            <div class="row p-3">
-              <CInput
-                class="col-6"
-                label="Nome*"
-                placeholder="Nome"
-                v-model="bProcess.name"
-              />
-              <CInput
-                class="col-4"
-                label="Etichetta"
-                placeholder="Etichetta"
-                v-model="bProcess.label"
-              />
-              <CInput
-                class="col-2"
-                label="Ordine"
-                type="number"
-                placeholder="Ordine"
-                v-model="bProcess.orderCode"
+          <div v-if="stateform == FormState.EDIT">
+            <CTitle
+              :title="bProcess.name"
+              :buttonTitle="bProcess.name"
+              functionality=""
+              :authenticated="isAuthenticated"
+              :buttons="['salva', 'indietro']"
+              @handleSubmit="handleSubmit"
+              @handleBack="handleBack"
+            />
+            <CBusinessProcessEdit
+              :bProcess="bProcess"
+              @enableEditStep="showEditStep"
+              @enableNewStep="showNewStep"
+            />
+          </div>
+          <!-- 
+            Modifica Passo del Processo
+          -->
+          <div v-if="stateform == FormState.STEP_EDIT">
+            <div v-if="selectedEditStep">
+              <CBusinessProcessStepEdit
+                :bPStep="selectedEditStep"
+                @enableEditStep="showEditStep"
+                @enableBack="stateform = FormState.EDIT"
               />
             </div>
-            <div class="row p-3">
-              <div class="col-12">
-                <CTextarea
-                  label="Descrizione"
-                  placeholder="Descrizione"
-                  v-model="bProcess.descr"
-                />
-              </div>
-            </div>
-          </CCard>
-          <CTitle
-            title="Passi"
-            buttonTitle=" Passo"
-            functionality=""
-            :authenticated="isAuthenticated"
-            :buttons="['aggiungi']"
-            @handleSubmit="handleNewStep"
-          />
-          <CCard>
-            <CCardBody>
-              <span
-                v-if="bProcess.processSteps && bProcess.processSteps.length > 0"
-              >
-                <CDataTable
-                  v-if="bProcess"
-                  :items="getProcessStepsList()"
-                  :fields="fields"
-                  :items-per-page="10"
-                  hover
-                  pagination
-                  ><template #show_details="{ item }">
-                    <td>
-                      <span class="icon-link" @click="handleEditStep(item)"
-                        ><edit-icon title="Edit"
-                      /></span>
-                    </td>
-                  </template>
-                </CDataTable>
-              </span>
-              <span v-else>Non sono presenti passi</span>
-            </CCardBody>
-          </CCard-->
+          </div>
+          <!-- 
+            Nuovo Passo del Processo
+          -->
+          <div v-if="stateform == FormState.STEP_NEW">          
+            <CBusinessProcessStepNew
+              :bPStep="selectedEditStep"
+              @enableNewStep="showNewStep"
+              @enableBack="stateform = FormState.EDIT"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -93,11 +50,15 @@
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
+import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
+import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
 
 export default {
   components: {
     CTitle,
-    CBusinessProcessEdit
+    CBusinessProcessEdit,
+    CBusinessProcessStepEdit,
+    CBusinessProcessStepNew,
   },
   name: "BusinessProcessEdit",
   data() {
@@ -133,13 +94,21 @@ export default {
         }
       ],
       */
-
-      warningModal: false
+      FormState: {
+        LIST: 0,
+        EDIT: 1,
+        NEW: 2,
+        ADD: 3,
+        STEP_EDIT: 4,
+        STEP_NEW: 5,
+      },
+      stateform: 1,
+      warningModal: false,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcess"])
+    ...mapGetters("bProcess", ["bProcess"]),
   },
   methods: {
     /*getProcessStepsList: function() {
@@ -170,7 +139,7 @@ export default {
     },
     */
     handleSubmit() {
-        this.$store.dispatch("bProcess/update", this.bProcess);
+      this.$store.dispatch("bProcess/update", this.bProcess);
     },
     handleEditStep(step) {
       console.log(step);
@@ -186,17 +155,26 @@ export default {
       //this.warningModal = false;
     },
 
+    showEditStep(step) {
+      this.selectedEditStep = step;
+      this.stateform = this.FormState.STEP_EDIT;
+    },
+    showNewStep() {
+      this.selectedEditStep = null;
+      this.stateform = this.FormState.STEP_NEW;
+    },
+
     modalOpen(app) {
       this.selectedBProcess = app;
       this.warningModal = true;
     },
     modalClose() {
       this.warningModal = false;
-    }
+    },
   },
   created() {
     this.$store.dispatch("bProcess/findById", this.$route.params.id);
-  }
+  },
 };
 </script>
 <style scoped>
