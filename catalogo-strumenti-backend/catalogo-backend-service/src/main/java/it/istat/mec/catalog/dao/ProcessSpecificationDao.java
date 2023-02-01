@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import it.istat.mec.catalog.domain.ProcessDesign;
 import it.istat.mec.catalog.domain.ProcessSpecification;
-import it.istat.mec.catalog.domain.ProcessStep;
 
 @Repository
 public interface ProcessSpecificationDao extends JpaRepository<ProcessSpecification, Integer> {

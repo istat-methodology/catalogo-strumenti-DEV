@@ -23,7 +23,7 @@ public class ProcessDesignService {
 	ProcessStepDao ProcessStepDao;
 	
 
-	public List<ProcessDesignDto> findAllPrcessDesignes() {
+	public List<ProcessDesignDto> findAllProcessDesignes() {
 		
 		return Translators.translatePD(processDesignDao.findAll());
 
@@ -31,7 +31,8 @@ public class ProcessDesignService {
 	
 	public ProcessDesignDto newProcessDesign(CreateProcessDesignRequest request) {
 		ProcessDesign pd = new ProcessDesign();
-		pd = Translators.translate(request);		
+		pd = Translators.translate(request);	
+		pd.setStep(ProcessStepDao.findById(request.getStep()).get());
 		processDesignDao.save(pd);
 		return Translators.translate(pd);
 	}
@@ -42,6 +43,13 @@ public class ProcessDesignService {
 	
 	//return Translators.translatePD(processDesignDao.findByStep((new ProcessStep(id_step))));
 	return Translators.translatePD(processDesignDao.findByStep(new ProcessStep(id_step)));
+}
+	public ProcessDesignDto findProcessDesignsById(Integer id_design) {
+//		if (!processDesignDao.findById(id_design).isEmpty())
+//		throw new NoDataException("ProcessDesign not present");	
+	
+	return Translators.translatePD(processDesignDao.findById(id_design).get());
+	
 }
 	public List<ProcessDesignDto> findProcessDesignsByStep(ProcessStep step) {
 //		if (!processDesignDao.findByStep(id_step).isEmpty())
@@ -56,10 +64,11 @@ public class ProcessDesignService {
 		if (!processDesignDao.findById(request.getId()).isPresent())
 			throw new NoDataException("ProcessDesign not present");
 		
+		
 		ProcessDesign pd = processDesignDao.findById(request.getId()).get();	
 		
 		pd = Translators.translateUpdate(request, pd);
-		
+		pd.setStep(ProcessStepDao.findById(request.getStep()).get());
 		processDesignDao.save(pd);		
 		
 		return Translators.translate(pd);

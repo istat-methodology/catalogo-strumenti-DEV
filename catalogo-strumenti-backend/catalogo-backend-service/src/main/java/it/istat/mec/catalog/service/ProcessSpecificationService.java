@@ -3,6 +3,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.istat.mec.catalog.dao.DesignTypeDao;
+import it.istat.mec.catalog.dao.InformationObjectDao;
 import it.istat.mec.catalog.dao.ProcessDesignDao;
 import it.istat.mec.catalog.dao.ProcessSpecificationDao;
 import it.istat.mec.catalog.domain.ProcessDesign;
@@ -19,6 +21,10 @@ public class ProcessSpecificationService {
 	ProcessSpecificationDao processSpecificationDao;
 	@Autowired
 	ProcessDesignDao processDesignDao;
+	@Autowired
+	DesignTypeDao designTypeDao;
+	@Autowired
+	InformationObjectDao informationObjectDao;
 	
 
 	public List<ProcessSpecificationDto> findAllProcessSpecification() {
@@ -27,9 +33,13 @@ public class ProcessSpecificationService {
 
 	}
 	
-	public ProcessSpecificationDto newProcessSpecification(CreateProcessSpecificationRequest request) {
+	public ProcessSpecificationDto newProcessSpecification(CreateProcessSpecificationRequest request) {		
 		ProcessSpecification ps = new ProcessSpecification();
-		ps = Translators.translate(request);		
+		ps = Translators.translate(request);
+		
+		ps.setDesignType(designTypeDao.getOne(request.getDesignType()));
+		ps.setInformationObject(informationObjectDao.getOne(request.getInformationObject()));
+		ps.setProcessDesign(processDesignDao.getOne(request.getProcessDesign()));
 		processSpecificationDao.save(ps);
 		return Translators.translate(ps);
 	}
@@ -40,6 +50,7 @@ public class ProcessSpecificationService {
 		//	throw new NoDataException("ProcessSpecification not present");
 		//return Translators.translatePDS(processSpecificationDao.findByProcessDesign(idDesign));
 		return Translators.translatePDS(processSpecificationDao.findByProcessDesign(new ProcessDesign(idDesign)));
+		
 	}
 	
 	public List<ProcessSpecificationDto> findProcessSpecificationByDesign(ProcessDesign idDesign) {
@@ -55,21 +66,25 @@ public class ProcessSpecificationService {
 		if (!processSpecificationDao.findById(request.getId()).isPresent())
 			throw new NoDataException("ProcessSpecification not present");
 		
-		ProcessSpecification ps = processSpecificationDao.findById(request.getId()).get();	
+		ProcessSpecification ps = processSpecificationDao.findById(request.getId()).get();		
 		
 		ps = Translators.translateUpdate(request, ps);
+		
+		ps.setDesignType(designTypeDao.getOne(request.getDesignType()));
+		ps.setInformationObject(informationObjectDao.getOne(request.getInformationObject()));
+		ps.setProcessDesign(processDesignDao.getOne(request.getProcessDesign()));
 		
 		processSpecificationDao.save(ps);		
 		
 		return Translators.translate(ps);
 	}
 	
-	public ProcessSpecificationDto deleteProcessSpecification(Integer id) {		
+	public boolean deleteProcessSpecification(Integer id) {		
 		if (!processSpecificationDao.findById(id).isPresent())
 			throw new NoDataException("ProcessSpecification not present");
 		ProcessSpecification ps = processSpecificationDao.findById(id).get();
 			processSpecificationDao.delete(ps);
-			return Translators.translate(ps);		
+			return true;	
 	}	
 
 	

@@ -1,6 +1,8 @@
 package it.istat.mec.catalog.domain;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,16 +33,16 @@ public class ProcessDesign implements Serializable  {
 	private String descr;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "STEP", nullable = false, insertable = false)
+	@JoinColumn(name = "STEP", nullable = false, insertable = true)
 	private ProcessStep step;
 	
-	public ProcessDesign() {}
+	public ProcessDesign() {		
+	}
 	 
 	@OneToMany(mappedBy = "processDesign", cascade = CascadeType.ALL)   
 	private List<ProcessSpecification> processSpecification;
  
 	public ProcessDesign(Integer id) {
-		super();
 		this.id = id;
 	} 
 }

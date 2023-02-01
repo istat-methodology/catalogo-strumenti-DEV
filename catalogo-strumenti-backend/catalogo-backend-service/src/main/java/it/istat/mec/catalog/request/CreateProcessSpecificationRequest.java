@@ -11,7 +11,7 @@ public class CreateProcessSpecificationRequest implements Serializable  {
 	private static final long serialVersionUID = -8090877423372137113L;
 	private Integer id;	
 	
-	private Integer processDesignDescription;
+	private Integer processDesign;
  	private Integer designType;
 	private Integer informationObject;
 }

@@ -22,15 +22,21 @@ public class ProcessDesignController {
 	private ProcessDesignService processDesignService;
 	
 	@GetMapping("/open/process-designes")
-	public List<ProcessDesignDto> getAllPrcessDesignes() {
+	public List<ProcessDesignDto> getAllProcessDesignes() {
 
-		return processDesignService.findAllPrcessDesignes();
+		return processDesignService.findAllProcessDesignes();
 	}
 	
 	@GetMapping("/open/process-designes/process-step/{id_step}")
 	public List<ProcessDesignDto> getProcessDesignesByProcessStep(@PathVariable("id_step") Integer id_step) {
 
 		return processDesignService.findProcessDesignsByStep(id_step);
+	}	
+	
+	@GetMapping("/open/process-designes/{id}")
+	public ProcessDesignDto getProcessDesignesById(@PathVariable("id") Integer id) {
+
+		return processDesignService.findProcessDesignsById(id);
 	}	
 	
 	

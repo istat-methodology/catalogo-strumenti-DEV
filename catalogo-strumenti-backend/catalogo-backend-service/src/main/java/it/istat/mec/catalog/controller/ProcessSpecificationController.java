@@ -47,7 +47,7 @@ public class ProcessSpecificationController {
 	}
 	
 	@DeleteMapping(value = "/process-specifications/{id}")
-	public ProcessSpecificationDto deleteProcessSpecification(@PathVariable("id") Integer id) {
+	public boolean deleteProcessSpecification(@PathVariable("id") Integer id) {
 
 		return processSpecificationService.deleteProcessSpecification(id);
 	}
