@@ -14,6 +14,6 @@ public class ProcessDesignMiniDto implements Serializable{
 	private Integer id;	
 	private String descr;	
 	//private ProcessStepMiniDto step;	
-	private List<ProcessSpecificationDto> processSpecification;
+	private List<ProcessSpecificationMiniDto> processSpecification;
 	
 }

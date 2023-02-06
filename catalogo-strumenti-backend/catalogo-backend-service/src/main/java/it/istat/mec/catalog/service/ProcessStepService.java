@@ -49,7 +49,9 @@ public class ProcessStepService {
 		
 		if (!processStepDao.findById(request.getId()).isPresent())
 			throw new NoDataException("ProcessStep not present");
-		ProcessStep ps = processStepDao.findById(request.getId()).get();
+		//ProcessStep ps = processStepDao.findById(request.getId()).get();
+		ProcessStep ps = processStepDao.getOne(request.getId());
+		if (!businessServiceDao.findById(request.getBusinessServiceId()).isPresent()) request.setBusinessServiceId(999); 
 		BusinessService bs = businessServiceDao.getOne(request.getBusinessServiceId());
 		ps.setBusinessService(bs);		
 		ps = Translators.translateUpdate(request, ps);
