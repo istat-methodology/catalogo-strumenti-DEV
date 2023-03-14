@@ -1,61 +1,61 @@
-import { linkedAgentService } from "@/services";
-import { linkedAgentOpenService } from "@/services";
+import { linkedAgentService } from "@/services"
+import { linkedAgentOpenService } from "@/services"
 
 const state = {
   linkedAgentList: [],
   linkedAgent: null
-};
+}
 
 const mutations = {
   SET_LINKEDAGENTLIST(state, linkedAgentList) {
-    state.linkedAgentList = linkedAgentList;
+    state.linkedAgentList = linkedAgentList
   },
   SET_LINKEDAGENT(state, linkedAgent) {
-    state.linkedAgent = linkedAgent;
+    state.linkedAgent = linkedAgent
   }
-};
+}
 
 const actions = {
   save({ commit, dispatch }, payload) {
     return linkedAgentService
       .save(payload)
-      .then(data => {
+      .then((data) => {
         //console.log(data);
-        commit("SET_LINKEDAGENT", data);
+        commit("SET_LINKEDAGENT", data)
 
         dispatch("message/success", "Associazione salvata!", {
           root: true
-        });
+        })
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch((err) => {
+        console.log(err)
+      })
   },
   findByCatalogTool({ commit }, id) {
     return linkedAgentOpenService
       .findByCatalogTool(id)
-      .then(data => {
+      .then((data) => {
         //console.log(data);
-        commit("SET_LINKEDAGENTLIST", data);
+        commit("SET_LINKEDAGENTLIST", data)
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch((err) => {
+        console.log(err)
+      })
   },
 
   update({ commit, dispatch }, payload) {
     return linkedAgentService
       .update(payload)
-      .then(data => {
-        commit("SET_LINKEDAGENT", data);
+      .then((data) => {
+        commit("SET_LINKEDAGENT", data)
 
         dispatch("message/success", "Associazione aggiornata!", {
           root: true
-        });
+        })
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch((err) => {
+        console.log(err)
+      })
   },
   delete({ dispatch }, id) {
     return linkedAgentService
@@ -63,22 +63,22 @@ const actions = {
       .then(() => {
         dispatch("message/success", "Associazione eliminata!", {
           root: true
-        });
+        })
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch((err) => {
+        console.log(err)
+      })
   }
-};
+}
 
 const getters = {
-  linkedAgentList: state => {
-    return state.linkedAgentList;
+  linkedAgentList: (state) => {
+    return state.linkedAgentList
   },
-  linkedAgent: state => {
-    return state.linkedAgent;
+  linkedAgent: (state) => {
+    return state.linkedAgent
   }
-};
+}
 
 export const linkedagent = {
   namespaced: true,
@@ -86,4 +86,4 @@ export const linkedagent = {
   mutations,
   actions,
   getters
-};
+}

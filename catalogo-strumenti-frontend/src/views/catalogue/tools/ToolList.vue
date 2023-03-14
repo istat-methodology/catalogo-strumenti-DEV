@@ -10,8 +10,7 @@
       :authenticated="isAuthenticated"
       :buttons="['aggiungi', 'indietro']"
       @handleNew="handleNew"
-      @handleBack="handleBack"
-    />
+      @handleBack="handleBack" />
     <CCard>
       <CCardBody>
         <CDataTable
@@ -28,8 +27,7 @@
               :authenticated="isAuthenticated"
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
-              @handleDelete="handleOpenModalDelete(item)"
-            />
+              @handleDelete="handleOpenModalDelete(item)" />
           </template>
         </CDataTable>
       </CCardBody>
@@ -38,16 +36,15 @@
       :message="getMessage()"
       :showModal="showModal"
       @closeModal="closeModal"
-      @handleDelete="handleDelete"
-    />
+      @handleDelete="handleDelete" />
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { Context } from "@/common";
-import CTitle from "@/components/CTitle.vue";
-import CModalDelete from "@/components/CModalDelete.vue";
-import CTableLink from "@/components/CTableLink.vue";
+import { mapGetters } from "vuex"
+import { Context } from "@/common"
+import CTitle from "@/components/CTitle.vue"
+import CModalDelete from "@/components/CModalDelete.vue"
+import CTableLink from "@/components/CTableLink.vue"
 export default {
   name: "ToolList",
   components: { CTitle, CModalDelete, CTableLink },
@@ -91,7 +88,7 @@ export default {
       ],
       selectedTool: {},
       showModal: false
-    };
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -100,64 +97,66 @@ export default {
     ...mapGetters("filter", ["params"]),
     computedItems() {
       if (this.toolscatalog) {
-        return this.toolscatalog.map(item => {
+        return this.toolscatalog.map((item) => {
           return Object.assign({}, item, {
             tooltype: item.toolType.name,
             gsbpm: item.gsbpmProcesses
-              .map(gsbpmProcess => {
-                return gsbpmProcess.code + " " + gsbpmProcess.name;
+              .map((gsbpmProcess) => {
+                return gsbpmProcess.code + " " + gsbpmProcess.name
               })
               .join(", "),
             methods: item.statisticalMethods
-              .map(method => {
-                return method.name;
+              .map((method) => {
+                return method.name
               })
               .join(", ")
-          });
-        });
+          })
+        })
       } else {
-        return [];
+        return []
       }
     }
   },
   methods: {
     handleOpenModalDelete(app) {
-      this.selectedTool = app;
-      this.showModal = true;
+      this.selectedTool = app
+      this.showModal = true
     },
     handleNew() {
-      this.$router.push({ name: "ToolAdd" });
+      this.$router.push({ name: "ToolAdd" })
     },
     handleBack() {
-      this.$router.push({ name: "Catalogue" });
+      this.$router.back()
+      //this.$router.push({ name: "Catalogue" })
     },
     handleView(item) {
-      this.$router.push({ name: "ToolDetails", params: { id: item.id } });
+      this.$router.push({ name: "ToolDetails", params: { id: item.id } })
     },
     handleEdit(item) {
-      this.$router.push({ name: "ToolEdit", params: { id: item.id } });
+      this.$router.push({ name: "ToolEdit", params: { id: item.id } })
     },
     handleDelete() {
-      this.$store.dispatch("tools/delete", this.selectedTool.id);
-      this.showModal = false;
+      this.$store.dispatch("tools/delete", this.selectedTool.id)
+      this.showModal = false
     },
     closeModal() {
-      this.showModal = false;
+      this.showModal = false
     },
     getMessage() {
       return (
         "Sei sicuro di eliminare lo strumento metodolgico: " +
         this.selectedTool.name +
         " selezionato?"
-      );
+      )
     }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.ToolList);
+    this.$store.dispatch("coreui/setContext", Context.ToolList)
     // if (this.params) {
-    this.$store.dispatch("tools/filter", this.params);
+    //this.$store.dispatch("tools/filter", this.params  this.$route.params.id)
+    this.$store.dispatch("tools/filter", this.$route.params.id)
     //this.$store.dispatch("tools/findAll");
     // }
   }
-};
+}
 </script>

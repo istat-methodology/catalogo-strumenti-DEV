@@ -30,8 +30,7 @@
                   :to="{
                     name: 'BusinessFunctionsDetails',
                     params: { id: item.id }
-                  }"
-                >
+                  }">
                   <view-icon />
                 </router-link>
               </td>
@@ -41,8 +40,7 @@
                   :to="{
                     name: 'BusinessFunctionsEdit',
                     params: { id: item.id }
-                  }"
-                >
+                  }">
                   <edit-icon />
                 </router-link>
               </td>
@@ -72,8 +70,7 @@
           shape="square"
           size="sm"
           color="primary"
-          @click="deleteBusiness"
-        >
+          @click="deleteBusiness">
           Delete
         </CButton>
       </template>
@@ -83,8 +80,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { Context } from "@/common";
+import { mapGetters } from "vuex"
+import { Context } from "@/common"
 export default {
   name: "BusinessFunctionsList",
   data() {
@@ -120,7 +117,7 @@ export default {
       ],
       selectedBusiness: {},
       warningModal: false
-    };
+    }
   },
   computed: {
     ...mapGetters("bFunction", ["bFunctionList"]),
@@ -141,9 +138,9 @@ export default {
         });
       });
     } */
-    getBusinessFunctionList: function() {
+    getBusinessFunctionList: function () {
       if (this.bFunctionList) {
-        return this.bFunctionList.map(business => {
+        return this.bFunctionList.map((business) => {
           return {
             id: business.id,
             name: business.name == null ? "" : business.name,
@@ -153,14 +150,14 @@ export default {
               business.gsbpmProcesses == null
                 ? ""
                 : business.gsbpmProcesses
-                    .map(gsbpmProcess => {
-                      return gsbpmProcess.code + " " + gsbpmProcess.name;
+                    .map((gsbpmProcess) => {
+                      return gsbpmProcess.code + " " + gsbpmProcess.name
                     })
                     .join(", ")
-          };
-        });
+          }
+        })
       } else {
-        return [];
+        return []
       }
     }
   },
@@ -169,25 +166,25 @@ export default {
     deleteBusiness() {
       this.$store
         .dispatch("bFunction/delete", this.selectedBusiness.id)
-        .catch(() => {});
-      this.warningModal = false;
+        .catch(() => {})
+      this.warningModal = false
     },
     modalOpen(app) {
-      this.selectedBusiness = app;
-      this.warningModal = true;
+      this.selectedBusiness = app
+      this.warningModal = true
     },
     modalClose() {
-      this.warningModal = false;
+      this.warningModal = false
     }
   },
   created() {
     this.$store
       .dispatch("coreui/setContext", Context.BusinessList)
-      .catch(() => {});
+      .catch(() => {})
     // if (this.params) {
-    this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
+    this.$store.dispatch("bFunction/filter", this.params).catch(() => {})
     //this.$store.dispatch("business/findAll");
     // }
   }
-};
+}
 </script>

@@ -11,8 +11,7 @@
             :authenticated="isAuthenticated"
             :buttons="['modifica', 'indietro']"
             @handleEdit="handleEdit(bProcess)"
-            @handleBack="handleBack"
-          />
+            @handleBack="handleBack" />
           <div class="pl-2">
             <div class="columns">
               <div class="row">
@@ -46,10 +45,10 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { Context } from "@/common";
-import _ from "lodash";
-import CTitle from "@/components/CTitle.vue";
+import { mapGetters } from "vuex"
+import { Context } from "@/common"
+import _ from "lodash"
+import CTitle from "@/components/CTitle.vue"
 export default {
   name: "BusinessProcessDetails",
   components: {
@@ -60,7 +59,7 @@ export default {
       index: 1,
       subIndex: 0,
       activeIndex: -1
-    };
+    }
   },
   computed: {
     ...mapGetters("bProcess", ["bProcess"]),
@@ -69,29 +68,29 @@ export default {
   },
   methods: {
     handleBack() {
-      this.$router.back();
+      this.$router.back()
     },
     handleEdit(item) {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "BusinessProcessEdit",
         params: { id: item.id }
-      });
+      })
     },
     formatDate(dt) {
-      dt = new Date(dt);
-      return dt.toLocaleDateString("it");
+      dt = new Date(dt)
+      return dt.toLocaleDateString("it")
     },
-    loadBFunction: _.debounce(function() {
-      this.$store.dispatch("bProcess/findById", this.$route.params.id);
+    loadBFunction: _.debounce(function () {
+      this.$store.dispatch("bProcess/findById", this.$route.params.id)
     }, 500)
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
-    this.$store.dispatch("bProcess/findById", this.$route.params.id);
-    this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id);
+    this.$store.dispatch("coreui/setContext", Context.BusinessDetail)
+    this.$store.dispatch("bProcess/findById", this.$route.params.id)
+    this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id)
   }
-};
+}
 </script>
 
 <style>

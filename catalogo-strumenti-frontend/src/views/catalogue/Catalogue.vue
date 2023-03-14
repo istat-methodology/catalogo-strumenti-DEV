@@ -6,7 +6,7 @@
         <div class="card-body">
           In questa sezione puoi trovare la lista degli Strumenti Metodologici.
           <p class="section-link">
-            <router-link tag="a" :to="{ name: 'ToolList' }"
+            <router-link tag="a" :to="{ name: 'gsbpmList' }"
               ><span>Vai alla lista <chevron-right-icon /></span>
             </router-link>
           </p>
@@ -76,11 +76,11 @@
 </template>
 
 <script>
-import { Context } from "@/common";
+import { Context } from "@/common"
 export default {
   name: "Catalogue",
   created() {
-    this.$store.dispatch("coreui/setContext", Context.Home);
+    this.$store.dispatch("coreui/setContext", Context.Home)
   }
-};
+}
 </script>

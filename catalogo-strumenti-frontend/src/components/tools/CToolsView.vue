@@ -22,8 +22,7 @@
                 :to="{
                   name: 'ToolDetails',
                   params: { id: tool.id }
-                }"
-              >
+                }">
                 <view-icon />
               </router-link>
             </div>
@@ -56,7 +55,7 @@ export default {
       default: () => ""
     }
   }
-};
+}
 </script>
 <style scoped>
 h5 {

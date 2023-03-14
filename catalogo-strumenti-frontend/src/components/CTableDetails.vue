@@ -1,7 +1,7 @@
 <template>
   <div v-if="items.length > 0">
     <div v-if="isShow()">
-      <label class="m-2 "
+      <label class="m-2"
         ><i>{{ title }}</i></label
       >
       <ul class="list-group list-group-horizontal-sm border p-3">
@@ -37,10 +37,10 @@ export default {
 
   methods: {
     isShow() {
-      return this.activeIndex == this.index ? true : false;
+      return this.activeIndex == this.index ? true : false
     }
   }
-};
+}
 </script>
 <style scoped>
 .list-item {

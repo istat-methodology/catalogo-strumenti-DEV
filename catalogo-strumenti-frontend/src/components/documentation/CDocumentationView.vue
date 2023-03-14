@@ -18,8 +18,7 @@
         <div
           class="card col-md-3"
           v-for="documentation of documentations"
-          :key="documentation.id"
-        >
+          :key="documentation.id">
           <div class="card-header">
             {{ documentation.name }}
             <div class="card-header-actions">
@@ -28,8 +27,7 @@
                 :to="{
                   name: 'DocumentationDetails',
                   params: { id: documentation.id }
-                }"
-              >
+                }">
                 <view-icon />
               </router-link>
             </div>
@@ -62,7 +60,7 @@ export default {
       default: () => ""
     }
   }
-};
+}
 </script>
 <style scoped>
 h5 {

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 
 export default {
   name: "HeaderNav",
@@ -39,7 +39,7 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"])
     /*  ...mapGetters("address", ["assignedId", "assignedName"]) */
   }
-};
+}
 </script>
 
 <style scoped>

@@ -1,15 +1,14 @@
 <template>
   <div class="row">
     <div class="col-sm-6 col-md-6">
-      <div class="card ">
+      <div class="card">
         <header class="card-header">
           User
           <router-link
             tag="a"
             :to="{
               name: 'UserList'
-            }"
-          >
+            }">
             <span class="pl-1"
               ><users-icon class="pr-3" />back to user list</span
             >
@@ -28,8 +27,7 @@
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               readonly
-              v-model="user.name"
-            />
+              v-model="user.name" />
           </div>
 
           <div class="input-group mb-3">
@@ -43,14 +41,12 @@
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               readonly
-              v-model="user.surname"
-            />
+              v-model="user.surname" />
           </div>
 
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.resetPassword.$error }"
-          >
+            :class="{ 'form-group--error': $v.resetPassword.$error }">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Reset password</span
@@ -60,8 +56,7 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="resetPassword"
-            />
+              v-model="resetPassword" />
             <div class="row col-12">
               <div class="error" v-if="!$v.resetPassword.required">
                 password is required
@@ -123,8 +118,7 @@
             <button
               class="btn btn-outline-dark btn-sm"
               @click.prevent="handleUpdate()"
-              :disabled="submitStatus === 'PENDING'"
-            >
+              :disabled="submitStatus === 'PENDING'">
               Update!
             </button>
           </div>
@@ -135,9 +129,7 @@
             <p class="typo__p" v-if="submitStatus === 'ERROR'">
               Please fill the form correctly.
             </p>
-            <p class="typo__p" v-if="submitStatus === 'PENDING'">
-              Sending...
-            </p>
+            <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
           </div>
         </div>
       </div>
@@ -146,8 +138,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { required, minLength /* sameAs */ } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex"
+import { required, minLength /* sameAs */ } from "vuelidate/lib/validators"
 export default {
   name: "UserPassChange",
   data() {
@@ -156,7 +148,7 @@ export default {
       resetPassword: ""
       /* newPassword: "" */
       //newRepeatedPassword: ""
-    };
+    }
   },
   validations: {
     resetPassword: {
@@ -176,7 +168,7 @@ export default {
     ...mapGetters("role", ["roles"])
   },
   created() {
-    this.$store.dispatch("user/findById", this.$route.params.id);
+    this.$store.dispatch("user/findById", this.$route.params.id)
     //this.$store.dispatch("role/findAll");
   },
   methods: {
@@ -185,7 +177,7 @@ export default {
     }, */
     handleUpdate() {
       if (this.$v.$invalid) {
-        this.submitStatus = "ERROR";
+        this.submitStatus = "ERROR"
       } else {
         const data = {
           id: this.user.id,
@@ -193,12 +185,12 @@ export default {
           surname: this.user.surname, */
           password: this.resetPassword
           /* newpass: this.newPassword */
-        };
-        this.$store.dispatch("user/resetPassword", data);
+        }
+        this.$store.dispatch("user/resetPassword", data)
       }
     }
   }
-};
+}
 </script>
 <style scoped>
 .input {

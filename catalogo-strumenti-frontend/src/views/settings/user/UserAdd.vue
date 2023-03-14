@@ -1,15 +1,14 @@
 <template>
   <div class="row">
     <div class="col-sm-6 col-md-6">
-      <div class="card ">
+      <div class="card">
         <header class="card-header">
           User
           <router-link
             tag="a"
             :to="{
               name: 'UserList'
-            }"
-          >
+            }">
             <span class="pl-1"
               ><users-icon class="pr-3" />back to user list</span
             >
@@ -19,8 +18,7 @@
         <div class="card-body">
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.name.$error }"
-          >
+            :class="{ 'form-group--error': $v.name.$error }">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Name</span
@@ -30,12 +28,9 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="name"
-            />
+              v-model="name" />
             <div class="row col-12">
-              <div class="error" v-if="!$v.name.required">
-                Name is required
-              </div>
+              <div class="error" v-if="!$v.name.required">Name is required</div>
               <div class="error" v-if="!$v.name.minLength">
                 Name must have at least
                 {{ $v.name.$params.minLength.min }} letters.
@@ -45,8 +40,7 @@
 
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.surname.$error }"
-          >
+            :class="{ 'form-group--error': $v.surname.$error }">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Surname</span
@@ -56,8 +50,7 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="surname"
-            />
+              v-model="surname" />
             <div class="row col-12">
               <div class="error" v-if="!$v.surname.required">
                 Surname is required
@@ -71,8 +64,7 @@
 
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.email.$error }"
-          >
+            :class="{ 'form-group--error': $v.email.$error }">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Email</span
@@ -82,8 +74,7 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="email"
-            />
+              v-model="email" />
             <div class="row col-12">
               <div class="error" v-if="!$v.email.required">
                 Email is required
@@ -97,8 +88,7 @@
 
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.role.$error }"
-          >
+            :class="{ 'form-group--error': $v.role.$error }">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Role</span
@@ -115,13 +105,10 @@
               label="role"
               :options="roles"
               placeholder="Ruoli"
-              @input="changeRole"
-            ></v-select>
+              @input="changeRole"></v-select>
 
             <div class="row col-12">
-              <div class="error" v-if="!$v.role.required">
-                role is required
-              </div>
+              <div class="error" v-if="!$v.role.required">role is required</div>
               <div class="error" v-if="!$v.role.minLength">
                 role must have at least
                 {{ $v.role.$params.minLength.min }} letters.
@@ -130,8 +117,7 @@
           </div>
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.password.$error }"
-          >
+            :class="{ 'form-group--error': $v.password.$error }">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Password</span
@@ -141,8 +127,7 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="password"
-            />
+              v-model="password" />
             <div class="row col-12">
               <div class="error" v-if="!$v.password.required">
                 password is required
@@ -172,9 +157,7 @@
             <p class="typo__p" v-if="submitStatus === 'ERROR'">
               Please fill the form correctly.
             </p>
-            <p class="typo__p" v-if="submitStatus === 'PENDING'">
-              Sending...
-            </p>
+            <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
           </div>
         </div>
       </div>
@@ -182,8 +165,8 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { required, minLength, email } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex"
+import { required, minLength, email } from "vuelidate/lib/validators"
 export default {
   name: "UserAdd",
   data() {
@@ -195,7 +178,7 @@ export default {
       email: "",
       role: "",
       password: ""
-    };
+    }
   },
   validations: {
     name: {
@@ -225,11 +208,11 @@ export default {
   },
   methods: {
     changeRole(value) {
-      this.role = value.id;
+      this.role = value.id
     },
     handleAdd() {
       if (this.$v.$invalid) {
-        this.submitStatus = "ERROR";
+        this.submitStatus = "ERROR"
       } else {
         const data = {
           name: this.name,
@@ -237,21 +220,21 @@ export default {
           email: this.email,
           password: this.password,
           role: this.role
-        };
-        this.$store.dispatch("user/save", data);
+        }
+        this.$store.dispatch("user/save", data)
       }
     },
     handleReset() {
-      this.name = "";
-      this.surname = "";
-      this.email = "";
-      this.role = "";
-      this.password = "";
-      this.$v.$reset();
+      this.name = ""
+      this.surname = ""
+      this.email = ""
+      this.role = ""
+      this.password = ""
+      this.$v.$reset()
     }
   },
   created() {
-    this.$store.dispatch("role/findAll");
+    this.$store.dispatch("role/findAll")
   }
-};
+}
 </script>

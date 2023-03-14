@@ -7,8 +7,7 @@
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"
-      @handleBack="enableBack"
-    />
+      @handleBack="enableBack" />
     <CCard>
       <CCardBody>
         <div class="row">
@@ -16,41 +15,37 @@
             class="col-6"
             label="Nome*"
             placeholder="Nome"
-            v-model="bPStepLocal.name"
-          />
+            v-model="bPStepLocal.name" />
           <CInput
             class="col-4"
             label="Etichetta"
             placeholder="Etichetta"
-            v-model="bPStepLocal.label"
-          />
+            v-model="bPStepLocal.label" />
           <CInput
             class="col-2"
             label="Ordine"
             type="number"
             placeholder="Ordine"
-            v-model="bPStepLocal.orderCode"
-          />
+            v-model="bPStepLocal.orderCode" />
         </div>
         <div class="row">
           <CTextarea
-          class="col-12"
+            class="col-12"
             label="Descrizione"
             placeholder="Descrizione"
-            v-model="bPStepLocal.descr"
-          />
+            v-model="bPStepLocal.descr" />
         </div>
       </CCardBody>
     </CCard>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import CTitle from "@/components/CTitle.vue";
+import { mapGetters } from "vuex"
+import CTitle from "@/components/CTitle.vue"
 export default {
   name: "CBusinessProcessStepNew",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -58,7 +53,7 @@ export default {
         index: "",
         name: "",
         label: "",
-        description: "",
+        description: ""
       },
       bPStepLocal: {
         index: "",
@@ -73,26 +68,26 @@ export default {
             label: "",
             processDesignDescription: {
               id: "",
-              descr: "",
+              descr: ""
             },
             designType: {
               id: "",
               type: "",
-              parent: "",
+              parent: ""
             },
             informationObject: {
               id: "",
               name: "",
               descr: "",
-              csmAppRoleId: "",
-            },
-          },
-        ],
-      },
-    };
+              csmAppRoleId: ""
+            }
+          }
+        ]
+      }
+    }
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   emits: ["enableEditStep"],
 
@@ -100,27 +95,27 @@ export default {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleSubmit() {
       //alert("funzione di update process step non attiva!");
       //console.log("funzione di update process step non attiva!");
-      this.bPStepLocalToSave.id = this.bPStepLocal.id;
-      this.bPStepLocalToSave.index = this.bPStepLocal.index;
-      this.bPStepLocalToSave.name = this.bPStepLocal.name;
-      this.bPStepLocalToSave.label = this.bPStepLocal.label;
-      this.bPStepLocalToSave.description = this.bPStepLocal.description;
+      this.bPStepLocalToSave.id = this.bPStepLocal.id
+      this.bPStepLocalToSave.index = this.bPStepLocal.index
+      this.bPStepLocalToSave.name = this.bPStepLocal.name
+      this.bPStepLocalToSave.label = this.bPStepLocal.label
+      this.bPStepLocalToSave.description = this.bPStepLocal.description
 
-      this.$store.dispatch("procStep/save", this.bPStepLocalToSave); //.then(() => {  alert(this.bPStepLocal())});
+      this.$store.dispatch("procStep/save", this.bPStepLocalToSave) //.then(() => {  alert(this.bPStepLocal())});
     },
     enableBack() {
-      this.$emit("enableBack");
-    },
+      this.$emit("enableBack")
+    }
   },
-  created() {},
-};
+  created() {}
+}
 </script>
 <style scoped>
 h5 {

@@ -11,27 +11,23 @@
             :authenticated="isAuthenticated"
             :buttons="['salva', 'indietro']"
             @handleSubmit="handleSubmit"
-            @handleBack="handleBack"
-          />
+            @handleBack="handleBack" />
           <CCard>
             <CCardBody>
               <CInput
                 label="Nome*"
                 placeholder="Nome"
                 v-model="documentationLocal.name"
-                :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
-              />
+                :class="{ 'is-invalid': $v.documentationLocal.name.$error }" />
               <div
                 class="help-block"
-                :class="{ show: $v.documentationLocal.name.$error }"
-              >
+                :class="{ show: $v.documentationLocal.name.$error }">
                 Campo obbligatorio
               </div>
               <CInput
                 label="Editore"
                 placeholder="Editore"
-                v-model="documentationLocal.publisher"
-              />
+                v-model="documentationLocal.publisher" />
               <div>
                 <label>Tipo Documento</label>
               </div>
@@ -40,18 +36,15 @@
                 :options="documentationTypeList"
                 placeholder="Strumento Statistico"
                 v-model="documentationLocal.documentType.name"
-                @input="changeDocumentType"
-              ></v-select>
+                @input="changeDocumentType"></v-select>
               <CInput
                 label="Note"
                 placeholder="Note"
-                v-model="documentationLocal.notes"
-              />
+                v-model="documentationLocal.notes" />
               <CInput
                 label="Fonti"
                 placeholder="Fonti"
-                v-model="documentationLocal.resource"
-              />
+                v-model="documentationLocal.resource" />
               <div>
                 <label>Strumento Statistico</label>
               </div>
@@ -59,8 +52,7 @@
                 label="name"
                 :options="toolscatalog"
                 placeholder="Strumento Statistico"
-                @input="changeTool"
-              >
+                @input="changeTool">
               </v-select>
               <div>
                 <label>Metodo Statistico</label>
@@ -69,8 +61,7 @@
                 label="name"
                 :options="statisticalMethodsList"
                 placeholder="Metodo Statistico"
-                @input="changeMethod"
-              ></v-select>
+                @input="changeMethod"></v-select>
             </CCardBody>
           </CCard>
         </div>
@@ -79,9 +70,9 @@
   </div>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
-import { mapGetters } from "vuex";
-import CTitle from "@/components/CTitle.vue";
+import { required } from "vuelidate/lib/validators"
+import { mapGetters } from "vuex"
+import CTitle from "@/components/CTitle.vue"
 export default {
   name: "documentationAdd",
   components: { CTitle },
@@ -97,7 +88,7 @@ export default {
         tool: "",
         method: ""
       }
-    };
+    }
   },
   validations: {
     documentationLocal: {
@@ -118,24 +109,24 @@ export default {
   },
   methods: {
     changeTool(value) {
-      this.documentationLocal.tool = value.id;
+      this.documentationLocal.tool = value.id
     },
     changeMethod(value) {
-      this.documentationLocal.method = value.id;
+      this.documentationLocal.method = value.id
     },
     changeDocumentType(value) {
-      this.documentationLocal.documentType = value.id;
+      this.documentationLocal.documentType = value.id
     },
     handleSubmit() {
-      this.$v.$touch(); //validate form data
+      this.$v.$touch() //validate form data
       if (!this.$v.documentationLocal.$invalid) {
         this.$store
           .dispatch("documentation/save", this.documentationLocal)
-          .then(this.$router.push("/catalogue/documentazione"));
+          .then(this.$router.push("/catalogue/documentazione"))
       }
     },
     handleBack() {
-      this.$router.push({ name: "DocumentationList" });
+      this.$router.push({ name: "DocumentationList" })
     }
     /* onChange(event) {
       this.tipologia = event.target.value;
@@ -144,9 +135,9 @@ export default {
   created() {
     //this.$store.dispatch("documentation/findAll");
 
-    this.$store.dispatch("tools/findAll");
-    this.$store.dispatch("methods/findAll");
-    this.$store.dispatch("documentationType/findAll");
+    this.$store.dispatch("tools/findAll")
+    this.$store.dispatch("methods/findAll")
+    this.$store.dispatch("documentationType/findAll")
   }
-};
+}
 </script>

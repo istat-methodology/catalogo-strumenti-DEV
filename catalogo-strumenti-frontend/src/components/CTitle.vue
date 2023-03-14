@@ -4,7 +4,7 @@
       <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">
         <span>
           <span class="p-0">{{ maintitle }}</span>
-          <h4 class="bg-secondary p-0 text-right uppercase ">
+          <h4 class="bg-secondary p-0 text-right uppercase">
             <span class="mt-4 pr-1 uppercase text-info">
               {{ functionality }}
             </span>
@@ -19,14 +19,12 @@
             role="group"
             aria-label="Basic"
             v-for="item in buttons"
-            :key="item"
-          >
+            :key="item">
             <button
               v-if="item == 'aggiungi' && authenticated == true"
               class="btn btn-outline-info pl-2"
               @click.prevent="handleNew"
-              :title="getTitle(item, buttonTitle)"
-            >
+              :title="getTitle(item, buttonTitle)">
               <add-icon :title="getTitle(item, buttonTitle)" />
             </button>
 
@@ -34,24 +32,21 @@
               v-if="item == 'salva' && authenticated == true"
               class="btn btn-outline-info pl-2"
               @click.prevent="handleSubmit"
-              :title="getTitle(item, buttonTitle)"
-            >
+              :title="getTitle(item, buttonTitle)">
               <floppy-icon :title="getTitle(item, buttonTitle)" />
             </button>
             <button
               v-if="item == 'modifica' && authenticated == true"
               class="btn btn-outline-info pl-2"
               @click.prevent="handleEdit"
-              :title="getTitle(item, buttonTitle)"
-            >
+              :title="getTitle(item, buttonTitle)">
               <edit-icon :title="getTitle(item, buttonTitle)" />
             </button>
             <button
               v-if="item == 'indietro'"
               class="btn btn-outline-primary pl-2"
               @click.prevent="handleBack"
-              :title="item"
-            >
+              :title="item">
               <close-icon :title="item" />
             </button>
           </div>
@@ -97,22 +92,22 @@ export default {
   },
   methods: {
     getTitle(functionType, buttonTitle) {
-      return functionType + " " + buttonTitle;
+      return functionType + " " + buttonTitle
     },
     handleBack() {
-      this.$emit("handleBack");
+      this.$emit("handleBack")
     },
     handleSubmit() {
-      this.$emit("handleSubmit");
+      this.$emit("handleSubmit")
     },
     handleEdit() {
-      this.$emit("handleEdit");
+      this.$emit("handleEdit")
     },
     handleNew() {
-      this.$emit("handleNew");
+      this.$emit("handleNew")
     }
   }
-};
+}
 </script>
 <style scoped>
 .text-color-title {

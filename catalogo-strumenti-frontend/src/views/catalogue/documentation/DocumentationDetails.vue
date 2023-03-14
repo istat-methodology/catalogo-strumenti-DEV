@@ -9,8 +9,7 @@
         :authenticated="isAuthenticated"
         :buttons="['modifica', 'indietro']"
         @handleEdit="handleEdit(documentation)"
-        @handleBack="handleBack"
-      />
+        @handleBack="handleBack" />
       <div class="row">
         <div class="col-12">
           <div class="card col-md-auto p-4">
@@ -49,8 +48,7 @@
           <CToolsView
             indexLabel=""
             descriptionLabel="Strumenti metodologici associati al documento"
-            :tools="toolsByDocumentation"
-          />
+            :tools="toolsByDocumentation" />
         </div>
       </div>
       <div class="row">
@@ -58,8 +56,7 @@
           <CStatisticalMethodView
             indexLabel=""
             descriptionLabel="Metodi statistici associati al documento"
-            :statisticalMethods="methodsByDocumentation"
-          />
+            :statisticalMethods="methodsByDocumentation" />
         </div>
       </div>
     </div>
@@ -68,12 +65,12 @@
 <script>
 // import { required } from "vuelidate/lib/validators";
 //import Documentation from "../documentation/shared/Documentation";
-import CToolsView from "@/components/tools/CToolsView.vue";
-import CStatisticalMethodView from "@/components/statisticalMethod/CStatisticalMethodView.vue";
+import CToolsView from "@/components/tools/CToolsView.vue"
+import CStatisticalMethodView from "@/components/statisticalMethod/CStatisticalMethodView.vue"
 
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 //import { Context } from "@/common";
-import CTitle from "@/components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue"
 
 export default {
   name: "DocumentationDetails",
@@ -86,7 +83,7 @@ export default {
   data() {
     return {
       activeIndex: -1
-    };
+    }
   },
   computed: {
     ...mapGetters("documentation", ["documentation"]),
@@ -99,23 +96,23 @@ export default {
     setActiveItemList(selector, bool) {
       document.querySelector(selector).className = bool
         ? "list-item-hover"
-        : "list-item";
+        : "list-item"
     },
     setActiveCard(selector, bool) {
-      document.querySelector(selector).className = bool ? "card-hover" : "card";
+      document.querySelector(selector).className = bool ? "card-hover" : "card"
     },
     setActiveIndex(index) {
       this.activeIndex !== index
         ? (this.activeIndex = index)
-        : (this.activeIndex = -1);
+        : (this.activeIndex = -1)
     },
 
     handleEdit(item) {
-      this.$router.push({ name: "DocumentationEdit", params: { id: item.id } });
+      this.$router.push({ name: "DocumentationEdit", params: { id: item.id } })
     },
     handleBack() {
       //this.$router.push("/catalogue/referenti");
-      this.$router.back();
+      this.$router.back()
     }
   },
   created() {
@@ -125,14 +122,14 @@ export default {
         this.$store.dispatch(
           "tools/findToolsByDocumentation",
           this.documentation.id
-        );
+        )
         this.$store.dispatch(
           "methods/findMethodsByDocumentation",
           this.documentation.id
-        );
-      });
+        )
+      })
   }
-};
+}
 </script>
 <style>
 .icon-prop {

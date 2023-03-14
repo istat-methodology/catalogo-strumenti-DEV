@@ -7,8 +7,7 @@
     <div v-if="businessServiceService.appServices">
       <div
         v-for="(appService, index) of businessServiceService.appServices"
-        :key="appService.id"
-      >
+        :key="appService.id">
         <div class="p-2">
           <h4>
             <span>3.{{ index + 1 }}</span> {{ appService.name }}
@@ -51,8 +50,7 @@
           </h4>
           <div
             class="table-responsive"
-            v-if="appService.stepInstances.length > 20"
-          >
+            v-if="appService.stepInstances.length > 20">
             <CDataTable
               :items="getStepInstancesList(appService.stepInstances)"
               :fields="fields"
@@ -62,15 +60,13 @@
               :items-per-page="5"
               hover
               sorter
-              pagination
-            >
+              pagination>
             </CDataTable>
           </div>
           <!-- @end Condition to show filtrable table if results are more then 5 lines-->
           <table
             class="table table-hover"
-            v-if="appService && appService.stepInstances.length < 20"
-          >
+            v-if="appService && appService.stepInstances.length < 20">
             <thead>
               <tr>
                 <th scope="col">Nome</th>
@@ -82,8 +78,7 @@
             <tbody>
               <tr
                 v-for="item in getStepInstancesList(appService.stepInstances)"
-                :key="item.id"
-              >
+                :key="item.id">
                 <td>{{ item.functionality }}</td>
                 <td>{{ item.method }}</td>
                 <td>{{ item.statMethodName }}</td>
@@ -93,8 +88,7 @@
           </table>
           <h5
             v-if="!appService.stepInstances.length"
-            class="default-value card-body"
-          >
+            class="default-value card-body">
             Nessun dato disponibile
           </h5>
         </div>
@@ -120,7 +114,7 @@ export default {
     businessServiceService: {
       type: Object,
       required: true,
-      default: () => []
+      default: () => {}
     }
   },
   data() {
@@ -144,11 +138,11 @@ export default {
           label: "Descrizione"
         }
       ]
-    };
+    }
   },
   methods: {
-    getStepInstancesList: function(stepInstances) {
-      return stepInstances.map(stepInstance => {
+    getStepInstancesList: function (stepInstances) {
+      return stepInstances.map((stepInstance) => {
         return {
           id: stepInstance.id,
           functionality: stepInstance.functionality,
@@ -156,11 +150,11 @@ export default {
           descr: stepInstance.descr,
           statMethodName: stepInstance.statMethod.name,
           statMethodId: stepInstance.statMethod.id
-        };
-      });
+        }
+      })
     }
   }
-};
+}
 </script>
 <style scoped>
 h5 {

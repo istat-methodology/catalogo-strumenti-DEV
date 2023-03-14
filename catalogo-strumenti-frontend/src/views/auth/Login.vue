@@ -8,14 +8,14 @@
               <div class="card-body text-center">
                 <div class="mt-2">
                   <h2 class="text-white">Tools-Catalog</h2>
-                  <p style="margin-bottom:5rem">
+                  <p style="margin-bottom: 5rem">
                     Benvenuti nell'applicazione Tools-Catalog. <br />
                     Un catalogo di strumenti per la produzione Statistica.
                   </p>
                   <p class="mb-0">
                     Il progetto è open-source, il codice sorgente è disponibile
                     <a
-                      style="color:white"
+                      style="color: white"
                       href="https://github.com/istat-methodology/Tools-Catalog-frontend"
                       target="_blank"
                       >@github</a
@@ -46,8 +46,7 @@
                         type="text"
                         class="form-control"
                         placeholder="Username"
-                        v-model.trim="username"
-                      />
+                        v-model.trim="username" />
                     </div>
                   </div>
                   <div class="form-group">
@@ -62,8 +61,7 @@
                         class="form-control"
                         placeholder="Password"
                         autocomplete="on"
-                        v-model="password"
-                      />
+                        v-model="password" />
                     </div>
                   </div>
                   <CRow>
@@ -90,9 +88,9 @@
 </template>
 
 <script>
-import { CRow, CCol, CForm } from "@coreui/vue";
-import { mapGetters } from "vuex";
-import { AuthStatus } from "@/common";
+import { CRow, CCol, CForm } from "@coreui/vue"
+import { mapGetters } from "vuex"
+import { AuthStatus } from "@/common"
 
 export default {
   components: {
@@ -110,7 +108,7 @@ export default {
           type: []
         }
       ]
-    };
+    }
   },
   computed: {
     ...mapGetters("auth", ["errorMsg"]),
@@ -121,20 +119,20 @@ export default {
       const formData = {
         username: this.username,
         password: this.password
-      };
-      this.$store.dispatch("auth/login", formData).then(res => {
-        if (res.status === AuthStatus.Logged) this.$router.push("/");
+      }
+      this.$store.dispatch("auth/login", formData).then((res) => {
+        if (res.status === AuthStatus.Logged) this.$router.push("/")
         this.$store
           .dispatch("filter/resetFilters")
-          .then(this.$store.dispatch("tools/filter", this.filtri));
-      });
+          .then(this.$store.dispatch("tools/filter", this.filtri))
+      })
     }
   },
   created() {
     //Clear session
-    this.$store.dispatch("auth/logout");
+    this.$store.dispatch("auth/logout")
   }
-};
+}
 </script>
 
 <style scoped>

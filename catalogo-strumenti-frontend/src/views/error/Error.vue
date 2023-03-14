@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import { CRow, CCol } from "@coreui/vue";
-import { mapGetters } from "vuex";
+import { CRow, CCol } from "@coreui/vue"
+import { mapGetters } from "vuex"
 
 export default {
   name: "Error",
@@ -37,5 +37,5 @@ export default {
   computed: {
     ...mapGetters("error", ["msg"])
   }
-};
+}
 </script>

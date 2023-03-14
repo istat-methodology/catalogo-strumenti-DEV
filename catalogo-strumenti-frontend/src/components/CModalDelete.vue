@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CModal title="Attenzione!" :show.sync="showModal">
+    <CModal title="Attenzione!" :show="showModal">
       <template #footer>
         <CButton shape="square" size="sm" color="light" @click="closeModal">
           Chiudi
@@ -29,14 +29,14 @@ export default {
   },
   methods: {
     handleDelete() {
-      this.$emit("handleDelete");
+      this.$emit("handleDelete")
     },
     closeModal() {
       //this.modalShow = false;
-      this.$emit("closeModal");
+      this.$emit("closeModal")
     }
   }
-};
+}
 </script>
 <style>
 .close {

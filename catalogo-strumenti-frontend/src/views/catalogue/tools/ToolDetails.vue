@@ -9,8 +9,7 @@
         :authenticated="isAuthenticated"
         :buttons="['modifica', 'indietro']"
         @handleEdit="handleEdit(tool)"
-        @handleBack="handleBack"
-      />
+        @handleBack="handleBack" />
       <div>
         <div class="columns">
           <div class="row">
@@ -24,8 +23,8 @@
               <div class="card-slot p-2">
                 {{
                   tool.gsbpmProcesses
-                    .map(gsbpmProcess => {
-                      return gsbpmProcess.code + " " + gsbpmProcess.name;
+                    .map((gsbpmProcess) => {
+                      return gsbpmProcess.code + " " + gsbpmProcess.name
                     })
                     .join(", ") | dashEmpty
                 }}
@@ -203,13 +202,11 @@
         <CStatisticalMethodView
           :indexLabel="'2.'"
           :descriptionLabel="'Metodi statistici implementati nello strumento'"
-          :statisticalMethods="tool.statisticalMethods"
-        />
+          :statisticalMethods="tool.statisticalMethods" />
       </div>
       <div v-if="businessServiceService" class="p-2">
         <CBusinessServiceView
-          :businessServiceService="businessServiceService"
-        />
+          :businessServiceService="businessServiceService" />
       </div>
       <div v-if="bFunctionToolsList" class="p-2">
         <CBusinessFunctionsView :businessFunctions="bFunctionToolsList" />
@@ -218,8 +215,7 @@
         <CDocumentationView
           :index="'5.'"
           :documentations="getDocumentationList"
-          :descriptionLabel="'Documentazione'"
-        />
+          :descriptionLabel="'Documentazione'" />
       </div>
       <div class="p-2">
         <CAgentView :linkedAgents="getLinkedAgentList" />
@@ -230,14 +226,14 @@
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
 
-import { mapGetters } from "vuex";
-import { Context } from "@/common";
-import CStatisticalMethodView from "@/components/statisticalMethod/CStatisticalMethodView.vue";
-import CBusinessFunctionsView from "@/components/businessFunctions/CBusinessFunctionsView.vue";
-import CDocumentationView from "@/components/documentation/CDocumentationView.vue";
-import CBusinessServiceView from "@/components/businessService/CBusinessServiceView.vue";
-import CAgentView from "@/components/agent/CAgentView.vue";
-import CTitle from "@/components/CTitle.vue";
+import { mapGetters } from "vuex"
+import { Context } from "@/common"
+import CStatisticalMethodView from "@/components/statisticalMethod/CStatisticalMethodView.vue"
+import CBusinessFunctionsView from "@/components/businessFunctions/CBusinessFunctionsView.vue"
+import CDocumentationView from "@/components/documentation/CDocumentationView.vue"
+import CBusinessServiceView from "@/components/businessService/CBusinessServiceView.vue"
+import CAgentView from "@/components/agent/CAgentView.vue"
+import CTitle from "@/components/CTitle.vue"
 
 export default {
   name: "ToolDetails",
@@ -399,7 +395,7 @@ export default {
           label: "processDesign"
         }
       ]
-    };
+    }
   },
   computed: {
     ...mapGetters("tools", ["tool"]),
@@ -408,8 +404,8 @@ export default {
     }),
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bFunction", ["bFunctionToolsList"]),
-    getLinkedAgentList: function() {
-      return this.tool.linkAgentsTools.map(agentTool => {
+    getLinkedAgentList: function () {
+      return this.tool.linkAgentsTools.map((agentTool) => {
         return {
           id: agentTool.id,
           agentId: agentTool.agent.id,
@@ -420,78 +416,80 @@ export default {
           agentRole: agentTool.role,
           notes: agentTool.notes,
           referenceDate: agentTool.referenceDate
-        };
-      });
+        }
+      })
     },
-    getGsbpmList: function() {
-      return this.tool.gsbpmProcesses.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.tool.gsbpmProcesses.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: gsbpm.id,
           code: gsbpm.code,
           label: gsbpm.name,
           active: gsbpm.active
-        };
-      });
+        }
+      })
     },
 
-    getDocumentationList: function() {
-      return this.tool.documentations.map(doc => {
+    getDocumentationList: function () {
+      return this.tool.documentations.map((doc) => {
         return {
           id: doc.id,
           name: doc.name,
           publisher: doc.publisher,
           documentType: doc.documentType.name,
           resource: doc.resource
-        };
-      });
+        }
+      })
     },
     isActiveIndex() {
-      return this.activeIndex;
+      return this.activeIndex
     }
   },
   methods: {
     setActiveItemList(selector, bool) {
       document.querySelector(selector).className = bool
         ? "list-item-hover"
-        : "list-item";
+        : "list-item"
     },
     setActiveCard(selector, bool) {
-      document.querySelector(selector).className = bool ? "card-hover" : "card";
+      document.querySelector(selector).className = bool ? "card-hover" : "card"
     },
     setActiveIndex(index) {
       this.activeIndex !== index
         ? (this.activeIndex = index)
-        : (this.activeIndex = -1);
+        : (this.activeIndex = -1)
     },
     handleBack() {
-      this.$router.push({ name: "ToolList" });
+      this.$router.push({ name: "ToolList" })
     },
     formatDate(dt) {
-      dt = new Date(dt);
-      return dt.toLocaleDateString("it");
+      dt = new Date(dt)
+      return dt.toLocaleDateString("it")
     },
     handleEdit(item) {
       //router.push({ name: 'user', params: { username } })
-      this.$router.push({ name: "ToolEdit", params: { id: item.id } });
+      this.$router.push({ name: "ToolEdit", params: { id: item.id } })
     }
   },
   created() {
-    this.$store.dispatch("tools/findById", this.$route.params.id).then(tool => {
-      if (tool && tool.businessService) {
-        this.$store.dispatch(
-          "businessService/findById",
-          tool.businessService.id
-        );
-        this.$store.dispatch(
-          "bFunction/findBFunctionsByBService",
-          tool.businessService.id
-        );
-      }
-    });
-    this.$store.dispatch("coreui/setContext", Context.ToolDetail);
+    this.$store
+      .dispatch("tools/findById", this.$route.params.id)
+      .then((tool) => {
+        if (tool && tool.businessService) {
+          this.$store.dispatch(
+            "businessService/findById",
+            tool.businessService.id
+          )
+          this.$store.dispatch(
+            "bFunction/findBFunctionsByBService",
+            tool.businessService.id
+          )
+        }
+      })
+    this.$store.dispatch("coreui/setContext", Context.ToolDetail)
   }
-};
+}
 </script>
 
 <style>

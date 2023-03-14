@@ -8,8 +8,7 @@
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"
-      @handleBack="handleBack"
-    />
+      @handleBack="handleBack" />
     <CCard>
       <CCardBody v-if="tooltypeList">
         <div class="row mt-2">
@@ -21,19 +20,16 @@
                   label="Nome*"
                   placeholder="Name"
                   v-model="toolLocal.name"
-                  :class="{ 'is-invalid': $v.toolLocal.name.$error }"
-                />
+                  :class="{ 'is-invalid': $v.toolLocal.name.$error }" />
                 <div
                   class="help-block"
-                  :class="{ show: $v.toolLocal.name.$error }"
-                >
+                  :class="{ show: $v.toolLocal.name.$error }">
                   Campo obbligatorio
                 </div>
                 <CTextarea
                   label="Descrizione"
                   placeholder="Descrizione"
-                  v-model="toolLocal.description"
-                />
+                  v-model="toolLocal.description" />
                 <div class="form-group" role="group">
                   <label for="app-tree">Fasi GSBPM</label>
 
@@ -43,33 +39,28 @@
                       :multiple="true"
                       :options="getGsbpmList"
                       :disable-branch-nodes="true"
-                      :show-count="true"
-                    />
+                      :show-count="true" />
                   </div>
                 </div>
                 <CInput
                   label="Versione"
                   placeholder="Versione"
-                  v-model="toolLocal.versione"
-                />
+                  v-model="toolLocal.versione" />
                 <CInput
                   label="Tags"
                   placeholder="Tags"
-                  v-model="toolLocal.tags"
-                />
+                  v-model="toolLocal.tags" />
 
                 <CInput
                   label="Requisiti"
                   placeholder="Requisiti"
-                  v-model="toolLocal.requirements"
-                />
+                  v-model="toolLocal.requirements" />
                 <label>Data di Rilascio</label>
                 <div>
                   <date-picker
                     v-if="toolLocal"
                     v-model="toolLocal.releaseDate"
-                    placeholder="Seleziona una data"
-                  ></date-picker>
+                    placeholder="Seleziona una data"></date-picker>
                 </div>
                 <br />
                 <div class="form-group">
@@ -80,8 +71,7 @@
                     v-model="toolLocal.standardIstat"
                     true-value="1"
                     false-value="0"
-                    aria-label="Standard Istat"
-                  />
+                    aria-label="Standard Istat" />
                 </div>
               </CCardBody>
             </CCard>
@@ -97,13 +87,11 @@
                   <select
                     class="p-1 ml-0 col-12 form-control"
                     @change="onChangeToolType($event)"
-                    v-model="tooltypeSelected"
-                  >
+                    v-model="tooltypeSelected">
                     <option
                       v-for="option in tooltypeList"
                       v-bind:value="option.id"
-                      :key="option.id"
-                    >
+                      :key="option.id">
                       {{ option.name }}
                     </option>
                   </select>
@@ -114,94 +102,77 @@
                     <CInput
                       label="Codice"
                       placeholder="Codice"
-                      v-model="toolLocal.code"
-                    />
+                      v-model="toolLocal.code" />
                     <CInput
                       label="Download"
                       placeholder="Download"
-                      v-model="toolLocal.download"
-                    />
+                      v-model="toolLocal.download" />
                     <CInput
                       label="Flusso di lavoro"
                       placeholder="Flusso di lavoro"
-                      v-model="toolLocal.workflow"
-                    />
+                      v-model="toolLocal.workflow" />
                     <CInput
                       label="Linguaggio"
                       placeholder="Linguaggio"
-                      v-model="toolLocal.language"
-                    />
+                      v-model="toolLocal.language" />
                     <CInput
                       label="Dipendenze"
                       placeholder="Dipendenze"
-                      v-model="toolLocal.depenencies"
-                    />
+                      v-model="toolLocal.depenencies" />
                     <CInput
                       label="Requisiti Tecnici"
                       placeholder="Requisiti Tecnici"
-                      v-model="toolLocal.technicalRequirements"
-                    />
+                      v-model="toolLocal.technicalRequirements" />
                   </div>
                   <div v-if="this.tooltypeSelected == '2'">
                     <!--Applicazione Desktop -->
                     <CInput
                       label="Download"
                       placeholder="Download"
-                      v-model="toolLocal.download"
-                    />
+                      v-model="toolLocal.download" />
                     <CInput
                       label="Licenza"
                       placeholder="Licenza"
-                      v-model="toolLocal.licence"
-                    />
+                      v-model="toolLocal.licence" />
                     <CInput
                       label="Linguaggio"
                       placeholder="Linguaggio"
-                      v-model="toolLocal.language"
-                    />
+                      v-model="toolLocal.language" />
                     <CInput
                       label="Pacchetto"
                       placeholder="Pacchetto"
-                      v-model="toolLocal.packageApplication"
-                    />
+                      v-model="toolLocal.packageApplication" />
                     <CInput
                       label="Sistema Operativo"
                       placeholder="Sistema Operativo"
-                      v-model="toolLocal.operativeSystem"
-                    />
+                      v-model="toolLocal.operativeSystem" />
                     <CInput
                       label="Verione"
                       placeholder="Versione"
-                      v-model="toolLocal.version"
-                    />
+                      v-model="toolLocal.version" />
                     <CInput
                       label="Requisiti Tecnici"
                       placeholder="Requisiti Tecnici"
-                      v-model="toolLocal.technicalRequirements"
-                    />
+                      v-model="toolLocal.technicalRequirements" />
                   </div>
                   <div v-if="this.tooltypeSelected == '1'">
                     <!-- Servizio Statistico -->
                     <CInput
                       label="Potocollo"
                       placeholder="Protocollo"
-                      v-model="toolLocal.protocol"
-                    />
+                      v-model="toolLocal.protocol" />
                     <CInput
                       label="Url"
                       placeholder="Url"
-                      v-model="toolLocal.url"
-                    />
+                      v-model="toolLocal.url" />
                     <CInput
                       label="Contributi"
                       placeholder="Contributi"
-                      v-model="toolLocal.outcomes"
-                    />
+                      v-model="toolLocal.outcomes" />
                     <CInput
                       label="Dipendenze"
                       placeholder="Dipendenze"
-                      v-model="toolLocal.serviceDependencies"
-                    />
+                      v-model="toolLocal.serviceDependencies" />
                   </div>
                   <div v-if="this.tooltypeSelected == '0'"></div>
                 </div>
@@ -214,12 +185,12 @@
   </div>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
-import { mapGetters } from "vuex";
-import "vue2-datepicker/index.css";
-import DatePicker from "vue2-datepicker";
-import Treeselect from "@riophae/vue-treeselect";
-import CTitle from "@/components/CTitle.vue";
+import { required } from "vuelidate/lib/validators"
+import { mapGetters } from "vuex"
+import "vue2-datepicker/index.css"
+import DatePicker from "vue2-datepicker"
+import Treeselect from "@riophae/vue-treeselect"
+import CTitle from "@/components/CTitle.vue"
 export default {
   name: "ToolAdd",
   components: {
@@ -265,26 +236,26 @@ export default {
       //gsbpmChecked: [],
       value: 0,
       tooltypeSelected: 0
-    };
+    }
   },
   computed: {
     ...mapGetters("tooltype", ["tooltypeList"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    getGsbpmList: function() {
-      return this.gsbpmList.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
               label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
-            };
+            }
           })
-        };
-      });
+        }
+      })
     }
   },
   validations: {
@@ -296,26 +267,26 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$v.$touch(); //validate form data
+      this.$v.$touch() //validate form data
       if (!this.$v.toolLocal.$invalid) {
         this.$store
           .dispatch("tools/save", this.toolLocal)
-          .then(this.$router.push("/catalogue/tools"));
+          .then(this.$router.push("/catalogue/tools"))
       }
     },
     handleBack() {
-      this.$router.push({ name: "ToolList" });
+      this.$router.push({ name: "ToolList" })
     },
     onChangeToolType(event) {
-      this.tooltypeSelected = event.target.value;
-      this.toolLocal.toolType = event.target.value;
+      this.tooltypeSelected = event.target.value
+      this.toolLocal.toolType = event.target.value
     }
   },
   created() {
-    this.$store.dispatch("tooltype/findAll");
+    this.$store.dispatch("tooltype/findAll")
     if (this.tooltypeList && this.tooltypeList.length > 0) {
-      this.toolLocal.toolType = this.tooltypeList[0].id;
+      this.toolLocal.toolType = this.tooltypeList[0].id
     }
   }
-};
+}
 </script>

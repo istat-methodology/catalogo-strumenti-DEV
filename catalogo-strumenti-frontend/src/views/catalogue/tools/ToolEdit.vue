@@ -20,8 +20,7 @@
         </div>
         <CTabs
           variant="pills"
-          :vertical="{ navs: 'col-md-3', content: 'col-md-9 p-0 pl-4' }"
-        >
+          :vertical="{ navs: 'col-md-3', content: 'col-md-9 p-0 pl-4' }">
           <CTab>
             <template #title>
               <span class="text-info">Informazioni Generali</span>
@@ -37,21 +36,18 @@
                     :authenticated="isAuthenticated"
                     :buttons="['salva', 'indietro']"
                     @handleSubmit="handleSubmit"
-                    @handleBack="handleBack"
-                  />
+                    @handleBack="handleBack" />
                 </div>
                 <CCard class="col-12 p-0">
                   <CCardBody>
                     <CInput
                       label="Nome"
                       placeholder="Nome"
-                      v-model="toolLocal.name"
-                    />
+                      v-model="toolLocal.name" />
                     <CTextarea
                       label="Descrizione"
                       placeholder="Descrizione"
-                      v-model="toolLocal.description"
-                    />
+                      v-model="toolLocal.description" />
                     <div class="form-group" role="group">
                       <label for="app-tree">Fasi GSBPM</label>
                       <div id="app-tree" class="demo-tree">
@@ -60,8 +56,7 @@
                           :multiple="true"
                           :options="getGsbpmList"
                           :disable-branch-nodes="true"
-                          :show-count="true"
-                        />
+                          :show-count="true" />
                       </div>
                     </div>
                     <!-- 
@@ -74,20 +69,17 @@
                     <CTextarea
                       label="Tags"
                       placeholder="Tags"
-                      v-model="toolLocal.tags"
-                    />
+                      v-model="toolLocal.tags" />
                     <CInput
                       label="Requisiti per l’applicabilità dello strumento"
                       placeholder="Requisiti per l’applicabilità dello strumento"
-                      v-model="toolLocal.requirements"
-                    />
+                      v-model="toolLocal.requirements" />
                     <label>Data di rilascio</label>
                     <div>
                       <date-picker
                         v-if="toolLocal"
                         v-model="toolLocal.releaseDate"
-                        placeholder="Seleziona una data"
-                      ></date-picker>
+                        placeholder="Seleziona una data"></date-picker>
                     </div>
                     <br />
                     <div class="form-group">
@@ -98,8 +90,7 @@
                         v-model="toolLocal.standardIstat"
                         true-value="1"
                         false-value="0"
-                        aria-label="Standard Istat"
-                      />
+                        aria-label="Standard Istat" />
                     </div>
                   </CCardBody>
                 </CCard>
@@ -124,8 +115,7 @@
                   :authenticated="isAuthenticated"
                   :buttons="['salva', 'indietro']"
                   @handleSubmit="handleSubmit"
-                  @handleBack="handleBack"
-                />
+                  @handleBack="handleBack" />
               </div>
               <CCard class="col-12 p-0">
                 <CCardBody>
@@ -133,97 +123,79 @@
                     <CInput
                       label="Codice"
                       placeholder="Codice"
-                      v-model="toolLocal.code"
-                    />
+                      v-model="toolLocal.code" />
                     <CInput
                       label="Download"
                       placeholder="Download"
-                      v-model="toolLocal.download"
-                    />
+                      v-model="toolLocal.download" />
                     <CInput
                       label="Flusso di lavoro"
                       placeholder="Flusso di lavoro"
-                      v-model="toolLocal.workflow"
-                    />
+                      v-model="toolLocal.workflow" />
                     <CInput
                       label="Linguaggio"
                       placeholder="Linguaggio"
-                      v-model="toolLocal.language"
-                    />
+                      v-model="toolLocal.language" />
                     <CInput
                       label="Dipendenze"
                       placeholder="Dipendenze"
-                      v-model="toolLocal.depenencies"
-                    />
+                      v-model="toolLocal.depenencies" />
                     <CInput
                       label="Requisiti Tecnici"
                       placeholder="Requisiti Tecnici"
-                      v-model="toolLocal.technicalRequirements"
-                    />
+                      v-model="toolLocal.technicalRequirements" />
                   </div>
                   <div v-if="tool && tool.toolType.id == 2">
                     <CInput
                       label="Download"
                       placeholder="Download"
-                      v-model="toolLocal.download"
-                    />
+                      v-model="toolLocal.download" />
                     <CInput
                       label="Licenza"
                       placeholder="Licenza"
-                      v-model="toolLocal.licence"
-                    />
+                      v-model="toolLocal.licence" />
                     <CInput
                       label="Linguaggio"
                       placeholder="Linguaggio"
-                      v-model="toolLocal.language"
-                    />
+                      v-model="toolLocal.language" />
                     <CInput
                       label="Pacchetto"
                       placeholder="Pacchetto"
-                      v-model="toolLocal.packageApplication"
-                    />
+                      v-model="toolLocal.packageApplication" />
                     <CInput
                       label="Sistema Operativo"
                       placeholder="Sistema Operativo"
-                      v-model="toolLocal.operativeSystem"
-                    />
+                      v-model="toolLocal.operativeSystem" />
                     <CInput
                       label="Verione"
                       placeholder="Versione"
-                      v-model="toolLocal.version"
-                    />
+                      v-model="toolLocal.version" />
                     <CInput
                       label="Requisiti Tecnici"
                       placeholder="Requisiti Tecnici"
-                      v-model="toolLocal.technicalRequirements"
-                    />
+                      v-model="toolLocal.technicalRequirements" />
                   </div>
                   <div v-if="tool && tool.toolType.id == 1">
                     <CInput
                       label="Protocollo"
                       placeholder="Protocollo"
-                      v-model="toolLocal.protocol"
-                    />
+                      v-model="toolLocal.protocol" />
                     <CInput
                       label="Url"
                       placeholder="Url"
-                      v-model="toolLocal.url"
-                    />
+                      v-model="toolLocal.url" />
                     <CInput
                       label="Contributi"
                       placeholder="Contributi"
-                      v-model="toolLocal.outcomes"
-                    />
+                      v-model="toolLocal.outcomes" />
                     <CInput
                       label="Dipendenze"
                       placeholder="Dipendenze"
-                      v-model="toolLocal.serviceDependencies"
-                    />
+                      v-model="toolLocal.serviceDependencies" />
                     <CInput
                       label="Restrizioni"
                       placeholder="Retrizioni"
-                      v-model="toolLocal.restrictions"
-                    />
+                      v-model="toolLocal.restrictions" />
                   </div>
                 </CCardBody>
               </CCard>
@@ -246,8 +218,7 @@
                     :authenticated="isAuthenticated"
                     :buttons="['salva', 'indietro']"
                     @handleSubmit="handleSubmit"
-                    @handleBack="handleBack"
-                  />
+                    @handleBack="handleBack" />
                 </div>
                 <CCard class="col-12 p-0">
                   <CCardBody>
@@ -257,8 +228,7 @@
                         :multiple="true"
                         :options="getMethodsList"
                         :disable-branch-nodes="true"
-                        :show-count="true"
-                      />
+                        :show-count="true" />
                     </div>
                   </CCardBody>
                 </CCard>
@@ -275,8 +245,7 @@
                 <CBusinessServiceEditView
                   v-if="this.tool.businessService"
                   :businessServiceID="this.tool.businessService.id"
-                  :toolName="this.tool.name"
-                />
+                  :toolName="this.tool.name" />
               </div>
             </div>
           </CTab>
@@ -303,8 +272,7 @@
                     :parentName="this.tool.name"
                     :documentations="getDocumentation"
                     :toolId="this.tool.id"
-                    @updateParent="loadTool"
-                  />
+                    @updateParent="loadTool" />
                 </div>
               </div>
             </div>
@@ -315,18 +283,18 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { Context } from "@/common";
+import { mapGetters } from "vuex"
+import { Context } from "@/common"
 /* import { required } from "vuelidate/lib/validators"; */
-import _ from "lodash";
-import Treeselect from "@riophae/vue-treeselect";
-import DatePicker from "vue2-datepicker";
-import CDocumentationEditView from "@/components/documentation/CDocumentationEditView.vue";
-import CBusinessServiceEditView from "@/components/businessService/CBusinessServiceEditView.vue";
-import CAgentEditView from "@/components/agent/CAgentEditView.vue";
+import _ from "lodash"
+import Treeselect from "@riophae/vue-treeselect"
+import DatePicker from "vue2-datepicker"
+import CDocumentationEditView from "@/components/documentation/CDocumentationEditView.vue"
+import CBusinessServiceEditView from "@/components/businessService/CBusinessServiceEditView.vue"
+import CAgentEditView from "@/components/agent/CAgentEditView.vue"
 
-import CTitle from "@/components/CTitle.vue";
-import "vue2-datepicker/index.css";
+import CTitle from "@/components/CTitle.vue"
+import "vue2-datepicker/index.css"
 export default {
   name: "ToolEdit",
   components: {
@@ -335,7 +303,7 @@ export default {
     CDocumentationEditView,
     CBusinessServiceEditView,
     CAgentEditView,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -369,15 +337,15 @@ export default {
         serviceDependencies: "",
         restrictions: "",
         statisticalMethods: [],
-        gsbpmProcesses: [],
+        gsbpmProcesses: []
       },
       linkedToolList: [],
       gsbpmChecked: [],
       methodsChecked: [],
       agentChecked: [],
       documentationChecked: [],
-      elenco: [],
-    };
+      elenco: []
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -395,27 +363,27 @@ export default {
           children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
-            };
-          }),
-        };
-      });
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
+            }
+          })
+        }
+      })
     },
     getMethodsList: function () {
       return this.statisticalMethodsList.map((method) => {
         return {
           id: method.id,
-          label: method.name,
-        };
-      });
+          label: method.name
+        }
+      })
     },
     getDocumentationList: function () {
       return this.documentationList.map((doc) => {
         return {
           id: doc.id,
-          label: doc.name,
-        };
-      });
+          label: doc.name
+        }
+      })
     },
     getLinkedAgentList: function () {
       if (this.tool)
@@ -430,10 +398,10 @@ export default {
             agentNotes: agentTool.agent.notes,
             role: agentTool.role,
             notes: agentTool.notes,
-            referenceDate: agentTool.referenceDate,
-          };
-        });
-      else return [];
+            referenceDate: agentTool.referenceDate
+          }
+        })
+      else return []
     },
     getDocumentation: function () {
       if (this.tool) {
@@ -443,112 +411,112 @@ export default {
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
-            resource: doc.resource,
-          };
-        });
-      } else return [];
-    },
+            resource: doc.resource
+          }
+        })
+      } else return []
+    }
   },
 
   methods: {
     handleSubmit() {
-      this.toolLocal.toolType = this.tool.toolType.id;
-      this.toolLocal.statisticalMethods = this.methodsChecked;
-      this.toolLocal.gsbpmProcesses = this.gsbpmChecked;
+      this.toolLocal.toolType = this.tool.toolType.id
+      this.toolLocal.statisticalMethods = this.methodsChecked
+      this.toolLocal.gsbpmProcesses = this.gsbpmChecked
       this.$store.dispatch("tools/update", this.toolLocal).then(() => {
-        this.loadTool();
-      });
+        this.loadTool()
+      })
     },
     handleBack() {
-      this.$router.back();
+      this.$router.back()
     },
     setCheckedNodesGsbpm() {
-      this.gsbpmChecked = [];
+      this.gsbpmChecked = []
       this.tool.gsbpmProcesses.map((gsbpmProc) => {
-        this.gsbpmChecked.push(gsbpmProc.id);
-      });
+        this.gsbpmChecked.push(gsbpmProc.id)
+      })
     },
 
     setCheckedNodesMethods() {
-      this.methodsChecked = [];
+      this.methodsChecked = []
       this.tool.statisticalMethods.map((method) => {
-        this.methodsChecked.push(method.id);
-      });
+        this.methodsChecked.push(method.id)
+      })
     },
     setCheckedNodesDocumentation() {
-      this.documentationChecked = [];
+      this.documentationChecked = []
       this.tool.documentations.map((doc) => {
-        this.documentationChecked.push(doc.id);
-      });
+        this.documentationChecked.push(doc.id)
+      })
     },
 
     formatDate(dt) {
-      console.log(dt);
-      dt = new Date(dt);
-      return dt;
+      console.log(dt)
+      dt = new Date(dt)
+      return dt
     },
 
     setOldValues() {
-      this.toolLocal.id = this.tool.id;
-      this.toolLocal.releaseDate = this.formatDate(this.tool.releaseDate);
-      this.toolLocal.description = this.tool.description;
-      this.toolLocal.name = this.tool.name;
-      this.toolLocal.standardIstat = this.tool.standardIstat;
-      this.toolLocal.tags = this.tool.tags;
-      this.toolLocal.version = this.tool.version;
-      this.toolLocal.toolType = this.tool.toolType;
-      this.toolLocal.service = this.tool.service;
-      this.toolLocal.lastUpdate = this.tool.lastUpate;
-      this.toolLocal.requirements = this.tool.requirements;
-      this.toolLocal.download = this.tool.download;
-      this.toolLocal.licence = this.tool.licence;
-      this.toolLocal.language = this.tool.language;
-      this.toolLocal.packageApplication = this.tool.packageApplication;
-      this.toolLocal.operativeSystem = this.tool.operativeSystem;
-      this.toolLocal.technicalRequirements = this.tool.technicalRequirements;
-      this.toolLocal.code = this.tool.code;
-      this.toolLocal.dependencies = this.tool.dependencies;
-      this.toolLocal.workflow = this.tool.workFlow;
-      this.toolLocal.assumptions = this.tool.assumption;
-      this.toolLocal.constraints = this.tool.constraints;
-      this.toolLocal.notes = this.tool.notes;
-      this.toolLocal.protocol = this.tool.protocol;
-      this.toolLocal.url = this.tool.url;
-      this.toolLocal.outcomes = this.tool.outcomes;
-      this.toolLocal.serviceDependencies = this.tool.serviceDepenencies;
-      this.toolLocal.restrictions = this.tool.restrictions;
+      this.toolLocal.id = this.tool.id
+      this.toolLocal.releaseDate = this.formatDate(this.tool.releaseDate)
+      this.toolLocal.description = this.tool.description
+      this.toolLocal.name = this.tool.name
+      this.toolLocal.standardIstat = this.tool.standardIstat
+      this.toolLocal.tags = this.tool.tags
+      this.toolLocal.version = this.tool.version
+      this.toolLocal.toolType = this.tool.toolType
+      this.toolLocal.service = this.tool.service
+      this.toolLocal.lastUpdate = this.tool.lastUpate
+      this.toolLocal.requirements = this.tool.requirements
+      this.toolLocal.download = this.tool.download
+      this.toolLocal.licence = this.tool.licence
+      this.toolLocal.language = this.tool.language
+      this.toolLocal.packageApplication = this.tool.packageApplication
+      this.toolLocal.operativeSystem = this.tool.operativeSystem
+      this.toolLocal.technicalRequirements = this.tool.technicalRequirements
+      this.toolLocal.code = this.tool.code
+      this.toolLocal.dependencies = this.tool.dependencies
+      this.toolLocal.workflow = this.tool.workFlow
+      this.toolLocal.assumptions = this.tool.assumption
+      this.toolLocal.constraints = this.tool.constraints
+      this.toolLocal.notes = this.tool.notes
+      this.toolLocal.protocol = this.tool.protocol
+      this.toolLocal.url = this.tool.url
+      this.toolLocal.outcomes = this.tool.outcomes
+      this.toolLocal.serviceDependencies = this.tool.serviceDepenencies
+      this.toolLocal.restrictions = this.tool.restrictions
 
-      this.toolLocal.businessFunction = this.tool.buinessFunction;
-      this.toolLocal.processDesign = this.tool.processDesign;
-      this.toolLocal.statisticalMethods = this.tool.statisticalMethods;
-      this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses;
+      this.toolLocal.businessFunction = this.tool.buinessFunction
+      this.toolLocal.processDesign = this.tool.processDesign
+      this.toolLocal.statisticalMethods = this.tool.statisticalMethods
+      this.toolLocal.gsbpmProcesses = this.tool.gsbpmProcesses
     },
 
     loadTool: _.debounce(function () {
       this.$store.dispatch("tools/findById", this.$route.params.id).then(() => {
         if (this.tool) {
-          this.setOldValues();
-          this.setCheckedNodesGsbpm();
-          this.setCheckedNodesMethods();
-          this.setCheckedNodesDocumentation();
+          this.setOldValues()
+          this.setCheckedNodesGsbpm()
+          this.setCheckedNodesMethods()
+          this.setCheckedNodesDocumentation()
         }
-      });
-    }, 700),
+      })
+    }, 700)
   },
 
   created() {
     //this.$store.dispatch("tools/findById", this.$route.params.id);
-    this.$store.dispatch("coreui/setContext", Context.ToolEdit);
+    this.$store.dispatch("coreui/setContext", Context.ToolEdit)
 
-    this.loadTool();
+    this.loadTool()
 
-    this.$store.dispatch("gsbpm/findAll");
-    this.$store.dispatch("tooltype/findAll");
-    this.$store.dispatch("methods/findAll");
-    this.$store.dispatch("documentation/findAll");
-    this.$store.dispatch("agent/findAll");
-  },
-};
+    this.$store.dispatch("gsbpm/findAll")
+    this.$store.dispatch("tooltype/findAll")
+    this.$store.dispatch("methods/findAll")
+    this.$store.dispatch("documentation/findAll")
+    this.$store.dispatch("agent/findAll")
+  }
+}
 </script>
 
 <style scoped>

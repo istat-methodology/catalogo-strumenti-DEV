@@ -30,8 +30,7 @@
               v-for="processDesign in getProcessDesignes(
                 processStep.processDesigns
               )"
-              :key="processDesign.idPD"
-            >
+              :key="processDesign.idPD">
               <div class="card-slot">
                 <span>{{ processDesign.descrPD }}</span>
               </div>
@@ -46,17 +45,14 @@
                 </thead>
                 <tbody>
                   <template
-                    v-for="pd in getIOMapsProcessDesignes(processDesign.pds)"
-                  >
+                    v-for="pd in getIOMapsProcessDesignes(processDesign.pds)">
                     <tr
                       v-for="(item, index) in pd.pds"
-                      :key="item.type + index"
-                    >
+                      :key="item.type + index">
                       <th
                         scope="row"
                         v-if="index == 0"
-                        :rowspan="[pd.pds.length]"
-                      >
+                        :rowspan="[pd.pds.length]">
                         {{ item.type }}
                       </th>
                       <td>{{ item.informationObjectName }}</td>
@@ -67,8 +63,7 @@
               </table>
               <h5
                 v-if="!processDesign.pds.length"
-                class="default-value card-body"
-              >
+                class="default-value card-body">
                 Nessun dato disponibile
               </h5>
             </div>
@@ -108,74 +103,74 @@ export default {
           label: "ioDescrizione"
         }
       ]
-    };
+    }
   },
   methods: {
-    getProcessDesignes: function(processDesignes) {
+    getProcessDesignes: function (processDesignes) {
       if (processDesignes) {
-        const list = processDesignes.map(pDesign => {
+        const list = processDesignes.map((pDesign) => {
           return {
             idPD: pDesign.processDesignDescription.id,
             descrPD: pDesign.processDesignDescription.descr
-          };
-        });
+          }
+        })
 
         //const uniqueList = Array.from(new Set(list));
 
         const uniqueList = [...new Set(list.map(JSON.stringify))].map(
           JSON.parse
-        );
+        )
 
-        const groups = uniqueList.map(c => {
-          return { idPD: c.idPD, descrPD: c.descrPD, pds: [] };
-        });
-        console.log("uniqueList");
-        console.log(uniqueList);
-        processDesignes.forEach(pDesign => {
+        const groups = uniqueList.map((c) => {
+          return { idPD: c.idPD, descrPD: c.descrPD, pds: [] }
+        })
+        console.log("uniqueList")
+        console.log(uniqueList)
+        processDesignes.forEach((pDesign) => {
           groups
-            .find(g => g.idPD === pDesign.processDesignDescription.id)
+            .find((g) => g.idPD === pDesign.processDesignDescription.id)
             .pds.push({
               id: pDesign.id,
               descr: pDesign.descr,
               type: pDesign.designType.type,
               informationObjectName: pDesign.informationObject.name,
               informationObjectDescr: pDesign.informationObject.descr
-            });
-        });
+            })
+        })
 
-        return groups;
-      } else return [];
+        return groups
+      } else return []
     },
-    getIOMapsProcessDesignes: function(processDesignes) {
+    getIOMapsProcessDesignes: function (processDesignes) {
       if (processDesignes) {
-        const list = processDesignes.map(pDesign => {
+        const list = processDesignes.map((pDesign) => {
           return {
             type: pDesign.type
-          };
-        });
+          }
+        })
 
         //const uniqueList = Array.from(new Set(list));
 
         const uniqueList = [...new Set(list.map(JSON.stringify))].map(
           JSON.parse
-        );
+        )
 
-        const groups = uniqueList.map(c => {
-          return { type: c.type, pds: [] };
-        });
+        const groups = uniqueList.map((c) => {
+          return { type: c.type, pds: [] }
+        })
 
-        processDesignes.forEach(pDesign => {
+        processDesignes.forEach((pDesign) => {
           groups
-            .find(g => g.type === pDesign.type)
+            .find((g) => g.type === pDesign.type)
             .pds.push({
               type: pDesign.type,
               informationObjectName: pDesign.informationObjectName,
               informationObjectDescr: pDesign.informationObjectDescr
-            });
-        });
+            })
+        })
 
-        return groups;
-      } else return [];
+        return groups
+      } else return []
     }
   },
   props: {
@@ -195,7 +190,7 @@ export default {
       default: () => ""
     }
   }
-};
+}
 </script>
 <style scoped>
 h5 {

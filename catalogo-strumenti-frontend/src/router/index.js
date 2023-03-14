@@ -1,10 +1,10 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import store from "@/store";
-import { Role } from "@/common";
-import Home from "@/views/Home";
+import Vue from "vue"
+import VueRouter from "vue-router"
+import store from "@/store"
+import { Role } from "@/common"
+import Home from "@/views/Home"
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -38,6 +38,12 @@ const routes = [
         path: "catalogue",
         name: "Catalogue",
         component: () => import("../views/catalogue/Catalogue"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/tools",
+        name: "gsbpmList",
+        component: () => import("../views/catalogue/tools/gsbpmList"),
         meta: { authorize: [] }
       },
       {
@@ -247,30 +253,30 @@ const routes = [
     ]
   },
   { path: "*", redirect: "/" }
-];
+]
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
-});
+})
 
 router.beforeEach((to, from, next) => {
   // redirect to unauthorized page if not logged and trying to access a restricted page
-  const { authorize } = to.meta;
-  const isAuthenticated = store.getters["auth/isAuthenticated"];
-  const userRole = store.getters["auth/role"];
+  const { authorize } = to.meta
+  const isAuthenticated = store.getters["auth/isAuthenticated"]
+  const userRole = store.getters["auth/role"]
 
   if (authorize.length) {
     if (!isAuthenticated || !authorize.includes(userRole)) {
-      store.dispatch("message/warning", "Non sei autorizzato ad accedere!");
-      next({ name: "Home" });
+      store.dispatch("message/warning", "Non sei autorizzato ad accedere!")
+      next({ name: "Home" })
     } else {
-      next();
+      next()
     }
   } else {
-    next();
+    next()
   }
-});
+})
 
-export default router;
+export default router

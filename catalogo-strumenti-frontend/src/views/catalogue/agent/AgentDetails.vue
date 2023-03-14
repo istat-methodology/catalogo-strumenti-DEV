@@ -9,8 +9,7 @@
         :authenticated="isAuthenticated"
         :buttons="['modifica', 'indietro']"
         @handleEdit="handleEdit(agent)"
-        @handleBack="handleBack"
-      />
+        @handleBack="handleBack" />
       <div class="row p-3">
         <div class="card col p-4">
           <span><strong>Nome</strong></span>
@@ -47,9 +46,9 @@
 </template>
 <script>
 /* import { required } from "vuelidate/lib/validators"; */
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 //import { Context } from "@/common";
-import CTitle from "@/components/CTitle.vue";
+import CTitle from "@/components/CTitle.vue"
 
 export default {
   name: "AgentDetails",
@@ -63,18 +62,18 @@ export default {
   methods: {
     handleBack() {
       //this.$router.push("/catalogue/referenti");
-      this.$router.back();
+      this.$router.back()
     },
 
     handleEdit(item) {
-      this.$router.push({ name: "AgentEdit", params: { id: item.id } });
+      this.$router.push({ name: "AgentEdit", params: { id: item.id } })
     }
   },
   created() {
-    this.$store.dispatch("agent/findById", this.$route.params.id);
+    this.$store.dispatch("agent/findById", this.$route.params.id)
     //this.$store.dispatch("coreui/setContext", Context.ToolDetail);
   }
-};
+}
 </script>
 <style scoped>
 .card-header {

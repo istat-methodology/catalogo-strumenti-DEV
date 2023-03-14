@@ -35,8 +35,7 @@
         </div>
         <CTabs
           variant="pills"
-          :vertical="{ navs: 'col-md-3', content: 'col-md-9 p-0 pl-4' }"
-        >
+          :vertical="{ navs: 'col-md-3', content: 'col-md-9 p-0 pl-4' }">
           <CTab>
             <template #title>
               <span class="text-info">Metodo Statistico</span>
@@ -50,8 +49,7 @@
                   :authenticated="isAuthenticated"
                   :buttons="['salva', 'indietro']"
                   @handleSubmit="handleSubmit"
-                  @handleBack="handleBack"
-                />
+                  @handleBack="handleBack" />
               </div>
               <CCard class="col-12 p-0">
                 <CCardBody>
@@ -61,19 +59,16 @@
                     v-model="statisticalMethodLocal.name"
                     :class="{
                       'is-invalid': $v.statisticalMethodLocal.name.$error
-                    }"
-                  />
+                    }" />
                   <div
                     class="help-block"
-                    :class="{ show: $v.statisticalMethodLocal.name.$error }"
-                  >
+                    :class="{ show: $v.statisticalMethodLocal.name.$error }">
                     Campo obbligatorio
                   </div>
                   <CTextarea
                     label="Descrizione"
                     placeholder="Descrizione"
-                    v-model="statisticalMethodLocal.description"
-                  />
+                    v-model="statisticalMethodLocal.description" />
                   <div class="form-group" role="group">
                     <label for="app-tree">Fasi GSBPM</label>
 
@@ -83,15 +78,13 @@
                         :multiple="true"
                         :options="getGsbpmList"
                         :disable-branch-nodes="true"
-                        :show-count="true"
-                      />
+                        :show-count="true" />
                     </div>
                   </div>
                   <CInput
                     label="Requisiti/Ipotesi"
                     placeholder="Requisiti/Ipotesi"
-                    v-model="statisticalMethodLocal.requirements"
-                  />
+                    v-model="statisticalMethodLocal.requirements" />
                   <!-- <CInput
                     label="Presupposti"
                     placeholder="Presupposti"
@@ -100,32 +93,27 @@
                   <CInput
                     label="Limitazioni/Vincoli"
                     placeholder="Limitazioni/Vincoli"
-                    v-model="statisticalMethodLocal.constraints"
-                  />
+                    v-model="statisticalMethodLocal.constraints" />
                   <CTextarea
                     label="Note"
                     placeholder="Note"
-                    v-model="statisticalMethodLocal.notes"
-                  />
+                    v-model="statisticalMethodLocal.notes" />
 
                   <CTextarea
                     label="Tag"
                     placeholder="Tag"
-                    v-model="statisticalMethodLocal.tags"
-                  />
+                    v-model="statisticalMethodLocal.tags" />
                   <CInput
                     label="Versione"
                     placeholder="Versione"
-                    v-model="statisticalMethodLocal.version"
-                  />
+                    v-model="statisticalMethodLocal.version" />
 
                   <label>Data di Pubblicazione</label>
                   <div>
                     <date-picker
                       v-if="statisticalMethodLocal"
                       v-model="statisticalMethodLocal.releaseDate"
-                      placeholder="Seleziona una data"
-                    ></date-picker>
+                      placeholder="Seleziona una data"></date-picker>
                   </div>
                   <div class="form-group pt-2">
                     <label for="checkbox">Standard Istat &nbsp;</label>
@@ -135,8 +123,7 @@
                       v-model="statisticalMethodLocal.standardIstat"
                       true-value="1"
                       false-value="0"
-                      aria-label="Standard Istat"
-                    />
+                      aria-label="Standard Istat" />
                   </div>
                 </CCardBody>
               </CCard>
@@ -153,8 +140,7 @@
                     :parentName="this.statisticalMethod.name"
                     @updateParent="loadMethod"
                     :documentations="getDocumentation"
-                    :methodId="this.statisticalMethod.id"
-                  />
+                    :methodId="this.statisticalMethod.id" />
                 </div>
               </div>
             </div>
@@ -165,15 +151,15 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
-import { mapGetters } from "vuex";
-import Treeselect from "@riophae/vue-treeselect";
+import _ from "lodash"
+import { mapGetters } from "vuex"
+import Treeselect from "@riophae/vue-treeselect"
 
-import DatePicker from "vue2-datepicker";
-import "vue2-datepicker/index.css";
-import { required } from "vuelidate/lib/validators";
-import CDocumentationEditView from "@/components/documentation/CDocumentationEditView.vue";
-import CTitle from "@/components/CTitle.vue";
+import DatePicker from "vue2-datepicker"
+import "vue2-datepicker/index.css"
+import { required } from "vuelidate/lib/validators"
+import CDocumentationEditView from "@/components/documentation/CDocumentationEditView.vue"
+import CTitle from "@/components/CTitle.vue"
 export default {
   name: "ToolEdit",
   components: {
@@ -202,42 +188,42 @@ export default {
       gsbpmChecked: [],
 
       documentationChecked: []
-    };
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("methods", ["statisticalMethod"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
     ...mapGetters("documentation", ["documentationList"]),
-    getGsbpmList: function() {
+    getGsbpmList: function () {
       if (this.gsbpmList)
-        return this.gsbpmList.map(gsbpm => {
+        return this.gsbpmList.map((gsbpm) => {
           return {
             // ...gsbpm,
             id: "id-" + gsbpm.id,
             label: gsbpm.code + " " + gsbpm.name,
-            children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+            children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
               return {
                 id: gsbpmSubProcess.id,
                 label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
-              };
+              }
             })
-          };
-        });
-      else return [];
+          }
+        })
+      else return []
     },
-    getDocumentation: function() {
+    getDocumentation: function () {
       if (this.statisticalMethod) {
-        return this.statisticalMethod.documentations.map(doc => {
+        return this.statisticalMethod.documentations.map((doc) => {
           return {
             id: doc.id,
             name: doc.name,
             publisher: doc.publisher,
             documentType: doc.documentType.name,
             resource: doc.resource
-          };
-        });
-      } else return [];
+          }
+        })
+      } else return []
     }
   },
   validations: {
@@ -249,64 +235,69 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.statisticalMethodLocal.gsbpmProcesses = this.gsbpmChecked;
-      this.$v.$touch();
+      this.statisticalMethodLocal.gsbpmProcesses = this.gsbpmChecked
+      this.$v.$touch()
 
       if (!this.$v.statisticalMethodLocal.$invalid) {
         this.$store
           .dispatch("methods/update", this.statisticalMethodLocal)
           .then(() => {
-            this.loadMethod();
-          });
+            this.loadMethod()
+          })
       }
     },
 
     setCheckedNodesGsbpm() {
-      this.gsbpmChecked = [];
-      this.statisticalMethod.gsbpmProcesses.map(gsbpmProc => {
-        this.gsbpmChecked.push(gsbpmProc.id);
-      });
+      this.gsbpmChecked = []
+      this.statisticalMethod.gsbpmProcesses.map((gsbpmProc) => {
+        this.gsbpmChecked.push(gsbpmProc.id)
+      })
     },
     formatDate(dt) {
-      dt = new Date(dt);
+      dt = new Date(dt)
       //return dt.toLocaleDateString("it");
-      return dt;
+      return dt
     },
     setOldValues() {
-      this.statisticalMethodLocal.id = this.statisticalMethod.id;
-      this.statisticalMethodLocal.name = this.statisticalMethod.name;
-      this.statisticalMethodLocal.description = this.statisticalMethod.description;
-      this.statisticalMethodLocal.requirements = this.statisticalMethod.requirements;
-      this.statisticalMethodLocal.assumptions = this.statisticalMethod.assumptions;
-      this.statisticalMethodLocal.constraints = this.statisticalMethod.constraints;
-      this.statisticalMethodLocal.notes = this.statisticalMethod.notes;
-      this.statisticalMethodLocal.tags = this.statisticalMethod.tags;
-      this.statisticalMethodLocal.version = this.statisticalMethod.version;
+      this.statisticalMethodLocal.id = this.statisticalMethod.id
+      this.statisticalMethodLocal.name = this.statisticalMethod.name
+      this.statisticalMethodLocal.description =
+        this.statisticalMethod.description
+      this.statisticalMethodLocal.requirements =
+        this.statisticalMethod.requirements
+      this.statisticalMethodLocal.assumptions =
+        this.statisticalMethod.assumptions
+      this.statisticalMethodLocal.constraints =
+        this.statisticalMethod.constraints
+      this.statisticalMethodLocal.notes = this.statisticalMethod.notes
+      this.statisticalMethodLocal.tags = this.statisticalMethod.tags
+      this.statisticalMethodLocal.version = this.statisticalMethod.version
       // this.statisticalMethodLocal.releaseDate =  this.statisticalMethod.releaseDate;
       this.statisticalMethodLocal.releaseDate = this.formatDate(
         this.statisticalMethod.releaseDate
-      );
+      )
 
-      this.statisticalMethodLocal.standardIstat = this.statisticalMethod.standardIstat;
+      this.statisticalMethodLocal.standardIstat =
+        this.statisticalMethod.standardIstat
     },
     handleBack() {
-      this.$router.back();
+      this.$router.back()
     },
 
-    loadMethod: _.debounce(function() {
+    loadMethod: _.debounce(function () {
       this.$store
         .dispatch("methods/findById", this.$route.params.id)
         .then(() => {
           if (this.statisticalMethod) {
-            this.setOldValues();
+            this.setOldValues()
           }
-        });
+        })
     }, 500)
   },
   created() {
-    this.loadMethod();
+    this.loadMethod()
   }
-};
+}
 </script>
 <style scoped>
 .vdpArrowPrev:after {

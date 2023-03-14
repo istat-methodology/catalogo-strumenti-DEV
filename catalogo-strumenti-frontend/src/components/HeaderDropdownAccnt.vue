@@ -4,8 +4,7 @@
       inNav
       class="c-header-nav-items"
       placement="bottom-end"
-      add-menu-classes="pt-0"
-    >
+      add-menu-classes="pt-0">
       <template #toggler>
         <CHeaderNavLink>
           <div class="c-avatar">
@@ -40,8 +39,8 @@
 </template>
 
 <script>
-import { CDropdownDivider } from "@coreui/vue";
-import { mapGetters } from "vuex";
+import { CDropdownDivider } from "@coreui/vue"
+import { mapGetters } from "vuex"
 
 export default {
   name: "HeaderDropdownAccount",
@@ -53,7 +52,7 @@ export default {
           type: []
         }
       ]
-    };
+    }
   },
   components: {
     CDropdownDivider
@@ -65,15 +64,15 @@ export default {
     logout() {
       this.$store.dispatch("auth/logout").then(() => {
         if (this.$router.currentRoute.path != "/catalogue") {
-          this.$router.push("/");
+          this.$router.push("/")
         }
         this.$store
           .dispatch("filter/resetFilters")
-          .then(this.$store.dispatch("tools/filter", this.filtri));
-      });
+          .then(this.$store.dispatch("tools/filter", this.filtri))
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

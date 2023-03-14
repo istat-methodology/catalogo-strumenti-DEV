@@ -17,8 +17,7 @@
         <div
           class="card col-md-3"
           v-for="businessFunction of businessFunctions"
-          :key="businessFunction.id"
-        >
+          :key="businessFunction.id">
           <div class="card-header">
             {{ businessFunction.name }}
             <div class="card-header-actions">
@@ -27,8 +26,7 @@
                 :to="{
                   name: 'BusinessFunctionsDetails',
                   params: { id: businessFunction.id }
-                }"
-              >
+                }">
                 <view-icon />
               </router-link>
             </div>
@@ -51,7 +49,7 @@ export default {
       default: () => []
     }
   }
-};
+}
 </script>
 <style scoped>
 h5 {

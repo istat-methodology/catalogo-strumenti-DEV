@@ -13,8 +13,7 @@
             <div
               class="card card-border bg-lighter"
               v-for="appService of businessServiceService.appServices"
-              :key="appService.id"
-            >
+              :key="appService.id">
               <!-- appservices -->
               <div class="card w-100">
                 <header class="card-header">
@@ -69,8 +68,7 @@
                     <!-- @start Condition to show filtrable table if results are more then 5 lines-->
                     <div
                       class="table-responsive"
-                      v-if="appService.stepInstances.length > 20"
-                    >
+                      v-if="appService.stepInstances.length > 20">
                       <CDataTable
                         :items="getStepInstancesList(appService.stepInstances)"
                         :fields="fields"
@@ -80,15 +78,13 @@
                         :items-per-page="5"
                         hover
                         sorter
-                        pagination
-                      >
+                        pagination>
                       </CDataTable>
                     </div>
                     <!-- @end Condition to show filtrable table if results are more then 5 lines-->
                     <table
                       class="table table-hover"
-                      v-if="appService && appService.stepInstances.length < 20"
-                    >
+                      v-if="appService && appService.stepInstances.length < 20">
                       <thead>
                         <tr>
                           <th scope="col">functionality</th>
@@ -102,8 +98,7 @@
                           v-for="item in getStepInstancesList(
                             appService.stepInstances
                           )"
-                          :key="item.id"
-                        >
+                          :key="item.id">
                           <td>{{ item.functionality }}</td>
                           <td>{{ item.method }}</td>
                           <td>{{ item.statMethodName }}</td>
@@ -113,8 +108,7 @@
                     </table>
                     <h5
                       v-if="!appService.stepInstances.length"
-                      class="default-value card-body"
-                    >
+                      class="default-value card-body">
                       No data available
                     </h5>
                   </div>
@@ -158,11 +152,11 @@ export default {
           label: "descr"
         }
       ]
-    };
+    }
   },
   methods: {
-    getStepInstancesList: function(stepInstances) {
-      return stepInstances.map(stepInstance => {
+    getStepInstancesList: function (stepInstances) {
+      return stepInstances.map((stepInstance) => {
         return {
           id: stepInstance.id,
           functionality: stepInstance.functionality,
@@ -170,11 +164,11 @@ export default {
           descr: stepInstance.descr,
           statMethodName: stepInstance.statMethod.name,
           statMethodId: stepInstance.statMethod.id
-        };
-      });
+        }
+      })
     }
   }
-};
+}
 </script>
 <style scoped>
 h5 {

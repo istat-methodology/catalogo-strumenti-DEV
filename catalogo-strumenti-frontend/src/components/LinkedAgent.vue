@@ -54,7 +54,7 @@ export default {
     return {
       /* value: null,
       linkedAgentLocal: {} */
-    };
+    }
   },
   props: {
     id: String,
@@ -79,5 +79,5 @@ export default {
   /*  created() {
     this.$store.dispatch("agent/findAll");
   } */
-};
+}
 </script>

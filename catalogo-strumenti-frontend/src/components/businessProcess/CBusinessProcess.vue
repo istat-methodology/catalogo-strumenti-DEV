@@ -19,7 +19,7 @@ export default {
     return {
       /* value: null,
       businessProcessLocal: {} */
-    };
+    }
   },
   props: {
     id: String,
@@ -29,6 +29,6 @@ export default {
     orderCode: String,
     parent: String,
     processSteps: []
-  }  
-};
+  }
+}
 </script>
