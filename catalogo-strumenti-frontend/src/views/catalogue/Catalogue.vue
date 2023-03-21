@@ -12,16 +12,18 @@
           </div>
           <div class="card">
             <div class="card-body">
+              <div class="list-group">
               <div v-for="subitem of item.gsbpmSubProcesses" :key="subitem.id">
-                <span
-                  class="icon-link"
+                <li
+                  class="list-group-item list-group-item-action p-0  p-1 no-border cursor-pointer"
                   @click="handleGSBPM(subitem)"
                   title="vai a"
                 >
                   {{ subitem.code + " - " + subitem.name }}
-                </span>
+                </li>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -42,7 +44,7 @@
           <div class="card">
             <div class="card-body">
               In questa sezione puoi trovare la lista degli Strumenti
-              Metodologici.              
+              Metodologici.
               <p class="section-link">
                 <router-link
                   tag="a"
@@ -153,7 +155,7 @@ export default {
       this.stateform = this.FormState.GSBPM_1;
     },
     handleGSBPM(item) {
-      console.log(item);   
+      console.log(item);
       this.gsbpmSelected = item;
       this.titleGSBPM_2 = "GSBPM: " + item.code + "-" + item.name;
       this.stateform = this.FormState.GSBPM_2;
