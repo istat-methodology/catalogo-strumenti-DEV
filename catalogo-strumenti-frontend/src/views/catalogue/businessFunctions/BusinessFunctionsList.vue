@@ -136,7 +136,7 @@ export default {
       this.$router.push({ name: "BusinessFunctionsAdd" });
     },
     handleBack() {
-      this.$router.push({ name: "Catalogue" });
+      this.$router.back();    
     },
     handleView(item) {
       this.$router.push({
