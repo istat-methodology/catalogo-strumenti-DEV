@@ -10,24 +10,28 @@
       :authenticated="isAuthenticated"
       :buttons="['aggiungi', 'indietro']"
       @handleNew="handleNew"
-      @handleBack="handleBack" />
+      @handleBack="handleBack"
+    />
     <CCard>
       <CCardBody>
         <CDataTable
           v-if="toolscatalog"
           :items="computedItems"
           :fields="fields"
-          column-filter
           :items-per-page="10"
+          column-filter
+          :columnFilterValue="columnFilterValue"
           sorter
           hover
           pagination
-          ><template #show_details="{ item }">
+        >
+          <template #show_details="{ item }">
             <CTableLink
               :authenticated="isAuthenticated"
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
-              @handleDelete="handleOpenModalDelete(item)" />
+              @handleDelete="handleOpenModalDelete(item)"
+            />
           </template>
         </CDataTable>
       </CCardBody>
@@ -36,35 +40,37 @@
       :message="getMessage()"
       :showModal="showModal"
       @closeModal="closeModal"
-      @handleDelete="handleDelete" />
+      @handleDelete="handleDelete"
+    />
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
-import { Context } from "@/common"
-import CTitle from "@/components/CTitle.vue"
-import CModalDelete from "@/components/CModalDelete.vue"
-import CTableLink from "@/components/CTableLink.vue"
+import { mapGetters } from "vuex";
+import { Context } from "@/common";
+import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+import CTableLink from "@/components/CTableLink.vue";
 export default {
   name: "ToolList",
   components: { CTitle, CModalDelete, CTableLink },
   data() {
-    return {
+    return {     
       fields: [
+        {
+          key: "gsbpm",
+          label: "Fasi Gsbpm",
+          _style: "width:30%;",
+        },
+
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "tooltype",
           label: "Tipologia",
-          _style: "width:20%;"
-        },
-        {
-          key: "gsbpm",
-          label: "Fasi Gsbpm",
-          _style: "width:30%;"
+          _style: "width:20%;",
         },
         /*
         {
@@ -76,19 +82,19 @@ export default {
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:30%;"
+          _style: "width:30%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       selectedTool: {},
-      showModal: false
-    }
+      showModal: false,
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -102,61 +108,61 @@ export default {
             tooltype: item.toolType.name,
             gsbpm: item.gsbpmProcesses
               .map((gsbpmProcess) => {
-                return gsbpmProcess.code + " " + gsbpmProcess.name
+                return gsbpmProcess.code + " " + gsbpmProcess.name;
               })
               .join(", "),
             methods: item.statisticalMethods
               .map((method) => {
-                return method.name
+                return method.name;
               })
-              .join(", ")
-          })
-        })
+              .join(", "),
+          });
+        });
       } else {
-        return []
+        return [];
       }
+    },
+  },
+  mounted(){
+    this.columnFilterValue = {
+        gsbpm: this.$route.params.gsbpm.code
     }
   },
   methods: {
     handleOpenModalDelete(app) {
-      this.selectedTool = app
-      this.showModal = true
+      this.selectedTool = app;
+      this.showModal = true;
     },
     handleNew() {
-      this.$router.push({ name: "ToolAdd" })
+      this.$router.push({ name: "ToolAdd" });
     },
     handleBack() {
-      this.$router.back()
-      //this.$router.push({ name: "Catalogue" })
+      this.$router.back();     
     },
     handleView(item) {
-      this.$router.push({ name: "ToolDetails", params: { id: item.id } })
+      this.$router.push({ name: "ToolDetails", params: { id: item.id } });
     },
     handleEdit(item) {
-      this.$router.push({ name: "ToolEdit", params: { id: item.id } })
+      this.$router.push({ name: "ToolEdit", params: { id: item.id } });
     },
     handleDelete() {
-      this.$store.dispatch("tools/delete", this.selectedTool.id)
-      this.showModal = false
+      this.$store.dispatch("tools/delete", this.selectedTool.id);
+      this.showModal = false;
     },
     closeModal() {
-      this.showModal = false
+      this.showModal = false;
     },
     getMessage() {
       return (
         "Sei sicuro di eliminare lo strumento metodolgico: " +
         this.selectedTool.name +
         " selezionato?"
-      )
+      );
     }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.ToolList)
-    // if (this.params) {
-    //this.$store.dispatch("tools/filter", this.params  this.$route.params.id)
-    this.$store.dispatch("tools/filter", this.$route.params.id)
-    //this.$store.dispatch("tools/findAll");
-    // }
-  }
-}
+    this.$store.dispatch("coreui/setContext", Context.ToolList);
+    this.$store.dispatch("tools/findAll");
+  },
+};
 </script>

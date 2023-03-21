@@ -41,7 +41,7 @@ const routes = [
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/tools",
+        path: "catalogue",
         name: "gsbpmList",
         component: () => import("../views/catalogue/tools/gsbpmList"),
         meta: { authorize: [] }
