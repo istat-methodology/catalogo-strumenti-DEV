@@ -138,6 +138,7 @@ export default {
     },
     handleBack() {
       this.$router.back();     
+      //this.$router.push({ name: "MethodEdit", params: { id: item.id } })
     },
     handleView(item) {
       this.$router.push({ name: "ToolDetails", params: { id: item.id } });

@@ -13,7 +13,8 @@
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"
-      @handleBack="handleBack" />
+      @handleBack="handleBack"
+    />
     <!--
       
       //processDesigns_index
@@ -44,12 +45,14 @@
             class="col-2"
             label="id"
             placeholder="id"
-            v-model="bProcessDesignLocal.processDesigns_id" />
+            v-model="bProcessDesignLocal.processDesigns_id"
+          />
           <CTextarea
             class="col-10"
             label="description"
             placeholder="processDesigns_descr"
-            v-model="bProcessDesignLocal.processDesigns_descr" />
+            v-model="bProcessDesignLocal.processDesigns_descr"
+          />
         </div>
       </CCardBody>
     </CCard>
@@ -61,14 +64,14 @@
             class="col-2"
             label="id"
             placeholder="id"
-            v-model="bProcessDesignLocal.processDesignDescription_id" />
+            v-model="bProcessDesignLocal.processDesignDescription_id"
+          />
           <CTextarea
             class="col-10"
             label="description"
             placeholder="description"
-            v-model="
-              bProcessDesignLocal.processDesignDescription_description
-            " />
+            v-model="bProcessDesignLocal.processDesignDescription_description"
+          />
         </div>
       </CCardBody>
     </CCard>
@@ -80,7 +83,8 @@
             class="col-2"
             label="id"
             placeholder="id"
-            v-model="bProcessDesignLocal.designType_id" />
+            v-model="bProcessDesignLocal.designType_id"
+          />
           <div class="form-group col-5" role="group">
             <label class="col-12">Dati I/O</label>
             <v-select
@@ -89,7 +93,8 @@
               :options="designtypeList"
               placeholder="type"
               v-model="bProcessDesignLocal.designType_type"
-              @input="changeProcessDesignType"></v-select>
+              @input="changeProcessDesignType"
+            ></v-select>
           </div>
           <div class="form-group col-5" role="group">
             <label class="col-12">Tipo I/O</label>
@@ -98,7 +103,8 @@
               class="col-12 p-0"
               :options="designtypebyparentList"
               placeholder="type"
-              v-model="designTypeSelected"></v-select>
+              v-model="designTypeSelected"
+            ></v-select>
           </div>
         </div>
       </CCardBody>
@@ -111,22 +117,26 @@
             class="col-2"
             label="id"
             placeholder="id"
-            v-model="bProcessDesignLocal.informationObject_id" />
+            v-model="bProcessDesignLocal.informationObject_id"
+          />
           <CInput
             class="col-8"
             label="name"
             placeholder="name"
-            v-model="bProcessDesignLocal.informationObject_name" />
+            v-model="bProcessDesignLocal.informationObject_name"
+          />
           <CInput
             class="col-2"
             label="csmAppRoleId"
             placeholder="csmAppRoleId"
-            v-model="bProcessDesignLocal.informationObject_csmAppRoleId" />
+            v-model="bProcessDesignLocal.informationObject_csmAppRoleId"
+          />
           <CTextarea
             class="col-12"
             label="description"
             placeholder="description"
-            v-model="bProcessDesignLocal.informationObject_description" />
+            v-model="bProcessDesignLocal.informationObject_description"
+          />
         </div>
       </CCardBody>
     </CCard>
@@ -135,12 +145,12 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
-import CTitle from "@/components/CTitle.vue"
+import { mapGetters } from "vuex";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignEdit",
   components: {
-    CTitle
+    CTitle,
   },
   data() {
     return {
@@ -157,7 +167,7 @@ export default {
         informationObject_id: "",
         informationObject_name: "",
         informationObject_description: "",
-        informationObject_csmAppRoleId: ""
+        informationObject_csmAppRoleId: "",
       },
       bProcessDesignLocal_2: {
         id: "",
@@ -166,61 +176,65 @@ export default {
         label: "",
         processDesignDescription: {
           id: "",
-          descr: ""
+          descr: "",
         },
         designType: {
           id: "",
           type: "",
-          parent: ""
+          parent: "",
         },
         informationObject: {
           id: "",
           name: "",
           descr: "",
-          csmAppRoleId: ""
-        }
+          csmAppRoleId: "",
+        },
       },
-      designTypeSelected: { type: "" }
-    }
+      designTypeSelected: { type: "" },
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
+    ...mapGetters("designtypes", [
+      "designtype",
+      "designtypeList",
+      "designtypebyparentList",
+    ]),
   },
   //emits: ["enableEditProcessDesign"],
   props: {
     bProcessStep: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bProcessDesign: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     handleSubmit() {
       //this.bProcessDesign = this.bProcessDesignLocal
-      this.$emit("enableEditProcessDesign", this.bProcessDesignLocal)
+      this.$emit("enableEditProcessDesign", this.bProcessDesignLocal);
     },
     handleBack() {
-      this.$emit("enableBack")
+      this.$emit("enableBack");
     },
     changeProcessDesignType(value) {
-      this.bProcessDesignLocal.designType_id = value.id
+      this.bProcessDesignLocal.designType_id = value.id;
       this.$store.dispatch(
         "designtypes/findByParent",
         this.bProcessDesignLocal.designType_id
-      )
-    }
+      );
+    },
   },
   created() {
-    this.bProcessDesignLocal = this.bProcessDesign
-    this.$store.dispatch("designtypes/findAll")
-  }
-}
+    this.bProcessDesignLocal = this.bProcessDesign;
+    this.$store.dispatch("designtypes/findAll");
+  },
+};
 </script>
 <style scoped>
 h5 {

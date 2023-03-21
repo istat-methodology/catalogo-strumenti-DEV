@@ -8,7 +8,8 @@
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
-        @handleBack="enableBack" />
+        @handleBack="enableBack"
+      />
       <CCard>
         <CCardBody>
           <div class="row">
@@ -17,29 +18,34 @@
               label="id"
               placeholder="id"
               v-model="bPStepLocal.id"
-              disabled />
+              disabled
+            />
             <CInput
               class="col-6"
               label="Nome*"
               placeholder="Nome"
-              v-model="bPStepLocal.name" />
+              v-model="bPStepLocal.name"
+            />
             <CInput
               class="col-4"
               label="Etichetta"
               placeholder="Etichetta"
-              v-model="bPStepLocal.label" />
+              v-model="bPStepLocal.label"
+            />
             <CInput
               class="col-1"
               label="Index"
               placeholder="Index"
-              v-model="bPStepLocal.index" />
+              v-model="bPStepLocal.index"
+            />
           </div>
           <div class="row mt-4">
             <CTextarea
               class="col-12"
               label="Descrizione"
               placeholder="Descrizione"
-              v-model="bPStepLocal.description" />
+              v-model="bPStepLocal.description"
+            />
           </div>
         </CCardBody>
       </CCard>
@@ -51,7 +57,8 @@
         functionality=""
         :authenticated="isAuthenticated"
         :buttons="['aggiungi']"
-        @handleNew="showNewProcessDesign" />
+        @handleNew="showNewProcessDesign"
+      />
       <CCard>
         <CCardBody>
           <div class="row mt-4">
@@ -76,13 +83,15 @@
                       :items-per-page="10"
                       :fields="fieldsDesignSpecification"
                       hover
-                      pagination></CDataTable>
+                      pagination
+                    ></CDataTable>
                   </td>
                   <CTableLink
                     :authenticated="isAuthenticated"
                     @handleView="handleView(item)"
                     @handleEdit="handleEdit(item)"
-                    @handleDelete="handleOpenModalDelete(item)" />
+                    @handleDelete="handleOpenModalDelete(item)"
+                  />
                 </template>
               </CDataTable>
             </span>
@@ -99,7 +108,8 @@
         :bProcessStep="bPStepLocal"
         :bProcessDesign="selectedProcessDesign"
         @enableNewProcessDesign="handleSubmitNewProcessDesign"
-        @enableBack="stateform = FormState.STEP_EDIT" />
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
     </div>
     <!-- 
         Edit Process Design
@@ -109,17 +119,18 @@
         :bProcessStep="bPStepLocal"
         :bProcessDesign="selectedProcessDesign"
         @enableEditProcessDesign="handleSubmitEditProcessDesign"
-        @enableBack="stateform = FormState.STEP_EDIT" />
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
-import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew"
-import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit"
-import CTableLink from "@/components/CTableLink.vue"
+import { mapGetters } from "vuex";
+import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
+import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
+import CTableLink from "@/components/CTableLink.vue";
 //import CModalDelete from "@/components/CModalDelete.vue";
-import CTitle from "@/components/CTitle.vue"
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "CBusinessProcessStepEdit",
@@ -128,7 +139,7 @@ export default {
     CBusinessProcessDesignEdit,
     CTableLink,
     //  CModalDelete,
-    CTitle
+    CTitle,
   },
 
   data() {
@@ -175,53 +186,53 @@ export default {
         {
           key: "nr",
           label: "#",
-          _style: "width:1%;"
+          _style: "width:1%;",
         },
         {
           key: "processDesignId",
           label: "id",
-          _style: "width:2%;"
+          _style: "width:2%;",
         },
         {
           key: "processDesignDescription",
           label: "Descrizione",
-          _style: "width:4%;"
+          _style: "width:4%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       fieldsDesignSpecification: [
         {
           key: "processSpecificationId",
           label: "ID ",
-          _style: "width:2%;"
+          _style: "width:2%;",
         },
         {
           key: "designTypeParent",
           label: "Parent Tipo I/O",
-          _style: "width:10;"
+          _style: "width:10;",
         },
 
         {
           key: "designTypeType",
           label: "Dati I/O",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectId",
           label: "informationObject ID",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;"
-        }
+          _style: "width:auto;",
+        },
         /*
         {
           key: "informationObjectDescription",
@@ -234,7 +245,7 @@ export default {
         index: "",
         name: "",
         label: "",
-        description: ""
+        description: "",
       },
 
       bPStepLocal: {
@@ -254,17 +265,17 @@ export default {
               designType: {
                 id: "",
                 type: "",
-                parent: ""
+                parent: "",
               },
               informationObject: {
                 id: "",
                 name: "",
                 descr: "",
-                csmAppRoleId: ""
-              }
-            }
-          }
-        ]
+                csmAppRoleId: "",
+              },
+            },
+          },
+        ],
       },
 
       selectedProcessDesign: {},
@@ -274,22 +285,23 @@ export default {
         STEP_EDIT: 4,
         PROCESS_DESIGN_ADD: 6,
         PROCESS_DESIGN_EDIT: 7,
-        PROCESS_DESIGN_NEW: 8
+        PROCESS_DESIGN_NEW: 8,
       },
       stateform: 4,
-      warningModal: false
-    }
+      warningModal: false,
+    };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"])
+    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("designtypes", ["designtype", "designtypeList", "designtypebyparentList"]),
   },
   emits: ["enableBack", "enableEditDesignProcess", "enableNewDesignProcess"],
   props: {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     getProcessDesignsList: function () {
@@ -299,11 +311,11 @@ export default {
             nr: index + 1,
             processDesignId: processDesign.id,
             processDesignDescription: processDesign.descr,
-            processSpecification: processDesign.processSpecification
-          }
-        })
+            processSpecification: processDesign.processSpecification,
+          };
+        });
       } else {
-        return []
+        return [];
       }
     },
     getDesignSpecificationList: function (processDesign) {
@@ -312,74 +324,86 @@ export default {
           return {
             nr: index + 1,
             processSpecificationId: processSpecification.id,
-            designTypeParent: processSpecification.designType.parent,
-            designTypeType: processSpecification.designType.type,
+
+            designTypeParent:
+              processSpecification.designType.parent == null
+                ? processSpecification.designType.type
+                : this.getDesignType(processSpecification.designType.parent),
+            designTypeType:
+              processSpecification.designType.parent == null
+                ? ""
+                : processSpecification.designType.type,
             informationObjectId: processSpecification.informationObject.id,
             informationObjectName: processSpecification.informationObject.name,
             informationObjectDescription:
-              processSpecification.informationObject.descr
-          }
+              processSpecification.informationObject.descr,
+          };
         }
-      )
+      );
     },
     showEditProcessDesign(processDesign) {
-      this.selectedProcessDesign = processDesign
-      this.stateform = this.FormState.PROCESS_DESIGN_EDIT
+      this.selectedProcessDesign = processDesign;
+      this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
     showNewProcessDesign() {
-      this.selectedProcessDesign = {}
-      this.stateform = this.FormState.PROCESS_DESIGN_NEW
+      this.selectedProcessDesign = {};
+      this.stateform = this.FormState.PROCESS_DESIGN_NEW;
     },
     handleSubmitNewProcessDesign() {
-      console.log("funzione di insert non attiva!")
-      alert("funzione di insert non attiva!")
+      console.log("funzione di insert non attiva!");
+      alert("funzione di insert non attiva!");
       /*this.$store.dispatch(".../update", this.Local).then(() => {
         this.load();
       });
       */
     },
     handleSubmitEditProcessDesign() {
-      console.log("funzione di update non attiva!")
-      alert("funzione di update non attiva!")
+      console.log("funzione di update non attiva!");
+      alert("funzione di update non attiva!");
       /*this.$store.dispatch(".../update", this.Local).then(() => {
         this.load();
       });
       */
     },
     enableBack() {
-      this.$emit("enableBack")
+      this.$emit("enableBack");
     },
     handleSubmit() {
       //alert("funzione di update process step non attiva!");
       //console.log("funzione di update process step non attiva!");
-      this.bPStepLocalToSave.id = this.bPStepLocal.id
-      this.bPStepLocalToSave.index = this.bPStepLocal.index
-      this.bPStepLocalToSave.name = this.bPStepLocal.name
-      this.bPStepLocalToSave.label = this.bPStepLocal.label
-      this.bPStepLocalToSave.description = this.bPStepLocal.description
-      this.$store.dispatch("procStep/update", this.bPStepLocalToSave) //.then(() => {  alert(this.bPStepLocal())});
+      this.bPStepLocalToSave.id = this.bPStepLocal.id;
+      this.bPStepLocalToSave.index = this.bPStepLocal.index;
+      this.bPStepLocalToSave.name = this.bPStepLocal.name;
+      this.bPStepLocalToSave.label = this.bPStepLocal.label;
+      this.bPStepLocalToSave.description = this.bPStepLocal.description;
+      this.$store.dispatch("procStep/update", this.bPStepLocalToSave); //.then(() => {  alert(this.bPStepLocal())});
     },
     handleView(item) {
-      console.log(item)
-      alert("funzione di update process step non attiva!")
+      console.log(item);
+      alert("funzione di update process step non attiva!");
       //this.$router.push({ name: "xxxDetails", params: { id: item.id } });
     },
     handleEdit(item) {
-      console.log(item)
-      alert("funzione di update process step non attiva!")
+      console.log(item);
+      alert("funzione di update process step non attiva!");
       //this.$router.push({ name: "xxxEdit", params: { id: item.id } });
     },
     handleDelete(item) {
-      console.log(item)
-      alert("funzione di update process step non attiva!")
+      console.log(item);
+      alert("funzione di update process step non attiva!");
       //this.$store.dispatch("xxx/delete", this.selectedTool.id);
       //this.showModal = false;
+    },
+    getDesignType(id){
+      var dt = this.$store.dispatch("designtypes/findbyId", id);
+      console.log(dt)
     }
   },
   created() {
-    this.bPStepLocal = this.bPStep
-  }
-}
+    this.bPStepLocal = this.bPStep;
+    
+  },
+};
 </script>
 <style scoped>
 h5 {
