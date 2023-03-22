@@ -1,5 +1,5 @@
 <template>
-  <div v-if="bPStepLocal">
+  <div v-if="designtypeList">
     <div v-if="stateform == FormState.STEP_EDIT">
       <CTitle
         :title="bPStepLocal.name"
@@ -131,6 +131,7 @@ import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessPr
 import CTableLink from "@/components/CTableLink.vue";
 //import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
+var _ = require("lodash");
 
 export default {
   name: "CBusinessProcessStepEdit",
@@ -144,6 +145,7 @@ export default {
 
   data() {
     return {
+      designTypeLocal: [],
       /*
       columns: [
         {
@@ -289,11 +291,12 @@ export default {
       },
       stateform: 4,
       warningModal: false,
+
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtype", "designtypeList", "designtypebyparentList"]),
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
   emits: ["enableBack", "enableEditDesignProcess", "enableNewDesignProcess"],
   props: {
@@ -394,15 +397,22 @@ export default {
       //this.$store.dispatch("xxx/delete", this.selectedTool.id);
       //this.showModal = false;
     },
-    getDesignType(id){
-      var dt = this.$store.dispatch("designtypes/findbyId", id);
-      console.log(dt)
-    }
+    getDesignType(id) {
+      
+      console.log(this.designTypeLocal);
+      var dt = this.designTypeLocal[id];
+      console.log(dt);
+      return dt;
+    },
   },
   created() {
     this.bPStepLocal = this.bPStep;
-    
-  },
+    this.$store.dispatch("designtypes/findAll").then(() => {
+      this.designTypeLocal = this.designtypeList;
+      this.designTypeLocal =  _.map(this.designtypeList, "type");
+
+    });
+  }
 };
 </script>
 <style scoped>

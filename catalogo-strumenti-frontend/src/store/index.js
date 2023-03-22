@@ -29,7 +29,7 @@ import { linkedagent } from "./modules/linkedAgent/linkedAgentTools"
 import { businessService } from "./modules/service/businessService"
 import { procStep } from "./modules/processSteps/processSteps"
 import { bProcess } from "./modules/businessProcesses/businessProcesses"
-import { designtypes } from "./modules/designType/designType"
+import { designtypes } from "./modules/designtype/designtype"
 
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
@@ -55,7 +55,6 @@ export default new Vuex.Store({
     procStep,
     bProcess,
     designtypes,
-
     /* 
     applications,
     methods,

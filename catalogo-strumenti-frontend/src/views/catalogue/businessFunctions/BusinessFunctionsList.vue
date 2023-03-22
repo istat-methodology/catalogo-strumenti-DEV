@@ -85,6 +85,7 @@ export default {
       ],
       selectedBusiness: {},
       showModal: false,
+      columnFilterValue: {}
     };
   },
   computed: {
@@ -171,8 +172,7 @@ export default {
   },
   created() {
     this.$store
-      .dispatch("coreui/setContext", Context.BusinessFunctionSession)
-      .catch(() => {});
+      .dispatch("coreui/setContext", Context.BusinessFunctionSession).catch(() => {});
     // if (this.params) {
     this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
     //this.$store.dispatch("business/findAll");

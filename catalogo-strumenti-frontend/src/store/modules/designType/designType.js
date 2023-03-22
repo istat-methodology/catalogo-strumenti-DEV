@@ -1,32 +1,33 @@
-import { designTypeService } from "@/services"
-import { designTypeByParentService } from "@/services"
+
+import { designtypeService, designtypeopenService, designtypebyparentopenService } from "@/services"
 
 const state = {
-  designtypeList: [],
+  designtypeList: {},
   designtype: null,
-  designtypebyparentList: [],
+  designtypebyparentList: {},
   designtypebyparent: null
 }
 
 const mutations = {
-  SET_DESIGNTYPE_LIST(state, designtypeList) {
+  SET_DESIGNTYPELIST(state, designtypeList) {
     state.designtypeList = designtypeList
   },
   SET_DESIGNTYPE(state, designtype) {
     state.designtype = designtype
   },
-  SET_DESIGNTYPE_BYPARENT_LIST(state, designtypebyparentList) {
+  SET_DESIGNTYPEBYPARENTLIST(state, designtypebyparentList) {
     state.designtypebyparentList = designtypebyparentList
   },
-  SET_DESIGNTYPE_BYPARENT(state, designtypebyparent) {
+  SET_DESIGNTYPEBYPARENT(state, designtypebyparent) {
     state.designtypebyparent = designtypebyparent
   }
 }
 const actions = {
+
   findAll({ commit }) {
-    designTypeService.findAll().then(
+    designtypeopenService.findAll().then(
       (data) => {
-        commit("SET_DESIGNTYPE_LIST", data)
+        commit("SET_DESIGNTYPELIST", data)
       },
       (error) => {
         console.log(error)
@@ -34,7 +35,7 @@ const actions = {
     )
   },
   save({ commit, dispatch }, payload) {
-    return designTypeService
+    return designtypeService
       .save(payload)
       .then((data) => {
         //console.log(data);
@@ -48,7 +49,7 @@ const actions = {
       })
   },
   update({ commit, dispatch }, payload) {
-    return designTypeService
+    return designtypeService
       .update(payload)
       .then((data) => {
         commit("SET_DESIGNTYPE", data)
@@ -61,7 +62,7 @@ const actions = {
       })
   },
   delete({ dispatch }, id) {
-    return designTypeService
+    return designtypeService
       .delete(id)
       .then(() => {
         dispatch("findAll")
@@ -74,22 +75,22 @@ const actions = {
       })
   },
   findById({ commit }, id) {
-    return designTypeService
+    return designtypeService
       .findById(id)
       .then((data) => {
         //console.log(data);
-        commit("SET_DESIGNTYPE_LIST", data)
+        commit("SET_DESIGNTYPELIST", data)
       })
       .catch((err) => {
         console.log(err)
       })
   },
   findByParent({ commit }, parent) {
-    return designTypeByParentService
+    return designtypebyparentopenService
       .filter(parent)
       .then((data) => {
         //console.log(data);
-        commit("SET_DESIGNTYPE_BYPARENT_LIST", data)
+        commit("SET_DESIGNTYPEBYPARENTLIST", data)
       })
       .catch((err) => {
         console.log(err)
