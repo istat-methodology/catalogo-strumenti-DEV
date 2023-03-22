@@ -136,7 +136,8 @@ export default {
       this.$router.push({ name: "BusinessFunctionsAdd" });
     },
     handleBack() {
-      this.$router.back();    
+      //this.$router.back();    
+      this.$router.push({ name: "Catalogue", params: { cataloguePage: "2" , gsbpm: this.$route.params.gsbpm }})
     },
     handleView(item) {
       this.$router.push({

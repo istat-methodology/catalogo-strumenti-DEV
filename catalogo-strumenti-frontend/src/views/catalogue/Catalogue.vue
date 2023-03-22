@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 1 -->
-    <div v-if="stateform == FormState.GSBPM_1">
+    <div v-if="stateform == FormState.GSBPM_INIT">
       <CTitle title="GSBPM" />
       <div class="row">
         <div v-for="item of gsbpmList" :key="item.id" class="col-3">
@@ -13,27 +13,30 @@
           <div class="card">
             <div class="card-body">
               <div class="list-group">
-              <div v-for="subitem of item.gsbpmSubProcesses" :key="subitem.id">
-                <li
-                  class="list-group-item list-group-item-action p-0  p-1 no-border cursor-pointer"
-                  @click="handleGSBPM(subitem)"
-                  title="vai a"
+                <div
+                  v-for="subitem of item.gsbpmSubProcesses"
+                  :key="subitem.id"
                 >
-                  {{ subitem.code + " - " + subitem.name }}
-                </li>
+                  <li
+                    class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer"
+                    @click="handleGSBPM(subitem)"
+                    title="vai a"
+                  >
+                    {{ subitem.code + " - " + subitem.name }}
+                  </li>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- 2 -->
-    <div v-if="stateform == FormState.GSBPM_2">
+    <div v-if="stateform == FormState.GSBPM_NEXT">
       <CTitle
-        :title="titleGSBPM_2"
-        :buttonTitle="titleGSBPM_2"
+        :title="titleGSBPM_NEXT"
+        :buttonTitle="titleGSBPM_NEXT"
         :authenticated="isAuthenticated"
         :buttons="['indietro']"
         @handleBack="handleBack"
@@ -81,7 +84,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
@@ -131,13 +133,13 @@ export default {
       selectedTool: {},
       showModal: false,
       FormState: {
-        GSBPM_1: 0,
-        GSBPM_2: 1,
+        GSBPM_INIT: 0,
+        GSBPM_NEXT: 1,
       },
       stateform: 0,
       gsbpmSelected: "",
-      titleGSBPM_1: "",
-      titleGSBPM_2: "",
+      titleGSBPM_INIT: "",
+      titleGSBPM_NEXT: "",
     };
   },
   computed: {
@@ -152,17 +154,28 @@ export default {
       this.showModal = true;
     },
     handleBack() {
-      this.stateform = this.FormState.GSBPM_1;
+      this.stateform = this.FormState.GSBPM_INIT;
     },
     handleGSBPM(item) {
       console.log(item);
       this.gsbpmSelected = item;
-      this.titleGSBPM_2 = "GSBPM: " + item.code + "-" + item.name;
-      this.stateform = this.FormState.GSBPM_2;
+      this.titleGSBPM_NEXT = "GSBPM: " + item.code + "-" + item.name;
+      this.stateform = this.FormState.GSBPM_NEXT;
     },
   },
+  /*
+  mounted() {
+    if (this.$route.params.cataloguePage == 2) {
+    }
+  },
+  */
   created() {
-    this.stateform = this.FormState.GSBPM_1;
+    if (this.$route.params.cataloguePage == 2) {
+      this.stateform = this.FormState.GSBPM_NEXT;
+      this.handleGSBPM(this.$route.params.gsbpm);
+    } else {
+      this.stateform = this.FormState.GSBPM_INIT;
+    }
     this.$store.dispatch("coreui/setContext", Context.Home);
     this.$store.dispatch("gsbpm/findAll");
   },

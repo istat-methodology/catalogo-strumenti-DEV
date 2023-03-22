@@ -23,19 +23,7 @@
           >
         </router-link>
       </li>
-
       <li class="c-sidebar-nav-item" v-if="isHome || isToolSession">
-        <router-link
-          tag="a"
-          :to="{ name: 'gsbpmList' }"
-          class="c-sidebar-nav-link"
-          :class="{ 'c-active': isToolSession }">
-          <CIcon name="cil-baseball" class="c-sidebar-nav-icon" />Strumenti
-          Metodologici
-        </router-link>
-      </li>
-
-      <!--li class="c-sidebar-nav-item" v-if="isHome || isToolSession">
         <router-link
           tag="a"
           :to="{ name: 'ToolList' }"
@@ -44,7 +32,7 @@
           <CIcon name="cil-baseball" class="c-sidebar-nav-icon" />Strumenti
           Metodologici
         </router-link>
-      </li-->
+      </li>
       <li class="c-sidebar-nav-item" v-if="isToolSession">
         <router-link
           tag="a"

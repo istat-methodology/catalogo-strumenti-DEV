@@ -94,6 +94,7 @@ export default {
       ],
       selectedTool: {},
       showModal: false,
+      columnFilterValue : {}
     };
   },
   computed: {
@@ -137,8 +138,8 @@ export default {
       this.$router.push({ name: "ToolAdd" });
     },
     handleBack() {
-      this.$router.back();     
-      //this.$router.push({ name: "MethodEdit", params: { id: item.id } })
+      //this.$router.back();     
+      this.$router.push({ name: "Catalogue", params: { cataloguePage: "2" , gsbpm: this.$route.params.gsbpm }})
     },
     handleView(item) {
       this.$router.push({ name: "ToolDetails", params: { id: item.id } });
