@@ -1,5 +1,5 @@
 <template>
-  <div v-if="designtypeList">
+  <div v-if="bDesignType">
     <div v-if="stateform == FormState.STEP_EDIT">
       <CTitle
         :title="bPStepLocal.name"
@@ -216,14 +216,14 @@ export default {
         },
         {
           key: "designTypeParent",
-          label: "Parent Tipo I/O",
-          _style: "width:10;",
+          label: "Tipo I/O",
+          _style: "width:15%;",
         },
 
         {
           key: "designTypeType",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:15%;",
         },
         {
           key: "informationObjectId",
@@ -301,6 +301,11 @@ export default {
   emits: ["enableBack", "enableEditDesignProcess", "enableNewDesignProcess"],
   props: {
     bPStep: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
+    bDesignType: {
       type: Object,
       required: true,
       default: () => {},
@@ -406,12 +411,8 @@ export default {
     },
   },
   created() {
-    this.bPStepLocal = this.bPStep;
-    this.$store.dispatch("designtypes/findAll").then(() => {
-      this.designTypeLocal = this.designtypeList;
-      this.designTypeLocal =  _.map(this.designtypeList, "type");
-
-    });
+    this.bPStepLocal = this.bPStep;        
+    this.designTypeLocal =  _.map(this.bDesignType, "type");
   }
 };
 </script>

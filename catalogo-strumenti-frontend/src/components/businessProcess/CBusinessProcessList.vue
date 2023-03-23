@@ -156,7 +156,8 @@
       <div v-if="stateform == FormState.STEP_EDIT">
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
-            :bPStep="selectedEditStep"
+            :bDesignType="designtypeList"
+            :bPStep="selectedEditStep"            
             @enableEditStep="showEditStep"
             @enableBack="stateform = FormState.EDIT" />
         </div>
@@ -227,7 +228,8 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"])
+    ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
   emits: ["refreshBProcess"],
 
@@ -322,6 +324,7 @@ export default {
   },
   created() {
     this.$store.dispatch("bProcess/findAll")
+    this.$store.dispatch("designtypes/findAll")
   }
 }
 </script>
