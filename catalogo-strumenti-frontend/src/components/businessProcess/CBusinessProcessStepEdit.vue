@@ -60,21 +60,23 @@
         @handleNew="showNewProcessDesign"
       />
 
-      <!--div>
-              {{ getProcessDesignsList() }}
-            </div-->
-      <span v-if="bPStepLocal.processDesigns.length > 0">
+      <div v-if="bPStepLocal.processDesigns.length > 0" class="row">
+
         <div v-for="item of getProcessDesignsList()" :key="item.id">
 
-          <div class="card-header"
-                >{{
+          
+          <div class="card mr-4">
+            <div class="card-header no-border">
+              <div class="text-info float-left">
+                {{
                   item.nr +
                   "-" +
                   item.processDesignId +
                   "-" +
                   item.processDesignDescription
                 }}
-              <div class="card-action float-right">
+              </div>
+              <div class="text-info float-right">
                 <CTableLink
                   :authenticated="isAuthenticated"
                   @handleView="handleView(item)"
@@ -82,21 +84,24 @@
                   @handleDelete="handleOpenModalDelete(item)"
                 />
               </div>
-          </div>    
-          <div class="card" title="vai a">
-            <CDataTable
-              class="col-12"
-              v-if="bPStepLocal"
-              :items="getDesignSpecificationList(item)"
-              :items-per-page="5"
-              :fields="fieldsDesignSpecification"
-              hover
-              pagination
-            ></CDataTable>
+            </div>
+
+          
+            <div class="card-body p-0">
+              <CDataTable
+                v-if="bPStepLocal"
+                :items="getDesignSpecificationList(item)"
+                :items-per-page="5"
+                :fields="fieldsDesignSpecification"
+                hover
+                pagination
+                class="p-0"
+              ></CDataTable>
+            </div>
           </div>
         </div>
-      </span>
-      <span v-else>Non sono presenti process design</span>
+      </div>
+      <div v-else>Non sono presenti process design</div>
     </div>
     <!-- 
         New Process Design
@@ -182,55 +187,24 @@ export default {
       ],
       */
 
-      fields: [
-        {
-          key: "nr",
-          label: "#",
-          _style: "width:1%;",
-        },
-        {
-          key: "processDesignId",
-          label: "id",
-          _style: "width:2%;",
-        },
-        {
-          key: "processDesignDescription",
-          label: "Descrizione",
-          _style: "width:4%;",
-        },
-
-        {
-          key: "show_actions",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false,
-        },
-        {
-          key: "show_details",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false,
-        },
-      ],
       fieldsDesignSpecification: [
+        /*
         {
           key: "processSpecificationId",
           label: "ID ",
-          _style: "width:2%;",
+          _style: "width:auto;",
         },
+        */
         {
           key: "designTypeParent",
           label: "Tipo I/O",
-          _style: "width:15%;",
+          _style: "width:auto;",
         },
 
-        
         {
           key: "designTypeType",
           label: "Dati I/O",
-          _style: "width:15%;",
+          _style: "width:auto;",
         },
         /*
         {
