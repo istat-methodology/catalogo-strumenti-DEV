@@ -60,13 +60,13 @@
         @handleNew="showNewProcessDesign"
       />
 
-      <div v-if="bPStepLocal.processDesigns.length > 0" class="row">
-
+      <div v-if="bPStepLocal.processDesigns.length > 0" >
         <div v-for="item of getProcessDesignsList()" :key="item.id">
-
           
-          <div class="card mr-4">
+
+          <div class="card">           
             <div class="card-header no-border">
+            <h5>
               <div class="text-info float-left">
                 {{
                   item.nr +
@@ -84,10 +84,8 @@
                   @handleDelete="handleOpenModalDelete(item)"
                 />
               </div>
-            </div>
-
-          
-            <div class="card-body p-0">
+            </h5>
+          </div>
               <CDataTable
                 v-if="bPStepLocal"
                 :items="getDesignSpecificationList(item)"
@@ -97,7 +95,7 @@
                 pagination
                 class="p-0"
               ></CDataTable>
-            </div>
+          
           </div>
         </div>
       </div>
