@@ -59,46 +59,44 @@
         :buttons="['aggiungi']"
         @handleNew="showNewProcessDesign"
       />
-      <CCard>
-        <CCardBody>
-          <div class="row mt-4">
-            <!--div>
+
+      <!--div>
               {{ getProcessDesignsList() }}
             </div-->
-            <span v-if="bPStepLocal.processDesigns.length > 0">
-              <CDataTable
-                class="col-12"
-                v-if="bPStepLocal"
-                :items="getProcessDesignsList()"
-                :items-per-page="10"
-                :fields="fields"
-                hover
-                pagination
-                ><template #show_details="{ item }">
-                  <td>
-                    <CDataTable
-                      class="col-12"
-                      v-if="bPStepLocal"
-                      :items="getDesignSpecificationList(item)"
-                      :items-per-page="10"
-                      :fields="fieldsDesignSpecification"
-                      hover
-                      pagination
-                    ></CDataTable>
-                  </td>
-                  <CTableLink
-                    :authenticated="isAuthenticated"
-                    @handleView="handleView(item)"
-                    @handleEdit="handleEdit(item)"
-                    @handleDelete="handleOpenModalDelete(item)"
-                  />
-                </template>
-              </CDataTable>
-            </span>
-            <span v-else>Non sono presenti process design</span>
+      <span v-if="bPStepLocal.processDesigns.length > 0">
+        <div v-for="item of getProcessDesignsList()" :key="item.id">
+
+          <div class="card-header"
+                >{{
+                  item.nr +
+                  "-" +
+                  item.processDesignId +
+                  "-" +
+                  item.processDesignDescription
+                }}
+              <div class="card-action float-right">
+                <CTableLink
+                  :authenticated="isAuthenticated"
+                  @handleView="handleView(item)"
+                  @handleEdit="handleEdit(item)"
+                  @handleDelete="handleOpenModalDelete(item)"
+                />
+              </div>
+          </div>    
+          <div class="card" title="vai a">
+            <CDataTable
+              class="col-12"
+              v-if="bPStepLocal"
+              :items="getDesignSpecificationList(item)"
+              :items-per-page="5"
+              :fields="fieldsDesignSpecification"
+              hover
+              pagination
+            ></CDataTable>
           </div>
-        </CCardBody>
-      </CCard>
+        </div>
+      </span>
+      <span v-else>Non sono presenti process design</span>
     </div>
     <!-- 
         New Process Design
@@ -200,6 +198,14 @@ export default {
           label: "Descrizione",
           _style: "width:4%;",
         },
+
+        {
+          key: "show_actions",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
+        },
         {
           key: "show_details",
           label: "",
@@ -220,16 +226,19 @@ export default {
           _style: "width:15%;",
         },
 
+        
         {
           key: "designTypeType",
           label: "Dati I/O",
           _style: "width:15%;",
         },
+        /*
         {
           key: "informationObjectId",
           label: "informationObject ID",
           _style: "width:auto;",
         },
+        */
         {
           key: "informationObjectName",
           label: "Information Object Name",
@@ -291,7 +300,6 @@ export default {
       },
       stateform: 4,
       warningModal: false,
-
     };
   },
   computed: {
@@ -403,7 +411,6 @@ export default {
       //this.showModal = false;
     },
     getDesignType(id) {
-      
       console.log(this.designTypeLocal);
       var dt = this.designTypeLocal[id];
       console.log(dt);
@@ -411,9 +418,9 @@ export default {
     },
   },
   created() {
-    this.bPStepLocal = this.bPStep;        
-    this.designTypeLocal =  _.map(this.bDesignType, "type");
-  }
+    this.bPStepLocal = this.bPStep;
+    this.designTypeLocal = _.map(this.bDesignType, "type");
+  },
 };
 </script>
 <style scoped>

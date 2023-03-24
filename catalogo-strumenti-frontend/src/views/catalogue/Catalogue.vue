@@ -2,7 +2,7 @@
   <div>
     <!-- 1 -->
     <div v-if="stateform == FormState.GSBPM_INIT">
-      <CTitle title="GSBPM" />
+      <CTitle title="GSBPM - Generic Statistical Business Process Model"  />
       <div class="row">
         <div v-for="item of gsbpmList" :key="item.id" class="col-3">
           <div class="center text-info mt-2 mb-2">
@@ -163,19 +163,13 @@ export default {
       this.stateform = this.FormState.GSBPM_NEXT;
     },
   },
-  /*
-  mounted() {
-    if (this.$route.params.cataloguePage == 2) {
-    }
-  },
-  */
   created() {
-    if (this.$route.params.cataloguePage == 2) {
-      this.stateform = this.FormState.GSBPM_NEXT;
-      this.handleGSBPM(this.$route.params.gsbpm);
-    } else {
+    //if (this.$route.params.cataloguePage == 2) {
+    //  this.stateform = this.FormState.GSBPM_NEXT;
+    //  this.handleGSBPM(this.$route.params.gsbpm);
+    //} else {
       this.stateform = this.FormState.GSBPM_INIT;
-    }
+    //}
     this.$store.dispatch("coreui/setContext", Context.Home);
     this.$store.dispatch("gsbpm/findAll");
   },
