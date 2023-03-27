@@ -60,46 +60,54 @@
         @handleNew="showNewProcessDesign"
       />
 
-      <div v-if="bPStepLocal.processDesigns.length > 0" >
+      <div v-if="bPStepLocal.processDesigns.length > 0">
         <div v-for="item of getProcessDesignsList()" :key="item.id">
-          
-
-          <div class="card">           
-            <div class="card-header no-border">
-            <h5>
-              <div class="text-info float-left">
-                {{
-                  item.nr +
-                  "-" +
-                  item.processDesignId +
-                  "-" +
-                  item.processDesignDescription
-                }}
-              </div>
-              <div class="text-info float-right">
-                <CTableLink
-                  :authenticated="isAuthenticated"
-                  @handleView="handleView(item)"
-                  @handleEdit="handleEdit(item)"
-                  @handleDelete="handleOpenModalDelete(item)"
-                />
-              </div>
-            </h5>
-          </div>
-              <CDataTable
-                v-if="bPStepLocal"
-                :items="getDesignSpecificationList(item)"
-                :items-per-page="5"
-                :fields="fieldsDesignSpecification"
-                hover
-                pagination
-                class="p-0"
-              ></CDataTable>
-          
+          <div class="card">
+            <div class="card-header no-border m-0">
+              <h5>
+                <div class="text-info float-left">
+                  {{
+                    item.nr +
+                    "-" +
+                    item.processDesignId +
+                    "-" +
+                    item.processDesignDescription
+                  }}
+                </div>
+                <div class="text-info float-right">
+                  <CTableLink
+                    :authenticated="isAuthenticated"
+                    @handleView="showViewProcessDesign(item)"
+                    @handleEdit="showEditProcessDesign(item)"
+                    @handleDelete="handleOpenModalDelete(item)"
+                  />
+                </div>
+              </h5>
+            </div>
+            <CDataTable
+              v-if="bPStepLocal"
+              :items="getDesignSpecificationList(item)"
+              :items-per-page="5"
+              :fields="fieldsDesignSpecification"
+              hover
+              pagination
+              class="p-0"
+            ></CDataTable>
           </div>
         </div>
       </div>
       <div v-else>Non sono presenti process design</div>
+    </div>
+    <!-- 
+        View Process Design
+    -->
+    <div v-if="stateform == FormState.PROCESS_DESIGN_VIEW">
+      <CBusinessProcessDesignView
+        :bProcessStep="bPStepLocal"
+        :bProcessDesign="selectedProcessDesign"
+        @enableNewProcessDesign="handleSubmitViewProcessDesign"
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
     </div>
     <!-- 
         New Process Design
@@ -127,6 +135,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import CBusinessProcessDesignView from "@/components/businessProcess/CBusinessProcessDesignView";
 import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
 import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
 import CTableLink from "@/components/CTableLink.vue";
@@ -137,6 +146,7 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessStepEdit",
   components: {
+    CBusinessProcessDesignView,
     CBusinessProcessDesignNew,
     CBusinessProcessDesignEdit,
     CTableLink,
@@ -146,45 +156,7 @@ export default {
 
   data() {
     return {
-      designTypeLocal: [],
-      /*
-      columns: [
-        {
-          key: "name",
-          _style: { width: "50%" },
-        },
-        {
-          key: "role",
-          _style: { width: "50%" },
-          filter: (values, onChange) => {
-            const unique = [...new Set(values)].sort();
-            return (
-              <CMultiSelect
-                size="sm"
-                onChange={(selected) => {
-                  const _selected = selected.map((element) => {
-                    return element.value;
-                  });
-                  onChange((item) => {
-                    return Array.isArray(_selected) && _selected.length
-                      ? _selected.includes(item.toLowerCase())
-                      : true;
-                  });
-                }}
-                options={unique.map((element) => {
-                  return {
-                    value: element.toLowerCase(),
-                    text: element,
-                  };
-                })}
-              />
-            );
-          },
-          sorter: false,
-        },
-      ],
-      */
-
+      designTypeLocal: {},
       fieldsDesignSpecification: [
         /*
         {
@@ -230,7 +202,6 @@ export default {
         label: "",
         description: "",
       },
-
       bPStepLocal: {
         index: "",
         name: "",
@@ -260,12 +231,11 @@ export default {
           },
         ],
       },
-
+      designTypeSelected: {},
       selectedProcessDesign: {},
-      states: [],
-
       FormState: {
         STEP_EDIT: 4,
+        PROCESS_DESIGN_VIEW: 5,
         PROCESS_DESIGN_ADD: 6,
         PROCESS_DESIGN_EDIT: 7,
         PROCESS_DESIGN_NEW: 8,
@@ -286,9 +256,9 @@ export default {
       default: () => {},
     },
     bDesignType: {
-      type: Object,
+      type: Array,
       required: true,
-      default: () => {},
+      default: () => [],
     },
   },
   methods: {
@@ -333,6 +303,10 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
+    showViewProcessDesign(processDesign) {
+      this.selectedProcessDesign = processDesign;
+      this.stateform = this.FormState.PROCESS_DESIGN_VIEW;
+    },
     showNewProcessDesign() {
       this.selectedProcessDesign = {};
       this.stateform = this.FormState.PROCESS_DESIGN_NEW;
@@ -353,6 +327,14 @@ export default {
       });
       */
     },
+    handleSubmitViewProcessDesign() {
+      console.log("funzione di update non attiva!");
+      alert("funzione di update non attiva!");
+      /*this.$store.dispatch(".../update", this.Local).then(() => {
+        this.load();
+      });
+      */
+    },
     enableBack() {
       this.$emit("enableBack");
     },
@@ -365,22 +347,6 @@ export default {
       this.bPStepLocalToSave.label = this.bPStepLocal.label;
       this.bPStepLocalToSave.description = this.bPStepLocal.description;
       this.$store.dispatch("procStep/update", this.bPStepLocalToSave); //.then(() => {  alert(this.bPStepLocal())});
-    },
-    handleView(item) {
-      console.log(item);
-      alert("funzione di update process step non attiva!");
-      //this.$router.push({ name: "xxxDetails", params: { id: item.id } });
-    },
-    handleEdit(item) {
-      console.log(item);
-      alert("funzione di update process step non attiva!");
-      //this.$router.push({ name: "xxxEdit", params: { id: item.id } });
-    },
-    handleDelete(item) {
-      console.log(item);
-      alert("funzione di update process step non attiva!");
-      //this.$store.dispatch("xxx/delete", this.selectedTool.id);
-      //this.showModal = false;
     },
     getDesignType(id) {
       console.log(this.designTypeLocal);
