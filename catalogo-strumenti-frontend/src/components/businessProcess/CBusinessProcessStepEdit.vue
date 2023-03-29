@@ -61,38 +61,64 @@
       />
 
       <div v-if="bPStepLocal.processDesigns.length > 0">
-        <div v-for="item of getProcessDesignsList()" :key="item.id">
+        <div
+          v-for="iProcessDesigns of getProcessDesignsList()"
+          :key="iProcessDesigns.processDesignId"
+        >
           <div class="card">
             <div class="card-header no-border m-0">
               <h5>
                 <div class="text-info float-left">
-                  {{
-                    item.nr +
-                    "-" +
-                    item.processDesignId +
-                    "-" +
-                    item.processDesignDescription
-                  }}
+                  {{ iProcessDesigns.processDesignId }}
                 </div>
-                <div class="text-info float-right">
-                  <CTableLink
-                    :authenticated="isAuthenticated"
-                    @handleView="showViewProcessDesign(item)"
-                    @handleEdit="showEditProcessDesign(item)"
-                    @handleDelete="handleOpenModalDelete(item)"
-                  />
-                </div>
+                <div class="text-info float-right"></div>
               </h5>
             </div>
             <CDataTable
               v-if="bPStepLocal"
-              :items="getDesignSpecificationList(item)"
+              :items="getDesignSpecificationList(iProcessDesigns)"
               :items-per-page="5"
               :fields="fieldsDesignSpecification"
               hover
               pagination
               class="p-0"
-            ></CDataTable>
+            >
+              <template #designType_Tipo_IO="{ item }">
+                <td>
+                  {{ item.designType_Tipo_IO.type }}
+                </td>
+              </template>
+              <template #designType_Dati_IO="{ item }">
+                <td>
+                  {{ item.designType_Dati_IO.type }}
+                </td>
+              </template>
+              <template #informationObjectId="{ item }">
+                <td>
+                  {{ item.informationObject.id }}
+                </td>
+              </template>
+              <template #informationObjectName="{ item }">
+                <td>
+                  {{ item.informationObject.name }}
+                </td>
+              </template>
+              <template #informationObjectDescription="{ item }">
+                <td>
+                  {{ item.informationObject.description }}
+                </td>
+              </template>
+
+
+
+              <template #show_details="{ item }">
+                <CTableLink
+                  :authenticated="isAuthenticated"
+                  @handleView="showViewProcessDesign(iProcessDesigns, item)"
+                  @handleEdit="showEditProcessDesign(item)"
+                  @handleDelete="handleOpenModalDelete(item)"
+              /></template>
+            </CDataTable>
           </div>
         </div>
       </div>
@@ -105,6 +131,7 @@
       <CBusinessProcessDesignView
         :bProcessStep="bPStepLocal"
         :bProcessDesign="selectedProcessDesign"
+        :bProcessDesignSpecification="selectedProcessDesignSpecification"
         @enableNewProcessDesign="handleSubmitViewProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
@@ -158,43 +185,44 @@ export default {
     return {
       designTypeLocal: {},
       fieldsDesignSpecification: [
-        /*
         {
-          key: "processSpecificationId",
+          key: "id",
           label: "ID ",
           _style: "width:auto;",
         },
-        */
         {
-          key: "designTypeParent",
+          key: "designType_Tipo_IO",
           label: "Tipo I/O",
           _style: "width:auto;",
         },
 
         {
-          key: "designTypeType",
+          key: "designType_Dati_IO",
           label: "Dati I/O",
           _style: "width:auto;",
         },
-        /*
         {
           key: "informationObjectId",
-          label: "informationObject ID",
+          label: "information Object ID",
           _style: "width:auto;",
         },
-        */
         {
           key: "informationObjectName",
           label: "Information Object Name",
           _style: "width:auto;",
         },
-        /*
         {
           key: "informationObjectDescription",
           label: " information Object Description",
           _style: "width:20%;",
         },
-        */
+        {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
+        },
       ],
       bPStepLocalToSave: {
         index: "",
@@ -233,6 +261,8 @@ export default {
       },
       designTypeSelected: {},
       selectedProcessDesign: {},
+      selectedProcessDesignSpecification: {},
+
       FormState: {
         STEP_EDIT: 4,
         PROCESS_DESIGN_VIEW: 5,
@@ -264,11 +294,10 @@ export default {
   methods: {
     getProcessDesignsList: function () {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
-        return this.bPStepLocal.processDesigns.map((processDesign, index) => {
+        return this.bPStepLocal.processDesigns.map((processDesign) => {
           return {
-            nr: index + 1,
             processDesignId: processDesign.id,
-            processDesignDescription: processDesign.descr,
+            processDesignDescription: processDesign.description,
             processSpecification: processDesign.processSpecification,
           };
         });
@@ -277,34 +306,40 @@ export default {
       }
     },
     getDesignSpecificationList: function (processDesign) {
-      return processDesign.processSpecification.map(
-        (processSpecification, index) => {
-          return {
-            nr: index + 1,
-            processSpecificationId: processSpecification.id,
-
-            designTypeParent:
+      return processDesign.processSpecification.map((processSpecification) => {
+        return {
+          id: processSpecification.id,
+          designType_Tipo_IO: {
+            id: processSpecification.designType.id,
+            type:
               processSpecification.designType.parent == null
                 ? processSpecification.designType.type
                 : this.getDesignType(processSpecification.designType.parent),
-            designTypeType:
+            parent: processSpecification.designType.parent,
+          },
+          designType_Dati_IO: {
+            id: processSpecification.designType.id,
+            type:
               processSpecification.designType.parent == null
                 ? ""
                 : processSpecification.designType.type,
-            informationObjectId: processSpecification.informationObject.id,
-            informationObjectName: processSpecification.informationObject.name,
-            informationObjectDescription:
-              processSpecification.informationObject.descr,
-          };
-        }
-      );
+            parent: processSpecification.designType.parent,
+          },
+          informationObject: {
+            id: processSpecification.informationObject.id,
+            name: processSpecification.informationObject.name,
+            description: processSpecification.informationObject.descr,
+          },
+        };
+      });
     },
     showEditProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-    showViewProcessDesign(processDesign) {
+    showViewProcessDesign(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
+      this.selectedProcessDesignSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_DESIGN_VIEW;
     },
     showNewProcessDesign() {

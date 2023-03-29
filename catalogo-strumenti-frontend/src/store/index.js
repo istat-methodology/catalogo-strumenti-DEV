@@ -28,6 +28,7 @@ import { stepinstance } from "./modules/stepinstance/stepInstanceService"
 import { linkedagent } from "./modules/linkedAgent/linkedAgentTools"
 import { businessService } from "./modules/service/businessService"
 import { procStep } from "./modules/processSteps/processSteps"
+import { processSpecification } from "./modules/processSpecification/processSpecification"
 import { bProcess } from "./modules/businessProcesses/businessProcesses"
 import { designtypes } from "./modules/designtype/designtype"
 
@@ -53,6 +54,7 @@ export default new Vuex.Store({
     businessService,
     documentationType,
     procStep,
+    processSpecification,
     bProcess,
     designtypes,
     /* 

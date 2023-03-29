@@ -1,10 +1,8 @@
 <template>
-  <div>
+  <div v-if="designtypebyparentList">
     <CTitle
       :title="
         'View Process Design (' +
-        bProcessDesignLocal.nr +
-        '.' +
         bProcessDesignLocal.processDesignId +
         ') del process step ' +
         bProcessStep.name +
@@ -19,119 +17,78 @@
       @handleSubmit="handleSubmit"
       @handleBack="handleBack"
     />
-
-    <Label>Process Design</Label>
+    <div class="row">
+      <Label
+        >Process Specification
+        <span>({{ bProcessDesignSpecificationLocal.id }})</span></Label
+      >
+    </div>
     <CCard>
       <CCardBody>
-        <div class="row">
-          <CInput
-            class="col-1"
-            label="index"
-            placeholder="index"
-            v-model="bProcessDesignLocal.nr"
-          />
-          <CInput
-            class="col-1"
-            label="id"
-            placeholder="id"
-            v-model="bProcessDesignLocal.processDesignId"
-          />
-          <CTextarea
-            class="col-10"
-            label="Description"
-            placeholder="process designs description"
-            v-model="bProcessDesignLocal.processDesignDescription"
-          />
-        </div>
-      </CCardBody>
-    </CCard>
-    <Label>Process Specification</Label>
-
-    <CCard>
-      <CCardBody>
-        <div class="row">
-          <CInput
-            class="col-2"
-            label="id"
-            placeholder="id"
-            v-model="bProcessDesignLocal.processSpecification.id"
-          />
-        </div>
-      </CCardBody>
-    </CCard>
-
-    <div
-      v-for="item of bProcessDesignLocal.processSpecification"
-      :key="item.id"
-    >
-    <Label>Design Type</Label>
-      <CCard>
-        <CCardBody>
+        <Label>Design Type</Label>
+        <div class="col-12">
           <div class="row">
-            <CInput
-              class="col-2"
-              label="id"
-              placeholder="id"
-              v-model="item.designType.id"
-            />
-            <div class="form-group col-5" role="group">
-              <label class="col-12">Dati I/O</label>
-              <v-select
-                label="type"
-                class="col-12 p-0"
-                :options="designtypeList"
-                placeholder="type"
-                v-model="item.designType.type"
-                @input="changeProcessDesignType"
-              ></v-select>
-            </div>
             <div class="form-group col-5" role="group">
               <label class="col-12">Tipo I/O</label>
               <v-select
                 label="type"
+                name="type"
+                class="col-12 p-0"
+                :options="designtypeList"
+                placeholder="I/O Type"
+                v-model="bProcessDesignSpecificationLocal.designType_Tipo_IO"
+                @input="changeDesignTypeListByParent($event)"
+              ></v-select>
+            </div>
+            <div class="form-group col-5" role="group">
+              <label class="col-12">Dati I/O</label>
+              <v-select
+                label="type"
+                name="type"
                 class="col-12 p-0"
                 :options="designtypebyparentList"
-                placeholder="type"
-                v-model="designTypeSelected"
+                placeholder="I/O Data"
+                v-model="bProcessDesignSpecificationLocal.designType_Dati_IO"
               ></v-select>
             </div>
           </div>
-        </CCardBody>
-      </CCard>
-      <Label>information Object</Label>
-      <CCard>
-        <CCardBody>
+
           <div class="row">
-            <CInput
-              class="col-2"
-              label="id"
-              placeholder="id"
-              v-model="item.informationObject.id"
-            />
-            <CInput
-              class="col-8"
-              label="name"
-              placeholder="name"
-              v-model="item.informationObject.name"
-            />
-            <!--CInput
-              class="col-2"
-              label="csmAppRoleId"
-              placeholder="csmAppRoleId"
-              v-model="
-                item.informationObject.csmAppRole.id
-              "
-            /-->
-            <CTextarea
-              class="col-12"
-              label="description"
-              placeholder="description"
-              v-model="item.informationObject.description"
-            />
+            <Label class="col-12">information Object</Label>
+            <div class="row">
+              <CInput
+                class="col-2"
+                label="id"
+                placeholder="id"
+                v-model="bProcessDesignSpecificationLocal.informationObject.id"
+              />
+              <CInput
+                class="col-8"
+                label="name"
+                placeholder="name"
+                v-model="
+                  bProcessDesignSpecificationLocal.informationObject.name
+                "
+              />
+              <!--CInput
+                class="col-2"
+                label="csmAppRoleId"
+                placeholder="csmAppRoleId"
+                v-model="bProcessDesignSpecificationLocal.informationObject.csmAppRole.id"
+              /-->
+              <CTextarea
+                class="col-12"
+                label="description"
+                placeholder="description"
+                v-model="
+                  bProcessDesignSpecificationLocal.informationObject.description
+                "
+              />
+            </div>
           </div>
-        </CCardBody>
-      </CCard>
-    </div>
+        </div>
+      </CCardBody>
+    </CCard>
   </div>
 </template>
 <script>
@@ -144,17 +101,46 @@ export default {
   },
   data() {
     return {
-      bProcessDesignLocal: {},      
-      designTypeSelected: { type: "" },
+      bProcessDesignLocal: {},
+      bProcessDesignSpecificationLocal: {},
+      designTypeParentSelected: {
+        id: "",
+        type: "",
+        parent: "",
+      },
+      designTypeSelected: {
+        id: "",
+        type: "",
+        parent: "",
+      },
+      processSpecificationLocal: {
+        id: "",
+        processDesign: {
+          id: "",
+          descr: "",
+        },
+        designType: {
+          id: "",
+          type: "",
+          parent: "",
+        },
+        informationObject: {
+          id: "",
+          name: "",
+          descr: "",
+          csmAppRoleId: "",
+          businessService: {
+            id: "",
+            name: "",
+            descr: "",
+          },
+        },
+      },
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", [
-      "designtype",
-      "designtypeList",
-      "designtypebyparentList",
-    ]),
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
   },
   //emits: ["enableEditProcessDesign"],
   props: {
@@ -168,6 +154,11 @@ export default {
       required: true,
       default: () => {},
     },
+    bProcessDesignSpecification: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
   },
   methods: {
     handleSubmit() {
@@ -177,17 +168,25 @@ export default {
     handleBack() {
       this.$emit("enableBack");
     },
-    changeProcessDesignType(value) {
-      this.bProcessDesignLocal.designType_id = value.id;
-      this.$store.dispatch(
-        "designtypes/findByParent",
-        this.bProcessDesignLocal.designType_id
-      );
+    changeDesignTypeListByParent(value) {
+      this.$store.dispatch("designtypes/findByParent", value.id);
     },
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
+    this.bProcessDesignSpecificationLocal = this.bProcessDesignSpecification;
     this.$store.dispatch("designtypes/findAll");
+    this.$store.dispatch("designtypes/findByParent",this.bProcessDesignSpecificationLocal.designType_Tipo_IO.id);
+    /*
+    this.$store
+      .dispatch(
+        "designtypes/findByParent",
+        this.bProcessDesignSpecificationLocal.designType_Tipo_IO.id
+      )
+      .then(() => {
+        console.log(this.designtypebyparentList);
+      });
+    */
   },
 };
 </script>
@@ -244,3 +243,4 @@ body {
   }
 }
 </style>
+

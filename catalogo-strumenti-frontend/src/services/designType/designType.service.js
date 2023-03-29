@@ -27,3 +27,4 @@ export const designtypeService = new DesignTypeService(  "/catalog/design-types"
 export const designtypeopenService = new DesignTypeService( "/catalog/open/design-types" )
 export const designtypebyparentService = new DesignTypeService("/catalog/design-types-by-parent" )
 export const designtypebyparentopenService = new DesignTypeService("/catalog/open/design-types-by-parent" )
+
