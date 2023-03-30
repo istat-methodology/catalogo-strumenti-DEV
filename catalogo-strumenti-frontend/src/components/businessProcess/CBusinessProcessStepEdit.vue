@@ -67,12 +67,23 @@
         >
           <div class="card">
             <div class="card-header no-border m-0">
-              <h5>
+              <!--h5>
                 <div class="text-info float-left">
                   {{ iProcessDesigns.processDesignId }}
                 </div>
-                <div class="text-info float-right"></div>
-              </h5>
+                <div class="text-info float-right">
+                </div>
+              </h5-->
+             
+              <CTitle
+                :title="iProcessDesigns.processDesignId"
+                buttonTitle=" nuovo Process Specification "
+                functionality=""
+                :authenticated="isAuthenticated"
+                :buttons="['aggiungi']"
+                @handleNew="showNewProcessDesign"
+              />
+             
             </div>
             <CDataTable
               v-if="bPStepLocal"
@@ -113,8 +124,8 @@
                 <CTableLink
                   :authenticated="isAuthenticated"
                   @handleView="showViewProcessDesign(iProcessDesigns, item)"
-                  @handleEdit="showEditProcessDesign(item)"
-                  @handleDelete="handleOpenModalDelete(item)"
+                  @handleEdit="showEditProcessDesign(iProcessDesigns, item)"
+                  @handleDelete="handleOpenModalDelete(iProcessDesigns, item)"
               /></template>
             </CDataTable>
           </div>
@@ -141,6 +152,7 @@
       <CBusinessProcessDesignNew
         :bProcessStep="bPStepLocal"
         :bProcessDesign="selectedProcessDesign"
+        :bProcessDesignSpecification="selectedProcessDesignSpecification"
         @enableNewProcessDesign="handleSubmitNewProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
@@ -152,6 +164,7 @@
       <CBusinessProcessDesignEdit
         :bProcessStep="bPStepLocal"
         :bProcessDesign="selectedProcessDesign"
+        :bProcessDesignSpecification="selectedProcessDesignSpecification"
         @enableEditProcessDesign="handleSubmitEditProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
@@ -176,7 +189,7 @@ export default {
     CBusinessProcessDesignEdit,
     CTableLink,
     //  CModalDelete,
-    CTitle
+    CTitle,
   },
 
   data() {
@@ -186,47 +199,47 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       bPStepLocalToSave: {
         index: "",
         name: "",
         label: "",
-        description: ""
+        description: "",
       },
       bPStepLocal: {
         index: "",
@@ -245,17 +258,17 @@ export default {
               designType: {
                 id: "",
                 type: "",
-                parent: ""
+                parent: "",
               },
               informationObject: {
                 id: "",
                 name: "",
                 descr: "",
-                csmAppRoleId: ""
-              }
-            }
-          }
-        ]
+                csmAppRoleId: "",
+              },
+            },
+          },
+        ],
       },
       designTypeSelected: {},
       selectedProcessDesign: {},
@@ -266,56 +279,56 @@ export default {
         PROCESS_DESIGN_VIEW: 5,
         PROCESS_DESIGN_ADD: 6,
         PROCESS_DESIGN_EDIT: 7,
-        PROCESS_DESIGN_NEW: 8
+        PROCESS_DESIGN_NEW: 8,
       },
       stateform: 4,
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList"])
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
   emits: ["enableBack", "enableEditDesignProcess", "enableNewDesignProcess"],
   props: {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bDesignType: {
       type: Array,
       required: true,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   methods: {
-    getProcessDesignsList: function() {
+    getProcessDesignsList: function () {
       if (this.bPStepLocal && this.bPStepLocal.processDesigns.length > 0) {
-        return this.bPStepLocal.processDesigns.map(processDesign => {
+        return this.bPStepLocal.processDesigns.map((processDesign) => {
           return {
             processDesignId: processDesign.id,
             processDesignDescription: processDesign.description,
-            processSpecification: processDesign.processSpecification
+            processSpecification: processDesign.processSpecification,
           };
         });
       } else {
         return [];
       }
     },
-    getDesignSpecificationList: function(processDesign) {
-      return processDesign.processSpecification.map(processSpecification => {
+    getDesignSpecificationList: function (processDesign) {
+      return processDesign.processSpecification.map((processSpecification) => {
         return {
           id: processSpecification.id,
           designType_Tipo_IO: {
-            id: processSpecification.designType.parent == null
+            id:
+              processSpecification.designType.parent == null
                 ? processSpecification.designType.id
                 : processSpecification.designType.parent,
             type:
               processSpecification.designType.parent == null
                 ? processSpecification.designType.type
                 : this.getDesignType(processSpecification.designType.parent),
-            
           },
           designType_Dati_IO: {
             id:
@@ -325,18 +338,19 @@ export default {
             type:
               processSpecification.designType.parent == null
                 ? ""
-                : processSpecification.designType.type
+                : processSpecification.designType.type,
           },
           informationObject: {
             id: processSpecification.informationObject.id,
             name: processSpecification.informationObject.name,
-            description: processSpecification.informationObject.descr
-          }
+            description: processSpecification.informationObject.descr,
+          },
         };
       });
     },
-    showEditProcessDesign(processDesign) {
+    showEditProcessDesign(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
+      this.selectedProcessDesignSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
     showViewProcessDesign(processDesign, processDesignSpecification) {
@@ -344,9 +358,13 @@ export default {
       this.selectedProcessDesignSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_DESIGN_VIEW;
     },
-    showNewProcessDesign() {
-      this.selectedProcessDesign = {};
+    showNewProcessDesign(processDesign, processDesignSpecification) {
+      this.selectedProcessDesign = processDesign;
+      this.selectedProcessDesignSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_DESIGN_NEW;
+    },
+    handleAddProcessSpecification() {
+      alert("funzione non disponibile");
     },
     handleSubmitNewProcessDesign() {
       console.log("funzione di insert non attiva!");
@@ -390,15 +408,12 @@ export default {
       var dt = this.designTypeLocal[id];
       console.log(dt);
       return dt;
-    }
+    },
   },
   created() {
     this.bPStepLocal = this.bPStep;
     this.designTypeLocal = _.map(this.bDesignType, "type");
-
-
-
-  }
+  },
 };
 </script>
 <style scoped>

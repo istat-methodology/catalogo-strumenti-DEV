@@ -13,8 +13,7 @@
       buttonTitle="view process design "
       functionality=""
       :authenticated="isAuthenticated"
-      :buttons="['salva', 'indietro']"
-      @handleSubmit="handleSubmit"
+      :buttons="['indietro']"
       @handleBack="handleBack"
     />
     <div class="row">
@@ -24,13 +23,15 @@
       >
     </div>
     <CCard v-if="designtypebyparentList">
-      <CCardBody>
-        <Label>Design Type ()</Label>
+      <CCardBody  >
         <div class="col-12">
+          <div class="row mt-1">
+            <Label>Design Type</Label>
+          </div>
           <div class="row">
-            <div class="form-group col-5" role="group">
+            <div class="form-group col-6" role="group">
               <label class="col-12">Tipo I/O</label>
-              <select
+              <select disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
                 v-model="bProcessDesignSpecification.designType_Tipo_IO.id"
@@ -39,19 +40,18 @@
                   v-for="option in designtypeList"
                   v-bind:value="option.id"
                   :key="option.id"
-                  
                 >
                   {{ option.type }}
                 </option>
               </select>
             </div>
-            <div class="form-group col-5" role="group">
+            <div class="form-group col-6" role="group">
               <label class="col-12">Dati I/O</label>
-              <select
+              <select disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="onChangeDesignType_Data_IO($event)"
                 v-model="bProcessDesignSpecification.designType_Dati_IO.id"
-                >
+              >
                 <option
                   v-for="option in designtypebyparentList"
                   v-bind:value="option.id"
@@ -62,38 +62,38 @@
               </select>
             </div>
           </div>
+          <div class="row mt-4">
+            <Label>Information Object</Label>
+          </div>
           <div class="row">
-            <Label class="col-12">Information Object</Label>
-            <div class="row">
-              <CInput
-                class="col-2"
-                label="id"
-                placeholder="id"
-                v-model="bProcessDesignSpecificationLocal.informationObject.id"
-              />
-              <CInput
-                class="col-8"
-                label="name"
-                placeholder="name"
-                v-model="
-                  bProcessDesignSpecificationLocal.informationObject.name
-                "
-              />
-              <!--CInput
+            <CInput disabled
+              class="col-2"
+              label="id"
+              placeholder="id"
+              v-model="bProcessDesignSpecificationLocal.informationObject.id"
+            />
+            <CInput disabled
+              class="col-10"
+              label="name"
+              placeholder="name"
+              v-model="bProcessDesignSpecificationLocal.informationObject.name"
+            />
+            <!--CInput
                 class="col-2"
                 label="csmAppRoleId"
                 placeholder="csmAppRoleId"
                 v-model="bProcessDesignSpecificationLocal.informationObject.csmAppRole.id"
               /-->
-              <CTextarea
-                class="col-12"
-                label="description"
-                placeholder="description"
-                v-model="
-                  bProcessDesignSpecificationLocal.informationObject.description
-                "
-              />
-            </div>
+          </div>
+          <div class="row">
+            <CTextarea disabled
+              class="col-12"
+              label="description"
+              placeholder="description"
+              v-model="
+                bProcessDesignSpecificationLocal.informationObject.description
+              "
+            />
           </div>
         </div>
       </CCardBody>
@@ -160,10 +160,6 @@ export default {
     },
   },
   methods: {
-    handleSubmit() {
-      //this.bProcessDesign = this.bProcessDesignLocal
-      this.$emit("enableEditProcessDesign", this.bProcessDesignLocal);
-    },
     handleBack() {
       this.$emit("enableBack");
     },
