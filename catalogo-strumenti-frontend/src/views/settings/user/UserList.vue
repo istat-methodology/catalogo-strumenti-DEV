@@ -13,7 +13,8 @@
             :items-per-page="5"
             hover
             sorter
-            pagination>
+            pagination
+          >
             <template #show_update="{ item }">
               <td class="py-2">
                 <CButton
@@ -60,8 +61,8 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
-import { Context } from "@/common"
+import { mapGetters } from "vuex";
+import { Context } from "@/common";
 export default {
   name: "UserList",
   data() {
@@ -93,7 +94,7 @@ export default {
           filter: false
         }
       ]
-    }
+    };
   },
   computed: {
     ...mapGetters("user", ["users"])
@@ -105,7 +106,7 @@ export default {
       this.$router.push({
         name: "UserDelete",
         params: { id }
-      })
+      });
     },
     userEdit(id) {
       //this.$router.push("/settings/users/UserEdit/" + id);
@@ -113,7 +114,7 @@ export default {
       this.$router.push({
         name: "UserEdit",
         params: { id }
-      })
+      });
     },
     userChangePassword(id) {
       //this.$router.push("/settings/users/UserEdit/" + id);
@@ -121,18 +122,18 @@ export default {
       this.$router.push({
         name: "UserPassReset",
         params: { id }
-      })
+      });
     },
     userAdd() {
       this.$router.push({
         name: "UserAdd"
-      })
+      });
     }
   },
   created() {
-    this.$store.dispatch("user/findAll")
-    this.$store.dispatch("role/findAll")
-    this.$store.dispatch("coreui/setContext", Context.Home)
+    this.$store.dispatch("user/findAll");
+    this.$store.dispatch("role/findAll");
+    this.$store.dispatch("coreui/setContext", Context.Home);
   }
-}
+};
 </script>

@@ -2,7 +2,7 @@
   <div>
     <!-- 1 -->
     <div v-if="stateform == FormState.GSBPM_INIT">
-      <CTitle title="GSBPM - Generic Statistical Business Process Model"  />
+      <CTitle title="GSBPM - Generic Statistical Business Process Model" />
       <div class="row">
         <div v-for="item of gsbpmList" :key="item.id" class="col-3">
           <div class="center text-info mt-2 mb-2">
@@ -53,7 +53,7 @@
                   tag="a"
                   :to="{
                     name: 'ToolList',
-                    params: { gsbpm: this.gsbpmSelected },
+                    params: { gsbpm: this.gsbpmSelected }
                   }"
                   ><span>Vai alla lista <chevron-right-icon /></span>
                 </router-link>
@@ -71,7 +71,7 @@
                   tag="a"
                   :to="{
                     name: 'BusinessFunctionsList',
-                    params: { gsbpm: this.gsbpmSelected },
+                    params: { gsbpm: this.gsbpmSelected }
                   }"
                 >
                   <span>Vai alla lista <chevron-right-icon /></span>
@@ -98,17 +98,17 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "tooltype",
           label: "Tipologia",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "gsbpm",
           label: "Fasi Gsbpm",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         /*
         {
@@ -120,33 +120,33 @@ export default {
         {
           key: "description",
           label: "Descrizione",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedTool: {},
       showModal: false,
       FormState: {
         GSBPM_INIT: 0,
-        GSBPM_NEXT: 1,
+        GSBPM_NEXT: 1
       },
       stateform: 0,
       gsbpmSelected: "",
       titleGSBPM_INIT: "",
-      titleGSBPM_NEXT: "",
+      titleGSBPM_NEXT: ""
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("coreui", ["isLoading"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
-    ...mapGetters("filter", ["params"]),
+    ...mapGetters("filter", ["params"])
   },
   methods: {
     handleOpenModalDelete(app) {
@@ -161,18 +161,18 @@ export default {
       this.gsbpmSelected = item;
       this.titleGSBPM_NEXT = "GSBPM: " + item.code + "-" + item.name;
       this.stateform = this.FormState.GSBPM_NEXT;
-    },
+    }
   },
   created() {
     //if (this.$route.params.cataloguePage == 2) {
     //  this.stateform = this.FormState.GSBPM_NEXT;
     //  this.handleGSBPM(this.$route.params.gsbpm);
     //} else {
-      this.stateform = this.FormState.GSBPM_INIT;
+    this.stateform = this.FormState.GSBPM_INIT;
     //}
     this.$store.dispatch("coreui/setContext", Context.Home);
     this.$store.dispatch("gsbpm/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
@@ -212,4 +212,3 @@ export default {
   font-style: weight;
 }
 </style>
-

@@ -29,7 +29,7 @@
                   tag="a"
                   :to="{
                     name: 'BusinessFunctionsDetails',
-                    params: { id: item.id },
+                    params: { id: item.id }
                   }"
                 >
                   <view-icon />
@@ -40,7 +40,7 @@
                   tag="a"
                   :to="{
                     name: 'BusinessFunctionsEdit',
-                    params: { id: item.id },
+                    params: { id: item.id }
                   }"
                 >
                   <edit-icon />
@@ -82,7 +82,7 @@
   </div>
 </template>
 
-<script >
+<script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 export default {
@@ -98,28 +98,28 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:60%;",
+          _style: "width:60%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "gsbpm",
           label: "Gsbpm",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedBusiness: {},
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
@@ -141,9 +141,9 @@ export default {
         });
       });
     } */
-    getBusinessFunctionList: function () {
+    getBusinessFunctionList: function() {
       if (this.bFunctionList) {
-        return this.bFunctionList.map((business) => {
+        return this.bFunctionList.map(business => {
           return {
             id: business.id,
             name: business.name == null ? "" : business.name,
@@ -153,16 +153,16 @@ export default {
               business.gsbpmProcesses == null
                 ? ""
                 : business.gsbpmProcesses
-                    .map((gsbpmProcess) => {
+                    .map(gsbpmProcess => {
                       return gsbpmProcess.code + " " + gsbpmProcess.name;
                     })
-                    .join(", "),
+                    .join(", ")
           };
         });
       } else {
         return [];
       }
-    },
+    }
   },
 
   methods: {
@@ -178,7 +178,7 @@ export default {
     },
     modalClose() {
       this.warningModal = false;
-    },
+    }
   },
   created() {
     this.$store
@@ -188,6 +188,6 @@ export default {
     this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
     //this.$store.dispatch("business/findAll");
     // }
-  },
+  }
 };
 </script>

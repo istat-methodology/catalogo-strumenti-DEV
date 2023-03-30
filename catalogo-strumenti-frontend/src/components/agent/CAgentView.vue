@@ -15,7 +15,8 @@
           <div
             class="card col-md-3"
             v-for="linkedAgent of linkedAgents"
-            :key="linkedAgent.id">
+            :key="linkedAgent.id"
+          >
             <div class="card-header">
               {{ linkedAgent.agentName }}
               <div class="card-header-actions">
@@ -24,7 +25,8 @@
                   :to="{
                     name: 'AgentDetails',
                     params: { id: linkedAgent.agentId }
-                  }">
+                  }"
+                >
                   <view-icon />
                 </router-link>
               </div>
@@ -68,7 +70,7 @@ export default {
       default: () => []
     }
   }
-}
+};
 </script>
 <style scoped>
 * {

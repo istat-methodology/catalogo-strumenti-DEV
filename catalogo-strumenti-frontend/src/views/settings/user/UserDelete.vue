@@ -8,7 +8,8 @@
             tag="a"
             :to="{
               name: 'UserList'
-            }">
+            }"
+          >
             <span class="pl-1"
               ><users-icon class="pr-3" />back to user list</span
             >
@@ -26,7 +27,8 @@
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               v-model="user.name"
-              readonly />
+              readonly
+            />
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -39,7 +41,8 @@
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               v-model="user.surname"
-              readonly />
+              readonly
+            />
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -52,7 +55,8 @@
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               v-model="user.email"
-              readonly />
+              readonly
+            />
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -67,7 +71,8 @@
               :options="roles"
               placeholder="role"
               v-model="user.role"
-              v-bind:class="{ disabled: true }"></v-select>
+              v-bind:class="{ disabled: true }"
+            ></v-select>
           </div>
 
           <div class="card-footer">
@@ -92,27 +97,27 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 export default {
   name: "UserDelete",
   data() {
     return {
       submitStatus: null
-    }
+    };
   },
   computed: {
     ...mapGetters("user", ["user"]),
     ...mapGetters("role", ["roles"])
   },
   created() {
-    this.$store.dispatch("user/findById", this.$route.params.id)
+    this.$store.dispatch("user/findById", this.$route.params.id);
   },
   methods: {
     handleDelete() {
-      this.$store.dispatch("user/delete", this.$route.params.id)
+      this.$store.dispatch("user/delete", this.$route.params.id);
     }
   }
-}
+};
 </script>
 <style scoped>
 .input {

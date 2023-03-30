@@ -11,11 +11,13 @@
               :authenticated="isAuthenticated"
               :buttons="['salva', 'indietro']"
               @handleSubmit="handleSubmit"
-              @handleBack="handleBack" />
+              @handleBack="handleBack"
+            />
             <CBusinessProcessEdit
               :bProcess="bProcess"
               @enableEditStep="showEditStep"
-              @enableNewStep="showNewStep" />
+              @enableNewStep="showNewStep"
+            />
           </div>
           <!-- 
             Modifica Passo del Processo
@@ -25,7 +27,8 @@
               <CBusinessProcessStepEdit
                 :bPStep="selectedEditStep"
                 @enableEditStep="showEditStep"
-                @enableBack="stateform = FormState.EDIT" />
+                @enableBack="stateform = FormState.EDIT"
+              />
             </div>
           </div>
           <!-- 
@@ -35,7 +38,8 @@
             <CBusinessProcessStepNew
               :bPStep="selectedEditStep"
               @enableNewStep="showNewStep"
-              @enableBack="stateform = FormState.EDIT" />
+              @enableBack="stateform = FormState.EDIT"
+            />
           </div>
         </div>
       </div>
@@ -43,11 +47,11 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
-import CTitle from "@/components/CTitle.vue"
-import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit"
-import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit"
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew"
+import { mapGetters } from "vuex";
+import CTitle from "@/components/CTitle.vue";
+import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
+import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
+import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
 
 export default {
   components: {
@@ -100,7 +104,7 @@ export default {
       },
       stateform: 1,
       warningModal: false
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -135,43 +139,43 @@ export default {
     },
     */
     handleSubmit() {
-      this.$store.dispatch("bProcess/update", this.bProcess)
+      this.$store.dispatch("bProcess/update", this.bProcess);
     },
     handleEditStep(step) {
-      console.log(step)
+      console.log(step);
       //this.$emit("enableEditStep", step);
     },
     handleNewStep() {
       //this.$emit("enableNewStep");
     },
     handleBack() {
-      this.$router.back()
+      this.$router.back();
     },
     deleteBProcess() {
       //this.warningModal = false;
     },
 
     showEditStep(step) {
-      this.selectedEditStep = step
-      this.stateform = this.FormState.STEP_EDIT
+      this.selectedEditStep = step;
+      this.stateform = this.FormState.STEP_EDIT;
     },
     showNewStep() {
-      this.selectedEditStep = null
-      this.stateform = this.FormState.STEP_NEW
+      this.selectedEditStep = null;
+      this.stateform = this.FormState.STEP_NEW;
     },
 
     modalOpen(app) {
-      this.selectedBProcess = app
-      this.warningModal = true
+      this.selectedBProcess = app;
+      this.warningModal = true;
     },
     modalClose() {
-      this.warningModal = false
+      this.warningModal = false;
     }
   },
   created() {
-    this.$store.dispatch("bProcess/findById", this.$route.params.id)
+    this.$store.dispatch("bProcess/findById", this.$route.params.id);
   }
-}
+};
 </script>
 <style scoped>
 h5 {

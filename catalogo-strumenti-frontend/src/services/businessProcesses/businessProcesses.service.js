@@ -1,33 +1,33 @@
-import { axiosCatalog } from "@/http"
-import AbstractService from "@/services/abstract.service"
+import { axiosCatalog } from "@/http";
+import AbstractService from "@/services/abstract.service";
 
 class BusinessProcessService extends AbstractService {
   constructor(endpoint) {
-    super(endpoint)
+    super(endpoint);
   }
   save(payload) {
     //console.log(config);
-    console.log(payload)
+    console.log(payload);
     return axiosCatalog
       .post(this.endpoint, payload)
-      .then((res) => {
-        var data = res.data ? res.data : {}
-        console.log(data)
-        return data
+      .then(res => {
+        var data = res.data ? res.data : {};
+        console.log(data);
+        return data;
       })
-      .catch((err) => {
-        throw err
-      })
+      .catch(err => {
+        throw err;
+      });
   }
   filter(payload) {
-    console.log(payload)
+    console.log(payload);
     //var gsbpmParam = new URLSearchParams();
     //var typeParam = new URLSearchParams();
-    var params = new URLSearchParams()
+    var params = new URLSearchParams();
     if (payload.gsbpm) {
-      payload.gsbpm.map((value) => {
-        params.append("gsbpmIds", value)
-      })
+      payload.gsbpm.map(value => {
+        params.append("gsbpmIds", value);
+      });
     }
     /* if (payload.type) {
       payload.type.map(value => {
@@ -36,33 +36,33 @@ class BusinessProcessService extends AbstractService {
     } */
     var request = {
       params: params
-    }
+    };
     return axiosCatalog
       .get(this.endpoint, request)
-      .then((res) => {
-        var data = res.data ? res.data : {}
-        return data
+      .then(res => {
+        var data = res.data ? res.data : {};
+        return data;
       })
-      .catch(function (error) {
-        console.log(error)
-      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
   findBFunctionsByBService(id) {
     return axiosCatalog
       .get(this.endpoint + "/business-service/" + id)
-      .then((res) => {
-        var data = res.data ? res.data : {}
-        return data
+      .then(res => {
+        var data = res.data ? res.data : {};
+        return data;
       })
-      .catch((err) => {
-        throw err
-      })
+      .catch(err => {
+        throw err;
+      });
   }
 }
 
 export const businessProcessService = new BusinessProcessService(
   "/catalog/businessprocesses"
-)
+);
 export const businessProcessOpenService = new BusinessProcessService(
   "/catalog/open/businessprocesses"
-)
+);

@@ -28,7 +28,8 @@
           <span
             class="icon-link float-right"
             @click.prevent="stateform = FormState.LIST"
-            title="Chiudi">
+            title="Chiudi"
+          >
             <close-icon title="Chiudi" />
           </span>
         </CCardHeader>
@@ -37,7 +38,8 @@
           <app-business-process-step-edit
             :bPStep="selectedEditStep"
             @enableEditStep="showEditStep"
-            @enableNewStep="showNewStep">
+            @enableNewStep="showNewStep"
+          >
           </app-business-process-step-edit>
         </div>
       </div>
@@ -50,7 +52,8 @@
           <span
             class="icon-link float-right"
             @click.prevent="stateform = FormState.EDIT"
-            title="Chiudi">
+            title="Chiudi"
+          >
             <close-icon title="Chiudi" />
           </span>
         </CCardHeader>
@@ -59,7 +62,8 @@
           <CBusinessProcessStepNew
             :bProcess="selectedEditProcess"
             @enableEditStep="showEditStep"
-            @enableNewStep="showNewStep" />
+            @enableNewStep="showNewStep"
+          />
         </div>
       </div>
       <div>
@@ -70,7 +74,8 @@
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
-          @handleBack="handleBack" />
+          @handleBack="handleBack"
+        />
         <CCard>
           <CCardBody>
             <div class="row">
@@ -78,25 +83,29 @@
                 class="col-6"
                 label="Nome*"
                 placeholder="Nome"
-                v-model="bProcessLocal.name" />
+                v-model="bProcessLocal.name"
+              />
               <CInput
                 class="col-4"
                 label="Etichetta"
                 placeholder="Etichetta"
-                v-model="bProcessLocal.label" />
+                v-model="bProcessLocal.label"
+              />
               <CInput
                 class="col-2"
                 label="Ordine"
                 type="number"
                 placeholder="Ordine"
-                v-model="bProcessLocal.orderCode" />
+                v-model="bProcessLocal.orderCode"
+              />
             </div>
             <div class="row mt-4">
               <CTextarea
                 class="col-12"
                 label="Descrizione"
                 placeholder="Descrizione"
-                v-model="bProcessLocal.descr" />
+                v-model="bProcessLocal.descr"
+              />
             </div>
           </CCardBody>
         </CCard>
@@ -105,11 +114,11 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 //import BusinessProcessEdit from "./BusinessProcessEdit";
 //import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit.vue";
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew"
-import CTitle from "@/components/CTitle.vue"
+import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessProcessEditView",
   components: {
@@ -143,7 +152,7 @@ export default {
         orderCode: "",
         businessFunction: ""
       }
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -170,41 +179,41 @@ export default {
   },
   methods: {
     changeBProcess(value) {
-      this.bProcessLocal.processStep = value.id
-      alert(this.bProcessLocal.processStep)
+      this.bProcessLocal.processStep = value.id;
+      alert(this.bProcessLocal.processStep);
     },
     handleSubmit() {
-      this.bProcessLocal.businessFunction = this.functionId
-      console.log(this.bProcessLocal)
+      this.bProcessLocal.businessFunction = this.functionId;
+      console.log(this.bProcessLocal);
 
       this.$store
         .dispatch("bProcess/save", this.bProcessLocal)
-        .then(this.$emit("refreshBProcess", this.functionId))
+        .then(this.$emit("refreshBProcess", this.functionId));
 
-      this.stateform = this.FormState.LIST
+      this.stateform = this.FormState.LIST;
     },
     showEditStep(step) {
-      this.selectedEditStep = step
-      this.stateform = this.FormState.STEP_EDIT
+      this.selectedEditStep = step;
+      this.stateform = this.FormState.STEP_EDIT;
     },
     showNewStep() {
-      this.selectedEditStep = null
-      this.stateform = this.FormState.STEP_NEW
+      this.selectedEditStep = null;
+      this.stateform = this.FormState.STEP_NEW;
     },
     handleEditBProcess(process) {
-      this.selectedEditProcess = process
-      this.stateform = this.FormState.EDIT
+      this.selectedEditProcess = process;
+      this.stateform = this.FormState.EDIT;
     },
     handleBack() {
-      this.$router.push({ name: "BusinessProcessList" })
+      this.$router.push({ name: "BusinessProcessList" });
     }
   },
   created() {
     //this.$store.dispatch("documentation/findAll");
     //this.$store.dispatch("tools/findAll");
-    this.$store.dispatch("bProcess/findAll")
+    this.$store.dispatch("bProcess/findAll");
   }
-}
+};
 </script>
 <style scoped>
 h5 {

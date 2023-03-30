@@ -15,19 +15,19 @@ export default {
           fonte: "Revisore"
         }
       ]
-    }
+    };
   },
   methods: {
     getFonteById(id) {
-      const fonteId = this.fonteValues.find((fonte) => {
-        return fonte.id == id
-      })
-      return fonteId ? fonteId : null
+      const fonteId = this.fonteValues.find(fonte => {
+        return fonte.id == id;
+      });
+      return fonteId ? fonteId : null;
     },
     getFonteByName(name) {
-      return this.fonteValues.find((fonte) => {
-        return fonte.name == name
-      })
+      return this.fonteValues.find(fonte => {
+        return fonte.name == name;
+      });
     }
   }
-}
+};

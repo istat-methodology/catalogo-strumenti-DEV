@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { CToaster, CToast } from "@coreui/vue"
-import { mapGetters } from "vuex"
+import { CToaster, CToast } from "@coreui/vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Toast",
@@ -23,10 +23,10 @@ export default {
   computed: {
     ...mapGetters("message", ["message", "type"]),
     getMessage() {
-      return this.message.split("#").pop()
+      return this.message.split("#").pop();
     }
   }
-}
+};
 </script>
 
 <style scoped>

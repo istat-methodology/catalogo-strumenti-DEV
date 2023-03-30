@@ -4,7 +4,8 @@
     <div v-if="businessProcesses">
       <div
         v-for="(businessProcess, index) of businessProcesses"
-        :key="businessProcess.id">
+        :key="businessProcess.id"
+      >
         <div class="p-2">
           <h4>
             <span> {{ index + 1 }}</span>
@@ -29,7 +30,8 @@
           <CBusinessProcessStepView
             :positionIndex="index + 1 + ''"
             :processName="businessProcess.name"
-            :processSteps="businessProcess.processSteps" />
+            :processSteps="businessProcess.processSteps"
+          />
         </div>
         <!--/div-->
         <!--/fieldset-->
@@ -42,7 +44,7 @@
 </template>
 
 <script>
-import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView"
+import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView";
 export default {
   name: "CBusinessProcessView",
   components: {
@@ -55,7 +57,7 @@ export default {
       default: () => []
     }
   }
-}
+};
 </script>
 <style scoped>
 h5 {

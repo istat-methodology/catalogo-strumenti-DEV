@@ -1,120 +1,122 @@
-
-import { designtypeService, designtypeopenService, designtypebyparentopenService } from "@/services"
+import {
+  designtypeService,
+  designtypeopenService,
+  designtypebyparentopenService
+} from "@/services";
 
 const state = {
   designtypeList: {},
   designtype: null,
   designtypebyparentList: {},
   designtypebyparent: null
-}
+};
 
 const mutations = {
   SET_DESIGNTYPELIST(state, designtypeList) {
-    state.designtypeList = designtypeList
+    state.designtypeList = designtypeList;
   },
   SET_DESIGNTYPE(state, designtype) {
-    state.designtype = designtype
+    state.designtype = designtype;
   },
   SET_DESIGNTYPEBYPARENTLIST(state, designtypebyparentList) {
-    state.designtypebyparentList = designtypebyparentList
+    state.designtypebyparentList = designtypebyparentList;
   },
   SET_DESIGNTYPEBYPARENT(state, designtypebyparent) {
-    state.designtypebyparent = designtypebyparent
+    state.designtypebyparent = designtypebyparent;
   }
-}
+};
 const actions = {
-
   findAll({ commit }) {
     designtypeopenService.findAll().then(
-      (data) => {
-        commit("SET_DESIGNTYPELIST", data)
+      data => {
+        commit("SET_DESIGNTYPELIST", data);
       },
-      (error) => {
-        console.log(error)
+      error => {
+        console.log(error);
       }
-    )
+    );
   },
   save({ commit, dispatch }, payload) {
     return designtypeService
       .save(payload)
-      .then((data) => {
+      .then(data => {
         //console.log(data);
-        commit("SET_DESIGNTYPE", data)
+        commit("SET_DESIGNTYPE", data);
         dispatch("message/success", "DesignType salvato!", {
           root: true
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   update({ commit, dispatch }, payload) {
     return designtypeService
       .update(payload)
-      .then((data) => {
-        commit("SET_DESIGNTYPE", data)
+      .then(data => {
+        commit("SET_DESIGNTYPE", data);
         dispatch("message/success", "DesignType aggiornato!", {
           root: true
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   delete({ dispatch }, id) {
     return designtypeService
       .delete(id)
       .then(() => {
-        dispatch("findAll")
+        dispatch("findAll");
         dispatch("message/success", "DesignType eliminato!", {
           root: true
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   findById({ commit }, id) {
     return designtypeService
       .findById(id)
-      .then((data) => {
+      .then(data => {
         //console.log(data);
-        commit("SET_DESIGNTYPELIST", data)
+        commit("SET_DESIGNTYPELIST", data);
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   findByParent({ commit }, parent) {
     return designtypebyparentopenService
       .filter(parent)
-      .then((data) => {
+      .then(data => {
         //console.log(data);
-        commit("SET_DESIGNTYPEBYPARENTLIST", data)
+        commit("SET_DESIGNTYPEBYPARENTLIST", data);
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   }
-}
+};
 const getters = {
-  designtypeList: (state) => {
-    return state.designtypeList
+  designtypeList: state => {
+    return state.designtypeList;
   },
-  designtype: (state) => {
-    return state.designtype
+  designtype: state => {
+    return state.designtype;
   },
-  designtypebyparentList: (state) => {
-    return state.designtypebyparentList
+  designtypebyparentList: state => {
+    return state.designtypebyparentList;
   },
-  designtypebyparent: (state) => {
-    return state.designtypebyparent
+  designtypebyparent: state => {
+    return state.designtypebyparent;
   }
-}
+};
 export const designtypes = {
   namespaced: true,
   state,
   mutations,
   actions,
   getters
-}
+};

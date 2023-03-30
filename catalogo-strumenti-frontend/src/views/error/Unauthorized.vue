@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import { CRow, CCol } from "@coreui/vue"
+import { CRow, CCol } from "@coreui/vue";
 export default {
   name: "Unauthorized",
   components: {
     CRow,
     CCol
   }
-}
+};
 </script>

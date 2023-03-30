@@ -11,7 +11,8 @@
             :authenticated="isAuthenticated"
             :buttons="['salva', 'indietro']"
             @handleSubmit="handleSubmit"
-            @handleBack="handleBack" />
+            @handleBack="handleBack"
+          />
 
           <CCard>
             <CCardBody>
@@ -21,20 +22,24 @@
                 v-model="businessFunctionLocal.name"
                 :class="{
                   'is-invalid': $v.businessFunctionLocal.name.$error
-                }" />
+                }"
+              />
               <div
                 class="help-block"
-                :class="{ show: $v.businessFunctionLocal.name.$error }">
+                :class="{ show: $v.businessFunctionLocal.name.$error }"
+              >
                 Campo obbligatorio
               </div>
               <CTextarea
                 label="Descrizione"
                 placeholder="Descrizione"
-                v-model="businessFunctionLocal.descr" />
+                v-model="businessFunctionLocal.descr"
+              />
               <CInput
                 label="Etichetta"
                 placeholder="Etichetta"
-                v-model="businessFunctionLocal.label" />
+                v-model="businessFunctionLocal.label"
+              />
             </CCardBody>
           </CCard>
         </div>
@@ -43,9 +48,9 @@
   </div>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators"
-import { mapGetters } from "vuex"
-import CTitle from "@/components/CTitle.vue"
+import { required } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "businessFunctionsAdd",
   components: { CTitle },
@@ -58,7 +63,7 @@ export default {
         label: "",
         businessProcesses: []
       }
-    }
+    };
   },
   validations: {
     businessFunctionLocal: {
@@ -73,20 +78,20 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$v.$touch() //validate form data
+      this.$v.$touch(); //validate form data
       if (!this.$v.businessFunctionLocal.$invalid) {
         this.$store
           .dispatch("bFunction/save", this.businessFunctionLocal)
-          .then(this.$router.push("/catalogue/businessfunctions"))
+          .then(this.$router.push("/catalogue/businessfunctions"));
       }
     },
 
     handleBack() {
-      this.$router.push("/catalogue/businessfunctions")
+      this.$router.push("/catalogue/businessfunctions");
     }
   },
   created() {
-    this.$store.dispatch("bFunction/findAll")
+    this.$store.dispatch("bFunction/findAll");
   }
-}
+};
 </script>

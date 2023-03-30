@@ -1,9 +1,9 @@
-import { axiosCatalog } from "@/http"
-import AbstractService from "@/services/abstract.service"
+import { axiosCatalog } from "@/http";
+import AbstractService from "@/services/abstract.service";
 
 class UserService extends AbstractService {
   constructor(endpoint) {
-    super(endpoint)
+    super(endpoint);
   }
 
   findByRole(role) {
@@ -13,14 +13,14 @@ class UserService extends AbstractService {
           role: role
         }
       })
-      .then((res) => {
-        var data = res.data ? res.data : []
+      .then(res => {
+        var data = res.data ? res.data : [];
         //console.log(data);
-        return data
+        return data;
       })
-      .catch((err) => {
-        throw err
-      })
+      .catch(err => {
+        throw err;
+      });
   }
   findAllUsers() {
     return axiosCatalog
@@ -29,39 +29,39 @@ class UserService extends AbstractService {
           role: null
         }
       })
-      .then((res) => {
-        var data = res.data ? res.data : []
+      .then(res => {
+        var data = res.data ? res.data : [];
         //console.log(data);
-        return data
+        return data;
       })
-      .catch((err) => {
-        throw err
-      })
+      .catch(err => {
+        throw err;
+      });
   }
   changePass(data) {
     return axiosCatalog
       .put(this.endpoint + "/password-id/" + data.id, data)
-      .then((res) => {
-        var data = res.data ? res.data : []
+      .then(res => {
+        var data = res.data ? res.data : [];
         //console.log(data);
-        return data
+        return data;
       })
-      .catch((err) => {
-        throw err
-      })
+      .catch(err => {
+        throw err;
+      });
   }
   resetPass(data) {
     return axiosCatalog
       .put(this.endpoint + "/password-reset/" + data.id, data)
-      .then((res) => {
-        var data = res.data ? res.data : []
+      .then(res => {
+        var data = res.data ? res.data : [];
         //console.log(data);
-        return data
+        return data;
       })
-      .catch((err) => {
-        throw err
-      })
+      .catch(err => {
+        throw err;
+      });
   }
 }
-export const userService = new UserService("/user/users")
-export const userOpenService = new UserService("/user/open/users")
+export const userService = new UserService("/user/users");
+export const userOpenService = new UserService("/user/open/users");

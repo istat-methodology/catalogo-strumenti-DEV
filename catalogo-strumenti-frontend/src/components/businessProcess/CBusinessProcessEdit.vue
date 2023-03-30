@@ -8,25 +8,29 @@
               class="col-6"
               label="Nome*"
               placeholder="Nome"
-              v-model="bProcessLocal.name" />
+              v-model="bProcessLocal.name"
+            />
             <CInput
               class="col-4"
               label="Etichetta"
               placeholder="Etichetta"
-              v-model="bProcessLocal.label" />
+              v-model="bProcessLocal.label"
+            />
             <CInput
               class="col-2"
               label="Ordine"
               type="number"
               placeholder="Ordine"
-              v-model="bProcessLocal.orderCode" />
+              v-model="bProcessLocal.orderCode"
+            />
           </div>
           <div class="row mt-4">
             <CTextarea
               class="col-12"
               label="Descrizione"
               placeholder="Descrizione"
-              v-model="bProcessLocal.descr" />
+              v-model="bProcessLocal.descr"
+            />
           </div>
         </CCardBody>
       </CCard>
@@ -37,14 +41,16 @@
         functionality=""
         :authenticated="isAuthenticated"
         :buttons="['aggiungi']"
-        @handleNew="handleNewStep" />
+        @handleNew="handleNewStep"
+      />
       <CCard>
         <CCardBody>
           <span
             v-if="
               bProcessLocal.processSteps &&
-              bProcessLocal.processSteps.length > 0
-            ">
+                bProcessLocal.processSteps.length > 0
+            "
+          >
             <CDataTable
               v-if="bProcessLocal"
               :items="getProcessStepsList()"
@@ -69,9 +75,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 //import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
-import CTitle from "@/components/CTitle.vue"
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessEdit",
   components: {
@@ -122,7 +128,7 @@ export default {
       FormState: {},
       stateform: 0,
       warningModal: false
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"])
@@ -137,7 +143,7 @@ export default {
     }
   },
   methods: {
-    getProcessStepsList: function () {
+    getProcessStepsList: function() {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
         return this.bProcessLocal.processSteps.map((step, index) => {
           return {
@@ -151,34 +157,34 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map((instance) => {
+                    .map(instance => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
-                      )
+                      );
                     })
                     .join(", "),
             processDesigns: step.processDesigns
-          }
-        })
+          };
+        });
       } else {
-        return []
+        return [];
       }
     },
 
     handleEditStep(step) {
-      this.$emit("enableEditStep", step)
+      this.$emit("enableEditStep", step);
     },
     handleNewStep() {
-      this.$emit("enableNewStep")
+      this.$emit("enableNewStep");
     },
     handleBack() {
-      this.$router.back()
+      this.$router.back();
     }
   },
   created() {
-    this.bProcessLocal = this.bProcess
+    this.bProcessLocal = this.bProcess;
   }
-}
+};
 </script>
 <style scoped>
 h5 {

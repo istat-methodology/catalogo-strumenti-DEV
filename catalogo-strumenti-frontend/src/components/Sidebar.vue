@@ -4,8 +4,9 @@
     :minimize="minimize"
     :show="show"
     @update:show="
-      (value) => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
-    ">
+      value => $store.commit('coreui/set', ['sidebarShow', 'responsive'])
+    "
+  >
     <CSidebarBrand class="d-md-down-none" to="/">
       <CIcon name="cil-at" size="lg"></CIcon>
       <span class="brand">Catalogo Strumenti Metodologici</span>
@@ -16,7 +17,8 @@
           tag="a"
           :to="{ name: 'Home' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isHome }">
+          :class="{ 'c-active': isHome }"
+        >
           <CIcon name="cil-home" class="c-sidebar-nav-icon" />Home
           <span class="badge badge-primary p-0 pt-2 pl-2 pr-2"
             ><h6>V. 1.0.1</h6></span
@@ -28,7 +30,8 @@
           tag="a"
           :to="{ name: 'ToolList' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isToolSession }">
+          :class="{ 'c-active': isToolSession }"
+        >
           <CIcon name="cil-baseball" class="c-sidebar-nav-icon" />Strumenti
           Metodologici
         </router-link>
@@ -38,7 +41,8 @@
           tag="a"
           :to="{ name: 'MethodList' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isMethodsList }">
+          :class="{ 'c-active': isMethodsList }"
+        >
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Metodi Statistici
         </router-link>
       </li>
@@ -47,7 +51,8 @@
           tag="a"
           :to="{ name: 'AgentList' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isAgentList }">
+          :class="{ 'c-active': isAgentList }"
+        >
           <account-icon class="c-sidebar-nav-icon pl-3" />Referenti
         </router-link>
       </li>
@@ -56,7 +61,8 @@
           tag="a"
           :to="{ name: 'DocumentationList' }"
           class="c-sidebar-nav-link"
-          :class="{ 'c-active': isDocumentationList }">
+          :class="{ 'c-active': isDocumentationList }"
+        >
           <CIcon name="cil-layers" class="c-sidebar-nav-icon" />Documenti
         </router-link>
       </li>
@@ -66,7 +72,8 @@
           tag="a"
           :to="{ name: 'BusinessFunctionsList' }"
           class="c-sidebar-nav-link c-sidebar-navlink"
-          :class="{ 'c-active': isBusinessFunctionSession }">
+          :class="{ 'c-active': isBusinessFunctionSession }"
+        >
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Business
           Functions
         </router-link>
@@ -77,7 +84,8 @@
           tag="a"
           :to="{ name: 'BusinessProcessList' }"
           class="c-sidebar-nav-link c-sidebar-navlink"
-          :class="{ 'c-active': isBusinessProcessSession }">
+          :class="{ 'c-active': isBusinessProcessSession }"
+        >
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
         </router-link>
       </li>
@@ -153,12 +161,12 @@
   </CSidebar>
 </template>
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 //import TreeView from "@grapoza/vue-tree";
 //import LiquorTree from "liquor-tree";
 
 // import the styles
-import "@riophae/vue-treeselect/dist/vue-treeselect.css"
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 //import progressMixin from "@/components/mixins/progress.mixin";
 
 export default {
@@ -282,13 +290,13 @@ export default {
           type: null
         }
       ]
-    }
+    };
   },
   methods: {
     refreshCheckedList() {
-      let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes()
-      let typeNodes = this.$refs.treeType.getCheckedCheckboxes()
-      this.checkedNodes = [...gsbpmNodes, ...typeNodes]
+      let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes();
+      let typeNodes = this.$refs.treeType.getCheckedCheckboxes();
+      this.checkedNodes = [...gsbpmNodes, ...typeNodes];
     },
     // checkboxChange(event) {
     //   let gsbpmNodes = this.$refs.treeGsbpm.getCheckedCheckboxes();
@@ -301,70 +309,70 @@ export default {
       console.log(node.text);
     }, */
     onNodeCheckedGsbpm(node) {
-      this.checkedNodesGsbpm.push(node.id)
-      console.log(node.id)
-      this.filter(this.checkedNodesGsbpm, this.checkedNodesType)
+      this.checkedNodesGsbpm.push(node.id);
+      console.log(node.id);
+      this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
       if (this.isToolList == true) {
         this.$store
           .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("tools/filter", this.params))
+          .then(this.$store.dispatch("tools/filter", this.params));
       }
       if (this.isBusinessFunctionList == true) {
         this.$store
           .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("business/filter", this.params))
+          .then(this.$store.dispatch("business/filter", this.params));
       }
     },
     onNodeCheckedType(node) {
-      this.checkedNodesType.push(node.id)
-      console.log(node.text)
-      this.filter(this.checkedNodesGsbpm, this.checkedNodesType)
+      this.checkedNodesType.push(node.id);
+      console.log(node.text);
+      this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
       this.$store
         .dispatch("filter/setParams", this.payload)
-        .then(this.$store.dispatch("tools/filter", this.params))
+        .then(this.$store.dispatch("tools/filter", this.params));
     },
     onNodeUncheckedGsbpm(node) {
       if (this.checkedNodesGsbpm.indexOf(node.id) >= 0) {
         this.checkedNodesGsbpm.splice(
           this.checkedNodesGsbpm.indexOf(node.id),
           1
-        )
-        console.log(node.id + "- unchecked")
-        this.filter(this.checkedNodesGsbpm, this.checkedNodesType)
+        );
+        console.log(node.id + "- unchecked");
+        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
         if (this.isToolList == true) {
           this.$store
             .dispatch("filter/setParams", this.payload)
-            .then(this.$store.dispatch("tools/filter", this.params))
+            .then(this.$store.dispatch("tools/filter", this.params));
         }
         if (this.isBusinessFunctionList == true) {
           this.$store
             .dispatch("filter/setParams", this.payload)
-            .then(this.$store.dispatch("business/filter", this.params))
+            .then(this.$store.dispatch("business/filter", this.params));
         }
       } else {
         if (this.isToolList == true) {
-          this.$store.dispatch("tools/filter", this.params)
+          this.$store.dispatch("tools/filter", this.params);
         }
         if (this.isBusinessFunctionList == true) {
-          this.$store.dispatch("business/filter", this.params)
+          this.$store.dispatch("business/filter", this.params);
         }
       }
     },
     onNodeUncheckedType(node) {
       if (this.checkedNodesType.indexOf(node.id) >= 0) {
-        this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1)
-        console.log(node.id + "- unchecked")
-        this.filter(this.checkedNodesGsbpm, this.checkedNodesType)
+        this.checkedNodesType.splice(this.checkedNodesType.indexOf(node.id), 1);
+        console.log(node.id + "- unchecked");
+        this.filter(this.checkedNodesGsbpm, this.checkedNodesType);
         this.$store
           .dispatch("filter/setParams", this.payload)
-          .then(this.$store.dispatch("tools/filter", this.params))
+          .then(this.$store.dispatch("tools/filter", this.params));
       } else {
-        this.$store.dispatch("tools/filter", this.params)
+        this.$store.dispatch("tools/filter", this.params);
       }
     },
     filter(gsbpm, type) {
-      this.payload.gsbpm = gsbpm
-      this.payload.type = type
+      this.payload.gsbpm = gsbpm;
+      this.payload.type = type;
       //this.$store.dispatch("tools/filter", this.payload);
     }
     /* getGsbpmList() {
@@ -398,17 +406,17 @@ export default {
       isHome: "isHome"
     }),
 
-    getGsbpmList: function () {
-      return this.gsbpmList.map((gsbpm) => {
+    getGsbpmList: function() {
+      return this.gsbpmList.map(gsbpm => {
         return {
           // ...gsbpm,
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
+          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
             return {
               id: gsbpmSubProcess.id,
               label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
-            }
+            };
           }),
 
           state: {
@@ -425,8 +433,8 @@ export default {
             draggable: true,
             dropable: true
           }
-        }
-      })
+        };
+      });
     },
     /* getTooltypeList: function() {
       return this.tooltypeList.map(tool => {
@@ -442,8 +450,8 @@ export default {
         };
       });
     } */
-    getTooltypeList: function () {
-      return this.tooltypeList.map((tool) => {
+    getTooltypeList: function() {
+      return this.tooltypeList.map(tool => {
         return {
           // ...gsbpm,
           id: tool.id,
@@ -462,15 +470,15 @@ export default {
             draggable: true,
             dropable: true
           }
-        }
-      })
+        };
+      });
     }
   },
   created() {
-    this.$store.dispatch("gsbpm/findAll")
-    this.$store.dispatch("tooltype/findAll")
+    this.$store.dispatch("gsbpm/findAll");
+    this.$store.dispatch("tooltype/findAll");
   }
-}
+};
 </script>
 
 <style scoped>

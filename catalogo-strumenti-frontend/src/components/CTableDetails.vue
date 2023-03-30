@@ -37,10 +37,10 @@ export default {
 
   methods: {
     isShow() {
-      return this.activeIndex == this.index ? true : false
+      return this.activeIndex == this.index ? true : false;
     }
   }
-}
+};
 </script>
 <style scoped>
 .list-item {

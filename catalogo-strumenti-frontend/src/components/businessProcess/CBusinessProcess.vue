@@ -20,7 +20,7 @@ export default {
     return {
       /* value: null,
       businessProcessLocal: {} */
-    }
+    };
   },
   props: {
     id: String,
@@ -31,5 +31,5 @@ export default {
     parent: String,
     processSteps: []
   }
-}
+};
 </script>

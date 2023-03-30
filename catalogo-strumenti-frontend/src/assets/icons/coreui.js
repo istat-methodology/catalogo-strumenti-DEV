@@ -7,7 +7,7 @@ import {
   cilTerminal,
   cilUser,
   cilBaseball
-} from "@coreui/icons"
+} from "@coreui/icons";
 
 export const iconsSet = Object.assign({
   cilAt,
@@ -18,4 +18,4 @@ export const iconsSet = Object.assign({
   cilTerminal,
   cilUser,
   cilBaseball
-})
+});

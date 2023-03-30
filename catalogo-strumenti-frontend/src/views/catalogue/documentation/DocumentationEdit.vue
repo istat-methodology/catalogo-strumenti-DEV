@@ -11,7 +11,8 @@
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
-          @handleBack="handleBack" />
+          @handleBack="handleBack"
+        />
       </div>
       <CCard class="col-8 p-0 pl-1 pr-1">
         <CCardBody>
@@ -20,7 +21,8 @@
               label="Nome*"
               placeholder="Nome"
               v-model="documentationLocal.name"
-              :class="{ 'is-invalid': $v.documentationLocal.name.$error }" />
+              :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
+            />
             <span
               class="help-block"
               :class="{ show: $v.documentationLocal.name.$error }"
@@ -30,7 +32,8 @@
           <CInput
             label="Editore"
             placeholder="Editore"
-            v-model="documentationLocal.publisher" />
+            v-model="documentationLocal.publisher"
+          />
 
           <div>
             <label>Tipo Documento</label>
@@ -40,25 +43,28 @@
             :options="documentationTypeList"
             placeholder="Strumento Statistico"
             v-model="documentation.documentType.name"
-            @input="changeDocumentType"></v-select>
+            @input="changeDocumentType"
+          ></v-select>
           <CTextarea
             label="Note"
             placeholder="Note"
-            v-model="documentationLocal.notes" />
+            v-model="documentationLocal.notes"
+          />
           <CInput
             label="Fonti"
             placeholder="Fonti"
-            v-model="documentationLocal.resource" />
+            v-model="documentationLocal.resource"
+          />
         </CCardBody>
       </CCard>
     </div>
   </div>
 </template>
 <script>
-import _ from "lodash"
-import { mapGetters } from "vuex"
-import { required } from "vuelidate/lib/validators"
-import CTitle from "@/components/CTitle.vue"
+import _ from "lodash";
+import { mapGetters } from "vuex";
+import { required } from "vuelidate/lib/validators";
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "DocumentationEdit",
@@ -75,7 +81,7 @@ export default {
         resource: "",
         tool: ""
       }
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -96,40 +102,40 @@ export default {
   },
   methods: {
     changeTool(value) {
-      this.documentationLocal.tool = value.id
+      this.documentationLocal.tool = value.id;
     },
     changeDocumentType(value) {
-      this.documentationLocal.documentType = value.id
+      this.documentationLocal.documentType = value.id;
     },
     handleSubmit() {
-      this.$v.$touch() //validate form data
+      this.$v.$touch(); //validate form data
       if (!this.$v.$invalid) {
-        this.disabled = true //disable buttons
+        this.disabled = true; //disable buttons
         this.$store
           .dispatch("documentation/update", this.documentationLocal)
           .then(() => {
-            this.reloadMethod()
-          })
+            this.reloadMethod();
+          });
       }
     },
     setOldValues() {
-      this.documentationLocal.id = this.documentation.id
-      this.documentationLocal.name = this.documentation.name
-      this.documentationLocal.publisher = this.documentation.publisher
-      this.documentationLocal.documentType = this.documentation.documentType.id
-      this.documentationLocal.notes = this.documentation.notes
-      this.documentationLocal.resource = this.documentation.resource
+      this.documentationLocal.id = this.documentation.id;
+      this.documentationLocal.name = this.documentation.name;
+      this.documentationLocal.publisher = this.documentation.publisher;
+      this.documentationLocal.documentType = this.documentation.documentType.id;
+      this.documentationLocal.notes = this.documentation.notes;
+      this.documentationLocal.resource = this.documentation.resource;
     },
     handleBack() {
       //this.$router.push("/catalogue/documentazione");
-      this.$router.back()
+      this.$router.back();
     },
-    reloadMethod: _.debounce(function () {
+    reloadMethod: _.debounce(function() {
       this.$store
         .dispatch("documentation/findById", this.documentationLocal.id)
         .then(() => {
-          this.setOldValues()
-        })
+          this.setOldValues();
+        });
     }, 500)
   },
   created() {
@@ -137,10 +143,10 @@ export default {
     this.$store
       .dispatch("documentation/findById", this.$route.params.id)
       .then(() => {
-        this.setOldValues()
-      })
-    this.$store.dispatch("tools/findAll")
-    this.$store.dispatch("documentationType/findAll")
+        this.setOldValues();
+      });
+    this.$store.dispatch("tools/findAll");
+    this.$store.dispatch("documentationType/findAll");
   }
-}
+};
 </script>

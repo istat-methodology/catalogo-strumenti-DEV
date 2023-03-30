@@ -46,7 +46,8 @@
                         type="text"
                         class="form-control"
                         placeholder="Username"
-                        v-model.trim="username" />
+                        v-model.trim="username"
+                      />
                     </div>
                   </div>
                   <div class="form-group">
@@ -61,7 +62,8 @@
                         class="form-control"
                         placeholder="Password"
                         autocomplete="on"
-                        v-model="password" />
+                        v-model="password"
+                      />
                     </div>
                   </div>
                   <CRow>
@@ -88,9 +90,9 @@
 </template>
 
 <script>
-import { CRow, CCol, CForm } from "@coreui/vue"
-import { mapGetters } from "vuex"
-import { AuthStatus } from "@/common"
+import { CRow, CCol, CForm } from "@coreui/vue";
+import { mapGetters } from "vuex";
+import { AuthStatus } from "@/common";
 
 export default {
   components: {
@@ -108,7 +110,7 @@ export default {
           type: []
         }
       ]
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["errorMsg"]),
@@ -119,20 +121,20 @@ export default {
       const formData = {
         username: this.username,
         password: this.password
-      }
-      this.$store.dispatch("auth/login", formData).then((res) => {
-        if (res.status === AuthStatus.Logged) this.$router.push("/")
+      };
+      this.$store.dispatch("auth/login", formData).then(res => {
+        if (res.status === AuthStatus.Logged) this.$router.push("/");
         this.$store
           .dispatch("filter/resetFilters")
-          .then(this.$store.dispatch("tools/filter", this.filtri))
-      })
+          .then(this.$store.dispatch("tools/filter", this.filtri));
+      });
     }
   },
   created() {
     //Clear session
-    this.$store.dispatch("auth/logout")
+    this.$store.dispatch("auth/logout");
   }
-}
+};
 </script>
 
 <style scoped>

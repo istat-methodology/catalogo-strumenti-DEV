@@ -1,104 +1,104 @@
-import { processStepsService } from "@/services"
-import { processStepsOpenService } from "@/services"
+import { processStepsService } from "@/services";
+import { processStepsOpenService } from "@/services";
 
 const state = {
   procStepList: [],
   procStep: null
-}
+};
 
 const mutations = {
   SET_PROCSTEPLIST(state, procStepList) {
-    state.procStepList = procStepList
+    state.procStepList = procStepList;
   },
   SET_PROCSTEP(state, procStep) {
-    state.procStep = procStep
+    state.procStep = procStep;
   }
-}
+};
 
 const actions = {
   findAll({ commit }) {
     processStepsOpenService.findAll().then(
-      (data) => {
-        commit("SET_PROCSTEPLIST", data)
+      data => {
+        commit("SET_PROCSTEPLIST", data);
       },
-      (error) => {
-        console.log(error)
+      error => {
+        console.log(error);
       }
-    )
+    );
   },
   save({ commit, dispatch }, payload) {
     return processStepsService
       .save(payload)
-      .then((data) => {
+      .then(data => {
         //console.log(data);
-        commit("SET_PROCSTEP", data)
+        commit("SET_PROCSTEP", data);
         dispatch("message/success", "Process Step salvato!", {
           root: true
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   findById({ commit }, id) {
     return processStepsOpenService
       .findById(id)
-      .then((data) => {
+      .then(data => {
         //console.log(data);
-        commit("SET_PROCSTEP", data)
+        commit("SET_PROCSTEP", data);
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   update({ commit, dispatch }, payload) {
     return processStepsService
       .update(payload)
-      .then((data) => {
-        commit("SET_PROCSTEP", data)
+      .then(data => {
+        commit("SET_PROCSTEP", data);
         dispatch("message/success", "Process Step aggiornato!", {
           root: true
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   addToBFunction(payload) {
     return processStepsService
       .addToBFunction(payload)
-      .then((data) => {
+      .then(data => {
         /*  commit("SET_PROCSTEP", data); */
-        console.log(data)
+        console.log(data);
         /* dispatch("message/success", "Process Step aggiornato!", {
           root: true
         }); */
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   delete({ dispatch }, id) {
     return processStepsService
       .delete(id)
       .then(() => {
-        dispatch("findAll")
-        dispatch("message/success", "Process Step eliminato!")
+        dispatch("findAll");
+        dispatch("message/success", "Process Step eliminato!");
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(err => {
+        console.log(err);
+      });
   }
-}
+};
 
 const getters = {
-  procStep: (state) => {
-    return state.procStep
+  procStep: state => {
+    return state.procStep;
   },
-  procStepList: (state) => {
-    return state.procStepList
+  procStepList: state => {
+    return state.procStepList;
   }
-}
+};
 
 export const procStep = {
   namespaced: true,
@@ -106,4 +106,4 @@ export const procStep = {
   mutations,
   actions,
   getters
-}
+};

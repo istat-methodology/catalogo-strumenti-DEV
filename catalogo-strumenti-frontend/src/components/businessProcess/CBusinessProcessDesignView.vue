@@ -1,5 +1,5 @@
 <template>
-  <div v-if="designtypebyparentList">
+  <div>
     <CTitle
       :title="
         'View Process Design (' +
@@ -23,38 +23,47 @@
         <span>({{ bProcessDesignSpecificationLocal.id }})</span></Label
       >
     </div>
-    <CCard>
+    <CCard v-if="designtypebyparentList">
       <CCardBody>
-        <Label>Design Type</Label>
+        <Label>Design Type ()</Label>
         <div class="col-12">
           <div class="row">
             <div class="form-group col-5" role="group">
               <label class="col-12">Tipo I/O</label>
-              <v-select
-                label="type"
-                name="type"
-                class="col-12 p-0"
-                :options="designtypeList"
-                placeholder="I/O Type"
-                v-model="bProcessDesignSpecificationLocal.designType_Tipo_IO"
-                @input="changeDesignTypeListByParent($event)"
-              ></v-select>
+              <select
+                class="p-1 ml-0 col-12 form-control"
+                @change="changeDesignTypeListByParent($event)"
+                v-model="bProcessDesignSpecification.designType_Tipo_IO.id"
+              >
+                <option
+                  v-for="option in designtypeList"
+                  v-bind:value="option.id"
+                  :key="option.id"
+                  
+                >
+                  {{ option.type }}
+                </option>
+              </select>
             </div>
             <div class="form-group col-5" role="group">
               <label class="col-12">Dati I/O</label>
-              <v-select
-                label="type"
-                name="type"
-                class="col-12 p-0"
-                :options="designtypebyparentList"
-                placeholder="I/O Data"
-                v-model="bProcessDesignSpecificationLocal.designType_Dati_IO"
-              ></v-select>
+              <select
+                class="p-1 ml-0 col-12 form-control"
+                @change="onChangeDesignType_Data_IO($event)"
+                v-model="bProcessDesignSpecification.designType_Dati_IO.id"
+                >
+                <option
+                  v-for="option in designtypebyparentList"
+                  v-bind:value="option.id"
+                  :key="option.id"
+                >
+                  {{ option.type }}
+                </option>
+              </select>
             </div>
           </div>
-
           <div class="row">
-            <Label class="col-12">information Object</Label>
+            <Label class="col-12">Information Object</Label>
             <div class="row">
               <CInput
                 class="col-2"
@@ -103,16 +112,6 @@ export default {
     return {
       bProcessDesignLocal: {},
       bProcessDesignSpecificationLocal: {},
-      designTypeParentSelected: {
-        id: "",
-        type: "",
-        parent: "",
-      },
-      designTypeSelected: {
-        id: "",
-        type: "",
-        parent: "",
-      },
       processSpecificationLocal: {
         id: "",
         processDesign: {
@@ -168,25 +167,21 @@ export default {
     handleBack() {
       this.$emit("enableBack");
     },
-    changeDesignTypeListByParent(value) {
-      this.$store.dispatch("designtypes/findByParent", value.id);
+    changeDesignTypeListByParent(event) {
+      this.$store.dispatch("designtypes/findByParent", event.target.value);
+    },
+    onChangeDesignType_Data_IO(event) {
+      alert(event.target.value);
     },
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
     this.bProcessDesignSpecificationLocal = this.bProcessDesignSpecification;
     this.$store.dispatch("designtypes/findAll");
-    this.$store.dispatch("designtypes/findByParent",this.bProcessDesignSpecificationLocal.designType_Tipo_IO.id);
-    /*
-    this.$store
-      .dispatch(
-        "designtypes/findByParent",
-        this.bProcessDesignSpecificationLocal.designType_Tipo_IO.id
-      )
-      .then(() => {
-        console.log(this.designtypebyparentList);
-      });
-    */
+    this.$store.dispatch(
+      "designtypes/findByParent",
+      parseInt(parseInt(this.bProcessDesignSpecification.designType_Tipo_IO.id))
+    );
   },
 };
 </script>
@@ -243,4 +238,3 @@ body {
   }
 }
 </style>
-

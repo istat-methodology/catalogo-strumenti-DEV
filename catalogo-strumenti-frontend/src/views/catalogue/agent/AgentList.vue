@@ -7,7 +7,8 @@
       :authenticated="isAuthenticated"
       :buttons="['aggiungi', 'indietro']"
       @handleNew="handleNew"
-      @handleBack="handleBack" />
+      @handleBack="handleBack"
+    />
     <CCard>
       <CCardBody>
         <CDataTable
@@ -24,7 +25,8 @@
               :authenticated="isAuthenticated"
               @handleView="handleView(item)"
               @handleEdit="handleEdit(item)"
-              @handleDelete="handleOpenModalDelete(item)" />
+              @handleDelete="handleOpenModalDelete(item)"
+            />
           </template>
         </CDataTable>
       </CCardBody>
@@ -33,15 +35,16 @@
       :message="getMessage()"
       :showModal="showModal"
       @closeModal="closeModal"
-      @handleDelete="handleDelete" />
+      @handleDelete="handleDelete"
+    />
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
-import { Context } from "@/common"
-import CTitle from "@/components/CTitle.vue"
-import CModalDelete from "@/components/CModalDelete.vue"
-import CTableLink from "@/components/CTableLink.vue"
+import { mapGetters } from "vuex";
+import { Context } from "@/common";
+import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+import CTableLink from "@/components/CTableLink.vue";
 export default {
   name: "AgentList",
   components: { CTitle, CModalDelete, CTableLink },
@@ -73,69 +76,69 @@ export default {
       ],
       selectedAgent: {},
       showModal: false
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("agent", ["agentList"]),
     computedItems() {
       if (this.agentList) {
-        return this.agentList.map((agent) => {
+        return this.agentList.map(agent => {
           return {
             id: agent.id,
             name: agent.name == null ? "" : agent.name,
             organization: agent.organization == null ? "" : agent.organization,
             contact: agent.contact == null ? "" : agent.contact
-          }
-        })
+          };
+        });
       } else {
-        return []
+        return [];
       }
     }
   },
 
   methods: {
     handleNew() {
-      this.$router.push({ name: "AgentAdd" })
+      this.$router.push({ name: "AgentAdd" });
     },
     handleBack() {
-      this.$router.push({ name: "Catalogue" })
+      this.$router.push({ name: "Catalogue" });
     },
     handleView(item) {
       this.$router.push({
         name: "AgentDetails",
         params: { id: item.id }
-      })
+      });
     },
     handleEdit(item) {
-      this.$router.push({ name: "AgentEdit", params: { id: item.id } })
+      this.$router.push({ name: "AgentEdit", params: { id: item.id } });
     },
 
     handleDelete() {
-      this.$store.dispatch("agent/delete", this.selectedAgent.id)
-      this.showModal = false
+      this.$store.dispatch("agent/delete", this.selectedAgent.id);
+      this.showModal = false;
     },
     handleOpenModalDelete(app) {
-      this.selectedAgent = app
-      this.showModal = true
+      this.selectedAgent = app;
+      this.showModal = true;
     },
     closeModal() {
-      this.showModal = false
+      this.showModal = false;
     },
     getMessage() {
       return (
         "Sei sicuro di eliminare il referente " +
         this.selectedAgent.name +
         " selezionato?"
-      )
+      );
     }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.AgentList)
+    this.$store.dispatch("coreui/setContext", Context.AgentList);
     // if (this.params) {
     // this.$store.dispatch("tools/filter", this.params);
-    this.$store.dispatch("agent/findAll")
+    this.$store.dispatch("agent/findAll");
     // }
   }
-}
+};
 </script>

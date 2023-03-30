@@ -3,11 +3,13 @@
     <CToggler
       in-header
       class="ml-3 d-lg-none"
-      @click="$store.dispatch('coreui/toggleSidebarMobile')" />
+      @click="$store.dispatch('coreui/toggleSidebarMobile')"
+    />
     <CToggler
       in-header
       class="ml-3 d-md-down-none"
-      @click="$store.dispatch('coreui/toggleSidebarDesktop')" />
+      @click="$store.dispatch('coreui/toggleSidebarDesktop')"
+    />
     <CHeaderBrand class="mx-auto d-lg-none" to="/">
       <img src="img/istat-logo.png" height="20" />
     </CHeaderBrand>
@@ -17,7 +19,8 @@
         class="c-header-nav-items"
         placement="bottom"
         add-menu-classes="dropdown-menu-right pt-0"
-        v-if="isAuthenticated">
+        v-if="isAuthenticated"
+      >
         <template #toggler>
           <CHeaderNavLink>
             <div class="c-header-nav-first">Impostazioni</div>
@@ -32,7 +35,8 @@
               name: 'UserList'
             }"
             custom
-            v-slot="{ href, navigate }">
+            v-slot="{ href, navigate }"
+          >
             <a :href="href" @click="navigate">
               <span class="pl-1"
                 ><arrow-right-icon class="pr-3" />Lista Utenti</span
@@ -54,10 +58,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import HeaderDropdownAccnt from "./HeaderDropdownAccnt"
-import BreadCrumb from "./BreadCrumb"
-import HeaderNav from "./HeaderNav"
+import { mapGetters } from "vuex";
+import HeaderDropdownAccnt from "./HeaderDropdownAccnt";
+import BreadCrumb from "./BreadCrumb";
+import HeaderNav from "./HeaderNav";
 
 export default {
   name: "Header",
@@ -70,7 +74,7 @@ export default {
     "app-header-breadcrumb": BreadCrumb,
     "app-header-nav": HeaderNav
   }
-}
+};
 </script>
 
 <style scoped>

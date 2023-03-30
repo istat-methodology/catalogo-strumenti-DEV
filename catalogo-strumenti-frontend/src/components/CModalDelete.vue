@@ -29,14 +29,14 @@ export default {
   },
   methods: {
     handleDelete() {
-      this.$emit("handleDelete")
+      this.$emit("handleDelete");
     },
     closeModal() {
       //this.modalShow = false;
-      this.$emit("closeModal")
+      this.$emit("closeModal");
     }
   }
-}
+};
 </script>
 <style>
 .close {

@@ -16,7 +16,8 @@
         <div
           class="card col-md-auto"
           v-for="statisticalMethod of statisticalMethods"
-          :key="statisticalMethod.id">
+          :key="statisticalMethod.id"
+        >
           <div class="card-header">
             {{ statisticalMethod.name }}
             <div class="card-header-actions">
@@ -25,7 +26,8 @@
                 :to="{
                   name: 'MethodDetails',
                   params: { id: statisticalMethod.id }
-                }">
+                }"
+              >
                 <view-icon />
               </router-link>
             </div>
@@ -59,7 +61,7 @@ export default {
       default: () => ""
     }
   }
-}
+};
 </script>
 <style scoped>
 h5 {

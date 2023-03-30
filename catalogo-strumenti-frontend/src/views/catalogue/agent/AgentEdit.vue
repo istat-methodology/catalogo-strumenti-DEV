@@ -11,7 +11,8 @@
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
-          @handleBack="handleBack" />
+          @handleBack="handleBack"
+        />
       </div>
       <CCard class="col-8 pl-2 pr-2">
         <CCardBody>
@@ -19,31 +20,35 @@
             label="Nome*"
             placeholder="Nome"
             v-model="agentLocal.name"
-            :class="{ 'is-invalid': $v.agentLocal.name.$error }" />
+            :class="{ 'is-invalid': $v.agentLocal.name.$error }"
+          />
           <div class="help-block" :class="{ show: $v.agentLocal.name.$error }">
             Campo obbligatorio
           </div>
           <CInput
             label="Organizzazione"
             placeholder="Organizzazione"
-            v-model="agentLocal.organization" />
+            v-model="agentLocal.organization"
+          />
           <CInput
             label="Contatto"
             placeholder="Contatto"
-            v-model="agentLocal.contact" />
+            v-model="agentLocal.contact"
+          />
           <CTextarea
             label="Note"
             placeholder="Note"
-            v-model="agentLocal.notes" />
+            v-model="agentLocal.notes"
+          />
         </CCardBody>
       </CCard>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
-import { required } from "vuelidate/lib/validators"
-import CTitle from "@/components/CTitle.vue"
+import { mapGetters } from "vuex";
+import { required } from "vuelidate/lib/validators";
+import CTitle from "@/components/CTitle.vue";
 export default {
   name: "AgentEdit",
   components: { CTitle },
@@ -56,7 +61,7 @@ export default {
         contact: "",
         notes: ""
       }
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -72,30 +77,30 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$v.$touch()
+      this.$v.$touch();
       if (!this.$v.agentLocal.$invalid) {
         this.$store.dispatch("agent/update", this.agentLocal).then(() => {
-          this.handleback()
-        })
+          this.handleback();
+        });
       }
     },
     setOldValues() {
-      this.agentLocal.id = this.agent.id
-      this.agentLocal.name = this.agent.name
-      this.agentLocal.organization = this.agent.organization
-      this.agentLocal.contact = this.agent.contact
-      this.agentLocal.notes = this.agent.notes
+      this.agentLocal.id = this.agent.id;
+      this.agentLocal.name = this.agent.name;
+      this.agentLocal.organization = this.agent.organization;
+      this.agentLocal.contact = this.agent.contact;
+      this.agentLocal.notes = this.agent.notes;
     },
     handleBack() {
       //this.$router.push({ name: "AgentList" });
-      this.$router.back()
+      this.$router.back();
     }
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
     this.$store.dispatch("agent/findById", this.$route.params.id).then(() => {
-      this.setOldValues()
-    })
+      this.setOldValues();
+    });
   }
-}
+};
 </script>

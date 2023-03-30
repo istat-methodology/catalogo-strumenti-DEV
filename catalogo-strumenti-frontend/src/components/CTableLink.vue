@@ -44,17 +44,17 @@ export default {
   },
   methods: {
     handleView() {
-      this.$emit("handleView")
+      this.$emit("handleView");
     },
     handleEdit() {
-      this.$emit("handleEdit")
+      this.$emit("handleEdit");
     },
     handleDelete() {
-      this.$emit("handleDelete")
+      this.$emit("handleDelete");
     },
     handleDetails() {
-      this.$emit("handleDetails")
+      this.$emit("handleDetails");
     }
   }
-}
+};
 </script>

@@ -11,7 +11,8 @@
               :authenticated="isAuthenticated"
               :buttons="['salva', 'indietro']"
               @handleSubmit="handleAddSubmit"
-              @handleBack="handleBack" />
+              @handleBack="handleBack"
+            />
           </div>
         </div>
         <CCard class="col-12 mr-4">
@@ -30,7 +31,8 @@
                     <tr
                       class="list-group-item-action"
                       v-for="documentation of documentations"
-                      :key="documentation.id">
+                      :key="documentation.id"
+                    >
                       <td class="no-border">{{ documentation.name }}</td>
                       <td class="no-border">
                         {{ documentation.documentType }}
@@ -43,7 +45,8 @@
                               name: 'DocumentationDetails',
                               params: { id: documentation.id }
                             }"
-                            title="Visualizza dettagli documento">
+                            title="Visualizza dettagli documento"
+                          >
                             <view-icon title="Visualizza dettagli documento" />
                           </router-link>
                         </span>
@@ -52,9 +55,11 @@
                           href="#"
                           role="button"
                           title="Cancella documento dallo strumento"
-                          @click="modalOpen(documentation)">
+                          @click="modalOpen(documentation)"
+                        >
                           <delete-icon
-                            title="Cancella documento dallo strumento" />
+                            title="Cancella documento dallo strumento"
+                          />
                         </span>
                       </td>
                     </tr>
@@ -85,7 +90,8 @@
                         :options="getAllDocumentations"
                         label="name"
                         placeholder="Elenco documenti"
-                        @input="selectId($event)" />
+                        @input="selectId($event)"
+                      />
                     </div>
                   </td>
                 </tr>
@@ -94,7 +100,8 @@
                     <span
                       class="btn btn-rounded float-right"
                       @click="stateform = FormState.NEW"
-                      title="Crea nuovo documento">
+                      title="Crea nuovo documento"
+                    >
                       <add-icon title="Crea nuovo documento" />Nuovo
                       documento</span
                     >
@@ -110,9 +117,10 @@
         :show.sync="warningModal"
         @close="
           () => {
-            this.$emit('updateParent')
+            this.$emit('updateParent');
           }
-        ">
+        "
+      >
         <template #footer>
           <CButton shape="square" size="sm" color="light" @click="modalClose">
             Close
@@ -121,7 +129,8 @@
             shape="square"
             size="sm"
             color="info"
-            @click="handleRemoveSubmit">
+            @click="handleRemoveSubmit"
+          >
             Delete
           </CButton>
         </template>
@@ -137,7 +146,8 @@
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleNewSubmit"
-          @handleBack="stateform = FormState.LIST" />
+          @handleBack="stateform = FormState.LIST"
+        />
       </div>
       <CCard class="col-12 p-0">
         <CCardBody>
@@ -145,17 +155,20 @@
             label="Nome*"
             placeholder="Nome"
             v-model="documentationLocal.name"
-            :class="{ 'is-invalid': $v.documentationLocal.name.$error }" />
+            :class="{ 'is-invalid': $v.documentationLocal.name.$error }"
+          />
           <div
             class="help-block"
-            :class="{ show: $v.documentationLocal.name.$error }">
+            :class="{ show: $v.documentationLocal.name.$error }"
+          >
             Campo obbligatorio
           </div>
 
           <CInput
             label="Editore"
             placeholder="Editore"
-            v-model="documentationLocal.publisher" />
+            v-model="documentationLocal.publisher"
+          />
           <div>
             <label>Tipo Documento*</label>
           </div>
@@ -166,30 +179,34 @@
             v-model="documentationLocal.documentType"
             :class="{
               'is-invalid': $v.documentationLocal.documentType.$error
-            }"></v-select>
+            }"
+          ></v-select>
           <div
             class="help-block"
-            :class="{ show: $v.documentationLocal.documentType.$error }">
+            :class="{ show: $v.documentationLocal.documentType.$error }"
+          >
             Campo obbligatorio
           </div>
           <CTextarea
             label="Note"
             placeholder="Note"
-            v-model="documentationLocal.notes" />
+            v-model="documentationLocal.notes"
+          />
           <CInput
             label="Fonti"
             placeholder="Fonti"
-            v-model="documentationLocal.resource" />
+            v-model="documentationLocal.resource"
+          />
         </CCardBody>
       </CCard>
     </div>
   </div>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators"
-import { mapGetters } from "vuex"
+import { required } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 //import AgentAdd from "../../agent/AgentAdd.vue";
-import CTitle from "@/components/CTitle.vue"
+import CTitle from "@/components/CTitle.vue";
 export default {
   components: {
     /*AgentAdd*/
@@ -215,7 +232,7 @@ export default {
         tool: this.toolId,
         method: this.methodId
       }
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
@@ -223,17 +240,17 @@ export default {
     ...mapGetters("documentation", ["documentationList"]),
     getAllDocumentations() {
       if (this.documentationList) {
-        return this.documentationList.map((item) => {
+        return this.documentationList.map(item => {
           return {
             id: item.id,
             name:
               (item.name == null ? "" : item.name) +
               " - " +
               (item.documentType.name == null ? "" : item.documentType.name)
-          }
-        })
+          };
+        });
       } else {
-        return []
+        return [];
       }
     }
   },
@@ -273,100 +290,99 @@ export default {
   },
   methods: {
     changeTool(value) {
-      this.documentationLocal.tool = value.id
+      this.documentationLocal.tool = value.id;
     },
 
     changeDocumentType(value) {
-      this.documentationLocal.documentType = value.id
+      this.documentationLocal.documentType = value.id;
     },
     selectId(e) {
-      this.selectedDocId = e.id
+      this.selectedDocId = e.id;
     },
     handleAddSubmit() {
-      this.$v.$touch()
+      this.$v.$touch();
       if (!this.$v.documentationLocal.$invalid) {
-        console.log(this.selectedDocId)
-        let params = { id: 0, docID: 0 }
+        console.log(this.selectedDocId);
+        let params = { id: 0, docID: 0 };
 
         if (this.selectedDocId) {
           if (this.toolId) {
-            params.id = this.toolId
-            params.docID = this.selectedDocId
+            params.id = this.toolId;
+            params.docID = this.selectedDocId;
             this.$store
               .dispatch("tools/addDocumentation", params)
-              .then(this.$emit("updateParent"))
-            this.stateform = this.FormState.LIST
+              .then(this.$emit("updateParent"));
+            this.stateform = this.FormState.LIST;
           }
 
           if (this.methodId) {
-            params.id = this.methodId
-            params.docID = this.selectedDocId
+            params.id = this.methodId;
+            params.docID = this.selectedDocId;
             this.$store
               .dispatch("methods/addDocumentation", params)
-              .then(this.$emit("updateParent"))
-            this.stateform = this.FormState.LIST
+              .then(this.$emit("updateParent"));
+            this.stateform = this.FormState.LIST;
           }
         }
       }
     },
     handleNewSubmit() {
-      this.$v.$touch()
+      this.$v.$touch();
       if (!this.$v.documentationLocal.$invalid) {
-        this.documentationLocal.tool = this.toolId
-        this.documentationLocal.method = this.methodId
-        this.documentationLocal.documentType =
-          this.documentationLocal.documentType.id
+        this.documentationLocal.tool = this.toolId;
+        this.documentationLocal.method = this.methodId;
+        this.documentationLocal.documentType = this.documentationLocal.documentType.id;
 
         this.$store
           .dispatch("documentation/save", this.documentationLocal)
-          .then(this.$emit("updateParent"))
-        this.stateform = this.FormState.LIST
+          .then(this.$emit("updateParent"));
+        this.stateform = this.FormState.LIST;
         //this.viewNewDocument = false;
       }
     },
 
     handleBack() {
-      this.$router.back()
+      this.$router.back();
     },
     deleteDocumentation() {
       this.$store
         .dispatch("documentation/delete", this.selectedDoc.id)
-        .then(this.$emit("updateParent"))
+        .then(this.$emit("updateParent"));
     },
     handleRemoveSubmit() {
-      let params = { id: 0, docID: 0 }
+      let params = { id: 0, docID: 0 };
 
       if (this.selectedDoc.id) {
         if (this.toolId) {
-          params.id = this.toolId
-          params.docID = this.selectedDoc.id
+          params.id = this.toolId;
+          params.docID = this.selectedDoc.id;
           this.$store
             .dispatch("tools/removeDocumentation", params)
-            .then(this.$emit("updateParent"))
+            .then(this.$emit("updateParent"));
         }
         if (this.methodId) {
-          params.id = this.methodId
-          params.docID = this.selectedDoc.id
+          params.id = this.methodId;
+          params.docID = this.selectedDoc.id;
           this.$store
             .dispatch("methods/removeDocumentation", params)
-            .then(this.$emit("updateParent"))
+            .then(this.$emit("updateParent"));
         }
       }
-      this.warningModal = false
+      this.warningModal = false;
     },
     modalOpen(app) {
-      this.selectedDoc = app
-      this.warningModal = true
+      this.selectedDoc = app;
+      this.warningModal = true;
     },
     modalClose() {
-      this.warningModal = false
+      this.warningModal = false;
     }
   },
   created() {
-    this.$store.dispatch("documentation/findAll")
-    this.$store.dispatch("documentationType/findAll")
+    this.$store.dispatch("documentation/findAll");
+    this.$store.dispatch("documentationType/findAll");
   }
-}
+};
 </script>
 <style scoped>
 h5 {

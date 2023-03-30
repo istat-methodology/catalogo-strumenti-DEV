@@ -3,10 +3,10 @@
     <CTitle
       :title="
         'Edit Process Design di ' +
-        bProcessStep.name +
-        ' (' +
-        bProcessDesignLocal.processDesigns_id +
-        ')'
+          bProcessStep.name +
+          ' (' +
+          bProcessDesignLocal.processDesigns_id +
+          ')'
       "
       buttonTitle=" nuovo process design "
       functionality=""
@@ -150,7 +150,7 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignEdit",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -167,7 +167,7 @@ export default {
         informationObject_id: "",
         informationObject_name: "",
         informationObject_description: "",
-        informationObject_csmAppRoleId: "",
+        informationObject_csmAppRoleId: ""
       },
       bProcessDesignLocal_2: {
         id: "",
@@ -176,21 +176,21 @@ export default {
         label: "",
         processDesignDescription: {
           id: "",
-          descr: "",
+          descr: ""
         },
         designType: {
           id: "",
           type: "",
-          parent: "",
+          parent: ""
         },
         informationObject: {
           id: "",
           name: "",
           descr: "",
-          csmAppRoleId: "",
-        },
+          csmAppRoleId: ""
+        }
       },
-      designTypeSelected: { type: "" },
+      designTypeSelected: { type: "" }
     };
   },
   computed: {
@@ -198,21 +198,21 @@ export default {
     ...mapGetters("designtypes", [
       "designtype",
       "designtypeList",
-      "designtypebyparentList",
-    ]),
+      "designtypebyparentList"
+    ])
   },
   //emits: ["enableEditProcessDesign"],
   props: {
     bProcessStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bProcessDesign: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleSubmit() {
@@ -228,12 +228,12 @@ export default {
         "designtypes/findByParent",
         this.bProcessDesignLocal.designType_id
       );
-    },
+    }
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
     this.$store.dispatch("designtypes/findAll");
-  },
+  }
 };
 </script>
 <style scoped>

@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
-import Sidebar from "@/components/Sidebar"
-import Toast from "@/components/Toast"
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Sidebar from "@/components/Sidebar";
+import Toast from "@/components/Toast";
 export default {
   name: "App",
   components: {
@@ -32,9 +32,9 @@ export default {
     "app-toast": Toast
   },
   created() {
-    this.$store.dispatch("coreui/clearContext")
+    this.$store.dispatch("coreui/clearContext");
   }
-}
+};
 </script>
 
 <style lang="scss">

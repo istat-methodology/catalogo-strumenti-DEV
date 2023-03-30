@@ -8,7 +8,8 @@
         :authenticated="isAuthenticated"
         :buttons="['aggiungi', 'indietro']"
         @handleNew="handleNew"
-        @handleBack="handleBack" />
+        @handleBack="handleBack"
+      />
       <CCard>
         <CCardBody>
           <CDataTable
@@ -25,7 +26,8 @@
                 :authenticated="isAuthenticated"
                 @handleView="handleView(item)"
                 @handleEdit="handleEdit(item)"
-                @handleDelete="handleOpenModalDelete(item)" />
+                @handleDelete="handleOpenModalDelete(item)"
+              />
             </template>
           </CDataTable>
         </CCardBody>
@@ -35,16 +37,17 @@
       :message="getMessage()"
       :showModal="showModal"
       @closeModal="closeModal"
-      @handleDelete="handleDelete" />
+      @handleDelete="handleDelete"
+    />
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import { Context } from "@/common"
-import CTitle from "@/components/CTitle.vue"
-import CModalDelete from "@/components/CModalDelete.vue"
-import CTableLink from "@/components/CTableLink.vue"
+import { mapGetters } from "vuex";
+import { Context } from "@/common";
+import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+import CTableLink from "@/components/CTableLink.vue";
 
 export default {
   name: "documentationList",
@@ -77,14 +80,14 @@ export default {
       ],
       selectedDocumentation: {},
       showModal: false
-    }
+    };
   },
   computed: {
     ...mapGetters("documentation", ["documentationList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
     computedItems() {
       if (this.documentationList) {
-        return this.documentationList.map((item) => {
+        return this.documentationList.map(item => {
           return {
             id: item.id,
             name: item.name == null ? "" : item.name,
@@ -93,61 +96,61 @@ export default {
               item.documentType == null ? "" : item.documentType.name,
             notes: item.notes == null ? "" : item.notes,
             resource: item.resource == null ? "" : item.resource
-          }
-        })
+          };
+        });
       } else {
-        return []
+        return [];
       }
     }
   },
 
   methods: {
     handleNew() {
-      this.$router.push({ name: "DocumentationAdd" })
+      this.$router.push({ name: "DocumentationAdd" });
     },
     handleBack() {
-      this.$router.push({ name: "Catalogue" })
+      this.$router.push({ name: "Catalogue" });
     },
     handleView(item) {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "DocumentationDetails",
         params: { id: item.id }
-      })
+      });
     },
     handleEdit(item) {
       //router.push({ name: 'user', params: { username } })
-      this.$router.push({ name: "DocumentationEdit", params: { id: item.id } })
+      this.$router.push({ name: "DocumentationEdit", params: { id: item.id } });
     },
     handleDelete() {
       this.$store.dispatch(
         "documentation/delete",
         this.selectedDocumentation.id
-      )
-      this.showModal = false
+      );
+      this.showModal = false;
     },
 
     handleOpenModalDelete(app) {
-      this.selectedDocumentation = app
-      this.showModal = true
+      this.selectedDocumentation = app;
+      this.showModal = true;
     },
     closeModal() {
-      this.showModal = false
+      this.showModal = false;
     },
     getMessage() {
       return (
         "Sei sicuro di eliminare la documentazione " +
         this.selectedDocumentation.name +
         " selezionato?"
-      )
+      );
     }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.DocumentationList)
+    this.$store.dispatch("coreui/setContext", Context.DocumentationList);
     // if (this.params) {
     // this.$store.dispatch("tools/filter", this.params);
-    this.$store.dispatch("documentation/findAll")
+    this.$store.dispatch("documentation/findAll");
     // }
   }
-}
+};
 </script>

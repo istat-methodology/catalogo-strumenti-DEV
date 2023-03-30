@@ -14,7 +14,8 @@
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               readonly
-              v-model="user.name" />
+              v-model="user.name"
+            />
           </div>
 
           <div class="input-group mb-3">
@@ -28,12 +29,14 @@
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               readonly
-              v-model="user.surname" />
+              v-model="user.surname"
+            />
           </div>
 
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.oldPassword.$error }">
+            :class="{ 'form-group--error': $v.oldPassword.$error }"
+          >
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Vecchia password</span
@@ -43,7 +46,8 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="oldPassword" />
+              v-model="oldPassword"
+            />
             <div class="row col-12">
               <div class="error" v-if="!$v.oldPassword.required">
                 password is required
@@ -56,7 +60,8 @@
           </div>
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.newPassword.$error }">
+            :class="{ 'form-group--error': $v.newPassword.$error }"
+          >
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Nuova password</span
@@ -66,7 +71,8 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="newPassword" />
+              v-model="newPassword"
+            />
             <div class="row col-12">
               <div class="error" v-if="!$v.newPassword.required">
                 password is required
@@ -103,7 +109,8 @@
             <button
               class="btn btn-outline-dark btn-sm"
               @click.prevent="handleUpdate()"
-              :disabled="submitStatus === 'PENDING'">
+              :disabled="submitStatus === 'PENDING'"
+            >
               Update!
             </button>
           </div>
@@ -123,8 +130,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import { required, minLength /* sameAs */ } from "vuelidate/lib/validators"
+import { mapGetters } from "vuex";
+import { required, minLength /* sameAs */ } from "vuelidate/lib/validators";
 export default {
   name: "UserPassChange",
   data() {
@@ -133,7 +140,7 @@ export default {
       oldPassword: "",
       newPassword: ""
       //newRepeatedPassword: ""
-    }
+    };
   },
   validations: {
     oldPassword: {
@@ -156,7 +163,7 @@ export default {
     this.$store.dispatch(
       "user/findById",
       this.$store.getters["auth/loggedUser"].userId
-    )
+    );
     //this.$store.dispatch("role/findAll");
   },
   methods: {
@@ -165,7 +172,7 @@ export default {
     }, */
     handleUpdate() {
       if (this.$v.$invalid) {
-        this.submitStatus = "ERROR"
+        this.submitStatus = "ERROR";
       } else {
         const data = {
           id: this.user.id,
@@ -173,12 +180,12 @@ export default {
           surname: this.user.surname, */
           oldpass: this.oldPassword,
           newpass: this.newPassword
-        }
-        this.$store.dispatch("user/changePassword", data)
+        };
+        this.$store.dispatch("user/changePassword", data);
       }
     }
   }
-}
+};
 </script>
 <style scoped>
 .input {

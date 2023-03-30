@@ -8,7 +8,8 @@
             tag="a"
             :to="{
               name: 'UserList'
-            }">
+            }"
+          >
             <span class="pl-1"
               ><users-icon class="pr-3" />back to user list</span
             >
@@ -18,7 +19,8 @@
         <div class="card-body" v-if="user">
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.user.name.$error }">
+            :class="{ 'form-group--error': $v.user.name.$error }"
+          >
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Name</span
@@ -28,7 +30,8 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="user.name" />
+              v-model="user.name"
+            />
             <div class="row col-12">
               <div class="error" v-if="!$v.user.name.required">
                 Name is required
@@ -42,7 +45,8 @@
 
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.user.surname.$error }">
+            :class="{ 'form-group--error': $v.user.surname.$error }"
+          >
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Surname</span
@@ -52,7 +56,8 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="user.surname" />
+              v-model="user.surname"
+            />
             <div class="row col-12">
               <div class="error" v-if="!$v.user.surname.required">
                 Surname is required
@@ -66,7 +71,8 @@
 
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.user.email.$error }">
+            :class="{ 'form-group--error': $v.user.email.$error }"
+          >
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Email</span
@@ -76,7 +82,8 @@
               class="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              v-model="user.email" />
+              v-model="user.email"
+            />
             <div class="row col-12">
               <div class="error" v-if="!$v.user.email.required">
                 Email is required
@@ -89,7 +96,8 @@
           </div>
           <div
             class="input-group mb-3"
-            :class="{ 'form-group--error': $v.user.role.$error }">
+            :class="{ 'form-group--error': $v.user.role.$error }"
+          >
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default"
                 >Role</span
@@ -100,7 +108,8 @@
               label="role"
               :options="roles"
               placeholder="role"
-              v-model="user.role"></v-select>
+              v-model="user.role"
+            ></v-select>
 
             <div class="row col-12">
               <div class="error" v-if="!$v.user.role.required">
@@ -113,7 +122,8 @@
             <button
               class="btn btn-outline-dark btn-sm"
               @click.prevent="handleUpdate()"
-              :disabled="submitStatus === 'PENDING'">
+              :disabled="submitStatus === 'PENDING'"
+            >
               Update!
             </button>
 
@@ -139,15 +149,15 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import { required, minLength, email } from "vuelidate/lib/validators"
+import { mapGetters } from "vuex";
+import { required, minLength, email } from "vuelidate/lib/validators";
 export default {
   name: "UserEdit",
   data() {
     return {
       submitStatus: null
       //disabled: true
-    }
+    };
   },
   validations: {
     user: {
@@ -173,8 +183,8 @@ export default {
     ...mapGetters("role", ["roles"])
   },
   created() {
-    this.$store.dispatch("user/findById", this.$route.params.id)
-    this.$store.dispatch("role/findAll")
+    this.$store.dispatch("user/findById", this.$route.params.id);
+    this.$store.dispatch("role/findAll");
   },
   methods: {
     /*  changeRole(value) {
@@ -182,7 +192,7 @@ export default {
     }, */
     handleUpdate() {
       if (this.$v.$invalid) {
-        this.submitStatus = "ERROR"
+        this.submitStatus = "ERROR";
       } else {
         const data = {
           id: this.user.id,
@@ -190,19 +200,19 @@ export default {
           surname: this.user.surname,
           email: this.user.email,
           roleid: this.user.role.id
-        }
+        };
 
-        this.$store.dispatch("user/update", data)
+        this.$store.dispatch("user/update", data);
       }
     },
     handleReset() {
-      this.user.name = ""
-      this.user.surname = ""
-      this.user.email = ""
+      this.user.name = "";
+      this.user.surname = "";
+      this.user.email = "";
       /*  this.user.password = ""; */
-      this.user.role = null
-      this.$v.$reset()
+      this.user.role = null;
+      this.$v.$reset();
     }
   }
-}
+};
 </script>
