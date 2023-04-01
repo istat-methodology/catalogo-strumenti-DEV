@@ -67,23 +67,13 @@
         >
           <div class="card">
             <div class="card-header no-border m-0">
-              <!--h5>
+              <h5>
                 <div class="text-info float-left">
                   {{ iProcessDesigns.processDesignId }}
                 </div>
                 <div class="text-info float-right">
                 </div>
-              </h5-->
-             
-              <CTitle
-                :title="iProcessDesigns.processDesignId"
-                buttonTitle=" nuovo Process Specification "
-                functionality=""
-                :authenticated="isAuthenticated"
-                :buttons="['aggiungi']"
-                @handleNew="showNewProcessDesign"
-              />
-             
+              </h5>
             </div>
             <CDataTable
               v-if="bPStepLocal"
@@ -93,6 +83,7 @@
               hover
               pagination
               class="p-0"
+
             >
               <template #designType_Tipo_IO="{ item }">
                 <td>
@@ -128,6 +119,9 @@
                   @handleDelete="handleOpenModalDelete(iProcessDesigns, item)"
               /></template>
             </CDataTable>
+            <div class="pt-4 pb-2 pr-2" >
+              <button @click="showNewProcessDesign" class="btn btn-info float-right">Nuovo Process Specificstion</button>            
+            </div>
           </div>
         </div>
       </div>
