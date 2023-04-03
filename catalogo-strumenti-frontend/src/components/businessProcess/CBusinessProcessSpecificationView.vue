@@ -11,14 +11,13 @@
         bProcessDesignLocal.processDesignId +
         ') / ' +
         'Process Specification (' +
-        //bProcessSpecificationLocal.id +
+        bProcessSpecificationLocal.id +
         ') '
       "
-      buttonTitle=" process specification "
+      buttonTitle="view process specification "
       functionality=""
       :authenticated="isAuthenticated"
-      :buttons="['salva', 'indietro']"
-      @handleSubmit="handleSubmit"
+      :buttons="['indietro']"
       @handleBack="handleBack"
     />
     <CCard v-if="designtypebyparentList">
@@ -31,9 +30,10 @@
             <div class="form-group col-6" role="group">
               <label class="col-12">Tipo I/O</label>
               <select
+                disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
-                v-model="bProcessSpecificationLocal.designType_Tipo_IO.id"
+                v-model="bProcessSpecification.designType_Tipo_IO.id"
               >
                 <option
                   v-for="option in designtypeList"
@@ -47,9 +47,10 @@
             <div class="form-group col-6" role="group">
               <label class="col-12">Dati I/O</label>
               <select
+                disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="onChangeDesignType_Data_IO($event)"
-                v-model="designType_Dati_IO.id"
+                v-model="bProcessSpecification.designType_Dati_IO.id"
               >
                 <option
                   v-for="option in designtypebyparentList"
@@ -66,12 +67,14 @@
           </div>
           <div class="row">
             <CInput
+              disabled
               class="col-2"
               label="id"
               placeholder="id"
               v-model="bProcessSpecificationLocal.informationObject.id"
             />
             <CInput
+              disabled
               class="col-10"
               label="name"
               placeholder="name"
@@ -86,6 +89,7 @@
           </div>
           <div class="row">
             <CTextarea
+              disabled
               class="col-12"
               label="description"
               placeholder="description"
@@ -103,15 +107,15 @@
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 export default {
-  name: "CBusinessProcessDesignNew",
+  name: "CBusinessProcessSpecificationView",
   components: {
     CTitle,
   },
   data() {
     return {
       bProcessDesignLocal: {},
-      //bProcessSpecificationLocal: {},
-      bProcessSpecificationLocal: {
+      bProcessSpecificationLocal: {},
+      processSpecificationLocal: {
         id: "",
         processDesign: {
           id: "",
@@ -159,10 +163,6 @@ export default {
     },
   },
   methods: {
-    handleSubmit() {
-      //this.bProcessDesign = this.bProcessDesignLocal
-      this.$emit("enableNewProcessSpecification", this.bProcessDesignLocal);
-    },
     handleBack() {
       this.$emit("enableBack");
     },
@@ -175,11 +175,11 @@ export default {
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
-    //this.bProcessSpecificationLocal = this.bProcessSpecification;
+    this.bProcessSpecificationLocal = this.bProcessSpecification;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch(
       "designtypes/findByParent",
-      parseInt(parseInt(1))
+      parseInt(parseInt(this.bProcessSpecification.designType_Tipo_IO.id))
     );
   },
 };
@@ -235,5 +235,8 @@ body {
     display: block;
     margin-bottom: 20px;
   }
+}
+.ucase {
+  font: upper-case;
 }
 </style>

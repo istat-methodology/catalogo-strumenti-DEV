@@ -11,10 +11,10 @@
         bProcessDesignLocal.processDesignId +
         ') / ' +
         'Process Specification (' +
-        //bProcessSpecificationLocal.id +
+        bProcessSpecificationLocal.id +
         ') '
       "
-      buttonTitle=" process specification "
+      buttonTitle="view process design "
       functionality=""
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
@@ -33,7 +33,7 @@
               <select
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
-                v-model="bProcessSpecificationLocal.designType_Tipo_IO.id"
+                v-model="bProcessSpecification.designType_Tipo_IO.id"
               >
                 <option
                   v-for="option in designtypeList"
@@ -49,7 +49,7 @@
               <select
                 class="p-1 ml-0 col-12 form-control"
                 @change="onChangeDesignType_Data_IO($event)"
-                v-model="designType_Dati_IO.id"
+                v-model="bProcessSpecification.designType_Dati_IO.id"
               >
                 <option
                   v-for="option in designtypebyparentList"
@@ -103,15 +103,15 @@
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 export default {
-  name: "CBusinessProcessDesignNew",
+  name: "CBusinessProcessDesignEdit",
   components: {
     CTitle,
   },
   data() {
     return {
       bProcessDesignLocal: {},
-      //bProcessSpecificationLocal: {},
-      bProcessSpecificationLocal: {
+      bProcessSpecificationLocal: {},
+      processSpecificationLocal: {
         id: "",
         processDesign: {
           id: "",
@@ -161,7 +161,7 @@ export default {
   methods: {
     handleSubmit() {
       //this.bProcessDesign = this.bProcessDesignLocal
-      this.$emit("enableNewProcessSpecification", this.bProcessDesignLocal);
+      this.$emit("enableEditProcessDesign", this.bProcessDesignLocal);
     },
     handleBack() {
       this.$emit("enableBack");
@@ -175,11 +175,11 @@ export default {
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
-    //this.bProcessSpecificationLocal = this.bProcessSpecification;
+    this.bProcessSpecificationLocal = this.bProcessSpecification;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch(
       "designtypes/findByParent",
-      parseInt(parseInt(1))
+      parseInt(parseInt(this.bProcessSpecification.designType_Tipo_IO.id))
     );
   },
 };

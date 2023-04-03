@@ -2,100 +2,44 @@
   <div>
     <CTitle
       :title="
-        'View Process Design (' +
-        bProcessDesignLocal.processDesignId +
-        ') del process step ' +
+        'Process Step ' +
         bProcessStep.name +
         ' (' +
         bProcessStep.id +
-        ')'
+        ') / ' +
+        'Process Design (' +
+        bProcessDesignLocal.processDesignId +
+        ') / '
       "
-      buttonTitle="view process design "
+      buttonTitle=" process design "
       functionality=""
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"
       @handleBack="handleBack"
     />
-    <div class="row">
-      <Label
-        >Process Specification
-        <span>({{ bProcessDesignSpecificationLocal.id }})</span></Label
-      >
-    </div>
-    <CCard v-if="designtypebyparentList">
-      <CCardBody  >
+    <CCard>
+      <CCardBody>
         <div class="col-12">
           <div class="row mt-1">
-            <Label>Design Type</Label>
+            <Label>Process Design</Label>
           </div>
           <div class="row">
-            <div class="form-group col-6" role="group">
-              <label class="col-12">Tipo I/O</label>
-              <select 
-                class="p-1 ml-0 col-12 form-control"
-                @change="changeDesignTypeListByParent($event)"
-                v-model="bProcessDesignSpecification.designType_Tipo_IO.id"
-              >
-                <option
-                  v-for="option in designtypeList"
-                  v-bind:value="option.id"
-                  :key="option.id"
-                >
-                  {{ option.type }}
-                </option>
-              </select>
-            </div>
-            <div class="form-group col-6" role="group">
-              <label class="col-12">Dati I/O</label>
-              <select 
-                class="p-1 ml-0 col-12 form-control"
-                @change="onChangeDesignType_Data_IO($event)"
-                v-model="bProcessDesignSpecification.designType_Dati_IO.id"
-              >
-                <option
-                  v-for="option in designtypebyparentList"
-                  v-bind:value="option.id"
-                  :key="option.id"
-                >
-                  {{ option.type }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="row mt-4">
-            <Label>Information Object</Label>
-          </div>
-          <div class="row">
-            <CInput 
+            <CInput
+              disabled
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="bProcessDesignSpecificationLocal.informationObject.id"
+              v-model="bProcessDesignLocal.processDesignId"
             />
-            <CInput 
+            <CInput
               class="col-10"
-              label="name"
-              placeholder="name"
-              v-model="bProcessDesignSpecificationLocal.informationObject.name"
+              label="Description"
+              placeholder="Description"
+              v-model="bProcessDesignLocal.processDesignDescription"
             />
-            <!--CInput
-                class="col-2"
-                label="csmAppRoleId"
-                placeholder="csmAppRoleId"
-                v-model="bProcessDesignSpecificationLocal.informationObject.csmAppRole.id"
-              /-->
-          </div>
-          <div class="row">
-            <CTextarea 
-              class="col-12"
-              label="description"
-              placeholder="description"
-              v-model="
-                bProcessDesignSpecificationLocal.informationObject.description
-              "
-            />
-          </div>
+        </div>
+
         </div>
       </CCardBody>
     </CCard>
@@ -111,36 +55,14 @@ export default {
   },
   data() {
     return {
-      bProcessDesignLocal: {},
-      bProcessDesignSpecificationLocal: {},
-      processSpecificationLocal: {
+      bProcessDesignLocal: {
         id: "",
-        processDesign: {
-          id: "",
-          descr: "",
-        },
-        designType: {
-          id: "",
-          type: "",
-          parent: "",
-        },
-        informationObject: {
-          id: "",
-          name: "",
-          descr: "",
-          csmAppRoleId: "",
-          businessService: {
-            id: "",
-            name: "",
-            descr: "",
-          },
-        },
+        descr: "",
       },
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   //emits: ["enableEditProcessDesign"],
   props: {
@@ -153,12 +75,7 @@ export default {
       type: Object,
       required: true,
       default: () => {},
-    },
-    bProcessDesignSpecification: {
-      type: Object,
-      required: true,
-      default: () => {},
-    },
+    }
   },
   methods: {
     handleSubmit() {
@@ -167,22 +84,10 @@ export default {
     },
     handleBack() {
       this.$emit("enableBack");
-    },
-    changeDesignTypeListByParent(event) {
-      this.$store.dispatch("designtypes/findByParent", event.target.value);
-    },
-    onChangeDesignType_Data_IO(event) {
-      alert(event.target.value);
-    },
+    }
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
-    this.bProcessDesignSpecificationLocal = this.bProcessDesignSpecification;
-    this.$store.dispatch("designtypes/findAll");
-    this.$store.dispatch(
-      "designtypes/findByParent",
-      parseInt(parseInt(this.bProcessDesignSpecification.designType_Tipo_IO.id))
-    );
   },
 };
 </script>
