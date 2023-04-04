@@ -3,16 +3,16 @@
     <CTitle
       :title="
         'Process Step ' +
-        bProcessStep.name +
-        ' (' +
-        bProcessStep.id +
-        ') / ' +
-        'Process Design (' +
-        bProcessDesignLocal.processDesignId +
-        ') / ' +
-        'Process Specification (' +
-        //bProcessSpecificationLocal.id +
-        ') '
+          bProcessStep.name +
+          ' (' +
+          bProcessStep.id +
+          ') / ' +
+          'Process Design (' +
+          bProcessDesignLocal.processDesignId +
+          ') / ' +
+          'Process Specification (' +
+          //bProcessSpecificationLocal.id +
+          ') '
       "
       buttonTitle=" process specification "
       functionality=""
@@ -89,9 +89,7 @@
               class="col-12"
               label="description"
               placeholder="description"
-              v-model="
-                bProcessSpecificationLocal.informationObject.description
-              "
+              v-model="bProcessSpecificationLocal.informationObject.description"
             />
           </div>
         </div>
@@ -105,7 +103,7 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignNew",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -115,12 +113,12 @@ export default {
         id: "",
         processDesign: {
           id: "",
-          descr: "",
+          descr: ""
         },
         designType: {
           id: "",
           type: "",
-          parent: "",
+          parent: ""
         },
         informationObject: {
           id: "",
@@ -130,33 +128,33 @@ export default {
           businessService: {
             id: "",
             name: "",
-            descr: "",
-          },
-        },
-      },
+            descr: ""
+          }
+        }
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
   },
   //emits: ["enableEditProcessDesign"],
   props: {
     bProcessStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bProcessDesign: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bProcessSpecification: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleSubmit() {
@@ -171,17 +169,14 @@ export default {
     },
     onChangeDesignType_Data_IO(event) {
       alert(event.target.value);
-    },
+    }
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
     //this.bProcessSpecificationLocal = this.bProcessSpecification;
     this.$store.dispatch("designtypes/findAll");
-    this.$store.dispatch(
-      "designtypes/findByParent",
-      parseInt(parseInt(1))
-    );
-  },
+    this.$store.dispatch("designtypes/findByParent", parseInt(parseInt(1)));
+  }
 };
 </script>
 <style scoped>

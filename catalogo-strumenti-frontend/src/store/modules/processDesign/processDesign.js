@@ -52,7 +52,7 @@ const actions = {
 };
 
 const getters = {
-  processDESIGN: state => {
+  processDesign: state => {
     return state.processDesign;
   }
 };

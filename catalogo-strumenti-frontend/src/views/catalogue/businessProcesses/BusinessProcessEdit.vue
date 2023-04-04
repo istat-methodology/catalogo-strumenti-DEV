@@ -62,38 +62,7 @@ export default {
   },
   name: "BusinessProcessEdit",
   data() {
-    return {
-      /*fields: [
-        {
-          key: "index",
-          label: "#",
-          _style: "width:1%;"
-        },
-        {
-          key: "name",
-          label: "Nome",
-          _style: "width:20%;"
-        },
-
-        {
-          key: "tool",
-          label: "Strumento",
-          _style: "width:40%;"
-        },
-        {
-          key: "stepInstances",
-          label: "Funzione",
-          _style: "width:40%;"
-        },
-        {
-          key: "show_details",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false
-        }
-      ],
-      */
+    return {     
       FormState: {
         LIST: 0,
         EDIT: 1,
@@ -111,33 +80,6 @@ export default {
     ...mapGetters("bProcess", ["bProcess"])
   },
   methods: {
-    /*getProcessStepsList: function() {
-      if (this.bProcess && this.bProcess.processSteps) {
-        return this.bProcess.processSteps.map((step, index) => {
-          return {
-            id: step.id,
-            index: index + 1,
-            name: step.name == null ? "" : step.name,
-            label: step.label == null ? "" : step.label,
-            tool: step.businessService == null ? "" : step.businessService.name,
-            stepInstances:
-              step.stepInstances == null
-                ? ""
-                : step.stepInstances
-                    .map(instance => {
-                      return (
-                        instance.functionality + " (" + instance.method + ")"
-                      );
-                    })
-                    .join(", "),
-            processDesigns: step.processDesigns
-          };
-        });
-      } else {
-        return [];
-      }
-    },
-    */
     handleSubmit() {
       this.$store.dispatch("bProcess/update", this.bProcess);
     },

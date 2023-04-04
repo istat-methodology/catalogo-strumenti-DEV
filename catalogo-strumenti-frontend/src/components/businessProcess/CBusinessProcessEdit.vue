@@ -89,11 +89,6 @@ export default {
     return {
       fields: [
         {
-          key: "index",
-          label: "#",
-          _style: "width:1%;"
-        },
-        {
           key: "name",
           label: "Nome",
           _style: "width:20%;"
@@ -108,13 +103,6 @@ export default {
           label: "Descrizione",
           _style: "width:40%;"
         },
-        /*
-        {
-          key: "stepInstances",
-          label: "Funzione",
-          _style: "width:40%;",
-        },
-        */
         {
           key: "show_details",
           label: "",
@@ -145,10 +133,9 @@ export default {
   methods: {
     getProcessStepsList: function() {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
-        return this.bProcessLocal.processSteps.map((step, index) => {
+        return this.bProcessLocal.processSteps.map((step) => {
           return {
             id: step.id,
-            index: index + 1,
             name: step.name == null ? "" : step.name,
             label: step.label == null ? "" : step.label,
             description: step.descr == null ? "" : step.descr,

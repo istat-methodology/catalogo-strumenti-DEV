@@ -3,13 +3,13 @@
     <CTitle
       :title="
         'Process Step ' +
-        bProcessStep.name +
-        ' (' +
-        bProcessStep.id +
-        ') / ' +
-        'Process Design (' +
-        bProcessDesignLocal.processDesignId +
-        ') / '
+          bProcessStep.name +
+          ' (' +
+          bProcessStep.id +
+          ') / ' +
+          'Process Design (' +
+          bProcessDesignLocal.processDesignId +
+          ') / '
       "
       buttonTitle="view process design "
       functionality=""
@@ -44,36 +44,35 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignView",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
       bProcessDesignLocal: {},
-      
+
       processDesignLocal: {
         id: "",
         processDesign: {
           id: "",
-          descr: "",
+          descr: ""
         }
-      },
+      }
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
-    
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   //emits: ["enableEditProcessDesign"],
   props: {
     bProcessStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bProcessDesign: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     }
   },
   methods: {
@@ -83,7 +82,7 @@ export default {
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
-  },
+  }
 };
 </script>
 <style scoped>

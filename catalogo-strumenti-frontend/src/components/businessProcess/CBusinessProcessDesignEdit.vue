@@ -3,13 +3,13 @@
     <CTitle
       :title="
         'Process Step ' +
-        bProcessStep.name +
-        ' (' +
-        bProcessStep.id +
-        ') / ' +
-        'Process Design (' +
-        bProcessDesignLocal.processDesignId +
-        ') / '
+          bProcessStep.name +
+          ' (' +
+          bProcessStep.id +
+          ') / ' +
+          'Process Design (' +
+          bProcessDesignLocal.id +
+          ') / '
       "
       buttonTitle=" process design "
       functionality=""
@@ -30,16 +30,15 @@
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="bProcessDesignLocal.processDesignId"
+              v-model="bProcessDesignLocal.id"
             />
             <CInput
               class="col-10"
               label="Description"
               placeholder="Description"
-              v-model="bProcessDesignLocal.processDesignDescription"
+              v-model="bProcessDesignLocal.description"
             />
-        </div>
-
+          </div>
         </div>
       </CCardBody>
     </CCard>
@@ -51,35 +50,33 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignEdit",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
       bProcessDesignLocal: {
         id: "",
-        descr: "",
-      },
+        description: ""
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"])
-  },
-  //emits: ["enableEditProcessDesign"],
+  }, 
   props: {
     bProcessStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bProcessDesign: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     }
   },
   methods: {
-    handleSubmit() {
-      //this.bProcessDesign = this.bProcessDesignLocal
+    handleSubmit() {    
       this.$emit("enableEditProcessDesign", this.bProcessDesignLocal);
     },
     handleBack() {
@@ -87,8 +84,9 @@ export default {
     }
   },
   created() {
-    this.bProcessDesignLocal = this.bProcessDesign;
-  },
+    this.bProcessDesignLocal.id = this.bProcessDesign.id;
+    this.bProcessDesignLocal.description = this.bProcessDesign.description;
+  }
 };
 </script>
 <style scoped>
