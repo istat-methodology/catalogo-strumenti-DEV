@@ -182,6 +182,7 @@
       <div v-if="stateform == FormState.STEP_NEW">
         <!--div v-if="selectedEditProcess"-->
         <CBusinessProcessStepNew
+          :bDesignType="designtypeList"
           :bPStep="selectedEditStep"
           @enableNewStep="showNewStep"
           @enableBack="stateform = FormState.EDIT"
@@ -298,7 +299,7 @@ export default {
       this.stateform = this.FormState.STEP_EDIT;
     },
     showNewStep() {
-      this.selectedEditStep = null;
+      this.selectedEditStep = {};
       this.stateform = this.FormState.STEP_NEW;
     },
     handleEditBProcess(process) {

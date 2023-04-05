@@ -89,7 +89,16 @@
           <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Processi
         </router-link>
       </li>
-
+      <li class="c-sidebar-nav-item" v-if="isBusinessFunctionSession">
+        <router-link
+          tag="a"
+          :to="{ name: 'ProcessStepsList' }"
+          class="c-sidebar-nav-link c-sidebar-navlink"
+          :class="{ 'c-active': isBusinessProcessSession }"
+        >
+          <CIcon name="cil-chart" class="c-sidebar-nav-icon" />Passi
+        </router-link>
+      </li>
       <!-- <li class="c-sidebar-nav-title" v-if="isToolList">
         Classificazione GSBPM
       </li>

@@ -99,7 +99,7 @@ export default {
           _style: "width:40%;"
         },
         {
-          key: "description",
+          key: "descr",
           label: "Descrizione",
           _style: "width:40%;"
         },
@@ -121,8 +121,6 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"])
   },
-  emits: ["enableEditStep", "enableNewStep"],
-
   props: {
     bProcess: {
       type: Object,
@@ -133,12 +131,12 @@ export default {
   methods: {
     getProcessStepsList: function() {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
-        return this.bProcessLocal.processSteps.map((step) => {
+        return this.bProcessLocal.processSteps.map(step => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
             label: step.label == null ? "" : step.label,
-            description: step.descr == null ? "" : step.descr,
+            descr: step.descr == null ? "" : step.descr,
             //tool: step.businessService == null ? "" : step.businessService.name,
             stepInstances:
               step.stepInstances == null

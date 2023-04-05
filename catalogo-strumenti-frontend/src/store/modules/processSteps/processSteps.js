@@ -2,16 +2,16 @@ import { processStepsService } from "@/services";
 import { processStepsOpenService } from "@/services";
 
 const state = {
-  procStepList: [],
-  procStep: null
+  procStepsList: [],
+  procSteps: null
 };
 
 const mutations = {
-  SET_PROCSTEPLIST(state, procStepList) {
-    state.procStepList = procStepList;
+  SET_PROCSTEPLIST(state, procStepsList) {
+    state.procStepsList = procStepsList;
   },
-  SET_PROCSTEP(state, procStep) {
-    state.procStep = procStep;
+  SET_PROCSTEP(state, procSteps) {
+    state.procSteps = procSteps;
   }
 };
 
@@ -92,15 +92,15 @@ const actions = {
 };
 
 const getters = {
-  procStep: state => {
-    return state.procStep;
+  procSteps: state => {
+    return state.procSteps;
   },
-  procStepList: state => {
-    return state.procStepList;
+  procStepsList: state => {
+    return state.procStepsList;
   }
 };
 
-export const procStep = {
+export const procSteps = {
   namespaced: true,
   state,
   mutations,

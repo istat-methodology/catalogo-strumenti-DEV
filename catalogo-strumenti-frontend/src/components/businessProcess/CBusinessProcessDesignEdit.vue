@@ -8,7 +8,7 @@
           bProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesignLocal.id +
+          bProcessDesign.id +
           ') / '
       "
       buttonTitle=" process design "
@@ -30,13 +30,13 @@
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="bProcessDesignLocal.id"
+              v-model="bProcessDesign.id"
             />
             <CInput
               class="col-10"
               label="Description"
               placeholder="Description"
-              v-model="bProcessDesignLocal.description"
+              v-model="bProcessDesign.descr"
             />
           </div>
         </div>
@@ -54,15 +54,12 @@ export default {
   },
   data() {
     return {
-      bProcessDesignLocal: {
-        id: "",
-        description: ""
-      }
-    };
+      processDesignLocal: {}
+    }
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"])
-  }, 
+  },
   props: {
     bProcessStep: {
       type: Object,
@@ -76,16 +73,12 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {    
-      this.$emit("enableEditProcessDesign", this.bProcessDesignLocal);
+    handleSubmit() {
+      this.$emit("enableEditProcessDesign", this.bProcessDesign);
     },
     handleBack() {
       this.$emit("enableBack");
     }
-  },
-  created() {
-    this.bProcessDesignLocal.id = this.bProcessDesign.id;
-    this.bProcessDesignLocal.description = this.bProcessDesign.description;
   }
 };
 </script>

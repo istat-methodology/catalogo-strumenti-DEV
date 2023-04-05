@@ -183,6 +183,18 @@ const routes = [
           import("../views/catalogue/businessProcesses/BusinessProcessDetails"),
         meta: { authorize: [] }
       },
+
+      {
+        path: "catalogue/processSteps",
+        name: "ProcessStepsList",
+        component: () =>
+          import("../views/catalogue/processSteps/processStepsList"),
+        meta: { authorize: [] }
+      },
+
+
+
+
       /*****************************************************************************/
       {
         path: "catalogue/referenti",

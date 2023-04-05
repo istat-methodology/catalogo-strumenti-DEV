@@ -38,7 +38,7 @@
               class="col-12"
               label="Descrizione"
               placeholder="Descrizione"
-              v-model="processStepLocal.description"
+              v-model="processStepLocal.descr"
             />
           </div>
         </CCardBody>
@@ -63,7 +63,7 @@
             <div class="card-header no-border m-0">
               <h5>
                 <div class="text-info float-left">
-                  {{ processDesign.id }} - {{ processDesign.description }}
+                  {{ processDesign.id }} - {{ processDesign.descr }}
                 </div>
               </h5>
             </div>
@@ -98,7 +98,7 @@
               </template>
               <template #informationObjectDescription="{ item }">
                 <td>
-                  {{ item.informationObject.description }}
+                  {{ item.informationObject.descr }}
                 </td>
               </template>
 
@@ -225,7 +225,7 @@ export default {
     CBusinessProcessSpecificationEdit,
     CTableLink,
     //  CModalDelete,
-    CTitle,
+    CTitle
   },
 
   data() {
@@ -234,143 +234,54 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
-
-      processStepLocal: {
-        id: 0,
-        name: "",
-        descr: "",
-        label: "",
-        businessService: {
-          id: 0,
-          name: "",
-          descr: "",
-        },
-        substep: "",
-        stepInstances: [
-          {
-            id: 0,
-            method: "",
-            statMethod: {
-              id: 0,
-              name: "",
-            },
-            descr: "",
-            functionality: "",
-            appServiceId: "",
-          },
-        ],
-        processDesigns: [
-          {
-            id: 0,
-            descr: "",
-            processSpecification: [
-              {
-                id: 0,
-                designType: {
-                  id: 0,
-                  type: "",
-                  parent: 0,
-                },
-                informationObject: {
-                  id: 0,
-                  name: "",
-                  descr: "",
-                  csmAppRoleId: "",
-                  businessService: {
-                    id: 0,
-                    name: "",
-                    descr: "",
-                  },
-                },
-              },
-            ],
-          },
-        ],
-      },
-
-      processDesignLocal: {
-        id: 0,
-        descr: "",
-        step: {
-          id: 0,
-          name: "",
-          descr: "",
-          label: "",
-        },
-        processSpecification: [
-          {
-            id: 0,
-            processDesign: {
-              id: 0,
-              descr: "",
-            },
-            designType: {
-              id: 0,
-              type: "",
-              parent: 0,
-            },
-            informationObject: {
-              id: 0,
-              name: "",
-              descr: "",
-              csmAppRoleId: "",
-              businessService: {
-                id: 0,
-                name: "",
-                descr: "",
-              },
-            },
-          },
-        ],
-      },
-
+      
       processStepToSave: {
         id: 0,
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0,
-      },      
+        businessServiceId: 0
+      },
       processDesignToSave: {
         id: 0,
         descr: "",
-        step: "",
+        step: ""
       },
 
       designTypeLocal: {},
@@ -386,48 +297,48 @@ export default {
 
         PROCESS_SPECIFICATION_VIEW: 20,
         PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22,
+        PROCESS_SPECIFICATION_EDIT: 22
       },
       stateform: 4,
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("designtypes", ["designtypeList"]),
-    ...mapGetters("processDesign", ["processDesign"]),
+    ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessDesign: function () {
+    getProcessDesign: function() {
       if (
         this.processStepLocal &&
         this.processStepLocal.processDesigns.length > 0
       ) {
-        return this.processStepLocal.processDesigns.map((item) => {
+        return this.processStepLocal.processDesigns.map(item => {
           return {
             id: item.id,
-            description: item.descr,
-            processSpecification: item.processSpecification,
+            descr: item.descr,
+            processSpecification: item.processSpecification
           };
         });
       } else {
         return [];
       }
     },
-    getProcessSpecification: function (processDesign) {
-      return processDesign.processSpecification.map((item) => {
+    getProcessSpecification: function(processDesign) {
+      return processDesign.processSpecification.map(item => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -438,22 +349,40 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent),
+                : this.getDesignType(item.designType.parent)
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type,
+            type: item.designType.parent == null ? "" : item.designType.type
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
-            description: item.informationObject.descr,
+            descr: item.informationObject.descr,
+            businessServiceId: item.informationObject.businessService.id
           }
         };
       });
     },
-
-    /*Process Design method */
+    getDesignType(id) {
+      console.log(this.designTypeLocal);
+      var dt = this.designTypeLocal[id];
+      console.log(dt);
+      return dt;
+    },
+    /* Process Step */
+    handleSubmit() {
+      this.processStepToSave.id = this.processStepLocal.id;
+      this.processStepToSave.name = this.processStepLocal.name;
+      this.processStepToSave.label = this.processStepLocal.label;
+      this.processStepToSave.descr = this.processStepLocal.descr;
+      this.processStepToSave.businessServiceId = 999; //(this.processStepLocal.businessService.id==null) ? 999: this.processStepLocal.businessService.id;
+      this.$store.dispatch("procStep/update", this.processStepToSave); //.then(() => {  alert(this.processStepLocal())});
+    },
+    enableBack() {
+      this.$emit("enableBack");
+    },
+    /* Process Design */
     showNewProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_NEW;
@@ -462,14 +391,13 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-
     handleSubmitNewProcessDesign() {
       console.log("funzione di insert non attiva!");
       alert("funzione di insert non attiva!");
     },
     handleSubmitEditProcessDesign(processDesign) {
       this.processDesignToSave.id = processDesign.id;
-      this.processDesignToSave.descr = processDesign.description;
+      this.processDesignToSave.descr = processDesign.descr;
       this.processDesignToSave.step = this.processStepLocal.id;
       this.$store.dispatch("processDesign/update", this.processDesignToSave);
     },
@@ -481,7 +409,6 @@ export default {
       console.log("funzione delete process design non attiva!");
       alert("funzione delete process design non attiva!");
     },
-
     showEditProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = processDesignSpecification;
@@ -497,9 +424,7 @@ export default {
       this.selectedProcessSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
     },
-
-    /*Process Specification method */
-
+    /* Process Specification */
     handleSubmitNewProcessSpecification() {
       console.log("funzione new process specification non attiva!");
       alert("funzione new process specification non attiva!");
@@ -519,32 +444,12 @@ export default {
     handleOpenModalDeleteProcessSpecification() {
       console.log("funzione delete process specification non attiva!");
       alert("funzione delete process specification non attiva!");
-    },
-    enableBack() {
-      this.$emit("enableBack");
-    },
-
-    /* update process step */
-    handleSubmit() { 
-      this.processStepToSave.id = this.processStepLocal.id;
-      this.processStepToSave.name = this.processStepLocal.name;
-      this.processStepToSave.label = this.processStepLocal.label;
-      this.processStepToSave.description =
-        this.processStepLocal.description;
-      this.processStepToSave.businessServiceId = 999; //(this.processStepLocal.businessService.id==null) ? 999: this.processStepLocal.businessService.id;
-      this.$store.dispatch("procStep/update", this.processStepToSave); //.then(() => {  alert(this.processStepLocal())});
-    },
-    getDesignType(id) {
-      console.log(this.designTypeLocal);
-      var dt = this.designTypeLocal[id];
-      console.log(dt);
-      return dt;
-    },
+    }
   },
   created() {
     this.processStepLocal = this.bPStep;
     this.designTypeLocal = _.map(this.bDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

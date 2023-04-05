@@ -62,7 +62,7 @@ export default {
   },
   name: "BusinessProcessEdit",
   data() {
-    return {     
+    return {
       FormState: {
         LIST: 0,
         EDIT: 1,
