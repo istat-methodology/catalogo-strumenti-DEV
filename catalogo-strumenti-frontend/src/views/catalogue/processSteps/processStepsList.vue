@@ -1,77 +1,48 @@
 <template>
   <div>
-    <div v-if="stateform == FormState.LIST">
-      <CTitle
-        title="Passi"
-        buttonTitle=" Passo"
-        functionality="Elenco"
-        :authenticated="isAuthenticated"
-        :buttons="['aggiungi', 'indietro']"
-        @handleNew="handleNew"
-        @handleBack="handleBack"
-      />
-      <CCard>
-        <CCardBody>
-          <CDataTable
-            v-if="procStepsList"
-            :items="procStepsList"
-            :fields="fields"
-            column-filter
-            :items-per-page="10"
-            sorter
-            hover
-            pagination
-          >
-            <template #show_details="{ item, index }">
-              <CTableLink
-                :authenticated="isAuthenticated"
-                :showDetails="showDetails"
-                :isItem="isItem(item)"
-                @handleView="handleView(item)"
-                @handleEdit="handleEdit(item)"
-                @handleDelete="handleOpenModalDelete(item)"
-                @handleDetails="handleDetails(index)"
-              />
-            </template>
-            <!--template #details="{ item, index }">
+    <CTitle
+      title="Passi"
+      buttonTitle=" Passso"
+      functionality="Elenco"
+      :authenticated="isAuthenticated"
+      :buttons="['aggiungi', 'indietro']"
+      @handleNew="handleNew"
+      @handleBack="handleBack"
+    />
+    <CCard>
+      <CCardBody>
+        <CDataTable
+          v-if="procStepsList"
+          :items="procStepsList"
+          :fields="fields"
+          column-filter
+          :items-per-page="10"
+          sorter
+          hover
+          pagination
+        >
+          <template #show_details="{ item, index }">
+            <CTableLink
+              :authenticated="isAuthenticated"
+              :showDetails="showDetails"
+              :isItem="isItem(item)"
+              @handleView="handleView(item)"
+              @handleEdit="handleEdit(item)"
+              @handleDelete="handleOpenModalDelete(item)"
+              @handleDetails="handleDetails(index)"
+            />
+          </template>
+          <!--template #details="{ item, index }">
             <CTableDetails
-              title="...processo collegato alle Business Functions"
+              title="...step collegato ai Business Process"
               :items="item.businessFunctions"
               :activeIndex="activeIndex"
               :index="index"
             />
           </template-->
-          </CDataTable>
-        </CCardBody>
-      </CCard>
-    </div>
-    <!-- 
-        Modifica Passo del Processo
-      -->
-    <div v-if="stateform == FormState.STEP_EDIT">
-      <div v-if="selectedEditStep">
-        <CBusinessProcessStepEdit
-          :bDesignType="designtypeList"
-          :bPStep="selectedEditStep"
-          @enableEditStep="showEditStep"
-          @enableBack="stateform = FormState.EDIT"
-        />
-      </div>
-    </div>
-    <!-- 
-        Nuovo Passo del Processo
-      -->
-    <div v-if="stateform == FormState.STEP_NEW">
-      <!--div v-if="selectedEditProcess"-->
-      <CBusinessProcessStepNew
-        :bDesignType="designtypeList"
-        :bPStep="selectedEditStep"
-        @enableNewStep="showNewStep"
-        @enableBack="stateform = FormState.EDIT"
-      />
-      <!--/div-->
-    </div>
-
+        </CDataTable>
+      </CCardBody>
+    </CCard>
     <CModalDelete
       :message="getMessage()"
       :showModal="showModal"
@@ -87,28 +58,18 @@ import { Context } from "@/common";
 import CTitle from "@/components/CTitle.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 import CTableLink from "@/components/CTableLink.vue";
-
-import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
-
 //import CTableDetails from "@/components/CTableDetails.vue";
 export default {
   name: "ProcessStepsList",
-  //components: { CTableDetails },
-  components: {
-    CTitle,
-    CModalDelete,
-    CTableLink,
-    CBusinessProcessStepEdit,
-    CBusinessProcessStepNew,
-  },
+  //components: { CTitle, CModalDelete, CTableLink, CTableDetails },
+  components: { CTitle, CModalDelete, CTableLink },
   data() {
     return {
       fields: [
         {
           key: "id",
-          label: "Identificativo",
-          _style: "width:10%;",
+          label: "ID",
+          _style: "width:4%;",
         },
         {
           key: "name",
@@ -139,18 +100,11 @@ export default {
       showModal: false,
       showDetails: true,
       activeIndex: -1,
-      states: [],
-      FormState: {
-        LIST: 0,
-        STEP_EDIT: 4,
-        STEP_NEW: 5,
-      },
-      stateform: 0,
     };
   },
   computed: {
-    ...mapGetters("procSteps", ["procStepsList"]),
     ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("procSteps", ["procStepsList"]),
   },
   methods: {
     isItem(item) {
@@ -170,41 +124,22 @@ export default {
       this.showModal = false;
     },
     handleNew() {
-      //this.$router.push({ name: "ProcessStepsAdd" });
-      this.selectedEditStep = {};
-      this.stateform = this.FormState.STEP_NEW;
-
-      
+      this.$router.push({ name: "ProcessStepsAdd" });
     },
     handleBack() {
       this.$router.push({ name: "Catalogue" });
     },
-    
     handleView(item) {
-      //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "ProcessStepsDetails",
-        params: { id: item.id },
+        params: { item: item },
       });
     },
-
-
-    
-    
-    
-
-
-    handleEdit(step) {
-      this.selectedEditStep = step;
-      this.stateform = this.FormState.STEP_EDIT;
-
-      //router.push({ name: 'user', params: { username } })
-      /*
+    handleEdit(item) {
       this.$router.push({
         name: "ProcessStepsEdit",
-        params: { id: item.id },
+        params: { item: item },
       });
-      */
     },
     handleOpenModalDelete(app) {
       this.selectedProcessStep = app;
@@ -215,20 +150,15 @@ export default {
     },
     getMessage() {
       return (
-        "Sei sicuro di eliminare il processo " +
+        "Sei sicuro di eliminare il passo " +
         this.selectedProcessStep.name +
         " selezionato?"
       );
     },
   },
   created() {
-    this.$store
-      .dispatch("coreui/setContext", Context.BusinessProcessSession)
-      .catch(() => {});
-    // if (this.params) {
-
-    this.$store.dispatch("procSteps/findAll");
-    // }
+    this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
+    this.$store.dispatch("procSteps/findAll").catch(() => {});
   },
 };
 </script>

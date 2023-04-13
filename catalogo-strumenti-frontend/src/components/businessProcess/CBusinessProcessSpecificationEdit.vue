@@ -8,7 +8,7 @@
           bProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesignLocal.processDesignId +
+          bProcessDesignLocal.id +
           ') / ' +
           'Process Specification (' +
           bProcessSpecificationLocal.id +

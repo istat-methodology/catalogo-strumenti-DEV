@@ -13,10 +13,10 @@
       <CCard>
         <CCardBody>
           <div class="row">
-            <CInput
+            <CInput        
               class="col-1"
-              label="id"
-              placeholder="id"
+              label="ID"
+              placeholder="ID"
               v-model="processStepLocal.id"
               disabled
             />
@@ -43,8 +43,6 @@
           </div>
         </CCardBody>
       </CCard>
-
-      <!--label class="col-12 mt-4">processDesigns:</label-->
       <CTitle
         title="Process Design"
         buttonTitle=" nuovo Process Design "
@@ -53,7 +51,6 @@
         :buttons="['aggiungi']"
         @handleNew="showNewProcessDesign"
       />
-
       <div v-if="processStepLocal.processDesigns.length > 0">
         <div
           v-for="processDesign of getProcessDesign()"
@@ -305,7 +302,6 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
     ...mapGetters("processDesign", ["processDesign"])
   },
   props: {

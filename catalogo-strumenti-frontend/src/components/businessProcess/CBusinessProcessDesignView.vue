@@ -21,7 +21,7 @@
       <CCardBody>
         <div class="col-12">
           <div class="row mt-1">
-            <Label>Design Processe</Label>
+            <Label>Design Process</Label>
           </div>
 
           <div class="row">

@@ -13,7 +13,6 @@
             @handleSubmit="handleSubmit"
             @handleBack="handleBack"
           />
-
           <CCard>
             <CCardBody>
               <CInput

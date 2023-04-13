@@ -24,7 +24,7 @@
                   <div class="card-slot p-2">
                     {{
                       bFunction.gsbpmProcesses
-                        .map(gsbpmProcess => {
+                        .map((gsbpmProcess) => {
                           return gsbpmProcess.code + " " + gsbpmProcess.name;
                         })
                         .join(", ") | dashEmpty
@@ -50,7 +50,9 @@
       </div>
       <div>
         <div class="p-2">
-          <CBusinessProcessView :businessProcesses="getBusinessProcesses" />
+          <CBusinessProcessViewDetails 
+            :businessProcess="getBusinessProcesses"
+          />
         </div>
       </div>
     </div>
@@ -60,29 +62,29 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import _ from "lodash";
-import CBusinessProcessView from "@/components/businessProcess/CBusinessProcessView";
+import CBusinessProcessViewDetails from "@/components/businessProcess/CBusinessProcessViewDetails";
 import CToolsView from "@/components/tools/CToolsView";
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessFunctionsDetails",
   components: {
-    CBusinessProcessView,
+    CBusinessProcessViewDetails,
     CToolsView,
-    CTitle
+    CTitle,
   },
   data() {
     return {
       index: 1,
       subIndex: 0,
-      activeIndex: -1
+      activeIndex: -1,
     };
   },
   computed: {
     ...mapGetters("bFunction", ["bFunction"]),
     ...mapGetters("tools", ["toolsByBfunction"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    getBusinessProcesses: function() {
-      return this.bFunction.businessProcesses.map(item => {
+    getBusinessProcesses: function () {
+      return this.bFunction.businessProcesses.map((item) => {
         return {
           id: item.id,
           name: item.name,
@@ -90,10 +92,10 @@ export default {
           label: item.label,
           orderCode: item.orderCode,
           parent: item.parent,
-          processSteps: item.processSteps
+          processSteps: item.processSteps,
         };
       });
-    }
+    },
   },
   methods: {
     setActiveItemList(selector, bool) {
@@ -116,22 +118,22 @@ export default {
       //router.push({ name: 'user', params: { username } })
       this.$router.push({
         name: "BusinessFunctionsEdit",
-        params: { id: item.id }
+        params: { id: item.id },
       });
     },
     formatDate(dt) {
       dt = new Date(dt);
       return dt.toLocaleDateString("it");
     },
-    loadBFunction: _.debounce(function() {
+    loadBFunction: _.debounce(function () {
       this.$store.dispatch("bFuntion/findById", this.$route.params.id);
-    }, 500)
+    }, 500),
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
     this.$store.dispatch("bFunction/findById", this.$route.params.id);
     this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id);
-  }
+  },
 };
 </script>
 <style>

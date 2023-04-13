@@ -8,11 +8,11 @@
           bProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesignLocal.processDesignId +
+          bProcessDesignLocal.id +
           ') / ' +
           'Process Specification (' +
           bProcessSpecificationLocal.id +
-          ') '
+          ')'
       "
       buttonTitle="view process specification "
       functionality=""

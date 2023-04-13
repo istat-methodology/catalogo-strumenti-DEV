@@ -67,8 +67,8 @@ export default {
       fields: [
         {
           key: "id",
-          label: "Identificativo",
-          _style: "width:10%;"
+          label: "ID",
+          _style: "width:4%;"
         },
         {
           key: "name",
@@ -180,12 +180,9 @@ export default {
   },
   created() {
     this.$store
-      .dispatch("coreui/setContext", Context.BusinessProcessSession)
-      .catch(() => {});
-    // if (this.params) {
+    .dispatch("coreui/setContext", Context.BusinessProcessSession)    
     this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
-    //this.$store.dispatch("business/findAll");
-    // }
+    
   }
 };
 </script>

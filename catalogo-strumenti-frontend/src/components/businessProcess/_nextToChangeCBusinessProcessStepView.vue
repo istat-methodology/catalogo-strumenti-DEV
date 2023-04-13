@@ -1,19 +1,56 @@
 <template>
   <div v-if="bDesignType">
-    <div v-if="processStepLocal.processDesigns.length > 0">
-      <div class="columns">
-        <div class="row p-3">
-          <div class="card col-md-auto p-2">
-            <span><strong>Processs Step</strong></span>
-            <div class="card-slot p-2">
-              <span
-                >({{ processStepLocal.id }}) {{ processStepLocal.name }},
-                <span>{{ processStepLocal.label }}</span></span
-              >
-            </div>
+    <div v-if="stateform == FormState.STEP_EDIT">
+      <CTitle
+        :title="processStepLocal.name"
+        :buttonTitle="' passo '"
+        functionality=""
+        :authenticated="isAuthenticated"
+        :buttons="['salva', 'indietro']"
+        @handleSubmit="handleSubmit"
+        @handleBack="enableBack"
+      />
+      <CCard>
+        <CCardBody>
+          <div class="row">
+            <CInput        
+              class="col-1"
+              label="ID"
+              placeholder="ID"
+              v-model="processStepLocal.id"
+              disabled
+            />
+            <CInput
+              class="col-6"
+              label="Nome*"
+              placeholder="Nome"
+              v-model="processStepLocal.name"
+            />
+            <CInput
+              class="col-5"
+              label="Etichetta"
+              placeholder="Etichetta"
+              v-model="processStepLocal.label"
+            />
           </div>
-        </div>
-      </div>
+          <div class="row mt-4">
+            <CTextarea
+              class="col-12"
+              label="Descrizione"
+              placeholder="Descrizione"
+              v-model="processStepLocal.descr"
+            />
+          </div>
+        </CCardBody>
+      </CCard>
+      <CTitle
+        title="Process Design"
+        buttonTitle=" nuovo Process Design "
+        functionality=""
+        :authenticated="isAuthenticated"
+        :buttons="['aggiungi']"
+        @handleNew="showNewProcessDesign"
+      />
       <div v-if="processStepLocal.processDesigns.length > 0">
         <div
           v-for="processDesign of getProcessDesign()"
@@ -68,40 +105,124 @@
                   @handleView="
                     showViewProcessSpecification(processDesign, item)
                   "
+                  @handleEdit="
+                    showEditProcessSpecification(processDesign, item)
+                  "
+                  @handleDelete="
+                    handleOpenModalDeleteProcessSpecification(
+                      processDesign,
+                      item
+                    )
+                  "
               /></template>
             </CDataTable>
+            <div class="pt-4 pb-2 pr-2">
+              <button
+                @click="showNewProcessSpecification"
+                class="btn btn-info float-right mr-4"
+              >
+                aggiungi Process Specification
+              </button>
+              <button
+                @click="showEditProcessDesign(processDesign)"
+                class="btn btn-info float-right mr-4"
+              >
+                modifica
+              </button>
+              <button
+                @click="handleOpenModalDeleteProcessDesign(processDesign)"
+                class="btn btn-info float-right mr-4"
+              >
+                cancella
+              </button>
+            </div>
           </div>
         </div>
-        <CBusinessProcessSpecificationView
-          :bProcessStep="processStepLocal"
-          :bProcessDesign="selectedProcessDesign"
-          :bProcessSpecification="selectedProcessSpecification"
-          @enableBack="stateform = FormState.STEP_EDIT"
-        />
       </div>
       <div v-else>Non sono presenti process design</div>
     </div>
-    <div v-else>Non sono presenti process step</div>
+    <!-- 
+        New Process Design
+    -->
+    <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
+      <CBusinessProcessDesignNew
+        :bProcessStep="processStepLocal"
+        :bProcessDesign="selectedProcessDesign"
+        @enableNewProcessDesign="handleSubmitNewProcessDesign"
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
+    </div>
+    <!-- 
+        New Process Design
+    -->
+    <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
+      <CBusinessProcessDesignEdit
+        :bProcessStep="processStepLocal"
+        :bProcessDesign="selectedProcessDesign"
+        @enableEditProcessDesign="handleSubmitEditProcessDesign"
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
+    </div>
+    <!-- 
+        View Process Specification
+    -->
+    <div v-if="stateform == FormState.PROCESS_SPECIFICATION_VIEW">
+      <CBusinessProcessSpecificationView
+        :bProcessStep="processStepLocal"
+        :bProcessDesign="selectedProcessDesign"
+        :bProcessSpecification="selectedProcessSpecification"
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
+    </div>
+    <!-- 
+        New Process Specification
+    -->
+    <div v-if="stateform == FormState.PROCESS_SPECIFICATION_NEW">
+      <CBusinessProcessSpecificationNew
+        :bProcessStep="processStepLocal"
+        :bProcessDesign="selectedProcessDesign"
+        :bProcessSpecification="{}"
+        @enableNewProcessSpecification="handleSubmitNewProcessSpecification"
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
+    </div>
+    <!-- 
+        Edit Process Specification
+    -->
+    <div v-if="stateform == FormState.PROCESS_SPECIFICATION_EDIT">
+      <CBusinessProcessSpecificationEdit
+        :bProcessStep="processStepLocal"
+        :bProcessDesign="selectedProcessDesign"
+        :bProcessSpecification="selectedProcessSpecification"
+        @enableEditProcessSpecification="handleSubmitEditProcessSpecification"
+        @enableBack="stateform = FormState.STEP_EDIT"
+      />
+    </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignView";
+import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
 import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
+import CBusinessProcessSpecificationNew from "@/components/businessProcess/CBusinessProcessSpecificationNew";
+import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBusinessProcessSpecificationEdit";
 import CTableLink from "@/components/CTableLink.vue";
-//import CTitle from "@/components/CTitle.vue";
+//import CModalDelete from "@/components/CModalDelete.vue";
+import CTitle from "@/components/CTitle.vue";
 var _ = require("lodash");
 
 export default {
   name: "CBusinessProcessStepEdit",
   components: {
-    //  CBusinessProcessDesignNew,
-    //  CBusinessProcessDesignEdit,
+    CBusinessProcessDesignNew,
+    CBusinessProcessDesignEdit,
     CBusinessProcessSpecificationView,
-    //  CBusinessProcessSpecificationNew,
-    //  CBusinessProcessSpecificationEdit,
+    CBusinessProcessSpecificationNew,
+    CBusinessProcessSpecificationEdit,
     CTableLink,
     //  CModalDelete,
-    //CTitle
+    CTitle
   },
 
   data() {
@@ -110,54 +231,54 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
-
+      
       processStepToSave: {
         id: 0,
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0,
+        businessServiceId: 0
       },
       processDesignToSave: {
         id: 0,
         descr: "",
-        step: "",
+        step: ""
       },
 
       designTypeLocal: {},
@@ -166,54 +287,55 @@ export default {
       selectedProcessSpecification: {},
 
       FormState: {
-        STEP_VIEW: 4,
+        STEP_EDIT: 4,
         PROCESS_DESIGN_VIEW: 10,
         PROCESS_DESIGN_NEW: 11,
         PROCESS_DESIGN_EDIT: 12,
 
         PROCESS_SPECIFICATION_VIEW: 20,
         PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22,
+        PROCESS_SPECIFICATION_EDIT: 22
       },
       stateform: 4,
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("processDesign", ["processDesign"]),
+    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessDesign: function () {
+    getProcessDesign: function() {
       if (
         this.processStepLocal &&
         this.processStepLocal.processDesigns.length > 0
       ) {
-        return this.processStepLocal.processDesigns.map((item) => {
+        return this.processStepLocal.processDesigns.map(item => {
           return {
             id: item.id,
             descr: item.descr,
-            processSpecification: item.processSpecification,
+            processSpecification: item.processSpecification
           };
         });
       } else {
         return [];
       }
     },
-    getProcessSpecification: function (processDesign) {
-      return processDesign.processSpecification.map((item) => {
+    getProcessSpecification: function(processDesign) {
+      return processDesign.processSpecification.map(item => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -224,18 +346,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent),
+                : this.getDesignType(item.designType.parent)
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type,
+            type: item.designType.parent == null ? "" : item.designType.type
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id,
-          },
+            businessServiceId: item.informationObject.businessService.id
+          }
         };
       });
     },
@@ -319,12 +441,12 @@ export default {
     handleOpenModalDeleteProcessSpecification() {
       console.log("funzione delete process specification non attiva!");
       alert("funzione delete process specification non attiva!");
-    },
+    }
   },
   created() {
     this.processStepLocal = this.bPStep;
     this.designTypeLocal = _.map(this.bDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

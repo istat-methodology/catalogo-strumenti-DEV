@@ -34,7 +34,6 @@
           </div>
         </CCardBody>
       </CCard>
-
       <CTitle
         title="Passi"
         buttonTitle=" Passo"
@@ -76,7 +75,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-//import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessEdit",

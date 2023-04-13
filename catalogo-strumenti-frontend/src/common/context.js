@@ -17,7 +17,11 @@ export const Context = {
   BusinessFunctionList: 40,
   BusinessFunctionDetail: 41,
   BusinessFunctionEdit: 42,
+  BusinessFunctionAdd: 43,
 
   BusinessProcessSession: 5,
-  BusinessProcessList: 50
+  BusinessProcessList: 50,
+  BusinessProcessDetails: 51,
+  BusinessProcessEdit: 52,
+  BusinessProcessAdd: 53,
 };

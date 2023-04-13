@@ -40,11 +40,17 @@
                 <CCard>
                   <CCardBody>
                     <CInput
+                      disabled
+                      label="ID"
+                      placeholder="ID"
+                      v-model="businessFunctionLocal.id"
+                    />
+                    <CInput
                       label="Nome*"
                       placeholder="Nome"
                       v-model="businessFunctionLocal.name"
                       :class="{
-                        'is-invalid': $v.businessFunctionLocal.name.$error
+                        'is-invalid': $v.businessFunctionLocal.name.$error,
                       }"
                     />
                     <div
@@ -87,7 +93,7 @@
             <span>Processi</span>
           </template>
           <div v-if="this.bFunction">
-            <CBusinessProcessList
+            <CBusinessProcessView
               :bFunctionId="bFunction.id"
               :bFunctionName="bFunction.name"
               :bProcesses="getBusinessProcesses"
@@ -105,15 +111,15 @@ import { required } from "vuelidate/lib/validators";
 import _ from "lodash";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import Treeselect from "@riophae/vue-treeselect";
-import CBusinessProcessList from "@/components/businessProcess/CBusinessProcessList";
+import CBusinessProcessView from "@/components/businessProcess/CBusinessProcessView";
 
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessFunctionsEdit",
   components: {
     Treeselect,
-    CBusinessProcessList,
-    CTitle
+    CBusinessProcessView,
+    CTitle,
   },
   data() {
     return {
@@ -123,38 +129,38 @@ export default {
         descr: "",
         label: "",
         businessProcesses: [],
-        gsbpmProcesses: []
+        gsbpmProcesses: [],
       },
-      gsbpmChecked: []
+      gsbpmChecked: [],
     };
   },
   validations: {
     businessFunctionLocal: {
       name: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bFunction", ["bFunction"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
-    getGsbpmList: function() {
-      return this.gsbpmList.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
         return {
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
             };
-          })
+          }),
         };
       });
     },
-    getBusinessProcesses: function() {
-      return this.bFunction.businessProcesses.map(item => {
+    getBusinessProcesses: function () {
+      return this.bFunction.businessProcesses.map((item) => {
         return {
           id: item.id,
           name: item.name,
@@ -162,10 +168,10 @@ export default {
           label: item.label,
           orderCode: item.orderCode,
           parent: item.parent,
-          processSteps: item.processSteps
+          processSteps: item.processSteps,
         };
       });
-    }
+    },
   },
 
   methods: {
@@ -185,28 +191,29 @@ export default {
       this.businessFunctionLocal.name = this.bFunction.name;
       this.businessFunctionLocal.descr = this.bFunction.descr;
       this.businessFunctionLocal.label = this.bFunction.label;
-      this.businessFunctionLocal.businessProcesses = this.bFunction.businessProcesses;
+      this.businessFunctionLocal.businessProcesses =
+        this.bFunction.businessProcesses;
     },
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.bFunction.gsbpmProcesses.map(gsbpmProc => {
+      this.bFunction.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
     handleBack() {
       this.$router.back();
     },
-    loadBusinessFunction: _.debounce(function(idBFunction) {
+    loadBusinessFunction: _.debounce(function (idBFunction) {
       this.$store.dispatch("bFunction/findById", idBFunction).then(() => {
         this.setOldValues();
         this.setCheckedNodesGsbpm();
       });
-    }, 500)
+    }, 500),
   },
   created() {
     //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
     this.loadBusinessFunction(this.$route.params.id);
     this.$store.dispatch("gsbpm/findAll");
-  }
+  },
 };
 </script>

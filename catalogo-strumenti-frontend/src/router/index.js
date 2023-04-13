@@ -72,21 +72,21 @@ const routes = [
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/metodi/modifica/:id",
+        path: "catalogue/metodi/edit/:id",
         name: "MethodEdit",
         component: () =>
           import("../views/catalogue/statisticalMethods/StatisticalMethodEdit"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/metodi/aggiungi",
+        path: "catalogue/metodi/add",
         name: "MethodAdd",
         component: () =>
           import("../views/catalogue/statisticalMethods/StatisticalMethodAdd"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/metodi/dettaglio/:id",
+        path: "catalogue/metodi/details/:id",
         name: "MethodDetails",
         component: () =>
           import(
@@ -102,21 +102,21 @@ const routes = [
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/documentazione/modifica/:id",
+        path: "catalogue/documentazione/edit/:id",
         name: "DocumentationEdit",
         component: () =>
           import("../views/catalogue/documentation/DocumentationEdit"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/documentazione/aggiungi",
+        path: "catalogue/documentazione/add",
         name: "DocumentationAdd",
         component: () =>
           import("../views/catalogue/documentation/DocumentationAdd"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/documentazione/dettaglio/:id",
+        path: "catalogue/documentazione/details/:id",
         name: "DocumentationDetails",
         component: () =>
           import("../views/catalogue/documentation/DocumentationDetails"),
@@ -132,21 +132,21 @@ const routes = [
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/businessfunctions/modifica/:id",
+        path: "catalogue/businessfunctions/edit/:id",
         name: "BusinessFunctionsEdit",
         component: () =>
           import("../views/catalogue/businessFunctions/BusinessFunctionsEdit"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/businessfunctions/aggiungi",
+        path: "catalogue/businessfunctions/add",
         name: "BusinessFunctionsAdd",
         component: () =>
           import("../views/catalogue/businessFunctions/BusinessFunctionsAdd"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/businessfunctions/dettaglio/:id",
+        path: "catalogue/businessfunctions/details/:id",
         name: "BusinessFunctionsDetails",
         component: () =>
           import(
@@ -156,43 +156,63 @@ const routes = [
       },
       /*****************************************************************************/
       {
-        path: "catalogue/businessprocesses",
+        path: "catalogue/businessprocess",
         name: "BusinessProcessList",
         component: () =>
-          import("../views/catalogue/businessProcesses/BusinessProcessList"),
+          import("../views/catalogue/businessprocess/BusinessProcessList"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/businessprocesses/aggiungi",
+        path: "catalogue/businessprocess/add",
         name: "BusinessProcessAdd",
         component: () =>
-          import("../views/catalogue/businessProcesses/BusinessProcessAdd"),
+          import("../views/catalogue/businessprocess/BusinessProcessAdd"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/businessprocess/modifica/:id",
+        path: "catalogue/businessprocess/edit/:id",
         name: "BusinessProcessEdit",
         component: () =>
-          import("../views/catalogue/businessProcesses/BusinessProcessEdit"),
+          import("../views/catalogue/businessprocess/BusinessProcessEdit"),
         meta: { authorize: [] }
       },
       {
-        path: "catalogue/businessprocess/dettaglio/:id",
+        path: "catalogue/businessprocess/details/:id",
         name: "BusinessProcessDetails",
         component: () =>
-          import("../views/catalogue/businessProcesses/BusinessProcessDetails"),
+          import("../views/catalogue/businessprocess/BusinessProcessDetails"),
+        meta: { authorize: [] }
+      },
+      /*****************************************************************************/
+      {
+        path: "catalogue/processsteps/",
+        name: "ProcessStepsList",
+        component: () =>
+          import("../views/catalogue/processsteps/ProcessStepsList"),
         meta: { authorize: [] }
       },
 
       {
-        path: "catalogue/processSteps",
-        name: "ProcessStepsList",
+        path: "catalogue/processsteps/Add/",
+        name: "ProcessStepsAdd",
         component: () =>
-          import("../views/catalogue/processSteps/processStepsList"),
+          import("../views/catalogue/processsteps/ProcessStepsAdd"),
         meta: { authorize: [] }
       },
-
-
+      {
+        path: "catalogue/processsteps/edit/",
+        name: "ProcessStepsEdit",
+        component: () =>
+          import("../views/catalogue/processsteps/ProcessStepsEdit"),
+        meta: { authorize: [] }
+      },
+      {
+        path: "catalogue/processsteps/details/",
+        name: "ProcessStepsDetails",
+        component: () =>
+          import("../views/catalogue/processsteps/ProcessStepsDetails"),
+        meta: { authorize: [] }
+      },
 
 
       /*****************************************************************************/
