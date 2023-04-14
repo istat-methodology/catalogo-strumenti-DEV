@@ -6,33 +6,37 @@
     <div class="description-fields col-12">
       {{ descriptionLabel }}
     </div>
-    <div class="columns">
-      <div class="row">
-        <div v-if="tools.length === 0">
-          <span
-            ><i><h5>Nessun strumento metodologico utilizzato</h5></i></span
-          >
-        </div>
-        <div class="card col-md-3" v-for="tool of tools" :key="tool.id">
-          <div class="card-header">
-            {{ tool.name }}
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'ToolDetails',
-                  params: { id: tool.id }
-                }"
-              >
-                <view-icon />
-              </router-link>
+
+    <div class="row">
+      <span v-if="tools.length > 0">
+        <div v-for="tool of tools" :key="tool.id">
+          
+          <div class="col-6">
+            <h6 class="card-header no-border text-info center">
+              {{ tool.name }}
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'ToolDetails',
+                    params: { id: tool.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
+            </h6>
+            <div class="card">
+              <div class="card-body">
+                {{ tool.description }}
+              </div>
             </div>
           </div>
-          <div class="card-body">
-            <p class="card-text">{{ tool.description }}</p>
-          </div>
+
+
         </div>
-      </div>
+      </span>
+      <span v-else><h6>Nessun strumento metodologico utilizzato</h6></span>
     </div>
   </div>
 </template>
@@ -43,19 +47,19 @@ export default {
     tools: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     index: {
       type: String,
       required: false,
-      default: () => ""
+      default: () => "",
     },
     descriptionLabel: {
       type: String,
       required: false,
-      default: () => ""
-    }
-  }
+      default: () => "",
+    },
+  },
 };
 </script>
 <style scoped>

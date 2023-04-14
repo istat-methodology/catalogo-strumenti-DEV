@@ -1,51 +1,61 @@
 <template>
   <div>
     <h2>Processi</h2>
-    <!--div class="columns"-->
-      <div class="row">
-        <div
-          class="card col-md-5 mr-5"
-          v-for="bProcess of businessProcess"
-          :key="bProcess.id"
-        >
-          <div class="card-header">
-            {{ "(" +  bProcess.label  + ") " + bProcess.name   }}
+    <div class="row">
+      <div class="col-4" v-for="bProcess of businessProcess" :key="bProcess.id">
+        
+        <div class="text-info center mt-2 mb-2">
+          <h6 class="card-header no-border text-info center">
+            {{ bProcess.name }}
             <div class="card-header-actions">
-              <span>
-                <!--span class="icon-link" @click="handleEditBProcess(bProcess)"
-                  ><edit-icon title="Edit" /></span
-                -->&nbsp;
-              </span>
-            </div>
-          </div>
-
-          <div class="card-body">
-            <span v-if="businessProcess">
-              <ol>
-                <strong>
-                  <li>{{ bProcess.descr }}</li></strong
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'BusinessProcessDetails',
+                    params: { id: bProcess.id },
+                  }"
                 >
-              </ol>
-            </span>
-
+                  <view-icon />
+                </router-link>
+              </div>
+          </h6>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <!--div class="row"><strong > {{ bProcess.descr }}</strong></div-->
+            <div class="row mb-2"><strong>Passi:</strong></div>
             <span
               v-if="bProcess.processSteps && bProcess.processSteps.length > 0"
             >
-              <ol>
-                <strong>Passi:</strong>
-                <li
-                  v-for="processStep of bProcess.processSteps"
+              <div class="d-flex flex-wrap">
+                <div
+                  v-for="(processStep, index) of bProcess.processSteps"
                   :key="processStep.id"
                 >
-                  {{ processStep.name }}
-                </li>
-              </ol>
+                  <li
+                    class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
+                  >
+                    <medium>
+                      <strong>{{ index + 1 + ")" }} </strong>
+                      {{ processStep.name }}
+                    </medium>
+                  </li>
+                </div>
+              </div>
             </span>
-            <span v-else>Non sono presenti passi</span>
+            <span v-else>
+              <div class="list-group">
+                <li
+                  class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer"
+                >
+                  Non sono presenti passi
+                </li>
+              </div>
+            </span>
           </div>
         </div>
       </div>
-    <!--/div-->
+    </div>
   </div>
 </template>
 <script>

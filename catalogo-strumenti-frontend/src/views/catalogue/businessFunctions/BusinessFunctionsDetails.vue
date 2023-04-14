@@ -5,7 +5,7 @@
       <div>
         <div class="p-2">
           <CTitle
-            :title="'(' + bFunction.label  + ') ' + bFunction.name"
+            :title="'(' + bFunction.label + ') ' + bFunction.name"
             :buttonTitle="bFunction.name"
             functionality="Dettaglio"
             :authenticated="isAuthenticated"
@@ -13,67 +13,28 @@
             @handleEdit="handleEdit(bFunction)"
             @handleBack="handleBack"
           />
-          <!--div class="pl-2">
-            <div class="columns">
-              <div class="row">
-                <div class="card-slot mt-2 mb-3">
-                <div class="text-info col-12"><h3>GSBPM: 
-                  
+          <div class="card">
+            <div class="card col-md-auto p-2">
+              <span><strong>GSBPM</strong></span>
+              <div class="card-slot p-2">
+                <span>
                   {{
                     bFunction.gsbpmProcesses
                       .map((gsbpmProcess) => {
                         return gsbpmProcess.code + " " + gsbpmProcess.name;
                       })
                       .join(", ") | dashEmpty
-                  }}
-                  </h3>
-                </div>
-              </div>
-                <div class="description-fields col-12">
-                  {{ bFunction.descr | dashEmpty }}
-                </div>
-                
-
-                
-
-                <div class="card col-md-auto p-2">
-                  <span><strong>Etichetta</strong></span>
-                  <div class="card-slot p-2">
-                    <span>{{ bFunction.label | dashEmpty }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div-->
-          <div class="columns">
-          <div class="row">
-            <div class="description-fields col-12">
-              {{ bFunction.descr | dashEmpty }}
-            </div>
-          </div>
-          <div class="row p-3">
-            <div class="card col-md-auto">
-              <span><strong>Fasi GSBPM</strong></span>
-              <div class="card-slot p-2">
-                {{
-                  bFunction.gsbpmProcesses
-                    .map(gsbpmProcess => {
-                      return gsbpmProcess.code + " " + gsbpmProcess.name;
-                    })
-                    .join(", ") | dashEmpty
-                }}
+                  }}</span
+                >
               </div>
             </div>
             <div class="card col-md-auto p-2">
               <span><strong>Etichetta</strong></span>
               <div class="card-slot p-2">
-                <span>{{ bFunction.label | dashEmpty }}</span>
+                <span> {{ bFunction.label | dashEmpty }}</span>
               </div>
             </div>
-
           </div>
-        </div>
-
         </div>
       </div>
       <div>
@@ -83,7 +44,7 @@
       </div>
       <div>
         <div class="p-2">
-          <CBusinessProcessViewDetails 
+          <CBusinessProcessViewDetails
             :businessProcess="getBusinessProcesses"
           />
         </div>

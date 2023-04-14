@@ -1,44 +1,44 @@
 <template>
-  <!-- wait until service is loaded -->
   <div class="row" v-if="bProcess">
     <div class="col-8">
       <div>
-        <div class="p-2">
-          <CTitle
-            :title="bProcess.name"
-            :buttonTitle="bProcess.name"
-            functionality="Dettaglio"
-            :authenticated="isAuthenticated"
-            :buttons="['modifica', 'indietro']"
-            @handleEdit="handleEdit(bProcess)"
-            @handleBack="handleBack"
-          />
-          <div class="pl-2">
-            <div class="columns">
-              <div class="row">
-                <div class="description-fields col-12">
-                  {{ bProcess.name | dashEmpty }}
-                </div>
-
-                <div class="description-fields col-12">
-                  {{ bProcess.descr | dashEmpty }}
-                </div>
-
-                <div class="card col-md-auto p-2">
-                  <span><strong>Etichetta</strong></span>
-                  <div class="card-slot p-2">
-                    <span>{{ bProcess.label | dashEmpty }}</span>
-                  </div>
-                </div>
-
-                <div class="card col-md-auto p-2">
-                  <span><strong>Ordine</strong></span>
-                  <div class="card-slot p-2">
-                    <span>{{ bProcess.orderCode | dashEmpty }}</span>
-                  </div>
-                </div>
-              </div>
+        <div class="p-0">
+          <div v-if="stateform == FormState.EDIT">
+            <CTitle
+              :title="bProcess.name"
+              :buttonTitle="bProcess.name"
+              functionality=""
+              :authenticated="isAuthenticated"
+              :buttons="['indietro']"            
+              @handleBack="handleBack"
+            />
+            <CBusinessProcessEdit
+              :bProcess="bProcess"
+              @enableEditStep="showEditStep"
+              @enableNewStep="showNewStep"
+            />
+          </div>
+          <!-- 
+            Modifica Passo del Processo
+          -->
+          <div v-if="stateform == FormState.STEP_EDIT">
+            <div v-if="selectedEditStep">
+              <CBusinessProcessStepEdit
+                :bPStep="selectedEditStep"
+                @enableEditStep="showEditStep"
+                @enableBack="stateform = FormState.EDIT"
+              />
             </div>
+          </div>
+          <!-- 
+            Nuovo Passo del Processo
+          -->
+          <div v-if="stateform == FormState.STEP_NEW">
+            <CBusinessProcessStepNew
+              :bPStep="selectedEditStep"
+              @enableNewStep="showNewStep"
+              @enableBack="stateform = FormState.EDIT"
+            />
           </div>
         </div>
       </div>
@@ -47,63 +47,114 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { Context } from "@/common";
-import _ from "lodash";
 import CTitle from "@/components/CTitle.vue";
+import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
+import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
+import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
+
 export default {
-  name: "BusinessProcessDetails",
   components: {
-    CTitle
+    CTitle,
+    CBusinessProcessEdit,
+    CBusinessProcessStepEdit,
+    CBusinessProcessStepNew
   },
+  name: "BusinessProcessDetails",
   data() {
     return {
-      index: 1,
-      subIndex: 0,
-      activeIndex: -1
+      FormState: {
+        LIST: 0,
+        EDIT: 1,
+        NEW: 2,
+        ADD: 3,
+        STEP_EDIT: 4,
+        STEP_NEW: 5
+      },
+      stateform: 1,
+      warningModal: false
     };
   },
   computed: {
-    ...mapGetters("bProcess", ["bProcess"]),
-    ...mapGetters("tools", ["toolsByBfunction"]),
-    ...mapGetters("auth", ["isAuthenticated"])
+    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("bProcess", ["bProcess"])
   },
   methods: {
+    handleSubmit() {
+      this.$store.dispatch("bProcess/update", this.bProcess);
+    },
+    handleEditStep(step) {
+      console.log(step);
+      //this.$emit("enableEditStep", step);
+    },
+    handleNewStep() {
+      //this.$emit("enableNewStep");
+    },
     handleBack() {
       this.$router.back();
     },
-    handleEdit(item) {
-      //router.push({ name: 'user', params: { username } })
-      this.$router.push({
-        name: "BusinessProcessEdit",
-        params: { id: item.id }
-      });
+    deleteBProcess() {
+      //this.warningModal = false;
     },
-    formatDate(dt) {
-      dt = new Date(dt);
-      return dt.toLocaleDateString("it");
+
+    showEditStep(step) {
+      this.selectedEditStep = step;
+      this.stateform = this.FormState.STEP_EDIT;
     },
-    loadBFunction: _.debounce(function() {
-      this.$store.dispatch("bProcess/findById", this.$route.params.id);
-    }, 500)
+    showNewStep() {
+      this.selectedEditStep = null;
+      this.stateform = this.FormState.STEP_NEW;
+    },
+
+    modalOpen(app) {
+      this.selectedBProcess = app;
+      this.warningModal = true;
+    },
+    modalClose() {
+      this.warningModal = false;
+    }
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.BusinessDetail);
     this.$store.dispatch("bProcess/findById", this.$route.params.id);
-    this.$store.dispatch("tools/findToolsByBFunctions", this.$route.params.id);
   }
 };
 </script>
-
-<style>
-.icon-prop {
-  display: inline;
-  padding-left: 6px;
+<style scoped>
+h5 {
+  margin-bottom: 0.1rem;
+}
+.card-border {
+  border: 1px solid #d8dbe0 !important;
+  box-shadow: none !important;
+}
+.bg-lighter {
+  background-color: #f8f8f8 !important;
+}
+.material-design-icon {
+  margin-bottom: 0.2rem;
 }
 
-.list-group-item {
-  border: none !important;
+* {
+  box-sizing: border-box;
 }
-* Clear floats after the columns */ .row:after {
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.row {
+  margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
   content: "";
   display: table;
   clear: both;
@@ -125,18 +176,5 @@ export default {
     display: block;
     margin-bottom: 20px;
   }
-}
-fieldset.scheduler-border {
-  border: 1px solid #ddd !important;
-  padding: 0 1.4em 1.4em 1.4em !important;
-  margin: 0 0 1.5em 0 !important;
-}
-legend.scheduler-border {
-  width: inherit; /* Or auto */
-  padding: 0 10px; /* To give a bit of padding on the left and right */
-  border-bottom: none;
-}
-.max-col {
-  max-width: 5%;
 }
 </style>

@@ -465,7 +465,8 @@ export default {
         : (this.activeIndex = -1);
     },
     handleBack() {
-      this.$router.push({ name: "ToolList" });
+      //this.$router.push({ name: "ToolList" });
+      this.$router.back();
     },
     formatDate(dt) {
       dt = new Date(dt);
