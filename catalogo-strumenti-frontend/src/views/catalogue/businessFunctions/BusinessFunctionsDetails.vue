@@ -13,10 +13,10 @@
             @handleEdit="handleEdit(bFunction)"
             @handleBack="handleBack"
           />
-          <div class="card">
-            <div class="card col-md-auto p-2">
-              <span><strong>GSBPM</strong></span>
-              <div class="card-slot p-2">
+          <div class="row p-2">
+            <div class="card col-5 p-3">
+              <span class="p-2"><strong>GSBPM</strong></span>
+              <div class="card-slot pl-2">
                 <span>
                   {{
                     bFunction.gsbpmProcesses
@@ -28,9 +28,9 @@
                 >
               </div>
             </div>
-            <div class="card col-md-auto p-2">
-              <span><strong>Etichetta</strong></span>
-              <div class="card-slot p-2">
+            <div class="card col-5 p-3">
+              <span class="p-2"><strong>Etichetta</strong></span>
+              <div class="card-slot pl-2">
                 <span> {{ bFunction.label | dashEmpty }}</span>
               </div>
             </div>

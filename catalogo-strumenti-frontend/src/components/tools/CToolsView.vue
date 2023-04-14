@@ -10,7 +10,6 @@
     <div class="row">
       <span v-if="tools.length > 0">
         <div v-for="tool of tools" :key="tool.id">
-          
           <div class="col-6">
             <h6 class="card-header no-border text-info center">
               {{ tool.name }}
@@ -32,8 +31,6 @@
               </div>
             </div>
           </div>
-
-
         </div>
       </span>
       <span v-else><h6>Nessun strumento metodologico utilizzato</h6></span>

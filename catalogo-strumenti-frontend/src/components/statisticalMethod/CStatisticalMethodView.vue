@@ -6,36 +6,38 @@
     <div class="description-fields col-12">
       {{ descriptionLabel }}
     </div>
-    <div class="columns">
-      <div class="row">
-        <div v-if="statisticalMethods.length === 0">
-          <span
-            ><i><h5>Nessun metodo statitico associato</h5></i></span
-          >
-        </div>
-        <div
-          class="card col-md-auto"
-          v-for="statisticalMethod of statisticalMethods"
-          :key="statisticalMethod.id"
-        >
-          <div class="card-header">
+
+    <div class="row">     
+      <div
+        v-for="statisticalMethod of statisticalMethods"
+        :key="statisticalMethod.id"
+      >
+        <div class="col-12">
+          <h6 class="card-header no-border text-info center">
             {{ statisticalMethod.name }}
             <div class="card-header-actions">
               <router-link
                 tag="a"
                 :to="{
                   name: 'MethodDetails',
-                  params: { id: statisticalMethod.id }
+                  params: { id: statisticalMethod.id },
                 }"
               >
                 <view-icon />
               </router-link>
             </div>
-          </div>
-          <div class="card-body">
-            <p class="card-text">{{ statisticalMethod.description }}</p>
+          </h6>
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">{{ statisticalMethod.description }}</p>
+            </div>
           </div>
         </div>
+      </div>
+      <div v-if="statisticalMethods.length === 0">
+        <span
+          ><h6>Nessun metodo statitico associato</h6></span
+        >
       </div>
     </div>
   </div>
@@ -47,20 +49,20 @@ export default {
     statisticalMethods: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     indexLabel: {
       type: String,
       required: false,
-      default: () => ""
+      default: () => "",
     },
 
     descriptionLabel: {
       type: String,
       required: true,
-      default: () => ""
-    }
-  }
+      default: () => "",
+    },
+  },
 };
 </script>
 <style scoped>
