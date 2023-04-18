@@ -7,37 +7,55 @@
       {{ descriptionLabel }}
     </div>
 
-    <div class="row">     
-      <div
-        v-for="statisticalMethod of statisticalMethods"
-        :key="statisticalMethod.id"
-      >
-        <div class="col-12">
-          <h6 class="card-header no-border text-info center">
-            {{ statisticalMethod.name }}
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'MethodDetails',
-                  params: { id: statisticalMethod.id },
-                }"
-              >
-                <view-icon />
-              </router-link>
-            </div>
-          </h6>
+    <div class="row">
+      <div class="col-4">
+        <div
+          v-for="(statisticalMethod,index) of statisticalMethods"
+          v-bind:key="statisticalMethod.id"
+        >
+          <div class="text-info center mt-2 mb-2">
+            <h6 class="card-header no-border text-info center">
+              {{ statisticalMethod.name }}
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'MethodDetails',
+                    params: { id: statisticalMethod.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
+            </h6>
+          </div>
+
           <div class="card">
             <div class="card-body">
-              <p class="card-text">{{ statisticalMethod.description }}</p>
+              <span v-if="statisticalMethods.length > 0">
+                <div class="d-flex flex-wrap">
+                  <li
+                    class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
+                  >
+                    <medium>
+                      <strong>{{ index + 1 + ")" }} </strong>
+                      {{ statisticalMethod.description }}
+                    </medium>
+                  </li>
+                </div>
+              </span>
+              <span v-else>
+                <div class="list-group">
+                  <li
+                    class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer"
+                  >
+                    Nessun metodo statitico associato
+                  </li>
+                </div>
+              </span>
             </div>
           </div>
         </div>
-      </div>
-      <div v-if="statisticalMethods.length === 0">
-        <span
-          ><h6>Nessun metodo statitico associato</h6></span
-        >
       </div>
     </div>
   </div>
