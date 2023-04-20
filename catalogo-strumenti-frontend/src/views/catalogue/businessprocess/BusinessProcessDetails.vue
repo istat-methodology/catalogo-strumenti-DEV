@@ -3,43 +3,19 @@
     <div class="col-8">
       <div>
         <div class="p-0">
-          <div v-if="stateform == FormState.EDIT">
-            <CTitle
-              :title="bProcess.name"
-              :buttonTitle="bProcess.name"
-              functionality=""
-              :authenticated="isAuthenticated"
-              :buttons="['indietro']"            
-              @handleBack="handleBack"
-            />
-            <CBusinessProcessEdit
-              :bProcess="bProcess"
-              @enableEditStep="showEditStep"
-              @enableNewStep="showNewStep"
-            />
-          </div>
-          <!-- 
-            Modifica Passo del Processo
-          -->
-          <div v-if="stateform == FormState.STEP_EDIT">
-            <div v-if="selectedEditStep">
-              <CBusinessProcessStepEdit
-                :bPStep="selectedEditStep"
-                @enableEditStep="showEditStep"
-                @enableBack="stateform = FormState.EDIT"
-              />
-            </div>
-          </div>
-          <!-- 
-            Nuovo Passo del Processo
-          -->
-          <div v-if="stateform == FormState.STEP_NEW">
-            <CBusinessProcessStepNew
-              :bPStep="selectedEditStep"
-              @enableNewStep="showNewStep"
-              @enableBack="stateform = FormState.EDIT"
-            />
-          </div>
+          <CTitle
+            :title="bProcess.name"
+            :buttonTitle="bProcess.name"
+            functionality=""
+            :authenticated="isAuthenticated"
+            :buttons="['indietro']"
+            @handleBack="handleBack"
+          />
+          <CBusinessProcessView
+            :bProcess="bProcess"
+            @enableEditStep="showEditStep"
+            @enableNewStep="showNewStep"
+          />
         </div>
       </div>
     </div>
@@ -48,74 +24,28 @@
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
-import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
-import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
-
+import CBusinessProcessView from "@/components/businessProcess/CBusinessProcessView";
 export default {
   components: {
     CTitle,
-    CBusinessProcessEdit,
-    CBusinessProcessStepEdit,
-    CBusinessProcessStepNew
+    CBusinessProcessView,
   },
   name: "BusinessProcessDetails",
   data() {
-    return {
-      FormState: {
-        LIST: 0,
-        EDIT: 1,
-        NEW: 2,
-        ADD: 3,
-        STEP_EDIT: 4,
-        STEP_NEW: 5
-      },
-      stateform: 1,
-      warningModal: false
-    };
+    return {};
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcess"])
+    ...mapGetters("bProcess", ["bProcess"]),
   },
   methods: {
-    handleSubmit() {
-      this.$store.dispatch("bProcess/update", this.bProcess);
-    },
-    handleEditStep(step) {
-      console.log(step);
-      //this.$emit("enableEditStep", step);
-    },
-    handleNewStep() {
-      //this.$emit("enableNewStep");
-    },
     handleBack() {
       this.$router.back();
     },
-    deleteBProcess() {
-      //this.warningModal = false;
-    },
-
-    showEditStep(step) {
-      this.selectedEditStep = step;
-      this.stateform = this.FormState.STEP_EDIT;
-    },
-    showNewStep() {
-      this.selectedEditStep = null;
-      this.stateform = this.FormState.STEP_NEW;
-    },
-
-    modalOpen(app) {
-      this.selectedBProcess = app;
-      this.warningModal = true;
-    },
-    modalClose() {
-      this.warningModal = false;
-    }
   },
   created() {
     this.$store.dispatch("bProcess/findById", this.$route.params.id);
-  }
+  },
 };
 </script>
 <style scoped>

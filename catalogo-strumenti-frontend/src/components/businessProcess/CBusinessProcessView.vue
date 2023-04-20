@@ -1,348 +1,142 @@
 <template>
-  <div class="row p-0">
-    <div class="col-10 p-0 ml-0">
-      <!--       
-        Elenco Processi      
-      -->
-      <div v-if="stateform == FormState.LIST">
-        <div class="row p-0">
-          <div class="col-12 p-0">
-            <CTitle
-              title="Processi"
-              buttonTitle=" Processo"
-              functionality=""
-              :authenticated="isAuthenticated"
-              :buttons="['aggiungi', 'indietro']"
-              @handleNew="stateform = FormState.ADD"
-              @handleBack="handleBack"
-            />
-            <div class="columns">
-              <div class="row">
-                <div
-                  class="card col-md-3 mr-4"
-                  v-for="bProcess of bProcesses"
-                  :key="bProcess.id"
-                >
-                  <div class="card-header">
-                    {{ bProcess.name }}
-                    <div class="card-header-actions">
-                      <span>
-                        <span
-                          class="icon-link"
-                          @click="handleEditBProcess(bProcess)"
-                          ><edit-icon title="Edit"/></span
-                        >&nbsp;
-                        <span
-                          class="icon-link"
-                          @click="handleOpenModalDelete(bProcess)"
-                          ><delete-icon title="Cancella"
-                        /></span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <span
-                      v-if="
-                        bProcess.processSteps &&
-                          bProcess.processSteps.length > 0
-                      "
-                    >
-                      <ol>
-                        <strong>Passi:</strong>
-                        <li
-                          v-for="processStep of bProcess.processSteps"
-                          :key="processStep.id"
-                        >
-                          {{ processStep.name }}
-                        </li>
-                      </ol>
-                    </span>
-                    <span v-else>Non sono presenti passi</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div>
+    <div v-if="bProcessLocal">
+      <div class="row p-2">
+        <div class="card col-2 p-3">
+          <span class="p-2"><strong>Etichetta</strong></span>
+          <div class="card-slot pl-2">
+            <span>
+              {{ bProcessLocal.label }}
+            </span>
+          </div>
+        </div>
+        <div class="card col-2 p-3">
+          <span class="p-2"><strong>Ordine</strong></span>
+          <div class="card-slot pl-2">
+            <span>
+              {{ bProcessLocal.orderCode }}
+            </span>
+          </div>
+        </div>
+        <div class="card col-8 p-3">
+          <span class="p-2"><strong>Descrizione</strong></span>
+          <div class="card-slot pl-2 pb-2">
+            <span>
+              {{ bProcessLocal.descr }}
+            </span>
           </div>
         </div>
       </div>
-      <!-- 
-        Aggiungi Processo dalla lista
-      -->
-      <div v-if="stateform == FormState.ADD">
-        <CTitle
-          title="Aggiungi Processo"
-          buttonTitle=" Aggiungi Processo"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit()"
-          @handleBack="stateform = FormState.LIST"
-        />
-        <div class="card">
-          <div class="card-slot" v-if="bProcessList">
-            <label>Elenco Processi esistenti</label>
-            <v-select
-              label="name"
-              :options="bProcessList"
-              @input="selectId($event)"
-            ></v-select>
-            <span class="help-block">Seleziona un processo</span>
-            <span
-              class="icon-link float-right"
-              @click="stateform = FormState.NEW"
-              ><add-icon />Nuovo Processo</span
+
+      <CTitle
+        title="Passi"
+        buttonTitle=" Passo"
+        functionality=""
+        :authenticated="isAuthenticated"
+      />
+      <CCard>
+        <CCardBody>
+          <span
+            v-if="
+              bProcessLocal.processSteps &&
+              bProcessLocal.processSteps.length > 0
+            "
+          >
+            <CDataTable
+              v-if="bProcessLocal"
+              :items="getProcessStepsList()"
+              :fields="fields"
+              :items-per-page="10"
+              hover
+              pagination
             >
-          </div>
-        </div>
-      </div>
-      <!-- 
-        Crea nuovo Processo
-      -->
-      <div v-if="stateform == FormState.NEW">
-        <CTitle
-          title="Nuovo Processo"
-          buttonTitle=" Nuovo Processo"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.ADD"
-        />
-        <CCard>
-          <CCardBody>
-            <div class="row">
-              <CInput
-                class="col-6"
-                label="Nome*"
-                placeholder="Nome"
-                v-model="bProcessLocal.name"
-              />
-              <CInput
-                class="col-4"
-                label="Etichetta"
-                placeholder="Etichetta"
-                v-model="bProcessLocal.label"
-              />
-              <CInput
-                class="col-2"
-                label="Ordine"
-                type="number"
-                placeholder="Ordine"
-                v-model="bProcessLocal.orderCode"
-              />
-            </div>
-            <div class="row mt-4">
-              <CTextarea
-                class="col-12"
-                label="Descrizione"
-                placeholder="Descrizione"
-                v-model="bProcessLocal.descr"
-              />
-            </div>
-          </CCardBody>
-        </CCard>
-      </div>
-      <!-- 
-        Modifica Processo
-      -->
-      <div v-if="stateform == FormState.EDIT">
-        <CTitle
-          :title="selectedEditProcess.name"
-          :buttonTitle="selectedEditProcess.name"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.LIST"
-        />
-        <div v-if="selectedEditProcess">
-          <CBusinessProcessEdit
-            :bProcess="selectedEditProcess"
-            @enableEditStep="showEditStep"
-            @enableNewStep="showNewStep"
-          />
-        </div>
-      </div>
-      <!-- 
-        Modifica Passo del Processo
-      -->
-      <div v-if="stateform == FormState.STEP_EDIT">
-        <div v-if="selectedEditStep">
-          <CBusinessProcessStepEdit
-            :bDesignType="designtypeList"
-            :bPStep="selectedEditStep"
-            @enableEditStep="showEditStep"
-            @enableBack="stateform = FormState.EDIT"
-          />
-        </div>
-      </div>
-      <!-- 
-        Nuovo Passo del Processo
-      -->
-      <div v-if="stateform == FormState.STEP_NEW">
-        <!--div v-if="selectedEditProcess"-->
-        <CBusinessProcessStepNew
-          :bDesignType="designtypeList"
-          :bPStep="selectedEditStep"
-          @enableNewStep="showNewStep"
-          @enableBack="stateform = FormState.EDIT"
-        />
-        <!--/div-->
-      </div>
+            </CDataTable>
+          </span>
+          <span v-else>Non sono presenti passi</span>
+        </CCardBody>
+      </CCard>
     </div>
-    <CModalDelete
-      :message="getMessage()"
-      :showModal="showModal"
-      @closeModal="closeModal"
-      @handleDelete="handleDelete"
-    />
   </div>
 </template>
+
 <script>
 import { mapGetters } from "vuex";
-import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
-import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
-import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
 export default {
-  name: "CBusinessProcessList",
+  name: "CBusinessProcessEdit",
   components: {
-    CBusinessProcessEdit,
-    CBusinessProcessStepEdit,
-    CBusinessProcessStepNew,
-    CModalDelete,
-    CTitle
+    CTitle,
   },
   data() {
     return {
-      selectedBProcess: {},
-      selectedBProcessId: null,
-      selectedEditProcess: null,
-      selectedEditStep: null,
-      selectedEditProcessDesign: null,
+      fields: [
+        {
+          key: "name",
+          label: "Nome",
+          _style: "width:20%;",
+        },
+        {
+          key: "label",
+          label: "etichetta",
+          _style: "width:40%;",
+        },
+        {
+          key: "descr",
+          label: "Descrizione",
+          _style: "width:40%;",
+        },
+      ],
+      bProcessLocal: {},
       states: [],
-      FormState: {
-        LIST: 0,
-        EDIT: 1,
-        NEW: 2,
-        ADD: 3,
-        STEP_EDIT: 4,
-        STEP_NEW: 5
-      },
+      FormState: {},
       stateform: 0,
       warningModal: false,
-      bProcessLocal: {
-        id: "",
-        name: "",
-        descr: "",
-        label: "",
-        orderCode: "",
-        businessFunction: ""
-      },
-      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"]),
-    ...mapGetters("designtypes", ["designtypeList"])
   },
-  emits: ["refreshBProcess"],
-
   props: {
-    bFunctionId: {
-      type: Number,
+    bProcess: {
+      type: Object,
       required: true,
-      default: null
+      default: () => {},
     },
-    bFunctionName: {
-      type: String,
-      required: true,
-      default: null
-    },
-    bProcesses: {
-      type: Array,
-      required: true,
-      default: () => {}
-    }
   },
   methods: {
-    changeBProcess(value) {
-      this.bProcessLocal.processStep = value.id;
-      alert(this.bProcessLocal.processStep);
-    },
-    handleSubmit() {
-      this.bProcessLocal.businessFunction = this.bFunctionId;
-      if (this.stateform == this.FormState.ADD) {
-        this.$store
-          .dispatch("bProcess/save", this.bProcessLocal)
-          .then(this.$emit("refreshBProcess", this.bFunctionId));
+    getProcessStepsList: function () {
+      if (this.bProcessLocal && this.bProcessLocal.processSteps) {
+        return this.bProcessLocal.processSteps.map((step) => {
+          return {
+            id: step.id,
+            name: step.name == null ? "" : step.name,
+            label: step.label == null ? "" : step.label,
+            descr: step.descr == null ? "" : step.descr,
+            //tool: step.businessService == null ? "" : step.businessService.name,
+            stepInstances:
+              step.stepInstances == null
+                ? ""
+                : step.stepInstances
+                    .map((instance) => {
+                      return (
+                        instance.functionality + " (" + instance.method + ")"
+                      );
+                    })
+                    .join(", "),
+            processDesigns: step.processDesigns,
+          };
+        });
+      } else {
+        return [];
       }
-      if (this.stateform == this.FormState.EDIT) {
-        this.bProcessLocal = this.selectedEditProcess;
-        this.$store
-          .dispatch("bProcess/update", this.bProcessLocal)
-          .then(this.$emit("refreshBProcess", this.bFunctionId));
-      }
-      this.stateform = this.FormState.LIST;
-    },
-    selectId(e) {
-      this.bProcessLocal.id = e.id;
-      this.bProcessLocal.name = e.name;
-      this.bProcessLocal.descr = e.descr;
-      this.bProcessLocal.label = e.label;
-      this.bProcessLocal.orderCode = e.orderCode;
-    },
-    showEditStep(step) {
-      this.selectedEditStep = step;
-      this.stateform = this.FormState.STEP_EDIT;
-    },
-    showNewStep() {
-      this.selectedEditStep = {};
-      this.stateform = this.FormState.STEP_NEW;
-    },
-    handleEditBProcess(process) {
-      this.selectedEditProcess = process;
-      this.stateform = this.FormState.EDIT;
     },
     handleBack() {
       this.$router.back();
     },
-    closeModal() {
-      this.showModal = false;
-    },
-
-    handleDelete() {
-      let params = { fID: 0, pID: 0 };
-      params.fID = this.bFunctionId;
-      params.pID = this.selectedBProcess.id;
-      this.$store
-        .dispatch("bFunction/removeBProcess", params)
-        .then(this.$emit("refreshBProcess", this.bFunctionId));
-      this.showModal = false;
-    },
-
-    handleOpenModalDelete(app) {
-      this.selectedBProcess = app;
-      this.showModal = true;
-    },
-    getMessage() {
-      return (
-        "Sei sicuro di eliminare il collegamento al Business Process: " +
-        this.selectedBProcess.name +
-        " selezionato? ['" +
-        this.bFunctionId +
-        " / " +
-        this.selectedBProcess.id +
-        "]"
-      );
-    }
   },
   created() {
-    this.$store.dispatch("bProcess/findAll");
-    this.$store.dispatch("designtypes/findAll");
-  }
+    this.bProcessLocal = this.bProcess;
+  },
 };
 </script>
 <style scoped>
@@ -363,25 +157,30 @@ h5 {
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
 /* Float four columns side by side */
 .column {
   float: left;
   width: 25%;
   padding: 0 10px;
 }
+
 /* Remove extra left and right margins, due to padding in columns */
 .row {
   margin: 0 -5px;
 }
+
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
+
 /* Style the counter cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
@@ -390,6 +189,7 @@ body {
   background-color: #f1f1f1;
   margin-left: 5px;
 }
+
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
   .column {

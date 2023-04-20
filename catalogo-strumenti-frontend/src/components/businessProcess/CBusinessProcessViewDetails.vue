@@ -20,10 +20,6 @@
               </div>
           </h6>
         </div>
-
-
-
-
         <div class="card">
           <div class="card-body">
             <!--div class="row"><strong > {{ bProcess.descr }}</strong></div-->

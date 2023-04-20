@@ -13,45 +13,50 @@
             >
           </div>
           <div
-            class="card col-md-3"
+            class="col-md-3"
             v-for="linkedAgent of linkedAgents"
             :key="linkedAgent.id"
           >
-            <div class="card-header">
-              {{ linkedAgent.agentName }}
-              <div class="card-header-actions">
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'AgentDetails',
-                    params: { id: linkedAgent.agentId }
-                  }"
-                >
-                  <view-icon />
-                </router-link>
-              </div>
+            <div class="text-info center mt-2 mb-2">
+              <h6 class="card-header no-border text-info center">
+                {{ linkedAgent.agentName }}
+                <div class="card-header-actions">
+                  <router-link
+                    tag="a"
+                    :to="{
+                      name: 'AgentDetails',
+                      params: { id: linkedAgent.agentId },
+                    }"
+                  >
+                    <view-icon />
+                  </router-link>
+                </div>
+              </h6>
             </div>
-            <div class="card-body">
-              <div class="card-slot">
-                <span><strong>Contatto: </strong></span>
-                <span>{{ linkedAgent.agentContact }}</span>
-              </div>
-              <div class="card-slot">
-                <span><strong>Ruolo: </strong></span>
-                <span>{{ linkedAgent.agentRole }}</span>
-              </div>
-              <div class="card-slot">
-                <span><strong>Organizzazione: </strong></span>
-                <span>{{ linkedAgent.agentOrganization }}</span>
-              </div>
-              <div class="card-slot">
-                <span><strong>Data: </strong></span>
-                <span>{{ linkedAgent.referenceDate }}</span>
-              </div>
 
-              <div class="card-slot">
-                <span><strong>Note: </strong></span>
-                <span>{{ linkedAgent.notes }}</span>
+            <div class="card">
+              <div class="card-body">
+                <div class="card-slot">
+                  <span><strong>Contatto: </strong></span>
+                  <span>{{ linkedAgent.agentContact }}</span>
+                </div>
+                <div class="card-slot">
+                  <span><strong>Ruolo: </strong></span>
+                  <span>{{ linkedAgent.agentRole }}</span>
+                </div>
+                <div class="card-slot">
+                  <span><strong>Organizzazione: </strong></span>
+                  <span>{{ linkedAgent.agentOrganization }}</span>
+                </div>
+                <div class="card-slot">
+                  <span><strong>Data: </strong></span>
+                  <span>{{ linkedAgent.referenceDate }}</span>
+                </div>
+
+                <div class="card-slot">
+                  <span><strong>Note: </strong></span>
+                  <span>{{ linkedAgent.notes }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -67,9 +72,9 @@ export default {
     linkedAgents: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 <style scoped>

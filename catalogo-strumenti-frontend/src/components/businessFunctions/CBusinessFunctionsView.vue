@@ -15,26 +15,30 @@
           >
         </div>
         <div
-          class="card col-md-3"
+          class="col-md-3"
           v-for="businessFunction of businessFunctions"
           :key="businessFunction.id"
         >
-          <div class="card-header">
-            {{ businessFunction.name }}
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'BusinessFunctionsDetails',
-                  params: { id: businessFunction.id }
-                }"
-              >
-                <view-icon />
-              </router-link>
-            </div>
+          <div class="text-info center mt-2 mb-2">
+            <h6 class="card-header no-border text-info center">
+              {{ businessFunction.name }}
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'BusinessFunctionsDetails',
+                    params: { id: businessFunction.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
+            </h6>
           </div>
-          <div class="card-body">
-            <p class="card-text">{{ businessFunction.description }}</p>
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">{{ businessFunction.description }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -48,9 +52,9 @@ export default {
     businessFunctions: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 };
 </script>
 <style scoped>

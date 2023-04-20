@@ -16,26 +16,30 @@
         </div>
 
         <div
-          class="card col-md-3"
+          class="col-md-3"
           v-for="documentation of documentations"
           :key="documentation.id"
         >
-          <div class="card-header">
-            {{ documentation.name }}
-            <div class="card-header-actions">
-              <router-link
-                tag="a"
-                :to="{
-                  name: 'DocumentationDetails',
-                  params: { id: documentation.id }
-                }"
-              >
-                <view-icon />
-              </router-link>
-            </div>
+          <div class="text-info center mt-2 mb-2">
+            <h6 class="card-header no-border text-info center">
+              {{ documentation.name }}
+              <div class="card-header-actions">
+                <router-link
+                  tag="a"
+                  :to="{
+                    name: 'DocumentationDetails',
+                    params: { id: documentation.id },
+                  }"
+                >
+                  <view-icon />
+                </router-link>
+              </div>
+            </h6>
           </div>
-          <div class="card-body">
-            <p class="card-text">{{ documentation.documentType }}</p>
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">{{ documentation.documentType }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -49,19 +53,19 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     index: {
       type: String,
       required: true,
-      default: () => ""
+      default: () => "",
     },
     descriptionLabel: {
       type: String,
       required: true,
-      default: () => ""
-    }
-  }
+      default: () => "",
+    },
+  },
 };
 </script>
 <style scoped>
