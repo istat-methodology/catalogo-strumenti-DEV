@@ -19,45 +19,68 @@
             <div class="columns">
               <div class="row">
                 <div
-                  class="card col-md-3 mr-4"
+                  class="col-4"
                   v-for="bProcess of bProcesses"
                   :key="bProcess.id"
                 >
-                  <div class="card-header">
-                    {{ bProcess.name }}
-                    <div class="card-header-actions">
-                      <span>
-                        <span
-                          class="icon-link"
-                          @click="handleEditBProcess(bProcess)"
-                          ><edit-icon title="Edit"/></span
-                        >&nbsp;
-                        <span
-                          class="icon-link"
-                          @click="handleOpenModalDelete(bProcess)"
-                          ><delete-icon title="Cancella"
-                        /></span>
+                  <div class="text-info center mt-2 mb-2">
+                    <h6 class="card-header no-border text-info center row">
+                      <div class="col-9">{{ bProcess.name }}</div>
+                      <div class="row">
+                        <div class="col">
+                        <div class="card-header-actions float-right">
+                          <span
+                            class="icon-link text-info pr-1"
+                            @click="handleEditBProcess(bProcess)"
+                            ><edit-icon title="Edit"
+                          /></span>
+                          <span
+                            class="icon-link text-info"
+                            @click="handleOpenModalDelete(bProcess)"
+                            ><delete-icon title="Cancella"
+                          /></span>
+                        </div>
+                        </div>
+                      </div>
+                    </h6>
+                  </div>
+                  <div class="card col-12">
+                    <div class="card-body">
+                      <div class="row mb-2"><strong>Passi:</strong></div>
+                      <span
+                        v-if="
+                          bProcess.processSteps &&
+                          bProcess.processSteps.length > 0
+                        "
+                      >
+                        <div class="d-flex flex-wrap">
+                          <ol
+                            v-for="(
+                              processStep, index
+                            ) of bProcess.processSteps"
+                            :key="processStep.id"
+                          >
+                            <li
+                              class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
+                            >
+                              <medium>
+                                <strong>{{ index + 1 + ")" }} </strong>
+                                {{ processStep.name }}
+                              </medium>
+                            </li>
+                          </ol>
+                        </div>
+                      </span>
+                      <span v-else>
+                        <div class="list-group">
+                          <li
+                            class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer"
+                          >
+                            Non sono presenti passi
+                          </li>
+                        </div>
                       </span>
                     </div>
-                  </div>
-                  <div class="card-body">
-                    <span
-                      v-if="
-                        bProcess.processSteps &&
-                          bProcess.processSteps.length > 0
-                      "
-                    >
-                      <ol>
-                        <strong>Passi:</strong>
-                        <li
-                          v-for="processStep of bProcess.processSteps"
-                          :key="processStep.id"
-                        >
-                          {{ processStep.name }}
-                        </li>
-                      </ol>
-                    </span>
-                    <span v-else>Non sono presenti passi</span>
                   </div>
                 </div>
               </div>
@@ -212,7 +235,7 @@ export default {
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,
-    CTitle
+    CTitle,
   },
   data() {
     return {
@@ -228,7 +251,7 @@ export default {
         NEW: 2,
         ADD: 3,
         STEP_EDIT: 4,
-        STEP_NEW: 5
+        STEP_NEW: 5,
       },
       stateform: 0,
       warningModal: false,
@@ -238,15 +261,15 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: ""
+        businessFunction: "",
       },
-      showModal: false
+      showModal: false,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcessList"]),
-    ...mapGetters("designtypes", ["designtypeList"])
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
   emits: ["refreshBProcess"],
 
@@ -254,18 +277,18 @@ export default {
     bFunctionId: {
       type: Number,
       required: true,
-      default: null
+      default: null,
     },
     bFunctionName: {
       type: String,
       required: true,
-      default: null
+      default: null,
     },
     bProcesses: {
       type: Array,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     changeBProcess(value) {
@@ -337,12 +360,12 @@ export default {
         this.selectedBProcess.id +
         "]"
       );
-    }
+    },
   },
   created() {
     this.$store.dispatch("bProcess/findAll");
     this.$store.dispatch("designtypes/findAll");
-  }
+  },
 };
 </script>
 <style scoped>

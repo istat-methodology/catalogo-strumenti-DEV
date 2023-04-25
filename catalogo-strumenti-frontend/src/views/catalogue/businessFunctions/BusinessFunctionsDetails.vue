@@ -44,7 +44,7 @@
       </div>
       <div>
         <div class="p-2">
-          <CBusinessProcessViewDetails
+          <CBusinessProcessDetails
             :businessProcess="getBusinessProcesses"
           />
         </div>
@@ -56,13 +56,13 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import _ from "lodash";
-import CBusinessProcessViewDetails from "@/components/businessProcess/CBusinessProcessViewDetails";
+import CBusinessProcessDetails from "@/components/businessProcess/CBusinessProcessDetails";
 import CToolsView from "@/components/tools/CToolsView";
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessFunctionsDetails",
   components: {
-    CBusinessProcessViewDetails,
+    CBusinessProcessDetails,
     CToolsView,
     CTitle,
   },

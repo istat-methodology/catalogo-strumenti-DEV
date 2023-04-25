@@ -7,7 +7,7 @@
             <CTitle
               :title="bProcess.name"
               :buttonTitle="bProcess.name"
-              functionality=""
+              functionality="MODIFICA"
               :authenticated="isAuthenticated"
               :buttons="['salva', 'indietro']"
               @handleSubmit="handleSubmit"

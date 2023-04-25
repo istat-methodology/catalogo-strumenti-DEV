@@ -6,7 +6,7 @@
           <CTitle
             :title="bProcess.name"
             :buttonTitle="bProcess.name"
-            functionality=""
+            functionality="DETTAGLIO"
             :authenticated="isAuthenticated"
             :buttons="['indietro']"
             @handleBack="handleBack"

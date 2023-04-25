@@ -3,44 +3,38 @@
     <h2>Processi</h2>
     <div class="row">
       <div class="col-4" v-for="bProcess of businessProcess" :key="bProcess.id">
-        
-        <div class="text-info center mt-2 mb-2">
-          <h6 class="card-header no-border text-info center">
-            {{ bProcess.name }}
-            <div class="card-header-actions">
-                <router-link
-                  tag="a"
-                  :to="{
-                    name: 'BusinessProcessDetails',
-                    params: { id: bProcess.id },
-                  }"
-                >
-                  <view-icon />
-                </router-link>
+        <div class="text-info mt-2 mb-2">
+          <h6 class="card-header no-border row">
+            <div class="col-10 center">{{ bProcess.name }}</div>
+            <div class="row">
+              <div class="card-header-actions float-right">
+                <span
+                  class="icon-link text-info pr-1"
+                  @click="handleEdit(bProcess)"
+                  ><view-icon title="Edit"
+                /></span>
               </div>
+            </div>
           </h6>
         </div>
         <div class="card">
           <div class="card-body">
-            <!--div class="row"><strong > {{ bProcess.descr }}</strong></div-->
             <div class="row mb-2"><strong>Passi:</strong></div>
             <span
               v-if="bProcess.processSteps && bProcess.processSteps.length > 0"
             >
               <div class="d-flex flex-wrap">
-                <div
+                <ol
                   v-for="(processStep, index) of bProcess.processSteps"
                   :key="processStep.id"
                 >
                   <li
                     class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
                   >
-                    <medium>
-                      <strong>{{ index + 1 + ")" }} </strong>
-                      {{ processStep.name }}
-                    </medium>
+                    <strong>{{ index + 1 + ")" }} </strong>
+                    {{ processStep.name }}
                   </li>
-                </div>
+                </ol>
               </div>
             </span>
             <span v-else>
@@ -74,6 +68,14 @@ export default {
       type: Object,
       required: true,
       default: () => {},
+    },
+  },
+  methods: {
+    handleEdit(item) {
+      this.$router.push({
+        name: "BusinessProcessDetails",
+        params: { id: item.id },
+      });
     },
   },
   created() {

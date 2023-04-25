@@ -3,7 +3,7 @@
     <div class="col-10 p-0 ml-0">
           <CBusinessProcessStepNew
             :bDesignType="designtypeList"
-            :bPStep="selectedStep"            
+            :bPStep="{}"            
             @enableBack="handleBack"/>
     </div>
   </div>

@@ -2,7 +2,7 @@
   <div>
     <div v-if="bProcessLocal">
       <div class="row p-2">
-        <div class="card col-2 p-3">
+        <div class="card col p-3">
           <span class="p-2"><strong>Etichetta</strong></span>
           <div class="card-slot pl-2">
             <span>
@@ -10,7 +10,7 @@
             </span>
           </div>
         </div>
-        <div class="card col-2 p-3">
+        <div class="card col-1 p-3">
           <span class="p-2"><strong>Ordine</strong></span>
           <div class="card-slot pl-2">
             <span>
@@ -58,8 +58,8 @@
     </div>
   </div>
 </template>
-
 <script>
+
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 export default {

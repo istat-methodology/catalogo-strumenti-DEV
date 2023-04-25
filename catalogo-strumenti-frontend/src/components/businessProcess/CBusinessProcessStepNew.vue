@@ -2,7 +2,7 @@
   <div v-if="bDesignType">
     <div v-if="stateform == FormState.STEP_NEW">
       <CTitle
-        :title="processStepLocal.name"
+        title="Nuovo Passo"
         :buttonTitle="' passo '"
         functionality=""
         :authenticated="isAuthenticated"
@@ -55,6 +55,7 @@
       />
 
       <div v-if="processStepLocal.processDesigns.length > 0">
+        <label> {{ processStepLocal.processDesigns.length }}</label>
         <div
           v-for="processDesign of getProcessDesign()"
           :key="processDesign.id"
@@ -158,7 +159,7 @@
     <!-- 
         New Process Design
     -->
-    <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
+    <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
       <CBusinessProcessDesignEdit
         :bProcessStep="processStepLocal"
         :bProcessDesign="selectedProcessDesign"
@@ -279,63 +280,45 @@ export default {
         businessServiceId: 999,
       },
       processStep: {
-        id: 0,
-        name: "string",
-        descr: "string",
-        label: "string",
-        businessService: {
-          id: 0,
-          name: "string",
-          descr: "string",
-        },
-        substep: "string",
-        stepInstances: [
-          {
-            id: 0,
-            method: "string",
-            statMethod: {
-              id: 0,
-              name: "string",
-            },
-            descr: "string",
-            functionality: "string",
-            appServiceId: "string",
-          },
-        ],
-        processDesigns: [
-          {
-            id: 0,
-            descr: "string",
-            processSpecification: [
-              {
-                id: 0,
-                designType: {
-                  id: 0,
-                  type: "string",
-                  parent: 0,
-                },
-                informationObject: {
-                  id: 0,
-                  name: "string",
-                  descr: "string",
-                  csmAppRoleId: "string",
-                  businessService: {
-                    id: 0,
-                    name: "string",
-                    descr: "string",
-                  },
-                },
-              },
-            ],
-          },
-        ],
+        id: null,
+        name: "nome",
+        descr: null,
+        label: null,
+        businessService: null,
+        substep: null,
+        stepInstances: null,
+        processDesigns: []
       },
+
       processDesignToSave: {
         id: 0,
         descr: "",
         step: "",
       },
 
+      processDesigns: {
+        id: null,
+        descr: null,
+        processSpecification: {
+          id: null,
+          designType: {
+            id: null,
+            type: null,
+            parent: null,
+          },
+          informationObject: {
+            id: null,
+            name: null,
+            descr: null,
+            csmAppRoleId: null,
+            businessService: {
+              id: null,
+              name: null,
+              descr: null,
+            }
+          }
+        }
+      },
       designTypeLocal: {},
       designTypeSelected: {},
       selectedProcessDesign: {},
@@ -361,6 +344,11 @@ export default {
     ...mapGetters("processDesign", ["processDesign"]),
   },
   props: {
+    bProcess: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },    
     bPStep: {
       type: Object,
       required: true,
@@ -429,7 +417,7 @@ export default {
       this.processStepToSave.label = this.processStepLocal.label;
       this.processStepToSave.descr = this.processStepLocal.descr;
       //this.processStepToSave.businessServiceId = 999; //(this.processStepLocal.businessService.id==null) ? 999: this.processStepLocal.businessService.id;
-      this.$store.dispatch("procStep/save", this.processStepToSave); //.then(() => {  alert(this.processStepLocal())});
+      this.$store.dispatch("procSteps/save", this.processStepToSave); //.then(() => {  alert(this.processStepLocal())});
     },
     enableBack() {
       this.$emit("enableBack");

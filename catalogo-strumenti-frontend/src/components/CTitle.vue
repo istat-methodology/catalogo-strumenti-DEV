@@ -12,7 +12,7 @@
         </span>
       </h1>
       <h2 class="text-info">
-        {{ title }}
+        {{ title }}         
         <div class="card-header-actions pr-2">
           <div
             class="btn-group"

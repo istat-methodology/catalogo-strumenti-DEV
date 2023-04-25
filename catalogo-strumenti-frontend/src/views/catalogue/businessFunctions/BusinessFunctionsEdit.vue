@@ -93,7 +93,7 @@
             <span>Processi</span>
           </template>
           <div v-if="this.bFunction">
-            <CBusinessProcessView
+            <CBusinessProcessList
               :bFunctionId="bFunction.id"
               :bFunctionName="bFunction.name"
               :bProcesses="getBusinessProcesses"
@@ -111,14 +111,14 @@ import { required } from "vuelidate/lib/validators";
 import _ from "lodash";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import Treeselect from "@riophae/vue-treeselect";
-import CBusinessProcessView from "@/components/businessProcess/CBusinessProcessView";
+import CBusinessProcessList from "@/components/businessProcess/CBusinessProcessList";
 
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessFunctionsEdit",
   components: {
     Treeselect,
-    CBusinessProcessView,
+    CBusinessProcessList,
     CTitle,
   },
   data() {
