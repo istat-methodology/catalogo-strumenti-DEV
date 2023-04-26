@@ -162,13 +162,14 @@ const routes = [
           import("../views/catalogue/businessprocess/BusinessProcessList"),
         meta: { authorize: [] }
       },
+      /*
       {
         path: "catalogue/businessprocess/add",
         name: "BusinessProcessAdd",
         component: () =>
           import("../views/catalogue/businessprocess/BusinessProcessAdd"),
         meta: { authorize: [] }
-      },
+      },      
       {
         path: "catalogue/businessprocess/edit/:id",
         name: "BusinessProcessEdit",
@@ -183,6 +184,7 @@ const routes = [
           import("../views/catalogue/businessprocess/BusinessProcessDetails"),
         meta: { authorize: [] }
       },
+      */
       /*****************************************************************************/
       {
         path: "catalogue/processsteps/",
@@ -205,7 +207,7 @@ const routes = [
         component: () =>
           import("../views/catalogue/processsteps/ProcessStepsEdit"),
         meta: { authorize: [] }
-      },
+      },      
       {
         path: "catalogue/processsteps/details/",
         name: "ProcessStepsDetails",
@@ -213,8 +215,6 @@ const routes = [
           import("../views/catalogue/processsteps/ProcessStepsDetails"),
         meta: { authorize: [] }
       },
-
-
       /*****************************************************************************/
       {
         path: "catalogue/referenti",

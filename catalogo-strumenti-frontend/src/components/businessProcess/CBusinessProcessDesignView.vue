@@ -8,7 +8,7 @@
           bProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesignLocal.processDesignId +
+          bProcessDesignLocal.processDesign.id +
           ') / '
       "
       buttonTitle="view process design "

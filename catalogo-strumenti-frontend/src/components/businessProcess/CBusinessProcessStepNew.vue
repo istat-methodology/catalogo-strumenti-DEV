@@ -4,7 +4,7 @@
       <CTitle
         title="Nuovo Passo"
         :buttonTitle="' passo '"
-        functionality=""
+        functionality="nuovo"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
@@ -43,8 +43,7 @@
           </div>
         </CCardBody>
       </CCard>
-
-      <!--label class="col-12 mt-4">processDesigns:</label-->
+     
       <CTitle
         title="Process Design"
         buttonTitle=" nuovo Process Design "
@@ -153,18 +152,18 @@
         :bProcessStep="processStepLocal"
         :bProcessDesign="selectedProcessDesign"
         @enableNewProcessDesign="handleSubmitNewProcessDesign"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="stateform = FormState.STEP_NEW"
       />
     </div>
     <!-- 
         New Process Design
     -->
-    <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
+    <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
       <CBusinessProcessDesignEdit
         :bProcessStep="processStepLocal"
         :bProcessDesign="selectedProcessDesign"
         @enableEditProcessDesign="handleSubmitEditProcessDesign"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="stateform = FormState.STEP_NEW"
       />
     </div>
     <!-- 

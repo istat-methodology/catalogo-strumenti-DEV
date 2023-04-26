@@ -9,7 +9,7 @@
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
         @handleBack="enableBack"
-      />
+      />     
       <CCard>
         <CCardBody>
           <div class="row">
@@ -44,7 +44,7 @@
         </CCardBody>
       </CCard>
       <CTitle
-        title="Process Design"
+        title="Process Design..."
         buttonTitle=" nuovo Process Design "
         functionality=""
         :authenticated="isAuthenticated"
@@ -202,6 +202,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+
 import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignView";
 import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
 import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
@@ -305,6 +306,11 @@ export default {
     ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
+    bProcess: {
+      type: Object,
+      required: true,
+      default: () => {}
+    },
     bPStep: {
       type: Object,
       required: true,

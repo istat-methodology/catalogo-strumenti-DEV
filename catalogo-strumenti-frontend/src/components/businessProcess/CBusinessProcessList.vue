@@ -28,18 +28,18 @@
                       <div class="col-9">{{ bProcess.name }}</div>
                       <div class="row">
                         <div class="col">
-                        <div class="card-header-actions float-right">
-                          <span
-                            class="icon-link text-info pr-1"
-                            @click="handleEditBProcess(bProcess)"
-                            ><edit-icon title="Edit"
-                          /></span>
-                          <span
-                            class="icon-link text-info"
-                            @click="handleOpenModalDelete(bProcess)"
-                            ><delete-icon title="Cancella"
-                          /></span>
-                        </div>
+                          <div class="card-header-actions float-right">
+                            <span
+                              class="icon-link text-info pr-1"
+                              @click="handleEditBProcess(bProcess)"
+                              ><edit-icon title="Edit"
+                            /></span>
+                            <span
+                              class="icon-link text-info"
+                              @click="handleOpenModalDelete(bProcess)"
+                              ><delete-icon title="Cancella"
+                            /></span>
+                          </div>
                         </div>
                       </div>
                     </h6>
@@ -63,10 +63,8 @@
                             <li
                               class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
                             >
-                              <medium>
-                                <strong>{{ index + 1 + ")" }} </strong>
-                                {{ processStep.name }}
-                              </medium>
+                              <strong>{{ index + 1 + ")" }} </strong>
+                              {{ processStep.name }}
                             </li>
                           </ol>
                         </div>

@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div v-if="bProcessLocal">   
-
+    <div v-if="bProcessLocal">
       <CCard>
         <CCardBody>
           <div class="row">
@@ -161,12 +160,8 @@ export default {
     handleNewStep() {
       this.$emit("enableNewStep");
     },
-    enableSubmit() {
-      this.$emit("enableSubmit");
-    },
     handleBack() {
-      this.$emit("enableBack");
-      //this.$router.back();
+      this.$router.back();
     }
   },
   created() {
