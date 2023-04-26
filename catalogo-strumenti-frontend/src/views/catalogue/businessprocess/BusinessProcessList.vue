@@ -305,8 +305,7 @@ export default {
           :buttons="['indietro']"
           @handleBack="handleBack"
         />
-        <CBusinessProcessView
-          class="mt-2"
+        <CBusinessProcessView          
           :bProcess="selectedEditProcess"
           @enableEditStep="showEditStep"
           @enableNewStep="showNewStep"
