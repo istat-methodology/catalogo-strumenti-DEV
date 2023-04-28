@@ -51,7 +51,7 @@
         :buttons="['aggiungi']"
         @handleNew="showNewProcessDesign"
       />
-      <div v-if="processStepLocal.processDesigns.length > 0">
+      <div v-if="processStepLocal.processDesigns">
         <div
           v-for="processDesign of getProcessDesign()"
           :key="processDesign.id"
@@ -326,7 +326,7 @@ export default {
     getProcessDesign: function() {
       if (
         this.processStepLocal &&
-        this.processStepLocal.processDesigns.length > 0
+        this.processStepLocal.processDesigns > 0
       ) {
         return this.processStepLocal.processDesigns.map(item => {
           return {
