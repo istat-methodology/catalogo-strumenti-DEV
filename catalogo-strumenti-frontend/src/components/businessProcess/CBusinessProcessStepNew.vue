@@ -53,8 +53,7 @@
         @handleNew="showNewProcessDesign"
       />
 
-      <div v-if="processStepLocal.processDesigns">
-        <label> {{ processStepLocal.processDesigns.lenght }}</label>
+      <div v-if="processStepLocal.processDesigns && processStepLocal.processDesigns.lenght > 0" >        
         <div
           v-for="processDesign of getProcessDesign()"
           :key="processDesign.id"

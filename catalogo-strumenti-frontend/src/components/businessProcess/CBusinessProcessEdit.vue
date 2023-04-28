@@ -5,6 +5,13 @@
         <CCardBody>
           <div class="row">
             <CInput
+              disabled
+              class="col-1"
+              label="id"
+              placeholder="id"
+              v-model="bProcessLocal.id"
+            />
+            <CInput
               class="col-6"
               label="Nome*"
               placeholder="Nome"
@@ -45,10 +52,7 @@
       <CCard>
         <CCardBody>
           <span
-            v-if="
-              bProcessLocal.processSteps &&
-                bProcessLocal.processSteps.length > 0
-            "
+            v-if="bProcessLocal.processSteps"
           >
             <CDataTable
               v-if="bProcessLocal"
@@ -80,56 +84,61 @@ export default {
   name: "CBusinessProcessEdit",
   components: {
     //CBusinessProcessDesignNew,
-    CTitle
+    CTitle,
     //CModalDelete
   },
   data() {
     return {
       fields: [
         {
+          key: "id",
+          label: "id",
+          _style: "width:2%;",
+        },
+        {
           key: "name",
           label: "Nome",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "label",
           label: "etichetta",
-          _style: "width:40%;"
+          _style: "width:40%;",
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:40%;"
+          _style: "width:40%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       bProcessLocal: {},
       states: [],
       FormState: {},
       stateform: 0,
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"])
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   props: {
     bProcess: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
-    getProcessStepsList: function() {
+    getProcessStepsList: function () {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
-        return this.bProcessLocal.processSteps.map(step => {
+        return this.bProcessLocal.processSteps.map((step) => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
@@ -140,13 +149,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map(instance => {
+                    .map((instance) => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns
+            processDesigns: step.processDesigns,
           };
         });
       } else {
@@ -162,11 +171,11 @@ export default {
     },
     handleBack() {
       this.$router.back();
-    }
+    },
   },
   created() {
     this.bProcessLocal = this.bProcess;
-  }
+  },
 };
 </script>
 <style scoped>

@@ -9,14 +9,14 @@
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
         @handleBack="enableBack"
-      />     
+      />
       <CCard>
         <CCardBody>
           <div class="row">
-            <CInput        
+            <CInput
               class="col-1"
-              label="ID"
-              placeholder="ID"
+              label="id"
+              placeholder="id"
               v-model="processStepLocal.id"
               disabled
             />
@@ -44,14 +44,19 @@
         </CCardBody>
       </CCard>
       <CTitle
-        title="Process Design..."
+        title="Process Design"
         buttonTitle=" nuovo Process Design "
         functionality=""
         :authenticated="isAuthenticated"
         :buttons="['aggiungi']"
         @handleNew="showNewProcessDesign"
       />
-      <div v-if="processStepLocal.processDesigns">
+      <div
+        v-if="
+          processStepLocal.processDesigns &&
+          processStepLocal.processDesigns.lenght > 0
+        "
+      >
         <div
           v-for="processDesign of getProcessDesign()"
           :key="processDesign.id"
@@ -223,7 +228,7 @@ export default {
     CBusinessProcessSpecificationEdit,
     CTableLink,
     //  CModalDelete,
-    CTitle
+    CTitle,
   },
 
   data() {
@@ -232,54 +237,54 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
-      
+
       processStepToSave: {
         id: 0,
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0
+        businessServiceId: 0,
       },
       processDesignToSave: {
         id: 0,
         descr: "",
-        step: ""
+        step: "",
       },
 
       designTypeLocal: {},
@@ -295,52 +300,52 @@ export default {
 
         PROCESS_SPECIFICATION_VIEW: 20,
         PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22
+        PROCESS_SPECIFICATION_EDIT: 22,
       },
       stateform: 4,
-      warningModal: false
+      warningModal: false,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("processDesign", ["processDesign"])
+    ...mapGetters("processDesign", ["processDesign"]),
   },
   props: {
     bProcess: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bPStep: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bDesignType: {
       type: Array,
       required: true,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   methods: {
-    getProcessDesign: function() {
+    getProcessDesign: function () {
       if (
         this.processStepLocal &&
-        this.processStepLocal.processDesigns > 0
+        this.processStepLocal.processDesigns.lenght > 0
       ) {
-        return this.processStepLocal.processDesigns.map(item => {
+        return this.processStepLocal.processDesigns.map((item) => {
           return {
             id: item.id,
             descr: item.descr,
-            processSpecification: item.processSpecification
+            processSpecification: item.processSpecification,
           };
         });
       } else {
         return [];
       }
     },
-    getProcessSpecification: function(processDesign) {
-      return processDesign.processSpecification.map(item => {
+    getProcessSpecification: function (processDesign) {
+      return processDesign.processSpecification.map((item) => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -351,18 +356,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent)
+                : this.getDesignType(item.designType.parent),
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type
+            type: item.designType.parent == null ? "" : item.designType.type,
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id
-          }
+            businessServiceId: item.informationObject.businessService.id,
+          },
         };
       });
     },
@@ -446,12 +451,12 @@ export default {
     handleOpenModalDeleteProcessSpecification() {
       console.log("funzione delete process specification non attiva!");
       alert("funzione delete process specification non attiva!");
-    }
+    },
   },
   created() {
     this.processStepLocal = this.bPStep;
     this.designTypeLocal = _.map(this.bDesignType, "type");
-  }
+  },
 };
 </script>
 <style scoped>
