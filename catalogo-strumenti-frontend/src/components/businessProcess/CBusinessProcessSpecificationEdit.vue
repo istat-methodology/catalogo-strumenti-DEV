@@ -135,7 +135,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"]),    
     ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
   },
   //emits: ["enableEditProcessDesign"],

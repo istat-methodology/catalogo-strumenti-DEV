@@ -1,5 +1,5 @@
 <template>
-  <div v-if="bDesignType">
+  <div v-if="designtypeList">
     <div v-if="stateform == FormState.STEP_NEW">
       <CTitle
         title="Nuovo Passo"
@@ -53,8 +53,8 @@
         @handleNew="showNewProcessDesign"
       />
 
-      <div v-if="processStepLocal.processDesigns.length > 0">
-        <label> {{ processStepLocal.processDesigns.length }}</label>
+      <div v-if="processStepLocal.processDesigns">
+        <label> {{ processStepLocal.processDesigns.lenght }}</label>
         <div
           v-for="processDesign of getProcessDesign()"
           :key="processDesign.id"
@@ -343,27 +343,17 @@ export default {
     ...mapGetters("processDesign", ["processDesign"]),
   },
   props: {
-    bProcess: {
-      type: Object,
-      required: true,
-      default: () => {},
-    },    
     bPStep: {
       type: Object,
       required: true,
       default: () => {},
-    },
-    bDesignType: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
+    }
   },
   methods: {
     getProcessDesign: function () {
       if (
         this.processStepLocal &&
-        this.processStepLocal.processDesigns.length > 0
+        this.processStepLocal.processDesigns.lenght > 0
       ) {
         return this.processStepLocal.processDesigns.map((item) => {
           return {
@@ -487,7 +477,9 @@ export default {
   },
   created() {
     this.processStepLocal = this.processStep;
-    this.designTypeLocal = _.map(this.bDesignType, "type");
+    this.$store.dispatch("designtypes/findAll").catch(() => {
+      this.designTypeLocal = _.map(this.designtypeList, "type");
+    });
   },
 };
 </script>

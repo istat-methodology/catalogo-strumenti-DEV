@@ -45,7 +45,7 @@ const actions = {
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_BPROCESS", data);
+        commit("SET_BPROCESSLIST", data);
       })
       .catch(err => {
         console.log(err);

@@ -1,7 +1,7 @@
 <template>
   <div class="row" v-if="bProcess">
-    <div class="col-8">
-      <div>
+    
+  
         <div class="p-0">
           <CTitle
             :title="bProcess.name"
@@ -18,8 +18,8 @@
           />
         </div>
       </div>
-    </div>
-  </div>
+  
+  
 </template>
 <script>
 import { mapGetters } from "vuex";
