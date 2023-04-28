@@ -261,23 +261,6 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcessList"]),
-    /*computedItems: function () {
-      if (this.bProcessList) {
-        return this.bProcessList.map((item) => {
-          return Object.assign({}, item, {
-            id: item.id,
-            name: item.name == null ? "" : item.name,
-            descr: item.descr == null ? "" : item.descr,
-            label: item.label == null ? "" : item.label,
-            order: item.orderCode == null ? "" : item.orderCode,
-            businessFunctions:
-              item.businessFunctions == null ? "" : item.businessFunctions,
-          });
-        });
-      } else {
-        return [];
-      }
-    },*/
   },
 
   emits: ["refreshBProcess"],
@@ -357,8 +340,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
-    //this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
+    this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);  
     this.$store.dispatch("bProcess/findAll").catch(() => {});
   },
 };

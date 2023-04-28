@@ -264,6 +264,7 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("filter", ["params"]),
     ...mapGetters("designtypes", ["designtypeList"]),
   },
   emits: ["refreshBProcess"],
@@ -358,7 +359,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("bProcess/findAll");
+    this.$store.dispatch("bProcess/filter", this.params).catch(() => {});   
     this.$store.dispatch("designtypes/findAll");
   },
 };
