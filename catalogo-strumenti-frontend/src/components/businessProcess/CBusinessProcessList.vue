@@ -48,10 +48,7 @@
                     <div class="card-body">
                       <div class="row mb-2"><strong>Passi:</strong></div>
                       <span
-                        v-if="
-                          bProcess.processSteps &&
-                          bProcess.processSteps.length > 0
-                        "
+                        v-if="bProcess.processSteps"
                       >
                         <div class="d-flex flex-wrap">
                           <ol
