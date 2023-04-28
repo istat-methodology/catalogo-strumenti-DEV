@@ -54,7 +54,7 @@
       <div
         v-if="
           processStepLocal.processDesigns &&
-          processStepLocal.processDesigns.lenght > 0
+          processStepLocal.processDesigns.length > 0
         "
       >
         <div
@@ -331,7 +331,7 @@ export default {
     getProcessDesign: function () {
       if (
         this.processStepLocal &&
-        this.processStepLocal.processDesigns.lenght > 0
+        this.processStepLocal.processDesigns.length > 0
       ) {
         return this.processStepLocal.processDesigns.map((item) => {
           return {
