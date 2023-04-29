@@ -1,7 +1,7 @@
 <template>
   <div>
     <td title="Visualizza">
-      <span class="icon-link" @click="handleView(item)" title="Visualizza"
+      <span class="icon-link" @click="handleView" title="Visualizza"
         ><view-icon title="Visualizza" class="text-info" />
       </span>
     </td>

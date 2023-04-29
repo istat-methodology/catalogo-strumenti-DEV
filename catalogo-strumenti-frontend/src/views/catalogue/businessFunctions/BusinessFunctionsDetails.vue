@@ -45,7 +45,7 @@
       <div>
         <div class="p-2">
           <CBusinessProcessDetails
-            :businessProcess="getBusinessProcesses"
+            :businessProcesses="getBusinessProcesses"
           />
         </div>
       </div>

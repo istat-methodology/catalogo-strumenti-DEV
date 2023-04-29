@@ -2,7 +2,8 @@
   <div>
     <h2>Processi</h2>
     <div class="row">
-      <div class="col-4" v-for="bProcess of businessProcess" :key="bProcess.id">
+      <div class="col-4" v-for="bProcess of businessProcesses
+      " :key="bProcess.id">
         <div class="text-info mt-2 mb-2">
           <h6 class="card-header no-border row">
             <div class="col-10 center">{{ bProcess.name }}</div>
@@ -56,7 +57,7 @@
 import { mapGetters } from "vuex";
 //import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView";
 export default {
-  name: "CBusinessProcessView",
+  name: "CBusinessProcessDetails",
   components: {
     //CBusinessProcessStepView,
   },
@@ -64,10 +65,10 @@ export default {
     ...mapGetters("designtypes", ["designtypeList"]),
   },
   props: {
-    businessProcess: {
-      type: Object,
+    businessProcesses: {
+      type: Array,
       required: true,
-      default: () => {},
+      default: () => [],
     },
   },
   methods: {
