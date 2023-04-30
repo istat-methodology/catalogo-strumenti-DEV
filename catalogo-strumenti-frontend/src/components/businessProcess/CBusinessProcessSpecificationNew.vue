@@ -33,7 +33,7 @@
               <select
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
-                v-model="bProcessSpecificationLocal.designType.id"
+                v-model="bProcessSpecificationLocal.designType.parent"
               >
                 <option
                   v-for="option in designtypeList"
@@ -170,10 +170,12 @@ export default {
       this.$emit("enableBack");
     },
     changeDesignTypeListByParent(event) {
+      alert("parent=" + event.target.value);
       this.$store.dispatch("designtypes/findByParent", event.target.value);
     },
     onChangeDesignType_Data_IO(event) {
-      alert(event.target.value);
+      alert("id=" + event.target.value);
+      console.log(event.target.value);
     },
   },
   created() {
