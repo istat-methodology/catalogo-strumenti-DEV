@@ -3,16 +3,16 @@
     <CTitle
       :title="
         'Process Step ' +
-          bProcessStep.name +
-          ' (' +
-          bProcessStep.id +
-          ') / ' +
-          'Process Design (' +
-          bProcessDesignLocal.processDesignId +
-          ') / ' +
-          'Process Specification (' +
-          //bProcessSpecificationLocal.id +
-          ') '
+        bProcessStep.name +
+        ' (' +
+        bProcessStep.id +
+        ') / ' +
+        'Process Design (' +
+        bProcessDesignLocal.id +
+        ') / ' +
+        'Process Specification (' +
+        //bProcessSpecificationLocal.id +
+        ') '
       "
       buttonTitle=" process specification "
       functionality=""
@@ -33,7 +33,7 @@
               <select
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
-                v-model="bProcessSpecificationLocal.designType_Tipo_IO.id"
+                v-model="bProcessSpecificationLocal.designType.id"
               >
                 <option
                   v-for="option in designtypeList"
@@ -49,7 +49,7 @@
               <select
                 class="p-1 ml-0 col-12 form-control"
                 @change="onChangeDesignType_Data_IO($event)"
-                v-model="designType_Dati_IO.id"
+                v-model="bProcessSpecificationLocal.designType.id"
               >
                 <option
                   v-for="option in designtypebyparentList"
@@ -103,58 +103,63 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessDesignNew",
   components: {
-    CTitle
+    CTitle,
   },
   data() {
     return {
       bProcessDesignLocal: {},
-      //bProcessSpecificationLocal: {},
+      bProcessSpecificationToSave: {
+        id: 0,
+        processDesign: 0,
+        designType: 0,
+        informationObject: 0,
+      },
+
       bProcessSpecificationLocal: {
-        id: "",
+        id: 0,
         processDesign: {
-          id: "",
-          descr: ""
+          id: 0,
+          descr: "string",
         },
         designType: {
-          id: "",
-          type: "",
-          parent: ""
+          id: 0,
+          type: "string",
+          parent: 0,
         },
         informationObject: {
-          id: "",
-          name: "",
-          descr: "",
-          csmAppRoleId: "",
+          id: 0,
+          name: "string",
+          descr: "string",
+          csmAppRoleId: "string",
           businessService: {
-            id: "",
-            name: "",
-            descr: ""
-          }
-        }
-      }
+            id: 0,
+            name: "string",
+            descr: "string",
+          },
+        },
+      },
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
   },
-  //emits: ["enableEditProcessDesign"],
   props: {
     bProcessStep: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bProcessDesign: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bProcessSpecification: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     handleSubmit() {
@@ -169,14 +174,13 @@ export default {
     },
     onChangeDesignType_Data_IO(event) {
       alert(event.target.value);
-    }
+    },
   },
   created() {
     this.bProcessDesignLocal = this.bProcessDesign;
-    //this.bProcessSpecificationLocal = this.bProcessSpecification;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch("designtypes/findByParent", parseInt(parseInt(1)));
-  }
+  },
 };
 </script>
 <style scoped>

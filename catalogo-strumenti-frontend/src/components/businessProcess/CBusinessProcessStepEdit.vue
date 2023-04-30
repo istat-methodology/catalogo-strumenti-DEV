@@ -123,7 +123,7 @@
             </CDataTable>
             <div class="pt-4 pb-2 pr-2">
               <button
-                @click="showNewProcessSpecification"
+                @click="showNewProcessSpecification(processDesign)"
                 class="btn btn-info float-right mr-4"
               >
                 aggiungi Process Specification
@@ -186,7 +186,7 @@
       <CBusinessProcessSpecificationNew
         :bProcessStep="processStepLocal"
         :bProcessDesign="selectedProcessDesign"
-        :bProcessSpecification="{}"
+        :bProcessSpecification="selectedProcessSpecification"
         @enableNewProcessSpecification="handleSubmitNewProcessSpecification"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
@@ -207,7 +207,7 @@
       :message="msg"
       :showModal="showModal"
       @closeModal="closeModal"
-      @handleDelete="handleSubmitDeleteProcessDesign"
+      @handleDelete="handleDeleteProcessDesign"
     />
   </div>
 </template>
@@ -219,10 +219,12 @@ import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessPr
 import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
 import CBusinessProcessSpecificationNew from "@/components/businessProcess/CBusinessProcessSpecificationNew";
 import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBusinessProcessSpecificationEdit";
-import CTableLink from "@/components/CTableLink.vue";
-//import CModalDelete from "@/components/CModalDelete.vue";
+
 import CTitle from "@/components/CTitle.vue";
+import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
+
+
 var _ = require("lodash");
 
 export default {
@@ -411,12 +413,12 @@ export default {
       this.processDesignToSave.step = this.processStepLocal.id;
       this.$store.dispatch("processDesign/update", this.processDesignToSave);
     },
-    handleSubmitDeleteProcessDesign() {
+
+    handleDeleteProcessDesign() {
       this.$store.dispatch("processDesign/delete", this.selectedProcessDesign.id);
       this.showModal = false;
     },
-
-    handleDelete() {
+    handleDeleteProcessStep() {
       this.$store
         .dispatch("procSteps/delete", this.selectedProcessStep.id)
         .catch(() => {});
@@ -448,9 +450,9 @@ export default {
       this.selectedProcessSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_SPECIFICATION_VIEW;
     },
-    showNewProcessSpecification(processDesign, processDesignSpecification) {
+    showNewProcessSpecification(processDesign) {
       this.selectedProcessDesign = processDesign;
-      this.selectedProcessSpecification = processDesignSpecification;
+      this.selectedProcessSpecification = {};
       this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
     },
     /* Process Specification */

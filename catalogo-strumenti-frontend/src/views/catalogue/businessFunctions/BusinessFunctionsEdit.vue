@@ -1,6 +1,6 @@
 <template>
   <!-- wait until service is loaded -->
-  <div class="row">
+  <div v-if="bFunction" class="row" >
     <div class="col-12">
       <div class="row p-0">
         <div class="col-md-2"></div>
