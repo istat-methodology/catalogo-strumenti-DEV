@@ -1,12 +1,11 @@
 <template>
   <div class="row p-0">
+    <div class="col-12 p-0">
     <!--       
         Elenco Processi      
       -->
     <div v-if="stateform == FormState.LIST">
       <h2>Processi</h2>
-
-      <div class="col-12 p-0">
         <div class="columns">
           <div class="row">
             <div
@@ -30,7 +29,7 @@
                   </div>
                 </h6>
               </div>
-              <div class="card col-12">
+              <div class="card">
                 <div class="card-body">
                   <div class="row mb-2"><strong>Passi:</strong></div>
                   <span v-if="bProcess.processSteps">

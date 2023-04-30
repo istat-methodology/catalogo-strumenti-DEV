@@ -37,18 +37,12 @@
           </div>
         </div>
       </div>
-      <div>
-        <div class="p-2">
-          <CListTools :tools="toolsByBfunction" />
-        </div>
+      <div class="p-2">
+        <CListTools :tools="toolsByBfunction" />
       </div>
-      <div>
-        <div class="p-2">
-          
-          <CListProcess
-            :businessProcesses="getBusinessProcesses"
-          />
-        </div>
+
+      <div class="p-2">
+        <CListProcess :businessProcesses="getBusinessProcesses" />
       </div>
     </div>
   </div>

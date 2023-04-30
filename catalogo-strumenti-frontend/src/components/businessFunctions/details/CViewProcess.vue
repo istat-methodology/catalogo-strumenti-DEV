@@ -36,7 +36,7 @@
     <div class="text-info center mt-2 mb-2">
       <h6 class="card-header no-border text-info center row">
         <div class="col-10 pb-3">Passi</div>
-        <CCard class="col-10">
+        <CCard class="col-12">
           <CCardBody>
             <span v-if="bProcessLocal.processSteps">
               <CDataTable
