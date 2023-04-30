@@ -1,31 +1,40 @@
 <template>
   <div v-if="bProcessLocal">
-    <div class="row p-2">
-      <div class="card col-5 p-3">
+
+    <CTitle
+        :title="bProcessLocal.name"
+        :buttonTitle="' processo '"
+        functionality=""
+        :authenticated="isAuthenticated"
+        :buttons="['indietro']"
+        @handleBack="handleBack"
+      />
+      <div class="row p-2">
+      <div class="card col-1 p-3">
         <span class="p-2"><strong>id</strong></span>
         <div class="card-slot pl-2">
           <span> {{ bProcessLocal.id }}</span>
         </div>
       </div>
-      <div class="card col-5 p-3">
+      <div class="card col-9 p-3">
         <span class="p-2"><strong>Nome</strong></span>
         <div class="card-slot pl-2">
           <span> {{ bProcessLocal.name }}</span>
         </div>
       </div>
       <div class="card col-5 p-3">
-        <span class="p-2"><strong>Etichetta</strong></span>
-        <div class="card-slot pl-2">
+          <span class="p-2"><strong>Etichetta</strong></span>
+          <div class="card-slot pl-2">
           <span> {{ bProcessLocal.label }}</span>
         </div>
       </div>
-      <div class="card col-5 p-3">
+      <div class="card col-2 p-3">
         <span class="p-2"><strong>Ordine</strong></span>
         <div class="card-slot pl-2">
           <span> {{ bProcessLocal.orderCode }}</span>
         </div>
       </div>
-      <div class="card col-5 p-3">
+      <div class="card col-12 p-3">
         <span class="p-2"><strong>Descrizione</strong></span>
         <div class="card-slot pl-2">
           <span> {{ bProcessLocal.descr }}</span>
@@ -33,42 +42,46 @@
       </div>
     </div>
 
-    <div class="text-info center mt-2 mb-2">
-      <h6 class="card-header no-border text-info center row">
-        <div class="col-10 pb-3">Passi</div>
-        <CCard class="col-12">
-          <CCardBody>
-            <span v-if="bProcessLocal.processSteps">
-              <CDataTable
-                v-if="bProcessLocal"
-                :items="getProcessStepsList()"
-                :fields="fields"
-                :items-per-page="10"
-                hover
-                pagination
-                ><template #show_details="{ item }">
-                  <td>
-                    <span class="icon-link" @click="handleEditStep(item)"
-                      ><view-icon title="view"
-                    /></span>
-                  </td>
-                </template>
-              </CDataTable>
-            </span>
-            <span v-else>Non sono presenti passi</span>
-          </CCardBody>
-        </CCard>
-      </h6>
+    <CTitle
+        title="Passi"
+        :buttonTitle="''"
+        functionality=""
+        :authenticated="isAuthenticated"
+      />
+    <div class="row">
+      <CCard class="col-12">
+        <CCardBody>
+          <span v-if="bProcessLocal.processSteps">
+            <CDataTable
+              v-if="bProcessLocal"
+              :items="getProcessStepsList()"
+              :fields="fields"
+              :items-per-page="10"
+              hover
+              pagination
+              ><template #show_details="{ item }">
+                <td>
+                  <span class="icon-link" @click="handleShowStep(item)"
+                    ><view-icon title="view"
+                  /></span>
+                </td>
+              </template>
+            </CDataTable>
+          </span>
+          <span v-else>Non sono presenti passi</span>
+        </CCardBody>
+      </CCard>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "CBusinessProcessEdit",
-  components: {},
+  components: {CTitle},
   data() {
     return {
       fields: [
@@ -145,14 +158,11 @@ export default {
       }
     },
 
-    handleEditStep(step) {
-      this.$emit("enableEditStep", step);
-    },
-    handleNewStep() {
-      this.$emit("enableNewStep");
+    handleShowStep(step) {
+      this.$emit("enableShowStep", step);
     },
     handleBack() {
-      this.$router.back();
+      this.$emit("enableBack");
     },
   },
   created() {

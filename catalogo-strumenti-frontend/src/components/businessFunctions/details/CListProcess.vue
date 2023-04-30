@@ -1,11 +1,11 @@
 <template>
   <div class="row p-0">
     <div class="col-12 p-0">
-    <!--       
+      <!--       
         Elenco Processi      
       -->
-    <div v-if="stateform == FormState.LIST">
-      <h2>Processi</h2>
+      <div v-if="stateform == FormState.LIST_PROCESS">
+        <h2>Processi</h2>
         <div class="columns">
           <div class="row">
             <div
@@ -22,7 +22,7 @@
                         <span
                           class="icon-link text-info pr-1"
                           @click="handleViewProcess(bProcess)"
-                          ><view-icon title="Edit"
+                          ><view-icon title="view"
                         /></span>
                       </div>
                     </div>
@@ -64,48 +64,29 @@
       </div>
     </div>
     <!-- 
-        Modifica Processo
+        View Processo
       -->
-    <div v-if="stateform == FormState.EDIT">
-      <h2 class="pt-2 pb-2">Processo</h2>
-      <div class="text-info center mt-2 mb-2">
-        <h6 class="card-header no-border text-info center row">
-          <div class="col-9 pb-3">{{ selectedEditProcess.name }}</div>
-          <div class="row">
-            <div class="col-2">
-              <div class="card-header-actions">
-                <span
-                  class="icon-link text-info pr-1"
-                  @click="stateform = FormState.LIST"
-                  ><close-icon title="exit"
-                /></span>
-              </div>
-            </div>
-          </div>
-          <div class="col-10">
-            <div v-if="selectedEditProcess">
-              <CViewProcess
-                :bProcess="selectedEditProcess"
-                @enableEditStep="showEditStep"
-                @enableNewStep="showNewStep"
-              />
-            </div>
-          </div>
-        </h6>
+    <div v-if="stateform == FormState.VIEW_PROCESS">
+      <h2>Processo</h2>
+      <div v-if="selectedEditProcess">
+        <CViewProcess          
+          :bProcess="selectedEditProcess"
+          @enableShowStep="showViewStep"
+          @enableBack="stateform = FormState.LIST_PROCESS"
+        />
       </div>
     </div>
     <!-- 
         Modifica Passo del Processo
       -->
-    <div v-if="stateform == FormState.STEP_EDIT">
+    <div v-if="stateform == FormState.VIEW_STEP">
       <h2 class="pt-2 pb-2">Passo</h2>
 
       <div v-if="selectedEditStep">
         <CViewStep
           :bDesignType="designtypeList"
           :bPStep="selectedEditStep"
-          @enableEditStep="showEditStep"
-          @enableBack="stateform = FormState.EDIT"
+          @enableBack="stateform = FormState.VIEW_PROCESS"
         />
       </div>
     </div>
@@ -131,12 +112,9 @@ export default {
       selectedEditProcessDesign: null,
       states: [],
       FormState: {
-        LIST: 0,
-        EDIT: 1,
-        NEW: 2,
-        ADD: 3,
-        STEP_EDIT: 4,
-        STEP_NEW: 5,
+        LIST_PROCESS: 0,
+        VIEW_PROCESS: 1,
+        VIEW_STEP: 4,
       },
       stateform: 0,
       warningModal: false,
@@ -172,17 +150,13 @@ export default {
       this.bProcessLocal.label = e.label;
       this.bProcessLocal.orderCode = e.orderCode;
     },
-    showEditStep(step) {
+    showViewStep(step) {
       this.selectedEditStep = step;
-      this.stateform = this.FormState.STEP_EDIT;
-    },
-    showNewStep() {
-      this.selectedEditStep = {};
-      this.stateform = this.FormState.STEP_NEW;
+      this.stateform = this.FormState.VIEW_STEP;
     },
     handleViewProcess(process) {
       this.selectedEditProcess = process;
-      this.stateform = this.FormState.EDIT;
+      this.stateform = this.FormState.VIEW_PROCESS;
     },
     handleBack() {
       this.$router.back();
