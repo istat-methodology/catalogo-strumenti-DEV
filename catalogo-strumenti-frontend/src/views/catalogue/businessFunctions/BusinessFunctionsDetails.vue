@@ -39,12 +39,13 @@
       </div>
       <div>
         <div class="p-2">
-          <CToolsView :tools="toolsByBfunction" />
+          <CListTools :tools="toolsByBfunction" />
         </div>
       </div>
       <div>
         <div class="p-2">
-          <CBusinessProcessDetails
+          
+          <CListProcess
             :businessProcesses="getBusinessProcesses"
           />
         </div>
@@ -56,14 +57,14 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import _ from "lodash";
-import CBusinessProcessDetails from "@/components/businessProcess/CBusinessProcessDetails";
-import CToolsView from "@/components/tools/CToolsView";
+import CListProcess from "@/components/businessFunctions/details/CListProcess.vue";
+import CListTools from "@/components/businessFunctions/details/CListTools.vue";
 import CTitle from "@/components/CTitle.vue";
 export default {
   name: "BusinessFunctionsDetails",
   components: {
-    CBusinessProcessDetails,
-    CToolsView,
+    CListProcess,
+    CListTools,
     CTitle,
   },
   data() {

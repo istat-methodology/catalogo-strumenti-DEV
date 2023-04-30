@@ -1,75 +1,82 @@
 <template>
-  <div>
-    <div v-if="bProcessLocal">
-      <div class="row p-2">
-        <div class="card col p-3">
-          <span class="p-2"><strong>Etichetta</strong></span>
-          <div class="card-slot pl-2">
-            <span>
-              {{ bProcessLocal.label }}
-            </span>
-          </div>
-        </div>
-        <div class="card col-1 p-3">
-          <span class="p-2"><strong>Ordine</strong></span>
-          <div class="card-slot pl-2">
-            <span>
-              {{ bProcessLocal.orderCode }}
-            </span>
-          </div>
-        </div>
-        <div class="card col-8 p-3">
-          <span class="p-2"><strong>Descrizione</strong></span>
-          <div class="card-slot pl-2 pb-2">
-            <span>
-              {{ bProcessLocal.descr }}
-            </span>
-          </div>
+  <div v-if="bProcessLocal">
+    <div class="row p-2">
+      <div class="card col-5 p-3">
+        <span class="p-2"><strong>id</strong></span>
+        <div class="card-slot pl-2">
+          <span> {{ bProcessLocal.id }}</span>
         </div>
       </div>
+      <div class="card col-5 p-3">
+        <span class="p-2"><strong>Nome</strong></span>
+        <div class="card-slot pl-2">
+          <span> {{ bProcessLocal.name }}</span>
+        </div>
+      </div>
+      <div class="card col-5 p-3">
+        <span class="p-2"><strong>Etichetta</strong></span>
+        <div class="card-slot pl-2">
+          <span> {{ bProcessLocal.label }}</span>
+        </div>
+      </div>
+      <div class="card col-5 p-3">
+        <span class="p-2"><strong>Ordine</strong></span>
+        <div class="card-slot pl-2">
+          <span> {{ bProcessLocal.orderCode }}</span>
+        </div>
+      </div>
+      <div class="card col-5 p-3">
+        <span class="p-2"><strong>Descrizione</strong></span>
+        <div class="card-slot pl-2">
+          <span> {{ bProcessLocal.descr }}</span>
+        </div>
+      </div>
+    </div>
 
-      <CTitle
-        title="Passi"
-        buttonTitle=" Passo"
-        functionality=""
-        :authenticated="isAuthenticated"
-      />
-      <CCard>
-        <CCardBody>
-          <span
-            v-if="
-              bProcessLocal.processSteps &&
-              bProcessLocal.processSteps.length > 0
-            "
-          >
-            <CDataTable
-              v-if="bProcessLocal"
-              :items="getProcessStepsList()"
-              :fields="fields"
-              :items-per-page="10"
-              hover
-              pagination
-            >
-            </CDataTable>
-          </span>
-          <span v-else>Non sono presenti passi</span>
-        </CCardBody>
-      </CCard>
+    <div class="text-info center mt-2 mb-2">
+      <h6 class="card-header no-border text-info center row">
+        <div class="col-10 pb-3">Passi</div>
+        <CCard class="col-10">
+          <CCardBody>
+            <span v-if="bProcessLocal.processSteps">
+              <CDataTable
+                v-if="bProcessLocal"
+                :items="getProcessStepsList()"
+                :fields="fields"
+                :items-per-page="10"
+                hover
+                pagination
+                ><template #show_details="{ item }">
+                  <td>
+                    <span class="icon-link" @click="handleEditStep(item)"
+                      ><view-icon title="view"
+                    /></span>
+                  </td>
+                </template>
+              </CDataTable>
+            </span>
+            <span v-else>Non sono presenti passi</span>
+          </CCardBody>
+        </CCard>
+      </h6>
     </div>
   </div>
 </template>
-<script>
 
+<script>
 import { mapGetters } from "vuex";
-import CTitle from "@/components/CTitle.vue";
+
 export default {
-  name: "CBusinessProcessView",
-  components: {
-    CTitle,
-  },
+  name: "CBusinessProcessEdit",
+  components: {},
   data() {
     return {
       fields: [
+        {
+          key: "id",
+          label: "id",
+          _style: "width:2%;",
+        },
         {
           key: "name",
           label: "Nome",
@@ -84,6 +91,13 @@ export default {
           key: "descr",
           label: "Descrizione",
           _style: "width:40%;",
+        },
+        {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
         },
       ],
       bProcessLocal: {},
@@ -129,6 +143,13 @@ export default {
       } else {
         return [];
       }
+    },
+
+    handleEditStep(step) {
+      this.$emit("enableEditStep", step);
+    },
+    handleNewStep() {
+      this.$emit("enableNewStep");
     },
     handleBack() {
       this.$router.back();
