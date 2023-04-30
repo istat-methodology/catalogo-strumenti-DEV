@@ -12,7 +12,7 @@
               buttonTitle=" Processo"
               functionality=""
               :authenticated="isAuthenticated"
-              :buttons="['aggiungi', 'indietro']"
+              :buttons="['aggiungi', 'indietro']"              
               @handleNew="stateform = FormState.NEW"
               @handleBack="handleBack"
             />
@@ -179,6 +179,7 @@ import CTitle from "@/components/CTitle.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CTableDetails from "@/components/CTableDetails.vue";
+import _ from "lodash";
 
 export default {
   name: "BusinessProcessList",
@@ -263,7 +264,7 @@ export default {
     ...mapGetters("bProcess", ["bProcessList"]),
   },
 
-  emits: ["refreshBProcess"],
+ 
   methods: {
     changeProcess(value) {
       this.bProcessLocal.processStep = value.id;
@@ -271,16 +272,17 @@ export default {
     },
     handleSubmit() {
       if (this.stateform == this.FormState.NEW) {
-        this.$store
-          .dispatch("bProcess/save", this.bProcessLocal)
-          .then(this.$emit("refreshBProcess", this.bProcess));
+        this.$store.dispatch("bProcess/save", this.bProcessLocal).then(() => {
+          this.loadProcess();
+         });
       }
       if (this.stateform == this.FormState.EDIT) {
         this.bProcessLocal = this.selectedProcess;
-        this.$store
-          .dispatch("bProcess/update", this.bProcessLocal)
-          .then(this.$emit("refreshBProcess", this.bProcess));
+        this.$store.dispatch("bProcess/update", this.bProcessLocal).then(() => {
+          this.loadProcess();
+         });
       }
+      
       this.stateform = this.FormState.LIST;
     },
     selectId(e) {
@@ -335,13 +337,20 @@ export default {
     handleDelete() {
       this.$store
         .dispatch("bProcess/delete", this.selectedProcess.id)
-        .catch(() => {});
+        .then(() => {
+            this.reloadProcess();
+         });
+        
       this.showModal = false;
+      
     },
+    loadProcess: _.debounce(function () {
+      this.$store.dispatch("bProcess/findAll");
+    }, 500),
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);  
-    this.$store.dispatch("bProcess/findAll").catch(() => {});
+    this.loadProcess();
   },
 };
 </script>

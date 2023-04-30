@@ -4,7 +4,7 @@
       <CTitle
         title="Nuovo Passo"
         :buttonTitle="' passo '"
-        functionality="nuovo"
+        functionality="NUOVO"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
@@ -53,7 +53,7 @@
         @handleNew="showNewProcessDesign"
       />
 
-      <div v-if="processStepLocal.processDesigns && processStepLocal.processDesigns.lenght > 0" >        
+      <div v-if="processStepLocal.processDesigns && processStepLocal.processDesigns.length > 0" >        
         <div
           v-for="processDesign of getProcessDesign()"
           :key="processDesign.id"
@@ -270,16 +270,15 @@ export default {
         },
       ],
 
-      processStepToSave: {
-        //id: 0,
+      processStepToSave: {  
+        id:"",    
         name: "",
         descr: "",
         label: "",
         businessServiceId: 999,
       },
       processStep: {
-        id: null,
-        name: "nome",
+        name: "",
         descr: null,
         label: null,
         businessService: null,
@@ -403,9 +402,8 @@ export default {
       //this.processStepToSave.id = this.processStepLocal.id;
       this.processStepToSave.name = this.processStepLocal.name;
       this.processStepToSave.label = this.processStepLocal.label;
-      this.processStepToSave.descr = this.processStepLocal.descr;
-      //this.processStepToSave.businessServiceId = 999; //(this.processStepLocal.businessService.id==null) ? 999: this.processStepLocal.businessService.id;
-      this.$store.dispatch("procSteps/save", this.processStepToSave); //.then(() => {  alert(this.processStepLocal())});
+      this.processStepToSave.descr = this.processStepLocal.descr;      
+      this.$store.dispatch("procSteps/save", this.processStepToSave);
     },
     enableBack() {
       this.$emit("enableBack");

@@ -83,7 +83,7 @@ export default {
           filter: false,
         },
       ],
-      selectedBusiness: {},
+      selectedBusinessFunction: {},
       showModal: false,
       columnFilterValue: {},
     };
@@ -124,17 +124,10 @@ export default {
     }}
   },
   methods: {
-    deleteBusiness() {
-      this.$store
-        .dispatch("bFunction/delete", this.selectedBusiness.id)
-        .catch(() => {});
-      this.showModal = false;
-    },
     handleOpenModalDelete(app) {
-      this.selectedBusiness = app;
+      this.selectedBusinessFunction = app;
       this.showModal = true;
     },
-
     handleNew() {
       this.$router.push({ name: "BusinessFunctionsAdd" });
     },
@@ -158,10 +151,8 @@ export default {
       });
     },
     handleDelete() {
-      /**this.$store
-      .dispatch("bFunction/delete", this.selectedBusiness.id)
-      .catch(() => {});
-      */
+      //this.$store.dispatch("bFunction/delete", this.selectedBusinessFunction.id).catch(() => {});
+      //this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
       this.showModal = false;
     },
     closeModal() {
@@ -169,20 +160,17 @@ export default {
     },
     getMessage() {
       return (
-        "Sei sicuro di eliminare il processo: " +
-        this.selectedBusiness.name +
-        " selezionato?"
+        "Sei sicuro di eliminare la Business Function: " +
+        this.selectedBusinessFunction.name +
+        " selezionata?"
       );
     },
   },
   created() {
-    this.$store
-      .dispatch("coreui/setContext", Context.BusinessFunctionSession)
-      .catch(() => {});
-    // if (this.params) {
-    this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
-    //this.$store.dispatch("business/findAll");
-    // }
+    this.$store.dispatch("coreui/setContext", Context.BusinessFunctionSession);
+    //this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
+    this.$store.dispatch("bFunction/findAll");
+    
   },
 };
 </script>

@@ -158,7 +158,7 @@
       />
     </div>
     <!-- 
-        New Process Design
+        Edit Process Design
     -->
     <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
       <CBusinessProcessDesignEdit
@@ -203,12 +203,18 @@
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
+    <CModalDelete
+      :message="msg"
+      :showModal="showModal"
+      @closeModal="closeModal"
+      @handleDelete="handleSubmitDeleteProcessDesign"
+    />
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 
-import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignView";
+import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
 import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
 import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
 import CBusinessProcessSpecificationNew from "@/components/businessProcess/CBusinessProcessSpecificationNew";
@@ -216,6 +222,7 @@ import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBus
 import CTableLink from "@/components/CTableLink.vue";
 //import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
 var _ = require("lodash");
 
 export default {
@@ -227,10 +234,9 @@ export default {
     CBusinessProcessSpecificationNew,
     CBusinessProcessSpecificationEdit,
     CTableLink,
-    //  CModalDelete,
+    CModalDelete,
     CTitle,
   },
-
   data() {
     return {
       fieldsProcessSpecification: [
@@ -303,7 +309,8 @@ export default {
         PROCESS_SPECIFICATION_EDIT: 22,
       },
       stateform: 4,
-      warningModal: false,
+      showModal:false,
+      msg: "",
     };
   },
   computed: {
@@ -311,11 +318,6 @@ export default {
     ...mapGetters("processDesign", ["processDesign"]),
   },
   props: {
-    bProcess: {
-      type: Object,
-      required: true,
-      default: () => {},
-    },
     bPStep: {
       type: Object,
       required: true,
@@ -383,24 +385,25 @@ export default {
       this.processStepToSave.name = this.processStepLocal.name;
       this.processStepToSave.label = this.processStepLocal.label;
       this.processStepToSave.descr = this.processStepLocal.descr;
-      this.processStepToSave.businessServiceId = 999; //(this.processStepLocal.businessService.id==null) ? 999: this.processStepLocal.businessService.id;
-      this.$store.dispatch("procStep/update", this.processStepToSave); //.then(() => {  alert(this.processStepLocal())});
+      this.processStepToSave.businessServiceId = 999;
+      this.$store.dispatch("procSteps/update", this.processStepToSave);
     },
     enableBack() {
       this.$emit("enableBack");
     },
     /* Process Design */
-    showNewProcessDesign(processDesign) {
-      this.selectedProcessDesign = processDesign;
+    showNewProcessDesign() {
+      this.selectedProcessDesign = {};
       this.stateform = this.FormState.PROCESS_DESIGN_NEW;
     },
     showEditProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-    handleSubmitNewProcessDesign() {
-      console.log("funzione di insert non attiva!");
-      alert("funzione di insert non attiva!");
+    handleSubmitNewProcessDesign(processDesign) {
+      this.processDesignToSave.descr = processDesign.descr;
+      this.processDesignToSave.step = this.processStepLocal.id;
+      this.$store.dispatch("processDesign/save", this.processDesignToSave);
     },
     handleSubmitEditProcessDesign(processDesign) {
       this.processDesignToSave.id = processDesign.id;
@@ -409,12 +412,31 @@ export default {
       this.$store.dispatch("processDesign/update", this.processDesignToSave);
     },
     handleSubmitDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
+      this.$store.dispatch("processDesign/delete", this.selectedProcessDesign.id);
+      this.showModal = false;
     },
-    handleOpenModalDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
+
+    handleDelete() {
+      this.$store
+        .dispatch("procSteps/delete", this.selectedProcessStep.id)
+        .catch(() => {});
+      this.showModal = false;
+    },
+    
+    handleOpenModalDelete(app) {
+      this.selectedProcessDesign = app;
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    handleOpenModalDeleteProcessDesign(app) {
+      this.selectedProcessDesign = app;
+      this.msg =
+        "Sei sicuro di eliminare il Process Design " +
+        this.selectedProcessDesign.descr +
+        " selezionato?";
+      this.showModal = true;
     },
     showEditProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;

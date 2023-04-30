@@ -137,7 +137,7 @@
     </div>
     <!-- 
         New Process Design
-    -->
+    
     <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
       <CBusinessProcessDesignNew
         :bProcessStep="processStepLocal"
@@ -146,9 +146,9 @@
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
-    <!-- 
-        New Process Design
-    -->
+    
+        Edit Process Design
+    
     <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
       <CBusinessProcessDesignEdit
         :bProcessStep="processStepLocal"
@@ -156,7 +156,7 @@
         @enableEditProcessDesign="handleSubmitEditProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
-    </div>
+    </div-->
     <!-- 
         View Process Specification
     -->
@@ -170,7 +170,7 @@
     </div>
     <!-- 
         New Process Specification
-    -->
+
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_NEW">
       <CBusinessProcessSpecificationNew
         :bProcessStep="processStepLocal"
@@ -180,9 +180,9 @@
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
-    <!-- 
+
         Edit Process Specification
-    -->
+
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_EDIT">
       <CBusinessProcessSpecificationEdit
         :bProcessStep="processStepLocal"
@@ -191,32 +191,32 @@
         @enableEditProcessSpecification="handleSubmitEditProcessSpecification"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
-    </div>
+    </div-->
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignView";
-import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
+//import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignView";
+//import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
 import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
-import CBusinessProcessSpecificationNew from "@/components/businessProcess/CBusinessProcessSpecificationNew";
-import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBusinessProcessSpecificationEdit";
+//import CBusinessProcessSpecificationNew from "@/components/businessProcess/CBusinessProcessSpecificationNew";
+//import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBusinessProcessSpecificationEdit";
 //import CTableLink from "@/components/CTableLink.vue";
 //import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
 var _ = require("lodash");
 
 export default {
-  name: "CBusinessProcessStepEdit",
+  name: "CBusinessProcessStepView",
   components: {
-    CBusinessProcessDesignNew,
-    CBusinessProcessDesignEdit,
-    CBusinessProcessSpecificationView,
-    CBusinessProcessSpecificationNew,
-    CBusinessProcessSpecificationEdit,
-    //CTableLink,
-    //  CModalDelete,
-    CTitle,
+  //  CBusinessProcessDesignNew,
+  //  CBusinessProcessDesignEdit,
+      CBusinessProcessSpecificationView,
+  //  CBusinessProcessSpecificationNew,
+  //  CBusinessProcessSpecificationEdit,
+  //  CTableLink,
+  //  CModalDelete,
+      CTitle,
   },
 
   data() {
@@ -382,9 +382,10 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-    handleSubmitNewProcessDesign() {
-      console.log("funzione di insert non attiva!");
-      alert("funzione di insert non attiva!");
+    handleSubmitNewProcessDesign(processDesign) {
+      this.processDesignToSave.descr = processDesign.descr;
+      this.processDesignToSave.step = this.processStepLocal.id;
+      this.$store.dispatch("processDesign/save", this.processDesignToSave);
     },
     handleSubmitEditProcessDesign(processDesign) {
       this.processDesignToSave.id = processDesign.id;

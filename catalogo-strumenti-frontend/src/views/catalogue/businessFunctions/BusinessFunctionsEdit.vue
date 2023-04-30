@@ -107,6 +107,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { Context } from "@/common";
 import { required } from "vuelidate/lib/validators";
 import _ from "lodash";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -211,7 +212,7 @@ export default {
     }, 500),
   },
   created() {
-    //this.$store.dispatch("coreui/setContext", Context.ToolEdit);
+    this.$store.dispatch("coreui/setContext", Context.BusinessFunctionSession);
     this.loadBusinessFunction(this.$route.params.id);
     this.$store.dispatch("gsbpm/findAll");
   },

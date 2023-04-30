@@ -7,9 +7,7 @@
           ' (' +
           bProcessStep.id +
           ') / ' +
-          'Process Design (' +
-          //processDesignLocal.id +
-          ') / '
+          'Process Design (...)'
       "
       buttonTitle=" process design "
       functionality=""
@@ -48,7 +46,7 @@
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 export default {
-  name: "CBusinessProcessDesignEdit",
+  name: "CBusinessProcessDesignNew",
   components: {
     CTitle
   },

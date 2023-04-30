@@ -188,8 +188,7 @@
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
             :bDesignType="designtypeList"
-            :bPStep="selectedEditStep"
-            @enableEditStep="showEditStep"
+            :bPStep="selectedEditStep"           
             @enableBack="stateform = FormState.EDIT"
           />
         </div>
@@ -197,16 +196,17 @@
       <!-- 
         Nuovo Passo del Processo
       -->
-      <div v-if="stateform == FormState.STEP_NEW">
-        <!--div v-if="selectedEditProcess"-->
+      <div v-if="stateform == FormState.STEP_NEW">    
         <CBusinessProcessStepNew
           :bDesignType="designtypeList"
           :bPStep="selectedEditStep"
-          @enableNewStep="showNewStep"
           @enableBack="stateform = FormState.EDIT"
-        />
-        <!--/div-->
+        />   
       </div>
+
+
+
+      
     </div>
     <CModalDelete
       :message="getMessage()"
@@ -293,7 +293,7 @@ export default {
     },
     handleSubmit() {
       this.bProcessLocal.businessFunction = this.bFunctionId;
-      if (this.stateform == this.FormState.ADD) {
+      if (this.stateform == this.FormState.ADD ||this.stateform == this.FormState.NEW) {
         this.$store
           .dispatch("bProcess/save", this.bProcessLocal)
           .then(this.$emit("refreshBProcess", this.bFunctionId));
