@@ -176,6 +176,7 @@
         :bProcessStep="processStepLocal"
         :bProcessDesign="selectedProcessDesign"
         :bProcessSpecification="selectedProcessSpecification"
+        :bDesignType="bDesignType"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -186,8 +187,8 @@
       <CBusinessProcessSpecificationNew
         :bProcessStep="processStepLocal"
         :bProcessDesign="selectedProcessDesign"
-        :bProcessSpecification="selectedProcessSpecification"
-        @enableNewProcessSpecification="handleSubmitNewProcessSpecification"
+        :bProcessSpecification="selectedProcessSpecification"     
+        :bDesignType="bDesignType"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -199,7 +200,7 @@
         :bProcessStep="processStepLocal"
         :bProcessDesign="selectedProcessDesign"
         :bProcessSpecification="selectedProcessSpecification"
-        @enableEditProcessSpecification="handleSubmitEditProcessSpecification"
+        :bDesignType="bDesignType"       
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -223,8 +224,6 @@ import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBus
 import CTitle from "@/components/CTitle.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
-
-
 var _ = require("lodash");
 
 export default {
@@ -459,10 +458,6 @@ export default {
     handleSubmitNewProcessSpecification() {
       console.log("funzione new process specification non attiva!");
       alert("funzione new process specification non attiva!");
-    },
-    handleSubmitEditProcessSpecification() {
-      console.log("funzione edit process specification non attiva!");
-      alert("funzione edit process specification non attiva!");
     },
     handleSubmitViewProcessSpecification() {
       console.log("funzione View process specification non attiva!");

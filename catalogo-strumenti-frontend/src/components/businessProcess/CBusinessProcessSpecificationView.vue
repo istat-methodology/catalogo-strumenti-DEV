@@ -8,10 +8,10 @@
           bProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesignLocal.id +
+          bProcessDesign.id +
           ') / ' +
           'Process Specification (' +
-          bProcessSpecificationLocal.id +
+          bProcessSpecification.id +
           ')'
       "
       buttonTitle="view process specification "
@@ -33,7 +33,7 @@
                 disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
-                v-model="bProcessSpecification.designType_Tipo_IO.id"
+                v-model="processSpecificationLocal.designType_Tipo_IO.id"
               >
                 <option
                   v-for="option in designtypeList"
@@ -50,7 +50,7 @@
                 disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="onChangeDesignType_Data_IO($event)"
-                v-model="bProcessSpecification.designType_Dati_IO.id"
+                v-model="processSpecificationLocal.designType_Dati_IO.id"
               >
                 <option
                   v-for="option in designtypebyparentList"
@@ -71,20 +71,20 @@
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="bProcessSpecificationLocal.informationObject.id"
+              v-model="processSpecificationLocal.informationObject.id"
             />
             <CInput
               disabled
               class="col-10"
               label="name"
               placeholder="name"
-              v-model="bProcessSpecificationLocal.informationObject.name"
+              v-model="processSpecificationLocal.informationObject.name"
             />
             <!--CInput
                 class="col-2"
                 label="csmAppRoleId"
                 placeholder="csmAppRoleId"
-                v-model="bProcessSpecificationLocal.informationObject.csmAppRole.id"
+                v-model="processSpecificationLocal.informationObject.csmAppRole.id"
               /-->
           </div>
           <div class="row">
@@ -93,7 +93,7 @@
               class="col-12"
               label="description"
               placeholder="description"
-              v-model="bProcessSpecificationLocal.informationObject.description"
+              v-model="processSpecificationLocal.informationObject.description"
             />
           </div>
         </div>
@@ -104,6 +104,7 @@
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
+var _ = require("lodash");
 export default {
   name: "CBusinessProcessSpecificationView",
   components: {
@@ -111,8 +112,7 @@ export default {
   },
   data() {
     return {
-      bProcessDesignLocal: {},
-      bProcessSpecificationLocal: {},
+      processDesignLocal: {},
       processSpecificationLocal: {
         id: "",
         processDesign: {
@@ -158,7 +158,12 @@ export default {
       type: Object,
       required: true,
       default: () => {}
-    }
+    },    
+    bDesignType: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
   },
   methods: {
     handleBack() {
@@ -169,16 +174,23 @@ export default {
     },
     onChangeDesignType_Data_IO(event) {
       alert(event.target.value);
-    }
+    },
+    getDesignType(id) {
+      console.log(this.designTypeLocal);
+      var dt = this.designTypeLocal[id];
+      console.log(dt);
+      return dt;
+    },
   },
   created() {
-    this.bProcessDesignLocal = this.bProcessDesign;
-    this.bProcessSpecificationLocal = this.bProcessSpecification;
+    this.processDesignLocal = this.bProcessDesign;
+    this.processSpecificationLocal = this.bProcessSpecification;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch(
       "designtypes/findByParent",
-      parseInt(parseInt(this.bProcessSpecification.designType_Tipo_IO.id))
+      parseInt(parseInt(this.processSpecification.designType_Tipo_IO.id))
     );
+    this.designTypeLocal = _.map(this.bDesignType, "type");
   }
 };
 </script>

@@ -3,16 +3,16 @@
     <CTitle
       :title="
         'Process Step ' +
-          bProcessStep.name +
-          ' (' +
-          bProcessStep.id +
-          ') / ' +
-          'Process Design (' +
-          bProcessDesignLocal.id +
-          ') / ' +
-          'Process Specification (' +
-          bProcessSpecificationLocal.id +
-          ') '
+        bProcessStep.name +
+        ' (' +
+        bProcessStep.id +
+        ') / ' +
+        'Process Design (' +
+        bProcessDesign.id +
+        ') / ' +
+        'Process Specification (' +
+        bProcessSpecification.id +
+        ') '
       "
       buttonTitle="view process design "
       functionality=""
@@ -33,7 +33,7 @@
               <select
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
-                v-model="bProcessSpecification.designType_Tipo_IO.id"
+                v-model="processSpecificationLocal.designType_Tipo_IO.id"
               >
                 <option
                   v-for="option in designtypeList"
@@ -49,7 +49,7 @@
               <select
                 class="p-1 ml-0 col-12 form-control"
                 @change="onChangeDesignType_Data_IO($event)"
-                v-model="bProcessSpecification.designType_Dati_IO.id"
+                v-model="processSpecificationLocal.designType_Dati_IO.id"
               >
                 <option
                   v-for="option in designtypebyparentList"
@@ -69,19 +69,19 @@
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="bProcessSpecificationLocal.informationObject.id"
+              v-model="processSpecificationLocal.informationObject.id"
             />
             <CInput
               class="col-10"
               label="name"
               placeholder="name"
-              v-model="bProcessSpecificationLocal.informationObject.name"
+              v-model="processSpecificationLocal.informationObject.name"
             />
             <!--CInput
                 class="col-2"
                 label="csmAppRoleId"
                 placeholder="csmAppRoleId"
-                v-model="bProcessSpecificationLocal.informationObject.csmAppRole.id"
+                v-model="processSpecificationLocal.informationObject.csmAppRole.id"
               /-->
           </div>
           <div class="row">
@@ -89,7 +89,7 @@
               class="col-12"
               label="description"
               placeholder="description"
-              v-model="bProcessSpecificationLocal.informationObject.description"
+              v-model="processSpecificationLocal.informationObject.descr"
             />
           </div>
         </div>
@@ -100,25 +100,25 @@
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
+var _ = require("lodash");
 export default {
   name: "CBusinessProcessDesignEdit",
   components: {
-    CTitle
+    CTitle,
   },
   data() {
     return {
-      bProcessDesignLocal: {},
-      bProcessSpecificationLocal: {},
+      processDesignLocal: {},
       processSpecificationLocal: {
         id: "",
         processDesign: {
           id: "",
-          descr: ""
+          descr: "",
         },
         designType: {
           id: "",
           type: "",
-          parent: ""
+          parent: "",
         },
         informationObject: {
           id: "",
@@ -128,58 +128,153 @@ export default {
           businessService: {
             id: "",
             name: "",
-            descr: ""
-          }
-        }
-      }
+            descr: "",
+          },
+        },
+      },
+      processSpecificationToSave: {
+        id: "",
+        processDesign: {
+          id: "",
+          descr: "",
+        },
+        designType: {
+          id: "",
+          type: "",
+          parent: "",
+        },
+        informationObject: {
+          id: "",
+          name: "",
+          descr: "",
+          //csmAppRoleId: "",
+          //businessService: {
+          //  id: "",
+          //  name: "",
+          //  descr: "",
+          //},
+        },
+      },
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),    
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
+    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
   },
   //emits: ["enableEditProcessDesign"],
   props: {
     bProcessStep: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bProcessDesign: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     bProcessSpecification: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
+    bDesignType: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
   },
   methods: {
     handleSubmit() {
-      //this.bProcessDesign = this.bProcessDesignLocal
-      this.$emit("enableEditProcessDesign", this.bProcessDesignLocal);
+      this.processSpecificationToSave.id = this.bProcessSpecification.id;
+
+      this.processSpecificationToSave.processDesign.id = this.bProcessDesign.id;
+
+      this.processSpecificationToSave.processDesign.descr =
+        this.bProcessDesign.descr;
+
+      if (this.processSpecificationLocal.designType_Dati_IO.type == "") {
+        this.processSpecificationToSave.designType.id =
+          this.bProcessSpecification.designType_Tipo_IO.id;
+        this.processSpecificationToSave.designType.type =
+          this.bProcessSpecification.designType_Tipo_IO.type;
+        this.processSpecificationToSave.designType.parent = "";
+      } else {
+        this.processSpecificationToSave.designType.id =
+          this.bProcessSpecification.designType_Dati_IO.id;
+        this.processSpecificationToSave.designType.type =
+          this.bProcessSpecification.designType_Dati_IO.type;
+        this.processSpecificationToSave.designType.parent =
+          this.bProcessSpecification.designType_Tipo_IO.id;
+      }
+
+      this.processSpecificationToSave.informationObject.id =
+        this.processSpecificationLocal.informationObject.id;
+
+      this.processSpecificationToSave.informationObject.name =
+        this.processSpecificationLocal.informationObject.name;
+
+      this.processSpecificationToSave.informationObject.descr =
+        this.processSpecificationLocal.informationObject.descr;
+
+      this.processSpecificationToSave.informationObject.csmAppRoleId =
+        this.processSpecificationLocal.informationObject.csmAppRoleId;
+      /*
+      this.processSpecificationToSave.informationObject.businessService.id =
+        this.processSpecificationLocal.informationObject.businessService.id;
+      
+      this.processSpecificationToSave.informationObject.businessService.name =      
+        this.processSpecificationLocal.informationObject.businessService.name;
+
+      this.processSpecificationToSave.informationObject.businessService.descr =
+        this.processSpecificationLocal.informationObject.businessService.descr;
+*/
+      this.$store.dispatch(
+        "processSpecification/update",
+        this.processSpecificationToSave
+      );
     },
     handleBack() {
       this.$emit("enableBack");
     },
     changeDesignTypeListByParent(event) {
+      var id = event.target.value;
+
+      this.processSpecificationToSave.designType.parent =
+        this.processSpecificationLocal.designType.parent;
+      this.processSpecificationToSave.designType.id =
+        this.processSpecificationLocal.designType.id;
+      this.processSpecificationToSave.designType.type = this.getDesignType(id);
+
       this.$store.dispatch("designtypes/findByParent", event.target.value);
+      alert("parent=" + event.target.value);
+      console.log(this.processSpecificationToSave);
     },
     onChangeDesignType_Data_IO(event) {
-      alert(event.target.value);
-    }
+      var id = event.target.value;
+      this.processSpecificationToSave.designType.parent =
+        this.processSpecificationToSave.designType.id;
+      this.processSpecificationToSave.designType.id = id;
+      this.processSpecificationToSave.designType.type = this.getDesignType(id);
+      console.log(this.bProcessSpecificationToSave);
+    },
+    getDesignType(id) {
+      console.log(this.designTypeLocal);
+      var dt = this.designTypeLocal[id];
+      console.log(dt);
+      return dt;
+    },
   },
   created() {
-    this.bProcessDesignLocal = this.bProcessDesign;
-    this.bProcessSpecificationLocal = this.bProcessSpecification;
+    this.processDesignLocal = this.bProcessDesign;
+    this.processSpecificationLocal = this.bProcessSpecification;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch(
       "designtypes/findByParent",
       parseInt(parseInt(this.bProcessSpecification.designType_Tipo_IO.id))
     );
-  }
+    this.designTypeLocal = _.map(this.bDesignType, "type");
+  },
 };
 </script>
 <style scoped>
