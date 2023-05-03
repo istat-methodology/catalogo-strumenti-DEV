@@ -163,17 +163,17 @@
       -->
       <div v-if="stateform == FormState.EDIT">
         <CTitle
-          :title="selectedEditProcess.name"
-          :buttonTitle="selectedEditProcess.name"
+          :title="selectedProcess.name"
+          :buttonTitle="selectedProcess.name"
           functionality=""
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
           @handleBack="stateform = FormState.LIST"
         />
-        <div v-if="selectedEditProcess">
+        <div v-if="selectedProcess">
           <CBusinessProcessEdit
-            :pProcess="selectedEditProcess"
+            :pProcess="selectedProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
           />
@@ -230,9 +230,10 @@ export default {
     return {
       selectedProcess: {},
       selectedProcessId: null,
-      selectedEditProcess: null,
-      selectedEditStep: null,
-      selectedEditProcessDesign: null,
+      selectedEditStep: {},
+      selectedEditStepId: null,
+      selectedProcessDesign: {},
+      selectedProcessDesignId:null,
       states: [],
       FormState: {
         LIST: 0,
@@ -296,7 +297,7 @@ export default {
           .then(this.$emit("refreshProcess", this.pFunctionId));
       }
       if (this.stateform == this.FormState.EDIT) {
-        this.lProcess = this.selectedEditProcess;
+        this.lProcess = this.selectedProcess;
         this.$store
           .dispatch("bProcess/update", this.lProcess)
           .then(this.$emit("refreshProcess", this.pFunctionId));
@@ -319,7 +320,7 @@ export default {
       this.stateform = this.FormState.STEP_NEW;
     },
     handleEditProcess(process) {
-      this.selectedEditProcess = process;
+      this.selectedProcess = process;
       this.stateform = this.FormState.EDIT;
     },
     handleBack() {

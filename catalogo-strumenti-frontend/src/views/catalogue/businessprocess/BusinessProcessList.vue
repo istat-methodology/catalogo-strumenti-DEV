@@ -10,7 +10,7 @@
             <CTitle
               title="Processi"
               buttonTitle=" Processo"
-              functionality=""
+              functionality="Elenco"
               :authenticated="isAuthenticated"
               :buttons="['aggiungi', 'indietro']"              
               @handleNew="stateform = FormState.NEW"
