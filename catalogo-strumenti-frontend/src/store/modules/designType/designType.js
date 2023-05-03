@@ -77,11 +77,11 @@ const actions = {
       });
   },
   findById({ commit }, id) {
-    return designtypeService
+    return designtypeopenService
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_DESIGNTYPELIST", data);
+        commit("SET_DESIGNTYPE", data);
       })
       .catch(err => {
         console.log(err);

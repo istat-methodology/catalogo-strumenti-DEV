@@ -9,8 +9,8 @@
           
             <div v-if="selectedStep">
               <CBusinessProcessStepEdit
-                :bPStep="selectedStep"
-                :bDesignType="designtypeList"
+                :pPStep="selectedStep"
+                :pDesignType="designtypeList"
                 @enableBack="handleBack"
               />
             </div>

@@ -5,7 +5,8 @@
         <div class="p-0">
           <div v-if="selectedStep">
             <CBusinessProcessStepView
-              :bPStep="selectedStep"
+              :pDesignType="designtypeList"
+              :pPStep="selectedStep"
               @enableBack="handleBack"
             />
           </div>
@@ -29,6 +30,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
   methods: {
     handleBack() {
@@ -37,6 +39,7 @@ export default {
   },
   created() {
     this.selectedStep = this.$route.params.item;
+    this.$store.dispatch("designtypes/findAll");
   },
 };
 </script>

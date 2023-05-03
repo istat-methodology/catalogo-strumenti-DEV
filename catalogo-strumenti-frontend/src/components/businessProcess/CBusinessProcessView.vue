@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div v-if="bProcessLocal">
+    <div v-if="lProcess">
       <div class="row p-2">
         <div class="card col p-3">
           <span class="p-2"><strong>Etichetta</strong></span>
           <div class="card-slot pl-2">
             <span>
-              {{ bProcessLocal.label }}
+              {{ lProcess.label }}
             </span>
           </div>
         </div>
@@ -14,7 +14,7 @@
           <span class="p-2"><strong>Ordine</strong></span>
           <div class="card-slot pl-2">
             <span>
-              {{ bProcessLocal.orderCode }}
+              {{ lProcess.orderCode }}
             </span>
           </div>
         </div>
@@ -22,7 +22,7 @@
           <span class="p-2"><strong>Descrizione</strong></span>
           <div class="card-slot pl-2 pb-2">
             <span>
-              {{ bProcessLocal.descr }}
+              {{ lProcess.descr }}
             </span>
           </div>
         </div>
@@ -38,12 +38,12 @@
         <CCardBody>
           <span
             v-if="
-              bProcessLocal.processSteps &&
-              bProcessLocal.processSteps.length > 0
+              lProcess.processSteps &&
+              lProcess.processSteps.length > 0
             "
           >
             <CDataTable
-              v-if="bProcessLocal"
+              v-if="lProcess"
               :items="getProcessStepsList()"
               :fields="fields"
               :items-per-page="10"
@@ -86,7 +86,7 @@ export default {
           _style: "width:40%;",
         },
       ],
-      bProcessLocal: {},
+      lProcess: {},
       states: [],
       FormState: {},
       stateform: 0,
@@ -97,7 +97,7 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
   },
   props: {
-    bProcess: {
+    pProcess: {
       type: Object,
       required: true,
       default: () => {},
@@ -105,8 +105,8 @@ export default {
   },
   methods: {
     getProcessStepsList: function () {
-      if (this.bProcessLocal && this.bProcessLocal.processSteps) {
-        return this.bProcessLocal.processSteps.map((step) => {
+      if (this.lProcess && this.lProcess.processSteps) {
+        return this.lProcess.processSteps.map((step) => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
@@ -135,7 +135,7 @@ export default {
     },
   },
   created() {
-    this.bProcessLocal = this.bProcess;
+    this.lProcess = this.pProcess;
   },
 };
 </script>

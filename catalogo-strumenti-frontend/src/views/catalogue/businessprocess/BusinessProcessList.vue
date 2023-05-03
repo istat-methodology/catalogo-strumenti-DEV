@@ -79,20 +79,20 @@
                 class="col-6"
                 label="Nome*"
                 placeholder="Nome"
-                v-model="bProcessLocal.name"
+                v-model="lProcess.name"
               />
               <CInput
                 class="col-4"
                 label="Etichetta"
                 placeholder="Etichetta"
-                v-model="bProcessLocal.label"
+                v-model="lProcess.label"
               />
               <CInput
                 class="col-2"
                 label="Ordine"
                 type="number"
                 placeholder="Ordine"
-                v-model="bProcessLocal.orderCode"
+                v-model="lProcess.orderCode"
               />
             </div>
             <div class="row mt-4">
@@ -100,7 +100,7 @@
                 class="col-12"
                 label="Descrizione"
                 placeholder="Descrizione"
-                v-model="bProcessLocal.descr"
+                v-model="lProcess.descr"
               />
             </div>
           </CCardBody>
@@ -116,7 +116,7 @@
           @handleBack="handleBack"
         />
         <CBusinessProcessView
-          :bProcess="selectedProcess"
+          :pProcess="selectedProcess"
           @enableEditStep="showEditStep"
           @enableNewStep="showNewStep"
         />
@@ -135,7 +135,7 @@
           @handleBack="stateform = FormState.LIST"
         />
         <CBusinessProcessEdit
-          :bProcess="selectedProcess"
+          :pProcess="selectedProcess"
           @enableEditStep="showEditStep"
           @enableNewStep="showNewStep"
         />
@@ -145,7 +145,8 @@
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
         <CBusinessProcessStepEdit
-          :bPStep="selectedProcessStep"          
+          :pPStep="selectedProcessStep"
+          :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT"
         />
       </div>
@@ -154,7 +155,8 @@
       -->
       <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
-          :bPStep="selectedProcessStep"          
+          :pPStep="selectedProcessStep"
+          :pDesignType="designtypeList"          
           @enableBack="stateform = FormState.EDIT"
         />
       </div>
@@ -210,7 +212,7 @@ export default {
       },
       stateform: 0,
       warningModal: false,
-      bProcessLocal: {
+      lProcess: {
         id: "",
         name: "",
         descr: "",
@@ -261,24 +263,25 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("bProcess", ["bProcess","bProcessList"]),
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
 
  
   methods: {
     changeProcess(value) {
-      this.bProcessLocal.processStep = value.id;
-      alert(this.bProcessLocal.processStep);
+      this.lProcess.processStep = value.id;
+      alert(this.lProcess.processStep);
     },
     handleSubmit() {
       if (this.stateform == this.FormState.NEW) {
-        this.$store.dispatch("bProcess/save", this.bProcessLocal).then(() => {
+        this.$store.dispatch("bProcess/save", this.lProcess).then(() => {
           this.loadProcess();
          });
       }
       if (this.stateform == this.FormState.EDIT) {
-        this.bProcessLocal = this.selectedProcess;
-        this.$store.dispatch("bProcess/update", this.bProcessLocal).then(() => {
+        this.lProcess = this.selectedProcess;
+        this.$store.dispatch("bProcess/update", this.lProcess).then(() => {
           this.loadProcess();
          });
       }
@@ -286,11 +289,11 @@ export default {
       this.stateform = this.FormState.LIST;
     },
     selectId(e) {
-      this.bProcessLocal.id = e.id;
-      this.bProcessLocal.name = e.name;
-      this.bProcessLocal.descr = e.descr;
-      this.bProcessLocal.label = e.label;
-      this.bProcessLocal.orderCode = e.orderCode;
+      this.lProcess.id = e.id;
+      this.lProcess.name = e.name;
+      this.lProcess.descr = e.descr;
+      this.lProcess.label = e.label;
+      this.lProcess.orderCode = e.orderCode;
     },
     showEditStep(step) {
       this.selectedProcessStep = step;
@@ -301,7 +304,8 @@ export default {
       this.stateform = this.FormState.STEP_NEW;
     },
     handleEdit(process) {
-      this.selectedProcess = process;
+      this.$store.dispatch("bProcess/findById", process.id)
+      this.selectedProcess = this.bProcess;
       this.stateform = this.FormState.EDIT;
     },
     handleView(process) {
@@ -350,6 +354,7 @@ export default {
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);  
+    this.$store.dispatch("designtypes/findAll");
     this.loadProcess();
   },
 };

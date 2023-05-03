@@ -3,15 +3,15 @@
     <CTitle
       :title="
         'Process Step ' +
-          bProcessStep.name +
+          pProcessStep.name +
           ' (' +
-          bProcessStep.id +
+          pProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesign.id +
+          pProcessDesign.id +
           ') / ' +
           'Process Specification (' +
-          bProcessSpecification.id +
+          pProcessSpecification.id +
           ')'
       "
       buttonTitle="view process specification "
@@ -33,7 +33,7 @@
                 disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="changeDesignTypeListByParent($event)"
-                v-model="processSpecificationLocal.designType_Tipo_IO.id"
+                v-model="lProcessSpecification.designType_Tipo_IO.id"
               >
                 <option
                   v-for="option in designtypeList"
@@ -50,7 +50,7 @@
                 disabled
                 class="p-1 ml-0 col-12 form-control"
                 @change="onChangeDesignType_Data_IO($event)"
-                v-model="processSpecificationLocal.designType_Dati_IO.id"
+                v-model="lProcessSpecification.designType_Dati_IO.id"
               >
                 <option
                   v-for="option in designtypebyparentList"
@@ -71,20 +71,20 @@
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="processSpecificationLocal.informationObject.id"
+              v-model="lProcessSpecification.informationObject.id"
             />
             <CInput
               disabled
               class="col-10"
               label="name"
               placeholder="name"
-              v-model="processSpecificationLocal.informationObject.name"
+              v-model="lProcessSpecification.informationObject.name"
             />
             <!--CInput
                 class="col-2"
                 label="csmAppRoleId"
                 placeholder="csmAppRoleId"
-                v-model="processSpecificationLocal.informationObject.csmAppRole.id"
+                v-model="lProcessSpecification.informationObject.csmAppRole.id"
               /-->
           </div>
           <div class="row">
@@ -93,7 +93,7 @@
               class="col-12"
               label="description"
               placeholder="description"
-              v-model="processSpecificationLocal.informationObject.description"
+              v-model="lProcessSpecification.informationObject.description"
             />
           </div>
         </div>
@@ -112,8 +112,8 @@ export default {
   },
   data() {
     return {
-      processDesignLocal: {},
-      processSpecificationLocal: {
+      lProcessDesign: {},
+      lProcessSpecification: {
         id: "",
         processDesign: {
           id: "",
@@ -144,22 +144,22 @@ export default {
   },
   //emits: ["enableEditProcessDesign"],
   props: {
-    bProcessStep: {
+    pProcessStep: {
       type: Object,
       required: true,
       default: () => {}
     },
-    bProcessDesign: {
+    pProcessDesign: {
       type: Object,
       required: true,
       default: () => {}
     },
-    bProcessSpecification: {
+    pProcessSpecification: {
       type: Object,
       required: true,
       default: () => {}
     },    
-    bDesignType: {
+    pDesignType: {
       type: Array,
       required: true,
       default: () => [],
@@ -176,21 +176,21 @@ export default {
       alert(event.target.value);
     },
     getDesignType(id) {
-      console.log(this.designTypeLocal);
-      var dt = this.designTypeLocal[id];
+      console.log(this.lDesignType);
+      var dt = this.lDesignType[id];
       console.log(dt);
       return dt;
     },
   },
   created() {
-    this.processDesignLocal = this.bProcessDesign;
-    this.processSpecificationLocal = this.bProcessSpecification;
+    this.lProcessDesign = this.pProcessDesign;
+    this.lProcessSpecification = this.pProcessSpecification;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch(
       "designtypes/findByParent",
-      parseInt(parseInt(this.processSpecification.designType_Tipo_IO.id))
+      parseInt(parseInt(this.lProcessSpecification.designType_Tipo_IO.id))
     );
-    this.designTypeLocal = _.map(this.bDesignType, "type");
+    this.lDesignType = _.map(this.pDesignType, "type");
   }
 };
 </script>

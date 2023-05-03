@@ -20,23 +20,23 @@
               <div class="row">
                 <div
                   class="col-4"
-                  v-for="bProcess of bProcesses"
-                  :key="bProcess.id"
+                  v-for="process of pProcesses"
+                  :key="process.id"
                 >
                   <div class="text-info center mt-2 mb-2">
                     <h6 class="card-header no-border text-info center row">
-                      <div class="col-9">{{ bProcess.name }}</div>
+                      <div class="col-9">{{ process.name }}</div>
                       <div class="row">
                         <div class="col">
                           <div class="card-header-actions float-right">
                             <span
                               class="icon-link text-info pr-1"
-                              @click="handleEditBProcess(bProcess)"
+                              @click="handleEditProcess(process)"
                               ><edit-icon title="Edit"
                             /></span>
                             <span
                               class="icon-link text-info"
-                              @click="handleOpenModalDelete(bProcess)"
+                              @click="handleOpenModalDelete(process)"
                               ><delete-icon title="Cancella"
                             /></span>
                           </div>
@@ -47,14 +47,12 @@
                   <div class="card col-12">
                     <div class="card-body">
                       <div class="row mb-2"><strong>Passi:</strong></div>
-                      <span
-                        v-if="bProcess.processSteps"
-                      >
+                      <span v-if="process.processSteps">
                         <div class="d-flex flex-wrap">
                           <ol
                             v-for="(
                               processStep, index
-                            ) of bProcess.processSteps"
+                            ) of process.processSteps"
                             :key="processStep.id"
                           >
                             <li
@@ -133,20 +131,20 @@
                 class="col-6"
                 label="Nome*"
                 placeholder="Nome"
-                v-model="bProcessLocal.name"
+                v-model="lProcess.name"
               />
               <CInput
                 class="col-4"
                 label="Etichetta"
                 placeholder="Etichetta"
-                v-model="bProcessLocal.label"
+                v-model="lProcess.label"
               />
               <CInput
                 class="col-2"
                 label="Ordine"
                 type="number"
                 placeholder="Ordine"
-                v-model="bProcessLocal.orderCode"
+                v-model="lProcess.orderCode"
               />
             </div>
             <div class="row mt-4">
@@ -154,7 +152,7 @@
                 class="col-12"
                 label="Descrizione"
                 placeholder="Descrizione"
-                v-model="bProcessLocal.descr"
+                v-model="lProcess.descr"
               />
             </div>
           </CCardBody>
@@ -175,7 +173,7 @@
         />
         <div v-if="selectedEditProcess">
           <CBusinessProcessEdit
-            :bProcess="selectedEditProcess"
+            :pProcess="selectedEditProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
           />
@@ -187,8 +185,8 @@
       <div v-if="stateform == FormState.STEP_EDIT">
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
-            :bDesignType="designtypeList"
-            :bPStep="selectedEditStep"           
+            :pPStep="selectedEditStep"
+            :pDesignType="designtypeList"
             @enableBack="stateform = FormState.EDIT"
           />
         </div>
@@ -196,17 +194,13 @@
       <!-- 
         Nuovo Passo del Processo
       -->
-      <div v-if="stateform == FormState.STEP_NEW">    
+      <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
-          :bDesignType="designtypeList"
-          :bPStep="selectedEditStep"
+          :pPStep="selectedEditStep"
+          :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT"
-        />   
+        />
       </div>
-
-
-
-      
     </div>
     <CModalDelete
       :message="getMessage()"
@@ -234,8 +228,8 @@ export default {
   },
   data() {
     return {
-      selectedBProcess: {},
-      selectedBProcessId: null,
+      selectedProcess: {},
+      selectedProcessId: null,
       selectedEditProcess: null,
       selectedEditStep: null,
       selectedEditProcessDesign: null,
@@ -250,7 +244,7 @@ export default {
       },
       stateform: 0,
       warningModal: false,
-      bProcessLocal: {
+      lProcess: {
         id: "",
         name: "",
         descr: "",
@@ -267,51 +261,54 @@ export default {
     ...mapGetters("filter", ["params"]),
     ...mapGetters("designtypes", ["designtypeList"]),
   },
-  emits: ["refreshBProcess"],
+  emits: ["refreshProcess"],
 
   props: {
-    bFunctionId: {
+    pFunctionId: {
       type: Number,
       required: true,
       default: null,
     },
-    bFunctionName: {
+    pFunctionName: {
       type: String,
       required: true,
       default: null,
     },
-    bProcesses: {
+    pProcesses: {
       type: Array,
       required: true,
       default: () => {},
     },
   },
   methods: {
-    changeBProcess(value) {
-      this.bProcessLocal.processStep = value.id;
-      alert(this.bProcessLocal.processStep);
+    changeProcess(value) {
+      this.lProcess.processStep = value.id;
+      alert(this.lProcess.processStep);
     },
     handleSubmit() {
-      this.bProcessLocal.businessFunction = this.bFunctionId;
-      if (this.stateform == this.FormState.ADD ||this.stateform == this.FormState.NEW) {
+      this.lProcess.businessFunction = this.pFunctionId;
+      if (
+        this.stateform == this.FormState.ADD ||
+        this.stateform == this.FormState.NEW
+      ) {
         this.$store
-          .dispatch("bProcess/save", this.bProcessLocal)
-          .then(this.$emit("refreshBProcess", this.bFunctionId));
+          .dispatch("bProcess/save", this.lProcess)
+          .then(this.$emit("refreshProcess", this.pFunctionId));
       }
       if (this.stateform == this.FormState.EDIT) {
-        this.bProcessLocal = this.selectedEditProcess;
+        this.lProcess = this.selectedEditProcess;
         this.$store
-          .dispatch("bProcess/update", this.bProcessLocal)
-          .then(this.$emit("refreshBProcess", this.bFunctionId));
+          .dispatch("bProcess/update", this.lProcess)
+          .then(this.$emit("refreshProcess", this.pFunctionId));
       }
       this.stateform = this.FormState.LIST;
     },
     selectId(e) {
-      this.bProcessLocal.id = e.id;
-      this.bProcessLocal.name = e.name;
-      this.bProcessLocal.descr = e.descr;
-      this.bProcessLocal.label = e.label;
-      this.bProcessLocal.orderCode = e.orderCode;
+      this.lProcess.id = e.id;
+      this.lProcess.name = e.name;
+      this.lProcess.descr = e.descr;
+      this.lProcess.label = e.label;
+      this.lProcess.orderCode = e.orderCode;
     },
     showEditStep(step) {
       this.selectedEditStep = step;
@@ -321,7 +318,7 @@ export default {
       this.selectedEditStep = {};
       this.stateform = this.FormState.STEP_NEW;
     },
-    handleEditBProcess(process) {
+    handleEditProcess(process) {
       this.selectedEditProcess = process;
       this.stateform = this.FormState.EDIT;
     },
@@ -335,10 +332,10 @@ export default {
     handleDelete() {
       let params = { fID: 0, pID: 0 };
       params.fID = this.bFunctionId;
-      params.pID = this.selectedBProcess.id;
+      params.pID = this.selectedProcess.id;
       this.$store
-        .dispatch("bFunction/removeBProcess", params)
-        .then(this.$emit("refreshBProcess", this.bFunctionId));
+        .dispatch("bFunction/removeProcess", params)
+        .then(this.$emit("refreshProcess", this.pFunctionId));
       this.showModal = false;
     },
 
@@ -349,17 +346,17 @@ export default {
     getMessage() {
       return (
         "Sei sicuro di eliminare il collegamento al Business Process: " +
-        this.selectedBProcess.name +
+        this.selectedProcess.name +
         " selezionato? ['" +
-        this.bFunctionId +
+        this.pFunctionId +
         " / " +
-        this.selectedBProcess.id +
+        this.selectedProcess.id +
         "]"
       );
     },
   },
   created() {
-    this.$store.dispatch("bProcess/filter", this.params).catch(() => {});   
+    this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
     this.$store.dispatch("designtypes/findAll");
   },
 };

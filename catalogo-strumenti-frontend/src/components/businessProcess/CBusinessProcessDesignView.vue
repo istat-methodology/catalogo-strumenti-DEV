@@ -3,12 +3,12 @@
     <CTitle
       :title="
         'Process Step ' +
-          bProcessStep.name +
+          pProcessStep.name +
           ' (' +
-          bProcessStep.id +
+          pProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesignLocal.processDesign.id +
+          pProcessDesignLocal.processDesign.id +
           ') / '
       "
       buttonTitle="view process design "
@@ -23,14 +23,20 @@
           <div class="row mt-1">
             <Label>Design Process</Label>
           </div>
-
           <div class="row">
             <CInput
               disabled
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="bProcessDesignLocal.descr"
+              v-model="lProcessDesign.id"
+            />
+            <CInput
+              disabled
+              class="col-2"
+              label="Descrizione"
+              placeholder="Descrizione"
+              v-model="lProcessDesign.descr"
             />
           </div>
         </div>
@@ -48,8 +54,7 @@ export default {
   },
   data() {
     return {
-      bProcessDesignLocal: {},
-
+      lProcessDesign: {},
       processDesignLocal: {
         id: "",
         processDesign: {
@@ -64,12 +69,12 @@ export default {
   },
   //emits: ["enableEditProcessDesign"],
   props: {
-    bProcessStep: {
+    pProcessStep: {
       type: Object,
       required: true,
       default: () => {}
     },
-    bProcessDesign: {
+    pProcessDesign: {
       type: Object,
       required: true,
       default: () => {}
@@ -81,7 +86,7 @@ export default {
     }
   },
   created() {
-    this.bProcessDesignLocal = this.bProcessDesign;
+    this.lProcessDesign = this.pProcessDesign;
   }
 };
 </script>

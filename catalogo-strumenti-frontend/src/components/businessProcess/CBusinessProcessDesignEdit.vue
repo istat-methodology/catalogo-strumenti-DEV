@@ -3,12 +3,12 @@
     <CTitle
       :title="
         'Process Step ' +
-          bProcessStep.name +
+          pProcessStep.name +
           ' (' +
-          bProcessStep.id +
+          pProcessStep.id +
           ') / ' +
           'Process Design (' +
-          bProcessDesign.id +
+          pProcessDesign.id +
           ') / '
       "
       buttonTitle=" process design "
@@ -30,13 +30,13 @@
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="bProcessDesign.id"
+              v-model="lProcessDesign.id"
             />
             <CInput
               class="col-10"
               label="Description"
               placeholder="Description"
-              v-model="bProcessDesign.descr"
+              v-model="lProcessDesign.descr"
             />
           </div>
         </div>
@@ -61,12 +61,12 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"])
   },
   props: {
-    bProcessStep: {
+    pProcessStep: {
       type: Object,
       required: true,
       default: () => {}
     },
-    bProcessDesign: {
+    pProcessDesign: {
       type: Object,
       required: true,
       default: () => {}
@@ -74,11 +74,14 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$emit("enableEditProcessDesign", this.bProcessDesign);
+      this.$emit("enableEditProcessDesign", this.lProcessDesign);
     },
     handleBack() {
       this.$emit("enableBack");
     }
+  },
+  created() {
+    this.lProcessDesign = this.pProcessDesign;
   }
 };
 </script>

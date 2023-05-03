@@ -24,9 +24,11 @@ class DesignTypeService extends AbstractService {
 }
 
 export const designtypeService = new DesignTypeService("/catalog/design-types");
+
 export const designtypeopenService = new DesignTypeService(
   "/catalog/open/design-types"
 );
+
 export const designtypebyparentService = new DesignTypeService(
   "/catalog/design-types-by-parent"
 );
