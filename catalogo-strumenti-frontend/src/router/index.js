@@ -162,22 +162,6 @@ const routes = [
           import("../views/catalogue/businessprocess/BusinessProcessList"),
         meta: { authorize: [] }
       },
-      /*
-      {
-        path: "catalogue/businessprocess/add",
-        name: "BusinessProcessAdd",
-        component: () =>
-          import("../views/catalogue/businessprocess/BusinessProcessAdd"),
-        meta: { authorize: [] }
-      },      
-      {
-        path: "catalogue/businessprocess/edit/:id",
-        name: "BusinessProcessEdit",
-        component: () =>
-          import("../views/catalogue/businessprocess/BusinessProcessEdit"),
-        meta: { authorize: [] }
-      },
-      */
       {
         path: "catalogue/businessprocess/details/:id",
         name: "BusinessProcessDetails",

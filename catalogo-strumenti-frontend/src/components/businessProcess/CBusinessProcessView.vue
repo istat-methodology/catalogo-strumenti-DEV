@@ -37,10 +37,7 @@
       <CCard>
         <CCardBody>
           <span
-            v-if="
-              lProcess.processSteps &&
-              lProcess.processSteps.length > 0
-            "
+            v-if="lProcess.processSteps && lProcess.processSteps.length > 0"
           >
             <CDataTable
               v-if="lProcess"
@@ -50,6 +47,13 @@
               hover
               pagination
             >
+              <template #show_details="{ item }">
+                <td>
+                  <span class="icon-link" @click="handleShowStep(item)"
+                    ><view-icon title="view"
+                  /></span>
+                </td>
+              </template>
             </CDataTable>
           </span>
           <span v-else>Non sono presenti passi</span>
@@ -59,7 +63,6 @@
   </div>
 </template>
 <script>
-
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 export default {
@@ -84,6 +87,13 @@ export default {
           key: "descr",
           label: "Descrizione",
           _style: "width:40%;",
+        },
+        {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false,
         },
       ],
       lProcess: {},
@@ -133,7 +143,12 @@ export default {
     handleBack() {
       this.$router.back();
     },
+   
+    handleShowStep(step) {
+      this.$emit("enableShowStep", step);
+    },
   },
+
   created() {
     this.lProcess = this.pProcess;
   },
