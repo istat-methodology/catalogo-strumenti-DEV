@@ -10,7 +10,7 @@
             </span>
           </h4>
         <!--/span-->
-        <hr class="bg-secondary mt-0"/>
+        <hr class="bg-info mt-0"/>
       </h1>
       <h2 class="text-info">
         {{ title }}         
