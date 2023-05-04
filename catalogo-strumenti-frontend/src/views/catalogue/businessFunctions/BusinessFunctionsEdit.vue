@@ -43,31 +43,31 @@
                       disabled
                       label="ID"
                       placeholder="ID"
-                      v-model="businessFunctionLocal.id"
+                      v-model="lBusinessFunction.id"
                     />
                     <CInput
                       label="Nome*"
                       placeholder="Nome"
-                      v-model="businessFunctionLocal.name"
+                      v-model="lBusinessFunction.name"
                       :class="{
-                        'is-invalid': $v.businessFunctionLocal.name.$error,
+                        'is-invalid': $v.lBusinessFunction.name.$error,
                       }"
                     />
                     <div
                       class="help-block"
-                      :class="{ show: $v.businessFunctionLocal.name.$error }"
+                      :class="{ show: $v.lBusinessFunction.name.$error }"
                     >
                       Campo obbligatorio
                     </div>
                     <CInput
                       label="Descrizione"
                       placeholder="Descrizione"
-                      v-model="businessFunctionLocal.descr"
+                      v-model="lBusinessFunction.descr"
                     />
                     <CInput
                       label="Etichetta"
                       placeholder="Etichetta"
-                      v-model="businessFunctionLocal.label"
+                      v-model="lBusinessFunction.label"
                     />
                     <div class="form-group" role="group">
                       <label for="app-tree">Fasi GSBPM</label>
@@ -94,10 +94,10 @@
           </template>
           <div v-if="this.bFunction">
             <CBusinessProcessList
-              :bFunctionId="bFunction.id"
-              :bFunctionName="bFunction.name"
-              :bProcesses="getBusinessProcesses"
-              @refreshBProcess="loadBusinessFunction"
+              :pFunctionId="bFunction.id"
+              :pFunctionName="bFunction.name"
+              :pProcesses="getBusinessProcesses"
+              @refreshProcess="loadBusinessFunction"
             />
           </div>
         </CTab>
@@ -124,7 +124,7 @@ export default {
   },
   data() {
     return {
-      businessFunctionLocal: {
+      lBusinessFunction: {
         id: "",
         name: "",
         descr: "",
@@ -136,7 +136,7 @@ export default {
     };
   },
   validations: {
-    businessFunctionLocal: {
+    lBusinessFunction: {
       name: {
         required,
       },
@@ -177,22 +177,22 @@ export default {
 
   methods: {
     handleSubmit() {
-      this.businessFunctionLocal.gsbpmProcesses = this.gsbpmChecked;
+      this.lBusinessFunction.gsbpmProcesses = this.gsbpmChecked;
       this.$v.$touch(); //validate form data
-      if (!this.$v.businessFunctionLocal.$invalid) {
+      if (!this.$v.lBusinessFunction.$invalid) {
         this.$store
-          .dispatch("bFunction/update", this.businessFunctionLocal)
+          .dispatch("bFunction/update", this.lBusinessFunction)
           .then(() => {
             this.loadBusinessFunction(this.$route.params.id);
           });
       }
     },
     setOldValues() {
-      this.businessFunctionLocal.id = this.bFunction.id;
-      this.businessFunctionLocal.name = this.bFunction.name;
-      this.businessFunctionLocal.descr = this.bFunction.descr;
-      this.businessFunctionLocal.label = this.bFunction.label;
-      this.businessFunctionLocal.businessProcesses =
+      this.lBusinessFunction.id = this.bFunction.id;
+      this.lBusinessFunction.name = this.bFunction.name;
+      this.lBusinessFunction.descr = this.bFunction.descr;
+      this.lBusinessFunction.label = this.bFunction.label;
+      this.lBusinessFunction.businessProcesses =
         this.bFunction.businessProcesses;
     },
     setCheckedNodesGsbpm() {
@@ -204,8 +204,8 @@ export default {
     handleBack() {
       this.$router.back();
     },
-    loadBusinessFunction: _.debounce(function (idBFunction) {
-      this.$store.dispatch("bFunction/findById", idBFunction).then(() => {
+    loadBusinessFunction: _.debounce(function (idFunction) {
+      this.$store.dispatch("bFunction/findById", idFunction).then(() => {
         this.setOldValues();
         this.setCheckedNodesGsbpm();
       });

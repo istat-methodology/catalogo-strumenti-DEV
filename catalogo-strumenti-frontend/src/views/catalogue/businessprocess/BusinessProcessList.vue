@@ -10,9 +10,9 @@
             <CTitle
               title="Processi"
               buttonTitle=" Processo"
-              functionality=""
+              functionality="Elenco"
               :authenticated="isAuthenticated"
-              :buttons="['aggiungi', 'indietro']"              
+              :buttons="['aggiungi', 'indietro']"
               @handleNew="stateform = FormState.NEW"
               @handleBack="handleBack"
             />
@@ -79,20 +79,20 @@
                 class="col-6"
                 label="Nome*"
                 placeholder="Nome"
-                v-model="bProcessLocal.name"
+                v-model="lProcess.name"
               />
               <CInput
                 class="col-4"
                 label="Etichetta"
                 placeholder="Etichetta"
-                v-model="bProcessLocal.label"
+                v-model="lProcess.label"
               />
               <CInput
                 class="col-2"
                 label="Ordine"
                 type="number"
                 placeholder="Ordine"
-                v-model="bProcessLocal.orderCode"
+                v-model="lProcess.orderCode"
               />
             </div>
             <div class="row mt-4">
@@ -100,7 +100,7 @@
                 class="col-12"
                 label="Descrizione"
                 placeholder="Descrizione"
-                v-model="bProcessLocal.descr"
+                v-model="lProcess.descr"
               />
             </div>
           </CCardBody>
@@ -116,9 +116,8 @@
           @handleBack="handleBack"
         />
         <CBusinessProcessView
-          :bProcess="selectedProcess"
-          @enableEditStep="showEditStep"
-          @enableNewStep="showNewStep"
+          :pProcess="selectedProcess"
+          @enableShowStep="showViewStep"
         />
       </div>
       <!-- 
@@ -135,17 +134,28 @@
           @handleBack="stateform = FormState.LIST"
         />
         <CBusinessProcessEdit
-          :bProcess="selectedProcess"
+          :pProcess="selectedProcess"
           @enableEditStep="showEditStep"
-          @enableNewStep="showNewStep"
         />
       </div>
+      <!-- 
+        Visualizza Passo del Processo
+      -->
+      <div v-if="stateform == FormState.STEP_VIEW">
+        <CBusinessProcessStepView
+          :pPStep="selectedProcessStep"
+          :pDesignType="designtypeList"
+          @enableBack="stateform = FormState.VIEW"
+        />
+      </div>
+
       <!-- 
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
         <CBusinessProcessStepEdit
-          :bPStep="selectedProcessStep"          
+          :pPStep="selectedProcessStep"
+          :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT"
         />
       </div>
@@ -154,7 +164,8 @@
       -->
       <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
-          :bPStep="selectedProcessStep"          
+          :pPStep="selectedProcessStep"
+          :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT"
         />
       </div>
@@ -174,6 +185,7 @@ import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessE
 import CBusinessProcessView from "@/components/businessProcess/CBusinessProcessView";
 import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
 import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
+import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView";
 
 import CTitle from "@/components/CTitle.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
@@ -188,6 +200,7 @@ export default {
     CBusinessProcessEdit,
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
+    CBusinessProcessStepView,
     CTitle,
     CModalDelete,
     CTableLink,
@@ -207,10 +220,11 @@ export default {
         VIEW: 3,
         STEP_EDIT: 4,
         STEP_NEW: 5,
+        STEP_VIEW: 6,
       },
       stateform: 0,
       warningModal: false,
-      bProcessLocal: {
+      lProcess: {
         id: "",
         name: "",
         descr: "",
@@ -261,37 +275,43 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("bProcess", ["bProcess", "bProcessList"]),
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
 
- 
   methods: {
     changeProcess(value) {
-      this.bProcessLocal.processStep = value.id;
-      alert(this.bProcessLocal.processStep);
+      this.lProcess.processStep = value.id;
+      alert(this.lProcess.processStep);
     },
     handleSubmit() {
       if (this.stateform == this.FormState.NEW) {
-        this.$store.dispatch("bProcess/save", this.bProcessLocal).then(() => {
+        this.$store.dispatch("bProcess/save", this.lProcess).then(() => {
           this.loadProcess();
-         });
+        });
       }
       if (this.stateform == this.FormState.EDIT) {
-        this.bProcessLocal = this.selectedProcess;
-        this.$store.dispatch("bProcess/update", this.bProcessLocal).then(() => {
+        this.lProcess = this.selectedProcess;
+        this.$store.dispatch("bProcess/update", this.lProcess).then(() => {
           this.loadProcess();
-         });
+        });
       }
-      
+
       this.stateform = this.FormState.LIST;
     },
     selectId(e) {
-      this.bProcessLocal.id = e.id;
-      this.bProcessLocal.name = e.name;
-      this.bProcessLocal.descr = e.descr;
-      this.bProcessLocal.label = e.label;
-      this.bProcessLocal.orderCode = e.orderCode;
+      this.lProcess.id = e.id;
+      this.lProcess.name = e.name;
+      this.lProcess.descr = e.descr;
+      this.lProcess.label = e.label;
+      this.lProcess.orderCode = e.orderCode;
     },
+
+    showViewStep(step) {
+      this.selectedProcessStep = step;
+      this.stateform = this.FormState.STEP_VIEW;
+    },
+
     showEditStep(step) {
       this.selectedProcessStep = step;
       this.stateform = this.FormState.STEP_EDIT;
@@ -301,11 +321,13 @@ export default {
       this.stateform = this.FormState.STEP_NEW;
     },
     handleEdit(process) {
-      this.selectedProcess = process;
+      this.$store.dispatch("bProcess/findById", process.id);
+      this.selectedProcess = this.bProcess;
       this.stateform = this.FormState.EDIT;
     },
     handleView(process) {
-      this.selectedProcess = process;
+      this.$store.dispatch("bProcess/findById", process.id);
+      this.selectedProcess = this.bProcess;
       this.stateform = this.FormState.VIEW;
     },
     handleBack() {
@@ -338,18 +360,18 @@ export default {
       this.$store
         .dispatch("bProcess/delete", this.selectedProcess.id)
         .then(() => {
-            this.reloadProcess();
-         });
-        
+          this.reloadProcess();
+        });
+
       this.showModal = false;
-      
     },
     loadProcess: _.debounce(function () {
       this.$store.dispatch("bProcess/findAll");
     }, 500),
   },
   created() {
-    this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);  
+    this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
+    this.$store.dispatch("designtypes/findAll");
     this.loadProcess();
   },
 };

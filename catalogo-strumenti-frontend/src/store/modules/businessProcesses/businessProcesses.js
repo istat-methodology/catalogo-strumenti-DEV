@@ -3,7 +3,7 @@ import { businessProcessOpenService } from "@/services";
 
 const state = {
   bProcessList: [],
-  bProcess: null
+  bProcess:{}
 };
 
 const mutations = {
@@ -51,7 +51,7 @@ const actions = {
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_BPROCESSLIST", data);
+        commit("SET_BPROCESS", data);
       })
       .catch(err => {
         console.log(err);
