@@ -5,7 +5,7 @@
         Elenco Processi      
       -->
       <div v-if="stateform == FormState.LIST">
-        <div class="row p-0">
+        <div v-if="bProcessList" class="row p-0">
           <div class="col-12 p-0">
             <CTitle
               title="Processi"
@@ -18,8 +18,7 @@
             />
             <CCard>
               <CCardBody>
-                <CDataTable
-                  v-if="bProcessList"
+                <CDataTable                  
                   :items="bProcessList"
                   :fields="fields"
                   column-filter
@@ -130,12 +129,13 @@
           functionality=""
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"
+          @handleSubmit="handleSubmit"          
           @handleBack="stateform = FormState.LIST"
         />
         <CBusinessProcessEdit
           :pProcess="selectedProcess"
           @enableEditStep="showEditStep"
+          @enableNewStep="showNewStep"
         />
       </div>
       <!-- 
@@ -144,7 +144,7 @@
       <div v-if="stateform == FormState.STEP_VIEW">
         <CBusinessProcessStepView
           :pPStep="selectedProcessStep"
-          :pDesignType="designtypeList"
+          :pDesignType="designtypeList"          
           @enableBack="stateform = FormState.VIEW"
         />
       </div>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="pDesignType">
     <!-- 
-        Aggiungi Passodalla lista
+        Aggiungi Passo dalla lista
       -->
     <div v-if="stateform == FormState.STEP_ADD">
       <CTitle

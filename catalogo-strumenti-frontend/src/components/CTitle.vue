@@ -1,15 +1,16 @@
 <template>
   <div>
     <CCardHeader class="no-border p-0 mt-4">
-      <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">
-        <span>
-          <span class="p-0">{{ maintitle }}</span>
-          <h4 class="bg-secondary p-0 text-right uppercase">
-            <span class="mt-4 pr-1 uppercase text-info">
+      <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">        
+        <!--span-->
+          <!--span class="p-0">{{ maintitle }}</span-->
+          <h4 class="text-right uppercase p-0">
+            <span class="uppercase text-info pr-1 p-0 mt-2 mb-0">
               {{ functionality }}
             </span>
           </h4>
-        </span>
+        <!--/span-->
+        <hr class="bg-secondary mt-0"/>
       </h1>
       <h2 class="text-info">
         {{ title }}         
