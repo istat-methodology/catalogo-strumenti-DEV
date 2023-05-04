@@ -1,6 +1,6 @@
 <template>
   <div class="row p-0">
-    <div class="col-10 p-0 ml-0">
+    <div class="col-12 p-0 ml-0">
       <!--       
         Elenco Processi      
       -->
@@ -63,9 +63,9 @@
       -->
       <div v-if="stateform == FormState.NEW">
         <CTitle
-          title="Nuovo Processo"
+          :title="lProcess.name"
           buttonTitle=" Nuovo Processo"
-          functionality=""
+          functionality="NUOVO PROCESSO"
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
@@ -109,7 +109,7 @@
         <CTitle
           :title="selectedProcess.name"
           :buttonTitle="selectedProcess.name"
-          functionality="DETTAGLIO"
+          functionality="DETTAGLIO PROCESSO"
           :authenticated="isAuthenticated"
           :buttons="['indietro']"
           @handleBack="handleBack"
@@ -126,7 +126,7 @@
         <CTitle
           :title="selectedProcess.name"
           :buttonTitle="selectedProcess.name"
-          functionality=""
+          functionality="MODIFICA PROCESSO"
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"          
@@ -226,7 +226,7 @@ export default {
       warningModal: false,
       lProcess: {
         id: "",
-        name: "",
+        name: "***",
         descr: "",
         label: "",
         orderCode: "",
