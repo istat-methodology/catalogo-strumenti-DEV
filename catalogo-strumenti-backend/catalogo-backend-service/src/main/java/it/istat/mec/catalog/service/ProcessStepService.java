@@ -1,10 +1,16 @@
 package it.istat.mec.catalog.service;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.istat.mec.catalog.dao.BusinessProcessDao;
 import it.istat.mec.catalog.dao.BusinessServiceDao;
 import it.istat.mec.catalog.dao.ProcessStepDao;
 import it.istat.mec.catalog.dao.StepInstanceDao;
+import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.BusinessService;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.domain.StepInstance;
@@ -23,6 +29,8 @@ public class ProcessStepService {
 	StepInstanceDao stepInstanceDao;
 	@Autowired
 	BusinessServiceDao businessServiceDao;
+	@Autowired
+	BusinessProcessDao businessProcessDao;
 
 	public List<ProcessStepDto> findAllProcessSteps() {
 		
@@ -33,7 +41,16 @@ public class ProcessStepService {
 	public ProcessStepDto newProcessStep(CreateProcessStepRequest request) {
 		ProcessStep ps = new ProcessStep();
 		ps = Translators.translate(request);		
-		ps.setBusinessService(businessServiceDao.getOne(request.getBusinessServiceId()));		
+		ps.setBusinessService(businessServiceDao.getOne(request.getBusinessServiceId()));	
+		// Test: provo ad aggiungere un businessProcess allo step
+		List<BusinessProcess> listaBs;
+		if(ps.getBusinessProcesses()!=null) {
+			listaBs = ps.getBusinessProcesses();
+		}else {
+			listaBs = new ArrayList<BusinessProcess>();
+		}
+		BusinessProcess bs = businessProcessDao.findById(request.getBusinessProcessId()).get();
+		listaBs.add(bs);
 		processStepDao.save(ps);
 		return Translators.translate(ps);
 	}
