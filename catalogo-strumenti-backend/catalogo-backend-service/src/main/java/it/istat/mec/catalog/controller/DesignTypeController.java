@@ -28,6 +28,12 @@ public class DesignTypeController {
 		return designTypeService.findParentsDesignTypes();
 	}
 	
+	@GetMapping("/open/design-types-all")
+	public List<DesignTypeDto> getAllDesignTypes() {
+
+		return designTypeService.findAllDesignTypes();
+	}
+	
 	@GetMapping("/open/design-types-by-parent")
 	public List<DesignTypeDto> getDesignTypesByParent(Integer parent) {
 

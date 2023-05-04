@@ -27,6 +27,12 @@ public class DesignTypeService {
 
 	}
 	
+	public List<DesignTypeDto> findAllDesignTypes() {
+		
+		return Translators.translateDesignTypeList(designTypeDao.findAll());
+
+	}
+	
 	public List<DesignTypeDto> findDesignTypesByParent(Integer parent) {
 		
 		return Translators.translateDesignTypeList(designTypeDao.findDesignTypesByParent(parent));
