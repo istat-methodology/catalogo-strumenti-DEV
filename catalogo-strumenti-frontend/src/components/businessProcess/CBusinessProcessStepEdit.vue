@@ -319,6 +319,11 @@ export default {
     ...mapGetters("processDesign", ["processDesign"]),
   },
   props: {
+    pProcess: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
     pPStep: {
       type: Object,
       required: true,
@@ -387,7 +392,7 @@ export default {
       this.processStepToSave.label = this.lProcessStep.label;
       this.processStepToSave.descr = this.lProcessStep.descr;
       this.processStepToSave.businessServiceId = 999;
-      this.$store.dispatch("procSteps/update", this.processStepToSave);
+      this.$store.dispatch("processSteps/update", this.processStepToSave);
     },
     enableBack() {
       this.$emit("enableBack");
@@ -419,7 +424,7 @@ export default {
     },
     handleDeleteProcessStep() {
       this.$store
-        .dispatch("procSteps/delete", this.selectedProcessStep.id)
+        .dispatch("processSteps/delete", this.selectedProcessStep.id)
         .catch(() => {});
       this.showModal = false;
     },

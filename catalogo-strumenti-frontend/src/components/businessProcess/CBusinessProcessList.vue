@@ -173,6 +173,7 @@
         />
         <div v-if="selectedProcess">
           <CBusinessProcessEdit
+          
             :pProcess="selectedProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
@@ -185,6 +186,7 @@
       <div v-if="stateform == FormState.STEP_EDIT">
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
+          :pProcess="selectedProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
             @enableBack="stateform = FormState.EDIT"
@@ -196,6 +198,7 @@
       -->
       <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
+        :pProcess="selectedProcess"
           :pPStep="selectedEditStep"
           :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT"
@@ -282,10 +285,11 @@ export default {
     },
   },
   methods: {
-    changeProcess(value) {
+    /*changeProcess(value) {
       this.lProcess.processStep = value.id;
       alert(this.lProcess.processStep);
     },
+    */
     handleSubmit() {
       this.lProcess.businessFunction = this.pFunctionId;
       if (

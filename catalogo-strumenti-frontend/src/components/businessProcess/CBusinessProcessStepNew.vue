@@ -5,20 +5,20 @@
       -->
     <div v-if="stateform == FormState.STEP_ADD">
       <CTitle
-        title="Aggiungi Passo"
+        title="Elenco passi"
         buttonTitle=" Aggiungi Passo"
-        functionality=""
+        functionality="AGGIUNGI PASSO DA ELENCO"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit()"
         @handleBack="enableBack"
       />
       <div class="card">
-        <div class="card-slot" v-if="procStepsList">
-          <label>Elenco Passi esistenti</label>
+        <div class="card-slot" v-if="processStepsList">
+          <label>Selezione passi esistenti:</label>
           <v-select
             label="name"
-            :options="procStepsList"
+            :options="processStepsList"
             @input="selectId($event)"
           ></v-select>
           <span class="help-block">Seleziona un passo</span>
@@ -35,7 +35,7 @@
       <CTitle
         title="Nuovo Passo"
         :buttonTitle="' passo '"
-        functionality="NUOVO"
+        functionality="NUOVO PASSO"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
@@ -86,8 +86,7 @@
 
       <div
         v-if="
-          lProcessStep.processDesigns &&
-          lProcessStep.processDesigns.length > 0
+          lProcessStep.processDesigns && lProcessStep.processDesigns.length > 0
         "
       >
         <div
@@ -304,27 +303,32 @@ export default {
           filter: false,
         },
       ],
+
       processStepToSave: {
-        id: "",
+        id: 0,
         name: "",
         descr: "",
         label: "",
         businessServiceId: 999,
+        processIds: [],
+        substep: 0,
       },
-      processStep: {
+      lProcessStep: {
+        id: 0,
         name: "",
-        descr: null,
-        label: null,
-        businessService: null,
-        substep: null,
-        stepInstances: null,
-        processDesigns: [],
+        descr: "",
+        label: "",
+        businessServiceId: 999,
+        processIds: [],
+        substep: 0,
       },
+
       processDesignToSave: {
         id: 0,
         descr: "",
         step: "",
       },
+
       processDesigns: {
         id: null,
         descr: null,
@@ -370,12 +374,17 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("procSteps", ["procStepsList"]),
+    ...mapGetters("processSteps", ["processStepsList"]),
     ...mapGetters("designtypes", ["designtypeList"]),
     ...mapGetters("processDesign", ["processDesign"]),
   },
   props: {
-    pDesignType:{
+    pProcess: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
+    pDesignType: {
       type: Array,
       required: true,
       default: () => [],
@@ -383,10 +392,7 @@ export default {
   },
   methods: {
     getProcessDesign: function () {
-      if (
-        this.lProcessStep &&
-        this.lProcessStep.processDesigns.lenght > 0
-      ) {
+      if (this.lProcessStep && this.lProcessStep.processDesigns.lenght > 0) {
         return this.lProcessStep.processDesigns.map((item) => {
           return {
             id: item.id,
@@ -434,43 +440,25 @@ export default {
     /* Process Step */
 
     selectId(e) {
-      this.processStepToSave.id = e.id;
-      this.processStepToSave.name = e.name;
-      this.processStepToSave.descr = e.descr;
-      this.processStepToSave.label = e.label;
+      this.lProcessStep.id = e.id;
+      this.lProcessStep.name = e.name;
+      this.lProcessStep.descr = e.descr;
+      this.lProcessStep.label = e.label;
     },
 
     handleSubmit() {
-      //this.processStepToSave.id = this.lProcessStep.id;
-      //if (this.stateform == this.FormState.STEP_ADD) {
-      //  this.$store.dispatch("procSteps/update", this.processStepToSave);
+      this.processStepToSave.id = this.lProcessStep.id;
+      this.processStepToSave.name = this.lProcessStep.name;
+      this.processStepToSave.label = this.lProcessStep.label;
+      this.processStepToSave.descr = this.lProcessStep.descr;
 
-      //} else if (this.stateform == this.FormState.STEP_NEW) {
-
-      //  this.processStepToSave.id = this.lProcessStep.id;
-      //  this.processStepToSave.name = this.lProcessStep.name;
-      //  this.processStepToSave.label = this.lProcessStep.label;
-      //  this.processStepToSave.descr = this.lProcessStep.descr;
-      //  this.$store.dispatch("procSteps/save", this.processStepToSave);
-
-      //}
-
-      this.processStepToSave.businessProcess = this.pFunctionId;
-      if (
-        this.stateform == this.FormState.STEP_ADD ||
-        this.stateform == this.FormState.STEP_NEW
-      ) {
-        this.$store
-          .dispatch("procSteps/save", this.processStepToSave)
-          .then(this.$emit("refreshBProcess", this.pFunctionId));
+      this.processStepToSave.businessServiceId =
+        this.lProcessStep.businessServiceId;
+      if (this.pProcess) {
+        this.processStepToSave.processIds.push(this.pProcess.id);
       }
-      if (this.stateform == this.FormState.EDIT) {
-        this.lProcess = this.selectedEditProcess;
-        this.$store
-          .dispatch("bProcess/update", this.lProcess)
-          .then(this.$emit("refreshBProcess", this.pFunctionId));
-      }
-      this.stateform = this.FormState.LIST;
+      this.processStepToSave.substep = this.lProcessStep.substep;
+      this.$store.dispatch("processSteps/save", this.processStepToSave);
     },
     enableBack() {
       this.$emit("enableBack");
@@ -540,8 +528,8 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("procSteps/findAll").catch(() => {});
-    this.lProcessStep = this.processStep;
+    this.$store.dispatch("processSteps/findAll").catch(() => {});
+    //this.lProcessStep = this.processStep;
     this.lDesignType = _.map(this.pDesignType, "type");
   },
 };

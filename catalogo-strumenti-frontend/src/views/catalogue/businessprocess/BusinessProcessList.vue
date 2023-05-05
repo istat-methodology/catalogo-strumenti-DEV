@@ -135,7 +135,9 @@
         Visualizza Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_VIEW">
-        <CBusinessProcessStepView
+        
+        <CBusinessProcessStepView v-if="selectedProcessStep"
+          :pProcess="bProcess"
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"          
           @enableBack="stateform = FormState.VIEW_PROCESS"
@@ -146,7 +148,8 @@
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
-        <CBusinessProcessStepEdit
+        <CBusinessProcessStepEdit v-if="selectedProcessStep"
+          :pProcess="bProcess"
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT_PROCESS"
@@ -157,6 +160,7 @@
       -->
       <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
+          :pProcess="bProcess"
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT_PROCESS"
@@ -324,9 +328,12 @@ export default {
       this.stateform = this.FormState.VIEW_PROCESS;
     },
     handleBack() {
-      this.$router.back();
-      //this.$router.push({ name: "Catalogue" });
-    },
+    
+    this.$router.push({
+      name: "Catalogue",
+      params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
+    });
+  },
     handleOpenModalDelete(app) {
       this.selectedProcess = app;
       this.showModal = true;
@@ -353,7 +360,7 @@ export default {
       this.$store
         .dispatch("bProcess/delete", this.selectedProcess.id)
         .then(() => {
-          this.reloadProcess();
+          this.loadProcess();
         });
 
       this.showModal = false;

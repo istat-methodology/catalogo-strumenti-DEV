@@ -25,13 +25,7 @@ const actions = {
         console.log(error);
       }
     );
-  },
-  addStepToProcess(){
-
-
-
-
-  },
+  }, 
   save({ commit, dispatch }, payload) {
     return businessProcessService
       .save(payload)

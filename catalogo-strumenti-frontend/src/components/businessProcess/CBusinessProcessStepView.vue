@@ -237,6 +237,11 @@ export default {
     ...mapGetters("processDesign", ["processDesign"]),
   },
   props: {
+    pProcess: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
     pPStep: {
       type: Object,
       required: true,
@@ -299,14 +304,6 @@ export default {
       return dt;
     },
     /* Process Step */
-    handleSubmit() {
-      this.processStepToSave.id = this.lProcessStep.id;
-      this.processStepToSave.name = this.lProcessStep.name;
-      this.processStepToSave.label = this.lProcessStep.label;
-      this.processStepToSave.descr = this.lProcessStep.descr;
-      this.processStepToSave.businessServiceId = 999; //(this.lProcessStep.businessService.id==null) ? 999: this.lProcessStep.businessService.id;
-      this.$store.dispatch("procStep/update", this.processStepToSave); //.then(() => {  alert(this.lProcessStep())});
-    },
     handleBack() {
       this.$emit("enableBack");
     },
@@ -324,7 +321,6 @@ export default {
       this.selectedProcessSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_SPECIFICATION_VIEW;
     },
-   
     handleSubmitViewProcessSpecification() {
       console.log("funzione View process specification non attiva!");
       alert("funzione View process specification non attiva!");

@@ -13,8 +13,8 @@
       <CCard>
         <CCardBody>
           <CDataTable
-            v-if="procStepsList"
-            :items="procStepsList"
+            v-if="processStepsList"
+            :items="processStepsList"
             :fields="fields"
             column-filter
             :items-per-page="10"
@@ -53,8 +53,26 @@
     </div>
     <div v-if="stateform == FormState.STEP_VIEW">
       <CBusinessProcessStepView
+        v-if="selectedProcessStep"
+        :pProcess="{}"
         :pDesignType="designtypeList"
         :pPStep="selectedProcessStep"
+        @enableBack="enableBack"
+      />
+    </div>
+    <div v-if="stateform == FormState.STEP_NEW">
+      <CBusinessProcessStepNew
+        :pProcess="{}"
+        :pDesignType="designtypeList"
+        :pPStep="{}"
+        @enableBack="enableBack"
+      />
+    </div>
+    <div v-if="stateform == FormState.STEP_EDIT">
+      <CBusinessProcessStepEdit
+        :pProcess="{}"
+        :pPStep="selectedProcessStep"
+        :pDesignType="designtypeList"
         @enableBack="enableBack"
       />
     </div>
@@ -65,6 +83,8 @@
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
 import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView";
+import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
+import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
 import CTitle from "@/components/CTitle.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 import CTableLink from "@/components/CTableLink.vue";
@@ -75,6 +95,8 @@ export default {
   //components: { CTitle, CModalDelete, CTableLink, CTableDetails },
   components: {
     CBusinessProcessStepView,
+    CBusinessProcessStepNew,
+    CBusinessProcessStepEdit,
     CTitle,
     CModalDelete,
     CTableLink,
@@ -117,20 +139,19 @@ export default {
       showDetails: true,
       activeIndex: -1,
 
-
       FormState: {
         STEP_LIST: 4,
         STEP_EDIT: 5,
         STEP_NEW: 6,
         STEP_VIEW: 7,
       },
-      stateform:4
+      stateform: 4,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("procSteps", ["procStepsList"]),
-    ...mapGetters("designtypes", ["designtypeList"])
+    ...mapGetters("processSteps", ["processStepsList"]),
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
   methods: {
     isItem(item) {
@@ -143,30 +164,33 @@ export default {
         ? (this.activeIndex = index)
         : (this.activeIndex = -1);
     },
+
     handleDelete() {
       this.$store
-        .dispatch("procSteps/delete", this.selectedProcessStep.id)
+        .dispatch("processSteps/delete", this.selectedProcessStep.id)
         .catch(() => {});
       this.showModal = false;
     },
-    handleNew() {
-      this.$router.push({ name: "ProcessStepsAdd" });
-    },
-    enableBack(){
+    enableBack() {
       this.stateform = this.FormState.STEP_LIST;
     },
     handleBack() {
-      this.$router.push({ name: "Catalogue" });
+      this.$router.push({
+        name: "Catalogue",
+        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
+      });
+    },
+    handleNew() {
+      this.selectedProcessStep = {};
+      this.stateform = this.FormState.STEP_NEW;
     },
     handleView(processStep) {
       this.selectedProcessStep = processStep;
       this.stateform = this.FormState.STEP_VIEW;
     },
-    handleEdit(item) {
-      this.$router.push({
-        name: "ProcessStepsEdit",
-        params: { item: item },
-      });
+    handleEdit(processStep) {
+      this.selectedProcessStep = processStep;
+      this.stateform = this.FormState.STEP_EDIT;
     },
     handleOpenModalDelete(app) {
       this.selectedProcessStep = app;
@@ -185,7 +209,7 @@ export default {
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
-    this.$store.dispatch("procSteps/findAll").catch(() => {});
+    this.$store.dispatch("processSteps/findAll").catch(() => {});
     this.$store.dispatch("designtypes/findAll");
   },
 };

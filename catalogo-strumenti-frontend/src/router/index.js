@@ -179,8 +179,8 @@ const routes = [
         component: () =>
           import("../views/catalogue/processsteps/ProcessStepsList"),
         meta: { authorize: [] }
-      },
-
+      }, 
+      /*
       {
         path: "catalogue/processsteps/Add/",
         name: "ProcessStepsAdd",
