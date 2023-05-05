@@ -25,6 +25,7 @@ public class BusinessProcess implements Serializable  {
 
 	
 	private static final long serialVersionUID = 267803872317420154L;
+	private static final String cascade  = null;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	@Column(name = "ID")
 	private Integer id;
@@ -50,11 +51,20 @@ public class BusinessProcess implements Serializable  {
             @JoinColumn(name = "BUSINESS_FUNCTION_ID", referencedColumnName = "ID", nullable = false)})
 	private List<BusinessFunction> businessFunctions;
 	
-	@ManyToMany
+	
+	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_link_process_step", joinColumns = {
             @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+            @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})    
 	private List<ProcessStep> processSteps;
 	
+	public BusinessProcess() {
+		super();
+	}
+	
+	public BusinessProcess(Integer id) {
+		super();
+		this.id = id;
+	}
 }
 

@@ -52,8 +52,10 @@ public class ProcessStep implements Serializable  {
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "csm_link_process_step", joinColumns = {
             @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})
+            @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})	
 	private List<BusinessProcess> businessProcesses;
+	
+	
 	
 	@ManyToMany
     @JoinTable(name = "csm_link_step_instance", joinColumns = {

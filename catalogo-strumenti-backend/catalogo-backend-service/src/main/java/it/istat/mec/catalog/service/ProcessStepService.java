@@ -12,6 +12,7 @@ import it.istat.mec.catalog.dao.ProcessStepDao;
 import it.istat.mec.catalog.dao.StepInstanceDao;
 import it.istat.mec.catalog.domain.BusinessProcess;
 import it.istat.mec.catalog.domain.BusinessService;
+import it.istat.mec.catalog.domain.GsbpmProcess;
 import it.istat.mec.catalog.domain.ProcessStep;
 import it.istat.mec.catalog.domain.StepInstance;
 import it.istat.mec.catalog.dto.ProcessStepDto;
@@ -42,15 +43,30 @@ public class ProcessStepService {
 		ProcessStep ps = new ProcessStep();
 		ps = Translators.translate(request);		
 		ps.setBusinessService(businessServiceDao.getOne(request.getBusinessServiceId()));	
+		
 		// Test: provo ad aggiungere un businessProcess allo step
-		List<BusinessProcess> listaBs;
-		if(ps.getBusinessProcesses()!=null) {
-			listaBs = ps.getBusinessProcesses();
-		}else {
-			listaBs = new ArrayList<BusinessProcess>();
+		List<BusinessProcess> listaBs = new ArrayList<BusinessProcess>();		
+		
+		
+		
+		
+		
+		
+		if(request.getProcessIds()!=null) {
+			for(int i=0; i<request.getProcessIds().length; i++)
+				
+//				if(businessProcessDao.findById(request.getProcessIds()[i])!=null) {
+//					
+//				}
+//			
+//				if(request.getProcessIds()[i])!=null){
+//					
+//				}
+				listaBs.add(businessProcessDao.getOne(request.getProcessIds()[i]));
 		}
-		BusinessProcess bs = businessProcessDao.findById(request.getBusinessProcessId()).get();
-		listaBs.add(bs);
+		
+		ps.setBusinessProcesses(listaBs);		
+		
 		processStepDao.save(ps);
 		return Translators.translate(ps);
 	}
@@ -67,20 +83,25 @@ public class ProcessStepService {
 		if (!processStepDao.findById(request.getId()).isPresent())
 			throw new NoDataException("ProcessStep not present");
 		ProcessStep ps = processStepDao.getOne(request.getId());
+		
+		ps = Translators.translateUpdate(request, ps);
 		BusinessService bs = businessServiceDao.getOne(request.getBusinessServiceId());
-		if (!businessServiceDao.existsById(bs.getId())) 
-		{
-			//non fa nulla...
-			businessServiceDao.save(bs);
-			processStepDao.save(ps);		
-			ps = Translators.translateUpdate(request, ps);
-		}
-		else
+		List<BusinessProcess> listaBs = new ArrayList<BusinessProcess>();
+		
+		if (businessServiceDao.existsById(bs.getId())) 
 		{
 			ps.setBusinessService(bs);
-			ps = Translators.translateUpdate(request, ps);
-			processStepDao.save(ps);		
 		}
+		
+		if(request.getProcessIds()!=null) {
+			for(int i=0; i<request.getProcessIds().length; i++)
+				listaBs.add(new BusinessProcess(request.getProcessIds()[i]));
+		}
+		
+		ps.setBusinessProcesses(listaBs);		
+		
+		processStepDao.save(ps);		
+		
 		return Translators.translate(ps);
 	}
 	

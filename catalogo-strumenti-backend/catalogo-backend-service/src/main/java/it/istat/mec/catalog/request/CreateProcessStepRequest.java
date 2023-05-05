@@ -14,7 +14,7 @@ public class CreateProcessStepRequest extends CreateBaseRequest {
 	private String label;	
 	// paolinux 21-12-2022 changed string to int type
 	private Integer businessServiceId;	
-	private Integer businessProcessId;	
+	private Integer[] processIds;
 	private Integer substep;	
 }
 

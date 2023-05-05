@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 public class BusinessProcessMiniDto2 extends BaseDto {
-	private static final long serialVersionUID = 8416262083164963412L;
-	private String descr;		
-	private String label;	
-	private String orderCode;	
-	private String parent;	
+	
+	private static final long serialVersionUID = -9069760688210503195L;
+	private String code;
 }
 
