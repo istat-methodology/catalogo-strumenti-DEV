@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-8">
+    <div class="col-12">
       <div>
         <div class="p-0">
           <div v-if="selectedStep">

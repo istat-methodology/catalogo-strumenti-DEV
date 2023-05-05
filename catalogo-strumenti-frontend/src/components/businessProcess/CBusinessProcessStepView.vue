@@ -1,13 +1,13 @@
 <template>
   <div v-if="pDesignType">
-    <div v-if="stateform == FormState.STEP_EDIT">
+    <div v-if="stateform == FormState.STEP_VIEW">
       <CTitle
         :title="lProcessStep.name"
         :buttonTitle="' passo '"
-        functionality=""
+        functionality="DETTAGLIO PASSO"
         :authenticated="isAuthenticated"
         :buttons="['indietro']"
-        @handleBack="enableBack"
+        @handleBack="handleBack"
       />
 
       <div class="row p-2">
@@ -144,7 +144,7 @@
         :pProcessDesign="selectedProcessDesign"
         :pProcessSpecification="selectedProcessSpecification"
         :pDesignType="pDesignType"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="enableBack"
       />
     </div>
   </div>
@@ -224,16 +224,11 @@ export default {
       selectedProcessSpecification: {},
 
       FormState: {
-        STEP_EDIT: 4,
+        STEP_VIEW: 40,
         PROCESS_DESIGN_VIEW: 10,
-        PROCESS_DESIGN_NEW: 11,
-        PROCESS_DESIGN_EDIT: 12,
-
         PROCESS_SPECIFICATION_VIEW: 20,
-        PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22,
       },
-      stateform: 4,
+      stateform: 40,
       warningModal: false,
     };
   },
@@ -312,7 +307,7 @@ export default {
       this.processStepToSave.businessServiceId = 999; //(this.lProcessStep.businessService.id==null) ? 999: this.lProcessStep.businessService.id;
       this.$store.dispatch("procStep/update", this.processStepToSave); //.then(() => {  alert(this.lProcessStep())});
     },
-    enableBack() {
+    handleBack() {
       this.$emit("enableBack");
     },
     /* Process Design */
@@ -324,61 +319,16 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-    handleSubmitNewProcessDesign(processDesign) {
-      this.processDesignToSave.descr = processDesign.descr;
-      this.processDesignToSave.step = this.lProcessStep.id;
-      this.$store.dispatch("processDesign/save", this.processDesignToSave);
-    },
-    handleSubmitEditProcessDesign(processDesign) {
-      this.processDesignToSave.id = processDesign.id;
-      this.processDesignToSave.descr = processDesign.descr;
-      this.processDesignToSave.step = this.lProcessStep.id;
-      this.$store.dispatch("processDesign/update", this.processDesignToSave);
-    },
-    handleSubmitDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
-    },
-    handleOpenModalDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
-    },
-    showEditProcessSpecification(processDesign, processDesignSpecification) {
-      this.selectedProcessDesign = processDesign;
-      this.selectedProcessSpecification = processDesignSpecification;
-      this.stateform = this.FormState.PROCESS_SPECIFICATION_EDIT;
-    },
     showViewProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_SPECIFICATION_VIEW;
     },
-    showNewProcessSpecification(processDesign, processDesignSpecification) {
-      this.selectedProcessDesign = processDesign;
-      this.selectedProcessSpecification = processDesignSpecification;
-      this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
-    },
-    /* Process Specification */
-    handleSubmitNewProcessSpecification() {
-      console.log("funzione new process specification non attiva!");
-      alert("funzione new process specification non attiva!");
-    },
-    handleSubmitEditProcessSpecification() {
-      console.log("funzione edit process specification non attiva!");
-      alert("funzione edit process specification non attiva!");
-    },
+   
     handleSubmitViewProcessSpecification() {
       console.log("funzione View process specification non attiva!");
       alert("funzione View process specification non attiva!");
-    },
-    handleSubmitDeleteProcessSpecification() {
-      console.log("funzione delete process specification non attiva!");
-      alert("funzione delete process specification non attiva!");
-    },
-    handleOpenModalDeleteProcessSpecification() {
-      console.log("funzione delete process specification non attiva!");
-      alert("funzione delete process specification non attiva!");
-    },
+    }
   },
   created() {
     this.lProcessStep = this.pPStep;

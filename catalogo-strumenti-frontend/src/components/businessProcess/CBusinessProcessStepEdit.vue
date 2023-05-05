@@ -4,7 +4,7 @@
       <CTitle
         :title="lProcessStep.name"
         :buttonTitle="' passo '"
-        functionality="MODIFICA"
+        functionality="MODIFICA PASSO"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"

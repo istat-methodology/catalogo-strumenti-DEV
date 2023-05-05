@@ -4,7 +4,7 @@
       <!--       
         Elenco Processi      
       -->
-      <div v-if="stateform == FormState.LIST">
+      <div v-if="stateform == FormState.LIST_PROCESS">
         <div v-if="bProcessList" class="row p-0">
           <div class="col-12 p-0">
             <CTitle
@@ -13,7 +13,7 @@
               functionality="Elenco"
               :authenticated="isAuthenticated"
               :buttons="['aggiungi', 'indietro']"
-              @handleNew="stateform = FormState.NEW"
+              @handleNew="stateform = FormState.NEW_PROCESS"
               @handleBack="handleBack"
             />
             <CCard>
@@ -61,7 +61,7 @@
       <!-- 
         Crea nuovo Processo
       -->
-      <div v-if="stateform == FormState.NEW">
+      <div v-if="stateform == FormState.NEW_PROCESS">
         <CTitle
           :title="lProcess.name"
           buttonTitle=" Nuovo Processo"
@@ -69,7 +69,7 @@
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.LIST"
+          @handleBack="stateform = FormState.LIST_PROCESS"
         />
         <CCard>
           <CCardBody>
@@ -105,24 +105,17 @@
           </CCardBody>
         </CCard>
       </div>
-      <div v-if="stateform == FormState.VIEW">
-        <CTitle
-          :title="selectedProcess.name"
-          :buttonTitle="selectedProcess.name"
-          functionality="DETTAGLIO PROCESSO"
-          :authenticated="isAuthenticated"
-          :buttons="['indietro']"
-          @handleBack="handleBack"
-        />
+      <div v-if="stateform == FormState.VIEW_PROCESS">       
         <CBusinessProcessView
           :pProcess="selectedProcess"
+          @enableBack="stateform = FormState.LIST_PROCESS"
           @enableShowStep="showViewStep"
         />
       </div>
       <!-- 
         Modifica Processo
       -->
-      <div v-if="stateform == FormState.EDIT">
+      <div v-if="stateform == FormState.EDIT_PROCESS">
         <CTitle
           :title="selectedProcess.name"
           :buttonTitle="selectedProcess.name"
@@ -130,7 +123,7 @@
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmit"          
-          @handleBack="stateform = FormState.LIST"
+          @handleBack="stateform = FormState.LIST_PROCESS"
         />
         <CBusinessProcessEdit
           :pProcess="selectedProcess"
@@ -145,7 +138,7 @@
         <CBusinessProcessStepView
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"          
-          @enableBack="stateform = FormState.VIEW"
+          @enableBack="stateform = FormState.VIEW_PROCESS"
         />
       </div>
 
@@ -156,7 +149,7 @@
         <CBusinessProcessStepEdit
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
-          @enableBack="stateform = FormState.EDIT"
+          @enableBack="stateform = FormState.EDIT_PROCESS"
         />
       </div>
       <!-- 
@@ -166,7 +159,7 @@
         <CBusinessProcessStepNew
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
-          @enableBack="stateform = FormState.EDIT"
+          @enableBack="stateform = FormState.EDIT_PROCESS"
         />
       </div>
     </div>
@@ -214,10 +207,10 @@ export default {
       selectedProcessDesign: {},
       states: [],
       FormState: {
-        LIST: 0,
-        EDIT: 1,
-        NEW: 2,
-        VIEW: 3,
+        LIST_PROCESS: 0,
+        EDIT_PROCESS: 1,
+        NEW_PROCESS: 2,
+        VIEW_PROCESS: 3,
         STEP_EDIT: 4,
         STEP_NEW: 5,
         STEP_VIEW: 6,
@@ -285,19 +278,19 @@ export default {
       alert(this.lProcess.processStep);
     },
     handleSubmit() {
-      if (this.stateform == this.FormState.NEW) {
+      if (this.stateform == this.FormState.NEW_PROCESS) {
         this.$store.dispatch("bProcess/save", this.lProcess).then(() => {
           this.loadProcess();
         });
       }
-      if (this.stateform == this.FormState.EDIT) {
+      if (this.stateform == this.FormState.EDIT_PROCESS) {
         this.lProcess = this.selectedProcess;
         this.$store.dispatch("bProcess/update", this.lProcess).then(() => {
           this.loadProcess();
         });
       }
 
-      this.stateform = this.FormState.LIST;
+      this.stateform = this.FormState.LIST_PROCESS;
     },
     selectId(e) {
       this.lProcess.id = e.id;
@@ -323,12 +316,12 @@ export default {
     handleEdit(process) {
       this.$store.dispatch("bProcess/findById", process.id);
       this.selectedProcess = this.bProcess;
-      this.stateform = this.FormState.EDIT;
+      this.stateform = this.FormState.EDIT_PROCESS;
     },
     handleView(process) {
       this.$store.dispatch("bProcess/findById", process.id);
       this.selectedProcess = this.bProcess;
-      this.stateform = this.FormState.VIEW;
+      this.stateform = this.FormState.VIEW_PROCESS;
     },
     handleBack() {
       this.$router.back();

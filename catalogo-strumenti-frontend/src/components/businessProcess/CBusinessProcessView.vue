@@ -1,5 +1,13 @@
 <template>
   <div>
+    <CTitle
+      :title="lProcess.name"
+      :buttonTitle="lProcess.name"
+      functionality="DETTAGLIO PROCESSO"
+      :authenticated="isAuthenticated"
+      :buttons="['indietro']"
+      @handleBack="handleBack"
+    />
     <div v-if="lProcess">
       <div class="row p-2">
         <div class="card col p-3">
@@ -141,9 +149,9 @@ export default {
       }
     },
     handleBack() {
-      this.$router.back();
+      this.$emit("enableBack");
     },
-   
+
     handleShowStep(step) {
       this.$emit("enableShowStep", step);
     },
