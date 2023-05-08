@@ -447,18 +447,25 @@ export default {
     },
 
     handleSubmit() {
-      this.processStepToSave.id = this.lProcessStep.id;
-      this.processStepToSave.name = this.lProcessStep.name;
-      this.processStepToSave.label = this.lProcessStep.label;
-      this.processStepToSave.descr = this.lProcessStep.descr;
+      if (this.stateform == this.FormState.STEP_ADD) {
+        let params = { idProcess: 0, idStep: 0 };
+        params.idProcess = this.pProcess.id;
+        params.idStep = this.lProcessStep.id;
+        this.$store.dispatch("bProcess/addStep", params);
+      } else if (this.stateform == this.FormState.STEP_NEW) {
+        this.processStepToSave.id = this.lProcessStep.id;
+        this.processStepToSave.name = this.lProcessStep.name;
+        this.processStepToSave.label = this.lProcessStep.label;
+        this.processStepToSave.descr = this.lProcessStep.descr;
 
-      this.processStepToSave.businessServiceId =
-        this.lProcessStep.businessServiceId;
-      if (this.pProcess) {
-        this.processStepToSave.processIds.push(this.pProcess.id);
+        this.processStepToSave.businessServiceId =
+          this.lProcessStep.businessServiceId;
+        if (this.pProcess) {
+          this.processStepToSave.processIds.push(this.pProcess.id);
+        }
+        this.processStepToSave.substep = this.lProcessStep.substep;
+        this.$store.dispatch("processSteps/save", this.processStepToSave);
       }
-      this.processStepToSave.substep = this.lProcessStep.substep;
-      this.$store.dispatch("processSteps/save", this.processStepToSave);
     },
     enableBack() {
       this.$emit("enableBack");

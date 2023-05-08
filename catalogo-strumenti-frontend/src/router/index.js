@@ -180,28 +180,6 @@ const routes = [
           import("../views/catalogue/processsteps/ProcessStepsList"),
         meta: { authorize: [] }
       }, 
-      /*
-      {
-        path: "catalogue/processsteps/Add/",
-        name: "ProcessStepsAdd",
-        component: () =>
-          import("../views/catalogue/processsteps/ProcessStepsAdd"),
-        meta: { authorize: [] }
-      },
-      {
-        path: "catalogue/processsteps/edit/",
-        name: "ProcessStepsEdit",
-        component: () =>
-          import("../views/catalogue/processsteps/ProcessStepsEdit"),
-        meta: { authorize: [] }
-      },      
-      {
-        path: "catalogue/processsteps/details/",
-        name: "ProcessStepsDetails",
-        component: () =>
-          import("../views/catalogue/processsteps/ProcessStepsDetails"),
-        meta: { authorize: [] }
-      },
       /*****************************************************************************/
       {
         path: "catalogue/referenti",

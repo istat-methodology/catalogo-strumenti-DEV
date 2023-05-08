@@ -92,7 +92,7 @@ const actions = {
     return methodsService
       .addDocumentation(params.id, params.docID)
       .then(data => {
-        commit("SET_TOOL", data);
+        commit("SET_METHOD", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {
           root: true
         });
@@ -105,7 +105,7 @@ const actions = {
     return methodsService
       .removeDocumentation(params.id, params.docID)
       .then(data => {
-        commit("SET_TOOL", data);
+        commit("SET_METHOD", data);
         dispatch("message/success", "Strumento Metodologico aggiornato!", {
           root: true
         });

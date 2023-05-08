@@ -35,8 +35,8 @@
             </template>
             <!--template #details="{ item, index }">
             <CTableDetails
-              title="...step collegato ai Business Process"
-              :items="item.businessFunctions"
+              title="...Business process collegato allo step"
+              :items="item.businessProcessFunctions"
               :activeIndex="activeIndex"
               :index="index"
             />
@@ -86,8 +86,9 @@ import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProc
 import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
 import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
 import CTitle from "@/components/CTitle.vue";
-import CModalDelete from "@/components/CModalDelete.vue";
 import CTableLink from "@/components/CTableLink.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+
 
 //import CTableDetails from "@/components/CTableDetails.vue";
 export default {

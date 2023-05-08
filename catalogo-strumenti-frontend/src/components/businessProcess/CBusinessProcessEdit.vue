@@ -51,9 +51,7 @@
       />
       <CCard>
         <CCardBody>
-          <span
-            v-if="lProcess.processSteps"
-          >
+          <span v-if="lProcess.processSteps">
             <CDataTable
               v-if="lProcess"
               :items="getProcessStepsList()"
@@ -62,17 +60,23 @@
               hover
               pagination
               ><template #show_details="{ item }">
-                <td>
-                  <span class="icon-link" @click="handleEditStep(item)"
-                    ><edit-icon title="Edit"
-                  /></span>
-                </td>
+                <CTableLink
+                  :authenticated="isAuthenticated"
+                  @handleEdit="handleEdit(item)"
+                  @handleDelete="handleOpenModalDelete(item)"
+                />
               </template>
             </CDataTable>
           </span>
           <span v-else>Non sono presenti passi</span>
         </CCardBody>
       </CCard>
+      <CModalDelete
+        :message="getMessage()"
+        :showModal="showModal"
+        @closeModal="closeModal"
+        @handleDelete="handleDelete"
+      />
     </div>
   </div>
 </template>
@@ -80,12 +84,16 @@
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
+import CTableLink from "@/components/CTableLink.vue";
+import CModalDelete from "@/components/CModalDelete.vue";
+
 export default {
   name: "CBusinessProcessEdit",
   components: {
     //CBusinessProcessDesignNew,
     CTitle,
-    //CModalDelete
+    CTableLink,
+    CModalDelete,
   },
   data() {
     return {
@@ -119,10 +127,12 @@ export default {
         },
       ],
       lProcess: {},
+      selectedProcessStep: {},
       states: [],
       FormState: {},
       stateform: 0,
-      warningModal: false,
+      showModal: false,
+      closeModal: false,
     };
   },
   computed: {
@@ -171,6 +181,23 @@ export default {
     },
     handleBack() {
       this.$router.back();
+    },
+    handleOpenModalDelete(app) {
+      this.selectedProcessStep = app;
+      this.showModal = true;
+    },
+    getMessage() {
+      return (
+        "Sei sicuro di eliminare il passo " +
+        this.selectedProcessStep.name +
+        " selezionato?"
+      );
+    },
+    handleDelete() {
+      let params = { idProcess: 0, idStep: 0 };
+      params.idProcess = this.pProcess.id;
+      params.idStep = this.selectedProcessStep.id;
+      this.$store.dispatch("bProcess/removeStep", params);
     },
   },
   created() {
