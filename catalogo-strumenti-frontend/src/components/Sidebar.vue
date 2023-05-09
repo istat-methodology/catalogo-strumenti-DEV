@@ -28,7 +28,7 @@
       <li class="c-sidebar-nav-item" v-if="isHome || isToolSession">
         <router-link
           tag="a"
-          :to="{ name: 'ToolList' }"
+          :to="{ name: 'ToolList' , params: { gsbpm: '' } }"
           class="c-sidebar-nav-link"
           :class="{ 'c-active': isToolSession }"
         >
@@ -39,7 +39,7 @@
       <li class="c-sidebar-nav-item" v-if="isToolSession">
         <router-link
           tag="a"
-          :to="{ name: 'MethodList' }"
+          :to="{ name: 'MethodList' , params: { gsbpm: '' } }"
           class="c-sidebar-nav-link"
           :class="{ 'c-active': isMethodsList }"
         >

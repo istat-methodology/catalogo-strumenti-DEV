@@ -117,8 +117,7 @@ export default {
     },
   },
   mounted() {
-    if(this.$route.params.gsbpm){
-    
+    if(this.$route.params.gsbpm){    
     this.columnFilterValue = {
       gsbpm: this.$route.params.gsbpm.code  
     }}
