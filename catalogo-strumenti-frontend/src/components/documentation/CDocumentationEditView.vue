@@ -300,8 +300,8 @@ export default {
       this.selectedDocId = e.id;
     },
     handleAddSubmit() {
-      this.$v.$touch();
-      if (!this.$v.documentationLocal.$invalid) {
+      //this.$v.$touch();
+      //if (!this.$v.documentationLocal.$invalid) {
         console.log(this.selectedDocId);
         let params = { id: 0, docID: 0 };
 
@@ -324,7 +324,7 @@ export default {
             this.stateform = this.FormState.LIST;
           }
         }
-      }
+      //}
     },
     handleNewSubmit() {
       this.$v.$touch();
