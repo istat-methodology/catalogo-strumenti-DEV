@@ -74,11 +74,12 @@
       />
       <div class="columns pl-1">
         <div class="row">
-          <CCard
+          <div
             v-for="(linkedAgent, index) of getLinkedAgentList"
             :key="linkedAgent.id"
+            class="pr-4"
           >
-            <div class="card-header no-border">
+            <div class="card-header no-border text-info center">
               {{ linkedAgent.agentName }}
               <div class="card-header-actions">
                 <span v-if="getState(index)">
@@ -101,6 +102,7 @@
                 </span>
               </div>
             </div>
+            <CCard>
             <div class="card-body">
               <div class="card-slot">
                 <span><strong>Contatto: </strong></span>
@@ -136,6 +138,7 @@
               </div>
             </div>
           </CCard>
+          </div>
 
           <div v-if="getLinkedAgentList.length == 0">
             <CCard class="col-12">
