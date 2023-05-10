@@ -21,7 +21,7 @@
                   tag="a"
                   :to="{
                     name: 'MethodDetails',
-                    params: { id: statisticalMethod.id }
+                    params: { id: statisticalMethod.id },
                   }"
                 >
                   <view-icon />
@@ -37,10 +37,8 @@
                   <li
                     class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
                   >
-                    <medium>
-                      <strong>{{ index + 1 + ")" }} </strong>
-                      {{ statisticalMethod.description }}
-                    </medium>
+                    <strong>{{ index + 1 + ")" }} </strong>
+                    {{ statisticalMethod.description }}
                   </li>
                 </div>
               </span>
@@ -67,20 +65,20 @@ export default {
     statisticalMethods: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     indexLabel: {
       type: String,
       required: false,
-      default: () => ""
+      default: () => "",
     },
 
     descriptionLabel: {
       type: String,
       required: true,
-      default: () => ""
-    }
-  }
+      default: () => "",
+    },
+  },
 };
 </script>
 <style scoped>
