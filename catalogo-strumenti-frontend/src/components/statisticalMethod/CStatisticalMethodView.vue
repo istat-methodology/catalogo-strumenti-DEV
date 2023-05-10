@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-4">
         <div
-          v-for="(statisticalMethod,index) of statisticalMethods"
+          v-for="(statisticalMethod, index) of statisticalMethods"
           v-bind:key="statisticalMethod.id"
         >
           <div class="text-info center mt-2 mb-2">
@@ -21,7 +21,7 @@
                   tag="a"
                   :to="{
                     name: 'MethodDetails',
-                    params: { id: statisticalMethod.id },
+                    params: { id: statisticalMethod.id }
                   }"
                 >
                   <view-icon />
@@ -67,20 +67,20 @@ export default {
     statisticalMethods: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     indexLabel: {
       type: String,
       required: false,
-      default: () => "",
+      default: () => ""
     },
 
     descriptionLabel: {
       type: String,
       required: true,
-      default: () => "",
-    },
-  },
+      default: () => ""
+    }
+  }
 };
 </script>
 <style scoped>

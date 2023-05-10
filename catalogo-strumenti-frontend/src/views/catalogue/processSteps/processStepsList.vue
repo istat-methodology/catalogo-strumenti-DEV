@@ -89,7 +89,6 @@ import CTitle from "@/components/CTitle.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 
-
 //import CTableDetails from "@/components/CTableDetails.vue";
 export default {
   name: "ProcessStepsList",
@@ -100,7 +99,7 @@ export default {
     CBusinessProcessStepEdit,
     CTitle,
     CModalDelete,
-    CTableLink,
+    CTableLink
   },
   data() {
     return {
@@ -108,30 +107,30 @@ export default {
         {
           key: "id",
           label: "ID",
-          _style: "width:4%;",
+          _style: "width:4%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       details: [],
       setDetails: [],
@@ -144,15 +143,15 @@ export default {
         STEP_LIST: 4,
         STEP_EDIT: 5,
         STEP_NEW: 6,
-        STEP_VIEW: 7,
+        STEP_VIEW: 7
       },
-      stateform: 4,
+      stateform: 4
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("processSteps", ["processStepsList"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
   methods: {
     isItem(item) {
@@ -178,7 +177,7 @@ export default {
     handleBack() {
       this.$router.push({
         name: "Catalogue",
-        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
+        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm }
       });
     },
     handleNew() {
@@ -206,12 +205,12 @@ export default {
         this.selectedProcessStep.name +
         " selezionato?"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
     this.$store.dispatch("processSteps/findAll").catch(() => {});
     this.$store.dispatch("designtypes/findAll");
-  },
+  }
 };
 </script>

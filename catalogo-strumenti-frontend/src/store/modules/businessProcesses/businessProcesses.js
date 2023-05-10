@@ -3,7 +3,7 @@ import { businessProcessOpenService } from "@/services";
 
 const state = {
   bProcessList: [],
-  bProcess:{}
+  bProcess: {}
 };
 
 const mutations = {
@@ -25,7 +25,7 @@ const actions = {
         console.log(error);
       }
     );
-  }, 
+  },
   save({ commit, dispatch }, payload) {
     return businessProcessService
       .save(payload)

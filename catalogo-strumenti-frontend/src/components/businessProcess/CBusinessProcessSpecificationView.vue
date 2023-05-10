@@ -158,12 +158,12 @@ export default {
       type: Object,
       required: true,
       default: () => {}
-    },    
+    },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
     handleBack() {
@@ -180,7 +180,7 @@ export default {
       var dt = this.lDesignType[id];
       console.log(dt);
       return dt;
-    },
+    }
   },
   created() {
     this.lProcessDesign = this.pProcessDesign;

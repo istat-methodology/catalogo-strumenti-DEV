@@ -8,7 +8,7 @@
           pProcessStep.id +
           ') / ' +
           'Process Design (' +
-          pProcessDesignLocal.processDesign.id +
+          pProcessDesign.processDesign.id +
           ') / '
       "
       buttonTitle="view process design "
@@ -54,8 +54,7 @@ export default {
   },
   data() {
     return {
-      lProcessDesign: {},
-      processDesignLocal: {
+      lProcessDesign: {
         id: "",
         processDesign: {
           id: "",

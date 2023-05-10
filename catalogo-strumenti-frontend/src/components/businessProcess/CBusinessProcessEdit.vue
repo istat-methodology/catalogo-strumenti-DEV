@@ -62,7 +62,7 @@
               ><template #show_details="{ item }">
                 <CTableLink
                   :authenticated="isAuthenticated"
-                  @handleEdit="handleEdit(item)"
+                  @handleEdit="handleEditStep(item)"
                   @handleDelete="handleOpenModalDelete(item)"
                 />
               </template>
@@ -93,7 +93,7 @@ export default {
     //CBusinessProcessDesignNew,
     CTitle,
     CTableLink,
-    CModalDelete,
+    CModalDelete
   },
   data() {
     return {
@@ -101,30 +101,30 @@ export default {
         {
           key: "id",
           label: "id",
-          _style: "width:2%;",
+          _style: "width:2%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:10%;"
         },
         {
           key: "label",
           label: "etichetta",
-          _style: "width:40%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:40%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       lProcess: {},
       selectedProcessStep: {},
@@ -132,23 +132,23 @@ export default {
       FormState: {},
       stateform: 0,
       showModal: false,
-      closeModal: false,
+      closeModal: false
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   props: {
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
-    getProcessStepsList: function () {
+    getProcessStepsList: function() {
       if (this.lProcess && this.lProcess.processSteps) {
-        return this.lProcess.processSteps.map((step) => {
+        return this.lProcess.processSteps.map(step => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
@@ -159,13 +159,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map((instance) => {
+                    .map(instance => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns,
+            processDesigns: step.processDesigns
           };
         });
       } else {
@@ -198,11 +198,11 @@ export default {
       params.idProcess = this.pProcess.id;
       params.idStep = this.selectedProcessStep.id;
       this.$store.dispatch("bProcess/removeStep", params);
-    },
+    }
   },
   created() {
     this.lProcess = this.pProcess;
-  },
+  }
 };
 </script>
 <style scoped>

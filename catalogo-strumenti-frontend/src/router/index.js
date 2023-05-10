@@ -171,7 +171,7 @@ const routes = [
         meta: { authorize: [] }
       },
       */
-      
+
       /*****************************************************************************/
       {
         path: "catalogue/processsteps/",
@@ -179,7 +179,7 @@ const routes = [
         component: () =>
           import("../views/catalogue/processsteps/ProcessStepsList"),
         meta: { authorize: [] }
-      }, 
+      },
       /*****************************************************************************/
       {
         path: "catalogue/referenti",

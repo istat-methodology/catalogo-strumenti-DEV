@@ -18,7 +18,7 @@
                   tag="a"
                   :to="{
                     name: 'ToolDetails',
-                    params: { id: tool.id },
+                    params: { id: tool.id }
                   }"
                 >
                   <view-icon />
@@ -44,19 +44,19 @@ export default {
     tools: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     index: {
       type: String,
       required: false,
-      default: () => "",
+      default: () => ""
     },
     descriptionLabel: {
       type: String,
       required: false,
-      default: () => "",
-    },
-  },
+      default: () => ""
+    }
+  }
 };
 </script>
 <style scoped>

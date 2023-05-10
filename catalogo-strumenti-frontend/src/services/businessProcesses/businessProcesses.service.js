@@ -82,9 +82,6 @@ class BusinessProcessService extends AbstractService {
         throw err;
       });
   }
-
-
-
 }
 
 export const businessProcessService = new BusinessProcessService(

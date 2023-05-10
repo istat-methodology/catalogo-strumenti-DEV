@@ -158,8 +158,8 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessStepView",
   components: {
-      CBusinessProcessSpecificationView,
-      CTitle,
+    CBusinessProcessSpecificationView,
+    CTitle
   },
   data() {
     return {
@@ -167,34 +167,34 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;",
-        },
+          _style: "width:20%;"
+        }
         /*,
         {
           key: "show_details",
@@ -210,12 +210,12 @@ export default {
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0,
+        businessServiceId: 0
       },
       processDesignToSave: {
         id: 0,
         descr: "",
-        step: "",
+        step: ""
       },
 
       designTypeLocal: {},
@@ -226,52 +226,49 @@ export default {
       FormState: {
         STEP_VIEW: 40,
         PROCESS_DESIGN_VIEW: 10,
-        PROCESS_SPECIFICATION_VIEW: 20,
+        PROCESS_SPECIFICATION_VIEW: 20
       },
       stateform: 40,
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("processDesign", ["processDesign"]),
+    ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pPStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessDesign: function () {
-      if (
-        this.lProcessStep &&
-        this.lProcessStep.processDesigns
-      ) {
-        return this.lProcessStep.processDesigns.map((item) => {
+    getProcessDesign: function() {
+      if (this.lProcessStep && this.lProcessStep.processDesigns) {
+        return this.lProcessStep.processDesigns.map(item => {
           return {
             id: item.id,
             descr: item.descr,
-            processSpecification: item.processSpecification,
+            processSpecification: item.processSpecification
           };
         });
       } else {
         return [];
       }
     },
-    getProcessSpecification: function (processDesign) {
-      return processDesign.processSpecification.map((item) => {
+    getProcessSpecification: function(processDesign) {
+      return processDesign.processSpecification.map(item => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -282,18 +279,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent),
+                : this.getDesignType(item.designType.parent)
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type,
+            type: item.designType.parent == null ? "" : item.designType.type
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id,
-          },
+            businessServiceId: item.informationObject.businessService.id
+          }
         };
       });
     },
@@ -329,7 +326,7 @@ export default {
   created() {
     this.lProcessStep = this.pPStep;
     this.designTypeLocal = _.map(this.bDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

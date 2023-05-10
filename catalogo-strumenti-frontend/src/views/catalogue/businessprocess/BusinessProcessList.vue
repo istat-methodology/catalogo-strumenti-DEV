@@ -18,7 +18,7 @@
             />
             <CCard>
               <CCardBody>
-                <CDataTable                  
+                <CDataTable
                   :items="bProcessList"
                   :fields="fields"
                   column-filter
@@ -105,7 +105,7 @@
           </CCardBody>
         </CCard>
       </div>
-      <div v-if="stateform == FormState.VIEW_PROCESS">       
+      <div v-if="stateform == FormState.VIEW_PROCESS">
         <CBusinessProcessView
           :pProcess="selectedProcess"
           @enableBack="stateform = FormState.LIST_PROCESS"
@@ -122,7 +122,7 @@
           functionality="MODIFICA PROCESSO"
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"          
+          @handleSubmit="handleSubmit"
           @handleBack="stateform = FormState.LIST_PROCESS"
         />
         <CBusinessProcessEdit
@@ -135,11 +135,11 @@
         Visualizza Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_VIEW">
-        
-        <CBusinessProcessStepView v-if="selectedProcessStep"
+        <CBusinessProcessStepView
+          v-if="selectedProcessStep"
           :pProcess="bProcess"
           :pPStep="selectedProcessStep"
-          :pDesignType="designtypeList"          
+          :pDesignType="designtypeList"
           @enableBack="stateform = FormState.VIEW_PROCESS"
         />
       </div>
@@ -148,7 +148,8 @@
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
-        <CBusinessProcessStepEdit v-if="selectedProcessStep"
+        <CBusinessProcessStepEdit
+          v-if="selectedProcessStep"
           :pProcess="bProcess"
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
@@ -201,7 +202,7 @@ export default {
     CTitle,
     CModalDelete,
     CTableLink,
-    CTableDetails,
+    CTableDetails
   },
   data() {
     return {
@@ -217,7 +218,7 @@ export default {
         VIEW_PROCESS: 3,
         STEP_EDIT: 4,
         STEP_NEW: 5,
-        STEP_VIEW: 6,
+        STEP_VIEW: 6
       },
       stateform: 0,
       warningModal: false,
@@ -227,53 +228,53 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
       showModal: false,
       fields: [
         {
           key: "id",
           label: "ID",
-          _style: "width:4%;",
+          _style: "width:4%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "orderCode",
           label: "Order",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       details: [],
       setDetails: [],
       showDetails: true,
-      activeIndex: -1,
+      activeIndex: -1
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcess", "bProcessList"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
 
   methods: {
@@ -328,12 +329,11 @@ export default {
       this.stateform = this.FormState.VIEW_PROCESS;
     },
     handleBack() {
-    
-    this.$router.push({
-      name: "Catalogue",
-      params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
-    });
-  },
+      this.$router.push({
+        name: "Catalogue",
+        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm }
+      });
+    },
     handleOpenModalDelete(app) {
       this.selectedProcess = app;
       this.showModal = true;
@@ -365,15 +365,15 @@ export default {
 
       this.showModal = false;
     },
-    loadProcess: _.debounce(function () {
+    loadProcess: _.debounce(function() {
       this.$store.dispatch("bProcess/findAll");
-    }, 500),
+    }, 500)
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
     this.$store.dispatch("designtypes/findAll");
     this.loadProcess();
-  },
+  }
 };
 </script>
 <style scoped>
@@ -430,4 +430,3 @@ body {
   }
 }
 </style>
-

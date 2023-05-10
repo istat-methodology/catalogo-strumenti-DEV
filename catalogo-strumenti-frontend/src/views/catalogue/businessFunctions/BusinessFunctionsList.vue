@@ -58,34 +58,34 @@ export default {
         {
           key: "id",
           label: "ID",
-          _style: "width:4%;",
+          _style: "width:4%;"
         },
         {
           key: "gsbpm",
           label: "Gsbpm",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:50%;",
+          _style: "width:50%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       selectedBusinessFunction: {},
       showModal: false,
-      columnFilterValue: {},
+      columnFilterValue: {}
     };
   },
   computed: {
@@ -93,9 +93,9 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
 
-    getBusinessFunctionList: function () {
+    getBusinessFunctionList: function() {
       if (this.bFunctionList) {
-        return this.bFunctionList.map((business) => {
+        return this.bFunctionList.map(business => {
           return {
             id: business.id,
             name: business.name == null ? "" : business.name,
@@ -105,22 +105,23 @@ export default {
               business.gsbpmProcesses == null
                 ? ""
                 : business.gsbpmProcesses
-                    .map((gsbpmProcess) => {
+                    .map(gsbpmProcess => {
                       return gsbpmProcess.code + " " + gsbpmProcess.name;
                     })
-                    .join(", "),
+                    .join(", ")
           };
         });
       } else {
         return [];
       }
-    },
+    }
   },
   mounted() {
-    if(this.$route.params.gsbpm){    
-    this.columnFilterValue = {
-      gsbpm: this.$route.params.gsbpm.code  
-    }}
+    if (this.$route.params.gsbpm) {
+      this.columnFilterValue = {
+        gsbpm: this.$route.params.gsbpm.code
+      };
+    }
   },
   methods: {
     handleOpenModalDelete(app) {
@@ -131,22 +132,21 @@ export default {
       this.$router.push({ name: "BusinessFunctionsAdd" });
     },
     handleBack() {
-    
       this.$router.push({
         name: "Catalogue",
-        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
+        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm }
       });
     },
     handleView(item) {
       this.$router.push({
         name: "BusinessFunctionsDetails",
-        params: { id: item.id },
+        params: { id: item.id }
       });
     },
     handleEdit(item) {
       this.$router.push({
         name: "BusinessFunctionsEdit",
-        params: { id: item.id },
+        params: { id: item.id }
       });
     },
     handleDelete() {
@@ -165,13 +165,12 @@ export default {
         this.selectedBusinessFunction.name +
         " selezionata?"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessFunctionSession);
     //this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
     this.$store.dispatch("bFunction/findAll");
-    
-  },
+  }
 };
 </script>

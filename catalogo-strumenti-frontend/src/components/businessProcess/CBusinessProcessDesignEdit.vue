@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       processDesignLocal: {}
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"])

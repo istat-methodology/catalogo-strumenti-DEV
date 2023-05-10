@@ -69,7 +69,7 @@
     <div v-if="stateform == FormState.VIEW_PROCESS">
       <h2>Processo</h2>
       <div v-if="selectedEditProcess">
-        <CViewProcess          
+        <CViewProcess
           :bProcess="selectedEditProcess"
           @enableShowStep="showViewStep"
           @enableBack="stateform = FormState.LIST_PROCESS"
@@ -101,7 +101,7 @@ export default {
   name: "CListProcess",
   components: {
     CViewProcess,
-    CViewStep,
+    CViewStep
   },
   data() {
     return {
@@ -114,7 +114,7 @@ export default {
       FormState: {
         LIST_PROCESS: 0,
         VIEW_PROCESS: 1,
-        VIEW_STEP: 4,
+        VIEW_STEP: 4
       },
       stateform: 0,
       warningModal: false,
@@ -124,14 +124,14 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
   emits: ["refreshBProcess"],
 
@@ -139,8 +139,8 @@ export default {
     businessProcesses: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
     selectId(e) {
@@ -160,11 +160,11 @@ export default {
     },
     handleBack() {
       this.$router.back();
-    },
+    }
   },
   created() {
     this.$store.dispatch("designtypes/findAll");
-  },
+  }
 };
 </script>
 <style scoped>

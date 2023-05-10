@@ -302,28 +302,28 @@ export default {
     handleAddSubmit() {
       //this.$v.$touch();
       //if (!this.$v.documentationLocal.$invalid) {
-        console.log(this.selectedDocId);
-        let params = { id: 0, docID: 0 };
+      console.log(this.selectedDocId);
+      let params = { id: 0, docID: 0 };
 
-        if (this.selectedDocId) {
-          if (this.toolId) {
-            params.id = this.toolId;
-            params.docID = this.selectedDocId;
-            this.$store
-              .dispatch("tools/addDocumentation", params)
-              .then(this.$emit("updateParent"));
-            this.stateform = this.FormState.LIST;
-          }
-
-          if (this.methodId) {
-            params.id = this.methodId;
-            params.docID = this.selectedDocId;
-            this.$store
-              .dispatch("methods/addDocumentation", params)
-              .then(this.$emit("updateParent"));
-            this.stateform = this.FormState.LIST;
-          }
+      if (this.selectedDocId) {
+        if (this.toolId) {
+          params.id = this.toolId;
+          params.docID = this.selectedDocId;
+          this.$store
+            .dispatch("tools/addDocumentation", params)
+            .then(this.$emit("updateParent"));
+          this.stateform = this.FormState.LIST;
         }
+
+        if (this.methodId) {
+          params.id = this.methodId;
+          params.docID = this.selectedDocId;
+          this.$store
+            .dispatch("methods/addDocumentation", params)
+            .then(this.$emit("updateParent"));
+          this.stateform = this.FormState.LIST;
+        }
+      }
       //}
     },
     handleNewSubmit() {

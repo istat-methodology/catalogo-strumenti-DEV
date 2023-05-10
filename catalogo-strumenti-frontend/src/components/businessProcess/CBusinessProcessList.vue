@@ -50,9 +50,7 @@
                       <span v-if="process.processSteps">
                         <div class="d-flex flex-wrap">
                           <ol
-                            v-for="(
-                              processStep, index
-                            ) of process.processSteps"
+                            v-for="(processStep, index) of process.processSteps"
                             :key="processStep.id"
                           >
                             <li
@@ -173,7 +171,6 @@
         />
         <div v-if="selectedProcess">
           <CBusinessProcessEdit
-          
             :pProcess="selectedProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
@@ -186,7 +183,7 @@
       <div v-if="stateform == FormState.STEP_EDIT">
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
-          :pProcess="selectedProcess"
+            :pProcess="selectedProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
             @enableBack="stateform = FormState.EDIT"
@@ -198,7 +195,7 @@
       -->
       <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
-        :pProcess="selectedProcess"
+          :pProcess="selectedProcess"
           :pPStep="selectedEditStep"
           :pDesignType="designtypeList"
           @enableBack="stateform = FormState.EDIT"
@@ -227,7 +224,7 @@ export default {
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -236,7 +233,7 @@ export default {
       selectedEditStep: {},
       selectedEditStepId: null,
       selectedProcessDesign: {},
-      selectedProcessDesignId:null,
+      selectedProcessDesignId: null,
       states: [],
       FormState: {
         LIST: 0,
@@ -244,7 +241,7 @@ export default {
         NEW: 2,
         ADD: 3,
         STEP_EDIT: 4,
-        STEP_NEW: 5,
+        STEP_NEW: 5
       },
       stateform: 0,
       warningModal: false,
@@ -254,16 +251,16 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcessList"]),
     ...mapGetters("filter", ["params"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
   emits: ["refreshProcess"],
 
@@ -271,18 +268,18 @@ export default {
     pFunctionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     pFunctionName: {
       type: String,
       required: true,
-      default: null,
+      default: null
     },
     pProcesses: {
       type: Array,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     /*changeProcess(value) {
@@ -358,12 +355,12 @@ export default {
         this.selectedProcess.id +
         "]"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
     this.$store.dispatch("designtypes/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
