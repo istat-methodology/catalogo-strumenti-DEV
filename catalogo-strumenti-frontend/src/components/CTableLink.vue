@@ -11,9 +11,9 @@
       </span>
     </td>
     <td v-if="authenticated && !isItem">
-      <button class="icon-link" @click="handleDelete"
+      <span class="icon-link" @click="handleDelete"
         ><delete-icon title="Elimina" class="text-info" />
-    </button>
+      </span>
     </td>
     <td v-if="authenticated && showDetails && isItem">
       <span class="icon-link" @click="handleDetails">...</span>
