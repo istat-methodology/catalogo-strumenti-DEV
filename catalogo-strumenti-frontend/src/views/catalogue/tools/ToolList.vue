@@ -125,9 +125,11 @@ export default {
     }
   },
   mounted() {
-    this.columnFilterValue = {
-      gsbpm: this.$route.params.gsbpm.code
-    };
+    if (this.$route.params.gsbpm) {
+      this.columnFilterValue = {
+        gsbpm: this.$route.params.gsbpm.code
+      };
+    }
   },
   methods: {
     handleOpenModalDelete(app) {

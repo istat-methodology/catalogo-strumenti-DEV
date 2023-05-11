@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-4">
         <div
-          v-for="(statisticalMethod,index) of statisticalMethods"
+          v-for="(statisticalMethod, index) of statisticalMethods"
           v-bind:key="statisticalMethod.id"
         >
           <div class="text-info center mt-2 mb-2">
@@ -37,10 +37,8 @@
                   <li
                     class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
                   >
-                    <medium>
-                      <strong>{{ index + 1 + ")" }} </strong>
-                      {{ statisticalMethod.description }}
-                    </medium>
+                    <strong>{{ index + 1 + ")" }} </strong>
+                    {{ statisticalMethod.description }}
                   </li>
                 </div>
               </span>

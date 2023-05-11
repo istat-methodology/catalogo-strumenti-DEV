@@ -3,7 +3,7 @@ import { businessProcessOpenService } from "@/services";
 
 const state = {
   bProcessList: [],
-  bProcess:{}
+  bProcess: {}
 };
 
 const mutations = {
@@ -25,12 +25,6 @@ const actions = {
         console.log(error);
       }
     );
-  },
-  addStepToProcess(){
-
-
-
-
   },
   save({ commit, dispatch }, payload) {
     return businessProcessService
@@ -86,6 +80,32 @@ const actions = {
       .then(() => {
         dispatch("findAll");
         dispatch("message/success", "Business Process eliminato!");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  addStep({ commit, dispatch }, params) {
+    return businessProcessService
+      .addStep(params.idProcess, params.idStep)
+      .then(data => {
+        commit("SET_PROCESS", data);
+        dispatch("message/success", "Step inserito nel Business Process!", {
+          root: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  removeStep({ commit, dispatch }, params) {
+    return businessProcessService
+      .removeStep(params.idProcess, params.idStep)
+      .then(data => {
+        commit("SET_PROCESS", data);
+        dispatch("message/success", "Step Eliminato dal Business Process!", {
+          root: true
+        });
       })
       .catch(err => {
         console.log(err);

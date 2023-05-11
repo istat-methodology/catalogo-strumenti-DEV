@@ -1,15 +1,14 @@
 <template>
   <div v-if="bProcessLocal">
-
     <CTitle
-        :title="bProcessLocal.name"
-        :buttonTitle="' processo '"
-        functionality=""
-        :authenticated="isAuthenticated"
-        :buttons="['indietro']"
-        @handleBack="handleBack"
-      />
-      <div class="row p-2">
+      :title="bProcessLocal.name"
+      :buttonTitle="' processo '"
+      functionality=""
+      :authenticated="isAuthenticated"
+      :buttons="['indietro']"
+      @handleBack="handleBack"
+    />
+    <div class="row p-2">
       <div class="card col-1 p-3">
         <span class="p-2"><strong>id</strong></span>
         <div class="card-slot pl-2">
@@ -23,8 +22,8 @@
         </div>
       </div>
       <div class="card col-5 p-3">
-          <span class="p-2"><strong>Etichetta</strong></span>
-          <div class="card-slot pl-2">
+        <span class="p-2"><strong>Etichetta</strong></span>
+        <div class="card-slot pl-2">
           <span> {{ bProcessLocal.label }}</span>
         </div>
       </div>
@@ -43,11 +42,11 @@
     </div>
 
     <CTitle
-        title="Passi"
-        :buttonTitle="''"
-        functionality=""
-        :authenticated="isAuthenticated"
-      />
+      title="Passi"
+      :buttonTitle="''"
+      functionality=""
+      :authenticated="isAuthenticated"
+    />
     <div class="row">
       <CCard class="col-12">
         <CCardBody>
@@ -81,59 +80,59 @@ import CTitle from "@/components/CTitle.vue";
 
 export default {
   name: "CBusinessProcessEdit",
-  components: {CTitle},
+  components: { CTitle },
   data() {
     return {
       fields: [
         {
           key: "id",
           label: "id",
-          _style: "width:2%;",
+          _style: "width:2%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "label",
           label: "etichetta",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       bProcessLocal: {},
       states: [],
       FormState: {},
       stateform: 0,
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   props: {
     bProcess: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
-    getProcessStepsList: function () {
+    getProcessStepsList: function() {
       if (this.bProcessLocal && this.bProcessLocal.processSteps) {
-        return this.bProcessLocal.processSteps.map((step) => {
+        return this.bProcessLocal.processSteps.map(step => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
@@ -144,13 +143,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map((instance) => {
+                    .map(instance => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns,
+            processDesigns: step.processDesigns
           };
         });
       } else {
@@ -163,11 +162,11 @@ export default {
     },
     handleBack() {
       this.$emit("enableBack");
-    },
+    }
   },
   created() {
     this.bProcessLocal = this.bProcess;
-  },
+  }
 };
 </script>
 <style scoped>

@@ -27,7 +27,7 @@
                   tag="a"
                   :to="{
                     name: 'BusinessFunctionsDetails',
-                    params: { id: businessFunction.id },
+                    params: { id: businessFunction.id }
                   }"
                 >
                   <view-icon />
@@ -52,9 +52,9 @@ export default {
     businessFunctions: {
       type: Array,
       required: true,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 <style scoped>

@@ -58,6 +58,30 @@ class BusinessProcessService extends AbstractService {
         throw err;
       });
   }
+  addStep(idProcess, idStep) {
+    return axiosCatalog
+      .put(this.endpoint + "/" + idProcess + "/steps/" + idStep)
+      .then(res => {
+        var data = res.data ? res.data : [];
+
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+  removeStep(idProcess, idStep) {
+    return axiosCatalog
+      .put(this.endpoint + "/" + idProcess + "/steps/" + idStep)
+      .then(res => {
+        var data = res.data ? res.data : [];
+
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 }
 
 export const businessProcessService = new BusinessProcessService(

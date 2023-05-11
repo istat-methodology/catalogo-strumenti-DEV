@@ -1,13 +1,13 @@
 <template>
   <div v-if="pDesignType">
-    <div v-if="stateform == FormState.STEP_EDIT">
+    <div v-if="stateform == FormState.STEP_VIEW">
       <CTitle
         :title="lProcessStep.name"
         :buttonTitle="' passo '"
-        functionality=""
+        functionality="DETTAGLIO PASSO"
         :authenticated="isAuthenticated"
         :buttons="['indietro']"
-        @handleBack="enableBack"
+        @handleBack="handleBack"
       />
 
       <div class="row p-2">
@@ -144,7 +144,7 @@
         :pProcessDesign="selectedProcessDesign"
         :pProcessSpecification="selectedProcessSpecification"
         :pDesignType="pDesignType"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="enableBack"
       />
     </div>
   </div>
@@ -158,8 +158,8 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessStepView",
   components: {
-      CBusinessProcessSpecificationView,
-      CTitle,
+    CBusinessProcessSpecificationView,
+    CTitle
   },
   data() {
     return {
@@ -167,34 +167,34 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;",
-        },
+          _style: "width:20%;"
+        }
         /*,
         {
           key: "show_details",
@@ -210,12 +210,12 @@ export default {
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0,
+        businessServiceId: 0
       },
       processDesignToSave: {
         id: 0,
         descr: "",
-        step: "",
+        step: ""
       },
 
       designTypeLocal: {},
@@ -224,54 +224,51 @@ export default {
       selectedProcessSpecification: {},
 
       FormState: {
-        STEP_EDIT: 4,
+        STEP_VIEW: 40,
         PROCESS_DESIGN_VIEW: 10,
-        PROCESS_DESIGN_NEW: 11,
-        PROCESS_DESIGN_EDIT: 12,
-
-        PROCESS_SPECIFICATION_VIEW: 20,
-        PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22,
+        PROCESS_SPECIFICATION_VIEW: 20
       },
-      stateform: 4,
-      warningModal: false,
+      stateform: 40,
+      warningModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("processDesign", ["processDesign"]),
+    ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
+    pProcess: {
+      type: Object,
+      required: true,
+      default: () => {}
+    },
     pPStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessDesign: function () {
-      if (
-        this.lProcessStep &&
-        this.lProcessStep.processDesigns
-      ) {
-        return this.lProcessStep.processDesigns.map((item) => {
+    getProcessDesign: function() {
+      if (this.lProcessStep && this.lProcessStep.processDesigns) {
+        return this.lProcessStep.processDesigns.map(item => {
           return {
             id: item.id,
             descr: item.descr,
-            processSpecification: item.processSpecification,
+            processSpecification: item.processSpecification
           };
         });
       } else {
         return [];
       }
     },
-    getProcessSpecification: function (processDesign) {
-      return processDesign.processSpecification.map((item) => {
+    getProcessSpecification: function(processDesign) {
+      return processDesign.processSpecification.map(item => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -282,18 +279,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent),
+                : this.getDesignType(item.designType.parent)
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type,
+            type: item.designType.parent == null ? "" : item.designType.type
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id,
-          },
+            businessServiceId: item.informationObject.businessService.id
+          }
         };
       });
     },
@@ -304,15 +301,7 @@ export default {
       return dt;
     },
     /* Process Step */
-    handleSubmit() {
-      this.processStepToSave.id = this.lProcessStep.id;
-      this.processStepToSave.name = this.lProcessStep.name;
-      this.processStepToSave.label = this.lProcessStep.label;
-      this.processStepToSave.descr = this.lProcessStep.descr;
-      this.processStepToSave.businessServiceId = 999; //(this.lProcessStep.businessService.id==null) ? 999: this.lProcessStep.businessService.id;
-      this.$store.dispatch("procStep/update", this.processStepToSave); //.then(() => {  alert(this.lProcessStep())});
-    },
-    enableBack() {
+    handleBack() {
       this.$emit("enableBack");
     },
     /* Process Design */
@@ -324,66 +313,20 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-    handleSubmitNewProcessDesign(processDesign) {
-      this.processDesignToSave.descr = processDesign.descr;
-      this.processDesignToSave.step = this.lProcessStep.id;
-      this.$store.dispatch("processDesign/save", this.processDesignToSave);
-    },
-    handleSubmitEditProcessDesign(processDesign) {
-      this.processDesignToSave.id = processDesign.id;
-      this.processDesignToSave.descr = processDesign.descr;
-      this.processDesignToSave.step = this.lProcessStep.id;
-      this.$store.dispatch("processDesign/update", this.processDesignToSave);
-    },
-    handleSubmitDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
-    },
-    handleOpenModalDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
-    },
-    showEditProcessSpecification(processDesign, processDesignSpecification) {
-      this.selectedProcessDesign = processDesign;
-      this.selectedProcessSpecification = processDesignSpecification;
-      this.stateform = this.FormState.PROCESS_SPECIFICATION_EDIT;
-    },
     showViewProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_SPECIFICATION_VIEW;
     },
-    showNewProcessSpecification(processDesign, processDesignSpecification) {
-      this.selectedProcessDesign = processDesign;
-      this.selectedProcessSpecification = processDesignSpecification;
-      this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
-    },
-    /* Process Specification */
-    handleSubmitNewProcessSpecification() {
-      console.log("funzione new process specification non attiva!");
-      alert("funzione new process specification non attiva!");
-    },
-    handleSubmitEditProcessSpecification() {
-      console.log("funzione edit process specification non attiva!");
-      alert("funzione edit process specification non attiva!");
-    },
     handleSubmitViewProcessSpecification() {
       console.log("funzione View process specification non attiva!");
       alert("funzione View process specification non attiva!");
-    },
-    handleSubmitDeleteProcessSpecification() {
-      console.log("funzione delete process specification non attiva!");
-      alert("funzione delete process specification non attiva!");
-    },
-    handleOpenModalDeleteProcessSpecification() {
-      console.log("funzione delete process specification non attiva!");
-      alert("funzione delete process specification non attiva!");
-    },
+    }
   },
   created() {
     this.lProcessStep = this.pPStep;
     this.designTypeLocal = _.map(this.bDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

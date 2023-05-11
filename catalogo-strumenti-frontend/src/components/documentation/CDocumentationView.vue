@@ -28,7 +28,7 @@
                   tag="a"
                   :to="{
                     name: 'DocumentationDetails',
-                    params: { id: documentation.id },
+                    params: { id: documentation.id }
                   }"
                 >
                   <view-icon />
@@ -53,19 +53,19 @@ export default {
     documentations: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     index: {
       type: String,
       required: true,
-      default: () => "",
+      default: () => ""
     },
     descriptionLabel: {
       type: String,
       required: true,
-      default: () => "",
-    },
-  },
+      default: () => ""
+    }
+  }
 };
 </script>
 <style scoped>

@@ -109,7 +109,7 @@ var _ = require("lodash");
 export default {
   name: "CViewStep",
   components: {
-    CTitle,
+    CTitle
   },
 
   data() {
@@ -118,34 +118,34 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;",
-        },
+          _style: "width:20%;"
+        }
         /*,
         {
           key: "show_details",
@@ -161,12 +161,12 @@ export default {
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0,
+        businessServiceId: 0
       },
       processDesignToSave: {
         id: 0,
         descr: "",
-        step: "",
+        step: ""
       },
 
       designTypeLocal: {},
@@ -182,47 +182,44 @@ export default {
 
         PROCESS_SPECIFICATION_VIEW: 20,
         PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22,
+        PROCESS_SPECIFICATION_EDIT: 22
       },
       stateform: 4,
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("processDesign", ["processDesign"]),
+    ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
     bPStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     bDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessDesign: function () {
-      if (
-        this.processStepLocal &&
-        this.processStepLocal.processDesigns
-      ) {
-        return this.processStepLocal.processDesigns.map((item) => {
+    getProcessDesign: function() {
+      if (this.processStepLocal && this.processStepLocal.processDesigns) {
+        return this.processStepLocal.processDesigns.map(item => {
           return {
             id: item.id,
             descr: item.descr,
-            processSpecification: item.processSpecification,
+            processSpecification: item.processSpecification
           };
         });
       } else {
         return [];
       }
     },
-    getProcessSpecification: function (processDesign) {
-      return processDesign.processSpecification.map((item) => {
+    getProcessSpecification: function(processDesign) {
+      return processDesign.processSpecification.map(item => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -233,18 +230,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent),
+                : this.getDesignType(item.designType.parent)
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type,
+            type: item.designType.parent == null ? "" : item.designType.type
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id,
-          },
+            businessServiceId: item.informationObject.businessService.id
+          }
         };
       });
     },
@@ -256,12 +253,12 @@ export default {
     },
     enableBack() {
       this.$emit("enableBack");
-    },
+    }
   },
   created() {
     this.processStepLocal = this.bPStep;
     this.designTypeLocal = _.map(this.bDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

@@ -3,16 +3,16 @@
     <CTitle
       :title="
         'Process Step ' +
-        pProcessStep.name +
-        ' (' +
-        pProcessStep.id +
-        ') / ' +
-        'Process Design (' +
-        pProcessDesign.id +
-        ') / ' +
-        'Process Specification (' +
-        pProcessSpecification.id +
-        ') '
+          pProcessStep.name +
+          ' (' +
+          pProcessStep.id +
+          ') / ' +
+          'Process Design (' +
+          pProcessDesign.id +
+          ') / ' +
+          'Process Specification (' +
+          pProcessSpecification.id +
+          ') '
       "
       buttonTitle="view process design "
       functionality=""
@@ -104,7 +104,7 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessDesignEdit",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -113,17 +113,17 @@ export default {
         id: "",
         processDesign: {
           id: "",
-          descr: "",
+          descr: ""
         },
         designType_Tipo_IO: {
           id: "",
           type: "",
-          parent: "",
+          parent: ""
         },
         designType_Dati_IO: {
           id: "",
           type: "",
-          parent: "",
+          parent: ""
         },
         informationObject: {
           id: "",
@@ -133,61 +133,61 @@ export default {
           businessService: {
             id: "",
             name: "",
-            descr: "",
-          },
-        },
+            descr: ""
+          }
+        }
       },
       processSpecificationToSave: {
         id: "",
         processDesign: {
           id: "",
-          descr: "",
+          descr: ""
         },
         designType: {
           id: "",
           type: "",
-          parent: "",
+          parent: ""
         },
         informationObject: {
           id: "",
           name: "",
-          descr: "",
+          descr: ""
           //csmAppRoleId: "",
           //businessService: {
           //  id: "",
           //  name: "",
           //  descr: "",
           //},
-        },
-      },
+        }
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
   },
   //emits: ["enableEditProcessDesign"],
   props: {
     pProcessStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pProcessDesign: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pProcessSpecification: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
     handleSubmit() {
@@ -195,35 +195,25 @@ export default {
 
       this.processSpecificationToSave.processDesign.id = this.pProcessDesign.id;
 
-      this.processSpecificationToSave.processDesign.descr =
-        this.pProcessDesign.descr;
+      this.processSpecificationToSave.processDesign.descr = this.pProcessDesign.descr;
 
       if (this.lProcessSpecification.designType_Dati_IO.type == "") {
-        this.processSpecificationToSave.designType.id =
-          this.lProcessSpecification.designType_Tipo_IO.id;
-        this.processSpecificationToSave.designType.type =
-          this.lProcessSpecification.designType_Tipo_IO.type;
+        this.processSpecificationToSave.designType.id = this.lProcessSpecification.designType_Tipo_IO.id;
+        this.processSpecificationToSave.designType.type = this.lProcessSpecification.designType_Tipo_IO.type;
         this.processSpecificationToSave.designType.parent = "";
       } else {
-        this.processSpecificationToSave.designType.id =
-          this.lProcessSpecification.designType_Dati_IO.id;
-        this.processSpecificationToSave.designType.type =
-          this.lProcessSpecification.designType_Dati_IO.type;
-        this.processSpecificationToSave.designType.parent =
-          this.lProcessSpecification.designType_Tipo_IO.id;
+        this.processSpecificationToSave.designType.id = this.lProcessSpecification.designType_Dati_IO.id;
+        this.processSpecificationToSave.designType.type = this.lProcessSpecification.designType_Dati_IO.type;
+        this.processSpecificationToSave.designType.parent = this.lProcessSpecification.designType_Tipo_IO.id;
       }
 
-      this.processSpecificationToSave.informationObject.id =
-        this.lProcessSpecification.informationObject.id;
+      this.processSpecificationToSave.informationObject.id = this.lProcessSpecification.informationObject.id;
 
-      this.processSpecificationToSave.informationObject.name =
-        this.lProcessSpecification.informationObject.name;
+      this.processSpecificationToSave.informationObject.name = this.lProcessSpecification.informationObject.name;
 
-      this.processSpecificationToSave.informationObject.descr =
-        this.lProcessSpecification.informationObject.descr;
+      this.processSpecificationToSave.informationObject.descr = this.lProcessSpecification.informationObject.descr;
 
-      this.processSpecificationToSave.informationObject.csmAppRoleId =
-        this.lProcessSpecification.informationObject.csmAppRoleId;
+      this.processSpecificationToSave.informationObject.csmAppRoleId = this.lProcessSpecification.informationObject.csmAppRoleId;
       /*
       this.processSpecificationToSave.informationObject.businessService.id =
         this.lProcessSpecification.informationObject.businessService.id;
@@ -245,21 +235,25 @@ export default {
     changeDesignTypeListByParent(event) {
       var id = event.target.value;
       alert("id 1 =" + id);
-      this.lProcessSpecification.designType_Tipo_IO.id= id;
-      this.lProcessSpecification.designType_Tipo_IO.type = this.getDesignType(id);
+      this.lProcessSpecification.designType_Tipo_IO.id = id;
+      this.lProcessSpecification.designType_Tipo_IO.type = this.getDesignType(
+        id
+      );
       this.lProcessSpecification.designType_Tipo_IO.parent = "";
       this.lProcessSpecification.designType_Dati_IO.id = "";
       this.lProcessSpecification.designType_Dati_IO.type = "";
       this.lProcessSpecification.designType_Dati_IO.parent = "";
 
-      this.$store.dispatch("designtypes/findByParent", id);      
+      this.$store.dispatch("designtypes/findByParent", id);
       console.log(this.processSpecificationToSave);
     },
     onChangeDesignType_Data_IO(event) {
       var id = event.target.value;
       alert("id 2 =" + id);
       this.lProcessSpecification.designType_Dati_IO.id = id;
-      this.lProcessSpecification.designType_Dati_IO.type = this.getDesignType(id);
+      this.lProcessSpecification.designType_Dati_IO.type = this.getDesignType(
+        id
+      );
       this.lProcessSpecification.designType_Dati_IO.parent = this.lProcessSpecification.designType_Tipo_IO.id;
       console.log(this.processSpecificationToSave);
     },
@@ -268,7 +262,7 @@ export default {
       var dt = this.lDesignType[id];
       console.log(dt);
       return dt;
-    },
+    }
   },
   created() {
     this.lProcessDesign = this.pProcessDesign;
@@ -279,7 +273,7 @@ export default {
       parseInt(parseInt(this.lProcessSpecification.designType_Tipo_IO.id))
     );
     this.lDesignType = _.map(this.pDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

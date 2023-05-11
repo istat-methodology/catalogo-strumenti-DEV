@@ -1,5 +1,13 @@
 <template>
   <div>
+    <CTitle
+      :title="lProcess.name"
+      :buttonTitle="lProcess.name"
+      functionality="DETTAGLIO PROCESSO"
+      :authenticated="isAuthenticated"
+      :buttons="['indietro']"
+      @handleBack="handleBack"
+    />
     <div v-if="lProcess">
       <div class="row p-2">
         <div class="card col p-3">
@@ -68,7 +76,7 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessView",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -76,47 +84,47 @@ export default {
         {
           key: "name",
           label: "Nome",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "label",
           label: "etichetta",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:40%;",
+          _style: "width:40%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       lProcess: {},
       states: [],
       FormState: {},
       stateform: 0,
-      warningModal: false,
+      warningModal: false
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   props: {
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
-    getProcessStepsList: function () {
+    getProcessStepsList: function() {
       if (this.lProcess && this.lProcess.processSteps) {
-        return this.lProcess.processSteps.map((step) => {
+        return this.lProcess.processSteps.map(step => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
@@ -127,13 +135,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map((instance) => {
+                    .map(instance => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns,
+            processDesigns: step.processDesigns
           };
         });
       } else {
@@ -141,17 +149,17 @@ export default {
       }
     },
     handleBack() {
-      this.$router.back();
+      this.$emit("enableBack");
     },
-   
+
     handleShowStep(step) {
       this.$emit("enableShowStep", step);
-    },
+    }
   },
 
   created() {
     this.lProcess = this.pProcess;
-  },
+  }
 };
 </script>
 <style scoped>

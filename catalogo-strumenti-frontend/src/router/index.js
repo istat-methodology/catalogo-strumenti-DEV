@@ -162,6 +162,7 @@ const routes = [
           import("../views/catalogue/businessprocess/BusinessProcessList"),
         meta: { authorize: [] }
       },
+      /*
       {
         path: "catalogue/businessprocess/details/:id",
         name: "BusinessProcessDetails",
@@ -169,35 +170,14 @@ const routes = [
           import("../views/catalogue/businessprocess/BusinessProcessDetails"),
         meta: { authorize: [] }
       },
-      
+      */
+
       /*****************************************************************************/
       {
         path: "catalogue/processsteps/",
         name: "ProcessStepsList",
         component: () =>
           import("../views/catalogue/processsteps/ProcessStepsList"),
-        meta: { authorize: [] }
-      },
-
-      {
-        path: "catalogue/processsteps/Add/",
-        name: "ProcessStepsAdd",
-        component: () =>
-          import("../views/catalogue/processsteps/ProcessStepsAdd"),
-        meta: { authorize: [] }
-      },
-      {
-        path: "catalogue/processsteps/edit/",
-        name: "ProcessStepsEdit",
-        component: () =>
-          import("../views/catalogue/processsteps/ProcessStepsEdit"),
-        meta: { authorize: [] }
-      },      
-      {
-        path: "catalogue/processsteps/details/",
-        name: "ProcessStepsDetails",
-        component: () =>
-          import("../views/catalogue/processsteps/ProcessStepsDetails"),
         meta: { authorize: [] }
       },
       /*****************************************************************************/

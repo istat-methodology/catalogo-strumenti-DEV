@@ -53,10 +53,10 @@ export default {
   data() {
     return {
       lProcessDesign: {
-        id:"",
-        descr:""
+        id: "",
+        descr: ""
       }
-    }
+    };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"])

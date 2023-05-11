@@ -4,7 +4,7 @@
       <CTitle
         :title="lProcessStep.name"
         :buttonTitle="' passo '"
-        functionality="MODIFICA"
+        functionality="MODIFICA PASSO"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
@@ -53,8 +53,7 @@
       />
       <div
         v-if="
-          lProcessStep.processDesigns &&
-          lProcessStep.processDesigns.length > 0
+          lProcessStep.processDesigns && lProcessStep.processDesigns.length > 0
         "
       >
         <div
@@ -176,7 +175,7 @@
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
         :pProcessSpecification="selectedProcessSpecification"
-        :pDesignType="bDesignType"
+        :pDesignType="pDesignType"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -187,8 +186,8 @@
       <CBusinessProcessSpecificationNew
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
-        :pProcessSpecification="selectedProcessSpecification"     
-        :pDesignType="bDesignType"
+        :pProcessSpecification="selectedProcessSpecification"
+        :pDesignType="pDesignType"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -200,7 +199,7 @@
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
         :pProcessSpecification="selectedProcessSpecification"
-        :pDesignType="pDesignType"       
+        :pDesignType="pDesignType"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -236,7 +235,7 @@ export default {
     CBusinessProcessSpecificationEdit,
     CTableLink,
     CModalDelete,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -244,41 +243,41 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
 
       processStepToSave: {
@@ -286,12 +285,12 @@ export default {
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0,
+        businessServiceId: 0
       },
       processDesignToSave: {
         id: 0,
         descr: "",
-        step: "",
+        step: ""
       },
 
       lDesignType: {},
@@ -307,48 +306,50 @@ export default {
 
         PROCESS_SPECIFICATION_VIEW: 20,
         PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22,
+        PROCESS_SPECIFICATION_EDIT: 22
       },
       stateform: 4,
-      showModal:false,
-      msg: "",
+      showModal: false,
+      msg: ""
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("processDesign", ["processDesign"]),
+    ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
+    pProcess: {
+      type: Object,
+      required: true,
+      default: () => {}
+    },
     pPStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessDesign: function () {
-      if (
-        this.lProcessStep &&
-        this.lProcessStep.processDesigns.length > 0
-      ) {
-        return this.lProcessStep.processDesigns.map((item) => {
+    getProcessDesign: function() {
+      if (this.lProcessStep && this.lProcessStep.processDesigns.length > 0) {
+        return this.lProcessStep.processDesigns.map(item => {
           return {
             id: item.id,
             descr: item.descr,
-            processSpecification: item.processSpecification,
+            processSpecification: item.processSpecification
           };
         });
       } else {
         return [];
       }
     },
-    getProcessSpecification: function (processDesign) {
-      return processDesign.processSpecification.map((item) => {
+    getProcessSpecification: function(processDesign) {
+      return processDesign.processSpecification.map(item => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -359,18 +360,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent),
+                : this.getDesignType(item.designType.parent)
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type,
+            type: item.designType.parent == null ? "" : item.designType.type
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id,
-          },
+            businessServiceId: item.informationObject.businessService.id
+          }
         };
       });
     },
@@ -387,7 +388,7 @@ export default {
       this.processStepToSave.label = this.lProcessStep.label;
       this.processStepToSave.descr = this.lProcessStep.descr;
       this.processStepToSave.businessServiceId = 999;
-      this.$store.dispatch("procSteps/update", this.processStepToSave);
+      this.$store.dispatch("processSteps/update", this.processStepToSave);
     },
     enableBack() {
       this.$emit("enableBack");
@@ -414,16 +415,19 @@ export default {
     },
 
     handleDeleteProcessDesign() {
-      this.$store.dispatch("processDesign/delete", this.selectedProcessDesign.id);
+      this.$store.dispatch(
+        "processDesign/delete",
+        this.selectedProcessDesign.id
+      );
       this.showModal = false;
     },
     handleDeleteProcessStep() {
       this.$store
-        .dispatch("procSteps/delete", this.selectedProcessStep.id)
+        .dispatch("processSteps/delete", this.selectedProcessStep.id)
         .catch(() => {});
       this.showModal = false;
     },
-    
+
     handleOpenModalDelete(app) {
       this.selectedProcessDesign = app;
       this.showModal = true;
@@ -470,12 +474,12 @@ export default {
     handleOpenModalDeleteProcessSpecification() {
       console.log("funzione delete process specification non attiva!");
       alert("funzione delete process specification non attiva!");
-    },
+    }
   },
   created() {
     this.lProcessStep = this.pPStep;
     this.lDesignType = _.map(this.pDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

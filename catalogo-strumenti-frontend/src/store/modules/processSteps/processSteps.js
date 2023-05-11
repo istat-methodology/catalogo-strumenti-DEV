@@ -2,16 +2,16 @@ import { processStepsService } from "@/services";
 import { processStepsOpenService } from "@/services";
 
 const state = {
-  procStepsList: [],
-  procSteps: null
+  processStepsList: [],
+  processSteps: null
 };
 
 const mutations = {
-  SET_PROCSTEPLIST(state, procStepsList) {
-    state.procStepsList = procStepsList;
+  SET_PROCSTEPLIST(state, processStepsList) {
+    state.processStepsList = processStepsList;
   },
-  SET_PROCSTEP(state, procSteps) {
-    state.procSteps = procSteps;
+  SET_PROCSTEP(state, processSteps) {
+    state.processSteps = processSteps;
   }
 };
 
@@ -64,20 +64,6 @@ const actions = {
         console.log(err);
       });
   },
-  addToBFunction(payload) {
-    return processStepsService
-      .addToBFunction(payload)
-      .then(data => {
-        /*  commit("SET_PROCSTEP", data); */
-        console.log(data);
-        /* dispatch("message/success", "Process Step aggiornato!", {
-          root: true
-        }); */
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
   delete({ dispatch }, id) {
     return processStepsService
       .delete(id)
@@ -92,15 +78,15 @@ const actions = {
 };
 
 const getters = {
-  procSteps: state => {
-    return state.procSteps;
+  processSteps: state => {
+    return state.processSteps;
   },
-  procStepsList: state => {
-    return state.procStepsList;
+  processStepsList: state => {
+    return state.processStepsList;
   }
 };
 
-export const procSteps = {
+export const processSteps = {
   namespaced: true,
   state,
   mutations,

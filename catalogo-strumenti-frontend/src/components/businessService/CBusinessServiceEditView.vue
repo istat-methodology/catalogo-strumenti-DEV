@@ -19,7 +19,7 @@
             >Elenco moduli implementati</CCardHeader
           >
           <CCardBody>
-            <div v-if="this.businessService">
+            <div v-if="businessService">
               <table class="table no-border">
                 <thead>
                   <tr>
@@ -33,7 +33,7 @@
                 <tbody>
                   <tr
                     class="list-group-item-action no-border"
-                    v-for="appService of this.businessService.appServices"
+                    v-for="appService of businessService.appServices"
                     :key="appService.id"
                   >
                     <td class="no-border">{{ appService.name }}</td>
@@ -68,7 +68,7 @@
                 </tbody>
               </table>
             </div>
-            <div v-if="this.businessService.appServices.length == 0">
+            <div v-if="businessService.appServices.length">
               <table>
                 <tr>
                   <td class="list-group-item no-border">

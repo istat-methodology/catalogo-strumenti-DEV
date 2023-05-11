@@ -1,19 +1,19 @@
 <template>
   <div>
     <CCardHeader class="no-border p-0 mt-4">
-      <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">        
+      <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">
         <!--span-->
-          <!--span class="p-0">{{ maintitle }}</span-->
-          <h4 class="text-right uppercase p-0">
-            <span class="uppercase text-info pr-1 p-0 mt-2 mb-0">
-              {{ functionality }}
-            </span>
-          </h4>
+        <!--span class="p-0">{{ maintitle }}</span-->
+        <h4 class="text-right uppercase p-0">
+          <span class="uppercase text-info pr-1 p-0 mt-2 mb-0">
+            {{ functionality }}
+          </span>
+        </h4>
         <!--/span-->
-        <hr class="bg-info mt-0"/>
+        <hr class="bg-info mt-0" />
       </h1>
       <h2 class="text-info">
-        {{ title }}         
+        {{ title }}
         <div class="card-header-actions pr-2">
           <div
             class="btn-group"
