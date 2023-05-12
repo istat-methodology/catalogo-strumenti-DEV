@@ -152,7 +152,6 @@
       <CBusinessProcessDesignNew
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
-        @enableNewProcessDesign="handleSubmitNewProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -163,7 +162,6 @@
       <CBusinessProcessDesignEdit
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
-        @enableEditProcessDesign="handleSubmitEditProcessDesign"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
@@ -279,18 +277,23 @@ export default {
           filter: false
         }
       ],
-
       processStepToSave: {
         id: 0,
         name: "",
         descr: "",
         label: "",
-        businessServiceId: 0
+        businessServiceId: 999,
+        processIds: [],
+        substep: 0
       },
-      processDesignToSave: {
+      lProcessStep: {
         id: 0,
+        name: "",
         descr: "",
-        step: ""
+        label: "",
+        businessServiceId: 999,
+        processIds: [],
+        substep: 0
       },
 
       lDesignType: {},
@@ -388,8 +391,11 @@ export default {
       this.processStepToSave.label = this.lProcessStep.label;
       this.processStepToSave.descr = this.lProcessStep.descr;
       this.processStepToSave.businessServiceId = 999;
+      //this.processStepToSave.businessProcesses.push({ "id": this.pProcess.id, "name": this.pProcess.name, "code": this.pProcess.code});
+      this.processStepToSave.processIds.push(this.pProcess.id);
       this.$store.dispatch("processSteps/update", this.processStepToSave);
     },
+
     enableBack() {
       this.$emit("enableBack");
     },
@@ -401,17 +407,6 @@ export default {
     showEditProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
-    },
-    handleSubmitNewProcessDesign(processDesign) {
-      this.processDesignToSave.descr = processDesign.descr;
-      this.processDesignToSave.step = this.lProcessStep.id;
-      this.$store.dispatch("processDesign/save", this.processDesignToSave);
-    },
-    handleSubmitEditProcessDesign(processDesign) {
-      this.processDesignToSave.id = processDesign.id;
-      this.processDesignToSave.descr = processDesign.descr;
-      this.processDesignToSave.step = this.lProcessStep.id;
-      this.$store.dispatch("processDesign/update", this.processDesignToSave);
     },
 
     handleDeleteProcessDesign() {

@@ -101,9 +101,9 @@ const actions = {
       });
   },
 
-  removeBProcess({ commit, dispatch }, params) {
+  removeProcess({ commit, dispatch }, params) {
     return businessService
-      .removeBProcess(params.fID, params.pID)
+      .removeProcess(params.fID, params.pID)
       .then(data => {
         commit("SET_BFUNCTION", data);
         dispatch(

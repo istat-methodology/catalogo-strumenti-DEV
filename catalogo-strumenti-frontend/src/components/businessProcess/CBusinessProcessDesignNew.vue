@@ -52,10 +52,12 @@ export default {
   },
   data() {
     return {
-      lProcessDesign: {
-        id: "",
-        descr: ""
-      }
+      lProcessDesign: {},
+      processDesignToSave: {
+        id: 0,
+        descr: "",
+        step: ""
+      },
     };
   },
   computed: {
@@ -75,7 +77,11 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$emit("enableNewProcessDesign", this.lProcessDesign);
+      this.processDesignToSave.descr = this.lProcessDesign.descr;
+      this.processDesignToSave.step = this.pProcessStep.id;
+      this.$store.dispatch("processDesign/save", this.processDesignToSave);
+      this.handleBack();
+      
     },
     handleBack() {
       this.$emit("enableBack");

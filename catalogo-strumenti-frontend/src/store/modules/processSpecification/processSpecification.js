@@ -16,7 +16,9 @@ const actions = {
       .delete(id)
       .then(() => {
         dispatch("findAll");
-        dispatch("message/success", "Process Specification eliminato!");
+        dispatch("message/success", "Process Specification eliminato!", {
+          root: true
+        });
       })
       .catch(err => {
         console.log(err);

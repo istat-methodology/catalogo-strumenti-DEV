@@ -66,7 +66,6 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"])
   },
-  //emits: ["enableEditProcessDesign"],
   props: {
     pProcessStep: {
       type: Object,

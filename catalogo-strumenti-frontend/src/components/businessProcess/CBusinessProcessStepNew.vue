@@ -303,7 +303,6 @@ export default {
           filter: false
         }
       ],
-
       processStepToSave: {
         id: 0,
         name: "",
@@ -448,27 +447,31 @@ export default {
 
     handleSubmit() {
       if (this.stateform == this.FormState.STEP_ADD) {
+        
         let params = { idProcess: 0, idStep: 0 };
         params.idProcess = this.pProcess.id;
         params.idStep = this.lProcessStep.id;
         this.$store.dispatch("bProcess/addStep", params);
+
       } else if (this.stateform == this.FormState.STEP_NEW) {
+
         this.processStepToSave.id = this.lProcessStep.id;
         this.processStepToSave.name = this.lProcessStep.name;
         this.processStepToSave.label = this.lProcessStep.label;
         this.processStepToSave.descr = this.lProcessStep.descr;
-
         this.processStepToSave.businessServiceId = this.lProcessStep.businessServiceId;
         if (this.pProcess) {
           this.processStepToSave.processIds.push(this.pProcess.id);
         }
         this.processStepToSave.substep = this.lProcessStep.substep;
         this.$store.dispatch("processSteps/save", this.processStepToSave);
+
       }
     },
     enableBack() {
       this.$emit("enableBack");
     },
+
     /* Process Design */
     showNewProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
@@ -511,6 +514,9 @@ export default {
       this.selectedProcessSpecification = processDesignSpecification;
       this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
     },
+    
+    
+    
     /* Process Specification */
     handleSubmitNewProcessSpecification() {
       console.log("funzione new process specification non attiva!");
@@ -534,7 +540,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("processSteps/findAll").catch(() => {});
+    //this.$store.dispatch("processSteps/findAll").catch(() => {});
     //this.lProcessStep = this.processStep;
     this.lDesignType = _.map(this.pDesignType, "type");
   }

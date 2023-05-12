@@ -282,11 +282,7 @@ export default {
     }
   },
   methods: {
-    /*changeProcess(value) {
-      this.lProcess.processStep = value.id;
-      alert(this.lProcess.processStep);
-    },
-    */
+   
     handleSubmit() {
       this.lProcess.businessFunction = this.pFunctionId;
       if (
@@ -333,16 +329,15 @@ export default {
 
     handleDelete() {
       let params = { fID: 0, pID: 0 };
-      params.fID = this.bFunctionId;
+      params.fID = this.pFunctionId;
       params.pID = this.selectedProcess.id;
-      this.$store
-        .dispatch("bFunction/removeProcess", params)
-        .then(this.$emit("refreshProcess", this.pFunctionId));
+
+      this.$store.dispatch("bFunction/removeProcess", params).then(this.$emit("refreshProcess", this.pFunctionId));
       this.showModal = false;
     },
 
     handleOpenModalDelete(app) {
-      this.selectedBProcess = app;
+      this.selectedProcess = app;
       this.showModal = true;
     },
     getMessage() {

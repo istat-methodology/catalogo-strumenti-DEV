@@ -23,3 +23,6 @@ class ProcessDesignService extends AbstractService {
 export const processDesignService = new ProcessDesignService(
   "/catalog/process-designes"
 );
+export const processDesignOpenService = new ProcessDesignService(
+  "/catalog/open/process-designes"
+);
