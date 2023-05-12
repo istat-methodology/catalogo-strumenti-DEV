@@ -73,21 +73,34 @@ public class ProcessStepService {
 			throw new NoDataException("ProcessStep not present");
 		ProcessStep ps = processStepDao.getOne(request.getId());
 		
+		BusinessService	bs = ps.getBusinessService();
+		
 		ps = Translators.translateUpdate(request, ps);
-		BusinessService bs = businessServiceDao.getOne(request.getBusinessServiceId());
-		List<BusinessProcess> listaBs = new ArrayList<BusinessProcess>();
+		// Reimposto il businessService col vecchio valore - NON FUNZIONA
 		
-		if (businessServiceDao.existsById(bs.getId())) 
-		{
-			ps.setBusinessService(bs);
+		ps.setBusinessService(bs);
+		
+		// Nota: Dallo step non mi consente di cambiare l'id del service associato. È giusto?
+//		BusinessService bs = businessServiceDao.getOne(request.getBusinessServiceId());
+//		if ( businessServiceDao.existsById(bs.getId()) && request.getBusinessServiceId() != bs.getId() ) 
+//		{
+//			ps.setBusinessService(bs);
+//		}
+		
+		List<BusinessProcess> listaBp = new ArrayList<BusinessProcess>();		
+		
+		BusinessProcess bp = null;
+		if(request.getProcessIds()!=null) {
+			for(int i=0; i<request.getProcessIds().length; i++)				
+				bp = businessProcessDao.getOne(request.getProcessIds()[i]);
+			listaBp.remove(bp);				
 		}
-		
 		if(request.getProcessIds()!=null) {
 			for(int i=0; i<request.getProcessIds().length; i++)
-				listaBs.add(new BusinessProcess(request.getProcessIds()[i]));
+				listaBp.add(businessProcessDao.getOne(request.getProcessIds()[i]));
 		}
 		
-		ps.setBusinessProcesses(listaBs);		
+		ps.setBusinessProcesses(listaBp);		
 		
 		processStepDao.save(ps);		
 		
