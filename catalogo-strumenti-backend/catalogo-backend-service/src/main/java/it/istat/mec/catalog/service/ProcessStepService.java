@@ -46,25 +46,14 @@ public class ProcessStepService {
 		
 		// Test: provo ad aggiungere un businessProcess allo step
 		List<BusinessProcess> listaBs = new ArrayList<BusinessProcess>();		
-		
-		
-		
-		
-		
-		
+			
 		if(request.getProcessIds()!=null) {
-			for(int i=0; i<request.getProcessIds().length; i++)
-				
-//				if(businessProcessDao.findById(request.getProcessIds()[i])!=null) {
-//					
-//				}
-//			
-//				if(request.getProcessIds()[i])!=null){
-//					
-//				}
+			for(int i=0; i<request.getProcessIds().length; i++) {
+							
 				listaBs.add(businessProcessDao.getOne(request.getProcessIds()[i]));
+				
+			}
 		}
-		
 		ps.setBusinessProcesses(listaBs);		
 		
 		processStepDao.save(ps);
@@ -84,32 +73,50 @@ public class ProcessStepService {
 			throw new NoDataException("ProcessStep not present");
 		ProcessStep ps = processStepDao.getOne(request.getId());
 		
+		BusinessService	bs = ps.getBusinessService();
+		
 		ps = Translators.translateUpdate(request, ps);
-		BusinessService bs = businessServiceDao.getOne(request.getBusinessServiceId());
-		List<BusinessProcess> listaBs = new ArrayList<BusinessProcess>();
+		// Reimposto il businessService col vecchio valore - NON FUNZIONA
 		
-		if (businessServiceDao.existsById(bs.getId())) 
-		{
-			ps.setBusinessService(bs);
+		ps.setBusinessService(bs);
+		
+		// Nota: Dallo step non mi consente di cambiare l'id del service associato. È giusto?
+//		BusinessService bs = businessServiceDao.getOne(request.getBusinessServiceId());
+//		if ( businessServiceDao.existsById(bs.getId()) && request.getBusinessServiceId() != bs.getId() ) 
+//		{
+//			ps.setBusinessService(bs);
+//		}
+		
+		List<BusinessProcess> listaBp = new ArrayList<BusinessProcess>();		
+		
+		BusinessProcess bp = null;
+		if(request.getProcessIds()!=null) {
+			for(int i=0; i<request.getProcessIds().length; i++)				
+				bp = businessProcessDao.getOne(request.getProcessIds()[i]);
+			listaBp.remove(bp);				
 		}
-		
 		if(request.getProcessIds()!=null) {
 			for(int i=0; i<request.getProcessIds().length; i++)
-				listaBs.add(new BusinessProcess(request.getProcessIds()[i]));
+				listaBp.add(businessProcessDao.getOne(request.getProcessIds()[i]));
 		}
 		
-		ps.setBusinessProcesses(listaBs);		
+		ps.setBusinessProcesses(listaBp);		
 		
 		processStepDao.save(ps);		
 		
 		return Translators.translate(ps);
 	}
 	
-	public Boolean deleteProcessStep(Integer id) {		
-		if (!processStepDao.findById(id).isPresent())
+	public Boolean deleteProcessStep(Integer idStep, Integer idProcess) {		
+		if (!processStepDao.findById(idStep).isPresent())
 			throw new NoDataException("ProcessStep not present");
-			ProcessStep ps = processStepDao.findById(id).get();
-			processStepDao.delete(ps);
+			ProcessStep ps = processStepDao.findById(idStep).get();
+			// TEST: verficare
+			BusinessProcess bp = businessProcessDao.getOne(idProcess);
+			ps.getBusinessProcesses().remove(bp);			
+			
+			//processStepDao.delete(ps);
+			processStepDao.save(ps);	
 			return Boolean.TRUE;			
 	}
 	
