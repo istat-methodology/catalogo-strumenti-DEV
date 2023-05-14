@@ -202,7 +202,7 @@ export default {
     CTitle,
     CModalDelete,
     CTableLink,
-    CTableDetails,
+    CTableDetails
   },
   data() {
     return {
@@ -218,7 +218,7 @@ export default {
         VIEW_PROCESS: 3,
         STEP_EDIT: 4,
         STEP_NEW: 5,
-        STEP_VIEW: 6,
+        STEP_VIEW: 6
       },
       stateform: 0,
       warningModal: false,
@@ -228,53 +228,53 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
       showModal: false,
       fields: [
         {
           key: "id",
           label: "ID",
-          _style: "width:4%;",
+          _style: "width:4%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "orderCode",
           label: "Order",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       details: [],
       setDetails: [],
       showDetails: true,
-      activeIndex: -1,
+      activeIndex: -1
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcess", "bProcessList"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
 
   methods: {
@@ -318,8 +318,8 @@ export default {
     },
     handleEdit(process) {
       this.$store.dispatch("bProcess/findById", process.id).then(() => {
-      this.selectedProcess = this.bProcess;
-      this.stateform = this.FormState.EDIT_PROCESS;
+        this.selectedProcess = this.bProcess;
+        this.stateform = this.FormState.EDIT_PROCESS;
       });
     },
     handleView(process) {
@@ -331,7 +331,7 @@ export default {
     handleBack() {
       this.$router.push({
         name: "Catalogue",
-        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
+        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm }
       });
     },
     handleOpenModalDelete(app) {
@@ -365,15 +365,15 @@ export default {
 
       this.showModal = false;
     },
-    loadProcess: _.debounce(function () {
+    loadProcess: _.debounce(function() {
       this.$store.dispatch("bProcess/findAll");
-    }, 500),
+    }, 500)
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
     this.$store.dispatch("designtypes/findAll");
     this.loadProcess();
-  },
+  }
 };
 </script>
 <style scoped>

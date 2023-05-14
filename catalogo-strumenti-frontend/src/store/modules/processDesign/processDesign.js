@@ -13,7 +13,6 @@ const mutations = {
   SET_PROCESSDESIGN_LIST(state, processDesignList) {
     state.processDesignList = processDesignList;
   }
-
 };
 
 const actions = {
@@ -35,8 +34,6 @@ const actions = {
         dispatch("message/success", "Process Design eliminato!", {
           root: true
         });
-
-
       })
       .catch(err => {
         console.log(err);

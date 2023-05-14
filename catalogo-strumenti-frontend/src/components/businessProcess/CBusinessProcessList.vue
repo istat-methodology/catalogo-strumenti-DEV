@@ -10,7 +10,7 @@
             <CTitle
               title="Processi"
               buttonTitle=" Processo"
-              functionality="Elenco"
+              functionality=""
               :authenticated="isAuthenticated"
               :buttons="['aggiungi', 'indietro']"
               @handleNew="stateform = FormState.ADD"
@@ -282,7 +282,6 @@ export default {
     }
   },
   methods: {
-   
     handleSubmit() {
       this.lProcess.businessFunction = this.pFunctionId;
       if (
@@ -332,7 +331,9 @@ export default {
       params.fID = this.pFunctionId;
       params.pID = this.selectedProcess.id;
 
-      this.$store.dispatch("bFunction/removeProcess", params).then(this.$emit("refreshProcess", this.pFunctionId));
+      this.$store
+        .dispatch("bFunction/removeProcess", params)
+        .then(this.$emit("refreshProcess", this.pFunctionId));
       this.showModal = false;
     },
 

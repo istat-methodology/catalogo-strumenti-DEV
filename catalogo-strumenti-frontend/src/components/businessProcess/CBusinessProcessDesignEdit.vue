@@ -59,7 +59,7 @@ export default {
         id: 0,
         descr: "",
         step: ""
-      },
+      }
     };
   },
   computed: {

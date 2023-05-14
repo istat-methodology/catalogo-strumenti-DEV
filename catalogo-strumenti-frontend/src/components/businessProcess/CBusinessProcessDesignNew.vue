@@ -57,7 +57,7 @@ export default {
         id: 0,
         descr: "",
         step: ""
-      },
+      }
     };
   },
   computed: {
@@ -81,7 +81,6 @@ export default {
       this.processDesignToSave.step = this.pProcessStep.id;
       this.$store.dispatch("processDesign/save", this.processDesignToSave);
       this.handleBack();
-      
     },
     handleBack() {
       this.$emit("enableBack");

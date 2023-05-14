@@ -21,7 +21,7 @@
                   tag="a"
                   :to="{
                     name: 'MethodDetails',
-                    params: { id: statisticalMethod.id },
+                    params: { id: statisticalMethod.id }
                   }"
                 >
                   <view-icon />
@@ -65,20 +65,20 @@ export default {
     statisticalMethods: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     indexLabel: {
       type: String,
       required: false,
-      default: () => "",
+      default: () => ""
     },
 
     descriptionLabel: {
       type: String,
       required: true,
-      default: () => "",
-    },
-  },
+      default: () => ""
+    }
+  }
 };
 </script>
 <style scoped>

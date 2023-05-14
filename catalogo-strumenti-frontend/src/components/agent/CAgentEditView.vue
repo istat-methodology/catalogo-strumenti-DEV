@@ -103,41 +103,41 @@
               </div>
             </div>
             <CCard>
-            <div class="card-body">
-              <div class="card-slot">
-                <span><strong>Contatto: </strong></span>
-                <span>{{ linkedAgent.agentContact }}</span>
+              <div class="card-body">
+                <div class="card-slot">
+                  <span><strong>Contatto: </strong></span>
+                  <span>{{ linkedAgent.agentContact }}</span>
+                </div>
+                <div class="card-slot">
+                  <span><strong>Organizzazione: </strong></span>
+                  <span>{{ linkedAgent.agentOrganization }}</span>
+                </div>
+                <div class="card-slot">
+                  <CInput
+                    label="Ruolo:"
+                    placeholder="Ruolo"
+                    :disabled="getState(index)"
+                    v-model="linkedAgent.role"
+                  />
+                </div>
+                <div class="card-slot">
+                  <CInput
+                    label="Data:"
+                    placeholder="Data"
+                    :disabled="getState(index)"
+                    v-model="linkedAgent.referenceDate"
+                  />
+                </div>
+                <div class="card-slot">
+                  <CTextarea
+                    label="Note:"
+                    placeholder="Note"
+                    :disabled="getState(index)"
+                    v-model="linkedAgent.notes"
+                  />
+                </div>
               </div>
-              <div class="card-slot">
-                <span><strong>Organizzazione: </strong></span>
-                <span>{{ linkedAgent.agentOrganization }}</span>
-              </div>
-              <div class="card-slot">
-                <CInput
-                  label="Ruolo:"
-                  placeholder="Ruolo"
-                  :disabled="getState(index)"
-                  v-model="linkedAgent.role"
-                />
-              </div>
-              <div class="card-slot">
-                <CInput
-                  label="Data:"
-                  placeholder="Data"
-                  :disabled="getState(index)"
-                  v-model="linkedAgent.referenceDate"
-                />
-              </div>
-              <div class="card-slot">
-                <CTextarea
-                  label="Note:"
-                  placeholder="Note"
-                  :disabled="getState(index)"
-                  v-model="linkedAgent.notes"
-                />
-              </div>
-            </div>
-          </CCard>
+            </CCard>
           </div>
 
           <div v-if="getLinkedAgentList.length == 0">
