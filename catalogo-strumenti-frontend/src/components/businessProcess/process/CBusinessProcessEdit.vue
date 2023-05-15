@@ -4,7 +4,7 @@
       <CTitle
         :title="lProcess.name"
         :buttonTitle="lProcess.name"
-        functionality=""
+        functionality="modifica processo"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"

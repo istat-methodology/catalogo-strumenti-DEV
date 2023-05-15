@@ -13,7 +13,7 @@
           'Process Specification ()'
       "
       buttonTitle=" process specification "
-      functionality=""
+      functionality="nuovo process specification"
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"

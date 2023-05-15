@@ -8,7 +8,7 @@
       <CTitle
         title="Aggiungi Processo"
         buttonTitle=" Aggiungi Processo"
-        functionality=""
+        functionality="AGGIUNGI PROCESS DA ELENCO"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit()"

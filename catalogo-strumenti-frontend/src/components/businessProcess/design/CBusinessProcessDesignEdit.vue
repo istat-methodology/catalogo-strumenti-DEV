@@ -12,7 +12,7 @@
           ') / '
       "
       buttonTitle=" process design "
-      functionality=""
+      functionality="modifica process design"
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"

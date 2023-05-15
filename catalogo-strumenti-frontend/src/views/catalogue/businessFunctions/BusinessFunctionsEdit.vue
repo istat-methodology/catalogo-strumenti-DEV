@@ -9,9 +9,9 @@
             <h1 class="uppercase text-right p-0 pt-2 text-info">
               <span>
                 <span class="p-0">{{ bFunction.name }}</span>
-                <h4 class="bg-secondary p-0">
+                <!--h4 class="bg-secondary p-0">
                   <span class="pr-1 text-info">Modifica</span>
-                </h4>
+                </h4-->
               </span>
             </h1>
           </div>

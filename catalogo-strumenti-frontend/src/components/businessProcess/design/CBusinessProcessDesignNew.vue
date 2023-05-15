@@ -10,7 +10,7 @@
           'Process Design (...)'
       "
       buttonTitle=" process design "
-      functionality=""
+      functionality="nuovo process design"
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"

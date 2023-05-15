@@ -14,8 +14,8 @@
           pProcessSpecification.id +
           ') '
       "
-      buttonTitle="view process design "
-      functionality=""
+      buttonTitle=" process specification "
+      functionality="modifica process specification"
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
       @handleSubmit="handleSubmit"

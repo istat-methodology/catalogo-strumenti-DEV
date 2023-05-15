@@ -12,7 +12,7 @@
           ') / '
       "
       buttonTitle="view process design "
-      functionality=""
+      functionality="dettaglio process design"
       :authenticated="isAuthenticated"
       :buttons="['indietro']"
       @handleBack="handleBack"

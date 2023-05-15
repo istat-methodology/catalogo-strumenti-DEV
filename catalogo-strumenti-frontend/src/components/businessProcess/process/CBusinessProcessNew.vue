@@ -7,7 +7,7 @@
       <CTitle
         title="Nuovo Processo"
         buttonTitle=" Nuovo Processo"
-        functionality=""
+        functionality="nuovo processo"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"

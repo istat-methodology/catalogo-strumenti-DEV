@@ -15,7 +15,7 @@
           ')'
       "
       buttonTitle="view process specification "
-      functionality=""
+      functionality="dettaglio process specification"
       :authenticated="isAuthenticated"
       :buttons="['indietro']"
       @handleBack="handleBack"
