@@ -112,7 +112,7 @@ import { required } from "vuelidate/lib/validators";
 import _ from "lodash";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import Treeselect from "@riophae/vue-treeselect";
-import CBusinessProcessList from "@/components/businessProcess/CBusinessProcessList";
+import CBusinessProcessList from "@/components/businessProcess/process/CBusinessProcessList";
 
 import CTitle from "@/components/CTitle.vue";
 export default {

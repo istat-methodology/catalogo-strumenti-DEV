@@ -7,10 +7,10 @@ const state = {
 };
 
 const mutations = {
-  SET_BPROCESSLIST(state, bProcessList) {
+  SET_PROCESSLIST(state, bProcessList) {
     state.bProcessList = bProcessList;
   },
-  SET_BPROCESS(state, bProcess) {
+  SET_PROCESS(state, bProcess) {
     state.bProcess = bProcess;
   }
 };
@@ -19,7 +19,7 @@ const actions = {
   findAll({ commit }) {
     businessProcessOpenService.findAll().then(
       data => {
-        commit("SET_BPROCESSLIST", data);
+        commit("SET_PROCESSLIST", data);
       },
       error => {
         console.log(error);
@@ -31,7 +31,7 @@ const actions = {
       .save(payload)
       .then(data => {
         //console.log(data);
-        commit("SET_BPROCESS", data);
+        commit("SET_PROCESS", data);
         dispatch("message/success", "Business Process salvato!", {
           root: true
         });
@@ -45,7 +45,7 @@ const actions = {
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_BPROCESS", data);
+        commit("SET_PROCESS", data);
       })
       .catch(err => {
         console.log(err);
@@ -55,7 +55,7 @@ const actions = {
     return businessProcessService
       .update(payload)
       .then(data => {
-        commit("SET_BPROCESS", data);
+        commit("SET_PROCESS", data);
         dispatch("message/success", "Business Process aggiornato!", {
           root: true
         });
@@ -68,7 +68,7 @@ const actions = {
     return businessProcessOpenService
       .filter(payload)
       .then(data => {
-        commit("SET_BPROCESSLIST", data);
+        commit("SET_PROCESSLIST", data);
       })
       .catch(err => {
         console.log(err);

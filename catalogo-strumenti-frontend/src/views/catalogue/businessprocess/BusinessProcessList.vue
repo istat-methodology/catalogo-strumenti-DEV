@@ -5,7 +5,6 @@
         Elenco Processi      
       -->
       <div v-if="stateform == FormState.PROCESS_LIST">
-      
         <div v-if="bProcessList" class="row p-0">
           <div class="col-12 p-0">
             <CTitle
@@ -63,7 +62,7 @@
         Crea nuovo Processo
       -->
       <div v-if="stateform == FormState.PROCESS_NEW">
-        <CBusinessProcessNew      
+        <CBusinessProcessNew
           @enableAdd="showAddProcess"
           @enableBack="showListProcess"
         />
@@ -82,12 +81,12 @@
         Modifica Processo
       -->
       <div v-if="stateform == FormState.PROCESS_EDIT">
-        <CBusinessProcessEdit           
-             :pProcess="selectedProcess"
-            @enableEditStep="showEditStep"
-            @enableNewStep="showNewStep"
-            @enableBack="showListProcess"
-          />
+        <CBusinessProcessEdit
+          :pProcess="selectedProcess"
+          @enableEditStep="showEditStep"
+          @enableNewStep="showNewStep"
+          @enableBack="showListProcess"
+        />
       </div>
 
       <!-- 
@@ -137,12 +136,14 @@
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-import CBusinessProcessNew from "@/components/businessProcess/CBusinessProcessNew";
-import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
-import CBusinessProcessView from "@/components/businessProcess/CBusinessProcessView";
-import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
-import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView";
+
+import CBusinessProcessNew from "@/components/businessProcess/process/CBusinessProcessNew";
+import CBusinessProcessEdit from "@/components/businessProcess/process/CBusinessProcessEdit";
+import CBusinessProcessView from "@/components/businessProcess/process/CBusinessProcessView";
+
+import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusinessProcessStepEdit";
+import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
+import CBusinessProcessStepView from "@/components/businessProcess/step/CBusinessProcessStepView";
 
 import CTitle from "@/components/CTitle.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
@@ -173,19 +174,17 @@ export default {
 
       states: [],
       FormState: {
-        
         PROCESS_LIST: 10,
         PROCESS_VIEW: 11,
         PROCESS_EDIT: 12,
         PROCESS_NEW: 13,
         PROCESS_ADD: 14,
-        
+
         STEP_VIEW: 20,
         STEP_NEW: 21,
-        STEP_EDIT: 22,
+        STEP_EDIT: 22
       },
       stateform: 10,
-
 
       warningModal: false,
       lProcess: {
@@ -280,12 +279,10 @@ export default {
       this.stateform = this.FormState.PROCESS_EDIT;
       this.loadProcess();
     },
-    
+
     handleProcessNew() {
       this.stateform = this.FormState.PROCESS_NEW;
     },
-    
-
 
     showViewStep(step) {
       this.selectedProcessStep = step;

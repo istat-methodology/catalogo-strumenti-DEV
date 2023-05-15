@@ -212,11 +212,11 @@
 <script>
 import { mapGetters } from "vuex";
 
-import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignNew";
-import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
-import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
-import CBusinessProcessSpecificationNew from "@/components/businessProcess/CBusinessProcessSpecificationNew";
-import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBusinessProcessSpecificationEdit";
+import CBusinessProcessDesignNew from "@/components/businessProcess/design/CBusinessProcessDesignNew";
+import CBusinessProcessDesignEdit from "@/components/businessProcess/design/CBusinessProcessDesignEdit";
+import CBusinessProcessSpecificationView from "@/components/businessProcess/specification/CBusinessProcessSpecificationView";
+import CBusinessProcessSpecificationNew from "@/components/businessProcess/specification/CBusinessProcessSpecificationNew";
+import CBusinessProcessSpecificationEdit from "@/components/businessProcess/specification/CBusinessProcessSpecificationEdit";
 
 import CTitle from "@/components/CTitle.vue";
 import CTableLink from "@/components/CTableLink.vue";

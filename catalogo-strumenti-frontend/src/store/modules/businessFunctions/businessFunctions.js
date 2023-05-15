@@ -8,13 +8,13 @@ const state = {
 };
 
 const mutations = {
-  SET_BFUNCTIONLIST(state, bFunctionList) {
+  SET_FUNCTIONLIST(state, bFunctionList) {
     state.bFunctionList = bFunctionList;
   },
-  SET_BFUNCTIONTOOLSLIST(state, bFunctionToolsList) {
+  SET_FUNCTIONTOOLSLIST(state, bFunctionToolsList) {
     state.bFunctionToolsList = bFunctionToolsList;
   },
-  SET_BFUNCTION(state, bFunction) {
+  SET_FUNCTION(state, bFunction) {
     state.bFunction = bFunction;
   }
 };
@@ -23,7 +23,7 @@ const actions = {
   findAll({ commit }) {
     businessOpenService.findAll().then(
       data => {
-        commit("SET_BFUNCTIONLIST", data);
+        commit("SET_FUNCTIONLIST", data);
       },
       error => {
         console.log(error);
@@ -35,7 +35,7 @@ const actions = {
       .save(payload)
       .then(data => {
         //console.log(data);
-        commit("SET_BFUNCTION", data);
+        commit("SET_FUNCTION", data);
         dispatch("message/success", "Business Function salvata!", {
           root: true
         });
@@ -49,7 +49,7 @@ const actions = {
       .findById(id)
       .then(data => {
         //console.log(data);
-        commit("SET_BFUNCTION", data);
+        commit("SET_FUNCTION", data);
       })
       .catch(err => {
         console.log(err);
@@ -60,7 +60,7 @@ const actions = {
       .findBFunctionsByBService(id)
       .then(data => {
         //console.log(data);
-        commit("SET_BFUNCTIONTOOLSLIST", data);
+        commit("SET_FUNCTIONTOOLSLIST", data);
       })
       .catch(err => {
         console.log(err);
@@ -70,7 +70,7 @@ const actions = {
     return businessService
       .update(payload)
       .then(data => {
-        commit("SET_BFUNCTION", data);
+        commit("SET_FUNCTION", data);
         dispatch("message/success", "Business Function aggiornata!", {
           root: true
         });
@@ -83,7 +83,7 @@ const actions = {
     return businessOpenService
       .filter(payload)
       .then(data => {
-        commit("SET_BFUNCTIONLIST", data);
+        commit("SET_FUNCTIONLIST", data);
       })
       .catch(err => {
         console.log(err);
@@ -104,7 +104,7 @@ const actions = {
     return businessService
       .addProcess(params.fID, params.pID)
       .then(data => {
-        commit("SET_BFUNCTION", data);
+        commit("SET_FUNCTION", data);
         dispatch(
           "message/success",
           "Processo aggiunto alla Business Function!",
@@ -121,7 +121,7 @@ const actions = {
     return businessService
       .removeProcess(params.fID, params.pID)
       .then(data => {
-        commit("SET_BFUNCTION", data);
+        commit("SET_FUNCTION", data);
         dispatch(
           "message/success",
           "Processo rimosso dalla Business Function!",

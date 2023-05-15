@@ -82,9 +82,9 @@
 // const [items, setItems] = useState(usersData)
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
-import CBusinessProcessStepView from "@/components/businessProcess/CBusinessProcessStepView";
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
-import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
+import CBusinessProcessStepView from "@/components/businessProcess/step/CBusinessProcessStepView";
+import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
+import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusinessProcessStepEdit";
 import CTitle from "@/components/CTitle.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";

@@ -37,7 +37,7 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessAdd",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -47,25 +47,25 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
-      },
+        businessFunction: ""
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcessList"]),
-    ...mapGetters("filter", ["params"]),
+    ...mapGetters("filter", ["params"])
   },
   props: {
     pFunctionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     pFunctionName: {
       type: String,
       required: true,
-      default: null,
+      default: null
     }
   },
   methods: {
@@ -84,11 +84,11 @@ export default {
     },
     handleBack() {
       this.$emit("enableBack");
-    },
+    }
   },
   created() {
     this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
-  },
+  }
 };
 </script>
 <style scoped>

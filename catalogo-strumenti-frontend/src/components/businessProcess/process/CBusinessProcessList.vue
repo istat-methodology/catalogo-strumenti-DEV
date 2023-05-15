@@ -51,9 +51,8 @@
                         <span v-if="process.processSteps">
                           <div class="d-flex flex-wrap">
                             <ol
-                              v-for="(
-                                processStep, index
-                              ) of process.processSteps"
+                              v-for="(processStep,
+                              index) of process.processSteps"
                               :key="processStep.id"
                             >
                               <li
@@ -138,7 +137,7 @@
             :pProcess="selectedProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
-            @enableBack="stateform = FormState.PROCESS_EDIT"
+            @enableBack="showEditProcess"
           />
         </div>
       </div>
@@ -150,7 +149,7 @@
           :pProcess="selectedProcess"
           :pPStep="selectedEditStep"
           :pDesignType="designtypeList"
-          @enableBack="stateform = FormState.EDIT"
+          @enableBack="showEditProcess"
         />
       </div>
     </div>
@@ -164,12 +163,12 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CBusinessProcessAdd from "@/components/businessProcess/CBusinessProcessAdd";
-import CBusinessProcessNew from "@/components/businessProcess/CBusinessProcessNew";
-import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
+import CBusinessProcessAdd from "@/components/businessProcess/process/CBusinessProcessAdd";
+import CBusinessProcessNew from "@/components/businessProcess/process/CBusinessProcessNew";
+import CBusinessProcessEdit from "@/components/businessProcess/process/CBusinessProcessEdit";
 
-import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
-import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
+import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusinessProcessStepEdit";
+import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
 import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
 export default {
@@ -181,7 +180,7 @@ export default {
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -193,19 +192,17 @@ export default {
       selectedProcessDesignId: null,
       states: [],
       FormState: {
-        
         PROCESS_LIST: 10,
         PROCESS_VIEW: 11,
         PROCESS_EDIT: 12,
         PROCESS_NEW: 13,
         PROCESS_ADD: 14,
-        
+
         STEP_VIEW: 20,
         STEP_NEW: 21,
-        STEP_EDIT: 22,
+        STEP_EDIT: 22
       },
       stateform: 10,
-
 
       lProcess: {
         id: "",
@@ -213,15 +210,15 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
   emits: ["refreshProcess"],
 
@@ -229,18 +226,18 @@ export default {
     pFunctionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     pFunctionName: {
       type: String,
       required: true,
-      default: null,
+      default: null
     },
     pProcesses: {
       type: Array,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     selectIdFromProcessList(e) {
@@ -276,7 +273,10 @@ export default {
       this.stateform = this.FormState.PROCESS_ADD;
       this.$emit("refreshProcess", this.pFunctionId);
     },
-
+    showEditProcess() {
+      this.stateform = this.FormState.PROCESS_EDIT;
+      this.$emit("refreshProcess", this.pFunctionId);
+    },
     showEditStep(step) {
       this.selectedEditStep = step;
       this.stateform = this.FormState.STEP_EDIT;
@@ -309,11 +309,11 @@ export default {
         this.selectedProcess.id +
         "]"
       );
-    },
+    }
   },
   created() {
     this.$store.dispatch("designtypes/findAll");
-  },
+  }
 };
 </script>
 <style scoped>

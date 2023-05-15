@@ -151,7 +151,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
+import CBusinessProcessSpecificationView from "@/components/businessProcess/specification/CBusinessProcessSpecificationView";
 import CTitle from "@/components/CTitle.vue";
 var _ = require("lodash");
 

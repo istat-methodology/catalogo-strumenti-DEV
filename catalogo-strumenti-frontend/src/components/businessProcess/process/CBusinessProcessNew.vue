@@ -55,7 +55,7 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessNew",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -65,25 +65,25 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
-      },
+        businessFunction: ""
+      }
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
 
   props: {
     pFunctionId: {
       type: Number,
       required: false,
-      default: null,
+      default: null
     },
     pFunctionName: {
       type: String,
       required: false,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     handleSubmit() {
@@ -95,8 +95,8 @@ export default {
     },
     handleBack() {
       this.$emit("enableAdd");
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

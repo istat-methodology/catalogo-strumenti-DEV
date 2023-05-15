@@ -239,11 +239,11 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CBusinessProcessDesignNew from "@/components/businessProcess/CBusinessProcessDesignView";
-import CBusinessProcessDesignEdit from "@/components/businessProcess/CBusinessProcessDesignEdit";
-import CBusinessProcessSpecificationView from "@/components/businessProcess/CBusinessProcessSpecificationView";
-import CBusinessProcessSpecificationNew from "@/components/businessProcess/CBusinessProcessSpecificationNew";
-import CBusinessProcessSpecificationEdit from "@/components/businessProcess/CBusinessProcessSpecificationEdit";
+import CBusinessProcessDesignNew from "@/components/businessProcess/design/CBusinessProcessDesignView";
+import CBusinessProcessDesignEdit from "@/components/businessProcess/design/CBusinessProcessDesignEdit";
+import CBusinessProcessSpecificationView from "@/components/businessProcess/specification/CBusinessProcessSpecificationView";
+import CBusinessProcessSpecificationNew from "@/components/businessProcess/specification/CBusinessProcessSpecificationNew";
+import CBusinessProcessSpecificationEdit from "@/components/businessProcess/specification/CBusinessProcessSpecificationEdit";
 //import CTableLink from "@/components/CTableLink.vue";
 //import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
@@ -357,7 +357,6 @@ export default {
       selectedProcessSpecification: {},
 
       FormState: {
-
         STEP_VIEW: 20,
         STEP_ADD: 21,
         STEP_NEW: 22,
@@ -371,8 +370,7 @@ export default {
         PROCESS_SPECIFICATION_NEW: 41,
         PROCESS_SPECIFICATION_EDIT: 42
       },
-      stateform: 21,
-      
+      stateform: 21
     };
   },
   computed: {
@@ -455,9 +453,7 @@ export default {
         params.idProcess = this.pProcess.id;
         params.idStep = this.lProcessStep.id;
         this.$store.dispatch("bProcess/addStep", params);
-
       } else if (this.stateform == this.FormState.STEP_NEW) {
-        
         this.processStepToSave.id = this.lProcessStep.id;
         this.processStepToSave.name = this.lProcessStep.name;
         this.processStepToSave.label = this.lProcessStep.label;
