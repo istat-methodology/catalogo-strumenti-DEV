@@ -6,7 +6,7 @@
       -->
 
       <CTitle
-        title="Aggiungi Processo"
+        title="Elenco dei Processi"
         buttonTitle=" Aggiungi Processo"
         functionality="AGGIUNGI PROCESS DA ELENCO"
         :authenticated="isAuthenticated"
@@ -16,7 +16,7 @@
       />
       <div class="card">
         <div class="card-slot" v-if="bProcessList">
-          <label>Elenco Processi esistenti</label>
+          <label>seleziona un processo esistente</label>
           <v-select
             label="name"
             :options="bProcessList"
