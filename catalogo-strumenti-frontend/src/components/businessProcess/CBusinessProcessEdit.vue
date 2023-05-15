@@ -87,6 +87,10 @@ import CTitle from "@/components/CTitle.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 
+
+
+
+
 export default {
   name: "CBusinessProcessEdit",
   components: {

@@ -59,7 +59,17 @@ class BusinessFunctionsService extends AbstractService {
         throw err;
       });
   }
-
+  addProcess(fID, pID) {
+    return axiosCatalog
+      .put(this.endpoint + "/" + fID + "/processes/" + pID)
+      .then(res => {
+        var data = res.data ? res.data : [];
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
   removeProcess(fID, pID) {
     return axiosCatalog
       .delete(this.endpoint + "/" + fID + "/processes/" + pID)

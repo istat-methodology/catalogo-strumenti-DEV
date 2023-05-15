@@ -451,7 +451,9 @@ export default {
         params.idProcess = this.pProcess.id;
         params.idStep = this.lProcessStep.id;
         this.$store.dispatch("bProcess/addStep", params);
+
       } else if (this.stateform == this.FormState.STEP_NEW) {
+        
         this.processStepToSave.id = this.lProcessStep.id;
         this.processStepToSave.name = this.lProcessStep.name;
         this.processStepToSave.label = this.lProcessStep.label;

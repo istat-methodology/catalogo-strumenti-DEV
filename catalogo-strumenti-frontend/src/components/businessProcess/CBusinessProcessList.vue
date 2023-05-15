@@ -283,17 +283,25 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.lProcess.businessFunction = this.pFunctionId;
-      if (
-        this.stateform == this.FormState.ADD ||
-        this.stateform == this.FormState.NEW
-      ) {
+      
+      if ( this.stateform == this.FormState.ADD ) {
+        let params = { fID: 0, pID: 0 };
+        params.fID = this.pFunctionId;
+        params.pID = this.lProcess.id;
+        this.$store.dispatch("bFunction/addProcess", params)
+          .then(this.$emit("refreshProcess", this.pFunctionId));
+      }
+
+      if ( this.stateform == this.FormState.NEW ) {
+
+        this.lProcess.businessFunction = this.pFunctionId;
         this.$store
           .dispatch("bProcess/save", this.lProcess)
           .then(this.$emit("refreshProcess", this.pFunctionId));
       }
+
       if (this.stateform == this.FormState.EDIT) {
-        this.lProcess = this.selectedProcess;
+        this.lProcess.businessFunction = this.pFunctionId;
         this.$store
           .dispatch("bProcess/update", this.lProcess)
           .then(this.$emit("refreshProcess", this.pFunctionId));
@@ -302,10 +310,7 @@ export default {
     },
     selectId(e) {
       this.lProcess.id = e.id;
-      this.lProcess.name = e.name;
-      this.lProcess.descr = e.descr;
-      this.lProcess.label = e.label;
-      this.lProcess.orderCode = e.orderCode;
+
     },
     showEditStep(step) {
       this.selectedEditStep = step;

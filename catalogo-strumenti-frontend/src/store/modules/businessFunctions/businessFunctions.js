@@ -100,7 +100,23 @@ const actions = {
         console.log(err);
       });
   },
-
+  addProcess({ commit, dispatch }, params) {
+    return businessService
+      .addProcess(params.fID, params.pID)
+      .then(data => {
+        commit("SET_BFUNCTION", data);
+        dispatch(
+          "message/success",
+          "Processo aggiunto alla Business Function!",
+          {
+            root: true
+          }
+        );
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   removeProcess({ commit, dispatch }, params) {
     return businessService
       .removeProcess(params.fID, params.pID)
