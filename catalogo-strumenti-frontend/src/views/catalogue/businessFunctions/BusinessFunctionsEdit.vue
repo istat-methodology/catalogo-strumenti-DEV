@@ -92,7 +92,7 @@
           <template #title>
             <span>Processi</span>
           </template>
-          <div v-if="this.bFunction">
+          <div v-if="bFunction">
             <CBusinessProcessList
               :pFunctionId="bFunction.id"
               :pFunctionName="bFunction.name"

@@ -11,7 +11,7 @@
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit()"
-        @handleBack="enableBack"
+        @handleBack="handleBack"
       />
       <div class="card">
         <div class="card-slot" v-if="processStepsList">
@@ -39,7 +39,7 @@
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"
-        @handleBack="enableBack"
+        @handleBack="stateform = FormState.STEP_ADD"
       />
       <CCard>
         <CCardBody>
@@ -357,18 +357,22 @@ export default {
       selectedProcessSpecification: {},
 
       FormState: {
-        STEP_ADD: 4,
-        STEP_NEW: 5,
-        PROCESS_DESIGN_VIEW: 10,
-        PROCESS_DESIGN_NEW: 11,
-        PROCESS_DESIGN_EDIT: 12,
 
-        PROCESS_SPECIFICATION_VIEW: 20,
-        PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22
+        STEP_VIEW: 20,
+        STEP_ADD: 21,
+        STEP_NEW: 22,
+        STEP_EDIT: 23,
+
+        PROCESS_DESIGN_VIEW: 30,
+        PROCESS_DESIGN_NEW: 31,
+        PROCESS_DESIGN_EDIT: 32,
+
+        PROCESS_SPECIFICATION_VIEW: 40,
+        PROCESS_SPECIFICATION_NEW: 41,
+        PROCESS_SPECIFICATION_EDIT: 42
       },
-      stateform: 4,
-      warningModal: false
+      stateform: 21,
+      
     };
   },
   computed: {
@@ -466,7 +470,7 @@ export default {
         this.$store.dispatch("processSteps/save", this.processStepToSave);
       }
     },
-    enableBack() {
+    handleBack() {
       this.$emit("enableBack");
     },
 
@@ -536,7 +540,7 @@ export default {
     }
   },
   created() {
-    //this.$store.dispatch("processSteps/findAll").catch(() => {});
+    this.$store.dispatch("processSteps/findAll").catch(() => {});
     //this.lProcessStep = this.processStep;
     this.lDesignType = _.map(this.pDesignType, "type");
   }

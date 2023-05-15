@@ -1,15 +1,6 @@
 <template>
   <div>
     <div v-if="lProcess">
-      <CTitle
-        :title="lProcess.name"
-        :buttonTitle="lProcess.name"
-        functionality=""
-        :authenticated="isAuthenticated"
-        :buttons="['salva', 'indietro']"
-        @handleSubmit="handleSubmit"
-        @handleBack="handleBack"
-      />
       <CCard>
         <CCardBody>
           <div class="row">
@@ -97,12 +88,12 @@ import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 
 export default {
-  name: "CBusinessProcessEdit",
+  name: "CBusinessProcessStepList",
   components: {
     //CBusinessProcessDesignNew,
     CTitle,
     CTableLink,
-    CModalDelete,
+    CModalDelete
   },
   data() {
     return {
@@ -110,68 +101,54 @@ export default {
         {
           key: "id",
           label: "id",
-          _style: "width:2%;",
+          _style: "width:2%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "label",
           label: "etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
-      lProcess: {
-        id: "",
-        name: "",
-        descr: "",
-        label: "",
-        orderCode: "",
-        businessFunction: "",
-      },
+      lProcess: {},
       selectedProcessStep: {},
+      states: [],
+      FormState: {},
+      stateform: 0,
       showModal: false,
-      closeModal: false,
+      closeModal: false
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   props: {
-    pFunctionId: {
-      type: Number,
-      required: false,
-      default: null,
-    },
-    pFunctionName: {
-      type: String,
-      required: false,
-      default: null,
-    },
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
-    getProcessStepsList: function () {
+    getProcessStepsList: function() {
       if (this.lProcess && this.lProcess.processSteps) {
-        return this.lProcess.processSteps.map((step) => {
+        return this.lProcess.processSteps.map(step => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
@@ -182,13 +159,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map((instance) => {
+                    .map(instance => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns,
+            processDesigns: step.processDesigns
           };
         });
       } else {
@@ -203,7 +180,7 @@ export default {
       this.$emit("enableNewStep");
     },
     handleBack() {
-      this.$emit("enableBack");
+      this.$router.back();
     },
     handleOpenModalDelete(app) {
       this.selectedProcessStep = app;
@@ -216,23 +193,16 @@ export default {
         " selezionato?"
       );
     },
-    handleSubmit() {
-      if (this.pFunctionId != null) {
-        this.lProcess.businessFunction = this.pFunctionId;
-      }
-      this.$store.dispatch("bProcess/update", this.lProcess);
-      this.$emit("enableBack");
-    },
     handleDelete() {
       let params = { idProcess: 0, idStep: 0 };
       params.idProcess = this.pProcess.id;
       params.idStep = this.selectedProcessStep.id;
       this.$store.dispatch("bProcess/removeStep", params);
-    },
+    }
   },
   created() {
     this.lProcess = this.pProcess;
-  },
+  }
 };
 </script>
 <style scoped>

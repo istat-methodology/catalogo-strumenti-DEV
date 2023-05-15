@@ -4,7 +4,8 @@
       <!--       
         Elenco Processi      
       -->
-      <div v-if="stateform == FormState.LIST_PROCESS">
+      <div v-if="stateform == FormState.PROCESS_LIST">
+      
         <div v-if="bProcessList" class="row p-0">
           <div class="col-12 p-0">
             <CTitle
@@ -13,7 +14,7 @@
               functionality="Elenco"
               :authenticated="isAuthenticated"
               :buttons="['aggiungi', 'indietro']"
-              @handleNew="stateform = FormState.NEW_PROCESS"
+              @handleNew="handleProcessNew"
               @handleBack="handleBack"
             />
             <CCard>
@@ -61,76 +62,34 @@
       <!-- 
         Crea nuovo Processo
       -->
-      <div v-if="stateform == FormState.NEW_PROCESS">
-        <CTitle
-          :title="lProcess.name"
-          buttonTitle=" Nuovo Processo"
-          functionality="NUOVO PROCESSO"
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.LIST_PROCESS"
+      <div v-if="stateform == FormState.PROCESS_NEW">
+        <CBusinessProcessNew      
+          @enableAdd="showAddProcess"
+          @enableBack="showListProcess"
         />
-        <CCard>
-          <CCardBody>
-            <div class="row">
-              <CInput
-                class="col-6"
-                label="Nome*"
-                placeholder="Nome"
-                v-model="lProcess.name"
-              />
-              <CInput
-                class="col-4"
-                label="Etichetta"
-                placeholder="Etichetta"
-                v-model="lProcess.label"
-              />
-              <CInput
-                class="col-2"
-                label="Ordine"
-                type="number"
-                placeholder="Ordine"
-                v-model="lProcess.orderCode"
-              />
-            </div>
-            <div class="row mt-4">
-              <CTextarea
-                class="col-12"
-                label="Descrizione"
-                placeholder="Descrizione"
-                v-model="lProcess.descr"
-              />
-            </div>
-          </CCardBody>
-        </CCard>
       </div>
-      <div v-if="stateform == FormState.VIEW_PROCESS">
+      <!-- 
+        Dettaglio Processo
+      -->
+      <div v-if="stateform == FormState.PROCESS_VIEW">
         <CBusinessProcessView
           :pProcess="selectedProcess"
-          @enableBack="stateform = FormState.LIST_PROCESS"
+          @enableBack="showListProcess"
           @enableShowStep="showViewStep"
         />
       </div>
       <!-- 
         Modifica Processo
       -->
-      <div v-if="stateform == FormState.EDIT_PROCESS">
-        <CTitle
-          :title="selectedProcess.name"
-          :buttonTitle="selectedProcess.name"
-          functionality="MODIFICA PROCESSO"
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.LIST_PROCESS"
-        />
-        <CBusinessProcessEdit
-          :pProcess="selectedProcess"
-          @enableEditStep="showEditStep"
-          @enableNewStep="showNewStep"
-        />
+      <div v-if="stateform == FormState.PROCESS_EDIT">
+        <CBusinessProcessEdit           
+             :pProcess="selectedProcess"
+            @enableEditStep="showEditStep"
+            @enableNewStep="showNewStep"
+            @enableBack="showListProcess"
+          />
       </div>
+
       <!-- 
         Visualizza Passo del Processo
       -->
@@ -140,10 +99,9 @@
           :pProcess="bProcess"
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
-          @enableBack="stateform = FormState.VIEW_PROCESS"
+          @enableBack="stateform = FormState.PROCESS_VIEW"
         />
       </div>
-
       <!-- 
         Modifica Passo del Processo
       -->
@@ -153,7 +111,7 @@
           :pProcess="bProcess"
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
-          @enableBack="stateform = FormState.EDIT_PROCESS"
+          @enableBack="showEditProcess"
         />
       </div>
       <!-- 
@@ -164,7 +122,7 @@
           :pProcess="bProcess"
           :pPStep="selectedProcessStep"
           :pDesignType="designtypeList"
-          @enableBack="stateform = FormState.EDIT_PROCESS"
+          @enableBack="showEditProcess"
         />
       </div>
     </div>
@@ -179,6 +137,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { Context } from "@/common";
+import CBusinessProcessNew from "@/components/businessProcess/CBusinessProcessNew";
 import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
 import CBusinessProcessView from "@/components/businessProcess/CBusinessProcessView";
 import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
@@ -194,6 +153,7 @@ import _ from "lodash";
 export default {
   name: "BusinessProcessList",
   components: {
+    CBusinessProcessNew,
     CBusinessProcessView,
     CBusinessProcessEdit,
     CBusinessProcessStepEdit,
@@ -210,17 +170,23 @@ export default {
       selectedProcess: {},
       selectedProcessStep: {},
       selectedProcessDesign: {},
+
       states: [],
       FormState: {
-        LIST_PROCESS: 0,
-        EDIT_PROCESS: 1,
-        NEW_PROCESS: 2,
-        VIEW_PROCESS: 3,
-        STEP_EDIT: 4,
-        STEP_NEW: 5,
-        STEP_VIEW: 6
+        
+        PROCESS_LIST: 10,
+        PROCESS_VIEW: 11,
+        PROCESS_EDIT: 12,
+        PROCESS_NEW: 13,
+        PROCESS_ADD: 14,
+        
+        STEP_VIEW: 20,
+        STEP_NEW: 21,
+        STEP_EDIT: 22,
       },
-      stateform: 0,
+      stateform: 10,
+
+
       warningModal: false,
       lProcess: {
         id: "",
@@ -282,6 +248,7 @@ export default {
       this.lProcess.processStep = value.id;
       alert(this.lProcess.processStep);
     },
+    /*
     handleSubmit() {
       if (this.stateform == this.FormState.NEW_PROCESS) {
         this.$store.dispatch("bProcess/save", this.lProcess).then(() => {
@@ -297,6 +264,7 @@ export default {
 
       this.stateform = this.FormState.LIST_PROCESS;
     },
+    */
     selectId(e) {
       this.lProcess.id = e.id;
       this.lProcess.name = e.name;
@@ -304,6 +272,21 @@ export default {
       this.lProcess.label = e.label;
       this.lProcess.orderCode = e.orderCode;
     },
+    showListProcess() {
+      this.stateform = this.FormState.PROCESS_LIST;
+      this.loadProcess();
+    },
+    showEditProcess() {
+      this.stateform = this.FormState.PROCESS_EDIT;
+      this.loadProcess();
+    },
+    
+    handleProcessNew() {
+      this.stateform = this.FormState.PROCESS_NEW;
+    },
+    
+
+
     showViewStep(step) {
       this.selectedProcessStep = step;
       this.stateform = this.FormState.STEP_VIEW;
@@ -319,13 +302,13 @@ export default {
     handleEdit(process) {
       this.$store.dispatch("bProcess/findById", process.id).then(() => {
         this.selectedProcess = this.bProcess;
-        this.stateform = this.FormState.EDIT_PROCESS;
+        this.stateform = this.FormState.PROCESS_EDIT;
       });
     },
     handleView(process) {
       this.$store.dispatch("bProcess/findById", process.id).then(() => {
         this.selectedProcess = this.bProcess;
-        this.stateform = this.FormState.VIEW_PROCESS;
+        this.stateform = this.FormState.PROCESS_VIEW;
       });
     },
     handleBack() {

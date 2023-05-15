@@ -4,7 +4,7 @@
       <!--       
         Elenco Processi      
       -->
-      <div v-if="stateform == FormState.LIST">
+      <div v-if="stateform == FormState.PROCESS_LIST">
         <div class="row p-0">
           <div class="col-12 p-0">
             <CTitle
@@ -13,67 +13,80 @@
               functionality=""
               :authenticated="isAuthenticated"
               :buttons="['aggiungi', 'indietro']"
-              @handleNew="stateform = FormState.ADD"
+              @handleNew="stateform = FormState.PROCESS_ADD"
               @handleBack="handleBack"
             />
-            <div class="columns">
-              <div class="row">
-                <div
-                  class="col-4"
-                  v-for="process of pProcesses"
-                  :key="process.id"
-                >
-                  <div class="text-info center mt-2 mb-2">
-                    <h6 class="card-header no-border text-info center row">
-                      <div class="col-9">{{ process.name }}</div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="card-header-actions float-right">
-                            <span
-                              class="icon-link text-info pr-1"
-                              @click="handleEditProcess(process)"
-                              ><edit-icon title="Edit"
-                            /></span>
-                            <span
-                              class="icon-link text-info"
-                              @click="handleOpenModalDelete(process)"
-                              ><delete-icon title="Cancella"
-                            /></span>
+            <div v-if="pProcesses">
+              <div class="columns">
+                <div class="row">
+                  <div
+                    class="col-4"
+                    v-for="process of pProcesses"
+                    :key="process.id"
+                  >
+                    <div class="text-info center mt-2 mb-2">
+                      <h6 class="card-header no-border text-info center row">
+                        <div class="col-9">{{ process.name }}</div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="card-header-actions float-right">
+                              <span
+                                class="icon-link text-info pr-1"
+                                @click="handleEditProcess(process)"
+                                ><edit-icon title="Edit"
+                              /></span>
+                              <span
+                                class="icon-link text-info"
+                                @click="handleOpenModalDelete(process)"
+                                ><delete-icon title="Cancella"
+                              /></span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </h6>
-                  </div>
-                  <div class="card col-12">
-                    <div class="card-body">
-                      <div class="row mb-2"><strong>Passi:</strong></div>
-                      <span v-if="process.processSteps">
-                        <div class="d-flex flex-wrap">
-                          <ol
-                            v-for="(processStep, index) of process.processSteps"
-                            :key="processStep.id"
-                          >
-                            <li
-                              class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
+                      </h6>
+                    </div>
+                    <div class="card col-12">
+                      <div class="card-body">
+                        <div class="row mb-2"><strong>Passi:</strong></div>
+                        <span v-if="process.processSteps">
+                          <div class="d-flex flex-wrap">
+                            <ol
+                              v-for="(
+                                processStep, index
+                              ) of process.processSteps"
+                              :key="processStep.id"
                             >
-                              <strong>{{ index + 1 + ")" }} </strong>
-                              {{ processStep.name }}
+                              <li
+                                class="list-group-item list-group-item-action p-0 p-1 border cursor-pointer"
+                              >
+                                <strong>{{ index + 1 + ")" }} </strong>
+                                {{ processStep.name }}
+                              </li>
+                            </ol>
+                          </div>
+                        </span>
+                        <span v-if="pProcesses.length == 0">
+                          <div class="list-group">
+                            <li
+                              class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer"
+                            >
+                              Non sono presenti passi
                             </li>
-                          </ol>
-                        </div>
-                      </span>
-                      <span v-else>
-                        <div class="list-group">
-                          <li
-                            class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer"
-                          >
-                            Non sono presenti passi
-                          </li>
-                        </div>
-                      </span>
+                          </div>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div v-if="!pProcesses">
+              <div class="list-group">
+                <li
+                  class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer"
+                >
+                  Non sono presenti progetti
+                </li>
               </div>
             </div>
           </div>
@@ -82,98 +95,37 @@
       <!-- 
         Aggiungi Processo dalla lista
       -->
-      <div v-if="stateform == FormState.ADD">
-        <CTitle
-          title="Aggiungi Processo"
-          buttonTitle=" Aggiungi Processo"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit()"
-          @handleBack="stateform = FormState.LIST"
+      <div v-if="stateform == FormState.PROCESS_ADD">
+        <CBusinessProcessAdd
+          :pFunctionId="pFunctionId"
+          :pFunctionName="pFunctionName"
+          @enableNew="showNewProcess"
+          @enableBack="showListProcess"
         />
-        <div class="card">
-          <div class="card-slot" v-if="bProcessList">
-            <label>Elenco Processi esistenti</label>
-            <v-select
-              label="name"
-              :options="bProcessList"
-              @input="selectId($event)"
-            ></v-select>
-            <span class="help-block">Seleziona un processo</span>
-            <span
-              class="icon-link float-right"
-              @click="stateform = FormState.NEW"
-              ><add-icon />Nuovo Processo</span
-            >
-          </div>
-        </div>
       </div>
       <!-- 
         Crea nuovo Processo
       -->
-      <div v-if="stateform == FormState.NEW">
-        <CTitle
-          title="Nuovo Processo"
-          buttonTitle=" Nuovo Processo"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.ADD"
+      <div v-if="stateform == FormState.PROCESS_NEW">
+        <CBusinessProcessNew
+          :pFunctionId="pFunctionId"
+          :pFunctionName="pFunctionName"
+          @enableAdd="showAddProcess"
+          @enableBack="showListProcess"
         />
-        <CCard>
-          <CCardBody>
-            <div class="row">
-              <CInput
-                class="col-6"
-                label="Nome*"
-                placeholder="Nome"
-                v-model="lProcess.name"
-              />
-              <CInput
-                class="col-4"
-                label="Etichetta"
-                placeholder="Etichetta"
-                v-model="lProcess.label"
-              />
-              <CInput
-                class="col-2"
-                label="Ordine"
-                type="number"
-                placeholder="Ordine"
-                v-model="lProcess.orderCode"
-              />
-            </div>
-            <div class="row mt-4">
-              <CTextarea
-                class="col-12"
-                label="Descrizione"
-                placeholder="Descrizione"
-                v-model="lProcess.descr"
-              />
-            </div>
-          </CCardBody>
-        </CCard>
       </div>
       <!-- 
         Modifica Processo
       -->
-      <div v-if="stateform == FormState.EDIT">
-        <CTitle
-          :title="selectedProcess.name"
-          :buttonTitle="selectedProcess.name"
-          functionality=""
-          :authenticated="isAuthenticated"
-          :buttons="['salva', 'indietro']"
-          @handleSubmit="handleSubmit"
-          @handleBack="stateform = FormState.LIST"
-        />
+      <div v-if="stateform == FormState.PROCESS_EDIT">
         <div v-if="selectedProcess">
           <CBusinessProcessEdit
+            :pFunctionId="pFunctionId"
+            :pFunctionName="pFunctionName"
             :pProcess="selectedProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
+            @enableBack="showListProcess"
           />
         </div>
       </div>
@@ -186,7 +138,7 @@
             :pProcess="selectedProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
-            @enableBack="stateform = FormState.EDIT"
+            @enableBack="stateform = FormState.PROCESS_EDIT"
           />
         </div>
       </div>
@@ -212,7 +164,10 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import CBusinessProcessAdd from "@/components/businessProcess/CBusinessProcessAdd";
+import CBusinessProcessNew from "@/components/businessProcess/CBusinessProcessNew";
 import CBusinessProcessEdit from "@/components/businessProcess/CBusinessProcessEdit";
+
 import CBusinessProcessStepEdit from "@/components/businessProcess/CBusinessProcessStepEdit";
 import CBusinessProcessStepNew from "@/components/businessProcess/CBusinessProcessStepNew";
 import CModalDelete from "@/components/CModalDelete.vue";
@@ -220,11 +175,13 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessList",
   components: {
+    CBusinessProcessAdd,
+    CBusinessProcessNew,
     CBusinessProcessEdit,
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,
-    CTitle
+    CTitle,
   },
   data() {
     return {
@@ -236,31 +193,35 @@ export default {
       selectedProcessDesignId: null,
       states: [],
       FormState: {
-        LIST: 0,
-        EDIT: 1,
-        NEW: 2,
-        ADD: 3,
-        STEP_EDIT: 4,
-        STEP_NEW: 5
+        
+        PROCESS_LIST: 10,
+        PROCESS_VIEW: 11,
+        PROCESS_EDIT: 12,
+        PROCESS_NEW: 13,
+        PROCESS_ADD: 14,
+        
+        STEP_VIEW: 20,
+        STEP_NEW: 21,
+        STEP_EDIT: 22,
       },
-      stateform: 0,
-      warningModal: false,
+      stateform: 10,
+
+
       lProcess: {
         id: "",
         name: "",
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: ""
+        businessFunction: "",
       },
-      showModal: false
+      showModal: false,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"]),
     ...mapGetters("filter", ["params"]),
-    ...mapGetters("designtypes", ["designtypeList"])
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
   emits: ["refreshProcess"],
 
@@ -268,50 +229,54 @@ export default {
     pFunctionId: {
       type: Number,
       required: true,
-      default: null
+      default: null,
     },
     pFunctionName: {
       type: String,
       required: true,
-      default: null
+      default: null,
     },
     pProcesses: {
       type: Array,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
+    selectIdFromProcessList(e) {
+      this.lProcess.id = e.id;
+    },
     handleSubmit() {
-      
-      if ( this.stateform == this.FormState.ADD ) {
-        let params = { fID: 0, pID: 0 };
-        params.fID = this.pFunctionId;
-        params.pID = this.lProcess.id;
-        this.$store.dispatch("bFunction/addProcess", params)
-          .then(this.$emit("refreshProcess", this.pFunctionId));
-      }
-
-      if ( this.stateform == this.FormState.NEW ) {
-
-        this.lProcess.businessFunction = this.pFunctionId;
-        this.$store
-          .dispatch("bProcess/save", this.lProcess)
-          .then(this.$emit("refreshProcess", this.pFunctionId));
-      }
-
-      if (this.stateform == this.FormState.EDIT) {
+      if (this.stateform == this.FormState.PROCESS_EDIT) {
         this.lProcess.businessFunction = this.pFunctionId;
         this.$store
           .dispatch("bProcess/update", this.lProcess)
           .then(this.$emit("refreshProcess", this.pFunctionId));
       }
-      this.stateform = this.FormState.LIST;
+      this.stateform = this.FormState.PROCESS_LIST;
     },
-    selectId(e) {
-      this.lProcess.id = e.id;
+    handleDelete() {
+      let params = { fID: 0, pID: 0 };
+      params.fID = this.pFunctionId;
+      params.pID = this.selectedProcess.id;
+      this.$store
+        .dispatch("bFunction/removeProcess", params)
+        .then(this.$emit("refreshProcess", this.pFunctionId));
+      this.showModal = false;
+    },
+    showListProcess() {
+      this.stateform = this.FormState.PROCESS_LIST;
+      this.$emit("refreshProcess", this.pFunctionId);
+    },
+    showNewProcess() {
+      this.stateform = this.FormState.PROCESS_NEW;
+      this.$emit("refreshProcess", this.pFunctionId);
+    },
+    showAddProcess() {
+      this.stateform = this.FormState.PROCESS_ADD;
+      this.$emit("refreshProcess", this.pFunctionId);
+    },
 
-    },
     showEditStep(step) {
       this.selectedEditStep = step;
       this.stateform = this.FormState.STEP_EDIT;
@@ -322,7 +287,7 @@ export default {
     },
     handleEditProcess(process) {
       this.selectedProcess = process;
-      this.stateform = this.FormState.EDIT;
+      this.stateform = this.FormState.PROCESS_EDIT;
     },
     handleBack() {
       this.$router.back();
@@ -330,18 +295,6 @@ export default {
     closeModal() {
       this.showModal = false;
     },
-
-    handleDelete() {
-      let params = { fID: 0, pID: 0 };
-      params.fID = this.pFunctionId;
-      params.pID = this.selectedProcess.id;
-
-      this.$store
-        .dispatch("bFunction/removeProcess", params)
-        .then(this.$emit("refreshProcess", this.pFunctionId));
-      this.showModal = false;
-    },
-
     handleOpenModalDelete(app) {
       this.selectedProcess = app;
       this.showModal = true;
@@ -356,12 +309,11 @@ export default {
         this.selectedProcess.id +
         "]"
       );
-    }
+    },
   },
   created() {
-    this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
     this.$store.dispatch("designtypes/findAll");
-  }
+  },
 };
 </script>
 <style scoped>
