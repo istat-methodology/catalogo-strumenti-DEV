@@ -23,7 +23,7 @@ public class InformationObject implements Serializable  {
 
 	private static final long serialVersionUID = -4138548145919392087L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)		
 	@Column(name = "ID")
 	private Integer id;
 
