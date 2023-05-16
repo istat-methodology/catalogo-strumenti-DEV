@@ -3,16 +3,11 @@
   <div v-if="bFunction" class="row">
     <div class="col-12">
       <div class="row p-0">
-        <div class="col-md-2"></div>
-        <div class="col-md-10 p-0 pl-4">
-          <div class="col-10 p-0 pl-2">
+        <div class="col-md-12 p-0 pl-4">
+          <div class="col-12 p-0 pl-2">
             <h1 class="uppercase text-right p-0 pt-2 text-info">
-              <span>
-                <span class="p-0">{{ bFunction.name }}</span>
-                <!--h4 class="bg-secondary p-0">
-                  <span class="pr-1 text-info">Modifica</span>
-                </h4-->
-              </span>
+                <span class="mb-0">{{ bFunction.name }}</span>                
+              
             </h1>
           </div>
         </div>
@@ -27,7 +22,7 @@
           </template>
           <div v-if="bFunction">
             <div class="row p-0">
-              <div class="col-10 p-0">
+              <div class="col-12 p-0">
                 <CTitle
                   title="Informazioni Generali"
                   buttonTitle=" Informazioni Generali"

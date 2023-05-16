@@ -18,6 +18,7 @@
       functionality="modifica process specification"
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
+      :items='["process","step"]'
       @handleSubmit="handleSubmit"
       @handleBack="handleBack"
     />
@@ -147,7 +148,7 @@ export default {
       },
       processSpecificationToSave: {
         id: 0,
-        processDesign: 0,
+        processDesignDescription: 0,
         designType: 0,
         informationObject: 0,
       },
@@ -182,34 +183,33 @@ export default {
   },
   methods: {
     handleSubmit() {
-
-
-      if (this.lProcessSpecification.designType_Dati_IO.type == "") {
-        this.processSpecificationToSave.designType =
-          this.lProcessSpecification.designType_Tipo_IO.id;
-      } else {
-        this.processSpecificationToSave.designType =
-          this.lProcessSpecification.designType_Dati_IO.id;
-      }
-
       //salva le modifiche all'information object
-      this.informationObjectToSave.id =
-        this.lProcessSpecification.informationObject.id;
-      this.informationObjectToSave.name =
-        this.lProcessSpecification.informationObject.name;
-      this.informationObjectToSave.descr =
-        this.lProcessSpecification.informationObject.descr;
+
+      this.informationObjectToSave.id =  this.lProcessSpecification.informationObject.id;
+      this.informationObjectToSave.name =  this.lProcessSpecification.informationObject.name;
+      this.informationObjectToSave.descr =   this.lProcessSpecification.informationObject.descr;
 
       this.$store
         .dispatch("informationObjects/update", this.informationObjectToSave)
         .then(() => {
 
-          this.processSpecificationToSave.processDesign =
-            this.pProcessDesign.id;
-          this.processSpecificationToSave.designType =
-            this.lProcessSpecification.designType;
+          
+          //id process specification
+          this.processSpecificationToSave.id = this.pProcessSpecification.id;
+          //id process design
+          this.processSpecificationToSave.processDesign = this.pProcessDesign.id;
+          //id designtype
+          if (this.lProcessSpecification.designType_Dati_IO.type == "") {
+            this.processSpecificationToSave.designType =
+              this.lProcessSpecification.designType_Tipo_IO.id;
+          } else {
+            this.processSpecificationToSave.designType =
+              this.lProcessSpecification.designType_Dati_IO.id;
+          }
+          //id information object
           this.processSpecificationToSave.informationObject =
-          this.lProcessSpecification.informationObject.id;
+            this.lProcessSpecification.informationObject.id;
+
 
           this.$store.dispatch(
             "processSpecification/update",
@@ -231,8 +231,6 @@ export default {
       this.lProcessSpecification.designType_Dati_IO.type = "";
       this.lProcessSpecification.designType_Dati_IO.parent = "";
       this.$store.dispatch("designtypes/findByParent", id);
-     
-     
     },
     onChangeDesignType_Data_IO(event) {
       var id = event.target.value;
@@ -241,7 +239,6 @@ export default {
         this.getDesignType(id);
       this.lProcessSpecification.designType_Dati_IO.parent =
         this.lProcessSpecification.designType_Tipo_IO.id;
-     
     },
     getDesignType(id) {
       console.log(this.lDesignType);

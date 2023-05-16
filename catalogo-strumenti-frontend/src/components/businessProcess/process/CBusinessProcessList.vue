@@ -1,6 +1,6 @@
 <template>
   <div class="row p-0">
-    <div class="col-10 p-0 ml-0">
+    <div class="col-12 p-0 ml-0">
       <!--       
         Elenco Processi      
       -->

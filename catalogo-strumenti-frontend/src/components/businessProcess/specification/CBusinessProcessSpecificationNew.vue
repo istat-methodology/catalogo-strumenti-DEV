@@ -176,19 +176,15 @@ export default {
 
       this.informationObjectToSave.name = this.lInformationObject.name;
       this.informationObjectToSave.descr = this.lInformationObject.descr;
-
       this.$store
         .dispatch("informationObjects/save", this.informationObjectToSave)
         .then(() => {
           this.processSpecificationToSave.processDesign =
             this.pProcessDesign.id;
-
           this.processSpecificationToSave.designType =
             this.lProcessSpecification.designType;
-
           this.processSpecificationToSave.informationObject =
             this.informationObjectList.id;
-
           this.$store.dispatch(
             "processSpecification/save",
             this.processSpecificationToSave

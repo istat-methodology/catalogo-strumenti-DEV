@@ -1,7 +1,23 @@
 <template>
   <div>
-    <CCardHeader class="no-border p-0 mt-4">
+    <CCardHeader class="no-border p-0 mt-2">
+
+      <!--h5 class="text-right uppercase p-0">
+          <span class="uppercase text-info pr-1 p-0 mt-0 mb-0">
+
+            <div
+                  v-for="subitem of items"
+                  :key="subitem.id"
+                >
+                  <li>
+                    {{ subitem }}
+                  </li>
+                </div>
+          </span>
+      </h5-->
       <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">
+
+
         <!--span-->
         <!--span class="p-0">{{ maintitle }}</span-->
         <h4 class="text-right uppercase p-0">
@@ -94,7 +110,12 @@ export default {
     authenticated: {
       Type: Boolean,
       default: () => false
-    }
+    },
+    items:{
+      Type: Array,
+      required: false,
+      default: () => []
+    },
   },
   methods: {
     getTitle(functionType, buttonTitle) {
