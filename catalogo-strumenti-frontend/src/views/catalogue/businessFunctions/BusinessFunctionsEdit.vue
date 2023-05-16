@@ -6,8 +6,9 @@
         <div class="col-md-12 p-0 pl-4">
           <div class="col-12 p-0 pl-2">
             <h1 class="uppercase text-right p-0 pt-2 text-info">
+              <span>
                 <span class="mb-0">{{ bFunction.name }}</span>                
-              
+              </span>
             </h1>
           </div>
         </div>
