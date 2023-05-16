@@ -32,6 +32,7 @@ import { processDesign } from "./modules/processDesign/processDesign";
 import { processSpecification } from "./modules/processSpecification/processSpecification";
 import { bProcess } from "./modules/businessProcesses/businessProcesses";
 import { designtypes } from "./modules/designtype/designtype";
+import { informationObjects } from "./modules/informationObject/informationObject";
 
 /* import { progress } from "./modules/report/progress";
 import { daily } from "./modules/report/daily";
@@ -59,6 +60,7 @@ export default new Vuex.Store({
     processSpecification,
     bProcess,
     designtypes,
+    informationObjects,
     /* 
     applications,
     methods,

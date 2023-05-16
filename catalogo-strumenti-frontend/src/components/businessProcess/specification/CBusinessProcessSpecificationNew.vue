@@ -3,14 +3,14 @@
     <CTitle
       :title="
         'Process Step ' +
-          pProcessStep.name +
-          ' (' +
-          pProcessStep.id +
-          ') / ' +
-          'Process Design (' +
-          pProcessDesign.id +
-          ') / ' +
-          'Process Specification ()'
+        pProcessStep.name +
+        ' (' +
+        pProcessStep.id +
+        ') / ' +
+        'Process Design (' +
+        pProcessDesign.id +
+        ') / ' +
+        'Process Specification ()'
       "
       buttonTitle=" process specification "
       functionality="nuovo process specification"
@@ -67,13 +67,13 @@
               class="col-2"
               label="id"
               placeholder="id"
-              v-model="lProcessSpecification.informationObject.id"
+              v-model="lInformationObject.id"
             />
             <CInput
               class="col-10"
               label="name"
               placeholder="name"
-              v-model="lProcessSpecification.informationObject.name"
+              v-model="lInformationObject.name"
             />
             <!--CInput
                 class="col-2"
@@ -87,7 +87,7 @@
               class="col-12"
               label="description"
               placeholder="description"
-              v-model="lProcessSpecification.informationObject.description"
+              v-model="lInformationObject.descr"
             />
           </div>
         </div>
@@ -102,185 +102,122 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessDesignNew",
   components: {
-    CTitle
+    CTitle,
   },
   data() {
     return {
       designType_Tipo_IO: {
         id: "",
         type: "",
-        parent: ""
+        parent: "",
       },
       designType_Dati_IO: {
         id: "",
         type: "",
-        parent: ""
+        parent: "",
       },
-      processDesignLocal: {},
       lProcessSpecification: {
-        id: "",
-        processDesign: {
-          id: "",
-          descr: ""
-        },
-        designType: {
-          id: "",
-          type: "",
-          parent: ""
-        },
-        informationObject: {
-          //id: "",
-          name: "",
-          descr: "",
-          csmAppRoleId: "",
-          businessService: {
-            id: "",
-            name: "",
-            descr: ""
-          }
-        }
+        processDesign: 0,
+        designType: 0,
+        informationObject: 0,
       },
       processSpecificationToSave: {
-        id: "",
-        processDesign: {
-          id: "",
-          descr: ""
-        },
-        designType: {
-          id: "",
-          type: "",
-          parent: ""
-        },
-        informationObject: {
-          id: "",
-          name: "",
-          descr: ""
-          //csmAppRoleId: "",
-          //businessService: {
-          //  id: "",
-          //  name: "",
-          //  descr: "",
-          //},
-        }
-      }
+        processDesign: 0,
+        designType: 0,
+        informationObject: 0,
+      },
+
+      lInformationObject: {
+        name: "",
+        descr: "",
+      },
+      informationObjectToSave: {
+        name: "",
+        descr: "",
+        csmAppRoleId: "999",
+        businessService: "999",
+      },
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
+    ...mapGetters("informationObjects", ["informationObjectList"]),
   },
   props: {
     pProcessStep: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     pProcessDesign: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     pProcessSpecification: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   methods: {
     handleSubmit() {
-      this.processSpecificationToSave.processDesign.id = this.pProcessDesign.id;
-
-      this.processSpecificationToSave.id = this.pProcessSpecification.id;
-
-      this.processSpecificationToSave.processDesign.id = this.pProcessDesign.id;
-
-      this.processSpecificationToSave.processDesign.descr = this.pProcessDesign.descr;
-
-      /*      if (this.lProcessSpecification.designType_Dati_IO.type == "") {
-        this.processSpecificationToSave.designType.id =
-          this.designType_Tipo_IO.id;
-
-        this.processSpecificationToSave.designType.type =
-          this.designType_Tipo_IO.type;
-
-        this.processSpecificationToSave.designType.parent = "";
-
+      if (this.designType_Dati_IO.type == "") {
+        this.lProcessSpecification.designType = this.designType_Tipo_IO.id;
       } else {
-        this.processSpecificationToSave.designType.id =
-
-          this.designType_Dati_IO.id;
-
-        this.processSpecificationToSave.designType.type =
-
-          this.designType_Dati_IO.type;
-
-        this.processSpecificationToSave.designType.parent =
-        
-          this.designType_Tipo_IO.id;
-
+        this.lProcessSpecification.designType = this.designType_Dati_IO.id;
       }
-*/
-      this.processSpecificationToSave.informationObject.id = this.lProcessSpecification.informationObject.id;
 
-      this.processSpecificationToSave.informationObject.name = this.lProcessSpecification.informationObject.name;
+      this.informationObjectToSave.name = this.lInformationObject.name;
+      this.informationObjectToSave.descr = this.lInformationObject.descr;
 
-      this.processSpecificationToSave.informationObject.descr = this.lProcessSpecification.informationObject.descr;
+      this.$store
+        .dispatch("informationObjects/save", this.informationObjectToSave)
+        .then(() => {
+          this.processSpecificationToSave.processDesign =
+            this.pProcessDesign.id;
 
-      this.processSpecificationToSave.informationObject.csmAppRoleId = this.lProcessSpecification.informationObject.csmAppRoleId;
-      /*
-this.processSpecificationToSave.informationObject.businessService.id =
-  this.lProcessSpecification.informationObject.businessService.id;
+          this.processSpecificationToSave.designType =
+            this.lProcessSpecification.designType;
 
-this.processSpecificationToSave.informationObject.businessService.name =      
-  this.lProcessSpecification.informationObject.businessService.name;
+          this.processSpecificationToSave.informationObject =
+            this.informationObjectList.id;
 
-this.processSpecificationToSave.informationObject.businessService.descr =
-  this.lProcessSpecification.informationObject.businessService.descr;
-*/
-
-      this.$store.dispatch(
-        "processSpecification/save",
-        this.processSpecificationToSave
-      );
+          this.$store.dispatch(
+            "processSpecification/save",
+            this.processSpecificationToSave
+          );
+        });
     },
     handleBack() {
       this.$emit("enableBack");
     },
     changeDesignTypeListByParent(event) {
-      var id = event.target.value;
-      this.processSpecificationToSave.designType.parent = null;
-      this.processSpecificationToSave.designType.id = id;
-      this.processSpecificationToSave.designType.type = this.getDesignType(id);
+      console.log(event);
       this.$store.dispatch("designtypes/findByParent", event.target.value);
-      console.log(this.processSpecificationToSave);
-      alert(this.processSpecificationToSave);
     },
     onChangeDesignType_Data_IO(event) {
-      var id = event.target.value;
-      this.processSpecificationToSave.designType.parent = this.processSpecificationToSave.designType.id;
-      this.processSpecificationToSave.designType.id = id;
-      this.processSpecificationToSave.designType.type = this.getDesignType(id);
-      console.log(this.processSpecificationToSave);
-      alert(this.processSpecificationToSave);
+      console.log(event);
     },
     getDesignType(id) {
       console.log(this.lDesignType);
       var dt = this.lDesignType[id];
       console.log(dt);
       return dt;
-    }
+    },
   },
   created() {
     this.lProcessDesign = this.pProcessDesign;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch("designtypes/findByParent", parseInt(parseInt(1)));
     this.lDesignType = _.map(this.pDesignType, "type");
-  }
+  },
 };
 </script>
 <style scoped>

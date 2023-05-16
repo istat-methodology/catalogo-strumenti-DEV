@@ -18,3 +18,4 @@ export * from "./processDesign/processDesign.service";
 export * from "./processSpecification/processSpecification.service";
 export * from "./businessProcesses/businessProcesses.service";
 export * from "./designType/designType.service";
+export * from "./informationObject/informationObject.service";

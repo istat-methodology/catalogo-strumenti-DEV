@@ -537,8 +537,8 @@ export default {
   },
   created() {
     this.$store.dispatch("processSteps/findAll").catch(() => {});
-    //this.lProcessStep = this.processStep;
     this.lDesignType = _.map(this.pDesignType, "type");
+    this.lProcess = this.pProcess
   }
 };
 </script>
