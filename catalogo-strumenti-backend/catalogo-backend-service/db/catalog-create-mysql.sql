@@ -488,7 +488,7 @@ DROP TABLE IF EXISTS `csm_information_object`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `csm_information_object` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` text COLLATE utf8mb4_unicode_ci,
   `csm_app_role_ID` int NOT NULL,
   `csm_business_service_ID` int NOT NULL,
