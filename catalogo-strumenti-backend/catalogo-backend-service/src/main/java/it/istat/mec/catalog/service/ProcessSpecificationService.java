@@ -68,7 +68,7 @@ public class ProcessSpecificationService {
 		
 		ProcessSpecification ps = processSpecificationDao.findById(request.getId()).get();		
 		
-		ps = Translators.translateUpdate(request, ps);
+		//ps = Translators.translateUpdate(request, ps);
 		
 		ps.setDesignType(designTypeDao.getOne(request.getDesignType()));
 		ps.setInformationObject(informationObjectDao.getOne(request.getInformationObject()));
