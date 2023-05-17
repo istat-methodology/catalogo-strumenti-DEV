@@ -1,6 +1,6 @@
 <template>
   <div>
-    <td title="Visualizza">
+    <td v-if="isView" title="Visualizza">
       <span class="icon-link" @click="handleView" title="Visualizza"
         ><view-icon title="Visualizza" class="text-info" />
       </span>
@@ -27,20 +27,25 @@ export default {
   props: {
     message: {
       Type: String,
-      default: () => ""
+      default: () => "",
     },
     authenticated: {
       Type: Boolean,
-      default: () => false
+      default: () => false,
     },
     showDetails: {
       Type: Boolean,
-      default: () => false
+      default: () => false,
     },
     isItem: {
       Type: Boolean,
-      default: () => false
-    }
+      default: () => false,
+    },
+    isView: {
+      Type: Boolean,
+      default: () => true,
+      required: false,
+    },
   },
   methods: {
     handleView() {
@@ -54,7 +59,7 @@ export default {
     },
     handleDetails() {
       this.$emit("handleDetails");
-    }
-  }
+    },
+  },
 };
 </script>

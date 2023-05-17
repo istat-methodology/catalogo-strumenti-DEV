@@ -195,7 +195,7 @@ export default {
         orderCode: "",
         businessFunction: ""
       },
-      showModal: false,
+     
       fields: [
         {
           key: "id",
@@ -233,7 +233,8 @@ export default {
       details: [],
       setDetails: [],
       showDetails: true,
-      activeIndex: -1
+      activeIndex: -1,
+      showModal: false
     };
   },
   computed: {

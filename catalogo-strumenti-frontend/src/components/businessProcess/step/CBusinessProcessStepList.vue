@@ -1,46 +1,6 @@
 <template>
   <div>
     <div v-if="lProcess">
-      <CCard>
-        <CCardBody>
-          <div class="row">
-            <CInput
-              disabled
-              class="col-1"
-              label="id"
-              placeholder="id"
-              v-model="lProcess.id"
-            />
-            <CInput
-              class="col-6"
-              label="Nome*"
-              placeholder="Nome"
-              v-model="lProcess.name"
-            />
-            <CInput
-              class="col-4"
-              label="Etichetta"
-              placeholder="Etichetta"
-              v-model="lProcess.label"
-            />
-            <CInput
-              class="col-2"
-              label="Ordine"
-              type="number"
-              placeholder="Ordine"
-              v-model="lProcess.orderCode"
-            />
-          </div>
-          <div class="row mt-4">
-            <CTextarea
-              class="col-12"
-              label="Descrizione"
-              placeholder="Descrizione"
-              v-model="lProcess.descr"
-            />
-          </div>
-        </CCardBody>
-      </CCard>
       <CTitle
         title="Passi"
         buttonTitle=" Passo"
@@ -88,12 +48,12 @@ import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 
 export default {
-  name: "CBusinessProcessStepList",
+  name: "CBusinessProcessEdit",
   components: {
     //CBusinessProcessDesignNew,
     CTitle,
     CTableLink,
-    CModalDelete
+    CModalDelete,
   },
   data() {
     return {
@@ -101,54 +61,67 @@ export default {
         {
           key: "id",
           label: "id",
-          _style: "width:2%;"
+          _style: "width:2%;",
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:10%;"
+          _style: "width:10%;",
         },
         {
           key: "label",
           label: "etichetta",
-          _style: "width:10%;"
+          _style: "width:10%;",
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:10%;"
+          _style: "width:10%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
-      lProcess: {},
+      lProcess: {
+        id: "",
+        name: "",
+        descr: "",
+        label: "",
+        orderCode: "",
+        businessFunction: "",
+      },
       selectedProcessStep: {},
-      states: [],
-      FormState: {},
-      stateform: 0,
-      showModal: false,
-      closeModal: false
+      showModal: false    
     };
   },
   computed: {
-    ...mapGetters("auth", ["isAuthenticated"])
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   props: {
+    pFunctionId: {
+      type: Number,
+      required: false,
+      default: null,
+    },
+    pFunctionName: {
+      type: String,
+      required: false,
+      default: null,
+    },
     pProcess: {
       type: Object,
       required: true,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
-    getProcessStepsList: function() {
+    getProcessStepsList: function () {
       if (this.lProcess && this.lProcess.processSteps) {
-        return this.lProcess.processSteps.map(step => {
+        return this.lProcess.processSteps.map((step) => {
           return {
             id: step.id,
             name: step.name == null ? "" : step.name,
@@ -159,13 +132,13 @@ export default {
               step.stepInstances == null
                 ? ""
                 : step.stepInstances
-                    .map(instance => {
+                    .map((instance) => {
                       return (
                         instance.functionality + " (" + instance.method + ")"
                       );
                     })
                     .join(", "),
-            processDesigns: step.processDesigns
+            processDesigns: step.processDesigns,
           };
         });
       } else {
@@ -180,7 +153,7 @@ export default {
       this.$emit("enableNewStep");
     },
     handleBack() {
-      this.$router.back();
+      this.$emit("enableBack");
     },
     handleOpenModalDelete(app) {
       this.selectedProcessStep = app;
@@ -194,15 +167,18 @@ export default {
       );
     },
     handleDelete() {
-      let params = { idProcess: 0, idStep: 0 };
-      params.idProcess = this.pProcess.id;
+      let params = { idStep: 0, idProcess: 0 };
       params.idStep = this.selectedProcessStep.id;
-      this.$store.dispatch("bProcess/removeStep", params);
-    }
+      params.idProcess = this.pProcess.id;
+      this.$store.dispatch("processSteps/removeStep", params);
+    },
+    closeModal() {
+      this.showModal = false;
+    },
   },
   created() {
     this.lProcess = this.pProcess;
-  }
+  },
 };
 </script>
 <style scoped>

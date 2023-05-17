@@ -19,6 +19,17 @@ class ProcessStepsService extends AbstractService {
         throw err;
       });
   }
+  removeStep(idStep, idProcess) {
+    return axiosCatalog
+      .delete(this.endpoint + "/" + idStep + "/business-process/" + idProcess)
+      .then(res => {
+        var data = res.data ? res.data : [];
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 }
 export const processStepsService = new ProcessStepsService(
   "/catalog/process-steps"
@@ -26,3 +37,4 @@ export const processStepsService = new ProcessStepsService(
 export const processStepsOpenService = new ProcessStepsService(
   "/catalog/open/process-steps"
 );
+

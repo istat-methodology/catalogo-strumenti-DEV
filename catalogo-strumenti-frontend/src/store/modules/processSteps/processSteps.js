@@ -74,6 +74,19 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
+  },
+  removeStep({ commit, dispatch }, params) {
+    return processStepsService
+      .removeStep(params.idStep, params.idProcess)
+      .then(data => {
+        commit("SET_PROCSTEP", data);
+        dispatch("message/success", "Step Eliminato dal Business Process!", {
+          root: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 

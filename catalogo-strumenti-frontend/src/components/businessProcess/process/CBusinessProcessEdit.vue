@@ -50,42 +50,6 @@
           </div>
         </CCardBody>
       </CCard>
-      <CTitle
-        title="Passi"
-        buttonTitle=" Passo"
-        functionality=""
-        :authenticated="isAuthenticated"
-        :buttons="['aggiungi']"
-        @handleNew="handleNewStep"
-      />
-      <CCard>
-        <CCardBody>
-          <span v-if="lProcess.processSteps">
-            <CDataTable
-              v-if="lProcess"
-              :items="getProcessStepsList()"
-              :fields="fields"
-              :items-per-page="10"
-              hover
-              pagination
-              ><template #show_details="{ item }">
-                <CTableLink
-                  :authenticated="isAuthenticated"
-                  @handleEdit="handleEditStep(item)"
-                  @handleDelete="handleOpenModalDelete(item)"
-                />
-              </template>
-            </CDataTable>
-          </span>
-          <span v-else>Non sono presenti passi</span>
-        </CCardBody>
-      </CCard>
-      <CModalDelete
-        :message="getMessage()"
-        :showModal="showModal"
-        @closeModal="closeModal"
-        @handleDelete="handleDelete"
-      />
     </div>
   </div>
 </template>
@@ -93,48 +57,14 @@
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
-import CTableLink from "@/components/CTableLink.vue";
-import CModalDelete from "@/components/CModalDelete.vue";
 
 export default {
   name: "CBusinessProcessEdit",
   components: {
-    //CBusinessProcessDesignNew,
-    CTitle,
-    CTableLink,
-    CModalDelete
+    CTitle
   },
   data() {
     return {
-      fields: [
-        {
-          key: "id",
-          label: "id",
-          _style: "width:2%;"
-        },
-        {
-          key: "name",
-          label: "Nome",
-          _style: "width:10%;"
-        },
-        {
-          key: "label",
-          label: "etichetta",
-          _style: "width:10%;"
-        },
-        {
-          key: "descr",
-          label: "Descrizione",
-          _style: "width:10%;"
-        },
-        {
-          key: "show_details",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false
-        }
-      ],
       lProcess: {
         id: "",
         name: "",
@@ -142,10 +72,7 @@ export default {
         label: "",
         orderCode: "",
         businessFunction: ""
-      },
-      selectedProcessStep: {},
-      showModal: false,
-      closeModal: false
+      }
     };
   },
   computed: {
@@ -169,52 +96,8 @@ export default {
     }
   },
   methods: {
-    getProcessStepsList: function() {
-      if (this.lProcess && this.lProcess.processSteps) {
-        return this.lProcess.processSteps.map(step => {
-          return {
-            id: step.id,
-            name: step.name == null ? "" : step.name,
-            label: step.label == null ? "" : step.label,
-            descr: step.descr == null ? "" : step.descr,
-            //tool: step.businessService == null ? "" : step.businessService.name,
-            stepInstances:
-              step.stepInstances == null
-                ? ""
-                : step.stepInstances
-                    .map(instance => {
-                      return (
-                        instance.functionality + " (" + instance.method + ")"
-                      );
-                    })
-                    .join(", "),
-            processDesigns: step.processDesigns
-          };
-        });
-      } else {
-        return [];
-      }
-    },
-
-    handleEditStep(step) {
-      this.$emit("enableEditStep", step);
-    },
-    handleNewStep() {
-      this.$emit("enableNewStep");
-    },
     handleBack() {
       this.$emit("enableBack");
-    },
-    handleOpenModalDelete(app) {
-      this.selectedProcessStep = app;
-      this.showModal = true;
-    },
-    getMessage() {
-      return (
-        "Sei sicuro di eliminare il passo " +
-        this.selectedProcessStep.name +
-        " selezionato?"
-      );
     },
     handleSubmit() {
       if (this.pFunctionId != null) {
@@ -223,12 +106,6 @@ export default {
       this.$store.dispatch("bProcess/update", this.lProcess);
       this.$emit("enableBack");
     },
-    handleDelete() {
-      let params = { idProcess: 0, idStep: 0 };
-      params.idProcess = this.pProcess.id;
-      params.idStep = this.selectedProcessStep.id;
-      this.$store.dispatch("bProcess/removeStep", params);
-    }
   },
   created() {
     this.lProcess = this.pProcess;

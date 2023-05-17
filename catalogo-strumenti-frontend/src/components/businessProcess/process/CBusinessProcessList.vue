@@ -121,6 +121,12 @@
           <CBusinessProcessEdit
             :pFunctionId="pFunctionId"
             :pFunctionName="pFunctionName"
+            :pProcess="selectedProcess"     
+            @enableBack="showListProcess"
+          />
+          <CBusinessProcessStepList
+            :pFunctionId="pFunctionId"
+            :pFunctionName="pFunctionName"
             :pProcess="selectedProcess"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
@@ -167,6 +173,7 @@ import CBusinessProcessAdd from "@/components/businessProcess/process/CBusinessP
 import CBusinessProcessNew from "@/components/businessProcess/process/CBusinessProcessNew";
 import CBusinessProcessEdit from "@/components/businessProcess/process/CBusinessProcessEdit";
 
+import CBusinessProcessStepList from "@/components/businessProcess/step/CBusinessProcessStepList";
 import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusinessProcessStepEdit";
 import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
 import CModalDelete from "@/components/CModalDelete.vue";
@@ -177,6 +184,7 @@ export default {
     CBusinessProcessAdd,
     CBusinessProcessNew,
     CBusinessProcessEdit,
+    CBusinessProcessStepList,
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,

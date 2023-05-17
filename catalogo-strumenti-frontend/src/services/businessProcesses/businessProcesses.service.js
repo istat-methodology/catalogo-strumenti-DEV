@@ -72,7 +72,7 @@ class BusinessProcessService extends AbstractService {
   }
   removeStep(idProcess, idStep) {
     return axiosCatalog
-      .put(this.endpoint + "/" + idProcess + "/steps/" + idStep)
+      .delete(this.endpoint + "/" + idProcess + "/steps/" + idStep)
       .then(res => {
         var data = res.data ? res.data : [];
 
