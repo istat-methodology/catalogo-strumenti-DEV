@@ -205,7 +205,7 @@
       :message="msg"
       :showModal="showModal"
       @closeModal="closeModal"
-      @handleDelete="handleDeleteProcessDesign"
+      @handleDelete="handleDelete"
     />
   </div>
 </template>
@@ -313,7 +313,8 @@ export default {
       },
       stateform: 4,
       showModal: false,
-      msg: ""
+      msg: "",
+      isProcessSpecification:false
     };
   },
   computed: {
@@ -408,6 +409,32 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
+    handleDelete(){
+      (this.isProcessSpecification!=true)? this.handleDeleteProcessDesign() : this.handleDeleteProcessSpecification();
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    handleOpenModalDeleteProcessDesign(app) {
+      this.isProcessSpecification = false;
+      this.selectedProcessDesign = app;
+      this.msg =
+        "Sei sicuro di eliminare il Process Design " +
+        this.selectedProcessDesign.descr + " - "+ this.selectedProcessDesign.id
+        " selezionato?";
+      this.showModal = true;
+    },   
+    
+    handleOpenModalDeleteProcessSpecification(app,item) {
+
+      this.isProcessSpecification = true
+      this.selectedProcessSpecification = item;
+      this.msg =
+        "Sei sicuro di eliminare il Process Specificatione " +
+        this.selectedProcessSpecification.descr + " - " + this.selectedProcessSpecification.id
+        " selezionato?";
+      this.showModal = true;   
+    },
 
     handleDeleteProcessDesign() {
       this.$store.dispatch(
@@ -416,28 +443,15 @@ export default {
       );
       this.showModal = false;
     },
-    handleDeleteProcessStep() {
-      this.$store
-        .dispatch("processSteps/delete", this.selectedProcessStep.id)
-        .catch(() => {});
+    handleDeleteProcessSpecification() {
+      this.$store.dispatch(
+        "processSpecification/delete",
+        this.selectedProcessSpecification.id
+      );
       this.showModal = false;
+    
     },
 
-    handleOpenModalDelete(app) {
-      this.selectedProcessDesign = app;
-      this.showModal = true;
-    },
-    closeModal() {
-      this.showModal = false;
-    },
-    handleOpenModalDeleteProcessDesign(app) {
-      this.selectedProcessDesign = app;
-      this.msg =
-        "Sei sicuro di eliminare il Process Design " +
-        this.selectedProcessDesign.descr +
-        " selezionato?";
-      this.showModal = true;
-    },
     showEditProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = processDesignSpecification;
@@ -453,23 +467,8 @@ export default {
       this.selectedProcessSpecification = {};
       this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
     },
-    /* Process Specification */
-    handleSubmitNewProcessSpecification() {
-      console.log("funzione new process specification non attiva!");
-      alert("funzione new process specification non attiva!");
-    },
-    handleSubmitViewProcessSpecification() {
-      console.log("funzione View process specification non attiva!");
-      alert("funzione View process specification non attiva!");
-    },
-    handleSubmitDeleteProcessSpecification() {
-      console.log("funzione delete process specification non attiva!");
-      alert("funzione delete process specification non attiva!");
-    },
-    handleOpenModalDeleteProcessSpecification() {
-      console.log("funzione delete process specification non attiva!");
-      alert("funzione delete process specification non attiva!");
-    }
+
+
   },
   created() {
     this.lProcessStep = this.pPStep;
