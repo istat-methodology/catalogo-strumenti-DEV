@@ -175,6 +175,7 @@ export default {
       params.idStep = this.selectedProcessStep.id;
       params.idProcess = this.pProcess.id;
       this.$store.dispatch("processSteps/removeStep", params);
+      this.showModal = false;
     },
     closeModal() {
       this.showModal = false;
