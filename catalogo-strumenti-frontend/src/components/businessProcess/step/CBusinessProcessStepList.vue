@@ -20,8 +20,7 @@
               hover
               pagination
               ><template #show_details="{ item }">
-                <CTableLink
-                  
+                <CTableLink                  
                   :authenticated="isAuthenticated"
                   @handleView="handleViewStep(item)"
                   @handleEdit="handleEditStep(item)"
