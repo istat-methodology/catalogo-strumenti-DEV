@@ -75,7 +75,7 @@
         </CCardBody>
       </CCard>
 
-      <CTitle
+      <!--CTitle
         title="Process Design"
         buttonTitle=" nuovo Process Design "
         functionality=""
@@ -176,11 +176,12 @@
           </div>
         </div>
       </div>
-      <div v-else>Non sono presenti process design</div>
+      <div v-else>Non sono presenti process design</div-->
     </div>
+
     <!-- 
         New Process Design
-    -->
+
     <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
       <CBusinessProcessDesignNew
         :pProcessStep="lProcessStep"
@@ -189,9 +190,9 @@
         @enableBack="stateform = FormState.STEP_NEW"
       />
     </div>
-    <!-- 
+
         New Process Design
-    -->
+
     <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
       <CBusinessProcessDesignEdit
         :pProcessStep="lProcessStep"
@@ -200,9 +201,9 @@
         @enableBack="stateform = FormState.STEP_NEW"
       />
     </div>
-    <!-- 
+
         View Process Specification
-    -->
+
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_VIEW">
       <CBusinessProcessSpecificationView
         :pProcessStep="lProcessStep"
@@ -211,9 +212,9 @@
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
-    <!-- 
+
         New Process Specification
-    -->
+
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_NEW">
       <CBusinessProcessSpecificationNew
         :pProcessStep="lProcessStep"
@@ -223,9 +224,9 @@
         @enableBack="stateform = FormState.STEP_EDIT"
       />
     </div>
-    <!-- 
+
         Edit Process Specification
-    -->
+
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_EDIT">
       <CBusinessProcessSpecificationEdit
         :bProcessStep="lProcessStep"
@@ -234,16 +235,17 @@
         @enableEditProcessSpecification="handleSubmitEditProcessSpecification"
         @enableBack="stateform = FormState.STEP_EDIT"
       />
-    </div>
+    </div-->
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CBusinessProcessDesignNew from "@/components/businessProcess/design/CBusinessProcessDesignView";
+/*import CBusinessProcessDesignNew from "@/components/businessProcess/design/CBusinessProcessDesignView";
 import CBusinessProcessDesignEdit from "@/components/businessProcess/design/CBusinessProcessDesignEdit";
 import CBusinessProcessSpecificationView from "@/components/businessProcess/specification/CBusinessProcessSpecificationView";
 import CBusinessProcessSpecificationNew from "@/components/businessProcess/specification/CBusinessProcessSpecificationNew";
 import CBusinessProcessSpecificationEdit from "@/components/businessProcess/specification/CBusinessProcessSpecificationEdit";
+*/
 //import CTableLink from "@/components/CTableLink.vue";
 //import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
@@ -252,17 +254,21 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessStepNew",
   components: {
+    /*
     CBusinessProcessDesignNew,
     CBusinessProcessDesignEdit,
     CBusinessProcessSpecificationView,
     CBusinessProcessSpecificationNew,
     CBusinessProcessSpecificationEdit,
+    */
     //CTableLink,
     //  CModalDelete,
     CTitle
   },
   data() {
     return {
+
+      /*
       fieldsProcessSpecification: [
         {
           key: "id",
@@ -303,6 +309,7 @@ export default {
           filter: false
         }
       ],
+      */
       processStepToSave: {
         id: 0,
         name: "",
@@ -321,7 +328,7 @@ export default {
         processIds: [],
         substep: 0
       },
-
+      /*
       processDesignToSave: {
         id: 0,
         descr: "",
@@ -351,6 +358,7 @@ export default {
           }
         }
       },
+      */
       lDesignType: {},
       designTypeSelected: {},
       selectedProcessDesign: {},
@@ -376,8 +384,8 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("processSteps", ["processStepsList"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
-    ...mapGetters("processDesign", ["processDesign"])
+    //...mapGetters("designtypes", ["designtypeList"]),
+    //...mapGetters("processDesign", ["processDesign"])
   },
   props: {
     pProcess: {
@@ -392,6 +400,8 @@ export default {
     }
   },
   methods: {
+    /*
+
     getProcessDesign: function() {
       if (this.lProcessStep && this.lProcessStep.processDesigns.lenght > 0) {
         return this.lProcessStep.processDesigns.map(item => {
@@ -439,13 +449,14 @@ export default {
       return dt;
     },
     /* Process Step */
-
+/*
     selectId(e) {
       this.lProcessStep.id = e.id;
       this.lProcessStep.name = e.name;
       this.lProcessStep.descr = e.descr;
       this.lProcessStep.label = e.label;
     },
+    */
 
     handleSubmit() {
       if (this.stateform == this.FormState.STEP_ADD) {
@@ -465,12 +476,14 @@ export default {
         this.processStepToSave.substep = this.lProcessStep.substep;
         this.$store.dispatch("processSteps/save", this.processStepToSave);
       }
+      this.$emit("enableBack");
     },
     handleBack() {
       this.$emit("enableBack");
     },
 
     /* Process Design */
+    /*
     showNewProcessDesign(processDesign) {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_NEW;
@@ -479,24 +492,9 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-    handleSubmitNewProcessDesign() {
-      console.log("funzione di insert non attiva!");
-      alert("funzione di insert non attiva!");
-    },
-    handleSubmitEditProcessDesign(processDesign) {
-      this.processDesignToSave.id = processDesign.id;
-      this.processDesignToSave.descr = processDesign.descr;
-      this.processDesignToSave.step = this.lProcessStep.id;
-      this.$store.dispatch("processDesign/update", this.processDesignToSave);
-    },
-    handleSubmitDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
-    },
-    handleOpenModalDeleteProcessDesign() {
-      console.log("funzione delete process design non attiva!");
-      alert("funzione delete process design non attiva!");
-    },
+    
+    /* Process Specification */
+    /*
     showEditProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = processDesignSpecification;
@@ -514,6 +512,7 @@ export default {
     },
 
     /* Process Specification */
+    /*
     handleSubmitNewProcessSpecification() {
       console.log("funzione new process specification non attiva!");
       alert("funzione new process specification non attiva!");
@@ -534,6 +533,7 @@ export default {
       console.log("funzione delete process specification non attiva!");
       alert("funzione delete process specification non attiva!");
     }
+    */
   },
   created() {
     this.$store.dispatch("processSteps/findAll").catch(() => {});
