@@ -80,15 +80,30 @@
       <!-- 
         Modifica Processo
       -->
-      <div v-if="stateform == FormState.PROCESS_EDIT">
+      <!--div v-if="stateform == FormState.PROCESS_EDIT">
         <CBusinessProcessEdit
           :pProcess="selectedProcess"
           @enableEditStep="showEditStep"
           @enableNewStep="showNewStep"
           @enableBack="showListProcess"
         />
-      </div>
+      </div-->
 
+      <div v-if="stateform == FormState.PROCESS_EDIT">
+        <div v-if="selectedProcess">
+          <CBusinessProcessEdit
+            :pProcess="selectedProcess"     
+            @enableBack="showListProcess"
+          />
+          <CBusinessProcessStepList
+            :pProcess="selectedProcess"
+            @enableViewStep="showViewStep"
+            @enableEditStep="showEditStep"
+            @enableNewStep="showNewStep"
+            @enableBack="showListProcess"
+          />
+        </div>
+      </div>
       <!-- 
         Visualizza Passo del Processo
       -->
@@ -141,6 +156,7 @@ import CBusinessProcessNew from "@/components/businessProcess/process/CBusinessP
 import CBusinessProcessEdit from "@/components/businessProcess/process/CBusinessProcessEdit";
 import CBusinessProcessView from "@/components/businessProcess/process/CBusinessProcessView";
 
+import CBusinessProcessStepList from "@/components/businessProcess/step/CBusinessProcessStepList";
 import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusinessProcessStepEdit";
 import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
 import CBusinessProcessStepView from "@/components/businessProcess/step/CBusinessProcessStepView";
@@ -157,6 +173,7 @@ export default {
     CBusinessProcessNew,
     CBusinessProcessView,
     CBusinessProcessEdit,
+    CBusinessProcessStepList,
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CBusinessProcessStepView,
