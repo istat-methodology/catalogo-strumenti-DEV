@@ -40,8 +40,8 @@
       </div>
 
       <CTitle
-        title="Process Design"
-        buttonTitle=" nuovo Process Design "
+        title=""
+        buttonTitle=""
         functionality=""
         :authenticated="isAuthenticated"
       />
@@ -92,74 +92,26 @@
                   {{ item.informationObject.descr }}
                 </td>
               </template>
-
-              <template #show_details="{ item }">
-                <CTableLink
-                  :authenticated="isAuthenticated"
-                  @handleView="
-                    showViewProcessSpecification(processDesign, item)
-                  "
-                  @handleEdit="
-                    showEditProcessSpecification(processDesign, item)
-                  "
-                  @handleDelete="
-                    handleOpenModalDeleteProcessSpecification(
-                      processDesign,
-                      item
-                    )
-                  "
-              /></template>
             </CDataTable>
-            <!--div class="pt-4 pb-2 pr-2">
-              <button
-                @click="showNewProcessSpecification"
-                class="btn btn-info float-right mr-4"
-              >
-                aggiungi Process Specification
-              </button>
-              <button
-                @click="showEditProcessDesign(processDesign)"
-                class="btn btn-info float-right mr-4"
-              >
-                modifica
-              </button>
-              <button
-                @click="handleOpenModalDeleteProcessDesign(processDesign)"
-                class="btn btn-info float-right mr-4"
-              >
-                cancella
-              </button>
-            </div-->
           </div>
         </div>
       </div>
       <div v-else>Non sono presenti process design</div>
     </div>
-    <!-- 
-        View Process Specification
-    -->
-    <div v-if="stateform == FormState.PROCESS_SPECIFICATION_VIEW">
-      <CBusinessProcessSpecificationView
-        :pProcessStep="lProcessStep"
-        :pProcessDesign="selectedProcessDesign"
-        :pProcessSpecification="selectedProcessSpecification"
-        :pDesignType="pDesignType"
-        @enableBack="enableBack"
-      />
-    </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CBusinessProcessSpecificationView from "@/components/businessProcess/specification/CBusinessProcessSpecificationView";
+
 import CTitle from "@/components/CTitle.vue";
+
 var _ = require("lodash");
 
 export default {
   name: "CBusinessProcessStepView",
   components: {
-    CBusinessProcessSpecificationView,
-    CTitle
+
+    CTitle,
   },
   data() {
     return {
@@ -195,14 +147,6 @@ export default {
           label: " information Object Description",
           _style: "width:20%;"
         }
-        /*,
-        {
-          key: "show_details",
-          label: "",
-          _style: "width:1%",
-          sorter: false,
-          filter: false
-        }*/
       ],
 
       processStepToSave: {
@@ -304,24 +248,6 @@ export default {
     handleBack() {
       this.$emit("enableBack");
     },
-    /* Process Design */
-    showNewProcessDesign(processDesign) {
-      this.selectedProcessDesign = processDesign;
-      this.stateform = this.FormState.PROCESS_DESIGN_NEW;
-    },
-    showEditProcessDesign(processDesign) {
-      this.selectedProcessDesign = processDesign;
-      this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
-    },
-    showViewProcessSpecification(processDesign, processDesignSpecification) {
-      this.selectedProcessDesign = processDesign;
-      this.selectedProcessSpecification = processDesignSpecification;
-      this.stateform = this.FormState.PROCESS_SPECIFICATION_VIEW;
-    },
-    handleSubmitViewProcessSpecification() {
-      console.log("funzione View process specification non attiva!");
-      alert("funzione View process specification non attiva!");
-    }
   },
   created() {
     this.lProcessStep = this.pPStep;
