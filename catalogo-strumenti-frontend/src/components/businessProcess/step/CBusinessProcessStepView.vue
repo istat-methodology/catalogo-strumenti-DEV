@@ -93,7 +93,7 @@
                 </td>
               </template>
 
-              <!--template #show_details="{ item }">
+              <template #show_details="{ item }">
                 <CTableLink
                   :authenticated="isAuthenticated"
                   @handleView="
@@ -108,10 +108,10 @@
                       item
                     )
                   "
-              /></template-->
+              /></template>
             </CDataTable>
-            <div class="pt-4 pb-2 pr-2">
-              <!--button
+            <!--div class="pt-4 pb-2 pr-2">
+              <button
                 @click="showNewProcessSpecification"
                 class="btn btn-info float-right mr-4"
               >
@@ -128,8 +128,8 @@
                 class="btn btn-info float-right mr-4"
               >
                 cancella
-              </button-->
-            </div>
+              </button>
+            </div-->
           </div>
         </div>
       </div>

@@ -128,9 +128,23 @@
             :pFunctionId="pFunctionId"
             :pFunctionName="pFunctionName"
             :pProcess="selectedProcess"
+            @enableViewStep="showViewStep"
             @enableEditStep="showEditStep"
             @enableNewStep="showNewStep"
             @enableBack="showListProcess"
+          />
+        </div>
+      </div>
+      <!-- 
+        Visualizza Passo del Processo
+      -->
+      <div v-if="stateform == FormState.STEP_VIEW">
+        <div v-if="selectedEditStep">
+          <CBusinessProcessStepView
+            :pProcess="selectedProcess"
+            :pPStep="selectedEditStep"
+            :pDesignType="designtypeList"
+            @enableBack="showEditProcess"
           />
         </div>
       </div>
@@ -174,6 +188,7 @@ import CBusinessProcessNew from "@/components/businessProcess/process/CBusinessP
 import CBusinessProcessEdit from "@/components/businessProcess/process/CBusinessProcessEdit";
 
 import CBusinessProcessStepList from "@/components/businessProcess/step/CBusinessProcessStepList";
+import CBusinessProcessStepView from "@/components/businessProcess/step/CBusinessProcessStepView";
 import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusinessProcessStepEdit";
 import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
 import CModalDelete from "@/components/CModalDelete.vue";
@@ -185,6 +200,7 @@ export default {
     CBusinessProcessNew,
     CBusinessProcessEdit,
     CBusinessProcessStepList,
+    CBusinessProcessStepView,
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,
@@ -284,6 +300,10 @@ export default {
     showEditProcess() {
       this.stateform = this.FormState.PROCESS_EDIT;
       this.$emit("refreshProcess", this.pFunctionId);
+    },
+    showViewStep(step) {
+      this.selectedEditStep = step;
+      this.stateform = this.FormState.STEP_VIEW;
     },
     showEditStep(step) {
       this.selectedEditStep = step;

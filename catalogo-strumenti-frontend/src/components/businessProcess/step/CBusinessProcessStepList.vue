@@ -21,7 +21,9 @@
               pagination
               ><template #show_details="{ item }">
                 <CTableLink
+                  
                   :authenticated="isAuthenticated"
+                  @handleView="handleViewStep(item)"
                   @handleEdit="handleEditStep(item)"
                   @handleDelete="handleOpenModalDelete(item)"
                 />
@@ -48,9 +50,8 @@ import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 
 export default {
-  name: "CBusinessProcessEdit",
+  name: "CBusinessProcessList",
   components: {
-    //CBusinessProcessDesignNew,
     CTitle,
     CTableLink,
     CModalDelete,
@@ -95,7 +96,7 @@ export default {
         businessFunction: "",
       },
       selectedProcessStep: {},
-      showModal: false    
+      showModal: false,
     };
   },
   computed: {
@@ -148,6 +149,9 @@ export default {
 
     handleEditStep(step) {
       this.$emit("enableEditStep", step);
+    },
+    handleViewStep(step) {
+      this.$emit("enableViewStep", step);
     },
     handleNewStep() {
       this.$emit("enableNewStep");
