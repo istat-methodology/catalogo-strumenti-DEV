@@ -167,8 +167,7 @@
       <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
           :pProcess="selectedProcess"
-          :pPStep="selectedEditStep"
-          :pDesignType="designtypeList"
+          :pPStep="selectedEditStep"         
           @enableBack="showEditProcess"
         />
       </div>
@@ -263,19 +262,7 @@ export default {
       default: () => {}
     }
   },
-  methods: {
-    selectIdFromProcessList(e) {
-      this.lProcess.id = e.id;
-    },
-    handleSubmit() {
-      if (this.stateform == this.FormState.PROCESS_EDIT) {
-        this.lProcess.businessFunction = this.pFunctionId;
-        this.$store
-          .dispatch("bProcess/update", this.lProcess)
-          .then(this.$emit("refreshProcess", this.pFunctionId));
-      }
-      this.stateform = this.FormState.PROCESS_LIST;
-    },
+  methods: {    
     handleDelete() {
       let params = { fID: 0, pID: 0 };
       params.fID = this.pFunctionId;
@@ -290,16 +277,14 @@ export default {
       this.$emit("refreshProcess", this.pFunctionId);
     },
     showNewProcess() {
-      this.stateform = this.FormState.PROCESS_NEW;
-      this.$emit("refreshProcess", this.pFunctionId);
+      this.stateform = this.FormState.PROCESS_NEW;   
     },
     showAddProcess() {
       this.stateform = this.FormState.PROCESS_ADD;
-      this.$emit("refreshProcess", this.pFunctionId);
+     
     },
     showEditProcess() {
-      this.stateform = this.FormState.PROCESS_EDIT;
-      this.$emit("refreshProcess", this.pFunctionId);
+      this.stateform = this.FormState.PROCESS_EDIT;    
     },
     showViewStep(step) {
       this.selectedEditStep = step;

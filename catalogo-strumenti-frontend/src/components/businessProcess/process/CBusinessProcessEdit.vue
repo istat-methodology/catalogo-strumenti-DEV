@@ -103,7 +103,7 @@ export default {
       if (this.pFunctionId != null) {
         this.lProcess.businessFunction = this.pFunctionId;
       }
-      this.$store.dispatch("bProcess/update", this.lProcess);
+      this.$store.dispatch("bProcess/update", this.lProcess);      
       this.$emit("enableBack");
     },
   },

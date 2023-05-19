@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pDesignType">
+  <div>
     <!-- 
         Aggiungi Passo dalla lista
       -->
@@ -80,7 +80,7 @@
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
-var _ = require("lodash");
+//var _ = require("lodash");
 
 export default {
   name: "CBusinessProcessStepNew",
@@ -107,24 +107,10 @@ export default {
         processIds: [],
         substep: 0,
       },
-      lDesignType: {},
-      designTypeSelected: {},
-      selectedProcessDesign: {},
-      selectedProcessSpecification: {},
 
       FormState: {
-        STEP_VIEW: 20,
         STEP_ADD: 21,
         STEP_NEW: 22,
-        STEP_EDIT: 23,
-
-        PROCESS_DESIGN_VIEW: 30,
-        PROCESS_DESIGN_NEW: 31,
-        PROCESS_DESIGN_EDIT: 32,
-
-        PROCESS_SPECIFICATION_VIEW: 40,
-        PROCESS_SPECIFICATION_NEW: 41,
-        PROCESS_SPECIFICATION_EDIT: 42,
       },
       stateform: 21,
     };
@@ -138,12 +124,7 @@ export default {
       type: Object,
       required: true,
       default: () => {},
-    },
-    pDesignType: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
+    }
   },
   methods: {
     selectId(e) {
@@ -171,6 +152,7 @@ export default {
         }
         this.processStepToSave.substep = this.lProcessStep.substep;
         this.$store.dispatch("processSteps/save", this.processStepToSave);
+        this.$emit("refreshProcess", this.pFunctionId);
       }
       this.$emit("enableBack");
     },
@@ -180,7 +162,7 @@ export default {
   },
   created() {
     this.$store.dispatch("processSteps/findAll").catch(() => {});
-    this.lDesignType = _.map(this.pDesignType, "type");
+    //this.lDesignType = _.map(this.pDesignType, "type");
     this.lProcess = this.pProcess;
   },
 };

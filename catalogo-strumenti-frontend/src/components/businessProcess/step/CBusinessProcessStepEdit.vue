@@ -395,7 +395,9 @@ export default {
       //this.processStepToSave.businessProcesses.push({ "id": this.pProcess.id, "name": this.pProcess.name, "code": this.pProcess.code});
       this.processStepToSave.processIds.push(this.pProcess.id);
       this.$store.dispatch("processSteps/update", this.processStepToSave);
-    },
+      this.$emit("refreshProcess", this.pFunctionId);
+      this.$emit("enableBack");
+    },  
 
     enableBack() {
       this.$emit("enableBack");
@@ -435,7 +437,6 @@ export default {
         " selezionato?";
       this.showModal = true;   
     },
-
     handleDeleteProcessDesign() {
       this.$store.dispatch(
         "processDesign/delete",
@@ -448,10 +449,8 @@ export default {
         "processSpecification/delete",
         this.selectedProcessSpecification.id
       );
-      this.showModal = false;
-    
+      this.showModal = false;    
     },
-
     showEditProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = processDesignSpecification;
@@ -467,8 +466,6 @@ export default {
       this.selectedProcessSpecification = {};
       this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
     },
-
-
   },
   created() {
     this.lProcessStep = this.pPStep;
