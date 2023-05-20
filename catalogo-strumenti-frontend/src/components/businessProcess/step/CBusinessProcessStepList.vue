@@ -11,10 +11,9 @@
       />
       <CCard>
         <CCardBody>
-          <span v-if="lProcess.processSteps">
+          <span v-if="bProcess.processSteps || lProcess.processSteps">
             <CDataTable
-              v-if="lProcess"
-              :items="getProcessStepsList()"
+              :items="(bProcess.processSteps == null) ? pProcess.processSteps : bProcess.processSteps"
               :fields="fields"
               :items-per-page="10"
               hover
@@ -100,6 +99,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("bProcess", ["bProcess"])
   },
   props: {
     pFunctionId: {
@@ -119,33 +119,6 @@ export default {
     },
   },
   methods: {
-    getProcessStepsList: function () {
-      if (this.lProcess && this.lProcess.processSteps) {
-        return this.lProcess.processSteps.map((step) => {
-          return {
-            id: step.id,
-            name: step.name == null ? "" : step.name,
-            label: step.label == null ? "" : step.label,
-            descr: step.descr == null ? "" : step.descr,
-            //tool: step.businessService == null ? "" : step.businessService.name,
-            stepInstances:
-              step.stepInstances == null
-                ? ""
-                : step.stepInstances
-                    .map((instance) => {
-                      return (
-                        instance.functionality + " (" + instance.method + ")"
-                      );
-                    })
-                    .join(", "),
-            processDesigns: step.processDesigns,
-          };
-        });
-      } else {
-        return [];
-      }
-    },
-
     handleEditStep(step) {
       this.$emit("enableEditStep", step);
     },
@@ -164,25 +137,24 @@ export default {
     },
     getMessage() {
       return (
-        "Sei sicuro di eliminare il passo " +
-        this.selectedProcessStep.name +
-        " selezionato?"
+        "Sei sicuro di eliminare dal processo " +  this.pProcess.name + " id: " + this.pProcess.id + 
+        " il passo " + this.selectedProcessStep.name + " id: " +this.selectedProcessStep.id + "selezionato ?" 
       );
     },
     handleDelete() {
-      let params = { idStep: 0, idProcess: 0 };
-      params.idStep = this.selectedProcessStep.id;
+      let params = { idProcess: 0,idStep: 0 };
       params.idProcess = this.pProcess.id;
-      this.$store.dispatch("processSteps/removeStep", params);
+      params.idStep = this.selectedProcessStep.id;
+      this.$store.dispatch("bProcess/removeStep", params);
       this.showModal = false;
+      this.$emit("refreshProcess", this.pFunctionId);
     },
     closeModal() {
       this.showModal = false;
     },
   },
-  created() {
-    this.lProcess = this.pProcess;
-  },
+  created() {    
+    this.lProcess = this.pProcess;  },
 };
 </script>
 <style scoped>

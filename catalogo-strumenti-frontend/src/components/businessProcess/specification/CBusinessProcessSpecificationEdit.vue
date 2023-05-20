@@ -215,6 +215,7 @@ export default {
             "processSpecification/update",
             this.processSpecificationToSave
           );
+          this.$emit("enableBack");
         });
     },
     handleBack() {

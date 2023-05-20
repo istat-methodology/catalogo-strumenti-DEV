@@ -51,13 +51,9 @@
         :buttons="['aggiungi']"
         @handleNew="showNewProcessDesign"
       />
-      <div
-        v-if="
-          lProcessStep.processDesigns && lProcessStep.processDesigns.length > 0
-        "
-      >
+      <div v-if="processDesignListByProcessStep">
         <div
-          v-for="processDesign of getProcessDesign()"
+          v-for="processDesign of processDesignListByProcessStep"
           :key="processDesign.id"
         >
           <div class="card">
@@ -69,7 +65,6 @@
               </h5>
             </div>
             <CDataTable
-              v-if="lProcessStep"
               :items="getProcessSpecification(processDesign)"
               :items-per-page="5"
               :fields="fieldsProcessSpecification"
@@ -152,7 +147,7 @@
       <CBusinessProcessDesignNew
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="showStepEdit"
       />
     </div>
     <!-- 
@@ -162,7 +157,7 @@
       <CBusinessProcessDesignEdit
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="showStepEdit"
       />
     </div>
     <!-- 
@@ -174,7 +169,7 @@
         :pProcessDesign="selectedProcessDesign"
         :pProcessSpecification="selectedProcessSpecification"
         :pDesignType="pDesignType"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="showStepEdit"
       />
     </div>
     <!-- 
@@ -186,7 +181,7 @@
         :pProcessDesign="selectedProcessDesign"
         :pProcessSpecification="selectedProcessSpecification"
         :pDesignType="pDesignType"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="showStepEdit"
       />
     </div>
     <!-- 
@@ -198,7 +193,7 @@
         :pProcessDesign="selectedProcessDesign"
         :pProcessSpecification="selectedProcessSpecification"
         :pDesignType="pDesignType"
-        @enableBack="stateform = FormState.STEP_EDIT"
+        @enableBack="showStepEdit"
       />
     </div>
     <CModalDelete
@@ -233,7 +228,7 @@ export default {
     CBusinessProcessSpecificationEdit,
     CTableLink,
     CModalDelete,
-    CTitle
+    CTitle,
   },
   data() {
     return {
@@ -241,41 +236,41 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;"
+          _style: "width:auto;",
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;"
+          _style: "width:20%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       processStepToSave: {
         id: 0,
@@ -284,7 +279,7 @@ export default {
         label: "",
         businessServiceId: 999,
         processIds: [],
-        substep: 0
+        substep: 0,
       },
       lProcessStep: {
         id: 0,
@@ -293,7 +288,7 @@ export default {
         label: "",
         businessServiceId: 999,
         processIds: [],
-        substep: 0
+        substep: 0,
       },
 
       lDesignType: {},
@@ -309,51 +304,40 @@ export default {
 
         PROCESS_SPECIFICATION_VIEW: 20,
         PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22
+        PROCESS_SPECIFICATION_EDIT: 22,
       },
       stateform: 4,
       showModal: false,
       msg: "",
-      isProcessSpecification:false
+      isProcessSpecification: false,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("processDesign", ["processDesign"])
+    ...mapGetters("bProcess", ["bProcess"]),
+    ...mapGetters("processDesign", ["processDesignListByProcessStep"]),
   },
   props: {
     pProcess: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     pPStep: {
       type: Object,
       required: true,
-      default: () => {}
+      default: () => {},
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   methods: {
-    getProcessDesign: function() {
-      if (this.lProcessStep && this.lProcessStep.processDesigns.length > 0) {
-        return this.lProcessStep.processDesigns.map(item => {
-          return {
-            id: item.id,
-            descr: item.descr,
-            processSpecification: item.processSpecification
-          };
-        });
-      } else {
-        return [];
-      }
-    },
-    getProcessSpecification: function(processDesign) {
-      return processDesign.processSpecification.map(item => {
+
+    getProcessSpecification: function (processDesign) {
+      return processDesign.processSpecification.map((item) => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -364,18 +348,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent)
+                : this.getDesignType(item.designType.parent),
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type
+            type: item.designType.parent == null ? "" : item.designType.type,
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id
-          }
+            businessServiceId: item.informationObject.businessService.id,
+          },
         };
       });
     },
@@ -397,11 +381,22 @@ export default {
       this.$store.dispatch("processSteps/update", this.processStepToSave);
       this.$emit("refreshProcess", this.pFunctionId);
       this.$emit("enableBack");
-    },  
+    },
 
     enableBack() {
       this.$emit("enableBack");
     },
+
+    showStepEdit() {
+      this.loadProcessDesign();
+      this.stateform = this.FormState.STEP_EDIT;
+    },
+    loadProcessDesign: _.debounce(function() {
+      this.$store.dispatch("processDesign/findById", this.pPStep.id).then(() => {});
+    }, 500),
+
+
+
     /* Process Design */
     showNewProcessDesign() {
       this.selectedProcessDesign = {};
@@ -411,8 +406,10 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.stateform = this.FormState.PROCESS_DESIGN_EDIT;
     },
-    handleDelete(){
-      (this.isProcessSpecification!=true)? this.handleDeleteProcessDesign() : this.handleDeleteProcessSpecification();
+    handleDelete() {
+      this.isProcessSpecification != true
+        ? this.handleDeleteProcessDesign()
+        : this.handleDeleteProcessSpecification();
     },
     closeModal() {
       this.showModal = false;
@@ -422,35 +419,43 @@ export default {
       this.selectedProcessDesign = app;
       this.msg =
         "Sei sicuro di eliminare il Process Design " +
-        this.selectedProcessDesign.descr + " - "+ this.selectedProcessDesign.id
-        " selezionato?";
+        this.selectedProcessDesign.descr +
+        " - " +
+        this.selectedProcessDesign.id;
+      (" selezionato?");
       this.showModal = true;
-    },   
-    
-    handleOpenModalDeleteProcessSpecification(app,item) {
+    },
 
-      this.isProcessSpecification = true
+    handleOpenModalDeleteProcessSpecification(app, item) {
+      this.isProcessSpecification = true;
       this.selectedProcessSpecification = item;
       this.msg =
         "Sei sicuro di eliminare il Process Specificatione " +
-        this.selectedProcessSpecification.descr + " - " + this.selectedProcessSpecification.id
-        " selezionato?";
-      this.showModal = true;   
+        this.selectedProcessSpecification.descr +
+        " - " +
+        this.selectedProcessSpecification.id;
+      (" selezionato?");
+      this.showModal = true;
     },
     handleDeleteProcessDesign() {
       this.$store.dispatch(
         "processDesign/delete",
         this.selectedProcessDesign.id
-      );
+      ).catch(() => {});
       this.showModal = false;
+      
+      this.showStepEdit();
     },
+
     handleDeleteProcessSpecification() {
       this.$store.dispatch(
         "processSpecification/delete",
         this.selectedProcessSpecification.id
-      );
-      this.showModal = false;    
+      ).catch(() => {});
+      this.showModal = false;
+      this.showStepEdit();
     },
+
     showEditProcessSpecification(processDesign, processDesignSpecification) {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = processDesignSpecification;
@@ -468,9 +473,10 @@ export default {
     },
   },
   created() {
-    this.lProcessStep = this.pPStep;
+    this.lProcessStep = this.pPStep;    
     this.lDesignType = _.map(this.pDesignType, "type");
-  }
+    this.loadProcessDesign();
+  },
 };
 </script>
 <style scoped>

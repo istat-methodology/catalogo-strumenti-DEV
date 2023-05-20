@@ -241,10 +241,10 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
-    ...mapGetters("designtypes", ["designtypeList"])
+    ...mapGetters("designtypes", ["designtypeList"]),
+    
+    
   },
-  emits: ["refreshProcess"],
-
   props: {
     pFunctionId: {
       type: Number,
@@ -262,7 +262,8 @@ export default {
       default: () => {}
     }
   },
-  methods: {    
+  methods: {
+    
     handleDelete() {
       let params = { fID: 0, pID: 0 };
       params.fID = this.pFunctionId;
@@ -277,14 +278,16 @@ export default {
       this.$emit("refreshProcess", this.pFunctionId);
     },
     showNewProcess() {
-      this.stateform = this.FormState.PROCESS_NEW;   
+      this.stateform = this.FormState.PROCESS_NEW;
+      this.$emit("refreshProcess", this.pFunctionId);
     },
     showAddProcess() {
       this.stateform = this.FormState.PROCESS_ADD;
-     
+      this.$emit("refreshProcess", this.pFunctionId);
     },
     showEditProcess() {
-      this.stateform = this.FormState.PROCESS_EDIT;    
+      this.stateform = this.FormState.PROCESS_EDIT;
+      this.$emit("refreshProcess", this.pFunctionId);
     },
     showViewStep(step) {
       this.selectedEditStep = step;

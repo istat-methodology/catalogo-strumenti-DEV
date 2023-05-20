@@ -189,6 +189,7 @@ export default {
             "processSpecification/save",
             this.processSpecificationToSave
           );
+          this.$emit("enableBack");
         });
     },
     handleBack() {

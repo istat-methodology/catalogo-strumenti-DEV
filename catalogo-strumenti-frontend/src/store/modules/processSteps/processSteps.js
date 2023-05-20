@@ -40,6 +40,7 @@ const actions = {
         console.log(err);
       });
   },
+
   findById({ commit }, id) {
     return processStepsOpenService
       .findById(id)
@@ -51,6 +52,7 @@ const actions = {
         console.log(err);
       });
   },
+  
   update({ commit, dispatch }, payload) {
     return processStepsService
       .update(payload)

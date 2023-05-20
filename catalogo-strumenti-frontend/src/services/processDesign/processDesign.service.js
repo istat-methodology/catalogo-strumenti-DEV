@@ -26,3 +26,8 @@ export const processDesignService = new ProcessDesignService(
 export const processDesignOpenService = new ProcessDesignService(
   "/catalog/open/process-designes"
 );
+export const processDesignByProcessStepOpenService = new ProcessDesignService(
+  "/catalog/open/process-designes/process-step"
+);
+
+
