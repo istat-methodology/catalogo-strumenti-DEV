@@ -12,9 +12,9 @@
     <div v-if="stateform == FormState.NEW">
       <div class="col-12 p-0">
         <CTitle
-          title="Nuova Associazione Referente"
+          title="ASSOCIA REFERENTE DA ELENCO"
           buttonTitle=" Nuova Associazione Referente"
-          functionality=""
+          functionality="NUOVO"
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleSubmitNewAgent"
@@ -66,7 +66,7 @@
       <CTitle
         title="Referenti"
         buttonTitle=" Associazione Referente"
-        functionality=""
+        functionality="ELENCO"
         :authenticated="isAuthenticated"
         :buttons="['aggiungi', 'indietro']"
         @handleNew="stateform = FormState.NEW"

@@ -7,7 +7,7 @@
             <CTitle
               title="Documenti"
               buttonTitle=" associazione documento"
-              functionality=""
+              functionality="MODIFICA"
               :authenticated="isAuthenticated"
               :buttons="['salva', 'indietro']"
               @handleSubmit="handleAddSubmit"
@@ -142,7 +142,7 @@
         <CTitle
           title="Aggiungi nuovo documento"
           buttonTitle=" nuovo documento"
-          functionality=""
+          functionality="MODIFICA"
           :authenticated="isAuthenticated"
           :buttons="['salva', 'indietro']"
           @handleSubmit="handleNewSubmit"

@@ -5,7 +5,7 @@
       <CTitle
         title="Nuovo Referente"
         buttonTitle=" Nuovo Referente"
-        functionality=""
+        functionality="NUOVO"
         :authenticated="isAuthenticated"
         :buttons="['salva', 'indietro']"
         @handleSubmit="handleSubmit"

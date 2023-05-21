@@ -8,12 +8,7 @@
           <div class="col-md-9 p-0 pl-4">
             <div class="col-12 p-0 pl-2">
               <h1 class="uppercase text-right p-0 pt-2 text-info">
-                <span>
                   <span class="p-0">{{ tool.name | dashEmpty }}</span>
-                  <h4 class="bg-secondary p-0">
-                    <span class="pr-1 text-info">Modifica</span>
-                  </h4>
-                </span>
               </h1>
             </div>
           </div>
@@ -33,7 +28,7 @@
                   <CTitle
                     title="Informazioni Generali"
                     buttonTitle=" Informazioni Generali"
-                    functionality=""
+                    functionality="MODIFICA"
                     :authenticated="isAuthenticated"
                     :buttons="['salva', 'indietro']"
                     @handleSubmit="handleSubmit"
@@ -120,7 +115,7 @@
                 <CTitle
                   :title="toolLocal.toolType.name"
                   :buttonTitle="toolLocal.toolType.name"
-                  functionality=""
+                  functionality="MODIFICA"
                   :authenticated="isAuthenticated"
                   :buttons="['salva', 'indietro']"
                   @handleSubmit="handleSubmit"
@@ -242,7 +237,7 @@
                   <CTitle
                     title="Metodi Statistici"
                     buttonTitle=" Metodi Statistici"
-                    functionality=""
+                    functionality="MODIFICA"
                     :authenticated="isAuthenticated"
                     :buttons="['salva', 'indietro']"
                     @handleSubmit="handleSubmit"
