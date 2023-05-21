@@ -113,7 +113,7 @@ const getters = {
     return state.designtypebyparent;
   }
 };
-export const designtypes = {
+export const designTypes = {
   namespaced: true,
   state,
   mutations,
