@@ -5,10 +5,10 @@ import {
 } from "@/services";
 
 const state = {
-  designtypeList: {},
   designtype: null,
-  designtypebyparentList: {},
-  designtypebyparent: null
+  designtypeList: {},
+  designtypebyparent: null,
+  designtypebyparentList: {}  
 };
 
 const mutations = {

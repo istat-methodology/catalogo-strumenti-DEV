@@ -58,8 +58,7 @@ export default new Vuex.Store({
     bProcess,
     processSteps,
     processDesign,
-    processSpecification,
-    
+    processSpecification,    
     designtypes,
     informationObjects,
     /* 
