@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="row p-0">
-      <div class="col-md-12 p-0 pl-2 pt-3">
-        <h2 class="uppercase text-left">
+      <div class="col-md-12 p-0 pl-0 pt-3">
+        <h4 class="uppercase text-left">
           <ul
             v-for="(subitem, index) of origins"
             v-bind:key="index"
@@ -14,7 +14,7 @@
               {{ subitem }}
             </li>
           </ul>
-        </h2>
+        </h4>
       </div>
     </div>
   </div>
