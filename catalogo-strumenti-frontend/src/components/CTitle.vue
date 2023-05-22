@@ -1,27 +1,25 @@
 <template>
   <div>
-    <CCardHeader class="no-border p-0 mt-2">
-
-      <!--h5 class="text-right uppercase p-0">
-          <span class="uppercase text-info pr-1 p-0 mt-0 mb-0">
-
-            <div
-                  v-for="subitem of items"
-                  :key="subitem.id"
-                >
-                  <li>
-                    {{ subitem }}
-                  </li>
-                </div>
-          </span>
-      </h5-->
+    <div class="row p-0">
+      <div class="col-md-12 p-0 pl-2 pr-2">        
+          <h3 class="text-right text-info">
+            <span>
+              <div v-for="(subitem,index) of origins" v-bind:key=index class="row">
+                <li >
+                  {{ subitem }}
+                </li>
+              </div>
+            </span>
+          </h3>
+      </div>
+    </div>
+    <CCardHeader class="no-border p-0">
       <h1 class="uppercase text-right p-0 text-info" v-if="functionality != ''">
         <h4 class="text-right uppercase p-0">
           <span class="uppercase text-info pr-1 p-0 mt-1 mb-0">
             {{ functionality }}
           </span>
-        </h4>
-        <!--/span-->
+        </h4>       
         <hr class="bg-info mt-0" />
       </h1>
       <h2 class="text-info">
@@ -82,11 +80,6 @@ export default {
       Type: String,
       default: () => ""
     },
-    maintitle: {
-      Type: String,
-      default: () => ""
-    },
-
     title: {
       Type: String,
       default: () => ""
@@ -107,10 +100,10 @@ export default {
       Type: Boolean,
       default: () => false
     },
-    items:{
+    origins: {
       Type: Array,
       required: false,
-      default: () => []
+      default: () => [],
     },
   },
   methods: {

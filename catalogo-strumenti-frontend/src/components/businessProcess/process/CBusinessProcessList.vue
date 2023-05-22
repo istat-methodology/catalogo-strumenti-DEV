@@ -4,9 +4,11 @@
       <!--       
         Elenco Processi      
       -->
+      
       <div v-if="stateform == FormState.PROCESS_LIST">
         <div class="row p-0">
           <div class="col-12 p-0">
+            <COrigin :origins="[pFunctionName]" />
             <CTitle
               title="Processi"
               buttonTitle=" Processo"
@@ -95,6 +97,7 @@
         Aggiungi Processo dalla lista
       -->
       <div v-if="stateform == FormState.PROCESS_ADD">
+        <COrigin :origins="[pFunctionName]" />
         <CBusinessProcessAdd
           :pFunctionId="pFunctionId"
           :pFunctionName="pFunctionName"
@@ -106,6 +109,7 @@
         Crea nuovo Processo
       -->
       <div v-if="stateform == FormState.PROCESS_NEW">
+        <COrigin :origins="[pFunctionName]" />
         <CBusinessProcessNew
           :pFunctionId="pFunctionId"
           :pFunctionName="pFunctionName"
@@ -117,6 +121,7 @@
         Modifica Processo
       -->
       <div v-if="stateform == FormState.PROCESS_EDIT">
+        <COrigin :origins="[pFunctionName]" />
         <div v-if="selectedProcess">
           <CBusinessProcessEdit
             :pFunctionId="pFunctionId"
@@ -139,8 +144,9 @@
         Visualizza Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_VIEW">
-        <div v-if="selectedEditStep">
+        <div v-if="selectedEditStep">          
           <CBusinessProcessStepView
+            :pFunctionName="pFunctionName"
             :pProcess="selectedProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
@@ -152,8 +158,9 @@
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
-        <div v-if="selectedEditStep">
+        <div v-if="selectedEditStep">          
           <CBusinessProcessStepEdit
+            :pFunctionName="pFunctionName"
             :pProcess="selectedProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
@@ -164,7 +171,7 @@
       <!-- 
         Nuovo Passo del Processo
       -->
-      <div v-if="stateform == FormState.STEP_NEW">
+      <div v-if="stateform == FormState.STEP_NEW">        
         <CBusinessProcessStepNew
           :pProcess="selectedProcess"
           :pPStep="selectedEditStep"         
@@ -192,6 +199,8 @@ import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusines
 import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
 import CModalDelete from "@/components/CModalDelete.vue";
 import CTitle from "@/components/CTitle.vue";
+import COrigin from "@/components/COrigin.vue";
+
 export default {
   name: "CBusinessProcessList",
   components: {
@@ -203,7 +212,8 @@ export default {
     CBusinessProcessStepEdit,
     CBusinessProcessStepNew,
     CModalDelete,
-    CTitle
+    CTitle,
+    COrigin
   },
   data() {
     return {

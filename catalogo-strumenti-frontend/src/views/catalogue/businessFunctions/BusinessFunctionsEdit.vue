@@ -2,32 +2,23 @@
   <!-- wait until service is loaded -->
   <div v-if="bFunction" class="row">
     <div class="col-12">
-      <div class="row p-0">
-        <div class="col-md-12 p-0 pl-4">
-          <div class="col-12 p-0 pl-2">
-            <h1 class="uppercase text-right p-0 pt-2 pr-3 text-info">
-              <span>
-                <span class="mb-0">{{ bFunction.name }}</span>                
-              </span>
-            </h1>
-          </div>
-        </div>
-      </div>
       <CTabs
         variant="pills"
-        :vertical="{ navs: 'col-md-2', content: 'col-md-10 p-0 pl-4' }"
+        :vertical="{ navs: 'col-md-2 mt-5 pt-5', content: 'col-md-10 p-0 pl-4' }"
       >
-        <CTab>
+        
+      <CTab>
           <template #title>
             <span>Informazioni Generali</span>
           </template>
           <div v-if="bFunction">
             <div class="row p-0">
               <div class="col-12 p-0">
+                <COrigin :origins="[bFunction.name]" />
                 <CTitle
                   title="Informazioni Generali"
                   buttonTitle=" Informazioni Generali"
-                  functionality=""
+                  functionality=" "
                   :authenticated="isAuthenticated"
                   :buttons="['salva', 'indietro']"
                   @handleSubmit="handleSubmit"
@@ -46,7 +37,7 @@
                       placeholder="Nome"
                       v-model="lBusinessFunction.name"
                       :class="{
-                        'is-invalid': $v.lBusinessFunction.name.$error
+                        'is-invalid': $v.lBusinessFunction.name.$error,
                       }"
                     />
                     <div
@@ -111,12 +102,14 @@ import Treeselect from "@riophae/vue-treeselect";
 import CBusinessProcessList from "@/components/businessProcess/process/CBusinessProcessList";
 
 import CTitle from "@/components/CTitle.vue";
+import COrigin from "@/components/COrigin.vue";
 export default {
   name: "BusinessFunctionsEdit",
   components: {
     Treeselect,
     CBusinessProcessList,
-    CTitle
+    CTitle,
+    COrigin,
   },
   data() {
     return {
@@ -126,38 +119,38 @@ export default {
         descr: "",
         label: "",
         businessProcesses: [],
-        gsbpmProcesses: []
+        gsbpmProcesses: [],
       },
-      gsbpmChecked: []
+      gsbpmChecked: [],
     };
   },
   validations: {
     lBusinessFunction: {
       name: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bFunction", ["bFunction"]),
     ...mapGetters("gsbpm", ["gsbpmList"]),
-    getGsbpmList: function() {
-      return this.gsbpmList.map(gsbpm => {
+    getGsbpmList: function () {
+      return this.gsbpmList.map((gsbpm) => {
         return {
           id: "id-" + gsbpm.id,
           label: gsbpm.code + " " + gsbpm.name,
-          children: gsbpm.gsbpmSubProcesses.map(gsbpmSubProcess => {
+          children: gsbpm.gsbpmSubProcesses.map((gsbpmSubProcess) => {
             return {
               id: gsbpmSubProcess.id,
-              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name
+              label: gsbpmSubProcess.code + " " + gsbpmSubProcess.name,
             };
-          })
+          }),
         };
       });
     },
-    getBusinessProcesses: function() {
-      return this.bFunction.businessProcesses.map(item => {
+    getBusinessProcesses: function () {
+      return this.bFunction.businessProcesses.map((item) => {
         return {
           id: item.id,
           name: item.name,
@@ -165,10 +158,10 @@ export default {
           label: item.label,
           orderCode: item.orderCode,
           parent: item.parent,
-          processSteps: item.processSteps
+          processSteps: item.processSteps,
         };
       });
-    }
+    },
   },
 
   methods: {
@@ -188,28 +181,29 @@ export default {
       this.lBusinessFunction.name = this.bFunction.name;
       this.lBusinessFunction.descr = this.bFunction.descr;
       this.lBusinessFunction.label = this.bFunction.label;
-      this.lBusinessFunction.businessProcesses = this.bFunction.businessProcesses;
+      this.lBusinessFunction.businessProcesses =
+        this.bFunction.businessProcesses;
     },
     setCheckedNodesGsbpm() {
       this.gsbpmChecked = [];
-      this.bFunction.gsbpmProcesses.map(gsbpmProc => {
+      this.bFunction.gsbpmProcesses.map((gsbpmProc) => {
         this.gsbpmChecked.push(gsbpmProc.id);
       });
     },
     handleBack() {
       this.$router.back();
     },
-    loadBusinessFunction: _.debounce(function(idFunction) {
+    loadBusinessFunction: _.debounce(function (idFunction) {
       this.$store.dispatch("bFunction/findById", idFunction).then(() => {
         this.setOldValues();
         this.setCheckedNodesGsbpm();
       });
-    }, 500)
+    }, 500),
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessFunctionSession);
     this.loadBusinessFunction(this.$route.params.id);
     this.$store.dispatch("gsbpm/findAll");
-  }
+  },
 };
 </script>

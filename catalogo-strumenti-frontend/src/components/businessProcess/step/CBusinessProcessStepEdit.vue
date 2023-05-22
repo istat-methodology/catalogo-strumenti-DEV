@@ -1,6 +1,8 @@
 <template>
   <div v-if="pDesignType">
-    <div v-if="stateform == FormState.STEP_EDIT">
+
+    <div v-if="stateform == FormState.STEP_EDIT">     
+      <COrigin :origins="[pFunctionName,pProcess.name]" />
       <CTitle
         :title="lProcessStep.name"
         :buttonTitle="' passo '"
@@ -144,6 +146,7 @@
         New Process Design
     -->
     <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
+      <COrigin :origins="[pFunctionName,pProcess.name,pPStep.name]" />
       <CBusinessProcessDesignNew
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -154,6 +157,7 @@
         Edit Process Design
     -->
     <div v-if="stateform == FormState.PROCESS_DESIGN_EDIT">
+      <COrigin :origins="[pFunctionName, pProcess.name, pPStep.name]" />
       <CBusinessProcessDesignEdit
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -164,6 +168,7 @@
         View Process Specification
     -->
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_VIEW">
+      <COrigin :origins="[pFunctionName, pProcess.name, pPStep.name]" />
       <CBusinessProcessSpecificationView
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -176,6 +181,7 @@
         New Process Specification
     -->
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_NEW">
+      <COrigin :origins="[pFunctionName,pProcess.name,pPStep.name]" />
       <CBusinessProcessSpecificationNew
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -188,6 +194,7 @@
         Edit Process Specification
     -->
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_EDIT">
+      <COrigin :origins="[pFunctionName,pProcess.name,pPStep.name]" />
       <CBusinessProcessSpecificationEdit
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -214,6 +221,7 @@ import CBusinessProcessSpecificationNew from "@/components/businessProcess/speci
 import CBusinessProcessSpecificationEdit from "@/components/businessProcess/specification/CBusinessProcessSpecificationEdit";
 
 import CTitle from "@/components/CTitle.vue";
+import COrigin from "@/components/COrigin.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 var _ = require("lodash");
@@ -229,6 +237,7 @@ export default {
     CTableLink,
     CModalDelete,
     CTitle,
+    COrigin
   },
   data() {
     return {
@@ -318,6 +327,11 @@ export default {
     ...mapGetters("processDesign", ["processDesignListByProcessStep"]),
   },
   props: {
+    pFunctionName: {
+      type: String,
+      required: true,
+      default: () => {},
+    },    
     pProcess: {
       type: Object,
       required: true,

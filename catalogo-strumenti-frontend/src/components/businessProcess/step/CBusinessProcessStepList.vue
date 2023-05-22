@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-if="lProcess">
+     
       <CTitle
         title="Passi"
         buttonTitle=" Passo"
@@ -47,12 +48,13 @@ import CTitle from "@/components/CTitle.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 
+
 export default {
   name: "CBusinessProcessList",
   components: {
     CTitle,
     CTableLink,
-    CModalDelete,
+    CModalDelete
   },
   data() {
     return {

@@ -1,6 +1,7 @@
 <template>
   <div v-if="pDesignType">
     <div v-if="stateform == FormState.STEP_VIEW">
+      <COrigin :origins="[pFunctionName, pProcess.name]" />
       <CTitle
         :title="lProcessStep.name"
         :buttonTitle="' passo '"
@@ -104,14 +105,15 @@
 import { mapGetters } from "vuex";
 
 import CTitle from "@/components/CTitle.vue";
+import COrigin from "@/components/COrigin.vue";
 
 var _ = require("lodash");
 
 export default {
   name: "CBusinessProcessStepView",
   components: {
-
     CTitle,
+    COrigin
   },
   data() {
     return {
@@ -181,6 +183,11 @@ export default {
     ...mapGetters("processDesign", ["processDesign"])
   },
   props: {
+    pFunctionName: {
+      type: String,
+      required: false,
+      default: () => {}
+    },    
     pProcess: {
       type: Object,
       required: true,
