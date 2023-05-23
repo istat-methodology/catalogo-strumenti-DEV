@@ -88,5 +88,4 @@ li div::before {
 ul > li:last-child {
   border-left: 2px solid transparent !important;
 }
-
 </style>
