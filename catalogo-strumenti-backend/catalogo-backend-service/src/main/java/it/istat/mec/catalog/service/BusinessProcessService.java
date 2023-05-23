@@ -107,15 +107,13 @@ public class BusinessProcessService {
 			throw new NoDataException("ProcessStep not present");
 		ProcessStep ps = processStepDao.findById(id_step).get();
 		
+		bp.getProcessSteps().remove(ps);
+		bp = businessProcessDao.save(bp);
 		
-
-		//bp.getProcessSteps().remove(ps);
-		//bp = businessProcessDao.save(bp);
+		//ps.getBusinessProcesses().remove(bp);	
+		//processStepDao.save(ps);		
 		
-		ps.getBusinessProcesses().remove(bp);	
-		processStepDao.save(ps);		
-		//bp = businessProcessDao.findById(id_process).get();
-		return Boolean.TRUE;
-		//return Translators.translate(bp);
+		bp = businessProcessDao.findById(id_process).get();
+		return Translators.translate(bp);
 	}
 }
