@@ -1,25 +1,19 @@
 <template>
   <div>
-    <div class="pl-0 pt-3">
-      <div class="col-md-12">
+    <div class="ml-0 pl-0 pt-5 pb-0">
+      <div class=" ml-0 col-md-12">
         <h4 class="text-left">
           <ul
             v-for="(subitem, index) of origins"
             v-bind:key="index"
             class="list-group"
           >
-            <!--li
-              class="list-group-item no-border cursor-pointer text-info p-0"
-            >
-              {{ subitem }}
-            </li-->
 
-
-            <li class="list-group-item no-border cursor-pointer text-info p-0">
-              <div v-if="index == 0">{{ subitem }}</div>
+            <li class="list-group-item no-border cursor-pointer text-info p-0 pb-1">
+              <div v-if="index == 0" >{{ subitem }}</div>
               <ul>
                 <li
-                  class="list-group-item no-border cursor-pointer text-info p-0"
+                  class="list-group-item no-border cursor-pointer text-info p-0 pb-1"
                 >
                   <div v-if="index == 1">{{ subitem }}</div>
                   <ul>
