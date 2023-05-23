@@ -52,7 +52,7 @@ public class BusinessProcess implements Serializable  {
 	private List<BusinessFunction> businessFunctions;
 	
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany
     @JoinTable(name = "csm_link_process_step", joinColumns = {
             @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})    
