@@ -16,6 +16,19 @@ const mutations = {
 };
 
 const actions = {
+  
+  findById({ commit }, id) {
+    return processStepsOpenService
+      .findById(id)
+      .then(data => {
+        //console.log(data);
+        commit("SET_PROCSTEP", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+
   findAll({ commit }) {
     processStepsOpenService.findAll().then(
       data => {
@@ -26,6 +39,7 @@ const actions = {
       }
     );
   },
+
   save({ commit, dispatch }, payload) {
     return processStepsService
       .save(payload)
@@ -39,20 +53,7 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
-  },
-
-  findById({ commit }, id) {
-    return processStepsOpenService
-      .findById(id)
-      .then(data => {
-        //console.log(data);
-        commit("SET_PROCSTEP", data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
-  
+  },  
   update({ commit, dispatch }, payload) {
     return processStepsService
       .update(payload)

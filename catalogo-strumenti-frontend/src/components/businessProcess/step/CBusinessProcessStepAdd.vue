@@ -3,50 +3,34 @@
     <!-- 
         Aggiungi Passo dalla lista
       -->
-    <COrigin :origins="[pFunctionName, pProcess.name]" />
-    <CTitle
-      title="Nuovo Passo"
-      :buttonTitle="' passo '"
-      functionality="NUOVO PASSO"
-      :authenticated="isAuthenticated"
-      :buttons="['salva', 'indietro']"
-      @handleSubmit="handleSubmit"
-      @handleBack="handleBack"
-    />
-    <CCard>
-      <CCardBody>
-        <div class="row">
-          <CInput
-            class="col-1"
-            label="id"
-            placeholder="id"
-            v-model="lProcessStep.id"
-            disabled
-          />
-          <CInput
-            class="col-6"
-            label="Nome*"
-            placeholder="Nome"
-            v-model="lProcessStep.name"
-          />
-          <CInput
-            class="col-5"
-            label="Etichetta"
-            placeholder="Etichetta"
-            v-model="lProcessStep.label"
-          />
+      <COrigin :origins="[pFunctionName,pProcess.name]" />
+      <CTitle
+        title="Elenco passi"
+        buttonTitle=" Aggiungi Passo"
+        functionality="AGGIUNGI PASSO DA ELENCO"
+        :authenticated="isAuthenticated"
+        :buttons="['salva', 'indietro']"
+        @handleSubmit="handleSubmit()"
+        @handleBack="handleBack"
+      />
+      <div class="card">
+        <div class="card-slot" v-if="processStepsList">
+          <label>Selezione passi esistenti:</label>
+          <v-select
+            label="name"
+            :options="processStepsList"
+            @input="selectId($event)"
+          ></v-select>
+          <span class="help-block">Seleziona un passo</span>
+          <span
+            class="icon-link float-right"
+            @click="enableNewStep"
+            ><add-icon />Nuovo Passo</span
+          >
         </div>
-        <div class="row mt-4">
-          <CTextarea
-            class="col-12"
-            label="Descrizione"
-            placeholder="Descrizione"
-            v-model="lProcessStep.descr"
-          />
-        </div>
-      </CCardBody>
-    </CCard>
-  </div>
+      </div>
+    </div>
+  
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -55,10 +39,10 @@ import COrigin from "@/components/COrigin.vue";
 //var _ = require("lodash");
 
 export default {
-  name: "CBusinessProcessStepNew",
+  name: "CBusinessProcessStepAdd",
   components: {
     CTitle,
-    COrigin,
+    COrigin
   },
   data() {
     return {
@@ -91,9 +75,10 @@ export default {
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcess"]),
+    ...mapGetters("processSteps", ["processStepsList"]),
   },
   props: {
-    pFunctionName: {
+    pFunctionName:{
       type: String,
       required: false,
       default: () => "",
@@ -105,25 +90,30 @@ export default {
     },
   },
   methods: {
+    selectId(e) {
+      this.lProcessStep.id = e.id;
+      this.lProcessStep.name = e.name;
+      this.lProcessStep.descr = e.descr;
+      this.lProcessStep.label = e.label;
+    },
+
     handleSubmit() {
-      this.processStepToSave.id = this.lProcessStep.id;
-      this.processStepToSave.name = this.lProcessStep.name;
-      this.processStepToSave.label = this.lProcessStep.label;
-      this.processStepToSave.descr = this.lProcessStep.descr;
-      this.processStepToSave.businessServiceId = this.lProcessStep.businessServiceId;
-      this.processStepToSave.processIds.push(this.pProcess.id);
-      this.processStepToSave.substep = this.lProcessStep.substep;
-      this.$store
-        .dispatch("processSteps/save", this.processStepToSave)
-        .then(() => {      
-          this.$emit("enableBack");    
-        });
+      let params = { idProcess: 0, idStep: 0 };
+      params.idProcess = this.pProcess.id;
+      params.idStep = this.lProcessStep.id;
+      this.$store.dispatch("bProcess/addStep", params).then(() => {         
+        this.$emit("enableBack");
+      });
+    },
+    enableNewStep() {
+      this.$emit("enableNewStep");
     },
     handleBack() {
-      this.$emit("enableAddStep");
-    },
+      this.$emit("enableBack");
+    }
   },
   created() {
+    this.$store.dispatch("processSteps/findAll").catch(() => {});
     this.lProcess = this.pProcess;
   },
 };

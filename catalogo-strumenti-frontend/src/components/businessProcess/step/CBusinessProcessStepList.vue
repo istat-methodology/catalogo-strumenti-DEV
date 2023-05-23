@@ -1,29 +1,32 @@
 <template>
   <div>
     <div v-if="lProcess">
-     
       <CTitle
         title="Passi"
         buttonTitle=" Passo"
         functionality=""
         :authenticated="isAuthenticated"
         :buttons="['aggiungi']"
-        @handleNew="handleNewStep"
+        @handleNew="handleAdd"
       />
       <CCard>
         <CCardBody>
           <span v-if="bProcess.processSteps || lProcess.processSteps">
             <CDataTable
-              :items="(bProcess.processSteps == null) ? pProcess.processSteps : bProcess.processSteps"
+              :items="
+                bProcess.processSteps == null
+                  ? pProcess.processSteps
+                  : bProcess.processSteps
+              "
               :fields="fields"
               :items-per-page="10"
               hover
               pagination
               ><template #show_details="{ item }">
-                <CTableLink                  
+                <CTableLink
                   :authenticated="isAuthenticated"
-                  @handleView="handleViewStep(item)"
-                  @handleEdit="handleEditStep(item)"
+                  @handleView="handleView(item)"
+                  @handleEdit="handleEdit(item)"
                   @handleDelete="handleOpenModalDelete(item)"
                 />
               </template>
@@ -48,13 +51,12 @@ import CTitle from "@/components/CTitle.vue";
 import CTableLink from "@/components/CTableLink.vue";
 import CModalDelete from "@/components/CModalDelete.vue";
 
-
 export default {
   name: "CBusinessProcessList",
   components: {
     CTitle,
     CTableLink,
-    CModalDelete
+    CModalDelete,
   },
   data() {
     return {
@@ -101,7 +103,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcess"])
+    ...mapGetters("bProcess", ["bProcess"]),
   },
   props: {
     pFunctionId: {
@@ -121,14 +123,14 @@ export default {
     },
   },
   methods: {
-    handleEditStep(step) {
+    handleEdit(step) {
       this.$emit("enableEditStep", step);
     },
-    handleViewStep(step) {
+    handleView(step) {
       this.$emit("enableViewStep", step);
     },
-    handleNewStep() {
-      this.$emit("enableNewStep");
+    handleAdd() {
+      this.$emit("enableAddStep");
     },
     handleBack() {
       this.$emit("enableBack");
@@ -139,24 +141,39 @@ export default {
     },
     getMessage() {
       return (
-        "Sei sicuro di eliminare dal processo " +  this.pProcess.name + " id: " + this.pProcess.id + 
-        " il passo " + this.selectedProcessStep.name + " id: " +this.selectedProcessStep.id + "selezionato ?" 
+        "Sei sicuro di eliminare dal processo " +
+        this.pProcess.name +
+        " id: " +
+        this.pProcess.id +
+        " il passo " +
+        this.selectedProcessStep.name +
+        " id: " +
+        this.selectedProcessStep.id +
+        " selezionato?"
       );
     },
     handleDelete() {
-      let params = { idProcess: 0,idStep: 0 };
+      let params = { idProcess: 0, idStep: 0 };
       params.idProcess = this.pProcess.id;
       params.idStep = this.selectedProcessStep.id;
-      this.$store.dispatch("bProcess/removeStep", params);
+      this.$store.dispatch("bProcess/removeStep", params);  
+      this.loadProcess;
       this.showModal = false;
-      this.$emit("refreshProcess", this.pFunctionId);
+      
+      
+    },
+    loadProcess(){
+      this.$store.dispatch("bProcess/findById", this.pProcess.id);
     },
     closeModal() {
       this.showModal = false;
     },
   },
   created() {    
-    this.lProcess = this.pProcess;  },
+    this.$store.dispatch("bProcess/findById", this.pProcess.id).then(() => {      
+    
+    });
+  },
 };
 </script>
 <style scoped>

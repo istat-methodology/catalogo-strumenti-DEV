@@ -5,6 +5,7 @@ class ProcessStepsService extends AbstractService {
   constructor(endpoint) {
     super(endpoint);
   }
+  /*
   save(payload) {
     //console.log(config);
     console.log(payload);
@@ -19,6 +20,7 @@ class ProcessStepsService extends AbstractService {
         throw err;
       });
   }
+  */
   removeStep(idStep, idProcess) {
     return axiosCatalog
       .delete(this.endpoint + "/" + idStep + "/business-process/" + idProcess)
