@@ -1,18 +1,39 @@
 <template>
   <div>
-    <div class="row p-0">
-      <div class="col-md-12 p-0 pl-0 pt-3">
-        <h4 class="uppercase text-left">
+    <div class="pl-0 pt-3">
+      <div class="col-md-12">
+        <h4 class="text-left">
           <ul
             v-for="(subitem, index) of origins"
             v-bind:key="index"
             class="list-group"
           >
-            <li
-              class="list-group-item list-group-item-action p-0 p-1 no-border cursor-pointer  text-info"
+            <!--li
+              class="list-group-item no-border cursor-pointer text-info p-0"
             >
               {{ subitem }}
+            </li-->
+
+
+            <li class="list-group-item no-border cursor-pointer text-info p-0">
+              <div v-if="index == 0">{{ subitem }}</div>
+              <ul>
+                <li
+                  class="list-group-item no-border cursor-pointer text-info p-0"
+                >
+                  <div v-if="index == 1">{{ subitem }}</div>
+                  <ul>
+                    <li
+                      class="list-group-item no-border cursor-pointer text-info p-0"
+                    >
+                      <div v-if="index == 2">{{ subitem }}</div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </li>
+
+
           </ul>
         </h4>
       </div>
@@ -39,33 +60,33 @@ export default {
 }
 
 ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  position: relative;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style-type: none !important;
+  position: relative !important;
 }
 li {
-  list-style-type: none;
-  border-left: 2px solid #000;
-  margin-left: 1em;
+  list-style-type: none !important;
+  border-left: 2px solid #0a83e6 !important;
+  margin-left: 1em !important;
 }
 li div {
-  padding-left: 1em;
-  position: relative;
+  padding-left: 1em !important;
+  position: relative !important;
 }
 li div::before {
-  content:'';
-  position: absolute;
-  top: 0;
-  left: -2px;
-  bottom: 50%;
-  width: 0.75em;
-  border: 2px solid #000;
-  border-top: 0 none transparent;
-  border-right: 0 none transparent;
+  content:'' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -2px !important;
+  bottom: 50% !important;
+  width: 0.75em !important;
+  border: 2px solid  #0a83e6 !important;
+  border-top: 0 none transparent !important;
+  border-right: 0 none transparent !important;
 }
 ul > li:last-child {
-  border-left: 2px solid transparent;
+  border-left: 2px solid transparent !important;
 }
 
 </style>

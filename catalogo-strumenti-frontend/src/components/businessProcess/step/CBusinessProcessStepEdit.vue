@@ -1,8 +1,7 @@
 <template>
   <div v-if="pDesignType">
-
-    <div v-if="stateform == FormState.STEP_EDIT">     
-      <COrigin :origins="[pFunctionName,pProcess.name]" />
+    <div v-if="stateform == FormState.STEP_EDIT">
+      <COrigin :origins="[pFunctionName, pProcess.name]" />
       <CTitle
         :title="lProcessStep.name"
         :buttonTitle="' passo '"
@@ -146,7 +145,7 @@
         New Process Design
     -->
     <div v-if="stateform == FormState.PROCESS_DESIGN_NEW">
-      <COrigin :origins="[pFunctionName,pProcess.name,pPStep.name]" />
+      <COrigin :origins="[pFunctionName, pProcess.name, pPStep.name]" />
       <CBusinessProcessDesignNew
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -181,7 +180,7 @@
         New Process Specification
     -->
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_NEW">
-      <COrigin :origins="[pFunctionName,pProcess.name,pPStep.name]" />
+      <COrigin :origins="[pFunctionName, pProcess.name, pPStep.name]" />
       <CBusinessProcessSpecificationNew
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -194,7 +193,7 @@
         Edit Process Specification
     -->
     <div v-if="stateform == FormState.PROCESS_SPECIFICATION_EDIT">
-      <COrigin :origins="[pFunctionName,pProcess.name,pPStep.name]" />
+      <COrigin :origins="[pFunctionName, pProcess.name, pPStep.name]" />
       <CBusinessProcessSpecificationEdit
         :pProcessStep="lProcessStep"
         :pProcessDesign="selectedProcessDesign"
@@ -331,7 +330,7 @@ export default {
       type: String,
       required: true,
       default: () => {},
-    },    
+    },
     pProcess: {
       type: Object,
       required: true,
@@ -349,7 +348,6 @@ export default {
     },
   },
   methods: {
-
     getProcessSpecification: function (processDesign) {
       return processDesign.processSpecification.map((item) => {
         return {
@@ -385,7 +383,6 @@ export default {
     },
     /* Process Step */
     handleSubmit() {
-
       this.processStepToSave.id = this.lProcessStep.id;
       this.processStepToSave.name = this.lProcessStep.name;
       this.processStepToSave.label = this.lProcessStep.label;
@@ -393,7 +390,7 @@ export default {
       this.processStepToSave.businessServiceId = 999;
       //this.processStepToSave.businessProcesses.push({ "id": this.pProcess.id, "name": this.pProcess.name, "code": this.pProcess.code});
       this.processStepToSave.processIds.push(this.pProcess.id);
-      this.$store.dispatch("processSteps/update", this.processStepToSave);     
+      this.$store.dispatch("processSteps/update", this.processStepToSave);
       this.$emit("enableBack");
     },
 
@@ -401,12 +398,14 @@ export default {
       this.$emit("enableBack");
     },
 
-    showStepEdit() {     
+    showStepEdit() {
       this.loadProcessDesign();
       this.stateform = this.FormState.STEP_EDIT;
     },
-    loadProcessDesign: _.debounce(function() {
-      this.$store.dispatch("processDesign/findById", this.pPStep.id).then(() => {});
+    loadProcessDesign: _.debounce(function () {
+      this.$store
+        .dispatch("processDesign/findById", this.pPStep.id)
+        .then(() => {});
     }, 500),
 
     /* Process Design */
@@ -450,19 +449,20 @@ export default {
       this.showModal = true;
     },
     handleDeleteProcessDesign() {
-      this.$store.dispatch(
-        "processDesign/delete",
-        this.selectedProcessDesign.id
-      ).catch(() => {});
-      this.showModal = false;      
+      this.$store
+        .dispatch("processDesign/delete", this.selectedProcessDesign.id)
+        .catch(() => {});
+      this.showModal = false;
       this.showStepEdit();
     },
 
     handleDeleteProcessSpecification() {
-      this.$store.dispatch(
-        "processSpecification/delete",
-        this.selectedProcessSpecification.id
-      ).catch(() => {});
+      this.$store
+        .dispatch(
+          "processSpecification/delete",
+          this.selectedProcessSpecification.id
+        )
+        .catch(() => {});
       this.showModal = false;
       this.showStepEdit();
     },
@@ -484,7 +484,7 @@ export default {
     },
   },
   created() {
-    this.lProcessStep = this.pPStep;    
+    this.lProcessStep = this.pPStep;
     this.lDesignType = _.map(this.pDesignType, "type");
     this.loadProcessDesign();
   },
