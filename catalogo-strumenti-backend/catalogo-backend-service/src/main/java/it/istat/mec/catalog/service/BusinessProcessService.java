@@ -113,7 +113,7 @@ public class BusinessProcessService {
 		ps.getBusinessProcesses().remove(bp);	
 		processStepDao.save(ps);		
 		bp = businessProcessDao.findById(id_process).get();
-		return Boolean.TRUE;
+		//return Boolean.TRUE;
 		//return Translators.translate(bp);
 	}
 }
