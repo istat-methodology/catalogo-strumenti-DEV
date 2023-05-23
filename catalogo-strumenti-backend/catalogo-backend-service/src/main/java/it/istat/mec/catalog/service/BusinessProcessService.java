@@ -108,7 +108,7 @@ public class BusinessProcessService {
 		ProcessStep ps = processStepDao.findById(id_step).get();
 
 		bp.getProcessSteps().remove(ps);
-		bp = businessProcessDao.save(bp);
+		//bp = businessProcessDao.save(bp);
 		
 		ps.getBusinessProcesses().remove(bp);	
 		processStepDao.save(ps);		
