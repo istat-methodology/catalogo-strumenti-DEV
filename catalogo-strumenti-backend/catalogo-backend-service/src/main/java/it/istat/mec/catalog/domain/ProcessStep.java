@@ -49,7 +49,7 @@ public class ProcessStep implements Serializable  {
 	// Paolinux 2022/12/21: changed String to ProcessStep and set to nullable
 	private ProcessStep substep;	
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany
     @JoinTable(name = "csm_link_process_step", joinColumns = {
             @JoinColumn(name = "PROCESS_STEP_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "BUSINESS_PROCESS_ID", referencedColumnName = "ID", nullable = false, updatable = false, insertable = false)})	
