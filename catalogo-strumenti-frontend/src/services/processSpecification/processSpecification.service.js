@@ -23,3 +23,6 @@ class ProcessSpecificationService extends AbstractService {
 export const processSpecificationService = new ProcessSpecificationService(
   "/catalog/process-specifications"
 );
+export const processSpecificationOpenService = new ProcessSpecificationService(
+  "/catalog/open/process-specifications"
+);

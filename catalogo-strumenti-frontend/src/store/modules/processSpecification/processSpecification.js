@@ -1,4 +1,5 @@
 import { processSpecificationService } from "@/services";
+import { processSpecificationOpenService } from "@/services";
 
 const state = {
   processSpecification: null
@@ -7,10 +8,27 @@ const state = {
 const mutations = {
   SET_PROCESSSPECIFICATION(state, processSpecification) {
     state.processSpecification = processSpecification;
+  },
+  SET_PROCESSSPECIFICATION_LIST(state, processSpecificationList) {
+    state.processSpecificationList = processSpecificationList;
   }
 };
 
 const actions = {
+
+
+  findAll({ commit }) {
+    processSpecificationOpenService.findAll().then(
+      data => {
+        commit("SET_PROCESSSPECIFICATION_LIST", data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  },
+
+
   delete({ dispatch }, id) {
     return processSpecificationService
       .delete(id)
@@ -56,6 +74,9 @@ const actions = {
 const getters = {
   processSpecification: state => {
     return state.processSpecification;
+  },
+  processSpecificationList: state => {
+    return state.processSpecificationList;
   }
 };
 
