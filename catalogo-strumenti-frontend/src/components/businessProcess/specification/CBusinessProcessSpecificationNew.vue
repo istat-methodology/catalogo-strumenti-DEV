@@ -168,12 +168,6 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (this.designType_Dati_IO.type == "") {
-        this.lProcessSpecification.designType = this.designType_Tipo_IO.id;
-      } else {
-        this.lProcessSpecification.designType = this.designType_Dati_IO.id;
-      }
-
       this.informationObjectToSave.name = this.lInformationObject.name;
       this.informationObjectToSave.descr = this.lInformationObject.descr;
       this.$store
@@ -181,8 +175,15 @@ export default {
         .then(() => {
           this.processSpecificationToSave.processDesign =
             this.pProcessDesign.id;
-          this.processSpecificationToSave.designType =
-            this.lProcessSpecification.designType;
+
+          if (this.designType_Dati_IO.type == "") {
+            this.processSpecificationToSave.designType =
+              this.designType_Tipo_IO.id;
+          } else {
+            this.processSpecificationToSave.designType =
+              this.designType_Dati_IO.id;
+          }
+
           this.processSpecificationToSave.informationObject =
             this.informationObjectList.id;
           this.$store.dispatch(
