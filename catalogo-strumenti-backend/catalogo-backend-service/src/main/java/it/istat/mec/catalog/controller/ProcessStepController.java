@@ -48,6 +48,12 @@ public class ProcessStepController {
 		return processStepService.newProcessStep(request);
 	}
 	
+	@PostMapping("/process-steps-new-basic")
+	public ProcessStepDto createBasic(@RequestBody CreateProcessStepRequest request) {
+
+		return processStepService.newBasicProcessStep(request);
+	}
+	
 	@PutMapping(value = "/process-steps/{id}")
 	public ProcessStepDto updateProcessStep(@RequestBody CreateProcessStepRequest request) {
 		

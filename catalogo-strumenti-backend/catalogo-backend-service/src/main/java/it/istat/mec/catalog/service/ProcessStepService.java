@@ -60,6 +60,15 @@ public class ProcessStepService {
 		return Translators.translate(ps);
 	}
 	
+	public ProcessStepDto newBasicProcessStep(CreateProcessStepRequest request) {
+		ProcessStep ps = new ProcessStep();
+		ps = Translators.translate(request);		
+		ps.setBusinessService(businessServiceDao.getOne(request.getBusinessServiceId()));	
+			
+		processStepDao.save(ps);
+		return Translators.translate(ps);
+	}
+	
 	public ProcessStepDto findProcessStepById(Integer id) {
 
 		if (!processStepDao.findById(id).isPresent())
