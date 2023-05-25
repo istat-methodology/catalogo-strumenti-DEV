@@ -62,8 +62,7 @@
         Crea nuovo Processo
       -->
       <div v-if="stateform == FormState.PROCESS_NEW">
-        <CBusinessProcessNew
-          @enableAdd="showAddProcess"
+        <CBusinessProcessNew          
           @enableBack="showListProcess"
         />
       </div>
@@ -76,18 +75,7 @@
           @enableBack="showListProcess"
           @enableShowStep="showViewStep"
         />
-      </div>
-      <!-- 
-        Modifica Processo
-      -->
-      <!--div v-if="stateform == FormState.PROCESS_EDIT">
-        <CBusinessProcessEdit
-          :pProcess="selectedProcess"
-          @enableEditStep="showEditStep"
-          @enableNewStep="showNewStep"
-          @enableBack="showListProcess"
-        />
-      </div-->
+      </div>     
 
       <div v-if="stateform == FormState.PROCESS_EDIT">
         <div v-if="selectedProcess">

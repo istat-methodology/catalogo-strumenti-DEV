@@ -94,7 +94,7 @@ export default {
       this.$emit("enableBack");
     },
     handleBack() {
-      this.$emit("enableAdd");
+      this.$emit("enableBack");
     }
   }
 };

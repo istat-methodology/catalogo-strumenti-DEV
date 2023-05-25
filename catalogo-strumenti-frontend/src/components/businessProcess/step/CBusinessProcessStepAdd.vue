@@ -3,73 +3,54 @@
     <!-- 
         Aggiungi Passo dalla lista
       -->
-      <COrigin :origins="[pFunctionName,pProcess.name]" />
-      <CTitle
-        title="Elenco passi"
-        buttonTitle=" Aggiungi Passo"
-        functionality="AGGIUNGI PASSO DA ELENCO"
-        :authenticated="isAuthenticated"
-        :buttons="['salva', 'indietro']"
-        @handleSubmit="handleSubmit()"
-        @handleBack="handleBack"
-      />
-      <div class="card">
-        <div class="card-slot" v-if="processStepsList">
-          <label>Selezione passi esistenti:</label>
-          <v-select
-            label="name"
-            :options="processStepsList"
-            @input="selectId($event)"
-          ></v-select>
-          <span class="help-block">Seleziona un passo</span>
-          <span
-            class="icon-link float-right"
-            @click="enableNewStep"
-            ><add-icon />Nuovo Passo</span
-          >
-        </div>
+    <COrigin :origins="[pFunctionName, pProcess.name + pProcess.id]" />
+    <CTitle
+      title="Elenco passi"
+      buttonTitle=" Aggiungi Passo"
+      functionality="AGGIUNGI PASSO DA ELENCO"
+      :authenticated="isAuthenticated"
+      :buttons="['salva', 'indietro']"
+      @handleSubmit="handleSubmit()"
+      @handleBack="handleBack"
+    />
+    <div class="card">
+      <div class="card-slot" v-if="processStepsList">
+        <label>Selezione passi esistenti:</label>
+        <v-select
+          label="name"
+          :options="processStepsList"
+          @input="selectIdFromStepList($event)"
+        ></v-select>
+        <span class="help-block">Seleziona un passo</span>
+        <span class="icon-link float-right" @click="enableNewStep"
+          ><add-icon />Nuovo Passo</span
+        >
       </div>
     </div>
-  
+  </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import CTitle from "@/components/CTitle.vue";
 import COrigin from "@/components/COrigin.vue";
-//var _ = require("lodash");
 
 export default {
   name: "CBusinessProcessStepAdd",
   components: {
     CTitle,
-    COrigin
+    COrigin,
   },
   data() {
     return {
-      processStepToSave: {
-        id: 0,
-        name: "",
-        descr: "",
-        label: "",
-        businessServiceId: 999,
-        processIds: [],
-        substep: 0,
-      },
       lProcessStep: {
         id: 0,
-        name: "",
-        descr: "",
-        label: "",
-        businessServiceId: 999,
-        processIds: [],
-        substep: 0,
       },
-
       FormState: {
         STEP_ADD: 21,
         STEP_NEW: 22,
       },
       stateform: 21,
+      bp: [],
     };
   },
   computed: {
@@ -78,7 +59,7 @@ export default {
     ...mapGetters("processSteps", ["processStepsList"]),
   },
   props: {
-    pFunctionName:{
+    pFunctionName: {
       type: String,
       required: false,
       default: () => "",
@@ -90,31 +71,50 @@ export default {
     },
   },
   methods: {
-    selectId(e) {
+    selectIdFromStepList(e) {
       this.lProcessStep.id = e.id;
-      this.lProcessStep.name = e.name;
-      this.lProcessStep.descr = e.descr;
-      this.lProcessStep.label = e.label;
+      this.bp = [];
+      this.bp = e.businessProcesses;
     },
 
     handleSubmit() {
-      let params = { idProcess: 0, idStep: 0 };
-      params.idProcess = this.pProcess.id;
-      params.idStep = this.lProcessStep.id;
-      this.$store.dispatch("bProcess/addStep", params).then(() => {         
-        this.$emit("enableBack");
-      });
+      let pId = this.pProcess.id;
+      let isSubmit = true;
+      if (pId) {
+        if (this.bp instanceof Array) {
+          this.bp.forEach(function (item) {
+            if (item.id === pId) {
+              return (isSubmit = false);
+            }
+          });
+        }
+      }
+      if (isSubmit == true) {
+        let params = { idProcess: 0, idStep: 0 };
+        params.idProcess = this.pProcess.id;
+        params.idStep = this.lProcessStep.id;
+        this.$store.dispatch("bProcess/addStep", params).then(() => {
+          this.$emit("enableBack");
+        });
+      } else {
+        this.$store.dispatch(
+          "message/success",
+          "Step già presente nel Process!",
+          {
+            root: true,
+          }
+        );
+      }
     },
     enableNewStep() {
       this.$emit("enableNewStep");
     },
     handleBack() {
       this.$emit("enableBack");
-    }
+    },
   },
   created() {
     this.$store.dispatch("processSteps/findAll").catch(() => {});
-    this.lProcess = this.pProcess;
   },
 };
 </script>

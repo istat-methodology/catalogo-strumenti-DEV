@@ -37,58 +37,76 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessAdd",
   components: {
-    CTitle
+    CTitle,
   },
   data() {
     return {
       lProcess: {
-        id: "",
-        name: "",
-        descr: "",
-        label: "",
-        orderCode: "",
-        businessFunction: ""
-      }
+        id: ""
+      },
+      bf: [],
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcessList"]),
-    ...mapGetters("filter", ["params"])
   },
   props: {
     pFunctionId: {
       type: Number,
       required: true,
-      default: null
+      default: null,
     },
     pFunctionName: {
       type: String,
       required: true,
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     selectIdFromProcessList(e) {
       this.lProcess.id = e.id;
+      this.bf = [];
+      this.bf = e.businessFunctions;
     },
     handleSubmit() {
-      let params = { fID: 0, pID: 0 };
-      params.fID = this.pFunctionId;
-      params.pID = this.lProcess.id;
-      this.$store.dispatch("bFunction/addProcess", params);
-      this.$emit("enableBack");
+      let fId = this.pFunctionId;
+      let isSubmit = true;
+      if (fId) {
+        if (this.bf instanceof Array) {
+          this.bf.forEach(function (item) {
+            if (item.id === fId) {
+              return (isSubmit = false);
+            }
+          });
+        }
+      }
+      if (isSubmit == true) {
+        let params = { fID: 0, pID: 0 };
+        params.fID = this.pFunctionId;
+        params.pID = this.lProcess.id;
+        this.$store.dispatch("bFunction/addProcess", params);
+        this.$emit("enableBack");
+      } else {
+        this.$store.dispatch(
+          "message/success",
+          "Process già presente nella Function!",
+          {
+            root: true,
+          }
+        );
+      }
     },
     handleNew() {
       this.$emit("enableNew");
     },
     handleBack() {
       this.$emit("enableBack");
-    }
+    },
   },
   created() {
-    this.$store.dispatch("bProcess/filter", this.params).catch(() => {});
-  }
+    this.$store.dispatch("bProcess/findAll").catch(() => {});
+  },
 };
 </script>
 <style scoped>
