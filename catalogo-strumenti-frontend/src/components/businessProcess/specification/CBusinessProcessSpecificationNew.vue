@@ -196,13 +196,26 @@ export default {
     handleBack() {
       this.$emit("enableBack");
     },
+
     changeDesignTypeListByParent(event) {
-      console.log(event);
-      this.$store.dispatch("designtypes/findByParent", event.target.value);
+      var id = event.target.value;
+      this.designType_Tipo_IO.id = id;
+      this.designType_Tipo_IO.type = this.getDesignType(id);
+      this.designType_Tipo_IO.parent = "";
+      this.designType_Dati_IO.id = "";
+      this.designType_Dati_IO.type = "";
+      this.designType_Dati_IO.parent = "";
+      this.$store.dispatch("designtypes/findByParent", id);
     },
+
+
     onChangeDesignType_Data_IO(event) {
-      console.log(event);
+      var id = event.target.value;
+      this.designType_Dati_IO.id = id;
+      this.designType_Dati_IO.type = this.getDesignType(id);
+      this.designType_Dati_IO.parent = this.designType_Tipo_IO.id;
     },
+
     getDesignType(id) {
       console.log(this.lDesignType);
       var dt = this.lDesignType[id];
