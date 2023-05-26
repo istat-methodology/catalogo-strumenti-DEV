@@ -25,7 +25,7 @@
                     v-for="process of pProcesses"
                     :key="process.id"
                   >
-                    <div class="text-info center mt-2 mb-2">
+                    <div class="text-info center mt-2 mb-2" v-if="process">
                       <h6 class="card-header no-border text-info center row">
                         <div class="col-9">{{ process.name }}</div>
                         <div class="row">
@@ -121,61 +121,64 @@
         Modifica Processo
       -->
       <div v-if="stateform == FormState.PROCESS_EDIT">
-        
-
+        <div v-if="bProcess">
           <COrigin :origins="[pFunctionName]" />
-          <div v-if="bProcess">
-            <CBusinessProcessEdit
-              :pFunctionId="pFunctionId"
-              :pFunctionName="pFunctionName"
-              :pProcess="bProcess"
-              @enableBack="showListProcess"
-            />
-            <CBusinessProcessStepList
-              :pFunctionId="pFunctionId"
-              :pFunctionName="pFunctionName"
-              :pProcess="bProcess"
-              @enableViewStep="showViewStep"
-              @enableEditStep="showEditStep"
-              @enableAddStep="showAddStep"
-              @enableNewStep="showNewStep"
-              @enableBack="showListProcess"
-            />
-          </div>
-        
+          <CBusinessProcessEdit
+            :pFunctionId="pFunctionId"
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            @enableBack="showListProcess"
+          />
+          <CBusinessProcessStepList
+            :pFunctionId="pFunctionId"
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            @enableViewStep="showViewStep"
+            @enableEditStep="showEditStep"
+            @enableAddStep="showAddStep"
+            @enableNewStep="showNewStep"
+            @enableBack="showListProcess"
+          />
+        </div>
       </div>
       <!-- 
         Visualizza Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_VIEW">
-        <div v-if="selectedEditStep">
-          <CBusinessProcessStepView
-            :pFunctionName="pFunctionName"
-            :pProcess="bProcess"
-            :pPStep="selectedEditStep"
-            :pDesignType="designtypeList"
-            @enableBack="showEditProcess"
-          />
+        <div v-if="bProcess">
+          <div v-if="selectedEditStep">
+            <CBusinessProcessStepView
+              :pFunctionName="pFunctionName"
+              :pProcess="bProcess"
+              :pPStep="selectedEditStep"
+              :pDesignType="designtypeList"
+              @enableBack="showEditProcess"
+            />
+          </div>
         </div>
       </div>
       <!-- 
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
-        <div v-if="selectedEditStep">
-          <CBusinessProcessStepEdit
-            :pFunctionName="pFunctionName"
-            :pProcess="bProcess"
-            :pPStep="selectedEditStep"
-            :pDesignType="designtypeList"
-            @enableBack="showEditProcess"
-          />
+        <div v-if="bProcess">
+          <div v-if="selectedEditStep">
+            <CBusinessProcessStepEdit
+              :pFunctionName="pFunctionName"
+              :pProcess="bProcess"
+              :pPStep="selectedEditStep"
+              :pDesignType="designtypeList"
+              @enableBack="showEditProcess"
+            />
+          </div>
         </div>
       </div>
-      <!-- 
+    </div>
+    <!-- 
         Nuovo Passo del Processo dalla lista
       -->
-      <div v-if="stateform == FormState.STEP_ADD">
+    <div v-if="stateform == FormState.STEP_ADD">
+      <div v-if="bProcess">
         <CBusinessProcessStepAdd
           :pFunctionName="pFunctionName"
           :pProcess="bProcess"
@@ -184,10 +187,12 @@
           @enableBack="showEditProcess"
         />
       </div>
-      <!-- 
+    </div>
+    <!-- 
         Nuovo Passo del Processo
       -->
-      <div v-if="stateform == FormState.STEP_NEW">
+    <div v-if="stateform == FormState.STEP_NEW">
+      <div v-if="bProcess">
         <CBusinessProcessStepNew
           :pFunctionName="pFunctionName"
           :pProcess="bProcess"
@@ -197,6 +202,7 @@
         />
       </div>
     </div>
+
     <CModalDelete
       :message="getMessage()"
       :showModal="showModal"
@@ -315,10 +321,13 @@ export default {
     showAddProcess() {
       this.stateform = this.FormState.PROCESS_ADD;
     },
-    showEditProcess() {     
-      this.loadProcess(this.bProcess);
-      this.stateform = this.FormState.PROCESS_EDIT;
-    },
+    showEditProcess: _.debounce(function () {
+      if (this.bProcess) {
+        this.$store.dispatch("bProcess/findById", this.bProcess.id).then(() => {
+          this.stateform = this.FormState.PROCESS_EDIT;
+        });
+      }
+    }, 500),
     showViewStep(step) {
       this.selectedEditStep = step;
       this.stateform = this.FormState.STEP_VIEW;
@@ -335,10 +344,15 @@ export default {
       this.selectedEditStep = {};
       this.stateform = this.FormState.STEP_NEW;
     },
-    handleEditProcess(process) {
-      this.loadProcess(process);
-      this.stateform = this.FormState.PROCESS_EDIT;
-    },
+
+    handleEditProcess: _.debounce(function (process) {
+      if (process) {
+        this.$store.dispatch("bProcess/findById", process.id).then(() => {
+          this.stateform = this.FormState.PROCESS_EDIT;
+        });
+      }
+    }, 500),
+
     handleBack() {
       this.$router.back();
     },
@@ -361,9 +375,7 @@ export default {
       );
     },
     loadProcess: _.debounce(function (process) {
-      this.$store
-        .dispatch("bProcess/findById", process.id)
-        .then(() => {});
+      this.$store.dispatch("bProcess/findById", process.id).then(() => {});
     }, 500),
   },
   created() {
