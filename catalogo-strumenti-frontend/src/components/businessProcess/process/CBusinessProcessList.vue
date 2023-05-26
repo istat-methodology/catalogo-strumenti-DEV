@@ -121,25 +121,28 @@
         Modifica Processo
       -->
       <div v-if="stateform == FormState.PROCESS_EDIT">
-        <COrigin :origins="[pFunctionName]" />
-        <div v-if="selectedProcess">
-          <CBusinessProcessEdit
-            :pFunctionId="pFunctionId"
-            :pFunctionName="pFunctionName"
-            :pProcess="selectedProcess"
-            @enableBack="showListProcess"
-          />
-          <CBusinessProcessStepList
-            :pFunctionId="pFunctionId"
-            :pFunctionName="pFunctionName"
-            :pProcess="selectedProcess"
-            @enableViewStep="showViewStep"
-            @enableEditStep="showEditStep"
-            @enableAddStep="showAddStep"
-            @enableNewStep="showNewStep"
-            @enableBack="showListProcess"
-          />
-        </div>
+        
+
+          <COrigin :origins="[pFunctionName]" />
+          <div v-if="bProcess">
+            <CBusinessProcessEdit
+              :pFunctionId="pFunctionId"
+              :pFunctionName="pFunctionName"
+              :pProcess="bProcess"
+              @enableBack="showListProcess"
+            />
+            <CBusinessProcessStepList
+              :pFunctionId="pFunctionId"
+              :pFunctionName="pFunctionName"
+              :pProcess="bProcess"
+              @enableViewStep="showViewStep"
+              @enableEditStep="showEditStep"
+              @enableAddStep="showAddStep"
+              @enableNewStep="showNewStep"
+              @enableBack="showListProcess"
+            />
+          </div>
+        
       </div>
       <!-- 
         Visualizza Passo del Processo
@@ -148,7 +151,7 @@
         <div v-if="selectedEditStep">
           <CBusinessProcessStepView
             :pFunctionName="pFunctionName"
-            :pProcess="selectedProcess"
+            :pProcess="bProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
             @enableBack="showEditProcess"
@@ -162,7 +165,7 @@
         <div v-if="selectedEditStep">
           <CBusinessProcessStepEdit
             :pFunctionName="pFunctionName"
-            :pProcess="selectedProcess"
+            :pProcess="bProcess"
             :pPStep="selectedEditStep"
             :pDesignType="designtypeList"
             @enableBack="showEditProcess"
@@ -175,7 +178,7 @@
       <div v-if="stateform == FormState.STEP_ADD">
         <CBusinessProcessStepAdd
           :pFunctionName="pFunctionName"
-          :pProcess="selectedProcess"
+          :pProcess="bProcess"
           :pPStep="selectedEditStep"
           @enableNewStep="showNewStep"
           @enableBack="showEditProcess"
@@ -187,7 +190,7 @@
       <div v-if="stateform == FormState.STEP_NEW">
         <CBusinessProcessStepNew
           :pFunctionName="pFunctionName"
-          :pProcess="selectedProcess"
+          :pProcess="bProcess"
           :pPStep="selectedEditStep"
           @enableAddStep="showAddStep"
           @enableBack="showEditProcess"
@@ -310,11 +313,11 @@ export default {
       this.stateform = this.FormState.PROCESS_NEW;
     },
     showAddProcess() {
-      this.stateform = this.FormState.PROCESS_ADD;      
+      this.stateform = this.FormState.PROCESS_ADD;
     },
-    showEditProcess() {
+    showEditProcess() {     
+      this.loadProcess(this.bProcess);
       this.stateform = this.FormState.PROCESS_EDIT;
-     
     },
     showViewStep(step) {
       this.selectedEditStep = step;
@@ -326,16 +329,14 @@ export default {
     },
     showAddStep() {
       this.selectedEditStep = {};
-      this.stateform = this.FormState.STEP_ADD;      
-      
+      this.stateform = this.FormState.STEP_ADD;
     },
     showNewStep() {
       this.selectedEditStep = {};
       this.stateform = this.FormState.STEP_NEW;
-      
     },
     handleEditProcess(process) {
-      this.selectedProcess = process;
+      this.loadProcess(process);
       this.stateform = this.FormState.PROCESS_EDIT;
     },
     handleBack() {
@@ -359,10 +360,11 @@ export default {
         "]"
       );
     },
-    loadProcess: _.debounce(function() {
-      this.$store.dispatch("bProcessDesign/findById", this.selectedProcess.id).then(() => {});
+    loadProcess: _.debounce(function (process) {
+      this.$store
+        .dispatch("bProcess/findById", process.id)
+        .then(() => {});
     }, 500),
-
   },
   created() {
     this.$store.dispatch("designtypes/findAll");
