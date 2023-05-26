@@ -145,70 +145,66 @@
         Visualizza Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_VIEW">
-        <div v-if="bProcess">
-          <div v-if="selectedEditStep">
-            <CBusinessProcessStepView
-              :pFunctionName="pFunctionName"
-              :pProcess="bProcess"
-              :pPStep="selectedEditStep"
-              :pDesignType="designtypeList"
-              @enableBack="showEditProcess"
-            />
-          </div>
+        <div v-if="bProcess && selectedEditStep">
+          <CBusinessProcessStepView
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            :pPStep="selectedEditStep"
+            :pDesignType="designtypeList"
+            @enableBack="showEditProcess"
+          />
         </div>
       </div>
       <!-- 
         Modifica Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_EDIT">
-        <div v-if="bProcess">
-          <div v-if="selectedEditStep">
-            <CBusinessProcessStepEdit
-              :pFunctionName="pFunctionName"
-              :pProcess="bProcess"
-              :pPStep="selectedEditStep"
-              :pDesignType="designtypeList"
-              @enableBack="showEditProcess"
-            />
-          </div>
+        <div v-if="bProcess && selectedEditStep">
+          <CBusinessProcessStepEdit
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            :pPStep="selectedEditStep"
+            :pDesignType="designtypeList"
+            @enableBack="showEditProcess"
+          />
         </div>
       </div>
-    </div>
-    <!-- 
+      <!-- 
         Nuovo Passo del Processo dalla lista
       -->
-    <div v-if="stateform == FormState.STEP_ADD">
-      <div v-if="bProcess">
-        <CBusinessProcessStepAdd
-          :pFunctionName="pFunctionName"
-          :pProcess="bProcess"
-          :pPStep="selectedEditStep"
-          @enableNewStep="showNewStep"
-          @enableBack="showEditProcess"
-        />
+      <div v-if="stateform == FormState.STEP_ADD">
+        <div v-if="bProcess && selectedEditStep">
+          <CBusinessProcessStepAdd
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            :pPStep="selectedEditStep"
+            @enableNewStep="showNewStep"
+            @enableBack="showEditProcess"
+          />
+        </div>
       </div>
-    </div>
-    <!-- 
+      <!-- 
         Nuovo Passo del Processo
       -->
-    <div v-if="stateform == FormState.STEP_NEW">
-      <div v-if="bProcess">
-        <CBusinessProcessStepNew
-          :pFunctionName="pFunctionName"
-          :pProcess="bProcess"
-          :pPStep="selectedEditStep"
-          @enableAddStep="showAddStep"
-          @enableBack="showEditProcess"
-        />
+      <div v-if="stateform == FormState.STEP_NEW">
+        <div v-if="bProcess && selectedEditStep">
+          <CBusinessProcessStepNew
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            :pPStep="selectedEditStep"
+            @enableAddStep="showAddStep"
+            @enableBack="showEditProcess"
+          />
+        </div>
       </div>
-    </div>
 
-    <CModalDelete
-      :message="getMessage()"
-      :showModal="showModal"
-      @closeModal="closeModal"
-      @handleDelete="handleDelete"
-    />
+      <CModalDelete
+        :message="getMessage()"
+        :showModal="showModal"
+        @closeModal="closeModal"
+        @handleDelete="handleDelete"
+      />
+    </div>
   </div>
 </template>
 <script>

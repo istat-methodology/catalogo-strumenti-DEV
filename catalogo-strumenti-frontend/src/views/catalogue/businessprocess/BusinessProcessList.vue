@@ -62,9 +62,7 @@
         Crea nuovo Processo
       -->
       <div v-if="stateform == FormState.PROCESS_NEW">
-        <CBusinessProcessNew          
-          @enableBack="showListProcess"
-        />
+        <CBusinessProcessNew @enableBack="showListProcess" />
       </div>
       <!-- 
         Dettaglio Processo
@@ -75,23 +73,29 @@
           @enableBack="showListProcess"
           @enableShowStep="showViewStep"
         />
-      </div>     
+      </div>
 
       <div v-if="stateform == FormState.PROCESS_EDIT">
         <div v-if="selectedProcess">
+          <COrigin :origins="[pFunctionName]" />
           <CBusinessProcessEdit
-            :pProcess="selectedProcess"     
+           
+            :pProcess="selectedProcess"
             @enableBack="showListProcess"
           />
           <CBusinessProcessStepList
+ 
             :pProcess="selectedProcess"
             @enableViewStep="showViewStep"
             @enableEditStep="showEditStep"
+            @enableAddStep="showAddStep"
             @enableNewStep="showNewStep"
             @enableBack="showListProcess"
           />
         </div>
       </div>
+
+
       <!-- 
         Visualizza Passo del Processo
       -->
@@ -117,15 +121,32 @@
         />
       </div>
       <!-- 
+        Nuovo Passo del Processo dalla lista
+      -->
+      <div v-if="stateform == FormState.STEP_ADD">
+        <div v-if="bProcess">
+          <CBusinessProcessStepAdd
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            :pPStep="selectedEditStep"
+            @enableNewStep="showNewStep"
+            @enableBack="showEditProcess"
+          />
+        </div>
+      </div>
+      <!-- 
         Nuovo Passo del Processo
       -->
       <div v-if="stateform == FormState.STEP_NEW">
-        <CBusinessProcessStepNew
-          :pProcess="bProcess"
-          :pPStep="selectedProcessStep"
-          :pDesignType="designtypeList"
-          @enableBack="showEditProcess"
-        />
+        <div v-if="bProcess">
+          <CBusinessProcessStepNew
+            :pFunctionName="pFunctionName"
+            :pProcess="bProcess"
+            :pPStep="selectedEditStep"
+            @enableAddStep="showAddStep"
+            @enableBack="showEditProcess"
+          />
+        </div>
       </div>
     </div>
     <CModalDelete
@@ -146,6 +167,7 @@ import CBusinessProcessView from "@/components/businessProcess/process/CBusiness
 
 import CBusinessProcessStepList from "@/components/businessProcess/step/CBusinessProcessStepList";
 import CBusinessProcessStepEdit from "@/components/businessProcess/step/CBusinessProcessStepEdit";
+import CBusinessProcessStepAdd from "@/components/businessProcess/step/CBusinessProcessStepAdd";
 import CBusinessProcessStepNew from "@/components/businessProcess/step/CBusinessProcessStepNew";
 import CBusinessProcessStepView from "@/components/businessProcess/step/CBusinessProcessStepView";
 
@@ -163,12 +185,13 @@ export default {
     CBusinessProcessEdit,
     CBusinessProcessStepList,
     CBusinessProcessStepEdit,
+    CBusinessProcessStepAdd,
     CBusinessProcessStepNew,
     CBusinessProcessStepView,
     CTitle,
     CModalDelete,
     CTableLink,
-    CTableDetails
+    CTableDetails,
   },
   data() {
     return {
@@ -186,8 +209,10 @@ export default {
         PROCESS_ADD: 14,
 
         STEP_VIEW: 20,
-        STEP_NEW: 21,
-        STEP_EDIT: 22
+        STEP_ADD: 21,
+        STEP_NEW: 22,
+        STEP_EDIT: 23,
+
       },
       stateform: 10,
 
@@ -198,54 +223,54 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: ""
+        businessFunction: "",
       },
-     
+
       fields: [
         {
           key: "id",
           label: "ID",
-          _style: "width:4%;"
+          _style: "width:4%;",
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;"
+          _style: "width:30%;",
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;"
+          _style: "width:10%;",
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:30%;"
+          _style: "width:30%;",
         },
         {
           key: "orderCode",
           label: "Order",
-          _style: "width:10%;"
+          _style: "width:10%;",
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
       details: [],
       setDetails: [],
       showDetails: true,
       activeIndex: -1,
-      showModal: false
+      showModal: false,
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcess", "bProcessList"]),
-    ...mapGetters("designtypes", ["designtypeList"])
+    ...mapGetters("designtypes", ["designtypeList"]),
   },
 
   methods: {
@@ -253,29 +278,13 @@ export default {
       this.lProcess.processStep = value.id;
       alert(this.lProcess.processStep);
     },
-    /*
-    handleSubmit() {
-      if (this.stateform == this.FormState.NEW_PROCESS) {
-        this.$store.dispatch("bProcess/save", this.lProcess).then(() => {
-          this.loadProcess();
-        });
-      }
-      if (this.stateform == this.FormState.EDIT_PROCESS) {
-        this.lProcess = this.selectedProcess;
-        this.$store.dispatch("bProcess/update", this.lProcess).then(() => {
-          this.loadProcess();
-        });
-      }
-
-      this.stateform = this.FormState.LIST_PROCESS;
+    showAddStep() {
+      this.selectedEditStep = {};
+      this.stateform = this.FormState.STEP_ADD;
     },
-    */
-    selectId(e) {
-      this.lProcess.id = e.id;
-      this.lProcess.name = e.name;
-      this.lProcess.descr = e.descr;
-      this.lProcess.label = e.label;
-      this.lProcess.orderCode = e.orderCode;
+    showNewStep() {
+      this.selectedEditStep = {};
+      this.stateform = this.FormState.STEP_NEW;
     },
     showListProcess() {
       this.stateform = this.FormState.PROCESS_LIST;
@@ -298,10 +307,6 @@ export default {
       this.selectedProcessStep = step;
       this.stateform = this.FormState.STEP_EDIT;
     },
-    showNewStep() {
-      this.selectedProcessStep = {};
-      this.stateform = this.FormState.STEP_NEW;
-    },
     handleEdit(process) {
       this.$store.dispatch("bProcess/findById", process.id).then(() => {
         this.selectedProcess = this.bProcess;
@@ -317,7 +322,7 @@ export default {
     handleBack() {
       this.$router.push({
         name: "Catalogue",
-        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm }
+        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
       });
     },
     handleOpenModalDelete(app) {
@@ -351,15 +356,15 @@ export default {
 
       this.showModal = false;
     },
-    loadProcess: _.debounce(function() {
+    loadProcess: _.debounce(function () {
       this.$store.dispatch("bProcess/findAll");
-    }, 500)
+    }, 500),
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
     this.$store.dispatch("designtypes/findAll");
     this.loadProcess();
-  }
+  },
 };
 </script>
 <style scoped>
