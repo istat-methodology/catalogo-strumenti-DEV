@@ -4,7 +4,7 @@ server:
   port: 9080
 spring:
   application:
-    name: catalog-api-gateway
+    name: catalog-api-gateway-dev
   jpa:
     hibernate:
       naming:
