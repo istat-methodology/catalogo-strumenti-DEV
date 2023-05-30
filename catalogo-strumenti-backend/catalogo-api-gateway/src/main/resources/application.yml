@@ -40,32 +40,6 @@ zuul:
       path: /api/user/**
       url: http://localhost:8082/user
  
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-    service-url:
-      default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/
-    server:
-      waitTineInMsWhenSyncEmpty: 0
-management:
-  endpoints:
-    web:
-      exposure:
-        include: info, health, metrics, auditevents
-  metrics:
-    export:
-      atlas:
-        enabled: false
- 
-ribbon:
-  eureka:
-    enabled: false  #important
-  ReadTimeout: 60000
-  ConnectTimeout: 60000
-
 hystrix:
   command:
     default:
