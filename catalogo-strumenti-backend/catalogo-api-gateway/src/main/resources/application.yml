@@ -62,7 +62,7 @@ management:
  
 ribbon:
   eureka:
-    enabled: true  #important
+    enabled: false  #important
   ReadTimeout: 60000
   ConnectTimeout: 60000
 
