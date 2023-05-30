@@ -39,7 +39,14 @@ zuul:
     service_users:
       path: /api/user/**
       url: http://localhost:8082/user
- 
+
+ribbon:
+  eureka:
+    enabled: true  #important
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+
 hystrix:
   command:
     default:
