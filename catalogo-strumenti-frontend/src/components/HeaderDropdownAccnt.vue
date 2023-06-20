@@ -16,12 +16,12 @@
       <CDropdownHeader tag="div" class="text-center" color="light">
         Logged: {{ loggedUser.sub }}
       </CDropdownHeader>
-      <CDropdownItem>
+      <!--CDropdownItem>
         <user-icon /><span class="pl-2"> Profile</span>
-      </CDropdownItem>
-      <CDropdownItem>
+      </CDropdownItem-->
+      <!--CDropdownItem>
         <settings-icon /><span class="pl-2"> Settings</span></CDropdownItem
-      >
+      -->
       <CDropdownDivider />
       <CDropdownItem @click="logout">
         <logout-icon /><span class="pl-2">Logout</span>
