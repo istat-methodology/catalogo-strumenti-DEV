@@ -150,9 +150,9 @@ export default {
       });
     },
     handleDelete() {
-      //this.$store.dispatch("bFunction/delete", this.selectedBusinessFunction.id).catch(() => {});
+      this.$store.dispatch("bFunction/delete", this.selectedBusinessFunction.id).catch(() => {});
       //this.$store.dispatch("bFunction/filter", this.params).catch(() => {});
-      //this.$store.dispatch("bFunction/findAll");
+      this.$store.dispatch("bFunction/findAll");
 
       this.showModal = false;
     },
