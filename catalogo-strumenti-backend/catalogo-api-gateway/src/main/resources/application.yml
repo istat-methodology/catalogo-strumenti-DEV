@@ -39,7 +39,7 @@ zuul:
     service_users:
       path: /api/user/**
       url: http://localhost:8082/user
- 
+
 eureka:
   instance:
     hostname: localhost
@@ -59,12 +59,12 @@ management:
     export:
       atlas:
         enabled: false
- 
 ribbon:
   eureka:
     enabled: true  #important
   ReadTimeout: 60000
   ConnectTimeout: 60000
+
 
 hystrix:
   command:

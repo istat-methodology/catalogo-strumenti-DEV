@@ -118,12 +118,19 @@ public class BusinessFunctionService {
 		return Translators.translate(bs);
 	}
 
-	public BusinessFunctionDto deleteBusinessFunction(Integer id) {
+	public boolean deleteBusinessFunction(Integer id) {
 		if (!businessFunctionDao.findById(id).isPresent())
 			throw new NoDataException("BusinessFunction not present");
 		BusinessFunction bs = businessFunctionDao.findById(id).get();
-		businessFunctionDao.delete(bs);
-		return Translators.translate(bs);
+		
+
+		try {
+			businessFunctionDao.delete(bs);
+			}
+			catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
 	
 	public BusinessFunctionDto deleteProcessFromBusinessFunction(Integer id_function, Integer id_process) {
