@@ -56,7 +56,7 @@ export default {
   components: {
     CTitle,
     CTableLink,
-    CModalDelete,
+    CModalDelete
   },
   data() {
     return {
@@ -64,30 +64,30 @@ export default {
         {
           key: "id",
           label: "id",
-          _style: "width:2%;",
+          _style: "width:2%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "label",
           label: "etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       lProcess: {
         id: "",
@@ -95,32 +95,32 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
       selectedProcessStep: {},
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcess"]),
+    ...mapGetters("bProcess", ["bProcess"])
   },
   props: {
     pFunctionId: {
       type: Number,
       required: false,
-      default: null,
+      default: null
     },
     pFunctionName: {
       type: String,
       required: false,
-      default: null,
+      default: null
     },
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleEdit(step) {
@@ -156,24 +156,20 @@ export default {
       let params = { idProcess: 0, idStep: 0 };
       params.idProcess = this.pProcess.id;
       params.idStep = this.selectedProcessStep.id;
-      this.$store.dispatch("bProcess/removeStep", params);  
+      this.$store.dispatch("bProcess/removeStep", params);
       this.loadProcess;
       this.showModal = false;
-      
-      
     },
-    loadProcess(){
+    loadProcess() {
       this.$store.dispatch("bProcess/findById", this.pProcess.id);
     },
     closeModal() {
       this.showModal = false;
-    },
+    }
   },
-  created() {    
-    this.$store.dispatch("bProcess/findById", this.pProcess.id).then(() => {      
-    
-    });
-  },
+  created() {
+    this.$store.dispatch("bProcess/findById", this.pProcess.id).then(() => {});
+  }
 };
 </script>
 <style scoped>

@@ -3,22 +3,22 @@
     <CTitle
       :title="
         'Process Step ' +
-        pProcessStep.name +
-        ' (' +
-        pProcessStep.id +
-        ') / ' +
-        'Process Design (' +
-        pProcessDesign.id +
-        ') / ' +
-        'Process Specification (' +
-        pProcessSpecification.id +
-        ') '
+          pProcessStep.name +
+          ' (' +
+          pProcessStep.id +
+          ') / ' +
+          'Process Design (' +
+          pProcessDesign.id +
+          ') / ' +
+          'Process Specification (' +
+          pProcessSpecification.id +
+          ') '
       "
       buttonTitle=" process specification "
       functionality="modifica process specification"
       :authenticated="isAuthenticated"
       :buttons="['salva', 'indietro']"
-      :items='["process","step"]'
+      :items="['process', 'step']"
       @handleSubmit="handleSubmit"
       @handleBack="handleBack"
     />
@@ -105,7 +105,7 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessDesignEdit",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
@@ -114,17 +114,17 @@ export default {
         id: "",
         processDesign: {
           id: "",
-          descr: "",
+          descr: ""
         },
         designType_Tipo_IO: {
           id: "",
           type: "",
-          parent: "",
+          parent: ""
         },
         designType_Dati_IO: {
           id: "",
           type: "",
-          parent: "",
+          parent: ""
         },
         informationObject: {
           id: "",
@@ -134,9 +134,9 @@ export default {
           businessService: {
             id: "",
             name: "",
-            descr: "",
-          },
-        },
+            descr: ""
+          }
+        }
       },
 
       informationObjectToSave: {
@@ -144,72 +144,66 @@ export default {
         name: "",
         descr: "",
         csmAppRoleId: "999",
-        businessService: "999",
+        businessService: "999"
       },
       processSpecificationToSave: {
         id: 0,
         processDesignDescription: 0,
         designType: 0,
-        informationObject: 0,
-      },
+        informationObject: 0
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
+    ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"])
   },
   //emits: ["enableEditProcessDesign"],
   props: {
     pProcessStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pProcessDesign: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pProcessSpecification: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
     handleSubmit() {
       //salva le modifiche all'information object
 
-      this.informationObjectToSave.id =  this.lProcessSpecification.informationObject.id;
-      this.informationObjectToSave.name =  this.lProcessSpecification.informationObject.name;
-      this.informationObjectToSave.descr =   this.lProcessSpecification.informationObject.descr;
+      this.informationObjectToSave.id = this.lProcessSpecification.informationObject.id;
+      this.informationObjectToSave.name = this.lProcessSpecification.informationObject.name;
+      this.informationObjectToSave.descr = this.lProcessSpecification.informationObject.descr;
 
       this.$store
         .dispatch("informationObjects/update", this.informationObjectToSave)
         .then(() => {
-
-          
           //id process specification
           this.processSpecificationToSave.id = this.pProcessSpecification.id;
           //id process design
           this.processSpecificationToSave.processDesign = this.pProcessDesign.id;
           //id designtype
           if (this.lProcessSpecification.designType_Dati_IO.type == "") {
-            this.processSpecificationToSave.designType =
-              this.lProcessSpecification.designType_Tipo_IO.id;
+            this.processSpecificationToSave.designType = this.lProcessSpecification.designType_Tipo_IO.id;
           } else {
-            this.processSpecificationToSave.designType =
-              this.lProcessSpecification.designType_Dati_IO.id;
+            this.processSpecificationToSave.designType = this.lProcessSpecification.designType_Dati_IO.id;
           }
           //id information object
-          this.processSpecificationToSave.informationObject =
-            this.lProcessSpecification.informationObject.id;
-
+          this.processSpecificationToSave.informationObject = this.lProcessSpecification.informationObject.id;
 
           this.$store.dispatch(
             "processSpecification/update",
@@ -225,8 +219,9 @@ export default {
       var id = event.target.value;
 
       this.lProcessSpecification.designType_Tipo_IO.id = id;
-      this.lProcessSpecification.designType_Tipo_IO.type =
-        this.getDesignType(id);
+      this.lProcessSpecification.designType_Tipo_IO.type = this.getDesignType(
+        id
+      );
       this.lProcessSpecification.designType_Tipo_IO.parent = "";
       this.lProcessSpecification.designType_Dati_IO.id = "";
       this.lProcessSpecification.designType_Dati_IO.type = "";
@@ -236,17 +231,17 @@ export default {
     onChangeDesignType_Data_IO(event) {
       var id = event.target.value;
       this.lProcessSpecification.designType_Dati_IO.id = id;
-      this.lProcessSpecification.designType_Dati_IO.type =
-        this.getDesignType(id);
-      this.lProcessSpecification.designType_Dati_IO.parent =
-        this.lProcessSpecification.designType_Tipo_IO.id;
+      this.lProcessSpecification.designType_Dati_IO.type = this.getDesignType(
+        id
+      );
+      this.lProcessSpecification.designType_Dati_IO.parent = this.lProcessSpecification.designType_Tipo_IO.id;
     },
     getDesignType(id) {
       console.log(this.lDesignType);
       var dt = this.lDesignType[id];
       console.log(dt);
       return dt;
-    },
+    }
   },
   created() {
     this.lProcessDesign = this.pProcessDesign;
@@ -257,7 +252,7 @@ export default {
       parseInt(parseInt(this.lProcessSpecification.designType_Tipo_IO.id))
     );
     this.lDesignType = _.map(this.pDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

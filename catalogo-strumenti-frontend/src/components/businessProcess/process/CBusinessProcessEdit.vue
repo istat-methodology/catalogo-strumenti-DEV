@@ -103,14 +103,13 @@ export default {
       if (this.pFunctionId != null) {
         this.lProcess.businessFunction = this.pFunctionId;
       }
-      this.$store.dispatch("bProcess/update", this.lProcess);      
-      this.$emit("enableBack");      
-    },   
-   
+      this.$store.dispatch("bProcess/update", this.lProcess);
+      this.$emit("enableBack");
+    }
   },
   created() {
     this.lProcess = this.pProcess;
-    this.$emit("enableLoadStep");  
+    this.$emit("enableLoadStep");
   }
 };
 </script>

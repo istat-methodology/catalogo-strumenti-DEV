@@ -47,7 +47,7 @@ class BusinessFunctionsService extends AbstractService {
         console.log(error);
       });
   }
-  findBFunctionsByBService(id) {    
+  findBFunctionsByBService(id) {
     return axiosCatalog
       .get(this.endpoint + "/business-service/" + id)
       .then(res => {
@@ -60,7 +60,6 @@ class BusinessFunctionsService extends AbstractService {
       });
   }
   addProcess(fID, pID) {
-
     return axiosCatalog
       .put(this.endpoint + "/" + fID + "/processes/" + pID)
       .then(res => {

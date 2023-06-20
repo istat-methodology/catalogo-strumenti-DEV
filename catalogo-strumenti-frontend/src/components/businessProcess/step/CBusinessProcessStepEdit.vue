@@ -244,41 +244,41 @@ export default {
         {
           key: "id",
           label: "ID ",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "designType_Tipo_IO",
           label: "Tipo I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
 
         {
           key: "designType_Dati_IO",
           label: "Dati I/O",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectId",
           label: "information Object ID",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectName",
           label: "Information Object Name",
-          _style: "width:auto;",
+          _style: "width:auto;"
         },
         {
           key: "informationObjectDescription",
           label: " information Object Description",
-          _style: "width:20%;",
+          _style: "width:20%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       processStepToSave: {
         id: 0,
@@ -287,7 +287,7 @@ export default {
         label: "",
         businessServiceId: 999,
         processIds: [],
-        substep: 0,
+        substep: 0
       },
       lProcessStep: {
         id: 0,
@@ -296,7 +296,7 @@ export default {
         label: "",
         businessServiceId: 999,
         processIds: [],
-        substep: 0,
+        substep: 0
       },
 
       lDesignType: {},
@@ -312,44 +312,44 @@ export default {
 
         PROCESS_SPECIFICATION_VIEW: 20,
         PROCESS_SPECIFICATION_NEW: 21,
-        PROCESS_SPECIFICATION_EDIT: 22,
+        PROCESS_SPECIFICATION_EDIT: 22
       },
       stateform: 4,
       showModal: false,
       msg: "",
-      isProcessSpecification: false,
+      isProcessSpecification: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcess"]),
-    ...mapGetters("processDesign", ["processDesignListByProcessStep"]),
+    ...mapGetters("processDesign", ["processDesignListByProcessStep"])
   },
   props: {
     pFunctionName: {
       type: String,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pPStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
-    getProcessSpecification: function (processDesign) {
-      return processDesign.processSpecification.map((item) => {
+    getProcessSpecification: function(processDesign) {
+      return processDesign.processSpecification.map(item => {
         return {
           id: item.id,
           designType_Tipo_IO: {
@@ -360,18 +360,18 @@ export default {
             type:
               item.designType.parent == null
                 ? item.designType.type
-                : this.getDesignType(item.designType.parent),
+                : this.getDesignType(item.designType.parent)
           },
           designType_Dati_IO: {
             id: item.designType.parent == null ? 0 : item.designType.id,
-            type: item.designType.parent == null ? "" : item.designType.type,
+            type: item.designType.parent == null ? "" : item.designType.type
           },
           informationObject: {
             id: item.informationObject.id,
             name: item.informationObject.name,
             descr: item.informationObject.descr,
-            businessServiceId: item.informationObject.businessService.id,
-          },
+            businessServiceId: item.informationObject.businessService.id
+          }
         };
       });
     },
@@ -402,7 +402,7 @@ export default {
       this.loadProcessDesign();
       this.stateform = this.FormState.STEP_EDIT;
     },
-    loadProcessDesign: _.debounce(function () {
+    loadProcessDesign: _.debounce(function() {
       this.$store
         .dispatch("processDesign/findById", this.pPStep.id)
         .then(() => {});
@@ -481,13 +481,13 @@ export default {
       this.selectedProcessDesign = processDesign;
       this.selectedProcessSpecification = {};
       this.stateform = this.FormState.PROCESS_SPECIFICATION_NEW;
-    },
+    }
   },
   created() {
     this.lProcessStep = this.pPStep;
     this.lDesignType = _.map(this.pDesignType, "type");
     this.loadProcessDesign();
-  },
+  }
 };
 </script>
 <style scoped>

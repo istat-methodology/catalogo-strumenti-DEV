@@ -2,7 +2,10 @@
   <div>
     <!-- 1 -->
     <div v-if="stateform == FormState.GSBPM_INIT">
-      <CTitle title="GSBPM - Generic Statistical Business Process Model" class="pt-4 pb-4 mt-4"/>
+      <CTitle
+        title="GSBPM - Generic Statistical Business Process Model"
+        class="pt-4 pb-4 mt-4"
+      />
       <div class="row">
         <div v-for="item of gsbpmList" :key="item.id" class="col-3">
           <div class="center text-info mt-2 mb-2">

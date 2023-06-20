@@ -15,8 +15,6 @@ const mutations = {
 };
 
 const actions = {
-
-
   findAll({ commit }) {
     processSpecificationOpenService.findAll().then(
       data => {
@@ -27,7 +25,6 @@ const actions = {
       }
     );
   },
-
 
   delete({ dispatch }, id) {
     return processSpecificationService

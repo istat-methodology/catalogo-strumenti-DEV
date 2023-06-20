@@ -3,14 +3,14 @@
     <CTitle
       :title="
         'Process Step ' +
-        pProcessStep.name +
-        ' (' +
-        pProcessStep.id +
-        ') / ' +
-        'Process Design (' +
-        pProcessDesign.id +
-        ') / ' +
-        'Process Specification ()'
+          pProcessStep.name +
+          ' (' +
+          pProcessStep.id +
+          ') / ' +
+          'Process Design (' +
+          pProcessDesign.id +
+          ') / ' +
+          'Process Specification ()'
       "
       buttonTitle=" process specification "
       functionality="nuovo process specification"
@@ -102,69 +102,69 @@ var _ = require("lodash");
 export default {
   name: "CBusinessProcessDesignNew",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
       designType_Tipo_IO: {
         id: "",
         type: "",
-        parent: "",
+        parent: ""
       },
       designType_Dati_IO: {
         id: "",
         type: "",
-        parent: "",
+        parent: ""
       },
       lProcessSpecification: {
         processDesign: 0,
         designType: 0,
-        informationObject: 0,
+        informationObject: 0
       },
       processSpecificationToSave: {
         processDesign: 0,
         designType: 0,
-        informationObject: 0,
+        informationObject: 0
       },
 
       lInformationObject: {
         name: "",
-        descr: "",
+        descr: ""
       },
       informationObjectToSave: {
         name: "",
         descr: "",
         csmAppRoleId: "999",
-        businessService: "999",
-      },
+        businessService: "999"
+      }
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("designtypes", ["designtypeList", "designtypebyparentList"]),
-    ...mapGetters("informationObjects", ["informationObjectList"]),
+    ...mapGetters("informationObjects", ["informationObjectList"])
   },
   props: {
     pProcessStep: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pProcessDesign: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pProcessSpecification: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => {}
     },
     pDesignType: {
       type: Array,
       required: true,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
     handleSubmit() {
@@ -173,19 +173,15 @@ export default {
       this.$store
         .dispatch("informationObjects/save", this.informationObjectToSave)
         .then(() => {
-          this.processSpecificationToSave.processDesign =
-            this.pProcessDesign.id;
+          this.processSpecificationToSave.processDesign = this.pProcessDesign.id;
 
           if (this.designType_Dati_IO.type == "") {
-            this.processSpecificationToSave.designType =
-              this.designType_Tipo_IO.id;
+            this.processSpecificationToSave.designType = this.designType_Tipo_IO.id;
           } else {
-            this.processSpecificationToSave.designType =
-              this.designType_Dati_IO.id;
+            this.processSpecificationToSave.designType = this.designType_Dati_IO.id;
           }
 
-          this.processSpecificationToSave.informationObject =
-            this.informationObjectList.id;
+          this.processSpecificationToSave.informationObject = this.informationObjectList.id;
           this.$store.dispatch(
             "processSpecification/save",
             this.processSpecificationToSave
@@ -208,7 +204,6 @@ export default {
       this.$store.dispatch("designtypes/findByParent", id);
     },
 
-
     onChangeDesignType_Data_IO(event) {
       var id = event.target.value;
       this.designType_Dati_IO.id = id;
@@ -221,14 +216,14 @@ export default {
       var dt = this.lDesignType[id];
       console.log(dt);
       return dt;
-    },
+    }
   },
   created() {
     this.lProcessDesign = this.pProcessDesign;
     this.$store.dispatch("designtypes/findAll");
     this.$store.dispatch("designtypes/findByParent", parseInt(parseInt(1)));
     this.lDesignType = _.map(this.pDesignType, "type");
-  },
+  }
 };
 </script>
 <style scoped>

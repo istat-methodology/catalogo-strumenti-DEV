@@ -16,7 +16,6 @@ const mutations = {
 };
 
 const actions = {
-  
   findById({ commit }, id) {
     return processStepsOpenService
       .findById(id)
@@ -53,7 +52,7 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
-  },  
+  },
   update({ commit, dispatch }, payload) {
     return processStepsService
       .update(payload)

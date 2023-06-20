@@ -79,12 +79,10 @@
         <div v-if="selectedProcess">
           <COrigin :origins="[pFunctionName]" />
           <CBusinessProcessEdit
-           
             :pProcess="selectedProcess"
             @enableBack="showListProcess"
           />
           <CBusinessProcessStepList
- 
             :pProcess="selectedProcess"
             @enableViewStep="showViewStep"
             @enableEditStep="showEditStep"
@@ -94,7 +92,6 @@
           />
         </div>
       </div>
-
 
       <!-- 
         Visualizza Passo del Processo
@@ -191,7 +188,7 @@ export default {
     CTitle,
     CModalDelete,
     CTableLink,
-    CTableDetails,
+    CTableDetails
   },
   data() {
     return {
@@ -211,8 +208,7 @@ export default {
         STEP_VIEW: 20,
         STEP_ADD: 21,
         STEP_NEW: 22,
-        STEP_EDIT: 23,
-
+        STEP_EDIT: 23
       },
       stateform: 10,
 
@@ -223,54 +219,54 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
 
       fields: [
         {
           key: "id",
           label: "ID",
-          _style: "width:4%;",
+          _style: "width:4%;"
         },
         {
           key: "name",
           label: "Nome",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "label",
           label: "Etichetta",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "descr",
           label: "Descrizione",
-          _style: "width:30%;",
+          _style: "width:30%;"
         },
         {
           key: "orderCode",
           label: "Order",
-          _style: "width:10%;",
+          _style: "width:10%;"
         },
         {
           key: "show_details",
           label: "",
           _style: "width:1%",
           sorter: false,
-          filter: false,
-        },
+          filter: false
+        }
       ],
       details: [],
       setDetails: [],
       showDetails: true,
       activeIndex: -1,
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcess", "bProcessList"]),
-    ...mapGetters("designtypes", ["designtypeList"]),
+    ...mapGetters("designtypes", ["designtypeList"])
   },
 
   methods: {
@@ -322,7 +318,7 @@ export default {
     handleBack() {
       this.$router.push({
         name: "Catalogue",
-        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm },
+        params: { cataloguePage: "2", gsbpm: this.$route.params.gsbpm }
       });
     },
     handleOpenModalDelete(app) {
@@ -356,15 +352,15 @@ export default {
 
       this.showModal = false;
     },
-    loadProcess: _.debounce(function () {
+    loadProcess: _.debounce(function() {
       this.$store.dispatch("bProcess/findAll");
-    }, 500),
+    }, 500)
   },
   created() {
     this.$store.dispatch("coreui/setContext", Context.BusinessProcessSession);
     this.$store.dispatch("designtypes/findAll");
     this.loadProcess();
-  },
+  }
 };
 </script>
 <style scoped>

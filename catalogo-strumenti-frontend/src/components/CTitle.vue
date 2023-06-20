@@ -1,16 +1,20 @@
 <template>
   <div>
     <div class="row p-0">
-      <div class="col-md-12 p-0 pl-2 pr-2">        
-          <h3 class="text-right text-info">
-            <span>
-              <div v-for="(subitem,index) of origins" v-bind:key=index class="row">
-                <li >
-                  {{ subitem }}
-                </li>
-              </div>
-            </span>
-          </h3>
+      <div class="col-md-12 p-0 pl-2 pr-2">
+        <h3 class="text-right text-info">
+          <span>
+            <div
+              v-for="(subitem, index) of origins"
+              v-bind:key="index"
+              class="row"
+            >
+              <li>
+                {{ subitem }}
+              </li>
+            </div>
+          </span>
+        </h3>
       </div>
     </div>
     <CCardHeader class="no-border p-0">
@@ -19,7 +23,7 @@
           <span class="uppercase text-info pr-1 p-0 mt-1 mb-0">
             {{ functionality }}
           </span>
-        </h4>       
+        </h4>
         <hr class="bg-info mt-0" />
       </h1>
       <h2 class="text-info">
@@ -103,8 +107,8 @@ export default {
     origins: {
       Type: Array,
       required: false,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
     getTitle(functionType, buttonTitle) {

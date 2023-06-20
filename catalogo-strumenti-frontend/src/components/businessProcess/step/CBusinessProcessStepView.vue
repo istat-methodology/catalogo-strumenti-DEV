@@ -187,7 +187,7 @@ export default {
       type: String,
       required: false,
       default: () => {}
-    },    
+    },
     pProcess: {
       type: Object,
       required: true,
@@ -254,7 +254,7 @@ export default {
     /* Process Step */
     handleBack() {
       this.$emit("enableBack");
-    },
+    }
   },
   created() {
     this.lProcessStep = this.pPStep;

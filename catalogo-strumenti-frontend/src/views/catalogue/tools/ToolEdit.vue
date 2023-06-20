@@ -8,7 +8,7 @@
           <div class="col-md-9 p-0 pl-4">
             <div class="col-12 p-0 pl-2">
               <h1 class="uppercase text-right p-0 pt-2 text-info">
-                  <span class="p-0">{{ tool.name | dashEmpty }}</span>
+                <span class="p-0">{{ tool.name | dashEmpty }}</span>
               </h1>
             </div>
           </div>

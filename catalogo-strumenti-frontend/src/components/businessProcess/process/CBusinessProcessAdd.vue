@@ -37,31 +37,31 @@ import CTitle from "@/components/CTitle.vue";
 export default {
   name: "CBusinessProcessAdd",
   components: {
-    CTitle,
+    CTitle
   },
   data() {
     return {
       lProcess: {
         id: ""
       },
-      bf: [],
+      bf: []
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcessList"]),
+    ...mapGetters("bProcess", ["bProcessList"])
   },
   props: {
     pFunctionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     pFunctionName: {
       type: String,
       required: true,
-      default: null,
-    },
+      default: null
+    }
   },
   methods: {
     selectIdFromProcessList(e) {
@@ -74,7 +74,7 @@ export default {
       let isSubmit = true;
       if (fId) {
         if (this.bf instanceof Array) {
-          this.bf.forEach(function (item) {
+          this.bf.forEach(function(item) {
             if (item.id === fId) {
               return (isSubmit = false);
             }
@@ -92,7 +92,7 @@ export default {
           "message/success",
           "Process già presente nella Function!",
           {
-            root: true,
+            root: true
           }
         );
       }
@@ -102,11 +102,11 @@ export default {
     },
     handleBack() {
       this.$emit("enableBack");
-    },
+    }
   },
   created() {
     this.$store.dispatch("bProcess/findAll").catch(() => {});
-  },
+  }
 };
 </script>
 <style scoped>

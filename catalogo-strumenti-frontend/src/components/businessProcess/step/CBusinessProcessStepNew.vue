@@ -58,7 +58,7 @@ export default {
   name: "CBusinessProcessStepNew",
   components: {
     CTitle,
-    COrigin,
+    COrigin
   },
   data() {
     return {
@@ -69,7 +69,7 @@ export default {
         label: "",
         businessServiceId: 999,
         processIds: [],
-        substep: 0,
+        substep: 0
       },
       lProcessStep: {
         id: 0,
@@ -78,31 +78,31 @@ export default {
         label: "",
         businessServiceId: 999,
         processIds: [],
-        substep: 0,
+        substep: 0
       },
 
       FormState: {
         STEP_ADD: 21,
-        STEP_NEW: 22,
+        STEP_NEW: 22
       },
-      stateform: 21,
+      stateform: 21
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("bProcess", ["bProcess"]),
+    ...mapGetters("bProcess", ["bProcess"])
   },
   props: {
     pFunctionName: {
       type: String,
       required: false,
-      default: () => "",
+      default: () => ""
     },
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleSubmit() {
@@ -115,17 +115,17 @@ export default {
       this.processStepToSave.substep = this.lProcessStep.substep;
       this.$store
         .dispatch("processSteps/save", this.processStepToSave)
-        .then(() => {      
-          this.$emit("enableBack");    
+        .then(() => {
+          this.$emit("enableBack");
         });
     },
     handleBack() {
       this.$emit("enableAddStep");
-    },
+    }
   },
   created() {
     this.lProcess = this.pProcess;
-  },
+  }
 };
 </script>
 <style scoped>

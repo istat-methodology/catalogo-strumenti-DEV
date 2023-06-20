@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <CTitle
       :title="lProcess.name"
       :buttonTitle="lProcess.name"

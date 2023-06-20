@@ -8,7 +8,7 @@ const state = {
   designtype: null,
   designtypeList: {},
   designtypebyparent: null,
-  designtypebyparentList: {}  
+  designtypebyparentList: {}
 };
 
 const mutations = {

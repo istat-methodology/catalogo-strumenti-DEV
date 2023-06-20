@@ -1,8 +1,6 @@
 import { informationObjectService } from "@/services";
 //import { informationObjecOpenService } from "@/services";
 
-
-
 const state = {
   informationObject: null,
   informationObjectList: null

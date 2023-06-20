@@ -2,11 +2,10 @@ import { processDesignService } from "@/services";
 import { processDesignOpenService } from "@/services";
 import { processDesignByProcessStepOpenService } from "@/services";
 
-
 const state = {
   processDesign: null,
   processDesignList: [],
-  processDesignListByProcessStep : []
+  processDesignListByProcessStep: []
 };
 
 const mutations = {
@@ -18,11 +17,10 @@ const mutations = {
   },
   SET_PROCESSDESIGN_BY_PROCESSSTEP(state, processDesignListByProcessStep) {
     state.processDesignListByProcessStep = processDesignListByProcessStep;
-  },
+  }
 };
 
 const actions = {
-
   findById({ commit }, id) {
     return processDesignByProcessStepOpenService
       .findById(id)
@@ -34,7 +32,6 @@ const actions = {
         console.log(err);
       });
   },
-
 
   findAll({ commit }) {
     processDesignOpenService.findAll().then(

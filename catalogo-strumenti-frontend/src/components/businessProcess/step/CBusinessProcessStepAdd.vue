@@ -38,37 +38,37 @@ export default {
   name: "CBusinessProcessStepAdd",
   components: {
     CTitle,
-    COrigin,
+    COrigin
   },
   data() {
     return {
       lProcessStep: {
-        id: 0,
+        id: 0
       },
       FormState: {
         STEP_ADD: 21,
-        STEP_NEW: 22,
+        STEP_NEW: 22
       },
       stateform: 21,
-      bp: [],
+      bp: []
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("bProcess", ["bProcess"]),
-    ...mapGetters("processSteps", ["processStepsList"]),
+    ...mapGetters("processSteps", ["processStepsList"])
   },
   props: {
     pFunctionName: {
       type: String,
       required: false,
-      default: () => "",
+      default: () => ""
     },
     pProcess: {
       type: Object,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     selectIdFromStepList(e) {
@@ -82,7 +82,7 @@ export default {
       let isSubmit = true;
       if (pId) {
         if (this.bp instanceof Array) {
-          this.bp.forEach(function (item) {
+          this.bp.forEach(function(item) {
             if (item.id === pId) {
               return (isSubmit = false);
             }
@@ -101,7 +101,7 @@ export default {
           "message/success",
           "Step già presente nel Process!",
           {
-            root: true,
+            root: true
           }
         );
       }
@@ -111,11 +111,11 @@ export default {
     },
     handleBack() {
       this.$emit("enableBack");
-    },
+    }
   },
   created() {
     this.$store.dispatch("processSteps/findAll").catch(() => {});
-  },
+  }
 };
 </script>
 <style scoped>

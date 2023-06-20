@@ -8,9 +8,10 @@
             v-bind:key="index"
             class="list-group"
           >
-
-            <li class="list-group-item no-border cursor-pointer text-info p-0 pb-1">
-              <div v-if="index == 0" >{{ subitem }}</div>
+            <li
+              class="list-group-item no-border cursor-pointer text-info p-0 pb-1"
+            >
+              <div v-if="index == 0">{{ subitem }}</div>
               <ul>
                 <li
                   class="list-group-item no-border cursor-pointer text-info p-0 pb-1"
@@ -26,8 +27,6 @@
                 </li>
               </ul>
             </li>
-
-
           </ul>
         </h4>
       </div>
@@ -42,9 +41,9 @@ export default {
     origins: {
       Type: Array,
       required: false,
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 };
 </script>
 <style scoped>
@@ -69,13 +68,13 @@ li div {
   position: relative !important;
 }
 li div::before {
-  content:'' !important;
+  content: "" !important;
   position: absolute !important;
   top: 0 !important;
   left: -2px !important;
   bottom: 50% !important;
   width: 0.75em !important;
-  border: 2px solid  #0a83e6 !important;
+  border: 2px solid #0a83e6 !important;
   border-top: 0 none transparent !important;
   border-right: 0 none transparent !important;
 }

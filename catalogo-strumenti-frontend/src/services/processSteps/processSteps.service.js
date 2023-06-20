@@ -39,4 +39,3 @@ export const processStepsService = new ProcessStepsService(
 export const processStepsOpenService = new ProcessStepsService(
   "/catalog/open/process-steps"
 );
-

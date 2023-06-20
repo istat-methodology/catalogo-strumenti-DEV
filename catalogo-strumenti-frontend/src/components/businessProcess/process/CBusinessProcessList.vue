@@ -52,9 +52,8 @@
                         <span v-if="process.processSteps">
                           <div class="d-flex flex-wrap">
                             <ol
-                              v-for="(
-                                processStep, index
-                              ) of process.processSteps"
+                              v-for="(processStep,
+                              index) of process.processSteps"
                               :key="processStep.id"
                             >
                               <li
@@ -238,7 +237,7 @@ export default {
     CBusinessProcessStepNew,
     CModalDelete,
     CTitle,
-    COrigin,
+    COrigin
   },
   data() {
     return {
@@ -259,7 +258,7 @@ export default {
         STEP_VIEW: 20,
         STEP_ADD: 21,
         STEP_NEW: 22,
-        STEP_EDIT: 23,
+        STEP_EDIT: 23
       },
       stateform: 10,
 
@@ -269,33 +268,33 @@ export default {
         descr: "",
         label: "",
         orderCode: "",
-        businessFunction: "",
+        businessFunction: ""
       },
-      showModal: false,
+      showModal: false
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapGetters("filter", ["params"]),
     ...mapGetters("designtypes", ["designtypeList"]),
-    ...mapGetters("bProcess", ["bProcess"]),
+    ...mapGetters("bProcess", ["bProcess"])
   },
   props: {
     pFunctionId: {
       type: Number,
       required: true,
-      default: null,
+      default: null
     },
     pFunctionName: {
       type: String,
       required: true,
-      default: null,
+      default: null
     },
     pProcesses: {
       type: Array,
       required: true,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleDelete() {
@@ -317,7 +316,7 @@ export default {
     showAddProcess() {
       this.stateform = this.FormState.PROCESS_ADD;
     },
-    showEditProcess: _.debounce(function () {
+    showEditProcess: _.debounce(function() {
       if (this.bProcess) {
         this.$store.dispatch("bProcess/findById", this.bProcess.id).then(() => {
           this.stateform = this.FormState.PROCESS_EDIT;
@@ -341,7 +340,7 @@ export default {
       this.stateform = this.FormState.STEP_NEW;
     },
 
-    handleEditProcess: _.debounce(function (process) {
+    handleEditProcess: _.debounce(function(process) {
       if (process) {
         this.$store.dispatch("bProcess/findById", process.id).then(() => {
           this.stateform = this.FormState.PROCESS_EDIT;
@@ -370,13 +369,13 @@ export default {
         "]"
       );
     },
-    loadProcess: _.debounce(function (process) {
+    loadProcess: _.debounce(function(process) {
       this.$store.dispatch("bProcess/findById", process.id).then(() => {});
-    }, 500),
+    }, 500)
   },
   created() {
     this.$store.dispatch("designtypes/findAll");
-  },
+  }
 };
 </script>
 <style scoped>
