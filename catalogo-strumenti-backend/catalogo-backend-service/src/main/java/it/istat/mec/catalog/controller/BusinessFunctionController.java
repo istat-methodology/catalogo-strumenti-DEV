@@ -61,7 +61,7 @@ public class BusinessFunctionController {
 	}
 	
 	@DeleteMapping(value = "/businessfunctions/{id}")
-	public BusinessFunctionDto deleteBusinessFunction(@PathVariable("id") Integer id) {
+	public boolean deleteBusinessFunction(@PathVariable("id") Integer id) {
 
 		return businessFunctionService.deleteBusinessFunction(id);
 	}
