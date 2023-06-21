@@ -1,6 +1,7 @@
 package it.istat.mec.catalog.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,7 +62,7 @@ public class BusinessFunctionController {
 	}
 	
 	@DeleteMapping(value = "/businessfunctions/{id}")
-	public boolean deleteBusinessFunction(@PathVariable("id") Integer id) {
+	public Boolean deleteBusinessFunction(@PathVariable("id") Integer id) {
 
 		return businessFunctionService.deleteBusinessFunction(id);
 	}

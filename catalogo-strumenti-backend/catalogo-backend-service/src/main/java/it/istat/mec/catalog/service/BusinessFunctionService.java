@@ -1,11 +1,13 @@
 package it.istat.mec.catalog.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
 import it.istat.mec.catalog.dao.BusinessFunctionDao;
@@ -118,19 +120,13 @@ public class BusinessFunctionService {
 		return Translators.translate(bs);
 	}
 
-	public boolean deleteBusinessFunction(Integer id) {
+	public Boolean deleteBusinessFunction(Integer id) throws JpaSystemException{
 		if (!businessFunctionDao.findById(id).isPresent())
 			throw new NoDataException("BusinessFunction not present");
 		BusinessFunction bs = businessFunctionDao.findById(id).get();
-		
-
-		try {
-			businessFunctionDao.delete(bs);
-			}
-			catch(Exception e) {
-			return false;
-		}
-		return true;
+				
+		businessFunctionDao.delete(bs);		
+		return Boolean.TRUE;
 	}
 	
 	public BusinessFunctionDto deleteProcessFromBusinessFunction(Integer id_function, Integer id_process) {
