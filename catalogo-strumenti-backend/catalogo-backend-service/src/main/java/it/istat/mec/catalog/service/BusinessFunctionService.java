@@ -1,15 +1,10 @@
 package it.istat.mec.catalog.service;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
-
 import it.istat.mec.catalog.dao.BusinessFunctionDao;
 import it.istat.mec.catalog.dao.BusinessProcessDao;
 import it.istat.mec.catalog.domain.BusinessFunction;
@@ -120,7 +115,7 @@ public class BusinessFunctionService {
 		return Translators.translate(bs);
 	}
 
-	public Boolean deleteBusinessFunction(Integer id) throws JpaSystemException{
+	public Boolean deleteBusinessFunction(Integer id){
 		if (!businessFunctionDao.findById(id).isPresent())
 			throw new NoDataException("BusinessFunction not present");
 		BusinessFunction bs = businessFunctionDao.findById(id).get();
